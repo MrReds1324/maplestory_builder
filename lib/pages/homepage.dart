@@ -29,22 +29,20 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const StatTable(),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    SearchableListView(listItems: equipList),
-                    const Icon(Icons.directions_transit),
-                    const Icon(Icons.directions_bike),
-                  ],
-                ),
-              )
-            ],
-          ),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const StatTable(),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  SearchableListView(listItems: equipList),
+                  const Icon(Icons.directions_transit),
+                  const Icon(Icons.directions_bike),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

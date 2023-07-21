@@ -76,7 +76,7 @@ class _SearchableListViewState extends State<SearchableListView> {
               menuItems: EquipType.values.map((equipType) {
                 return DropdownMenuItem(
                   value: equipType,
-                  child: Text(equipType.name),
+                  child: Text(equipType.name.toUpperCase()),
                 );
               }).toList(),
             )

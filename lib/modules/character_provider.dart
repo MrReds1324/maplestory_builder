@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 
 class CharacterModel with ChangeNotifier {
+  String characterName = '';
 
   // Lower Critical Damage %: 20 + CriticalDamage%
   // Upper Critical Damage %: 50 + CriticalDamage%
@@ -13,48 +14,54 @@ class CharacterModel with ChangeNotifier {
   // TotalAtt = Attack * Attack% + FinalAttack
   // UpperDamageRange = (WeaponMultiplier * StatValue * TotalATT/100) * (1 + Damage%) * (1 + FinalDamage%), rounded down
   // LowerDamageRange = UpperDamangeRange * Mastery%, rounded down
-  var upperDamageRange = 100000000000000;
-  var upperBossDamangeRange = 100000000000000;
-  var totalStr = 0;
-  var totalDex = 0;
-  var totalInt = 0;
-  var totalLuk = 0;
-  var totalDamage = 0.10;
-  var totalBossDmanage = 0.20;
-  var totalFinalDamage = 0.30;
-  var totalMastery = 0.8;
-  var totalBuffDuration = 0.1;
-  var totalIgnoreDefense = 0.9632;
-  var totalElementalIgnoreDefense = 0.05;
-  var totalItemDropRate = 0.5;
-  var totalMesosObtained = 0.5;
-  var totalCritRate = 1.23;
-  var totalCritDamage = 1.53;
-  var totalAttackSpeed = 10;
-  var totalAttack = 6000;
-  var totalMAttack = 500;
-  var totalStatusResistance = 78;
-  var totalKnockbackResistance = 1.00;
-  var totalDefense = 60000;
-  var totalStarForce = 600;
-  var totalSpeed = 1.4;
-  var totalArcaneForce = 100;
-  var totalJump = 1.4;
-  var totalSacredPower = 500;
+  double upperDamageRange = 100000000000000;
+  double upperBossDamangeRange = 100000000000000;
+  double totalHp = 0;
+  double totalMp = 0;
+  double totalStr = 0;
+  double totalDex = 0;
+  double totalInt = 0;
+  double totalLuk = 0;
+  double totalDamage = 0.10;
+  double totalBossDmanage = 0.20;
+  double totalFinalDamage = 0.30;
+  double totalMastery = 0.8;
+  double totalBuffDuration = 0.1;
+  double totalIgnoreDefense = 0.9632;
+  double totalElementalIgnoreDefense = 0.05;
+  double totalItemDropRate = 0.5;
+  double totalMesosObtained = 0.5;
+  // double get totalMesosObtained => totalMesosObtained;
+  double totalCritRate = 1.23;
+  double totalCritDamage = 1.53;
+  int totalAttackSpeed = 10;
+  double totalAttack = 6000.99;
+  double totalMAttack = 500;
+  int totalStatusResistance = 78;
+  double totalKnockbackResistance = 1.00;
+  double totalDefense = 60000;
+  int totalStarForce = 600;
+  double totalSpeed = 1.4;
+  int totalArcaneForce = 100;
+  double totalJump = 1.4;
+  int totalSacredPower = 500;
   
-
+  int characterLevel = 0;
+  // All relavent to calculating ap stats and ap usage
+  int availableAP = 10; // 10 + 5 * CharacterLevel
+  int usedAP = 0;
 
   // Each ap into HP/MP increases by 15
-  var pointsHp = 0;
-  var pointsMp = 0;
-  var apHP = 395; // Demon Avenger is 395 + (90 * pointsHP) 
-  var apMP = 395;
+  int pointsHp = 0;
+  int pointsMp = 0;
+  int apHP = 395; // Demon Avenger is 395 + (90 * pointsHP) 
+  int apMP = 395;
   // Each ap into Stats increase by 1
-  var apSTR = 4;
-  var apDex = 4;
-  var apInt = 4;
-  var apLuk = 4;
+  int apSTR = 4;
+  int apDex = 4;
+  int apInt = 4;
+  int apLuk = 4;
 
-  var unequippedEquips = <Equip>[];
+  List<Equip> unequippedEquips = <Equip>[];
 
 }
