@@ -13,137 +13,118 @@ class StatTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const APStatCell(label: 'STR'),
+        APStatCell(statType: StatType.hp),
+        APStatCell(statType: StatType.mp),
+        APStatCell(statType: StatType.str),
+        APStatCell(statType: StatType.dex),
+        APStatCell(statType: StatType.int),
+        APStatCell(statType: StatType.luk),
         RangeStatCell(
-          label: "Damage Range",
-          upperValue: _getRangeSelector(RangeType.damageRange),
-          lowerValue: _getRangeSelector(RangeType.damageRange, isLower: true),
+          rangeType: RangeType.damageRange,
         ),
         RangeStatCell(
-          label: "Boss Damage Range",
-          upperValue: _getRangeSelector(RangeType.bossDamageRange),
-          lowerValue: _getRangeSelector(RangeType.bossDamageRange, isLower: true),
+          rangeType: RangeType.bossDamageRange,
         ),
         Row(
           children: [
             StatCell(
-              label: 'Damage',
-              value: _getStatSelector(StatType.damage),
+              statType: StatType.damage,
             ),
             StatCell(
-              label: 'Boss Damage',
-              value: _getStatSelector(StatType.bossDamage),
+              statType: StatType.bossDamage,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Final Damage',
-              value: _getStatSelector(StatType.finalDamage),
+              statType: StatType.finalDamage,
             ),
             StatCell(
-              label: 'Buff Duration',
-              value: _getStatSelector(StatType.buffDuration),
+              statType: StatType.buffDuration,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Ignore Defense',
-              value: _getStatSelector(StatType.ignoreDefense),
+              statType: StatType.ignoreDefense,
             ),
             StatCell(
-              label: 'Item Drop Rate',
-              value: _getStatSelector(StatType.itemDropRate),
+              statType: StatType.itemDropRate,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Critical Rate',
-              value: _getStatSelector(StatType.critRate),
+              statType: StatType.critRate,
             ),
             StatCell(
-              label: 'Mesos Obtained',
-              value: _getStatSelector(StatType.mesosObtained),
+              statType: StatType.mesosObtained,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Critical Damage',
-              value: _getStatSelector(StatType.critDamage),
+              statType: StatType.critDamage,
             ),
             StatCell(
-              label: 'Attack Speed',
-              value: _getStatSelector(StatType.attackSpeed),
+              statType: StatType.attackSpeed,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Attack Power',
-              value: _getStatSelector(StatType.attack)
+              statType: StatType.attack,
             ),
             StatCell(
-              label: 'Magic Attack',
-              value: _getStatSelector(StatType.mattack),
+              statType: StatType.mattack,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Status Resistance',
-              value: _getStatSelector(StatType.statusResistance),
+              statType: StatType.statusResistance,
             ),
             StatCell(
-              label: 'Knockback Resistance',
-              value: _getStatSelector(StatType.knockbackResistance),
+              statType: StatType.knockbackResistance,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Defense',
-              value: _getStatSelector(StatType.defense),
+              statType: StatType.defense,
             ),
             StatCell(
-              label: 'Star Force',
-              value: _getStatSelector(StatType.starForce),
+              statType: StatType.starForce,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Speed',
-              value: _getStatSelector(StatType.speed),
+              statType: StatType.speed,
             ),
             StatCell(
-              label: 'Arcane Force',
-              value: _getStatSelector(StatType.arcaneForce),
+              statType: StatType.arcaneForce,
             ),
           ]
         ),
         Row(
           children: [
             StatCell(
-              label: 'Jump',
-              value: _getStatSelector(StatType.jump),
+              statType: StatType.jump,
             ),
             StatCell(
-              label: 'Sacred Power',
-              value: _getStatSelector(StatType.sacredPower),
+              statType: StatType.sacredPower,
             ),
           ]
         ),
@@ -153,13 +134,11 @@ class StatTable extends StatelessWidget {
 }
 
 class StatCell extends StatelessWidget{
-  final String label;
-  final Widget value;
+  final StatType statType;
 
   const StatCell(
     {
-      required this.label,
-      required this.value,
+      required this.statType,
       super.key
     }
   );
@@ -185,11 +164,9 @@ class StatCell extends StatelessWidget{
                 bottomLeft: Radius.circular(10),
               ),
             ),
-            child: Center(child: Text(
-                label,
-                textAlign: TextAlign.center,
-              )
-            )
+            child: Center(
+              child: _getStatTooltip(statType),
+            ),
           ),
           Container(
             height: 37,
@@ -205,7 +182,7 @@ class StatCell extends StatelessWidget{
                 bottomRight: Radius.circular(10),
               ),
             ),
-            child: Center(child: value)
+            child: Center(child: _getStatSelector(statType))
           )
         ],
       ),
@@ -214,15 +191,11 @@ class StatCell extends StatelessWidget{
 }
 
 class RangeStatCell extends StatelessWidget{
-  final String label;
-  final Selector upperValue;
-  final Selector lowerValue;
+  final RangeType rangeType;
 
   const RangeStatCell(
     {
-      required this.label,
-      required this.upperValue,
-      required this.lowerValue,
+      required this.rangeType,
       super.key
     }
   );
@@ -249,10 +222,7 @@ class RangeStatCell extends StatelessWidget{
               ),
             ),
             child: Center(
-              child: Text(
-                label,
-                textAlign: TextAlign.center,
-              ),
+              child: _getRangeTooltip(rangeType),
             ),
           ),
           Container(
@@ -272,8 +242,8 @@ class RangeStatCell extends StatelessWidget{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Center(child: upperValue),
-                Center(child: lowerValue)
+                Center(child: _getRangeSelector(rangeType)),
+                Center(child: _getRangeSelector(rangeType, isLower: true))
               ]
             ),
           ),
@@ -284,13 +254,11 @@ class RangeStatCell extends StatelessWidget{
 }
 
 class APStatCell extends StatelessWidget{
-  final String label;
-  final Text value;
+  final StatType statType;
 
   const APStatCell(
     {
-      required this.label,
-      this.value = const Text('999999 (999999 + 999999)'),
+      required this.statType,
       super.key
     }
   );
@@ -316,11 +284,9 @@ class APStatCell extends StatelessWidget{
                 bottomLeft: Radius.circular(10),
               ),
             ),
-            child: Center(child: Text(
-                label,
-                textAlign: TextAlign.center,
-              )
-            )
+            child: Center(
+              child: _getStatTooltip(statType),
+            ),
           ),
           Container(
             height: 37,
@@ -350,7 +316,9 @@ class APStatCell extends StatelessWidget{
                     onPressed: () {}, 
                     icon: const Icon(Icons.keyboard_arrow_down),
                   ),
-                  value,
+                  const Spacer(),
+                  _getStatSelector(statType),
+                  const Spacer(),
                   IconButton(
                     iconSize: 12,
                     onPressed: () {}, 
@@ -366,6 +334,97 @@ class APStatCell extends StatelessWidget{
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class StatTooltip extends StatelessWidget{
+  final String label;
+  final String tooltipMessage;
+
+  const StatTooltip(
+    {
+      required this.label,
+      required this.tooltipMessage,
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context){
+    return Tooltip(
+      richMessage: WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            children: [
+              Text(label, style: Theme.of(context).textTheme.headlineSmall),
+              Text(tooltipMessage),
+            ],
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.white70,
+        ),
+        color: Colors.black87,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(4)),
+      ),
+      waitDuration: const Duration(milliseconds: 350),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+class StatValueTooltip extends StatelessWidget{
+  final String label;
+  final String tooltipMessage;
+
+  const StatValueTooltip(
+    {
+      required this.label,
+      required this.tooltipMessage,
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context){
+    return Tooltip(
+      richMessage: WidgetSpan(
+        alignment: PlaceholderAlignment.baseline,
+        baseline: TextBaseline.alphabetic,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            children: [
+              Text(tooltipMessage),
+            ],
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.white70,
+        ),
+        color: Colors.black87,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(4)),
+      ),
+      waitDuration: const Duration(milliseconds: 350),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
       ),
     );
   }
@@ -409,14 +468,20 @@ Selector _getStatSelector(StatType statType) {
       return Selector<CharacterModel, double>(
         selector: (_, character) => character.totalHp,
         builder: (context, totalHp, child) {
-          return Text(doubleRoundFormater.format(min(500000, totalHp)));
+          return StatValueTooltip(
+            label: doubleRoundFormater.format(min(500000, totalHp)),
+            tooltipMessage: doubleRoundFormater.format(totalHp),
+          );
         }
       );
     case StatType.mp:
       return Selector<CharacterModel, double>(
         selector: (_, character) => character.totalMp,
         builder: (context, totalMp, child) {
-          return Text(doubleRoundFormater.format(min(500000, totalMp)));
+          return StatValueTooltip(
+            label: doubleRoundFormater.format(min(500000, totalMp)),
+            tooltipMessage: doubleRoundFormater.format(totalMp),
+          );
         }
       );
     case StatType.damage:
@@ -465,7 +530,10 @@ Selector _getStatSelector(StatType statType) {
       return Selector<CharacterModel, double>(
         selector: (_, character) => character.totalCritRate,
         builder: (context, totalCritRate, child) {
-          return Text(doubleRoundPercentFormater.format(totalCritRate));
+          return StatValueTooltip(
+            label: doubleRoundPercentFormater.format(min(totalCritRate, 1)),
+            tooltipMessage: doubleRoundPercentFormater.format(totalCritRate),
+          );
         }
       );
     case StatType.mesosObtained:
@@ -602,5 +670,169 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
       }
     default:
       throw Exception("Selector not Implemented for rangeType $rangeType");
+  }
+}
+
+StatTooltip _getStatTooltip(StatType statType) {
+  switch(statType) {
+    case StatType.str:
+      return const StatTooltip(
+        label: 'STR',
+        tooltipMessage: 'STR increases the attack strength of Warriors and some Pirates',
+      );
+    case StatType.dex:
+      return const StatTooltip(
+        label: 'DEX',
+        tooltipMessage: 'DEX increases the attack strength of Bowmen and some Pirates',
+      );
+    case StatType.int:
+      return const StatTooltip(
+        label: 'INT',
+        tooltipMessage: 'INT increases the attack strength of Magicians',
+      );
+    case StatType.luk:
+      return const StatTooltip(
+        label: 'LUK',
+        tooltipMessage: 'LUK increases the attack strength of Thieves',
+      );
+    case StatType.hp:
+      return const StatTooltip(
+        label: 'HP',
+        tooltipMessage: 'HP increases the attack strength of Demon Avenger. Max HP cap is 500,000.',
+      );
+    case StatType.mp:
+      return const StatTooltip(
+        label: 'MP',
+        tooltipMessage: 'Required for many skills. Max MP cap is 500,000.',
+      );
+    case StatType.damage:
+      return const StatTooltip(
+        label: 'Damage',
+        tooltipMessage: 'The Damage multiplier used to calculate your Damage Range. Determined by the total combined Damage of your skills and equipment. Values that only apply to specific skills are not included in this calculation.',
+      );
+    case StatType.bossDamage:
+      return const StatTooltip(
+        label: 'Boss Damage',
+        tooltipMessage: 'The higher your Boss Damage, the greater your damage against Boss monsters. This value does not affect normal Damage. Determined by the total combined Damage of your skills and equipment. Values that only apply to specific skills are not included in this calculation.',
+      );
+    case StatType.finalDamage:
+      return const StatTooltip(
+        label: 'Final Damage',
+        tooltipMessage: 'The damage multiplier that increases your total Damage Range. Determined by multiplying the Final Damage of all your skills.',
+      );
+    case StatType.buffDuration:
+      return const StatTooltip(
+        label: 'Buff Duration',
+        tooltipMessage: 'The higher the Buff Duration, the longer buffs will last. Does not apply to certain skills. Determined bt the total combined Buff Duration value of all your skills and equipment. Values that only apply to the duration of specific skills are not included in this calculation.',
+      );
+    case StatType.ignoreDefense:
+      return const StatTooltip(
+        label: 'Ignore Defense',
+        tooltipMessage: 'The higher your Ignore Enemy Defense value the better your attacks penetrate enemy defenses. Determined by multiplying the Ignore Defense values of all your skills and equipment. Values that only apply to specific skills are not included in this calculation. Applies up to 100%.',
+      );
+    case StatType.itemDropRate:
+      return const StatTooltip(
+        label: 'Item Drop Rate',
+        tooltipMessage: 'The higher the Item Drop Rate, the more likely that items will drop from defeated monsters. All values are summed to determin the final value. Item Drop Rates can increase, in total, up to 400%. Consumable Items, with the exception of the Wealth Acquisition Potion, can only increase the value by up to 100%. Item potential can increase the value by up to 200%. Does not apply to certain items. Effects that only apply to specific items is not included in the calculation.',
+      );
+    case StatType.critRate:
+      return const StatTooltip(
+        label: 'Critical Rate',
+        tooltipMessage: 'Your chance of performing a Critical Attack. You can enhance this value with skills or items.',
+      );
+    case StatType.mesosObtained:
+      return const StatTooltip(
+        label: 'Mesos Obtained',
+        tooltipMessage: 'The higher the Mesos Obtained, the more Mesos monsters drop when defeated. The final value is determined by multiplying the basic obtainable Mesos by any Wealth Acquisition Potion value and Reboot passive value, then by additionally multiplying the sum of the remaining values. Additive values can combine to increase the value by up to 300%. Consumable items, with the exception of the Wealth Acquisition Potion, can only increase the value by up to 100%. Item potential can increase the value by up to 100%.',
+      );
+    case StatType.critDamage:
+      return const StatTooltip(
+        label: 'Critical Damage',
+        tooltipMessage: 'The higher your Critical Damage, the more damage your Critical attacks inflict. This value is added to your base Critical Damage multiplier of 20-50%. This value does not affect normal Damage. You can increase this value with skills or items.',
+      );
+    case StatType.attackSpeed:
+      return const StatTooltip(
+        label: 'Attack Speed',
+        tooltipMessage: 'Displays the current character\'s Attack Speed. Attack Speed +1 is the slowest while +8 is the soft limit and +10 is the hard limit. It increases with the equipped weapon\'s Attack Speed, skills, consumables, and Inner Ability. However Magician jobs are not affected by the weapon\'s Attack Speed, innately starting with +4.',
+      );
+    case StatType.attack:
+      return const StatTooltip(
+        label: 'Attack Power',
+        tooltipMessage: 'Displays the current character\'s Attack Power. The final value is determined by the Attack Power sum and Attack Power % increase multiplication. However Pipsqueak Luminous (Equilibrium) from Monster Life and the Attack Power increase per level stat from Inner Ability are excluded from the multiplication.',
+      );
+    case StatType.mattack:
+      return const StatTooltip(
+        label: 'Magic Attack',
+        tooltipMessage: 'Displays the current character\'s Magic Attack. The final value is determined by the Magic Attack sum and the Magic Attack % increase multiplication. However Pipsqueak Luminous (Equilibrium) from Monster Life and the Magic Attack increase per level stat from Inner Ability are excluded from the multiplication.',
+      );
+    case StatType.statusResistance:
+      return const StatTooltip(
+        label: 'Status Resistance',
+        tooltipMessage: 'Your Abnormal Status Resistance determines the amout of Abnormal Statuses affect you. Higher values result in shorter durations. You can increase this value with skills or items.',
+      );
+    case StatType.knockbackResistance:
+      return const StatTooltip(
+        label: 'Knockback Resistance',
+        tooltipMessage: 'Your chance to resist being pushed back by monster attacks. You can increase this value with skills.',
+      );
+    case StatType.defense:
+      return const StatTooltip(
+        label: 'Defense',
+        tooltipMessage: 'The higher your Defense, the less damage you take from enemies. Some enemy attacks can pierce through Defense. Determined by adding the total combined defense of your equipment to your base Defense.',
+      );
+    case StatType.starForce:
+      return const StatTooltip(
+        label: 'Star Force',
+        tooltipMessage: 'In Star Force areas, if you have less Star Force than the monsters do, you\'ll deal less damage to them. When you have more Star Force than a monster, you can attack through that monster\'s shield. Can be increased by equipping items with Star Force enhancement. Doubled for Overall equipment.',
+      );
+    case StatType.speed:
+      return const StatTooltip(
+        label: 'Speed',
+        tooltipMessage: 'Your movement speed. Can be increased to a max of 140% normally. Skills and equipment can boost this even further. Can be increased to 190% while riding a mount.',
+      );
+    case StatType.arcaneForce:
+      return const StatTooltip(
+        label: 'Arcane Force',
+        tooltipMessage: 'In Arcane River areas, if you have less Arcane Force than the monsters do, you\'ll deal less damage to them. When you have more Arcane Force than a monster, you can attack through that monster\'s shield. Can be increased by obtaining and enhancing Arcane Symbols, and Hyper Stats.',
+      );
+    case StatType.jump:
+      return const StatTooltip(
+        label: 'Jump',
+        tooltipMessage: 'How you can jump. Can be increased to a max of 123%. Skills and equipment can be used to increase or decrease your Jump.',
+      );
+    case StatType.sacredPower:
+      return const StatTooltip(
+        label: 'Sacred Power',
+        tooltipMessage: 'In Grandis areas, if you have less Sacred Power than the monsters do, you\'ll deal less damage to them. When you have more Sacred Power than a monster, you can attack through that monster\'s shield. Can be increased by obtaining and enhancing Sacred Symbols.',
+      );
+    default:
+      throw Exception("StatTooltip not Implemented for statType $statType");
+  }
+}
+
+StatTooltip _getRangeTooltip(RangeType rangeType) {
+  switch(rangeType) {
+    case RangeType.damageRange:
+      return const StatTooltip(
+        label: 'Damage Range',
+        tooltipMessage: 'Your actual damage range, accountig for both Damage and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.',
+      );
+    case RangeType.bossDamageRange:
+      return const StatTooltip(
+        label: 'Boss Damage Range',
+        tooltipMessage: 'Your actual damage range against bosses, accountig for Damage, Boss Damage, and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.',
+      );
+    case RangeType.effectiveDamageRange:
+      return const StatTooltip(
+        label: 'Damage Range',
+        tooltipMessage: 'Your actual damage range, accountig for Damage, Final Damage, Critical Damage, and Critcal Rate. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.',
+      );
+    case RangeType.effectiveBossDamageRange:
+      return const StatTooltip(
+        label: 'Boss Damage Range',
+        tooltipMessage: 'Your actual damage range against bosses, accountig for Damage, Boss Damage, Final Damage, Critical Damage, Critical Rate, Ignore Defense, and Ignore Elemental Resistance. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.',
+      );
+    default:
+      throw Exception("Tooltip not Implemented for rangeType $rangeType");
   }
 }

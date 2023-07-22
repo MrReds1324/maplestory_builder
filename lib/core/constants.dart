@@ -1,5 +1,16 @@
 // ignore_for_file: constant_identifier_names
 
+const double jumpCap = 1.23;
+const double speedCap = 1.40;
+// Maximum meso obtained is 300%, 100% from items and 100% from buffs (not including WAP)
+const double mesoObtainedItemCap = 1.00;
+const double mesoObtainedUseCap = 1.00;
+const double mesoObtainedCap = 3.00;
+// Maximum Drop Rate is 400%, 200% from items and 100% from buffs (not including WAP)
+const double dropRateItemCap = 2.00;
+const double dropRateuseCap = 1.00;
+const double dropRateCap = 4.00;
+
 enum EquipType {
   all,
   badge,
@@ -21,6 +32,7 @@ enum EquipType {
   secondary,
   shoes,
   shoulder,
+  title,
   top,
   totem,
   weapon,
