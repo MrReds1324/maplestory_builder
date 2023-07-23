@@ -51,7 +51,8 @@ class CharacterModel with ChangeNotifier {
   
   int characterLevel = 0;
   // All relavent to calculating ap stats and ap usage
-  int availableAP = 10; // 10 + 5 * CharacterLevel
+  int totalAvailableAP = 10; // 10 + 5 * CharacterLevel
+  int availableAP = 10; 
   int assignedAP = 0;
 
   // Each ap into HP/MP increases by 15
@@ -64,6 +65,13 @@ class CharacterModel with ChangeNotifier {
   int apDex = 4;
   int apInt = 4;
   int apLuk = 4;
+
+  void updateCharacterLevel(int selectedLevel) {
+    totalAvailableAP = 10 + selectedLevel * 5;
+    availableAP = totalAvailableAP - assignedAP;
+    characterLevel = selectedLevel;
+    notifyListeners();
+  }
 
   List<Equip> unequippedEquips = <Equip>[];
 

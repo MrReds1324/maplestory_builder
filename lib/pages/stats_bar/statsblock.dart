@@ -16,6 +16,9 @@ class StatTable extends StatelessWidget {
     return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        APCell(),
+        IGNCell(),
+        LevelCell(),
         APStatCell(statType: StatType.hp),
         APStatCell(statType: StatType.mp),
         APStatCell(statType: StatType.str),
@@ -253,7 +256,191 @@ class RangeStatCell extends StatelessWidget{
   }
 }
 
-class APStatCell extends StatelessWidget{
+class IGNCell extends StatelessWidget {
+  
+  const IGNCell(
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      padding: const EdgeInsets.all(2.5),
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 37,
+            width: 120,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            decoration: BoxDecoration(
+              color: apColor,
+              border: Border.all(
+                color: statColor
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+              ),
+            ),
+            child: const Center(
+              child: Text(
+                'IGN',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Container(
+            height: 37,
+            width: 320,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: statColor
+              ),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            child: Expanded(
+              child: TextField(
+                onChanged: (value) {
+                  var character = context.read<CharacterModel>();
+                  character.characterName = value;
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LevelCell extends StatelessWidget {
+  
+  const LevelCell(
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      padding: const EdgeInsets.all(2.5),
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 37,
+            width: 120,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            decoration: BoxDecoration(
+              color: apColor,
+              border: Border.all(
+                color: statColor
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+              ),
+            ),
+            child: const Center(
+              child: Text(
+                'Level',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Container(
+            height: 37,
+            width: 320,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: statColor
+              ),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            child: Expanded(
+              child: Selector<CharacterModel, int>(
+                selector: (_, character) => character.characterLevel,
+                builder: (context, characterLevel, child) {
+                  return DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      value: characterLevel,
+                      onChanged: (newValue) {
+                        if (newValue != null) {
+                          var character = context.read<CharacterModel>();
+                          character.updateCharacterLevel(newValue);
+                        }
+                      },
+                      items: List<int>.generate(301, (i) => i).map((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text('$value'),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                }
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class APCell extends StatelessWidget {
+
+  const APCell(
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      padding: const EdgeInsets.all(2.5),
+      child: Container(
+        height: 37,
+        width: 440,
+        clipBehavior: Clip.hardEdge,
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: statColor
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+        child: Center(
+          child: Selector<CharacterModel, (int, int)>(
+            selector: (_, character) => (character.assignedAP, character.totalAvailableAP),
+            builder: (context, data, child) {
+              return Text('${data.$1}/${data.$2} Ability Points Used');
+            }
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class APStatCell extends StatelessWidget {
   final StatType statType;
 
   const APStatCell(
