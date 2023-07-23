@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/constants.dart';
+import 'dart:math';
 
 class CharacterModel with ChangeNotifier {
   String characterName = '';
@@ -33,7 +35,6 @@ class CharacterModel with ChangeNotifier {
   double totalElementalIgnoreDefense = 0.05;
   double totalItemDropRate = 0.5;
   double totalMesosObtained = 0.5;
-  // double get totalMesosObtained => totalMesosObtained;
   double totalCritRate = 1.23;
   double totalCritDamage = 1.53;
   int totalAttackSpeed = 10;
@@ -51,19 +52,69 @@ class CharacterModel with ChangeNotifier {
   int characterLevel = 0;
   // All relavent to calculating ap stats and ap usage
   int availableAP = 10; // 10 + 5 * CharacterLevel
-  int usedAP = 0;
+  int assignedAP = 0;
 
   // Each ap into HP/MP increases by 15
-  int pointsHp = 0;
-  int pointsMp = 0;
+  int apAssignedHP = 0;
+  int apAssignedMP = 0;
   int apHP = 395; // Demon Avenger is 395 + (90 * pointsHP) 
   int apMP = 395;
   // Each ap into Stats increase by 1
-  int apSTR = 4;
+  int apStr = 4;
   int apDex = 4;
   int apInt = 4;
   int apLuk = 4;
 
   List<Equip> unequippedEquips = <Equip>[];
+
+  void addApToStat(int apAmount, StatType statType) {
+    apAmount = min(availableAP, apAmount);
+    availableAP -= apAmount;
+    assignedAP += apAmount;
+    switch(statType) {
+      case StatType.hp:
+        apAssignedHP += apAmount;
+        apHP = 395 + (apAssignedHP * 15);
+      case StatType.mp:
+        apAssignedMP += apAmount;
+        apMP = 395 + (apAssignedMP * 15);
+      case StatType.str:
+        apStr += apAmount;
+      case StatType.dex:
+        apDex += apAmount;
+      case StatType.int:
+        apInt += apAmount;
+      case StatType.luk:
+        apLuk += apAmount;
+      default:
+        Exception("$statType is not something you can increase with Abilitiy Points"); 
+    }
+    notifyListeners();
+  }
+
+  void subtractApToStat(int apAmount, StatType statType) {
+    apAmount = min(assignedAP, apAmount);
+    availableAP += apAmount;
+    assignedAP -= apAmount;
+    switch(statType) {
+      case StatType.hp:
+        apAssignedHP -= apAmount;
+        apHP = 395 + (apAssignedHP * 15);
+      case StatType.mp:
+        apAssignedMP -= apAmount;
+        apMP = 395 + (apAssignedMP * 15);
+      case StatType.str:
+        apStr -= apAmount;
+      case StatType.dex:
+        apDex -= apAmount;
+      case StatType.int:
+        apInt -= apAmount;
+      case StatType.luk:
+        apLuk -= apAmount;
+      default:
+        Exception("$statType is not something you can increase with Abilitiy Points"); 
+    }
+    notifyListeners();
+  }
 
 }
