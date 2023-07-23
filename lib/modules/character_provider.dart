@@ -77,6 +77,7 @@ class CharacterModel with ChangeNotifier {
 
   void addApToStat(int apAmount, StatType statType) {
     apAmount = min(availableAP, apAmount);
+    if (apAmount <= 0) {return;}
     availableAP -= apAmount;
     assignedAP += apAmount;
     switch(statType) {
@@ -102,26 +103,37 @@ class CharacterModel with ChangeNotifier {
 
   void subtractApToStat(int apAmount, StatType statType) {
     apAmount = min(assignedAP, apAmount);
-    availableAP += apAmount;
-    assignedAP -= apAmount;
+    
     switch(statType) {
       case StatType.hp:
+        apAmount = min(apAssignedHP, apAmount);
         apAssignedHP -= apAmount;
         apHP = 395 + (apAssignedHP * 15);
       case StatType.mp:
+        apAmount = min(apAssignedMP, apAmount);
         apAssignedMP -= apAmount;
         apMP = 395 + (apAssignedMP * 15);
       case StatType.str:
+        if (apStr == 4) {return;}
+        apAmount = min(apStr, apAmount);
         apStr -= apAmount;
       case StatType.dex:
+        if (apDex == 4) {return;}
+        apAmount = min(apDex, apAmount);
         apDex -= apAmount;
       case StatType.int:
+        if (apInt == 4) {return;}
+        apAmount = min(apInt, apAmount);
         apInt -= apAmount;
       case StatType.luk:
+        if (apLuk == 4) {return;}
+        apAmount = min(apLuk, apAmount);
         apLuk -= apAmount;
       default:
         Exception("$statType is not something you can increase with Abilitiy Points"); 
     }
+    availableAP += apAmount;
+    assignedAP -= apAmount;
     notifyListeners();
   }
 
