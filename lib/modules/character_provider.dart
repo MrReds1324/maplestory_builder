@@ -113,21 +113,22 @@ class CharacterModel with ChangeNotifier {
         apAmount = min(apAssignedMP, apAmount);
         apAssignedMP -= apAmount;
         apMP = 395 + (apAssignedMP * 15);
+      // Cannot go below 4 points in these stats
       case StatType.str:
         if (apStr == 4) {return;}
-        apAmount = min(apStr, apAmount);
+        apAmount = min(apStr - 4, apAmount);
         apStr -= apAmount;
       case StatType.dex:
         if (apDex == 4) {return;}
-        apAmount = min(apDex, apAmount);
+        apAmount = min(apDex - 4, apAmount);
         apDex -= apAmount;
       case StatType.int:
         if (apInt == 4) {return;}
-        apAmount = min(apInt, apAmount);
+        apAmount = min(apInt - 4, apAmount);
         apInt -= apAmount;
       case StatType.luk:
         if (apLuk == 4) {return;}
-        apAmount = min(apLuk, apAmount);
+        apAmount = min(apLuk - 4, apAmount);
         apLuk -= apAmount;
       default:
         Exception("$statType is not something you can increase with Abilitiy Points"); 
