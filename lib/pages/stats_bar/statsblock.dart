@@ -13,125 +13,128 @@ class StatTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        APCell(),
-        IGNCell(),
-        LevelCell(),
-        APStatCell(statType: StatType.hp),
-        APStatCell(statType: StatType.mp),
-        APStatCell(statType: StatType.str),
-        APStatCell(statType: StatType.dex),
-        APStatCell(statType: StatType.int),
-        APStatCell(statType: StatType.luk),
-        RangeStatCell(
-          rangeType: RangeType.damageRange,
-        ),
-        RangeStatCell(
-          rangeType: RangeType.bossDamageRange,
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.damage,
-            ),
-            StatCell(
-              statType: StatType.bossDamage,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.finalDamage,
-            ),
-            StatCell(
-              statType: StatType.buffDuration,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.ignoreDefense,
-            ),
-            StatCell(
-              statType: StatType.itemDropRate,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.critRate,
-            ),
-            StatCell(
-              statType: StatType.mesosObtained,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.critDamage,
-            ),
-            StatCell(
-              statType: StatType.attackSpeed,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.attack,
-            ),
-            StatCell(
-              statType: StatType.mattack,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.statusResistance,
-            ),
-            StatCell(
-              statType: StatType.knockbackResistance,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.defense,
-            ),
-            StatCell(
-              statType: StatType.starForce,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.speed,
-            ),
-            StatCell(
-              statType: StatType.arcaneForce,
-            ),
-          ]
-        ),
-        Row(
-          children: [
-            StatCell(
-              statType: StatType.jump,
-            ),
-            StatCell(
-              statType: StatType.sacredPower,
-            ),
-          ]
-        ),
-      ],
+    return const SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          APCell(),
+          IGNCell(),
+          LevelCell(),
+          APStatCell(statType: StatType.hp),
+          APStatCell(statType: StatType.mp),
+          APStatCell(statType: StatType.str),
+          APStatCell(statType: StatType.dex),
+          APStatCell(statType: StatType.int),
+          APStatCell(statType: StatType.luk),
+          RangeStatCell(
+            rangeType: RangeType.damageRange,
+          ),
+          RangeStatCell(
+            rangeType: RangeType.bossDamageRange,
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.damage,
+              ),
+              StatCell(
+                statType: StatType.bossDamage,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.finalDamage,
+              ),
+              StatCell(
+                statType: StatType.buffDuration,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.ignoreDefense,
+              ),
+              StatCell(
+                statType: StatType.itemDropRate,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.critRate,
+              ),
+              StatCell(
+                statType: StatType.mesosObtained,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.critDamage,
+              ),
+              StatCell(
+                statType: StatType.attackSpeed,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.attack,
+              ),
+              StatCell(
+                statType: StatType.mattack,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.statusResistance,
+              ),
+              StatCell(
+                statType: StatType.knockbackResistance,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.defense,
+              ),
+              StatCell(
+                statType: StatType.starForce,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.speed,
+              ),
+              StatCell(
+                statType: StatType.arcaneForce,
+              ),
+            ]
+          ),
+          Row(
+            children: [
+              StatCell(
+                statType: StatType.jump,
+              ),
+              StatCell(
+                statType: StatType.sacredPower,
+              ),
+            ]
+          ),
+        ],
+      ),
     );
   }
 }
@@ -427,14 +430,49 @@ class APCell extends StatelessWidget {
             Radius.circular(10),
           ),
         ),
-        child: Center(
-          child: Selector<CharacterModel, (int, int)>(
-            selector: (_, character) => (character.assignedAP, character.totalAvailableAP),
+        child: Selector<CharacterModel, (int, int, int, int)>(
+            selector: (_, character) => (
+              character.apStatsModule.assignedAP, 
+              character.apStatsModule.totalAvailableAP,
+              character.hyperStatsModule.assignedHyperStats,
+              character.hyperStatsModule.totalAvailableHyperStats
+              ),
             builder: (context, data, child) {
-              return Text('${data.$1}/${data.$2} Ability Points Used');
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Selector<CharacterModel, (int, int)>(
+                    selector: (_, character) => (
+                      character.apStatsModule.assignedAP, 
+                      character.apStatsModule.totalAvailableAP,
+                      ),
+                    builder: (context, data, child) {
+                      return Text(
+                        '${data.$1}/${data.$2} Ability Points Used',
+                        style: TextStyle(
+                          color: data.$1 > data.$2 ?Colors.red: null,
+                        ),
+                      );
+                    }
+                  ),
+                  Selector<CharacterModel, (int, int)>(
+                    selector: (_, character) => (
+                      character.hyperStatsModule.assignedHyperStats, 
+                      character.hyperStatsModule.totalAvailableHyperStats,
+                      ),
+                    builder: (context, data, child) {
+                      return Text(
+                        '${data.$1}/${data.$2} Hyper Stats Used',
+                        style: TextStyle(
+                          color: data.$1 > data.$2 ?Colors.red: null,
+                        ),
+                      );
+                    }
+                  ),
+                ]
+              );
             }
           ),
-        ),
       ),
     );
   }
@@ -540,7 +578,7 @@ class APStatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Subtracts": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}')
+        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}')
       ],
       child: IconButton(
         iconSize: 12,
@@ -563,7 +601,7 @@ Selector _getStatSelector(StatType statType) {
   switch(statType){
     case StatType.str:
       return Selector<CharacterModel, (double, int)>(
-        selector: (_, character) => (character.totalStr, character.apStr),
+        selector: (_, character) => (character.totalStr, character.apStatsModule.apStr),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
@@ -571,7 +609,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.dex:
       return Selector<CharacterModel, (double, int)>(
-        selector: (_, character) => (character.totalDex, character.apDex),
+        selector: (_, character) => (character.totalDex, character.apStatsModule.apDex),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
@@ -579,7 +617,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.int:
       return Selector<CharacterModel, (double, int)>(
-        selector: (_, character) => (character.totalInt, character.apInt),
+        selector: (_, character) => (character.totalInt, character.apStatsModule.apInt),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
@@ -587,7 +625,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.luk:
       return Selector<CharacterModel, (double, int)>(
-        selector: (_, character) => (character.totalLuk, character.apLuk),
+        selector: (_, character) => (character.totalLuk, character.apStatsModule.apLuk),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
