@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
-
 import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
 
 class CharacterModel with ChangeNotifier {
@@ -23,8 +22,8 @@ class CharacterModel with ChangeNotifier {
   double upperBossDamangeRange = 100000000000000;
   double upperEffectiveDamageRange = 100000000000000;
   double upperEffectiveBossDamangeRange = 100000000000000;
-  double totalHp = 999999;
-  double totalMp = 1000;
+  double totalHp = 395;
+  double totalMp = 395;
   double totalStr = 4;
   double totalDex = 4;
   double totalInt = 4;
@@ -52,7 +51,6 @@ class CharacterModel with ChangeNotifier {
   double totalJump = 1.4;
   int totalSacredPower = 500;
   
-
   HyperStatsModule hyperStatsModule = HyperStatsModule();
   APStatsModule apStatsModule = APStatsModule();
 
@@ -67,12 +65,30 @@ class CharacterModel with ChangeNotifier {
 
   void addApToStat(int apAmount, StatType statType) {
     apStatsModule.addApToStat(apAmount, statType);
+    calculateEverything();
     notifyListeners();
   }
 
   void subtractApToStat(int apAmount, StatType statType) {
     apStatsModule.subtractApToStat(apAmount, statType);
+    calculateEverything();
     notifyListeners();
   }
 
+  void calculateEverything(){
+    var apStats = apStatsModule.calculateStats();
+    
+  }
+
+  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule}){
+    this.apStatsModule = apStatsModule ?? APStatsModule();
+    this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
+  }
+
+  CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule}){
+    return CharacterModel(
+      apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
+      hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
+    );
+  }
 }

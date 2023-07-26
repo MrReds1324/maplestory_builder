@@ -4,19 +4,30 @@ import 'dart:math';
 class APStatsModule {
   // All relavent to calculating ap stats and ap usage
   int totalAvailableAP = 10; // 10 + 5 * CharacterLevel
-  int availableAP = 10; 
+  int availableAP = 10;
   int assignedAP = 0;
+
+  double apStatsMuliplier = 0.15;
 
   // Each ap into HP/MP increases by 15
   int apAssignedHP = 0;
   int apAssignedMP = 0;
-  int apHP = 395; // Demon Avenger is 395 + (90 * pointsHP) 
+  int apHP = 395; // Demon Avenger is 395 + (90 * pointsHP)
   int apMP = 395;
   // Each ap into Stats increase by 1
   int apStr = 4;
   int apDex = 4;
   int apInt = 4;
   int apLuk = 4;
+
+  Map<StatType, double> calculateStats() {
+    return <StatType, double>{
+      StatType.str: apStr * (1 + apStatsMuliplier),
+      StatType.dex: apDex * (1 + apStatsMuliplier),
+      StatType.int: apInt * (1 + apStatsMuliplier),
+      StatType.luk: apLuk * (1 + apStatsMuliplier),
+    };
+  }
 
   void setAvailableAPFromLevel(int characterLevel) {
     totalAvailableAP = 10 + characterLevel * 5;
@@ -25,10 +36,12 @@ class APStatsModule {
 
   void addApToStat(int apAmount, StatType statType) {
     apAmount = min(availableAP, apAmount);
-    if (apAmount <= 0) {return;}
+    if (apAmount <= 0) {
+      return;
+    }
     availableAP -= apAmount;
     assignedAP += apAmount;
-    switch(statType) {
+    switch (statType) {
       case StatType.hp:
         apAssignedHP += apAmount;
         apHP = 395 + (apAssignedHP * 15);
@@ -44,14 +57,14 @@ class APStatsModule {
       case StatType.luk:
         apLuk += apAmount;
       default:
-        Exception("$statType is not something you can increase with Abilitiy Points"); 
+        Exception("$statType is not something you can increase with Abilitiy Points");
     }
   }
 
   void subtractApToStat(int apAmount, StatType statType) {
     apAmount = min(assignedAP, apAmount);
-    
-    switch(statType) {
+
+    switch (statType) {
       case StatType.hp:
         apAmount = min(apAssignedHP, apAmount);
         apAssignedHP -= apAmount;
@@ -62,26 +75,77 @@ class APStatsModule {
         apMP = 395 + (apAssignedMP * 15);
       // Cannot go below 4 points in these stats
       case StatType.str:
-        if (apStr == 4) {return;}
+        if (apStr == 4) {
+          return;
+        }
         apAmount = min(apStr - 4, apAmount);
         apStr -= apAmount;
       case StatType.dex:
-        if (apDex == 4) {return;}
+        if (apDex == 4) {
+          return;
+        }
         apAmount = min(apDex - 4, apAmount);
         apDex -= apAmount;
       case StatType.int:
-        if (apInt == 4) {return;}
+        if (apInt == 4) {
+          return;
+        }
         apAmount = min(apInt - 4, apAmount);
         apInt -= apAmount;
       case StatType.luk:
-        if (apLuk == 4) {return;}
+        if (apLuk == 4) {
+          return;
+        }
         apAmount = min(apLuk - 4, apAmount);
         apLuk -= apAmount;
       default:
-        Exception("$statType is not something you can increase with Abilitiy Points"); 
+        Exception("$statType is not something you can increase with Abilitiy Points");
     }
     availableAP += apAmount;
     assignedAP -= apAmount;
   }
 
+  APStatsModule({
+    this.totalAvailableAP = 10,
+    this.availableAP = 10,
+    this.assignedAP = 0,
+    this.apStatsMuliplier = 0.15,
+    this.apAssignedHP = 0,
+    this.apAssignedMP = 0,
+    this.apHP = 395,
+    this.apMP = 395,
+    this.apStr = 4,
+    this.apDex = 4,
+    this.apInt = 4,
+    this.apLuk = 4,
+  });
+
+  APStatsModule copyWith(
+      {int? totalAvailableAP,
+      int? availableAP,
+      int? assignedAP,
+      double? apStatsMuliplier,
+      int? apAssignedHP,
+      int? apAssignedMP,
+      int? apHP,
+      int? apMP,
+      int? apStr,
+      int? apDex,
+      int? apInt,
+      int? apLuk}) {
+    return APStatsModule(
+      totalAvailableAP: totalAvailableAP ?? this.totalAvailableAP,
+      availableAP: availableAP ?? this.availableAP,
+      assignedAP: assignedAP ?? this.assignedAP,
+      apStatsMuliplier: apStatsMuliplier ?? this.apStatsMuliplier,
+      apAssignedHP: apAssignedHP ?? this.apAssignedHP,
+      apAssignedMP: apAssignedMP ?? this.apAssignedMP,
+      apHP: apHP ?? this.apHP,
+      apMP: apMP ?? this.apMP,
+      apStr: apStr ?? this.apStr,
+      apDex: apDex ?? this.apDex,
+      apInt: apInt ?? this.apInt,
+      apLuk: apLuk ?? this.apLuk,
+    );
+  }
 }
