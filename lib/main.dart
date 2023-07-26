@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/pages/homepage.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
+import 'package:maplestory_builder/modules/breakdown_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CharacterModel(),
+    MultiProvider(
+      providers: [  
+        ChangeNotifierProvider<CharacterModel>(create: (_) => CharacterModel()),
+        ChangeNotifierProxyProvider<CharacterModel, DifferenceCalculator>(            
+          create: (BuildContext context) => DifferenceCalculator(Provider.of<CharacterModel>(context, listen: false)),
+          update: (BuildContext context, CharacterModel character, DifferenceCalculator? damageCalculator) => DifferenceCalculator(character),
+        ),
+        ChangeNotifierProxyProvider<CharacterModel, BreadkdownCalculator>(          
+          create: (BuildContext context) => BreadkdownCalculator(Provider.of<CharacterModel>(context, listen: false)),
+          update: (BuildContext context, CharacterModel character, BreadkdownCalculator? damageCalculator) => BreadkdownCalculator(character),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
