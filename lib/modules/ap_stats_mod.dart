@@ -7,8 +7,6 @@ class APStatsModule {
   int availableAP = 10;
   int assignedAP = 0;
 
-  double apStatsMuliplier = 0.15;
-
   // Each ap into HP/MP increases by 15
   int apAssignedHP = 0;
   int apAssignedMP = 0;
@@ -20,12 +18,14 @@ class APStatsModule {
   int apInt = 4;
   int apLuk = 4;
 
-  Map<StatType, double> calculateStats() {
-    return <StatType, double>{
-      StatType.str: apStr * (1 + apStatsMuliplier),
-      StatType.dex: apDex * (1 + apStatsMuliplier),
-      StatType.int: apInt * (1 + apStatsMuliplier),
-      StatType.luk: apLuk * (1 + apStatsMuliplier),
+  Map<StatType, num> calculateStats() {
+    return <StatType, num>{
+      StatType.str: apStr,
+      StatType.dex: apDex,
+      StatType.int: apInt,
+      StatType.luk: apLuk,
+      StatType.hp: apHP,
+      StatType.mp: apMP
     };
   }
 
@@ -109,7 +109,6 @@ class APStatsModule {
     this.totalAvailableAP = 10,
     this.availableAP = 10,
     this.assignedAP = 0,
-    this.apStatsMuliplier = 0.15,
     this.apAssignedHP = 0,
     this.apAssignedMP = 0,
     this.apHP = 395,
@@ -124,7 +123,6 @@ class APStatsModule {
       {int? totalAvailableAP,
       int? availableAP,
       int? assignedAP,
-      double? apStatsMuliplier,
       int? apAssignedHP,
       int? apAssignedMP,
       int? apHP,
@@ -137,7 +135,6 @@ class APStatsModule {
       totalAvailableAP: totalAvailableAP ?? this.totalAvailableAP,
       availableAP: availableAP ?? this.availableAP,
       assignedAP: assignedAP ?? this.assignedAP,
-      apStatsMuliplier: apStatsMuliplier ?? this.apStatsMuliplier,
       apAssignedHP: apAssignedHP ?? this.apAssignedHP,
       apAssignedMP: apAssignedMP ?? this.apAssignedMP,
       apHP: apHP ?? this.apHP,
