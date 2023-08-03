@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
+import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'package:maplestory_builder/core/constants.dart';
@@ -565,6 +566,12 @@ class APStatButton extends StatelessWidget {
   final bool isLarge;
   final bool isSubtract;
 
+  void onHover(BuildContext context){
+    var differenceCalculator = context.read<DifferenceCalculator>();
+    var func = isSubtract ? differenceCalculator.subtractApToStat : differenceCalculator.addApToStat;
+    func(isLarge ? 50 : 1, statType);
+  }
+
   const APStatButton(
     {
       required this.statType,
@@ -578,8 +585,12 @@ class APStatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}')
+        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}'),
+        Consumer<DifferenceCalculator>(
+          builder: (context, differenceCalculator, child) =>  differenceCalculator.differenceWidget
+        ),
       ],
+      onHoverFunction: onHover,
       child: IconButton(
         iconSize: 12,
         onPressed: () {
