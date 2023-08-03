@@ -8,8 +8,10 @@ final doublePercentFormater = NumberFormat('####.00%');
 final doubleFormater = NumberFormat('#######.00');
 final rangeFormatter = NumberFormat('###,###,###,###,###');
 
-String formatCharacterClassEnumName(String nameValue) {
-  return nameValue.replaceAll('_', nameValue).toUpperCase();
+String formatCharacterClassEnumName(CharacterClass characterClass) {
+  return characterClass.name.replaceAll('_', " ").toUpperCase();
+}
+
 String formatStatTypeEnumName(StatType statType) {
   switch(statType) {
     case StatType.str:
@@ -84,6 +86,9 @@ String formatStatTypeEnumName(StatType statType) {
       throw Exception("Unhandled formatted statType enum name: $statType");
   }
 }
+
+double calculteDifferencePercentage(num newValue, num originalValue) {
+  return (newValue - originalValue) / originalValue;
 }
 
 class MapleTooltip extends StatelessWidget{
