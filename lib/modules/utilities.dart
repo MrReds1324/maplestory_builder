@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:maplestory_builder/core/constants.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
 final doubleRoundFormater = NumberFormat('#######');
@@ -9,6 +10,80 @@ final rangeFormatter = NumberFormat('###,###,###,###,###');
 
 String formatCharacterClassEnumName(String nameValue) {
   return nameValue.replaceAll('_', nameValue).toUpperCase();
+String formatStatTypeEnumName(StatType statType) {
+  switch(statType) {
+    case StatType.str:
+    case StatType.dex:
+    case StatType.int:
+    case StatType.luk:
+    case StatType.hp:
+    case StatType.mp:
+    case StatType.exp:
+      return statType.name.toUpperCase();
+    case StatType.arcaneForce:
+      return "Arcane Force";
+    case StatType.sacredPower:
+      return "Sacred Power";
+    case StatType.attack:
+      return "Attack Power";
+    case StatType.mattack:
+      return "Magic Attack";
+    case StatType.attackSpeed:
+      return "Attack Speed";
+    case StatType.bossDamage:
+      return "Boss Damage";
+    case StatType.buffDuration:
+      return "Buff Duration";
+    case StatType.critDamage:
+      return "Critical Damage";
+    case StatType.critRate:
+      return "Critical Rate";
+    case StatType.defense:
+      return "Defense";
+    case StatType.damage:
+      return "Damage";
+    case StatType.finalDamage:
+      return "Final Damage";
+    case StatType.finalHp:
+      return "Flat HP";
+    case StatType.finalMp:
+      return "Flat MP";
+    case StatType.finalStr:
+      return "Flat STR";
+    case StatType.finalDex:
+      return "Flat DEX";
+    case StatType.finalInt:
+      return "Flat INT";
+    case StatType.finalLuk:
+      return "Flat LUK";
+    case StatType.finalAttack:
+      return "Flat Attack Power";
+    case StatType.finalMAttack:
+      return "Flat Magic Attack";
+    case StatType.ignoreDefense:
+      return "Ignore Defense";
+    case StatType.ignoreElementalDefense:
+      return "Ignore Elemental Defense";
+    case StatType.itemDropRate:
+      return "Item Drop Rate";
+    case StatType.mesosObtained:
+      return "Mesos Obtained";
+    case StatType.jump:
+      return "Jump";
+    case StatType.knockbackResistance:
+      return "Knockback Resistance";
+    case StatType.speed:
+      return "Speed";
+    case StatType.starForce:
+      return "Star Force";
+    case StatType.statusResistance:
+      return "Status Resistance";
+    case StatType.level:
+      return "Level";
+    default:
+      throw Exception("Unhandled formatted statType enum name: $statType");
+  }
+}
 }
 
 class MapleTooltip extends StatelessWidget{

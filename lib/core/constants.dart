@@ -73,6 +73,7 @@ enum StatType {
   itemDropRate,
   jump,
   knockbackResistance,
+  level,
   luk,
   mattack,
   mesosObtained,
