@@ -17,26 +17,46 @@ class DifferenceCalculator with ChangeNotifier {
 
   void updateDifferenceText(){
 
-    void createText(List<Text> textList, num newValue, num originalValue, StatType statType) {
+    void createText(List<Text> textList, num newValue, num originalValue, {StatType? statType, RangeType? rangeType}) {
+      assert(statType != null || rangeType != null, "Must provide statType or RangeType");
       var difference = newValue - originalValue;
       if (difference == 0) {
         return;
       }
-      textList.add(
-        Text(
-          '${difference < 0 ? "" : "+"}$difference ${formatStatTypeEnumName(statType)} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})'
-        )
-      );
+
+      Text? text;
+      if (statType != null){
+        text = Text(
+          '${difference < 0 ? "" : "+"}${doubleRoundFormater.format(difference)} ${formatStatTypeEnumName(statType)} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
+          style: TextStyle(
+            color: difference < 0 ?Colors.redAccent: Colors.greenAccent,
+          ),
+        );
+      }
+      if (rangeType != null) {
+        text = Text(
+          '${difference < 0 ? "" : "+"}${rangeFormatter.format(difference)} ${formatRangeTypeEnumName(rangeType)} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
+          style: TextStyle(
+            color: difference < 0 ?Colors.redAccent: Colors.greenAccent,
+          ),
+        );
+      }
+
+      if (text != null) {
+        textList.add(text);
+      }
     }
 
     var textList = <Text>[];
 
-    createText(textList, diffCharacterModel.apStatsModule.apStr, mainCharacterModel.apStatsModule.apStr, StatType.str);
-    createText(textList, diffCharacterModel.apStatsModule.apDex, mainCharacterModel.apStatsModule.apDex, StatType.dex);
-    createText(textList, diffCharacterModel.apStatsModule.apInt, mainCharacterModel.apStatsModule.apInt, StatType.int);
-    createText(textList, diffCharacterModel.apStatsModule.apLuk, mainCharacterModel.apStatsModule.apLuk, StatType.luk);
-    createText(textList, diffCharacterModel.apStatsModule.apHP, mainCharacterModel.apStatsModule.apHP, StatType.hp);
-    createText(textList, diffCharacterModel.apStatsModule.apMP, mainCharacterModel.apStatsModule.apMP, StatType.mp);
+    createText(textList, diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
+    createText(textList, diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
+    createText(textList, diffCharacterModel.totalHp, mainCharacterModel.totalHp, statType: StatType.hp);
+    createText(textList, diffCharacterModel.totalMp, mainCharacterModel.totalMp, statType: StatType.mp);
+    createText(textList, diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
+    createText(textList, diffCharacterModel.totalDex, mainCharacterModel.totalDex, statType: StatType.dex);
+    createText(textList, diffCharacterModel.totalInt, mainCharacterModel.totalInt, statType: StatType.int);
+    createText(textList, diffCharacterModel.totalLuk, mainCharacterModel.totalLuk, statType: StatType.luk);
 
 
     differenceWidget = Column(children: textList);
