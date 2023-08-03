@@ -45,7 +45,7 @@ class DifferenceCalculator with ChangeNotifier {
 
   void subtractApToStat(int apAmount, StatType statType) {
     var tempApStats = diffCharacterModel.apStatsModule.copyWith();
-    apAmount = diffCharacterModel.apStatsModule.subtractApToStat(apAmount, statType);
+    diffCharacterModel.apStatsModule.subtractApToStat(apAmount, statType);
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.apStatsModule = tempApStats;
@@ -53,7 +53,7 @@ class DifferenceCalculator with ChangeNotifier {
 
   void addApToStat(int apAmount, StatType statType) {
     var tempApStats = diffCharacterModel.apStatsModule.copyWith();
-    apAmount = diffCharacterModel.apStatsModule.addApToStat(apAmount, statType);
+    diffCharacterModel.apStatsModule.addApToStat(apAmount, statType);
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.apStatsModule = tempApStats;
