@@ -20,6 +20,7 @@ class CharacterModel with ChangeNotifier {
   // LowerDamageRange = UpperDamangeRange * Mastery%, rounded down
   double upperDamageRange = 100000000000000;
   double upperBossDamangeRange = 100000000000000;
+  // Include things not normally shown in the damage range, ied, iedr, crit damage (crit rate)
   double upperEffectiveDamageRange = 100000000000000;
   double upperEffectiveBossDamangeRange = 100000000000000;
   double totalHp = 395;
@@ -40,7 +41,7 @@ class CharacterModel with ChangeNotifier {
   double totalCritRate = 1.23;
   double totalCritDamage = 1.53;
   int totalAttackSpeed = 10;
-  double totalAttack = 6000.99;
+  double totalAttack = 6000;
   double totalMAttack = 500;
   int totalStatusResistance = 78;
   double totalKnockbackResistance = 1.00;
@@ -50,6 +51,39 @@ class CharacterModel with ChangeNotifier {
   int totalArcaneForce = 100;
   double totalJump = 1.4;
   int totalSacredPower = 500;
+  // Weapon Multiplier will change depending on equipped weapon, default (no weapon) is 1.4 
+  double weaponMultiplier = 1.4;
+
+  // This essentially is ap stats, but also includes multipliers that would effect it such as MW
+  num pureHp = 0;
+  num pureMP = 0;
+  num pureStr = 0;
+  num pureDex = 0;
+  num pureInt = 0;
+  num pureLuk = 0;
+  num attack = 100;
+  num mattack = 0;
+
+  // Track flat stats that will be added later
+  num flatHp = 0;
+  num flatMP = 0;
+  num flatStr = 0;
+  num flatDex = 0;
+  num flatInt = 0;
+  num flatLuk = 0;
+  num flatAttack = 0;
+  num flatMAttack = 0;
+
+  // Track the total percentage for stats
+  double hpPercentage = .00;
+  double mpPercentage = .00;
+  double strPercentage = .00;
+  double dexPercentage = .00;
+  double intPercentage = .00;
+  double lukPercentage = .00;
+  double defensePercentage = .00;
+  double attackPercentage = .00;
+  double mattackPercentage = .00;
   
   HyperStatsModule hyperStatsModule = HyperStatsModule();
   APStatsModule apStatsModule = APStatsModule();
@@ -76,8 +110,42 @@ class CharacterModel with ChangeNotifier {
   }
 
   void calculateEverything(){
-    var apStats = apStatsModule.calculateStats();
+    updatePureStats(apStatsModule.calculateStats());
     
+    totalHp = pureHp * (1 + hpPercentage) + flatHp;
+    totalMp = pureMP * (1 + mpPercentage) + flatMP;
+    totalStr = pureStr * (1 + strPercentage) + flatStr;
+    totalDex = pureDex * (1 + dexPercentage) + flatDex;
+    totalInt = pureInt * (1 + intPercentage) + flatInt;
+    totalLuk = pureLuk * (1 + lukPercentage) + flatLuk;
+    totalAttack = attack * (1 + attackPercentage) + flatAttack;
+    totalMAttack = mattack * (1 + mattackPercentage) + flatMAttack;
+
+    var statValue = ((4 * totalDex) + totalStr);
+    var upperRange = weaponMultiplier * statValue * (totalAttack) * (1 + totalFinalDamage);
+    upperDamageRange =  upperRange * (1 + totalDamage);
+    upperBossDamangeRange =  upperRange * (1 + totalDamage + totalBossDmanage);
+  }
+
+  void updatePureStats(Map<StatType, num> apStats) {
+    for(MapEntry<StatType, num> entry in apStats.entries) {
+      switch(entry.key) {
+        case StatType.hp:
+          pureHp = entry.value;
+        case StatType.mp:
+          pureMP = entry.value;
+        case StatType.str:
+          pureStr = entry.value;
+        case StatType.dex:
+          pureDex = entry.value;
+        case StatType.int:
+          pureInt = entry.value;
+        case StatType.luk:
+          pureLuk = entry.value;
+        default:
+          throw Exception("Unhandled StatType for BaseStats: ${entry.key}");
+      }
+    }
   }
 
   CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule}){
