@@ -12,6 +12,21 @@ String formatCharacterClassEnumName(CharacterClass characterClass) {
   return characterClass.name.replaceAll('_', " ").toUpperCase();
 }
 
+String formatRangeTypeEnumName(RangeType rangeType) {
+  switch(rangeType) {
+    case RangeType.damageRange:
+      return 'Damage Range';
+    case RangeType.bossDamageRange:
+      return 'Boss Damage Range';
+    case RangeType.effectiveDamageRange:
+      return 'Effective Damage Range';
+    case RangeType.effectiveBossDamageRange:
+      return 'Effective Boss Damage Range';
+    default:
+      throw Exception("Tooltip not Implemented for rangeType $rangeType");
+  }
+}
+
 String formatStatTypeEnumName(StatType statType) {
   switch(statType) {
     case StatType.str:

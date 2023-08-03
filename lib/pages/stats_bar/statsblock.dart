@@ -920,21 +920,17 @@ MapleTooltip _getStatTooltip(StatType statType) {
 }
 
 MapleTooltip _getRangeTooltip(RangeType rangeType) {
-  var childAndTitle = '';
+  var childAndTitle = formatRangeTypeEnumName(rangeType);
   var tooltipMessage = '';
 
   switch(rangeType) {
     case RangeType.damageRange:
-      childAndTitle = 'Damage Range';
       tooltipMessage = 'Your actual damage range, accountig for both Damage and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
     case RangeType.bossDamageRange:
-      childAndTitle = 'Boss Damage Range';
       tooltipMessage = 'Your actual damage range against bosses, accountig for Damage, Boss Damage, and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
     case RangeType.effectiveDamageRange:
-      childAndTitle = 'Effective Damage Range';
       tooltipMessage = 'Your actual damage range, accountig for Damage, Final Damage, Critical Damage, and Critcal Rate. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
     case RangeType.effectiveBossDamageRange:
-      childAndTitle = 'Effective Boss Damage Range';
       tooltipMessage = 'Your actual damage range against bosses, accountig for Damage, Boss Damage, Final Damage, Critical Damage, Critical Rate, Ignore Defense, and Ignore Elemental Resistance. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
     default:
       throw Exception("Tooltip not Implemented for rangeType $rangeType");
