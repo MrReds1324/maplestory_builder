@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
+import 'package:maplestory_builder/modules/equip_mod.dart';
 import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
 
 class CharacterModel with ChangeNotifier {
@@ -18,11 +19,11 @@ class CharacterModel with ChangeNotifier {
   // TotalAtt = Attack * Attack% + FinalAttack
   // UpperDamageRange = (WeaponMultiplier * StatValue * TotalATT/100) * (1 + Damage%) * (1 + FinalDamage%), rounded down
   // LowerDamageRange = UpperDamangeRange * Mastery%, rounded down
-  double upperDamageRange = 100000000000000;
-  double upperBossDamangeRange = 100000000000000;
+  double upperDamageRange = 0;
+  double upperBossDamangeRange = 0;
   // Include things not normally shown in the damage range, ied, iedr, crit damage (crit rate)
-  double upperEffectiveDamageRange = 100000000000000;
-  double upperEffectiveBossDamangeRange = 100000000000000;
+  double upperEffectiveDamageRange = 0;
+  double upperEffectiveBossDamangeRange = 0;
   double totalHp = 395;
   double totalMp = 395;
   double totalStr = 4;
@@ -87,6 +88,7 @@ class CharacterModel with ChangeNotifier {
   
   HyperStatsModule hyperStatsModule = HyperStatsModule();
   APStatsModule apStatsModule = APStatsModule();
+  EquipModule equipModule = EquipModule();
 
   void updateCharacterLevel(int selectedLevel) {
     apStatsModule.setAvailableAPFromLevel(selectedLevel);
@@ -105,6 +107,12 @@ class CharacterModel with ChangeNotifier {
 
   void subtractApToStat(int apAmount, StatType statType) {
     apStatsModule.subtractApToStat(apAmount, statType);
+    calculateEverything();
+    notifyListeners();
+  }
+
+  void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
+    equipModule.equipEquip(equip, equipType, equipPosition: equipPosition);
     calculateEverything();
     notifyListeners();
   }
@@ -148,15 +156,18 @@ class CharacterModel with ChangeNotifier {
     }
   }
 
-  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule}){
+  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule}){
     this.apStatsModule = apStatsModule ?? APStatsModule();
     this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
+    this.equipModule = equipModule ?? EquipModule();
+    calculateEverything();
   }
 
-  CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule}){
+  CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule}){
     return CharacterModel(
       apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
       hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
+      equipModule: equipModule ?? this.equipModule.copyWith(),
     );
   }
 }
