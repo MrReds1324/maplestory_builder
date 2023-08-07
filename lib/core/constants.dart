@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
+
 const double jumpCap = 1.23;
 const double speedCap = 1.40;
 // Maximum meso obtained is 300%, 100% from items and 100% from buffs (not including WAP)
@@ -178,3 +180,6 @@ enum CharacterClass {
   xenon,
   zero,
 }
+
+const statColor = Color.fromARGB(255, 105, 105, 105);
+const apColor = Colors.green;

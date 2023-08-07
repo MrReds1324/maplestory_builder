@@ -6,9 +6,6 @@ import 'package:maplestory_builder/modules/utilities.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'dart:math';
 
-const statColor = Color.fromARGB(255, 105, 105, 105);
-const apColor = Colors.green;
-
 class StatTable extends StatelessWidget {
   const StatTable({super.key});
 
