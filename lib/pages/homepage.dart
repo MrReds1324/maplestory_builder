@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/pages/stats_bar/statsblock.dart';
 import 'package:maplestory_builder/pages/equip_page/equip_page.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage(
@@ -29,16 +28,16 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ),
-        body: Row(
+        body: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const StatTable(),
+            StatTable(),
             Expanded(
               child: TabBarView(
                 children: [
-                  SearchableListView(listItems: equipList),
-                  const Icon(Icons.directions_transit),
-                  const Icon(Icons.directions_bike),
+                  EquipPage(),
+                  Icon(Icons.directions_transit),
+                  Icon(Icons.directions_bike),
                 ],
               ),
             )
