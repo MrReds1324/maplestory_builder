@@ -112,6 +112,7 @@ class MapleTooltip extends StatelessWidget{
   final String? label;
   final List<Widget> tooltipWidgets;
   final Function? onHoverFunction;
+  final double? maxWidth;
 
   const MapleTooltip(
     {
@@ -119,6 +120,7 @@ class MapleTooltip extends StatelessWidget{
       this.tooltipTitle = '',
       this.label,
       this.onHoverFunction,
+      this.maxWidth,
       this.child,
       super.key
     }
@@ -132,7 +134,7 @@ class MapleTooltip extends StatelessWidget{
         baseline: TextBaseline.alphabetic,
         child: Container(
           padding: const EdgeInsets.all(5),
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: BoxConstraints(maxWidth: maxWidth ?? 400.0),
           child: Column(
             children: tooltipTitle.isNotEmpty ? <Widget>[
               Text(tooltipTitle, style: Theme.of(context).textTheme.headlineSmall)
