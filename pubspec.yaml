@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.0.5
   just_the_tooltip: ^0.0.12
   intl: ^0.18.1
+  material_design_icons_flutter: ^7.0.7296
 
 dev_dependencies:
   flutter_test:
