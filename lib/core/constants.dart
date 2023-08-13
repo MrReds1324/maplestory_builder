@@ -85,6 +85,12 @@ enum StatType {
   starForce,
   statusResistance,
   str,
+  strPercentage,
+  dexPercentage,
+  intPercentage,
+  lukPercentage,
+  allStats,
+  allStatsPercentage,
 }
 
 enum FlameType {
@@ -183,3 +189,6 @@ enum CharacterClass {
 
 const statColor = Color.fromARGB(255, 105, 105, 105);
 const apColor = Colors.green;
+const equipEnhancedColor = Color.fromARGB(255, 85, 201, 255);
+const equipFlameColor = Colors.lightGreenAccent;
+const equipScrollColor = Color.fromARGB(255, 241, 241, 48);
