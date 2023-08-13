@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
+import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'package:provider/provider.dart';
@@ -24,22 +25,11 @@ class EquipPage extends StatelessWidget {
           ),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: const Row(
           children: [
-            const EquippedItems(),
-            const InventoryAndItemListColumn(),
-            Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red)
-                    ),
-                  )
-                )
-              ],
-            ),
+            EquippedItems(),
+            InventoryAndItemListColumn(),
+            EquipBuilder(),
           ],
         ),
       )
@@ -216,11 +206,11 @@ class EquippedItemSelector extends StatelessWidget {
         value: value,
         child: MapleTooltip(
           tooltipTitle: value.name,
-          tooltipWidgets: [value.createEquipContainer()],
+          tooltipWidgets: [value.createEquipContainer(context)],
           child: Text(
             value.name,
             style: Theme.of(context).textTheme.bodyMedium
-          )
+          ),
         ),
       );
     }).toList();
@@ -379,10 +369,9 @@ class InventoryItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 425,
       height: 500,
-      padding: const EdgeInsets.all(5.0),
       child: Column(
         children: <Widget>[
           Container(
@@ -407,7 +396,7 @@ class InventoryItems extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return MapleTooltip(
                         tooltipTitle: allEquips[index].name,
-                        tooltipWidgets: [allEquips[index].createEquipContainer()],
+                        tooltipWidgets: [allEquips[index].createEquipContainer(context)],
                         child: ListTile(
                           title: Text(allEquips[index].name),
                         ),
@@ -495,7 +484,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
     return Container(
       width: 425,
       height: 411,
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.only(bottom: 5),
       child: Column(
         children: <Widget>[
           Text(
@@ -566,7 +555,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                 itemBuilder: (context, index) {
                   return MapleTooltip(
                     tooltipTitle: items[index].name,
-                    tooltipWidgets: [items[index].createEquipContainer()],
+                    tooltipWidgets: [items[index].createEquipContainer(context)],
                     child: ListTile(
                       title: Text(items[index].name),
                     ),
@@ -608,4 +597,41 @@ class DropDownSelector extends StatelessWidget {
       }
     );
   }
+}
+
+
+class EquipBuilder extends StatelessWidget {
+
+  const EquipBuilder(
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 690,
+      height: 1000,
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          border: Border.all(color: statColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Selector<DifferenceCalculator, Equip?>(selector: (_, differenceCalculator) => differenceCalculator.editingEquip,
+          builder: (context, equip, child) {
+            if (equip == null) {
+              return const SizedBox.shrink();
+            }
+            else {
+              return equip.createEquipContainer(context);
+            }
+          }
+        ),
+      ),
+    );
+  }
+
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 
 import 'package:maplestory_builder/core/items/equips.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/core/items/equips.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 
@@ -7,6 +8,8 @@ class DifferenceCalculator with ChangeNotifier {
 
   late CharacterModel mainCharacterModel;
   late CharacterModel diffCharacterModel;
+  Equip? editingEquip = Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0);
+  // Equip? editingEquip;
   Widget differenceWidget = const SizedBox.shrink();
 
 

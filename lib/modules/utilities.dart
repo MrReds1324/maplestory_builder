@@ -97,6 +97,17 @@ String formatStatTypeEnumName(StatType statType) {
       return "Status Resistance";
     case StatType.level:
       return "Level";
+    case StatType.allStatsPercentage:
+    case StatType.allStats:
+      return "All Stats";
+    case StatType.strPercentage:
+      return "STR";
+    case StatType.dexPercentage:
+      return "DEX";
+    case StatType.intPercentage:
+      return "INT";
+    case StatType.lukPercentage:
+      return "LUK";
     default:
       throw Exception("Unhandled formatted statType enum name: $statType");
   }
