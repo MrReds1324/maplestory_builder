@@ -1,5 +1,6 @@
 class Base {
   final String name;
+  num itemLevel = 0;
   num str = 0;
   num dex = 0;
   num int = 0;
@@ -45,6 +46,7 @@ class Base {
 
   Base({
     required this.name,
+    this.itemLevel = 0,
     this.str = 0,
     this.dex = 0,
     this.int = 0,

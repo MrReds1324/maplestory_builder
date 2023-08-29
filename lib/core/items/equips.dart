@@ -2,17 +2,22 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/base.dart';
+import 'package:maplestory_builder/core/items/starforce.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 
 class Equip extends Base {
   final EquipType equipType;
   final ClassType classType;
+  bool canStar = true;
   bool equipped = false;
+  StarForceMod? starForceMod;
 
   Equip({
     required super.name,
     required this.equipType,
     this.classType = ClassType.all,
+    this.canStar = true,
+    super.itemLevel = 0,
     super.str = 0,
     super.dex = 0,
     super.int = 0,
@@ -37,12 +42,21 @@ class Equip extends Base {
     super.finalMp = 0,
     super.finalAttack = 0,
     super.finalMAttack = 0,
-  });
+  }){
+    if (canStar) {
+      starForceMod = StarForceMod(targetEquip: this);
+    }
+  }
+
+  void updateStarforce(num newStarValue) {
+    starForceMod?.updateStarforce(newStarValue);
+  }
 
   Equip copyWith({
     String? name,
     EquipType? equipType,
     ClassType? classType,
+    num? itemLevel,
     num? str,
     num? dex,
     num? int,
@@ -72,6 +86,7 @@ class Equip extends Base {
       name: name ?? this.name,
       equipType: equipType ?? this.equipType,
       classType: classType ?? this.classType,
+      itemLevel: itemLevel ?? this.itemLevel,
       str: str ?? this.str,
       dex: dex ?? this.dex,
       int: int ?? this.int,
@@ -101,15 +116,15 @@ class Equip extends Base {
 
   Container createEquipContainer(BuildContext context, {bool includeName = false}){
     return Container(
+      width: 300,
       padding: const EdgeInsets.all(2.5),
-      decoration: BoxDecoration(
-        border: Border.all(color: statColor),
-        borderRadius: const BorderRadius.all(Radius.circular(5))
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           includeName ? Text(name) : const SizedBox.shrink(),
+          __createTextLine(context, StatType.starForce),
+          Text(name, style: Theme.of(context).textTheme.headlineSmall),
+          __createTextLine(context, StatType.level),
           __createTextLine(context, StatType.str),
           __createTextLine(context, StatType.dex),
           __createTextLine(context, StatType.int),
@@ -135,33 +150,56 @@ class Equip extends Base {
     num flameStat = 0;
 
     switch(statType){
+      case StatType.starForce:
+        return starForceMod?.buildStarForceWidget() ?? const SizedBox.shrink();
+      case StatType.level:
+        return RichText(
+          text: TextSpan(
+            style: DefaultTextStyle.of(context).style,
+            children: <TextSpan>[
+              TextSpan(
+                text: "Required Level: $itemLevel",
+                style: const TextStyle(color: equipScrollColor)
+              )
+            ]
+          ),
+        );
       case StatType.str:
         baseStat = str;
-        totalStat = str;
+        starForceStat = starForceMod?.str ?? 0;
+        totalStat = str + starForceStat + scrollStat + flameStat;
       case StatType.dex:
         baseStat = dex;
-        totalStat = dex ;
+        starForceStat = starForceMod?.dex ?? 0;
+        totalStat = dex + starForceStat + scrollStat + flameStat;
       case StatType.int:
         baseStat = this.int;
-        totalStat = this.int ;
+        starForceStat = starForceMod?.int ?? 0;
+        totalStat = this.int + starForceStat + scrollStat + flameStat;
       case StatType.luk:
         baseStat = luk;
-        totalStat = luk;
+        starForceStat = starForceMod?.luk ?? 0;
+        totalStat = luk + starForceStat + scrollStat + flameStat;
       case StatType.hp:
         baseStat = hp;
-        totalStat = hp;
+        starForceStat = starForceMod?.hp ?? 0;
+        totalStat = hp + starForceStat + scrollStat + flameStat;
       case StatType.mp:
         baseStat = mp;
-        totalStat = mp;
+        starForceStat = starForceMod?.mp ?? 0;
+        totalStat = mp + starForceStat + scrollStat + flameStat;
       case StatType.attack:
         baseStat = attackPower;
-        totalStat = attackPower;
+        starForceStat = starForceMod?.attackPower ?? 0;
+        totalStat = attackPower + starForceStat + scrollStat + flameStat;
       case StatType.mattack:
         baseStat = mattack;
-        totalStat = mattack;
+        starForceStat = starForceMod?.mattack ?? 0;
+        totalStat = mattack + starForceStat + scrollStat + flameStat;
       case StatType.defense:
         baseStat = defense;
-        totalStat = defense;
+        starForceStat = starForceMod?.defense ?? 0;
+        totalStat = defense + starForceStat + scrollStat + flameStat;
       case StatType.ignoreDefense:
         isPercentage = true;
         baseStat = ignoreDefense;
@@ -233,13 +271,5 @@ class Equip extends Base {
 
 
 final List<Equip> equipList = [
-  Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
-  Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "TEST", equipType: EquipType.belt, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "TEST", equipType: EquipType.belt, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-  Equip(name: "TEST", equipType: EquipType.belt, str: 40, dex: 40, int: 0, luk: 0)
+  Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
 ];
