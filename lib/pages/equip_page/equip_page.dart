@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/items/starforce.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
@@ -205,7 +206,7 @@ class EquippedItemSelector extends StatelessWidget {
       return DropdownMenuItem(
         value: value,
         child: MapleTooltip(
-          tooltipTitle: value.name,
+          maxWidth: 310,
           tooltipWidgets: [value.createEquipContainer(context)],
           child: Text(
             value.name,
@@ -395,7 +396,7 @@ class InventoryItems extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return MapleTooltip(
-                        tooltipTitle: allEquips[index].name,
+                        maxWidth: 310,
                         tooltipWidgets: [allEquips[index].createEquipContainer(context)],
                         child: ListTile(
                           title: Text(allEquips[index].name),
@@ -554,7 +555,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return MapleTooltip(
-                    tooltipTitle: items[index].name,
+                    maxWidth: 310,
                     tooltipWidgets: [items[index].createEquipContainer(context)],
                     child: ListTile(
                       title: Text(items[index].name),
@@ -610,9 +611,13 @@ class EquipBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 690,
-      height: 1000,
+
+    Widget differenceText = Consumer<DifferenceCalculator>(
+      builder: (context, differenceCalculator, child) =>  differenceCalculator.equipDifferenceWidget
+    );
+
+    return Expanded(
+      child: Container(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
         padding: const EdgeInsets.all(5),
@@ -620,15 +625,32 @@ class EquipBuilder extends StatelessWidget {
           border: Border.all(color: statColor),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Selector<DifferenceCalculator, Equip?>(selector: (_, differenceCalculator) => differenceCalculator.editingEquip,
-          builder: (context, equip, child) {
-            if (equip == null) {
-              return const SizedBox.shrink();
+        child: Consumer<CharacterModel>(
+            builder: (_, differenceCalculator, __) {
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      const Text("Star Force"),
+                      Expanded(
+                        child: Slider(
+                          value: differenceCalculator.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
+                          max: differenceCalculator.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
+                          divisions: differenceCalculator.editingEquip?.starForceMod?.possibleStars.toInt() ?? 0,
+                          label: differenceCalculator.editingEquip?.starForceMod?.currentStars.round().toString(),
+                          onChanged: (double newValue) {
+                            context.read<CharacterModel>().updateStarforce(newValue);
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                  differenceCalculator.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink(),
+                  differenceText,
+                ],
+              );
             }
-            else {
-              return equip.createEquipContainer(context);
-            }
-          }
+          )
         ),
       ),
     );
