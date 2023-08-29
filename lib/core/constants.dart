@@ -32,6 +32,8 @@ enum EquipType {
   pocket,
   ring,
   secondary,
+  shield,
+  katara,
   shoes,
   shoulder,
   title,
@@ -192,3 +194,7 @@ const apColor = Colors.green;
 const equipEnhancedColor = Color.fromARGB(255, 85, 201, 255);
 const equipFlameColor = Colors.lightGreenAccent;
 const equipScrollColor = Color.fromARGB(255, 241, 241, 48);
+const starColor = Color.fromARGB(255, 255, 201, 51);
+
+const emptyStar = Icon(Icons.star_border, size: 16);
+const filledStar = Icon(Icons.star, size: 16, color: starColor);

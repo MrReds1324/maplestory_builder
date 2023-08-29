@@ -90,6 +90,14 @@ class CharacterModel with ChangeNotifier {
   APStatsModule apStatsModule = APStatsModule();
   EquipModule equipModule = EquipModule();
 
+  Equip? editingEquip = Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1);
+  // Equip? editingEquip;
+
+  void updateStarforce(num newStarValue) {
+    editingEquip?.starForceMod?.updateStarforce(newStarValue);
+    notifyListeners();
+  }
+
   void updateCharacterLevel(int selectedLevel) {
     apStatsModule.setAvailableAPFromLevel(selectedLevel);
     hyperStatsModule.setAvailableHyperStatsFromLevel(selectedLevel);

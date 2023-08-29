@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 
@@ -8,17 +7,18 @@ class DifferenceCalculator with ChangeNotifier {
 
   late CharacterModel mainCharacterModel;
   late CharacterModel diffCharacterModel;
-  Equip? editingEquip = Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0);
-  // Equip? editingEquip;
   Widget differenceWidget = const SizedBox.shrink();
+  Widget equipDifferenceWidget = const SizedBox.shrink();
 
 
   DifferenceCalculator(CharacterModel characterModel){
     mainCharacterModel = characterModel;
     diffCharacterModel = characterModel.copyWith();
+    if (mainCharacterModel.editingEquip != null) {
+    }
   }
 
-  void updateDifferenceText(){
+  void updateDifferenceText({isEquipEditing=false}){
 
     void createText(List<Text> textList, num newValue, num originalValue, {StatType? statType, RangeType? rangeType}) {
       assert(statType != null || rangeType != null, "Must provide statType or RangeType");
@@ -61,8 +61,12 @@ class DifferenceCalculator with ChangeNotifier {
     createText(textList, diffCharacterModel.totalInt, mainCharacterModel.totalInt, statType: StatType.int);
     createText(textList, diffCharacterModel.totalLuk, mainCharacterModel.totalLuk, statType: StatType.luk);
 
-
-    differenceWidget = Column(children: textList);
+    if (isEquipEditing) {
+      equipDifferenceWidget = Column(children: textList);
+    }
+    else {
+      differenceWidget = Column(children: textList);
+    }
     notifyListeners();
   }
 
@@ -80,6 +84,14 @@ class DifferenceCalculator with ChangeNotifier {
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.apStatsModule = tempApStats;
+  }
+
+  void compareEditingEquip(){
+    var tempEquip = diffCharacterModel.equipModule.hat;
+    diffCharacterModel.equipModule.hat = mainCharacterModel.editingEquip;
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText(isEquipEditing: true);
+    diffCharacterModel.equipModule.hat = tempEquip;
   }
 
 }
