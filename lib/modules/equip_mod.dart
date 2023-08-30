@@ -56,11 +56,6 @@ class EquipModule {
   // Heart
   Equip? heart;
 
-  // Map<StatType, num> calculateStats() {
-  //   return <EquipType, <StatType, num>>{{}
-  //   };
-  // }
-
   void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
     equip?.equipped = true;
     switch(equipType) {
@@ -221,6 +216,47 @@ class EquipModule {
       Equip(name: "Cursed Red Spellbook", equipType: EquipType.pocket, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
       Equip(name: "Princess No's Arrowhead", equipType: EquipType.secondary, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
     ];
+  }
+
+  List<Map<StatType, num>> calculateStats() {
+    var equipStats = <Map<StatType, num>>[];
+
+    void addToList(Equip? equip){
+      if (equip != null){
+        equipStats.add(equip.calculateStats());
+    }
+    }
+
+    addToList(totem1);
+    addToList(totem2);
+    addToList(totem3);
+    addToList(ring1);
+    addToList(ring2);
+    addToList(ring3);
+    addToList(ring4);
+    addToList(pocketItem);
+    addToList(pendant1);
+    addToList(pendant2);
+    addToList(weapon);
+    addToList(belt);
+    addToList(hat);
+    addToList(face);
+    addToList(eye);
+    addToList(overall);
+    addToList(top);
+    addToList(bottom);
+    addToList(shoes);
+    addToList(earrings);
+    addToList(shoulder);
+    addToList(gloves);
+    addToList(emblem);
+    addToList(badge);
+    addToList(medal);
+    addToList(secondary);
+    addToList(cape);
+    addToList(heart);
+
+    return equipStats;
   }
 
   EquipModule copyWith({
