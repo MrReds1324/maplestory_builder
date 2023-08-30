@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
-import 'package:maplestory_builder/core/items/starforce.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
@@ -611,49 +610,51 @@ class EquipBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    Widget differenceText = Consumer<DifferenceCalculator>(
-      builder: (context, differenceCalculator, child) =>  differenceCalculator.equipDifferenceWidget
-    );
-
     return Expanded(
       child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Container(
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          border: Border.all(color: statColor),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Consumer<CharacterModel>(
-            builder: (_, differenceCalculator, __) {
-              return Column(
-                children: [
-                  Row(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            border: Border.all(color: statColor),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              Consumer<CharacterModel>(
+                builder: (_, characterModel, __) {
+                  return Column(
                     children: [
-                      const Text("Star Force"),
-                      Expanded(
-                        child: Slider(
-                          value: differenceCalculator.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
-                          max: differenceCalculator.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
-                          divisions: differenceCalculator.editingEquip?.starForceMod?.possibleStars.toInt() ?? 0,
-                          label: differenceCalculator.editingEquip?.starForceMod?.currentStars.round().toString(),
-                          onChanged: (double newValue) {
-                            context.read<CharacterModel>().updateStarforce(newValue);
-                          },
-                        ),
-                      )
+                      Row(
+                        children: [
+                          const Text("Star Force"),
+                          Expanded(
+                            child: Slider(
+                              value: characterModel.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
+                              max: characterModel.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
+                              divisions: characterModel.editingEquip?.starForceMod?.possibleStars.toInt() ?? 0,
+                              label: characterModel.editingEquip?.starForceMod?.currentStars.round().toString(),
+                              onChanged: (double newValue) {
+                                context.read<CharacterModel>().updateStarforce(newValue);
+                                context.read<DifferenceCalculator>().compareEditingEquip();
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                      characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink(),
+                      context.read<DifferenceCalculator>().compareEditingEquip(),
                     ],
-                  ),
-                  differenceCalculator.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink(),
-                  differenceText,
-                ],
-              );
-            }
+                  );
+                }
+              ),
+              // Consumer<DifferenceCalculator>(
+              //   builder: (context, differenceCalculator, child) =>  differenceCalculator.equipDifferenceWidget
+              // ),
+            ]
           )
         ),
       ),
     );
   }
-
 }
