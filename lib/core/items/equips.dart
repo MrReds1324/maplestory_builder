@@ -53,6 +53,37 @@ class Equip extends Base {
     starForceMod?.updateStarforce(newStarValue);
   }
 
+  Map<StatType, num> calculateStats() {
+    return <StatType, num>{
+      StatType.attackSpeed: attackSpeed,
+      StatType.str: str + (starForceMod?.str ?? 0),
+      StatType.dex: dex + (starForceMod?.dex ?? 0),
+      StatType.int: this.int + (starForceMod?.int ?? 0),
+      StatType.luk: luk + (starForceMod?.luk ?? 0),
+      StatType.hp: hp + (starForceMod?.hp ?? 0),
+      StatType.mp: mp + (starForceMod?.mp ?? 0),
+      StatType.attack: attackPower + (starForceMod?.attackPower ?? 0),
+      StatType.mattack: mattack + (starForceMod?.mattack ?? 0),
+      StatType.defense: defense + (starForceMod?.defense ?? 0),
+      StatType.starForce: starForceMod?.currentStars ?? 0,
+      StatType.ignoreDefense: ignoreDefense,
+      StatType.speed: speed + (starForceMod?.speed ?? 0),
+      StatType.jump: jump + (starForceMod?.jump ?? 0),
+      StatType.bossDamage: bossDamage,
+      StatType.damage: damage,
+      StatType.damageNormalMobs: damageNormalMobs,
+      StatType.ignoreElementalDefense: ignoreElementalDefense,
+      StatType.finalStr: finalStr,
+      StatType.finalDex: finalDex,
+      StatType.finalInt: finalInt,
+      StatType.finalLuk: finalLuk,
+      StatType.finalHp: finalHp,
+      StatType.finalMp: finalMp,
+      StatType.finalAttack: finalAttack,
+      StatType.finalMAttack: finalMAttack,
+    };
+  }
+
   Equip copyWith({
     String? name,
     EquipType? equipType,
@@ -128,6 +159,7 @@ class Equip extends Base {
           __createTextLine(context, StatType.starForce),
           Text(name, style: Theme.of(context).textTheme.headlineSmall),
           __createTextLine(context, StatType.level),
+          __createTextLine(context, StatType.attackSpeed),
           __createTextLine(context, StatType.str),
           __createTextLine(context, StatType.dex),
           __createTextLine(context, StatType.int),
@@ -137,8 +169,22 @@ class Equip extends Base {
           __createTextLine(context, StatType.attack),
           __createTextLine(context, StatType.mattack),
           __createTextLine(context, StatType.defense),
+          __createTextLine(context, StatType.bossDamage),
+          __createTextLine(context, StatType.speed),
+          __createTextLine(context, StatType.jump),
           __createTextLine(context, StatType.ignoreDefense),
+          __createTextLine(context, StatType.damage),
           __createTextLine(context, StatType.allStatsPercentage),
+          __createTextLine(context, StatType.damageNormalMobs),
+          __createTextLine(context, StatType.ignoreElementalDefense),
+          __createTextLine(context, StatType.finalStr),
+          __createTextLine(context, StatType.finalDex),
+          __createTextLine(context, StatType.finalInt),
+          __createTextLine(context, StatType.finalLuk),
+          __createTextLine(context, StatType.finalHp),
+          __createTextLine(context, StatType.finalMp),
+          __createTextLine(context, StatType.finalAttack),
+          __createTextLine(context, StatType.finalMAttack),
         ],
       )
     );
