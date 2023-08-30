@@ -93,7 +93,6 @@ class CharacterModel with ChangeNotifier {
 
   Equip? editingEquip = Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1);
   // Equip? editingEquip;
-  List<Equip> unequippedEquips = <Equip>[];
 
   void updateStarforce(num newStarValue) {
     editingEquip?.starForceMod?.updateStarforce(newStarValue);
