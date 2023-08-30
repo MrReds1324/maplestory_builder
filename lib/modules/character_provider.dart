@@ -93,6 +93,7 @@ class CharacterModel with ChangeNotifier {
 
   Equip? editingEquip = Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1);
   // Equip? editingEquip;
+  List<Equip> unequippedEquips = <Equip>[];
 
   void updateStarforce(num newStarValue) {
     editingEquip?.starForceMod?.updateStarforce(newStarValue);
@@ -105,8 +106,6 @@ class CharacterModel with ChangeNotifier {
     characterLevel = selectedLevel;
     notifyListeners();
   }
-
-  List<Equip> unequippedEquips = <Equip>[];
 
   void addApToStat(int apAmount, StatType statType) {
     apStatsModule.addApToStat(apAmount, statType);
@@ -127,16 +126,115 @@ class CharacterModel with ChangeNotifier {
   }
 
   void calculateEverything(){
-    updatePureStats(apStatsModule.calculateStats());
+    totalStarForce = 0;
+    totalAttackSpeed = 0;
+    totalSpeed = 1;
+    totalJump = 1;
+    totalBossDamage = 0;
+    totalElementalIgnoreDefense = 0;
+    totalDamage = 0;
+    totalDamageNormalMobs = 0;
+    totalFinalDamage = 0;
+    flatHp = 0;
+    flatMP = 0;
+    flatStr = 0;
+    flatDex = 0;
+    flatInt = 0;
+    flatLuk = 0;
+    flatAttack = 0;
+    flatMAttack = 0;
+
+    num tempStr = 0;
+    num tempDex = 0;
+    num tempInt = 0;
+    num tempLuk = 0;
+    num tempHp = 0;
+    num tempMp = 0;
+    num tempDefense = 0;
+    num tempAttack = 0;
+    num tempMattack = 0;
+    num tempIgnoreDefense = 0;
     
-    totalHp = pureHp * (1 + hpPercentage) + flatHp;
-    totalMp = pureMP * (1 + mpPercentage) + flatMP;
-    totalStr = pureStr * (1 + strPercentage) + flatStr;
-    totalDex = pureDex * (1 + dexPercentage) + flatDex;
-    totalInt = pureInt * (1 + intPercentage) + flatInt;
-    totalLuk = pureLuk * (1 + lukPercentage) + flatLuk;
-    totalAttack = attack * (1 + attackPercentage) + flatAttack;
-    totalMAttack = mattack * (1 + mattackPercentage) + flatMAttack;
+
+    void updateTempStats(Map<StatType, num> stats) {
+      for(MapEntry<StatType, num> entry in stats.entries) {
+        switch(entry.key) {
+          case StatType.hp:
+            tempHp += entry.value;
+          case StatType.mp:
+            tempMp += entry.value;
+          case StatType.str:
+            tempStr += entry.value;
+          case StatType.dex:
+            tempDex += entry.value;
+          case StatType.int:
+            tempInt += entry.value;
+          case StatType.luk:
+            tempLuk += entry.value;
+          case StatType.attack:
+            tempAttack += entry.value;
+          case StatType.mattack:
+            tempMattack += entry.value;
+          case StatType.starForce:
+            totalStarForce += entry.value.toInt();
+          case StatType.defense:
+            tempDefense += entry.value;
+          case StatType.ignoreDefense:
+            tempIgnoreDefense = entry.value;
+          case StatType.speed:
+            totalSpeed += (entry.value / 100);
+          case StatType.jump:
+            totalJump += (entry.value / 100);
+          case StatType.bossDamage:
+            totalBossDamage += entry.value;
+          case StatType.ignoreElementalDefense:
+            totalBossDamage += entry.value;
+          case StatType.damage:
+            totalDamage += entry.value;
+          case StatType.damageNormalMobs:
+            totalDamageNormalMobs += entry.value;
+          case StatType.finalDamage:
+            totalFinalDamage *= entry.value;
+          case StatType.finalHp:
+            flatHp += entry.value;
+          case StatType.finalMp:
+            flatMP += entry.value;
+          case StatType.finalStr:
+            flatStr += entry.value;
+          case StatType.finalDex:
+            flatDex += entry.value;
+          case StatType.finalInt:
+            flatInt += entry.value;
+          case StatType.finalLuk:
+            flatLuk += entry.value;
+          case StatType.finalAttack:
+            flatAttack += entry.value;
+          case StatType.finalMAttack:
+            flatMAttack += entry.value;
+          case StatType.attackSpeed:
+            totalAttackSpeed += entry.value.toInt();
+          default:
+            throw Exception("Unhandled StatType for returned Stats: ${entry.key}");
+        }
+      }
+    }
+
+    updatePureStats(apStatsModule.calculateStats());
+    for (Map<StatType, num> equipStats in equipModule.calculateStats()){
+      updateTempStats(equipStats);
+    }
+    
+    
+    totalHp = (pureHp + tempHp) * (1 + hpPercentage) + flatHp;
+    totalMp = (pureMP + tempMp) * (1 + mpPercentage) + flatMP;
+    totalStr = (pureStr + tempStr) * (1 + strPercentage) + flatStr;
+    totalDex = (pureDex + tempDex) * (1 + dexPercentage) + flatDex;
+    totalInt = (pureInt + tempInt) * (1 + intPercentage) + flatInt;
+    totalLuk = (pureLuk + tempLuk) * (1 + lukPercentage) + flatLuk;
+    totalAttack = (attack + tempAttack) * (1 + attackPercentage) + flatAttack;
+    totalMAttack = (mattack + tempMattack) * (1 + mattackPercentage) + flatMAttack;
+    totalDefense = tempDefense.toDouble();
+    totalIgnoreDefense = tempIgnoreDefense.toDouble();
 
     var statValue = ((4 * totalDex) + totalStr);
     var upperRange = weaponMultiplier * statValue * (totalAttack) * (1 + totalFinalDamage);
