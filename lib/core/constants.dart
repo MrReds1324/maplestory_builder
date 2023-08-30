@@ -58,6 +58,7 @@ enum StatType {
   critDamage,
   critRate,
   damage,
+  damageNormalMobs,
   defense,
   dex,
   exp,

@@ -17,6 +17,7 @@ class Base {
   double damage = 0.0;
   double bossDamage = 0.0;
   double damageNormalMobs = 0.0;
+  num attackSpeed = 0;
   // https://strategywiki.org/wiki/MapleStory/Formulas#Final_Stats_Increase
   // Only the following actually give "final" stats
   // Hyper Stats (STR, DEX, INT, LUK only)
@@ -62,6 +63,7 @@ class Base {
     this.bossDamage = 0.0,
     this.damage = 0.0,
     this.damageNormalMobs = 0.0,
+    this.attackSpeed = 0,
     this.ignoreElementalDefense = 0.0,
     this.finalStr = 0,
     this.finalDex = 0,
