@@ -668,7 +668,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.bossDamage:
       return Selector<CharacterModel, double>(
-        selector: (_, character) => character.totalBossDmanage,
+        selector: (_, character) => character.totalBossDamage,
         builder: (context, totalBossDmanage, child) {
           return Text(doubleRoundPercentFormater.format(totalBossDmanage));
         }

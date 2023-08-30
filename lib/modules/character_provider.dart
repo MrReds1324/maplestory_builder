@@ -31,7 +31,8 @@ class CharacterModel with ChangeNotifier {
   double totalInt = 4;
   double totalLuk = 4;
   double totalDamage = 0.10;
-  double totalBossDmanage = 0.20;
+  double totalDamageNormalMobs = 0;
+  double totalBossDamage = 0.20;
   double totalFinalDamage = 0.30;
   double totalMastery = 0.8;
   double totalBuffDuration = 0.1;
@@ -140,7 +141,7 @@ class CharacterModel with ChangeNotifier {
     var statValue = ((4 * totalDex) + totalStr);
     var upperRange = weaponMultiplier * statValue * (totalAttack) * (1 + totalFinalDamage);
     upperDamageRange =  upperRange * (1 + totalDamage);
-    upperBossDamangeRange =  upperRange * (1 + totalDamage + totalBossDmanage);
+    upperBossDamangeRange =  upperRange * (1 + totalDamage + totalBossDamage);
   }
 
   void updatePureStats(Map<StatType, num> apStats) {
