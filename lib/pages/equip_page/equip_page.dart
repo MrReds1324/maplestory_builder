@@ -234,7 +234,7 @@ class EquippedItemSelector extends StatelessWidget {
     return dropdownItems;
   }
 
-  Equip? getSelectorEquip(EquipModule equipModule, EquipType equipType, int equipPosition) {
+  Equip? getSelectedEquip(EquipModule equipModule, EquipType equipType, int equipPosition) {
     switch(equipType) {
       case EquipType.totem:
         if (equipPosition == 1) {
@@ -320,16 +320,15 @@ class EquippedItemSelector extends StatelessWidget {
             width: 75,
             child: Text("${equipType.name.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
           ),
-          Selector<CharacterModel, Equip?>(
-            selector: (_, character) => getSelectorEquip(character.equipModule, equipType, equipPosition),
-            builder: (context, equip, child) {
+          Consumer<CharacterModel>(
+            builder: (context, characterModel, child) {
               return SizedBox(
                 width: 225,
                 child: DropdownButton(
                   alignment: AlignmentDirectional.center,
                   isDense: true,
                   isExpanded: true,
-                  value: equip,
+                  value: getSelectedEquip(characterModel.equipModule, equipType, equipPosition),
                   onChanged: (newValue) {
                     var character = context.read<CharacterModel>();
                     character.equipEquip(newValue, equipType, equipPosition: equipPosition);
@@ -388,9 +387,8 @@ class InventoryItems extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium
             ),
           ),
-          Selector<CharacterModel, List<Equip>>(
-            selector: (_, character) => character.equipModule.allEquips,
-            builder: (context, allEquips, child) {
+          Consumer<CharacterModel>(
+            builder: (context, characterModel, child) {
               return Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -398,14 +396,27 @@ class InventoryItems extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(10))
                   ),
                   child: ListView.builder(
-                    itemCount: allEquips.length,
+                    itemCount: characterModel.equipModule.allEquips.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return MapleTooltip(
                         maxWidth: 310,
-                        tooltipWidgets: [allEquips[index].createEquipContainer(context)],
+                        tooltipWidgets: [characterModel.equipModule.allEquips[index].createEquipContainer(context)],
                         child: ListTile(
-                          title: Text(allEquips[index].name),
+                          title: Row(
+                            children: [
+                              Text(characterModel.equipModule.allEquips[index].name),
+                              const Spacer(),
+                              TextButton(
+                                onPressed: () => characterModel.deleteEquip(characterModel.equipModule.allEquips[index]), 
+                                child: const Text("Delete")
+                              ),
+                              TextButton(
+                                onPressed: () => context.read<CharacterModel>().addEditingEquip(characterModel.equipModule.allEquips[index]), 
+                                child: const Text("Edit")
+                              ),
+                            ]
+                          ),
                         ),
                       );
                     },
@@ -564,7 +575,16 @@ class _SearchableItemListState extends State<SearchableItemList> {
                     maxWidth: 310,
                     tooltipWidgets: [items[index].createEquipContainer(context)],
                     child: ListTile(
-                      title: Text(items[index].name),
+                      title: Row(
+                        children: [
+                          Text(items[index].name),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () => context.read<CharacterModel>().addEditingEquip(items[index]), 
+                            child: const Text("Edit")
+                          )
+                        ]
+                      ),
                     ),
                   );
                 },
@@ -628,36 +648,52 @@ class EquipBuilder extends StatelessWidget {
           ),
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () => context.read<CharacterModel>().cancelEquipEditing(),
+                    child: const Text("Cancel")
+                  ),
+                  TextButton(
+                    onPressed: () => context.read<CharacterModel>().saveEditingEquip(), 
+                    child: const Text("Save")
+                  ),
+                ],
+              ),
               Consumer<CharacterModel>(
                 builder: (_, characterModel, __) {
-                  return Column(
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
+                      Column(
                         children: [
-                          const Text("Star Force"),
-                          Expanded(
-                            child: Slider(
-                              value: characterModel.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
-                              max: characterModel.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
-                              divisions: characterModel.editingEquip?.starForceMod?.possibleStars.toInt() ?? 0,
-                              label: characterModel.editingEquip?.starForceMod?.currentStars.round().toString(),
-                              onChanged: (double newValue) {
-                                context.read<CharacterModel>().updateStarforce(newValue);
-                                context.read<DifferenceCalculator>().compareEditingEquip();
-                              },
-                            ),
-                          )
+                          Row(
+                            children: [
+                              const Text("Star Force"),
+                              Slider(
+                                value: characterModel.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
+                                max: characterModel.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
+                                divisions: characterModel.editingEquip?.starForceMod?.possibleStars.toInt() ?? 1,
+                                label: characterModel.editingEquip?.starForceMod?.currentStars.round().toString(),
+                                onChanged: (double newValue) {
+                                  context.read<CharacterModel>().updateStarforce(newValue);
+                                  context.read<DifferenceCalculator>().compareEditingEquip();
+                                },
+                              ),
+                            ],
+                          ),
+                          characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink(),
                         ],
                       ),
-                      characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink(),
-                      context.read<DifferenceCalculator>().compareEditingEquip(),
-                    ],
+                      Expanded(
+                        child: context.read<DifferenceCalculator>().compareEditingEquip(),
+                      ),
+                    ]
                   );
                 }
               ),
-              // Consumer<DifferenceCalculator>(
-              //   builder: (context, differenceCalculator, child) =>  differenceCalculator.equipDifferenceWidget
-              // ),
             ]
           )
         ),
