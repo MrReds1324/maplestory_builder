@@ -256,10 +256,39 @@ class CharacterModel with ChangeNotifier {
 
   // Editing equip logic
   Equip? editingEquip;
+
+  void deleteEquip(Equip deletingEquip) {
+    var didRemoveEquip = equipModule.deleteEquip(deletingEquip);
+    if (didRemoveEquip) {
+      calculateEverything();
+    }
+    notifyListeners();
+  }
+
   void updateStarforce(num newStarValue) {
     editingEquip?.updateStarforce(newStarValue);
     notifyListeners();
   }
+
+  void addEditingEquip(Equip equip) {
+    editingEquip = equip.copyWith();
+    notifyListeners();
+  }
+
+  void cancelEquipEditing() {
+    editingEquip = null;
+    notifyListeners();
+  }
+
+  void saveEditingEquip() {
+    var didUpdateEquipped = equipModule.saveEditingEquip(editingEquip);
+    if (didUpdateEquipped) {
+      calculateEverything();
+    }
+    editingEquip = null;
+    notifyListeners();
+  }
+
   CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule}){
     this.apStatsModule = apStatsModule ?? APStatsModule();
     this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();

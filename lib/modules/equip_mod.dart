@@ -172,6 +172,187 @@ class EquipModule {
         throw Exception("Unhandled EquipType $equipType trying to be equipped");
     }
   }
+  
+  bool _updateEquippedEquip(Equip targetEquip, {bool isRemoving=false}) {
+    bool didUpdateEquipped = false;
+
+    switch(targetEquip.equipType) {
+      case EquipType.totem:
+        if (totem1 == targetEquip) {
+          totem1 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (totem2 == targetEquip) {
+          totem2 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (totem3 == targetEquip) {
+          totem3 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.ring:
+        if (ring1 == targetEquip) {
+          ring1 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (ring2 == targetEquip) {
+          ring2 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (ring3 == targetEquip) {
+          ring3 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (ring4 == targetEquip) {
+          ring4 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.pocket:
+        if (pocketItem == targetEquip) {
+          pocketItem = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.pendant:
+        if (pendant1 == targetEquip) {
+          pendant1 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (pendant2 == targetEquip) {
+          pendant2 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.weapon:
+        if (weapon == targetEquip) {
+          weapon = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.belt:
+        if (belt == targetEquip) {
+          belt = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.hat:
+        if (hat == targetEquip) {
+          hat = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.face:
+        if (face == targetEquip) {
+          face = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.eye:
+        if (eye == targetEquip) {
+          eye = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.overall:
+        if (overall == targetEquip) {
+          overall = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.top:
+        if (top == targetEquip) {
+          top = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.bottom:
+        if (bottom == targetEquip) {
+          bottom = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.shoes:
+        if (shoes == targetEquip) {
+          shoes = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.earrings:
+        if (earrings == targetEquip) {
+          earrings = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.shoulder:
+        if (shoulder == targetEquip) {
+          shoulder = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.gloves:
+        if (gloves == targetEquip) {
+          gloves = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.emblem:
+        if (emblem == targetEquip) {
+          emblem = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.badge:
+        if (badge == targetEquip) {
+          badge = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.medal:
+        if (medal == targetEquip) {
+          medal = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
+        if (secondary == targetEquip) {
+          secondary = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.cape:
+        if (cape == targetEquip) {
+          cape = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.heart:
+        if (heart == targetEquip) {
+          heart = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      default:
+        throw Exception("Unhandled EquipType ${targetEquip.equipType} trying to be updated");
+    }
+
+    return didUpdateEquipped;
+  }
+
+  bool saveEditingEquip(Equip? editingEquip) {
+    bool didUpdateEquipped = false;
+    
+    // Nothing to actually save
+    if (editingEquip == null) {
+      return didUpdateEquipped;
+    }
+    
+    // New equip that cannot be equipped
+    if (editingEquip.equipHash == -1) {
+      editingEquip.equipHash = equipHash;
+      equipHash++;
+      allEquips.add(editingEquip);
+      return didUpdateEquipped;
+    }
+
+    // Repalce the old version of the item with the new one if we updated one already
+    for (var i = 0; i < allEquips.length; i ++) {
+      if (allEquips[i] == editingEquip) {
+        allEquips[i] = editingEquip;
+        break;
+      }
+    }
+
+    didUpdateEquipped = _updateEquippedEquip(editingEquip);
+    return didUpdateEquipped;
+  }
+
+  bool deleteEquip(Equip deletingEquip) {
+    bool didRemoveEquip = _updateEquippedEquip(deletingEquip, isRemoving: true);
+    allEquips.remove(deletingEquip);
+    return didRemoveEquip;
+  }
 
   EquipModule({
     List<Equip>? allEquips,
@@ -206,23 +387,6 @@ class EquipModule {
     this.equipHash = 1,
   }) {
     this.allEquips = allEquips ?? [];
-    this.allEquips = allEquips ?? [
-      Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Warrior Helm", equipType: EquipType.belt, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Cursed Red Spellbook", equipType: EquipType.pocket, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Princess No's Arrowhead", equipType: EquipType.secondary, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Warrior Helm", equipType: EquipType.belt, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Cursed Red Spellbook", equipType: EquipType.pocket, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Princess No's Arrowhead", equipType: EquipType.secondary, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Royal Warrior Helm", equipType: EquipType.belt, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Cursed Red Spellbook", equipType: EquipType.pocket, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-      Equip(name: "Princess No's Arrowhead", equipType: EquipType.secondary, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
-    ];
   }
 
   List<Map<StatType, num>> calculateStats() {
