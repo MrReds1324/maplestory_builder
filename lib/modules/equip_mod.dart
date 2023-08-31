@@ -3,6 +3,9 @@ import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 
 class EquipModule {
+  // This is what we are going to use to set the equips hash value once it is saved here so that when 
+  // rebuilding from json we can ensure the items stay "linked"
+  int equipHash = 1;
   List<Equip> allEquips = <Equip>[];
 
   // Totems
@@ -200,7 +203,9 @@ class EquipModule {
     this.secondary,
     this.cape,
     this.heart,
+    this.equipHash = 1,
   }) {
+    this.allEquips = allEquips ?? [];
     this.allEquips = allEquips ?? [
       Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, str: 40, dex: 40, int: 0, luk: 0),
       Equip(name: "Royal Warrior Helm", equipType: EquipType.hat, classType: ClassType.warrior, str: 40, dex: 40, int: 0, luk: 0),
@@ -291,6 +296,7 @@ class EquipModule {
     Equip? secondary,
     Equip? cape,
     Equip? heart,
+    int? equipHash,
   }) {
     return EquipModule(
       allEquips: allEquips ?? List.from(this.allEquips),
@@ -321,7 +327,8 @@ class EquipModule {
       medal: medal ?? this.medal,
       secondary: secondary ?? this.secondary,
       cape: cape ?? this.cape,
-      heart: heart?? this.heart,
+      heart: heart ?? this.heart,
+      equipHash: equipHash ?? this.equipHash,
     );
   }
 }

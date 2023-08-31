@@ -11,6 +11,7 @@ class Equip extends Base {
   bool canStar = true;
   bool equipped = false;
   StarForceMod? starForceMod;
+  num equipHash = -1;
 
   Equip({
     required super.name,
@@ -44,6 +45,7 @@ class Equip extends Base {
     super.finalAttack = 0,
     super.finalMAttack = 0,
     this.starForceMod,
+    this.equipHash = -1,
   }){
     if (starForceMod != null) {
       starForceMod = starForceMod;
@@ -122,6 +124,7 @@ class Equip extends Base {
     int? finalAttack,
     int? finalMAttack,
     StarForceMod? starForceMod,
+    num? equipHash,
   }) {
     return Equip(
       name: name ?? this.name,
@@ -154,6 +157,7 @@ class Equip extends Base {
       finalAttack: finalAttack ?? this.finalAttack,
       finalMAttack: finalMAttack ?? this.finalMAttack,
       starForceMod: starForceMod ?? this.starForceMod?.copyWith(),
+      equipHash: equipHash ?? this.equipHash,
     );
   }
 
@@ -217,7 +221,7 @@ class Equip extends Base {
             children: <TextSpan>[
               TextSpan(
                 text: "Required Level: $itemLevel",
-                style: const TextStyle(color: equipScrollColor)
+                style: const TextStyle(color: starColor)
               )
             ]
           ),
@@ -299,7 +303,7 @@ class Equip extends Base {
           childrenText.add(
             TextSpan(
               text: " +${isPercentage ? doubleRoundPercentFormater.format(starForceStat) : starForceStat}",
-              style: const TextStyle(color: equipEnhancedColor)
+              style: const TextStyle(color: equipStarColor)
             )
           );
         }
@@ -324,10 +328,31 @@ class Equip extends Base {
       return const SizedBox.shrink();
     }
   }
+
+  @override
+  operator ==(Object other){
+    if (other is Equip){
+      if (identical(this, other)){
+        return true;
+      }
+      else if (other.equipHash == -1 || equipHash == -1) {
+        return false;
+      }
+      else {
+        return other.equipHash == other.equipHash;
+      }
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => equipHash == -1 ? super.hashCode : equipHash.toInt();
 }
+
 
 
 
 final List<Equip> equipList = [
   Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
+  Equip(name: "Sengoku Hakase Badge", equipType: EquipType.badge, itemLevel: 160, str: 10, dex: 10, int: 10, luk: 10, attackPower: 10, mattack: 10),
 ];
