@@ -43,14 +43,21 @@ class Equip extends Base {
     super.finalMp = 0,
     super.finalAttack = 0,
     super.finalMAttack = 0,
+    this.starForceMod,
   }){
-    if (canStar) {
-      starForceMod = StarForceMod(targetEquip: this);
+    if (starForceMod != null) {
+      starForceMod = starForceMod;
+    }
+    else if (canStar) {
+      starForceMod = StarForceMod(possibleStars: getStarforceLimit(itemLevel));
+    }
+    else {
+      starForceMod = null;
     }
   }
 
   void updateStarforce(num newStarValue) {
-    starForceMod?.updateStarforce(newStarValue);
+    starForceMod?.updateStarforce(this, newStarValue);
   }
 
   Map<StatType, num> calculateStats() {
@@ -114,6 +121,7 @@ class Equip extends Base {
     int? finalMp,
     int? finalAttack,
     int? finalMAttack,
+    StarForceMod? starForceMod,
   }) {
     return Equip(
       name: name ?? this.name,
@@ -145,6 +153,7 @@ class Equip extends Base {
       finalMp: finalMp ?? this.finalMp,
       finalAttack: finalAttack ?? this.finalAttack,
       finalMAttack: finalMAttack ?? this.finalMAttack,
+      starForceMod: starForceMod ?? this.starForceMod?.copyWith(),
     );
   }
 

@@ -5,7 +5,6 @@ import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 
 class StarForceMod {
-  Equip targetEquip;
   num possibleStars = 0;
   num currentStars = 0;
 
@@ -22,12 +21,11 @@ class StarForceMod {
   num mattack = 0;
 
   StarForceMod({
-    required this.targetEquip,
-  }){
-    possibleStars = getStarforceLimit(targetEquip.itemLevel);
-  }
+    required this.possibleStars,
+    this.currentStars = 0,
+  });
   
-  void updateStarforce(num newStarValue){
+  void updateStarforce(Equip targetEquip, num newStarValue){
     currentStars = newStarValue.toInt();
 
     void updateStatValue(num statValue){
@@ -116,7 +114,7 @@ class StarForceMod {
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
         updateWepAttValue(_starForceWepAtt[star]![idx], star);
       }
-      else {
+      else if (targetEquip.equipType != EquipType.badge) {
         updateAttValue(gloveAtt + _starForceNonWepAtt[star]![idx]);
       }
     }
@@ -438,10 +436,18 @@ class StarForceMod {
       }
     }
     else {
+      if (_hpCategory.contains(targetEquip.equipType)) {
+        hp = 255;
+      }
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara){
+        mp = 255;
         updateBonusStars(currentStars);
       }
       else {
+        if (targetEquip.equipType == EquipType.shoes) {
+          speed = 18;
+          jump = 18;
+        }
         if (targetEquip.equipType == EquipType.gloves) {
           updateBonusStars(currentStars, gloveAtt: 7);
         } 
@@ -450,33 +456,6 @@ class StarForceMod {
         }
         updateNonWepDefense(currentStars);
       }
-    }
-  }
-
-  // 0~94	5
-  // 95~107	8
-  // 108~117	10
-  // 118~127	15
-  // 128~137	20
-  // 138 and above	25
-  double getStarforceLimit(num itemLevel) {
-    if (itemLevel <= 94) {
-      return 5;
-    }
-    else if (itemLevel <= 107) {
-      return 8;
-    }
-    else if (itemLevel <= 117) {
-      return 10;
-    }
-    else if (itemLevel <= 127) {
-      return 15;
-    }
-    else if (itemLevel <= 137) {
-      return 20;
-    }
-    else {
-      return 25;
     }
   }
 
@@ -543,6 +522,43 @@ class StarForceMod {
       mainAxisAlignment: MainAxisAlignment.center,
         children: [firstColumn, secondColumn],
     );
+  }
+
+  StarForceMod copyWith({
+    num? possibleStars,
+    num? currentStars,
+  }) {
+    return StarForceMod(
+      possibleStars: possibleStars ?? this.possibleStars, 
+      currentStars: currentStars ?? this.currentStars,
+    );
+  }
+}
+
+// 0~94	5
+// 95~107	8
+// 108~117	10
+// 118~127	15
+// 128~137	20
+// 138 and above	25
+double getStarforceLimit(num itemLevel) {
+  if (itemLevel <= 94) {
+    return 5;
+  }
+  else if (itemLevel <= 107) {
+    return 8;
+  }
+  else if (itemLevel <= 117) {
+    return 10;
+  }
+  else if (itemLevel <= 127) {
+    return 15;
+  }
+  else if (itemLevel <= 137) {
+    return 20;
+  }
+  else {
+    return 25;
   }
 }
 
