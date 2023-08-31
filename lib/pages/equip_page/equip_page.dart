@@ -200,7 +200,14 @@ class EquippedItemSelector extends StatelessWidget {
 
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipType equipType) {
     EquipModule equipModule = context.read<CharacterModel>().equipModule;
-    var filteredList = equipModule.allEquips.where((element) => element.equipType == equipType).toList();
+    var filteredList = equipModule.allEquips.where((element) {
+      if (equipType == EquipType.secondary) {
+        return secondaryTypes.contains(element.equipType);
+      }
+      else {
+        return element.equipType == equipType;
+      }
+    }).toList();
     var dropdownItems =  filteredList.map((value) {
       return DropdownMenuItem(
         value: value,

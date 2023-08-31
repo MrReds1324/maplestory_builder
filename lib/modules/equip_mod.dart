@@ -155,6 +155,8 @@ class EquipModule {
         medal?.equipped = false;
         medal = equip;
       case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
         secondary?.equipped = false;
         secondary = equip;
       case EquipType.cape:
