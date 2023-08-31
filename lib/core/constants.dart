@@ -192,10 +192,14 @@ enum CharacterClass {
 
 const statColor = Color.fromARGB(255, 105, 105, 105);
 const apColor = Colors.green;
-const equipEnhancedColor = Color.fromARGB(255, 85, 201, 255);
-const equipFlameColor = Colors.lightGreenAccent;
-const equipScrollColor = Color.fromARGB(255, 241, 241, 48);
-const starColor = Color.fromARGB(255, 255, 201, 51);
+const equipEnhancedColor = Color.fromARGB(255, 102, 255, 255);
+const equipFlameColor = Color.fromARGB(255, 204, 255, 0);
+const equipStarColor = Color.fromARGB(255, 255, 204, 0);
+const equipScrollColor = Color.fromARGB(255, 170, 170, 255);
+const equipReductionColor = Color.fromARGB(255, 255, 0, 102);
+const starColor = Color.fromARGB(255, 255, 212, 1);
 
 const emptyStar = Icon(Icons.star_border, size: 16);
 const filledStar = Icon(Icons.star, size: 16, color: starColor);
+
+const List<EquipType> secondaryTypes = [EquipType.secondary, EquipType.shield, EquipType.katara];
