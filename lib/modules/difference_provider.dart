@@ -9,8 +9,6 @@ class DifferenceCalculator with ChangeNotifier {
   late CharacterModel mainCharacterModel;
   late CharacterModel diffCharacterModel;
   Widget differenceWidget = const SizedBox.shrink();
-  Widget equipDifferenceWidget = const SizedBox.shrink();
-
 
   DifferenceCalculator(CharacterModel characterModel){
     mainCharacterModel = characterModel;
@@ -108,11 +106,293 @@ class DifferenceCalculator with ChangeNotifier {
   }
 
   Widget compareEditingEquip(){
-    var tempEquip = diffCharacterModel.equipModule.hat;
-    diffCharacterModel.equipModule.hat = mainCharacterModel.editingEquip;
-    diffCharacterModel.calculateEverything();
-    var widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
-    diffCharacterModel.equipModule.hat = tempEquip;
+    Equip? tempEquip;
+    Widget widgetReturn = const SizedBox.shrink();
+    switch(mainCharacterModel.editingEquip?.equipType){
+      case EquipType.totem:
+        var widgetChildren = <Widget>[];
+        var hasEquipped = false;
+
+        tempEquip = diffCharacterModel.equipModule.totem1;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.totem1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.totem1 = tempEquip;
+        }
+        else {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.totem1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.totem1 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.totem2;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.totem2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.totem2 = tempEquip;
+        }
+        else if (!hasEquipped) {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.totem2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.totem2 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.totem3;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.totem3 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.totem3 = tempEquip;
+        }
+        else if (!hasEquipped) {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.totem3 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.totem3 = tempEquip;
+        }
+
+        widgetReturn = Column(children: widgetChildren);
+      case EquipType.ring:
+        var widgetChildren = <Widget>[];
+        var hasEquipped = false;
+
+        tempEquip = diffCharacterModel.equipModule.ring1;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.ring1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring1 = tempEquip;
+        }
+        else {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.ring1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring1 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.ring2;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.ring2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring2 = tempEquip;
+        }
+        else if (!hasEquipped) {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.ring2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring2 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.ring3;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.ring3 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring3 = tempEquip;
+        }
+        else if (!hasEquipped) {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.ring3 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring3 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.ring4;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.ring4 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring4 = tempEquip;
+        }
+        else if (!hasEquipped) {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.ring4 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.ring4 = tempEquip;
+        }
+
+        widgetReturn = Column(children: widgetChildren);
+      case EquipType.pocket:
+        tempEquip = diffCharacterModel.equipModule.pocketItem;
+        diffCharacterModel.equipModule.pocketItem = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.pocketItem = tempEquip;
+      case EquipType.pendant:
+        var widgetChildren = <Widget>[];
+        var hasEquipped = false;
+
+        tempEquip = diffCharacterModel.equipModule.pendant1;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.pendant1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pendant1 = tempEquip;
+        }
+        else {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.pendant1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pendant1 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.pendant2;
+        if (tempEquip != null) {
+          diffCharacterModel.equipModule.pendant2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pendant2 = tempEquip;
+        }
+        else if (!hasEquipped) {
+          hasEquipped = true;
+          diffCharacterModel.equipModule.pendant2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pendant2 = tempEquip;
+        }
+
+        widgetReturn = Column(children: widgetChildren);
+      case EquipType.weapon:
+        tempEquip = diffCharacterModel.equipModule.weapon;
+        diffCharacterModel.equipModule.weapon = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.weapon = tempEquip;
+      case EquipType.belt:
+        tempEquip = diffCharacterModel.equipModule.belt;
+        diffCharacterModel.equipModule.belt = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.belt = tempEquip;
+      case EquipType.hat:
+        tempEquip = diffCharacterModel.equipModule.hat;
+        diffCharacterModel.equipModule.hat = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.hat = tempEquip;
+      case EquipType.face:
+        tempEquip = diffCharacterModel.equipModule.face;
+        diffCharacterModel.equipModule.face = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.face = tempEquip;
+      case EquipType.eye:
+        tempEquip = diffCharacterModel.equipModule.eye;
+        diffCharacterModel.equipModule.eye = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.eye = tempEquip;
+      case EquipType.overall:
+        var tempTop = diffCharacterModel.equipModule.top;
+        var tempBot = diffCharacterModel.equipModule.bottom;
+        tempEquip = diffCharacterModel.equipModule.overall;
+        
+        diffCharacterModel.equipModule.overall = mainCharacterModel.editingEquip;
+        diffCharacterModel.equipModule.top = null;
+        diffCharacterModel.equipModule.bottom = null;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.overall = tempEquip;
+        diffCharacterModel.equipModule.top = tempTop;
+        diffCharacterModel.equipModule.bottom = tempBot;
+      case EquipType.top:
+        var tempOverall = diffCharacterModel.equipModule.overall;
+        tempEquip = diffCharacterModel.equipModule.top;
+        
+        diffCharacterModel.equipModule.top = mainCharacterModel.editingEquip;
+        diffCharacterModel.equipModule.overall = null;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.overall = tempOverall;
+        diffCharacterModel.equipModule.top = tempEquip;
+      case EquipType.bottom:
+        var tempOverall = diffCharacterModel.equipModule.overall;
+        tempEquip = diffCharacterModel.equipModule.bottom;
+        
+        diffCharacterModel.equipModule.bottom = mainCharacterModel.editingEquip;
+        diffCharacterModel.equipModule.overall = null;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.overall = tempOverall;
+        diffCharacterModel.equipModule.bottom = tempEquip;
+      case EquipType.shoes:
+        tempEquip = diffCharacterModel.equipModule.shoes;
+        diffCharacterModel.equipModule.shoes = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.shoes = tempEquip;
+      case EquipType.earrings:
+        tempEquip = diffCharacterModel.equipModule.earrings;
+        diffCharacterModel.equipModule.earrings = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.earrings = tempEquip;
+      case EquipType.shoulder:
+        tempEquip = diffCharacterModel.equipModule.shoulder;
+        diffCharacterModel.equipModule.shoulder = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.shoulder = tempEquip;
+      case EquipType.gloves:
+        tempEquip = diffCharacterModel.equipModule.gloves;
+        diffCharacterModel.equipModule.gloves = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.gloves = tempEquip;
+      case EquipType.emblem:
+        tempEquip = diffCharacterModel.equipModule.emblem;
+        diffCharacterModel.equipModule.emblem = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.emblem = tempEquip;
+      case EquipType.badge:
+        tempEquip = diffCharacterModel.equipModule.badge;
+        diffCharacterModel.equipModule.badge = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.badge = tempEquip;
+      case EquipType.medal:
+        tempEquip = diffCharacterModel.equipModule.medal;
+        diffCharacterModel.equipModule.medal = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.medal = tempEquip;
+      case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
+        tempEquip = diffCharacterModel.equipModule.secondary;
+        diffCharacterModel.equipModule.secondary = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.secondary = tempEquip;
+      case EquipType.cape:
+        tempEquip = diffCharacterModel.equipModule.cape;
+        diffCharacterModel.equipModule.cape = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.cape = tempEquip;
+      case EquipType.heart:
+        tempEquip = diffCharacterModel.equipModule.heart;
+        diffCharacterModel.equipModule.heart = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.heart = tempEquip;
+      default:
+        return widgetReturn;
+    }
     return widgetReturn;
   }
 
