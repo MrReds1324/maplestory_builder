@@ -97,27 +97,49 @@ enum StatType {
 }
 
 enum FlameType {
-  str,
-  dex,
-  int,
-  luk,
-  strDex,
-  strInt,
-  strLuk,
-  dexInt,
-  dexLuk,
-  intLuk,
-  attack,
-  mattack,
-  defense,
-  hp,
-  mp,
-  speed,
-  jump,
-  allStats,
-  bossDamage,
-  damage,
-  levelReduction,
+  str(formattedName: "STR"),
+  dex(formattedName: "DEX"),
+  int(formattedName: "INT"),
+  luk(formattedName: "LUK"),
+  strDex(formattedName: "STR & DEX"),
+  strInt(formattedName: "STR & INT"),
+  strLuk(formattedName: "STR & LUK"),
+  dexInt(formattedName: "DEX & INT"),
+  dexLuk(formattedName: "DEX & LUK"),
+  intLuk(formattedName: "INT & LUK"),
+  attack(formattedName: "Attack Power"),
+  mattack(formattedName: "Magic Attack"),
+  defense(formattedName: "Defense"),
+  hp(formattedName: "HP"),
+  mp(formattedName: "MP"),
+  speed(formattedName: "Speed"),
+  jump(formattedName: "Jump"),
+  allStats(formattedName: "All Stats"),
+  bossDamage(formattedName: "Boss Damage"),
+  damage(formattedName: "Damage"),
+  levelReduction(formattedName: "Level Reduction");
+
+  const FlameType({
+    required this.formattedName
+  });
+
+  final String formattedName;
+}
+
+enum FlameTier {
+  tier1(formattedName: "1"),
+  tier2(formattedName: "2"),
+  tier3(formattedName: "3"),
+  tier4(formattedName: "4"),
+  tier5(formattedName: "5"),
+  tier6(formattedName: "6"),
+  tier7(formattedName: "7");
+
+  const FlameTier({
+    required this.formattedName
+  });
+
+  final String formattedName;
 }
 
 enum PotentialLevel {
