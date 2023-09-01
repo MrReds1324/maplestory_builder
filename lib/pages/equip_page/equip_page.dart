@@ -313,35 +313,32 @@ class EquippedItemSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          SizedBox(
-            width: 75,
-            child: Text("${equipType.name.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
-          ),
-          Consumer<CharacterModel>(
-            builder: (context, characterModel, child) {
-              return SizedBox(
-                width: 225,
-                child: DropdownButton(
-                  alignment: AlignmentDirectional.center,
-                  isDense: true,
-                  isExpanded: true,
-                  value: getSelectedEquip(characterModel.equipModule, equipType, equipPosition),
-                  onChanged: (newValue) {
-                    var character = context.read<CharacterModel>();
-                    character.equipEquip(newValue, equipType, equipPosition: equipPosition);
-                  },
-                  items: getDropdownItemList(context, equipType)
-                ),
-              );
-            }
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        SizedBox(
+          width: 75,
+          child: Text("${equipType.name.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
+        ),
+        Consumer<CharacterModel>(
+          builder: (context, characterModel, child) {
+            return SizedBox(
+              width: 225,
+              child: DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedEquip(characterModel.equipModule, equipType, equipPosition),
+                onChanged: (newValue) {
+                  var character = context.read<CharacterModel>();
+                  character.equipEquip(newValue, equipType, equipPosition: equipPosition);
+                },
+                items: getDropdownItemList(context, equipType)
+              ),
+            );
+          }
+        ),
+      ],
     );
   }
 }
