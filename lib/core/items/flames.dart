@@ -1,32 +1,227 @@
-class Flame {
-  FlameLine flameLine1 = FlameLine();
-  FlameLine flameLine2 = FlameLine();
-  FlameLine flameLine3 = FlameLine();
-  FlameLine flameLine4 = FlameLine();
+// ignore_for_file: non_constant_identifier_names
 
-  Flame.oneLine({
-    required this.flameLine1
-  });
+import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/core/constants/flame_stats.dart';
+import 'package:maplestory_builder/core/items/equips.dart';
 
-  Flame.twoLine({
-    required this.flameLine1,
-    required this.flameLine2,
-  });
+class FlameModule {
+  FlameLine? flameLine1;
+  FlameLine? flameLine2;
+  FlameLine? flameLine3;
+  FlameLine? flameLine4;
 
-  Flame.threeLine({
-    required this.flameLine1,
-    required this.flameLine2,
-    required this.flameLine3,
-  });
+  num str = 0;
+  num dex = 0;
+  num int = 0;
+  num luk = 0;
+  num hp = 0;
+  num mp = 0;
+  num speed = 0;
+  num jump = 0;
+  num defense = 0;
+  num attackPower = 0;
+  num mattack = 0;
+  num allStatsPercentage = 0;
+  num bossDamage = 0;
+  num damage = 0;
+  num levelReduction = 0;
 
-  Flame.fourLine({
-    required this.flameLine1,
-    required this.flameLine2,
-    required this.flameLine3,
-    required this.flameLine4,
-  });
+  void updateFlame(Equip targetEquip, num flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}) {
+    str = 0;
+    dex = 0;
+    int = 0;
+    luk = 0;
+    hp = 0;
+    mp = 0;
+    speed = 0;
+    jump = 0;
+    defense = 0;
+    attackPower = 0;
+    mattack = 0;
+    allStatsPercentage = 0;
+    bossDamage = 0;
+    damage = 0;
+    levelReduction = 0;
+    
+    if (isUpdatingTier) {
+      if (flamePosition == 1) {
+        flameLine1?.flameTier = flameTier;
+      }
+      else if (flamePosition == 2) {
+        flameLine2?.flameTier = flameTier;
+      }
+      else if (flamePosition == 3) {
+        flameLine3?.flameTier = flameTier;
+      }
+      else {
+        flameLine4?.flameTier = flameTier;
+      }
+    }
+    else {
+      if (flamePosition == 1) {
+        flameLine1?.flameType = flameType;
+      }
+      else if (flamePosition == 2) {
+        flameLine2?.flameType = flameType;
+      }
+      else if (flamePosition == 3) {
+        flameLine3?.flameType = flameType;
+      }
+      else {
+        flameLine4?.flameType = flameType;
+      }
+    }
+
+    void calculateFlame(FlameLine? flameLine) {
+      if (flameLine == null || flameLine.flameTier == null || flameLine.flameType == null) {
+        return;
+      }
+
+      var flameLevelOffset = getFlameOffset(targetEquip.itemLevel);
+
+      switch(flameLine.flameType) {
+        case FlameType.str:
+          str += singleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.dex:
+          dex += singleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.int:
+          int += singleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.luk:
+          luk += singleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.strDex:
+          var flameStat = doubleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+          str += flameStat;
+          dex += flameStat;
+        case FlameType.strInt:
+          var flameStat = doubleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+          str += flameStat;
+          int += flameStat;
+        case FlameType.strLuk:
+          var flameStat = doubleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+          str += flameStat;
+          luk += flameStat;
+        case FlameType.dexInt:
+          var flameStat = doubleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+          dex += flameStat;
+          int += flameStat;
+        case FlameType.dexLuk:
+          var flameStat = doubleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+          dex += flameStat;
+          luk += flameStat;
+        case FlameType.intLuk:
+          var flameStat = doubleStatFlame[flameLevelOffset][flameLine.flameTier!.index];
+          int += flameStat;
+          luk += flameStat;
+        case FlameType.hp:
+          hp = hpAndMpFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.mp:
+          mp = hpAndMpFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.defense:
+          defense = defenseFlame[flameLevelOffset][flameLine.flameTier!.index];
+        case FlameType.attack:
+          if (targetEquip.equipType == EquipType.weapon) {
+            var tagetCalculation = targetEquip.attackPower;
+            if (tagetCalculation == 0) {
+              tagetCalculation = targetEquip.mattack;
+            }
+
+            if (targetEquip.isFlameAdvantaged) {
+              attackPower = (tagetCalculation * wepAttAdvantagedFlame[flameLevelOffset][flameLine.flameTier!.index]).ceil();
+            }
+            else {
+              attackPower = (tagetCalculation * wepAttFlame[flameLevelOffset][flameLine.flameTier!.index]).ceil();
+            }
+          }
+          else {
+            attackPower = nonWepAttFlame[flameLine.flameTier!.index];
+          }
+        case FlameType.mattack:
+          if (targetEquip.equipType == EquipType.weapon) {
+            var tagetCalculation = targetEquip.mattack;
+            if (tagetCalculation == 0) {
+              tagetCalculation = targetEquip.attackPower;
+            }
+
+            if (targetEquip.isFlameAdvantaged) {
+              mattack = (tagetCalculation * wepAttAdvantagedFlame[flameLevelOffset][flameLine.flameTier!.index]).ceil();
+            }
+            else {
+              mattack = (tagetCalculation * wepAttFlame[flameLevelOffset][flameLine.flameTier!.index]).ceil();
+            }
+          }
+          else {
+            mattack = nonWepAttFlame[flameLine.flameTier!.index];
+          }
+        case FlameType.speed:
+          speed = speedAndJumpFlame[flameLine.flameTier!.index];
+        case FlameType.jump:
+          jump = speedAndJumpFlame[flameLine.flameTier!.index];
+        case FlameType.allStats:
+          allStatsPercentage = allStatsPercentageFlame[flameLine.flameTier!.index];
+        case FlameType.bossDamage:
+          bossDamage = bossDamageFlame[flameLine.flameTier!.index];
+        case FlameType.damage:
+          damage = damageFlame[flameLine.flameTier!.index];
+        case FlameType.levelReduction:
+          levelReduction = levelReductionFlame[flameLine.flameTier!.index];
+        default:
+          return;
+      }
+    }
+
+    calculateFlame(flameLine1);
+    calculateFlame(flameLine2);
+    calculateFlame(flameLine3);
+    calculateFlame(flameLine4);
+  }
+
+  FlameModule({
+    this.flameLine1,
+    this.flameLine2,
+    this.flameLine3,
+    this.flameLine4,
+  }) {
+    flameLine1 = flameLine1 ?? FlameLine();
+    flameLine2 = flameLine2 ?? FlameLine();
+    flameLine3 = flameLine3 ?? FlameLine();
+    flameLine4 = flameLine4 ?? FlameLine();
+  }
+
+  FlameModule copyWith({
+    FlameLine? flameLine1,
+    FlameLine? flameLine2,
+    FlameLine? flameLine3,
+    FlameLine? flameLine4,
+  }) {
+    return FlameModule(
+      flameLine1: flameLine1 ?? this.flameLine1?.copyWith(),
+      flameLine2: flameLine2 ?? this.flameLine2?.copyWith(),
+      flameLine3: flameLine3 ?? this.flameLine3?.copyWith(),
+      flameLine4: flameLine4 ?? this.flameLine4?.copyWith(),
+    );
+  }
+}
+
+int getFlameOffset(num itemLevel) {
+  return (itemLevel / 10).floor();
 }
 
 class FlameLine {
-  
+  FlameType? flameType;
+  FlameTier? flameTier;
+
+  FlameLine({
+    this.flameType,
+    this.flameTier,
+  });
+
+  FlameLine copyWith({
+    FlameType? flameType,
+    FlameTier? flameTier,
+  }) {
+    return FlameLine(
+      flameType: flameType ?? this.flameType,
+      flameTier: flameTier ?? this.flameTier,
+    );
+  }
 }
