@@ -134,6 +134,10 @@ class CharacterModel with ChangeNotifier {
     flatLuk = 0;
     flatAttack = 0;
     flatMAttack = 0;
+    strPercentage = 0;
+    dexPercentage = 0;
+    intPercentage = 0;
+    lukPercentage = 0;
 
     num tempStr = 0;
     num tempDex = 0;
@@ -204,6 +208,11 @@ class CharacterModel with ChangeNotifier {
             flatMAttack += entry.value;
           case StatType.attackSpeed:
             totalAttackSpeed += entry.value.toInt();
+          case StatType.allStatsPercentage:
+            strPercentage += entry.value;
+            dexPercentage += entry.value;
+            intPercentage += entry.value;
+            lukPercentage += entry.value;
           default:
             throw Exception("Unhandled StatType for returned Stats: ${entry.key}");
         }
@@ -257,16 +266,21 @@ class CharacterModel with ChangeNotifier {
   // Editing equip logic
   Equip? editingEquip;
 
+  void updateStarforce(num newStarValue) {
+    editingEquip?.updateStarforce(newStarValue);
+    notifyListeners();
+  }
+
+  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}){
+    editingEquip?.updateFlame(flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
+    notifyListeners();
+  }
+
   void deleteEquip(Equip deletingEquip) {
     var didRemoveEquip = equipModule.deleteEquip(deletingEquip);
     if (didRemoveEquip) {
       calculateEverything();
     }
-    notifyListeners();
-  }
-
-  void updateStarforce(num newStarValue) {
-    editingEquip?.updateStarforce(newStarValue);
     notifyListeners();
   }
 
