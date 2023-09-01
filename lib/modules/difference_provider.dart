@@ -80,9 +80,29 @@ class DifferenceCalculator with ChangeNotifier {
     createText(textList, diffCharacterModel.totalMAttack, mainCharacterModel.totalMAttack, statType: StatType.mattack);
     createText(textList, diffCharacterModel.totalDefense, mainCharacterModel.totalDefense, statType: StatType.defense);
     createText(textList, diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense, isPercentage: true);
+    createText(textList, diffCharacterModel.totalBossDamage, mainCharacterModel.totalBossDamage, statType: StatType.bossDamage, isPercentage: true);
+    createText(textList, diffCharacterModel.totalSpeed, mainCharacterModel.totalSpeed, statType: StatType.speed);
+    createText(textList, diffCharacterModel.totalJump, mainCharacterModel.totalJump, statType: StatType.jump);
+    createText(textList, diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense, isPercentage: true);
+    createText(textList, diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage, isPercentage: true);
+    createText(textList, diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs, isPercentage: true);
+    createText(textList, diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense, isPercentage: true);
+    createText(textList, diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
+    createText(textList, diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
+    createText(textList, diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
+    createText(textList, diffCharacterModel.flatLuk, mainCharacterModel.flatLuk, statType: StatType.finalLuk);
+    createText(textList, diffCharacterModel.flatHp, mainCharacterModel.flatHp, statType: StatType.finalHp);
+    createText(textList, diffCharacterModel.flatMP, mainCharacterModel.flatMP, statType: StatType.finalMp);
+    createText(textList, diffCharacterModel.flatAttack, mainCharacterModel.flatAttack, statType: StatType.finalAttack);
+    createText(textList, diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
 
     if (isEquipEditing) {
-      return Column(children: textList);
+      if (textList.length > 1) {
+        return Column(children: textList);
+      }
+      else {
+        return const SizedBox.shrink();
+      }
     }
     differenceWidget = Column(children: textList);
     notifyListeners();
@@ -393,7 +413,35 @@ class DifferenceCalculator with ChangeNotifier {
       default:
         return widgetReturn;
     }
-    return widgetReturn;
+
+    // This is to ensure that we only return the below decorated box when there is actually something to display
+    if (widgetReturn is SizedBox) {
+      return widgetReturn;
+    }
+    else if (widgetReturn is Column) {
+      bool isAllSizedBox = true;
+      for (var i = 0; i < widgetReturn.children.length; i++){
+        if (widgetReturn.children[i] is! SizedBox) {
+          isAllSizedBox = false;
+          break;
+        }
+      }
+      if (isAllSizedBox) {
+        return const SizedBox.shrink();
+      }
+    }
+
+    return Container(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: statColor),
+          borderRadius: const BorderRadius.all(Radius.circular(10))
+        ),
+        padding: const EdgeInsets.all(5),
+        child: SingleChildScrollView(child: widgetReturn),
+      ),
+    );
   }
 
 }
