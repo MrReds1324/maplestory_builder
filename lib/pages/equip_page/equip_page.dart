@@ -29,10 +29,12 @@ class EquipPage extends StatelessWidget {
           children: [
             EquippedItems(),
             InventoryAndItemListColumn(),
-            EquipBuilder(),
+            Expanded(
+              child: EquipBuilder(),
+            ),
           ],
         ),
-      )
+      ),
     );
   }
 }
@@ -355,13 +357,15 @@ class InventoryAndItemListColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return const SingleChildScrollView(
-      padding: EdgeInsets.only(right: 13),
-      child: Column(
-        children: [
-          InventoryItems(),
-          SearchableItemList(),
-        ],
+    return const SizedBox(
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(right: 13),
+        child: Column(
+          children: [
+            InventoryItems(),
+            SearchableItemList(),
+          ],
+        ),
       ),
     );
   }
@@ -637,15 +641,15 @@ class EquipBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            border: Border.all(color: statColor),
-            borderRadius: BorderRadius.circular(10),
-          ),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          border: Border.all(color: statColor),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Expanded( 
           child: Column(
             children: [
               Row(
@@ -661,42 +665,92 @@ class EquipBuilder extends StatelessWidget {
                   ),
                 ],
               ),
-              Consumer<CharacterModel>(
-                builder: (_, characterModel, __) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              const Text("Star Force"),
-                              Slider(
-                                value: characterModel.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
-                                max: characterModel.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
-                                divisions: characterModel.editingEquip?.starForceMod?.possibleStars.toInt() ?? 1,
-                                label: characterModel.editingEquip?.starForceMod?.currentStars.round().toString(),
-                                onChanged: (double newValue) {
-                                  context.read<CharacterModel>().updateStarforce(newValue);
-                                  context.read<DifferenceCalculator>().compareEditingEquip();
-                                },
-                              ),
-                            ],
-                          ),
-                          characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink(),
-                        ],
-                      ),
-                      Expanded(
-                        child: context.read<DifferenceCalculator>().compareEditingEquip(),
-                      ),
-                    ]
-                  );
-                }
-              ),
+              const _EquipBuilder()
             ]
           )
         ),
+      ),
+    );
+  }
+}
+
+class _EquipBuilder extends StatelessWidget {
+  const _EquipBuilder(
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+    Expanded(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 300,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Text(
+                    "Editing Equip",
+                    style: Theme.of(context).textTheme.headlineMedium
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Text("Star Force"),
+                    Expanded(
+                      child: Consumer<CharacterModel>(
+                        builder: (_, characterModel, __) {
+                          return Slider(
+                            value: characterModel.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
+                            max: characterModel.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
+                            divisions: characterModel.editingEquip?.starForceMod?.possibleStars.toInt() ?? 1,
+                            label: characterModel.editingEquip?.starForceMod?.currentStars.round().toString(),
+                            onChanged: (double newValue) {
+                              context.read<CharacterModel>().updateStarforce(newValue);
+                              context.read<DifferenceCalculator>().compareEditingEquip();
+                            },
+                          );
+                        }
+                      ),
+                    ),
+                  ],
+                ),
+                Consumer<CharacterModel>(
+                  builder: (_, characterModel, __) {
+                    return characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink();
+                  }
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          SingleChildScrollView(
+            padding: const EdgeInsets.only(right: 13),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Text(
+                    "Difference",
+                    style: Theme.of(context).textTheme.headlineMedium
+                  ),
+                ),
+                Consumer<CharacterModel>(
+                  builder: (_, characterModel, __) {
+                    return context.read<DifferenceCalculator>().compareEditingEquip();
+                  }
+                ),
+              ],
+            ),
+          ),
+        ]
       ),
     );
   }

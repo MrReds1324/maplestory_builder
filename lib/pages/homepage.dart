@@ -29,7 +29,6 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         body: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             StatTable(),
             Expanded(
@@ -38,7 +37,7 @@ class MyHomePage extends StatelessWidget {
                   EquipPage(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
