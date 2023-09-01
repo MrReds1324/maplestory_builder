@@ -802,32 +802,32 @@ class _FlameDropdowns extends StatelessWidget {
 
       List<FlameType> filteredList = <FlameType>[];
       // We can only have one of the flame types per equip, filter out any ones already used here
-      FlameType.values.forEach((flameType) { 
+      for(FlameType flameType in FlameType.values) { 
         // Can only get level reduction if there is at one level to reduce
         if (flameType == FlameType.levelReduction && editingEquip.itemLevel == 0) {
-          return;
+          continue;
         }
         // Weapons do not roll speed or jump
         else if ((flameType == FlameType.speed || flameType == FlameType.jump) && editingEquip.equipType == EquipType.weapon) {
-          return;
+          continue;
         }
 
         if (flamePosition != 1 && flameType == editingEquip.flameModule?.flameLine1?.flameType) {
-          return;
+          continue;
         }
         else if (flamePosition != 2 && flameType == editingEquip.flameModule?.flameLine2?.flameType) {
-          return;
+          continue;
         }
         else if (flamePosition != 3 && flameType == editingEquip.flameModule?.flameLine3?.flameType) {
-          return;
+          continue;
         }
         else if (flamePosition != 4 && flameType == editingEquip.flameModule?.flameLine4?.flameType) {
-          return;
+          continue;
         }
         else {
           filteredList.add(flameType);
         }
-      });
+      }
 
       dropdownItems.addAll(
         filteredList.map((value) {
