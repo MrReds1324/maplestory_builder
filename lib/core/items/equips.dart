@@ -229,48 +229,72 @@ class Equip extends Base {
       case StatType.str:
         baseStat = str;
         starForceStat = starForceMod?.str ?? 0;
-        totalStat = str + starForceStat + scrollStat + flameStat;
       case StatType.dex:
         baseStat = dex;
         starForceStat = starForceMod?.dex ?? 0;
-        totalStat = dex + starForceStat + scrollStat + flameStat;
       case StatType.int:
         baseStat = this.int;
         starForceStat = starForceMod?.int ?? 0;
-        totalStat = this.int + starForceStat + scrollStat + flameStat;
       case StatType.luk:
         baseStat = luk;
         starForceStat = starForceMod?.luk ?? 0;
-        totalStat = luk + starForceStat + scrollStat + flameStat;
       case StatType.hp:
         baseStat = hp;
         starForceStat = starForceMod?.hp ?? 0;
-        totalStat = hp + starForceStat + scrollStat + flameStat;
       case StatType.mp:
         baseStat = mp;
         starForceStat = starForceMod?.mp ?? 0;
-        totalStat = mp + starForceStat + scrollStat + flameStat;
       case StatType.attack:
         baseStat = attackPower;
         starForceStat = starForceMod?.attackPower ?? 0;
-        totalStat = attackPower + starForceStat + scrollStat + flameStat;
       case StatType.mattack:
         baseStat = mattack;
         starForceStat = starForceMod?.mattack ?? 0;
-        totalStat = mattack + starForceStat + scrollStat + flameStat;
       case StatType.defense:
         baseStat = defense;
         starForceStat = starForceMod?.defense ?? 0;
-        totalStat = defense + starForceStat + scrollStat + flameStat;
+      case StatType.bossDamage:
+        isPercentage = true;
+        baseStat = bossDamage;
+      case StatType.speed:
+        baseStat = speed;
+      case StatType.jump:
+        baseStat = jump;
       case StatType.ignoreDefense:
         isPercentage = true;
         baseStat = ignoreDefense;
-        totalStat = ignoreDefense;
+      case StatType.damage:
+        isPercentage = true;
+        baseStat = damage;
       case StatType.allStatsPercentage:
         isPercentage = true;
+        baseStat = allStatsPercentage;
+      case StatType.damageNormalMobs:
+        isPercentage = true;
+        baseStat = damageNormalMobs;
+      case StatType.ignoreElementalDefense:
+        isPercentage = true;
+        baseStat = ignoreElementalDefense;
+      case StatType.finalStr:
+        baseStat = finalStr;
+      case StatType.finalDex:
+        baseStat = finalDex;
+      case StatType.finalInt:
+        baseStat = finalInt;
+      case StatType.finalLuk:
+        baseStat = finalLuk;
+      case StatType.finalHp:
+        baseStat = finalHp;
+      case StatType.finalMp:
+        baseStat = finalMp;
+      case StatType.finalAttack:
+        baseStat = finalAttack;
+      case StatType.finalMAttack:
+        baseStat = finalMAttack;
       default:
-        totalStat = 0;
+        baseStat = 0;
     }
+    totalStat = baseStat + starForceStat + scrollStat + flameStat;
     
     if (totalStat > 0){
       List<TextSpan> childrenText = <TextSpan>[];
@@ -355,4 +379,5 @@ class Equip extends Base {
 final List<Equip> equipList = [
   Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
   Equip(name: "Sengoku Hakase Badge", equipType: EquipType.badge, itemLevel: 160, str: 10, dex: 10, int: 10, luk: 10, attackPower: 10, mattack: 10),
+  Equip(name: "Superior Gollux Ring", equipType: EquipType.ring, itemLevel: 150, str: 10, dex: 10, int: 10, luk: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10)
 ];
