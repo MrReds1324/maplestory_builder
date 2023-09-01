@@ -10,7 +10,7 @@ class Equip extends Base {
   final ClassType classType;
   bool canStar = true;
   bool equipped = false;
-  StarForceMod? starForceMod;
+  StarForceModule? starForceModule;
   num equipHash = -1;
 
   Equip({
@@ -44,40 +44,40 @@ class Equip extends Base {
     super.finalMp = 0,
     super.finalAttack = 0,
     super.finalMAttack = 0,
-    this.starForceMod,
+    this.starForceModule,
     this.equipHash = -1,
   }){
-    if (starForceMod != null) {
-      starForceMod = starForceMod;
+    if (starForceModule != null) {
+      starForceModule = starForceModule;
     }
     else if (canStar) {
-      starForceMod = StarForceMod(possibleStars: getStarforceLimit(itemLevel));
+      starForceModule = StarForceModule(possibleStars: getStarforceLimit(itemLevel));
     }
     else {
-      starForceMod = null;
+      starForceModule = null;
     }
   }
 
   void updateStarforce(num newStarValue) {
-    starForceMod?.updateStarforce(this, newStarValue);
+    starForceModule?.updateStarforce(this, newStarValue);
   }
 
   Map<StatType, num> calculateStats() {
     return <StatType, num>{
       StatType.attackSpeed: attackSpeed,
-      StatType.str: str + (starForceMod?.str ?? 0),
-      StatType.dex: dex + (starForceMod?.dex ?? 0),
-      StatType.int: this.int + (starForceMod?.int ?? 0),
-      StatType.luk: luk + (starForceMod?.luk ?? 0),
-      StatType.hp: hp + (starForceMod?.hp ?? 0),
-      StatType.mp: mp + (starForceMod?.mp ?? 0),
-      StatType.attack: attackPower + (starForceMod?.attackPower ?? 0),
-      StatType.mattack: mattack + (starForceMod?.mattack ?? 0),
-      StatType.defense: defense + (starForceMod?.defense ?? 0),
-      StatType.starForce: starForceMod?.currentStars ?? 0,
+      StatType.str: str + (starForceModule?.str ?? 0),
+      StatType.dex: dex + (starForceModule?.dex ?? 0),
+      StatType.int: this.int + (starForceModule?.int ?? 0),
+      StatType.luk: luk + (starForceModule?.luk ?? 0),
+      StatType.hp: hp + (starForceModule?.hp ?? 0),
+      StatType.mp: mp + (starForceModule?.mp ?? 0),
+      StatType.attack: attackPower + (starForceModule?.attackPower ?? 0),
+      StatType.mattack: mattack + (starForceModule?.mattack ?? 0),
+      StatType.defense: defense + (starForceModule?.defense ?? 0),
+      StatType.starForce: starForceModule?.currentStars ?? 0,
       StatType.ignoreDefense: ignoreDefense,
-      StatType.speed: speed + (starForceMod?.speed ?? 0),
-      StatType.jump: jump + (starForceMod?.jump ?? 0),
+      StatType.speed: speed + (starForceModule?.speed ?? 0),
+      StatType.jump: jump + (starForceModule?.jump ?? 0),
       StatType.bossDamage: bossDamage,
       StatType.damage: damage,
       StatType.damageNormalMobs: damageNormalMobs,
@@ -123,7 +123,7 @@ class Equip extends Base {
     int? finalMp,
     int? finalAttack,
     int? finalMAttack,
-    StarForceMod? starForceMod,
+    StarForceModule? starForceModule,
     num? equipHash,
   }) {
     return Equip(
@@ -156,7 +156,7 @@ class Equip extends Base {
       finalMp: finalMp ?? this.finalMp,
       finalAttack: finalAttack ?? this.finalAttack,
       finalMAttack: finalMAttack ?? this.finalMAttack,
-      starForceMod: starForceMod ?? this.starForceMod?.copyWith(),
+      starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
   }
@@ -213,7 +213,7 @@ class Equip extends Base {
 
     switch(statType){
       case StatType.starForce:
-        return starForceMod?.buildStarForceWidget() ?? const SizedBox.shrink();
+        return starForceModule?.buildStarForceWidget() ?? const SizedBox.shrink();
       case StatType.level:
         return RichText(
           text: TextSpan(
@@ -228,31 +228,31 @@ class Equip extends Base {
         );
       case StatType.str:
         baseStat = str;
-        starForceStat = starForceMod?.str ?? 0;
+        starForceStat = starForceModule?.str ?? 0;
       case StatType.dex:
         baseStat = dex;
-        starForceStat = starForceMod?.dex ?? 0;
+        starForceStat = starForceModule?.dex ?? 0;
       case StatType.int:
         baseStat = this.int;
-        starForceStat = starForceMod?.int ?? 0;
+        starForceStat = starForceModule?.int ?? 0;
       case StatType.luk:
         baseStat = luk;
-        starForceStat = starForceMod?.luk ?? 0;
+        starForceStat = starForceModule?.luk ?? 0;
       case StatType.hp:
         baseStat = hp;
-        starForceStat = starForceMod?.hp ?? 0;
+        starForceStat = starForceModule?.hp ?? 0;
       case StatType.mp:
         baseStat = mp;
-        starForceStat = starForceMod?.mp ?? 0;
+        starForceStat = starForceModule?.mp ?? 0;
       case StatType.attack:
         baseStat = attackPower;
-        starForceStat = starForceMod?.attackPower ?? 0;
+        starForceStat = starForceModule?.attackPower ?? 0;
       case StatType.mattack:
         baseStat = mattack;
-        starForceStat = starForceMod?.mattack ?? 0;
+        starForceStat = starForceModule?.mattack ?? 0;
       case StatType.defense:
         baseStat = defense;
-        starForceStat = starForceMod?.defense ?? 0;
+        starForceStat = starForceModule?.defense ?? 0;
       case StatType.bossDamage:
         isPercentage = true;
         baseStat = bossDamage;

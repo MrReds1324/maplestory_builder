@@ -705,10 +705,10 @@ class _EquipBuilder extends StatelessWidget {
                       child: Consumer<CharacterModel>(
                         builder: (_, characterModel, __) {
                           return Slider(
-                            value: characterModel.editingEquip?.starForceMod?.currentStars.toDouble() ?? 0,
-                            max: characterModel.editingEquip?.starForceMod?.possibleStars.toDouble() ?? 0,
-                            divisions: characterModel.editingEquip?.starForceMod?.possibleStars.toInt() ?? 1,
-                            label: characterModel.editingEquip?.starForceMod?.currentStars.round().toString(),
+                            value: characterModel.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
+                            max: characterModel.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
+                            divisions: characterModel.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
+                            label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
                             onChanged: (double newValue) {
                               context.read<CharacterModel>().updateStarforce(newValue);
                               context.read<DifferenceCalculator>().compareEditingEquip();

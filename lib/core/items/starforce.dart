@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 
-class StarForceMod {
+class StarForceModule {
   num possibleStars = 0;
   num currentStars = 0;
 
@@ -20,7 +20,7 @@ class StarForceMod {
   num attackPower = 0;
   num mattack = 0;
 
-  StarForceMod({
+  StarForceModule({
     required this.possibleStars,
     this.currentStars = 0,
   });
@@ -524,11 +524,11 @@ class StarForceMod {
     );
   }
 
-  StarForceMod copyWith({
+  StarForceModule copyWith({
     num? possibleStars,
     num? currentStars,
   }) {
-    return StarForceMod(
+    return StarForceModule(
       possibleStars: possibleStars ?? this.possibleStars, 
       currentStars: currentStars ?? this.currentStars,
     );
