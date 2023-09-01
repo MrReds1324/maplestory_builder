@@ -672,11 +672,8 @@ class EquipBuilder extends StatelessWidget {
 }
 
 class _EquipBuilder extends StatelessWidget {
-  const _EquipBuilder(
-    {
-      super.key
-    }
-  );
+
+  const _EquipBuilder();
 
   @override
   Widget build(BuildContext context) {
@@ -698,27 +695,8 @@ class _EquipBuilder extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
-                Row(
-                  children: [
-                    const Text("Star Force"),
-                    Expanded(
-                      child: Consumer<CharacterModel>(
-                        builder: (_, characterModel, __) {
-                          return Slider(
-                            value: characterModel.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
-                            max: characterModel.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
-                            divisions: characterModel.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
-                            label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
-                            onChanged: (double newValue) {
-                              context.read<CharacterModel>().updateStarforce(newValue);
-                              context.read<DifferenceCalculator>().compareEditingEquip();
-                            },
-                          );
-                        }
-                      ),
-                    ),
-                  ],
-                ),
+                const _FlameSelector(),
+                const _StarForceSlider(),
                 Consumer<CharacterModel>(
                   builder: (_, characterModel, __) {
                     return characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink();
@@ -749,6 +727,232 @@ class _EquipBuilder extends StatelessWidget {
           ),
         ]
       ),
+    );
+  }
+}
+
+class _StarForceSlider extends StatelessWidget {
+
+  const _StarForceSlider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Text("Star Force:"),
+        Expanded(
+          child: Consumer<CharacterModel>(
+            builder: (_, characterModel, __) {
+              return Slider(
+                value: characterModel.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
+                max: characterModel.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
+                divisions: characterModel.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
+                label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
+                onChanged: (double newValue) {
+                  context.read<CharacterModel>().updateStarforce(newValue);
+                  context.read<DifferenceCalculator>().compareEditingEquip();
+                },
+              );
+            }
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _FlameSelector extends StatelessWidget {
+
+  const _FlameSelector();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Text("Flame Selection"),
+        _FlameDropdowns(flamePosition: 1),
+        _FlameDropdowns(flamePosition: 2),
+        _FlameDropdowns(flamePosition: 3),
+        _FlameDropdowns(flamePosition: 4),
+      ],
+    );
+  }
+}
+
+class _FlameDropdowns extends StatelessWidget {
+  final int flamePosition;
+
+  const _FlameDropdowns({
+    required this.flamePosition,
+  });
+
+  List<DropdownMenuItem> getDropdownFlameList(BuildContext context, Equip? editingEquip) {
+    List<DropdownMenuItem<FlameType>> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    if (editingEquip != null && editingEquip.flameModule != null && editingEquip.canFlame) {
+
+      List<FlameType> filteredList = <FlameType>[];
+      // We can only have one of the flame types per equip, filter out any ones already used here
+      FlameType.values.forEach((flameType) { 
+        // Can only get level reduction if there is at one level to reduce
+        if (flameType == FlameType.levelReduction && editingEquip.itemLevel == 0) {
+          return;
+        }
+        // Weapons do not roll speed or jump
+        else if ((flameType == FlameType.speed || flameType == FlameType.jump) && editingEquip.equipType == EquipType.weapon) {
+          return;
+        }
+
+        if (flamePosition != 1 && flameType == editingEquip.flameModule?.flameLine1?.flameType) {
+          return;
+        }
+        else if (flamePosition != 2 && flameType == editingEquip.flameModule?.flameLine2?.flameType) {
+          return;
+        }
+        else if (flamePosition != 3 && flameType == editingEquip.flameModule?.flameLine3?.flameType) {
+          return;
+        }
+        else if (flamePosition != 4 && flameType == editingEquip.flameModule?.flameLine4?.flameType) {
+          return;
+        }
+        else {
+          filteredList.add(flameType);
+        }
+      });
+
+      dropdownItems.addAll(
+        filteredList.map((value) {
+          return DropdownMenuItem(
+            value: value,
+            child: Text(
+              value.formattedName,
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+          );
+        }).toList()
+      );
+    }
+
+    return dropdownItems;
+  }
+
+  List<DropdownMenuItem> getDropdownFlameTierList(BuildContext context, Equip? editingEquip) {
+    List<DropdownMenuItem<FlameTier>> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    if (editingEquip != null && editingEquip.flameModule != null && editingEquip.canFlame) {
+
+      List<FlameTier> filteredList;
+      // If the item is flame advantaged, remove the first two tiers
+      if (editingEquip.isFlameAdvantaged) {
+        filteredList = FlameTier.values.sublist(2);
+      }
+      // Else remove the last two tiers
+      else {
+        filteredList = FlameTier.values.sublist(0, 5);
+      }
+
+      dropdownItems.addAll(
+        filteredList.map((value) {
+          return DropdownMenuItem(
+            value: value,
+            child: Text(
+              value.formattedName,
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+          );
+        }).toList()
+      );
+    }
+
+    return dropdownItems;
+  }
+
+  FlameType? getSelectedFlameType(Equip? editingEquip, int flamePosition){
+    if (flamePosition == 1) {
+      return editingEquip?.flameModule?.flameLine1?.flameType;
+    }
+    if (flamePosition == 2) {
+      return editingEquip?.flameModule?.flameLine2?.flameType;
+    }
+    if (flamePosition == 3) {
+      return editingEquip?.flameModule?.flameLine3?.flameType;
+    }
+    else {
+      return editingEquip?.flameModule?.flameLine4?.flameType;
+    }
+  }
+
+  FlameTier? getSelectedFlameTier(Equip? editingEquip, int flamePosition){
+    if (flamePosition == 1) {
+      return editingEquip?.flameModule?.flameLine1?.flameTier;
+    }
+    if (flamePosition == 2) {
+      return editingEquip?.flameModule?.flameLine2?.flameTier;
+    }
+    if (flamePosition == 3) {
+      return editingEquip?.flameModule?.flameLine3?.flameTier;
+    }
+    else {
+      return editingEquip?.flameModule?.flameLine4?.flameTier;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CharacterModel>(
+      builder: (context, characterModel, child) {
+        return Row(
+          children: [
+            const Text("Flame: "),
+            SizedBox(
+              width: 120,
+              child: DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedFlameType(characterModel.editingEquip, flamePosition),
+                onChanged: (newValue) {
+                  characterModel.updateFlame(flamePosition, flameType: newValue);
+                },
+                items: getDropdownFlameList(context, characterModel.editingEquip)
+              ),
+            ),
+            const Spacer(),
+            const Text("Tier: "),
+            SizedBox(
+              width: 80,
+              child: DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedFlameTier(characterModel.editingEquip, flamePosition),
+                onChanged: (newValue) {
+                  characterModel.updateFlame(flamePosition, flameTier: newValue, isUpdatingTier: true);
+                },
+                items: getDropdownFlameTierList(context, characterModel.editingEquip)
+              ),
+            ),
+          ]
+        );
+      }
     );
   }
 }
