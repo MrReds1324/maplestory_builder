@@ -1,7 +1,6 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/core/constants/starforce_stats.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 
 class StarForceModule {
@@ -25,7 +24,7 @@ class StarForceModule {
     this.currentStars = 0,
   });
   
-  void updateStarforce(Equip targetEquip, num newStarValue){
+  void updateStarforce(Equip targetEquip, num newStarValue) {
     currentStars = newStarValue.toInt();
 
     void updateStatValue(num statValue){
@@ -110,12 +109,12 @@ class StarForceModule {
       else {
         idx = INDEX_250;
       }
-      updateStatValue(40 + _starForceStats[star]![idx]);
+      updateStatValue(40 + starForceStats[star]![idx]);
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        updateWepAttValue(_starForceWepAtt[star]![idx], star);
+        updateWepAttValue(starForceWepAtt[star]![idx], star);
       }
       else if (targetEquip.equipType != EquipType.badge) {
-        updateAttValue(gloveAtt + _starForceNonWepAtt[star]![idx]);
+        updateAttValue(gloveAtt + starForceNonWepAtt[star]![idx]);
       }
     }
 
@@ -131,7 +130,7 @@ class StarForceModule {
     }
     else if (currentStars == 1) {
       updateStatValue(2);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 5;
       }
 
@@ -145,7 +144,7 @@ class StarForceModule {
     }
     else if (currentStars == 2) {
       updateStatValue(4);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 10;
       }
 
@@ -163,7 +162,7 @@ class StarForceModule {
     }
     else if (currentStars == 3) {
       updateStatValue(6);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 15;
       }
 
@@ -181,7 +180,7 @@ class StarForceModule {
     }
     else if (currentStars == 4) {
       updateStatValue(8);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 25;
       }
 
@@ -203,7 +202,7 @@ class StarForceModule {
     else if (currentStars == 5) {
       updateStatValue(10);
 
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 35;
       }
 
@@ -224,7 +223,7 @@ class StarForceModule {
     }
     else if (currentStars == 6) {
       updateStatValue(13);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 50;
       }
       
@@ -245,7 +244,7 @@ class StarForceModule {
     }
     else if (currentStars == 7) {
       updateStatValue(16);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 65;
       }
 
@@ -266,7 +265,7 @@ class StarForceModule {
     }
     else if (currentStars == 8) {
       updateStatValue(29);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 85;
       }
       
@@ -287,7 +286,7 @@ class StarForceModule {
     }
     else if (currentStars == 9) {
       updateStatValue(22);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 105;
       }
 
@@ -308,7 +307,7 @@ class StarForceModule {
     }
     else if (currentStars == 10) {
       updateStatValue(25);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 130;
       }
 
@@ -329,7 +328,7 @@ class StarForceModule {
     }
     else if (currentStars == 11) {
       updateStatValue(28);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 155;
       }
 
@@ -350,7 +349,7 @@ class StarForceModule {
     }
     else if (currentStars == 12) {
       updateStatValue(31);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 180;
       }
 
@@ -371,7 +370,7 @@ class StarForceModule {
     }
     else if (currentStars == 13) {
       updateStatValue(34);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 205;
       }
 
@@ -392,7 +391,7 @@ class StarForceModule {
     }
     else if (currentStars == 14) {
       updateStatValue(37);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 230;
       }
 
@@ -413,7 +412,7 @@ class StarForceModule {
     }
     else if (currentStars == 15) {
       updateStatValue(40);
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 255;
       }
 
@@ -436,7 +435,7 @@ class StarForceModule {
       }
     }
     else {
-      if (_hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipType)) {
         hp = 255;
       }
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara){
@@ -561,69 +560,3 @@ double getStarforceLimit(num itemLevel) {
     return 25;
   }
 }
-
-// Gives us the index into the bonus stats tables
-const INDEX_128 = 0;
-const INDEX_138 = 1;
-const INDEX_150 = 2;
-const INDEX_160 = 3;
-const INDEX_200 = 4;
-const INDEX_250 = 5;
-
-// This tracks the per level bonus stats for starforce over 15 stars, this will be added to the bonus 40 stats from 15 stars
-const _starForceStats = {
-  16: [7, 9, 11, 13, 15, 17],
-  17: [14, 18, 22, 26, 30, 34],
-  18: [21, 27, 33, 39, 45, 51],
-  19: [28, 36, 44, 52, 60, 68],
-  20: [35, 45, 55, 65, 75, 85],
-  21: [35, 54, 66, 78, 90, 102],
-  22: [35, 63, 77, 91, 105, 119],
-  23: [35, 63, 77, 91, 105, 119],
-  24: [35, 63, 77, 91, 105, 119],
-  25: [35, 63, 77, 91, 105, 119],
-};
-// This tracks the per star bonus att and magic att for starforce over 15 stars for non weapon equips
-const _starForceNonWepAtt = {
-  16: [7, 8, 9, 10, 12, 14],
-  17: [15, 17, 19, 21, 25, 29],
-  18: [24, 27, 30, 33, 39, 45],
-  19: [34, 38, 42, 46, 54, 62],
-  20: [45, 50, 55, 60, 70, 80],
-  21: [45, 63, 69, 75, 87, 99],
-  22: [45, 78, 85, 92, 106, 120],
-  23: [45, 95, 103, 111, 127, 143],
-  24: [45, 114, 123, 132, 150, 168],
-  25: [45, 135, 145, 155, 175, 195],
-};
-// This tracks the per star bonus att and magic att for starforce over 15 stars for weapon equips
-const _starForceWepAtt = {
-  16: [6, 7, 8, 9, 13, 0],
-  17: [13, 15, 17, 18, 26, 0],
-  18: [20, 23, 26, 28, 40, 0],
-  19: [28, 32, 36, 39, 54, 0],
-  20: [37, 42, 47, 51, 69, 0],
-  21: [37, 53, 59, 64, 85, 0],
-  22: [37, 65, 72, 78, 102, 0],
-  23: [37, 95, 103, 110, 136, 0],
-  24: [37, 126, 135, 143, 171, 0],
-  25: [37, 158, 168, 177, 207, 0],
-};
-
-// Category A items: Items that will increase Max HP.
-// Hat
-// Top
-// Bottom
-// Overall
-// Cape
-// Ring
-// Pendant
-// Belt
-// Shoulderpad
-// Shield
-// Weapon (including Kataras)
-
-const _hpCategory = <EquipType>[
-  EquipType.hat, EquipType.top, EquipType.bottom, EquipType.overall, EquipType.cape,
-  EquipType.ring, EquipType.pendant, EquipType.belt, EquipType.shoulder, EquipType.shield, EquipType.katara,
-];
