@@ -1,16 +1,23 @@
+// ignore_for_file: avoid_types_as_parameter_names
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/base.dart';
+import 'package:maplestory_builder/core/constants/flame_stats.dart';
+import 'package:maplestory_builder/core/items/flames.dart';
 import 'package:maplestory_builder/core/items/starforce.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
+import 'dart:math';
 
 class Equip extends Base {
   final EquipType equipType;
   final ClassType classType;
   bool canStar = true;
+  bool canFlame = true;
+  bool isFlameAdvantaged = true;
   bool equipped = false;
   StarForceModule? starForceModule;
+  FlameModule? flameModule;
   num equipHash = -1;
 
   Equip({
@@ -18,6 +25,8 @@ class Equip extends Base {
     required this.equipType,
     this.classType = ClassType.all,
     this.canStar = true,
+    this.canFlame = true,
+    this.isFlameAdvantaged = true,
     super.itemLevel = 0,
     super.str = 0,
     super.dex = 0,
@@ -56,28 +65,45 @@ class Equip extends Base {
     else {
       starForceModule = null;
     }
+
+    if (flameModule != null) {
+      flameModule = flameModule;
+    }
+    else if (noFlameCategory.contains(equipType)){
+      flameModule = null;
+    }
+    else if (canFlame) {
+      flameModule = FlameModule();
+    }
+    else {
+      starForceModule = null;
+    }
   }
 
   void updateStarforce(num newStarValue) {
     starForceModule?.updateStarforce(this, newStarValue);
   }
 
+  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}) {
+    flameModule?.updateFlame(this, flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
+  }
+
   Map<StatType, num> calculateStats() {
     return <StatType, num>{
       StatType.attackSpeed: attackSpeed,
-      StatType.str: str + (starForceModule?.str ?? 0),
-      StatType.dex: dex + (starForceModule?.dex ?? 0),
-      StatType.int: this.int + (starForceModule?.int ?? 0),
-      StatType.luk: luk + (starForceModule?.luk ?? 0),
-      StatType.hp: hp + (starForceModule?.hp ?? 0),
-      StatType.mp: mp + (starForceModule?.mp ?? 0),
-      StatType.attack: attackPower + (starForceModule?.attackPower ?? 0),
-      StatType.mattack: mattack + (starForceModule?.mattack ?? 0),
-      StatType.defense: defense + (starForceModule?.defense ?? 0),
+      StatType.str: str + (starForceModule?.str ?? 0) + (flameModule?.str ?? 0),
+      StatType.dex: dex + (starForceModule?.dex ?? 0) + (flameModule?.dex ?? 0),
+      StatType.int: this.int + (starForceModule?.int ?? 0) + (flameModule?.int ?? 0),
+      StatType.luk: luk + (starForceModule?.luk ?? 0) + (flameModule?.luk ?? 0),
+      StatType.hp: hp + (starForceModule?.hp ?? 0) + (flameModule?.hp ?? 0),
+      StatType.mp: mp + (starForceModule?.mp ?? 0) + (flameModule?.mp ?? 0),
+      StatType.attack: attackPower + (starForceModule?.attackPower ?? 0) + (flameModule?.attackPower ?? 0),
+      StatType.mattack: mattack + (starForceModule?.mattack ?? 0) + (flameModule?.mattack ?? 0),
+      StatType.defense: defense + (starForceModule?.defense ?? 0) + (flameModule?.defense ?? 0),
       StatType.starForce: starForceModule?.currentStars ?? 0,
       StatType.ignoreDefense: ignoreDefense,
-      StatType.speed: speed + (starForceModule?.speed ?? 0),
-      StatType.jump: jump + (starForceModule?.jump ?? 0),
+      StatType.speed: speed + (starForceModule?.speed ?? 0) + (flameModule?.speed ?? 0),
+      StatType.jump: jump + (starForceModule?.jump ?? 0) + (flameModule?.jump ?? 0),
       StatType.bossDamage: bossDamage,
       StatType.damage: damage,
       StatType.damageNormalMobs: damageNormalMobs,
@@ -90,6 +116,7 @@ class Equip extends Base {
       StatType.finalMp: finalMp,
       StatType.finalAttack: finalAttack,
       StatType.finalMAttack: finalMAttack,
+      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.allStatsPercentage ?? 0),
     };
   }
 
@@ -97,6 +124,9 @@ class Equip extends Base {
     String? name,
     EquipType? equipType,
     ClassType? classType,
+    bool? canStar,
+    bool? canFlame,
+    bool? isFlameAdvantaged,
     num? itemLevel,
     num? str,
     num? dex,
@@ -130,6 +160,9 @@ class Equip extends Base {
       name: name ?? this.name,
       equipType: equipType ?? this.equipType,
       classType: classType ?? this.classType,
+      canStar: canStar ?? this.canStar,
+      canFlame: canFlame ?? this.canFlame,
+      isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
       itemLevel: itemLevel ?? this.itemLevel,
       str: str ?? this.str,
       dex: dex ?? this.dex,
@@ -215,60 +248,102 @@ class Equip extends Base {
       case StatType.starForce:
         return starForceModule?.buildStarForceWidget() ?? const SizedBox.shrink();
       case StatType.level:
+        List<TextSpan> levelText = [];
+        if ((flameModule?.levelReduction ?? 0) > 0) {
+          levelText.add(
+            TextSpan(
+              text: "Required Level: ${max(itemLevel - (flameModule?.levelReduction ?? 0), 0).toInt()}",
+              style: const TextStyle(color: starColor)
+            )
+          );
+          levelText.add(
+            TextSpan(
+              text: "($itemLevel",
+            )
+          );
+          levelText.add(
+            TextSpan(
+              text: "-${flameModule?.levelReduction.toInt() ?? 0}",
+              style: const TextStyle(color: starColor)
+            )
+          );
+          levelText.add(
+            const TextSpan(
+              text: ")",
+            )
+          );
+        }
+        else {
+          levelText.add(
+            TextSpan(
+              text: "Required Level: $itemLevel",
+              style: const TextStyle(color: starColor)
+            )
+          );
+        }
         return RichText(
           text: TextSpan(
             style: DefaultTextStyle.of(context).style,
-            children: <TextSpan>[
-              TextSpan(
-                text: "Required Level: $itemLevel",
-                style: const TextStyle(color: starColor)
-              )
-            ]
+            children: levelText,
           ),
         );
       case StatType.str:
         baseStat = str;
         starForceStat = starForceModule?.str ?? 0;
+        flameStat = flameModule?.str ?? 0;
       case StatType.dex:
         baseStat = dex;
         starForceStat = starForceModule?.dex ?? 0;
+        flameStat = flameModule?.dex ?? 0;
       case StatType.int:
         baseStat = this.int;
         starForceStat = starForceModule?.int ?? 0;
+        flameStat = flameModule?.int ?? 0;
       case StatType.luk:
         baseStat = luk;
         starForceStat = starForceModule?.luk ?? 0;
+        flameStat = flameModule?.luk ?? 0;
       case StatType.hp:
         baseStat = hp;
         starForceStat = starForceModule?.hp ?? 0;
+        flameStat = flameModule?.hp ?? 0;
       case StatType.mp:
         baseStat = mp;
         starForceStat = starForceModule?.mp ?? 0;
+        flameStat = flameModule?.mp ?? 0;
       case StatType.attack:
         baseStat = attackPower;
         starForceStat = starForceModule?.attackPower ?? 0;
+        flameStat = flameModule?.attackPower ?? 0;
       case StatType.mattack:
         baseStat = mattack;
         starForceStat = starForceModule?.mattack ?? 0;
+        flameStat = flameModule?.mattack ?? 0;
       case StatType.defense:
         baseStat = defense;
         starForceStat = starForceModule?.defense ?? 0;
+        flameStat = flameModule?.defense ?? 0;
       case StatType.bossDamage:
         isPercentage = true;
         baseStat = bossDamage;
+        flameStat = flameModule?.bossDamage ?? 0;
       case StatType.speed:
         baseStat = speed;
+        flameStat = flameModule?.speed ?? 0;
       case StatType.jump:
         baseStat = jump;
+        flameStat = flameModule?.jump ?? 0;
       case StatType.ignoreDefense:
         isPercentage = true;
         baseStat = ignoreDefense;
       case StatType.damage:
         isPercentage = true;
         baseStat = damage;
+        flameStat = flameModule?.damage ?? 0;
       case StatType.allStatsPercentage:
         isPercentage = true;
         baseStat = allStatsPercentage;
+        flameStat = flameModule?.allStatsPercentage ?? 0;
       case StatType.damageNormalMobs:
         isPercentage = true;
         baseStat = damageNormalMobs;
