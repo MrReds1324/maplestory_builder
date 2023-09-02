@@ -377,7 +377,7 @@ class Equip extends Base {
       if (totalStat > baseStat) {
         childrenText.add(
           TextSpan(
-            text: "${formatStatTypeEnumName(statType)}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
+            text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
             style: const TextStyle(color: equipEnhancedColor)
           )
         );
@@ -411,7 +411,7 @@ class Equip extends Base {
       else {
         childrenText.add(
           TextSpan(
-            text: "${formatStatTypeEnumName(statType)}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat}",
+            text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat}",
           )
         );
       }

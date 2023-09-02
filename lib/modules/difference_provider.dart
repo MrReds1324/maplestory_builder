@@ -29,7 +29,7 @@ class DifferenceCalculator with ChangeNotifier {
       Text? text;
       if (statType != null){
         text = Text(
-          '${difference < 0 ? "" : "+"}${isPercentage ? doublePercentFormater.format(difference) : doubleRoundFormater.format(difference)} ${formatStatTypeEnumName(statType)} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
+          '${difference < 0 ? "" : "+"}${isPercentage ? doublePercentFormater.format(difference) : doubleRoundFormater.format(difference)} ${statType.formattedName} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
           style: TextStyle(
             color: difference < 0 ?Colors.redAccent: Colors.greenAccent,
           ),
@@ -37,7 +37,7 @@ class DifferenceCalculator with ChangeNotifier {
       }
       if (rangeType != null) {
         text = Text(
-          '${difference < 0 ? "" : "+"}${rangeFormatter.format(difference)} ${formatRangeTypeEnumName(rangeType)} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
+          '${difference < 0 ? "" : "+"}${rangeFormatter.format(difference)} ${rangeType.formattedName} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
           style: TextStyle(
             color: difference < 0 ?Colors.redAccent: Colors.greenAccent,
           ),

@@ -849,95 +849,19 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
 }
 
 MapleTooltip _getStatTooltip(StatType statType) {
-  var childAndTitle = formatStatTypeEnumName(statType);
-  var tooltipMessage = '';
-  
-  switch(statType) {
-    case StatType.str:
-      tooltipMessage = 'STR increases the attack strength of Warriors and some Pirates';
-    case StatType.dex:
-      tooltipMessage = 'DEX increases the attack strength of Bowmen and some Pirates';
-    case StatType.int:
-      tooltipMessage = 'INT increases the attack strength of Magicians';
-    case StatType.luk:
-      tooltipMessage = 'LUK increases the attack strength of Thieves';
-    case StatType.hp:
-      tooltipMessage = 'HP increases the attack strength of Demon Avenger. Max HP cap is 500,000.';
-    case StatType.mp:
-      tooltipMessage = 'Required for many skills. Max MP cap is 500,000.';
-    case StatType.damage:
-      tooltipMessage = 'The Damage multiplier used to calculate your Damage Range. Determined by the total combined Damage of your skills and equipment. Values that only apply to specific skills are not included in this calculation.';
-    case StatType.bossDamage:
-      tooltipMessage = 'The higher your Boss Damage, the greater your damage against Boss monsters. This value does not affect normal Damage. Determined by the total combined Damage of your skills and equipment. Values that only apply to specific skills are not included in this calculation.';
-    case StatType.finalDamage:
-      tooltipMessage = 'The damage multiplier that increases your total Damage Range. Determined by multiplying the Final Damage of all your skills.';
-    case StatType.buffDuration:
-      tooltipMessage = 'The higher the Buff Duration, the longer buffs will last. Does not apply to certain skills. Determined bt the total combined Buff Duration value of all your skills and equipment. Values that only apply to the duration of specific skills are not included in this calculation.';
-    case StatType.ignoreDefense:
-      tooltipMessage = 'The higher your Ignore Enemy Defense value the better your attacks penetrate enemy defenses. Determined by multiplying the Ignore Defense values of all your skills and equipment. Values that only apply to specific skills are not included in this calculation. Applies up to 100%.';
-    case StatType.itemDropRate:
-      tooltipMessage = 'The higher the Item Drop Rate, the more likely that items will drop from defeated monsters. All values are summed to determin the final value. Item Drop Rates can increase, in total, up to 400%. Consumable Items, with the exception of the Wealth Acquisition Potion, can only increase the value by up to 100%. Item potential can increase the value by up to 200%. Does not apply to certain items. Effects that only apply to specific items is not included in the calculation.';
-    case StatType.critRate:
-      tooltipMessage = 'Your chance of performing a Critical Attack. You can enhance this value with skills or items.';
-    case StatType.mesosObtained:
-      tooltipMessage = 'The higher the Mesos Obtained, the more Mesos monsters drop when defeated. The final value is determined by multiplying the basic obtainable Mesos by any Wealth Acquisition Potion value and Reboot passive value, then by additionally multiplying the sum of the remaining values. Additive values can combine to increase the value by up to 300%. Consumable items, with the exception of the Wealth Acquisition Potion, can only increase the value by up to 100%. Item potential can increase the value by up to 100%.';
-    case StatType.critDamage:
-      tooltipMessage = 'The higher your Critical Damage, the more damage your Critical attacks inflict. This value is added to your base Critical Damage multiplier of 20-50%. This value does not affect normal Damage. You can increase this value with skills or items.';
-    case StatType.attackSpeed:
-      tooltipMessage = 'Displays the current character\'s Attack Speed. Attack Speed +1 is the slowest while +8 is the soft limit and +10 is the hard limit. It increases with the equipped weapon\'s Attack Speed, skills, consumables, and Inner Ability. However Magician jobs are not affected by the weapon\'s Attack Speed, innately starting with +4.';
-    case StatType.attack:
-      tooltipMessage = 'Displays the current character\'s Attack Power. The final value is determined by the Attack Power sum and Attack Power % increase multiplication. However Pipsqueak Luminous (Equilibrium) from Monster Life and the Attack Power increase per level stat from Inner Ability are excluded from the multiplication.';
-    case StatType.mattack:
-      tooltipMessage = 'Displays the current character\'s Magic Attack. The final value is determined by the Magic Attack sum and the Magic Attack % increase multiplication. However Pipsqueak Luminous (Equilibrium) from Monster Life and the Magic Attack increase per level stat from Inner Ability are excluded from the multiplication.';
-    case StatType.statusResistance:
-      tooltipMessage = 'Your Abnormal Status Resistance determines the amout of Abnormal Statuses affect you. Higher values result in shorter durations. You can increase this value with skills or items.';
-    case StatType.knockbackResistance:
-      tooltipMessage = 'Your chance to resist being pushed back by monster attacks. You can increase this value with skills.';
-    case StatType.defense:
-      tooltipMessage = 'The higher your Defense, the less damage you take from enemies. Some enemy attacks can pierce through Defense. Determined by adding the total combined defense of your equipment to your base Defense.';
-    case StatType.starForce:
-      tooltipMessage = 'In Star Force areas, if you have less Star Force than the monsters do, you\'ll deal less damage to them. When you have more Star Force than a monster, you can attack through that monster\'s shield. Can be increased by equipping items with Star Force enhancement. Doubled for Overall equipment.';
-    case StatType.speed:
-      tooltipMessage = 'Your movement speed. Can be increased to a max of 140% normally. Skills and equipment can boost this even further. Can be increased to 190% while riding a mount.';
-    case StatType.arcaneForce:
-      tooltipMessage = 'In Arcane River areas, if you have less Arcane Force than the monsters do, you\'ll deal less damage to them. When you have more Arcane Force than a monster, you can attack through that monster\'s shield. Can be increased by obtaining and enhancing Arcane Symbols, and Hyper Stats.';
-    case StatType.jump:
-      tooltipMessage = 'How you can jump. Can be increased to a max of 123%. Skills and equipment can be used to increase or decrease your Jump.';
-    case StatType.sacredPower:
-      tooltipMessage = 'In Grandis areas, if you have less Sacred Power than the monsters do, you\'ll deal less damage to them. When you have more Sacred Power than a monster, you can attack through that monster\'s shield. Can be increased by obtaining and enhancing Sacred Symbols.';
-    default:
-      throw Exception("MapleTooltip not Implemented for statType $statType");
-  }
-
   return MapleTooltip(
-    tooltipTitle: childAndTitle,
-    tooltipWidgets: [Text(tooltipMessage)],
-    label: childAndTitle,
+    tooltipTitle: statType.formattedName,
+    tooltipWidgets: [Text(statType.description)],
+    label: statType.formattedName,
   );
 }
 
 MapleTooltip _getRangeTooltip(RangeType rangeType) {
-  var childAndTitle = formatRangeTypeEnumName(rangeType);
-  var tooltipMessage = '';
-
-  switch(rangeType) {
-    case RangeType.damageRange:
-      tooltipMessage = 'Your actual damage range, accountig for both Damage and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
-    case RangeType.bossDamageRange:
-      tooltipMessage = 'Your actual damage range against bosses, accountig for Damage, Boss Damage, and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
-    case RangeType.effectiveDamageRange:
-      tooltipMessage = 'Your actual damage range, accountig for Damage, Final Damage, Critical Damage, and Critcal Rate. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
-    case RangeType.effectiveBossDamageRange:
-      tooltipMessage = 'Your actual damage range against bosses, accountig for Damage, Boss Damage, Final Damage, Critical Damage, Critical Rate, Ignore Defense, and Ignore Elemental Resistance. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power.';
-    default:
-      throw Exception("Tooltip not Implemented for rangeType $rangeType");
-  }
-
   return MapleTooltip(
-    tooltipTitle: childAndTitle,
-    tooltipWidgets: [Text(tooltipMessage)],
+    tooltipTitle: rangeType.formattedName,
+    tooltipWidgets: [Text(rangeType.description)],
     child: Text(
-      childAndTitle,
+      rangeType.formattedName,
       textAlign: TextAlign.center,
     ), 
   );
