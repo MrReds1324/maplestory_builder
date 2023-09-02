@@ -90,6 +90,9 @@ class DifferenceCalculator with ChangeNotifier {
     createText(textList, diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage, isPercentage: true);
     createText(textList, diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs, isPercentage: true);
     createText(textList, diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense, isPercentage: true);
+    createText(textList, diffCharacterModel.totalStarForce, mainCharacterModel.totalStarForce, statType: StatType.starForce);
+    createText(textList, diffCharacterModel.totalArcaneForce, mainCharacterModel.totalArcaneForce, statType: StatType.arcaneForce);
+    createText(textList, diffCharacterModel.totalSacredPower, mainCharacterModel.totalSacredPower, statType: StatType.sacredPower);
     createText(textList, diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
     createText(textList, diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
     createText(textList, diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
