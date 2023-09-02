@@ -42,6 +42,14 @@ enum EquipType {
   weapon,
 }
 
+const List<EquipType> secondaryTypes = [
+  EquipType.secondary, EquipType.shield, EquipType.katara
+];
+const List<EquipType> accessoryTypes = [
+  EquipType.earrings, EquipType.eye, EquipType.face, EquipType.pendant, EquipType.belt, EquipType.medal,
+  EquipType.ring, EquipType.shoulder, EquipType.pocket, EquipType.ozRing
+];
+
 enum RangeType {
   damageRange(formattedName: "Damage Range", description: "Your actual damage range, accountig for both Damage and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power."),
   bossDamageRange(formattedName: "Boss Damage Range", description: "Your actual damage range against bosses, accountig for Damage, Boss Damage, and Final Damage. For Wand, Staff, Shining Rod, Fan, Psy-Limiter, or Lucent Guantlet weapons, this is calculated using Magic Attack. For all other weapons, your damage is calculated using Attack Power."),
@@ -239,5 +247,3 @@ const starColor = Color.fromARGB(255, 255, 212, 1);
 
 const emptyStar = Icon(Icons.star_border, size: 16);
 const filledStar = Icon(Icons.star, size: 16, color: starColor);
-
-const List<EquipType> secondaryTypes = [EquipType.secondary, EquipType.shield, EquipType.katara];
