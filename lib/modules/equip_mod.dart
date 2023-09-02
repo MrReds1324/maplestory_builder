@@ -58,116 +58,115 @@ class EquipModule {
   Equip? cape;
   // Heart
   Equip? heart;
+  // Title
+  Equip? title;
+  // Pets and Pet equips
+  Equip? pet1;
+  Equip? pet2;
+  Equip? pet3;
+  Equip? petEquip1;
+  Equip? petEquip2;
+  Equip? petEquip3;
 
   void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
     equip?.equipped = true;
     switch(equipType) {
       case EquipType.totem:
         if (equipPosition == 1) {
-          totem1?.equipped = false;
           totem1 = equip;
         }
         else if (equipPosition == 2) {
-          totem2?.equipped = false;
           totem2 = equip;
         }
         else {
-          totem3?.equipped = false;
           totem3 = equip;
         }
       case EquipType.ring:
         if (equipPosition == 1) {
-          ring1?.equipped = false;
           ring1 = equip;
         }
         else if (equipPosition == 2) {
-          ring2?.equipped = false;
           ring2 = equip;
         }
         else if (equipPosition == 3) {
-          ring3?.equipped = false;
           ring3 = equip;
         }
         else {
-          ring4?.equipped = false;
           ring4 = equip;
         }
       case EquipType.pocket:
-        pocketItem?.equipped = false;
         pocketItem = equip;
       case EquipType.pendant:
         if (equipPosition == 1) {
-          pendant1?.equipped = false;
           pendant1 = equip;
         }
         else {
-          pendant2?.equipped = false;
           pendant2 = equip;
         }
       case EquipType.weapon:
-        weapon?.equipped = false;
         weapon = equip;
       case EquipType.belt:
-        belt?.equipped = false;
         belt = equip;
       case EquipType.hat:
-        hat?.equipped = false;
         hat = equip;
       case EquipType.face:
-        face?.equipped = false;
         face = equip;
       case EquipType.eye:
-        eye?.equipped = false;
         eye = equip;
       case EquipType.overall:
-        overall?.equipped = false;
         overall = equip;
-        top?.equipped = false;
         top = null;
-        bottom?.equipped = false;
         bottom = null;
       case EquipType.top:
-        top?.equipped = false;
         top = equip;
-        overall?.equipped = false;
         overall = null;
       case EquipType.bottom:
-        bottom?.equipped = false;
         bottom = equip;
-        overall?.equipped = false;
         overall = null;
       case EquipType.shoes:
-        shoes?.equipped = false;
         shoes = equip;
       case EquipType.earrings:
-        earrings?.equipped = false;
         earrings = equip;
       case EquipType.shoulder:
-        shoulder?.equipped = false;
         shoulder = equip;
       case EquipType.gloves:
-        gloves?.equipped = false;
         gloves = equip;
       case EquipType.emblem:
-        emblem?.equipped = false;
         emblem = equip;
       case EquipType.badge:
-        badge?.equipped = false;
         badge = equip;
       case EquipType.medal:
-        medal?.equipped = false;
         medal = equip;
       case EquipType.secondary:
       case EquipType.shield:
       case EquipType.katara:
-        secondary?.equipped = false;
         secondary = equip;
       case EquipType.cape:
-        cape?.equipped = false;
         cape = equip;
       case EquipType.heart:
-        heart?.equipped = false;
         heart = equip;
+      case EquipType.title:
+        title = equip;
+      case EquipType.pet:
+        if (equipPosition == 1) {
+          pet1 = equip;
+        }
+        else if (equipPosition == 2) {
+          pet2 = equip;
+        }
+        else {
+          pet3 = equip;
+        }
+      case EquipType.petEquip:
+        if (equipPosition == 1) {
+          petEquip1 = equip;
+        }
+        else if (equipPosition == 2) {
+          petEquip2 = equip;
+        }
+        else {
+          petEquip3 = equip;
+        }
       default:
         throw Exception("Unhandled EquipType $equipType trying to be equipped");
     }
@@ -313,6 +312,37 @@ class EquipModule {
           heart = isRemoving ? null : targetEquip;
           didUpdateEquipped = true;
         }
+      case EquipType.title:
+        if (title == targetEquip) {
+          title = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.pet:
+        if (pet1 == targetEquip) {
+          pet1 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (pet2 == targetEquip) {
+          pet2 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (pet3 == targetEquip) {
+          pet3 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+      case EquipType.petEquip:
+        if (petEquip1 == targetEquip) {
+          petEquip1 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (petEquip2 == targetEquip) {
+          petEquip2 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
+        if (petEquip3 == targetEquip) {
+          petEquip3 = isRemoving ? null : targetEquip;
+          didUpdateEquipped = true;
+        }
       default:
         throw Exception("Unhandled EquipType ${targetEquip.equipType} trying to be updated");
     }
@@ -384,6 +414,13 @@ class EquipModule {
     this.secondary,
     this.cape,
     this.heart,
+    this.title,
+    this.pet1,
+    this.pet2,
+    this.pet3,
+    this.petEquip1,
+    this.petEquip2,
+    this.petEquip3,
     this.equipHash = 1,
   }) {
     this.allEquips = allEquips ?? [];
@@ -426,6 +463,13 @@ class EquipModule {
     addToList(secondary);
     addToList(cape);
     addToList(heart);
+    addToList(title);
+    addToList(pet1);
+    addToList(pet2);
+    addToList(pet3);
+    addToList(petEquip1);
+    addToList(petEquip2);
+    addToList(petEquip3);
 
     return equipStats;
   }
@@ -460,6 +504,13 @@ class EquipModule {
     Equip? secondary,
     Equip? cape,
     Equip? heart,
+    Equip? title,
+    Equip? pet1,
+    Equip? pet2,
+    Equip? pet3,
+    Equip? petEquip1,
+    Equip? petEquip2,
+    Equip? petEquip3,
     int? equipHash,
   }) {
     return EquipModule(
@@ -492,6 +543,13 @@ class EquipModule {
       secondary: secondary ?? this.secondary,
       cape: cape ?? this.cape,
       heart: heart ?? this.heart,
+      title: title ?? this.title,
+      pet1: pet1 ?? this.pet1,
+      pet2: pet2 ?? this.pet2,
+      pet3: pet3 ?? this.pet3,
+      petEquip1: petEquip1 ?? this.petEquip1,
+      petEquip2: petEquip2 ?? this.petEquip2,
+      petEquip3: petEquip3 ?? this.petEquip3,
       equipHash: equipHash ?? this.equipHash,
     );
   }
