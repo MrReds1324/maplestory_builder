@@ -178,6 +178,35 @@ class EquippedItems extends StatelessWidget {
                 EquippedItemSelector(
                   equipType: EquipType.heart,
                 ),
+                // Title
+                EquippedItemSelector(
+                  equipType: EquipType.title,
+                ),
+                // Pets and Pet Equips
+                EquippedItemSelector(
+                  equipType: EquipType.pet,
+                  equipPosition: 1,
+                ),
+                EquippedItemSelector(
+                  equipType: EquipType.pet,
+                  equipPosition: 2,
+                ),
+                EquippedItemSelector(
+                  equipType: EquipType.pet,
+                  equipPosition: 3,
+                ),
+                EquippedItemSelector(
+                  equipType: EquipType.petEquip,
+                  equipPosition: 1,
+                ),
+                EquippedItemSelector(
+                  equipType: EquipType.petEquip,
+                  equipPosition: 2,
+                ),
+                EquippedItemSelector(
+                  equipType: EquipType.petEquip,
+                  equipPosition: 3,
+                ),
               ],
             ),
           ),
@@ -306,6 +335,28 @@ class EquippedItemSelector extends StatelessWidget {
         return equipModule.cape;
       case EquipType.heart:
         return equipModule.heart;
+      case EquipType.title:
+        return equipModule.title;
+      case EquipType.pet:
+        if (equipPosition == 1) {
+          return equipModule.pet1;
+        }
+        else if (equipPosition == 2) {
+          return equipModule.pet2;
+        }
+        else {
+          return equipModule.pet3;
+        }
+      case EquipType.petEquip:
+        if (equipPosition == 1) {
+          return equipModule.petEquip1;
+        }
+        else if (equipPosition == 2) {
+          return equipModule.petEquip2;
+        }
+        else {
+          return equipModule.petEquip3;
+        }
       default:
         throw Exception("Unhandled EquipType $equipType trying to be equipped");
     }
@@ -318,7 +369,7 @@ class EquippedItemSelector extends StatelessWidget {
       children: [
         SizedBox(
           width: 75,
-          child: Text("${equipType.name.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
+          child: Text("${equipType.formattedName.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
         ),
         Consumer<CharacterModel>(
           builder: (context, characterModel, child) {
@@ -524,7 +575,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                     menuItems: EquipType.values.map((equipType) {
                       return DropdownMenuItem(
                         value: equipType,
-                        child: Text(equipType.name.toUpperCase()),
+                        child: Text(equipType.formattedName),
                       );
                     }).toList(),
                   ),
@@ -537,7 +588,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                     menuItems: ClassType.values.map((classType) {
                       return DropdownMenuItem(
                         value: classType,
-                        child: Text(classType.name.toUpperCase()),
+                        child: Text(classType.formattedName),
                       );
                     }).toList(),
                   )
