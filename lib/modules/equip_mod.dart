@@ -69,7 +69,6 @@ class EquipModule {
   Equip? petEquip3;
 
   void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
-    equip?.equipped = true;
     switch(equipType) {
       case EquipType.totem:
         if (equipPosition == 1) {

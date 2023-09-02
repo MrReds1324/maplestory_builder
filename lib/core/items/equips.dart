@@ -15,7 +15,6 @@ class Equip extends Base {
   bool canStar = true;
   bool canFlame = true;
   bool isFlameAdvantaged = true;
-  bool equipped = false;
   StarForceModule? starForceModule;
   FlameModule? flameModule;
   num equipHash = -1;
