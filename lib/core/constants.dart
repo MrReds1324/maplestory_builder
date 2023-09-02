@@ -14,32 +14,41 @@ const double dropRateuseCap = 1.00;
 const double dropRateCap = 4.00;
 
 enum EquipType {
-  all,
-  badge,
-  belt,
-  bottom,
-  cape,
-  earrings,
-  emblem,
-  eye,
-  face,
-  gloves,
-  hat,
-  heart,
-  medal,
-  overall,
-  pendant,
-  pocket,
-  ring,
-  secondary,
-  shield,
-  katara,
-  shoes,
-  shoulder,
-  title,
-  top,
-  totem,
-  weapon,
+  all(formattedName: "All"),
+  badge(formattedName: "Badge"),
+  belt(formattedName: "Belt"),
+  bottom(formattedName: "Bottom"),
+  cape(formattedName: "Cape"),
+  earrings(formattedName: "Earrings"),
+  emblem(formattedName: "Emblem"),
+  eye(formattedName: "Eye"),
+  face(formattedName: "Face"),
+  gloves(formattedName: "Gloves"),
+  hat(formattedName: "Hat"),
+  heart(formattedName: "Heart"),
+  medal(formattedName: "Medal"),
+  overall(formattedName: "Overall"),
+  pendant(formattedName: "Pendant"),
+  pocket(formattedName: "Pocket"),
+  ring(formattedName: "Ring"),
+  secondary(formattedName: "Secondary"),
+  shield(formattedName: "Shield"),
+  katara(formattedName: "Katara"),
+  shoes(formattedName: "Shoes"),
+  shoulder(formattedName: "Shoulder"),
+  title(formattedName: "Title"),
+  top(formattedName: "Top"),
+  totem(formattedName: "Totem"),
+  weapon(formattedName: "Weapon"),
+  pet(formattedName: "Pet"),
+  ozRing(formattedName: "Oz Ring"),
+  petEquip(formattedName: "Pet Equip");
+
+  const EquipType({
+    required this.formattedName
+  });
+
+  final String formattedName;
 }
 
 const List<EquipType> secondaryTypes = [
@@ -166,20 +175,34 @@ enum FlameTier {
   final String formattedName;
 }
 
-enum PotentialLevel {
-  rare,
-  epic,
-  unique,
-  legendary,
+enum PotentialTier {
+  rare(formattedName: "Rare", short: "R"),
+  epic(formattedName: "Epic", short: "E"),
+  unique(formattedName: "Unique", short: "U"),
+  legendary(formattedName: "Legendary", short: "L");
+
+  const PotentialTier({
+    required this.formattedName,
+    required this.short
+  });
+
+  final String formattedName;
+  final String short;
 }
 
 enum ClassType {
-  all,
-  warrior,
-  magician,
-  bowman,
-  thief,
-  pirate,
+  all(formattedName: "All"),
+  warrior(formattedName: "Warrior"),
+  magician(formattedName: "Magician"),
+  bowman(formattedName: "Bowman"),
+  thief(formattedName: "Thief"),
+  pirate(formattedName: "Pirate");
+
+  const ClassType({
+    required this.formattedName
+  });
+
+  final String formattedName;
 }
 
 enum CharacterClass {
