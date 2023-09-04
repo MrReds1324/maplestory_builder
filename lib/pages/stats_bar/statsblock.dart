@@ -775,10 +775,10 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.speed:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterModel, int>(
         selector: (_, character) => character.totalSpeed,
         builder: (context, totalSpeed, child) {
-          return Text(doubleRoundPercentFormater.format(totalSpeed));
+          return Text("$totalSpeed%");
         }
       );
     case StatType.arcaneForce:
@@ -789,10 +789,10 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.jump:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterModel, int>(
         selector: (_, character) => character.totalJump,
         builder: (context, totalJump, child) {
-          return Text(doubleRoundPercentFormater.format(totalJump));
+          return Text("$totalJump%");
         }
       );
     case StatType.sacredPower:

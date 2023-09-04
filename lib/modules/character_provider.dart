@@ -4,6 +4,7 @@ import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
 import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
+import 'dart:math';
 
 class CharacterModel with ChangeNotifier {
   String characterName = '';
@@ -49,9 +50,9 @@ class CharacterModel with ChangeNotifier {
   double totalKnockbackResistance = 1.00;
   double totalDefense = 60000;
   int totalStarForce = 600;
-  double totalSpeed = 1.4;
+  int totalSpeed = 100;
   int totalArcaneForce = 100;
-  double totalJump = 1.4;
+  int totalJump = 100;
   int totalSacredPower = 500;
   // Weapon Multiplier will change depending on equipped weapon, default (no weapon) is 1.4 
   double weaponMultiplier = 1.4;
@@ -119,8 +120,8 @@ class CharacterModel with ChangeNotifier {
   void calculateEverything(){
     totalStarForce = 0;
     totalAttackSpeed = 0;
-    totalSpeed = 1;
-    totalJump = 1;
+    totalSpeed = 100;
+    totalJump = 100;
     totalBossDamage = 0;
     totalElementalIgnoreDefense = 0;
     totalDamage = 0;
@@ -177,9 +178,9 @@ class CharacterModel with ChangeNotifier {
           case StatType.ignoreDefense:
             tempIgnoreDefense = entry.value;
           case StatType.speed:
-            totalSpeed += (entry.value / 100);
+            totalSpeed += entry.value.toInt();
           case StatType.jump:
-            totalJump += (entry.value / 100);
+            totalJump += entry.value.toInt();
           case StatType.bossDamage:
             totalBossDamage += entry.value;
           case StatType.ignoreElementalDefense:
@@ -233,6 +234,8 @@ class CharacterModel with ChangeNotifier {
     totalLuk = (pureLuk + tempLuk) * (1 + lukPercentage) + flatLuk;
     totalAttack = (attack + tempAttack) * (1 + attackPercentage) + flatAttack;
     totalMAttack = (mattack + tempMattack) * (1 + mattackPercentage) + flatMAttack;
+    totalJump = min(totalJump, jumpCap);
+    totalSpeed = min(totalSpeed, speedCap);
     totalDefense = tempDefense.toDouble();
     totalIgnoreDefense = tempIgnoreDefense.toDouble();
 

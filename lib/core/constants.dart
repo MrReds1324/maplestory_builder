@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-const double jumpCap = 1.23;
-const double speedCap = 1.40;
+const int jumpCap = 123;
+const int speedCap = 140;
 // Maximum meso obtained is 300%, 100% from items and 100% from buffs (not including WAP)
 const double mesoObtainedItemCap = 1.00;
 const double mesoObtainedUseCap = 1.00;
