@@ -53,6 +53,7 @@ class Equip extends Base {
     super.finalAttack = 0,
     super.finalMAttack = 0,
     this.starForceModule,
+    this.flameModule,
     this.equipHash = -1,
   }){
     if (starForceModule != null) {
@@ -153,6 +154,7 @@ class Equip extends Base {
     int? finalAttack,
     int? finalMAttack,
     StarForceModule? starForceModule,
+    FlameModule? flameModule,
     num? equipHash,
   }) {
     return Equip(
@@ -189,6 +191,7 @@ class Equip extends Base {
       finalAttack: finalAttack ?? this.finalAttack,
       finalMAttack: finalMAttack ?? this.finalMAttack,
       starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
+      flameModule: flameModule ?? this.flameModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
   }

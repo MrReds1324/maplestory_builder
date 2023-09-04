@@ -22,6 +22,17 @@ class StarForceModule {
   StarForceModule({
     required this.possibleStars,
     this.currentStars = 0,
+    this.str = 0,
+    this.dex = 0,
+    this.int = 0,
+    this.luk = 0,
+    this.hp = 0,
+    this.mp = 0,
+    this.speed = 0,
+    this.jump = 0,
+    this.defense = 0,
+    this.attackPower = 0,
+    this.mattack = 0,
   });
   
   void updateStarforce(Equip targetEquip, num newStarValue) {
@@ -526,10 +537,32 @@ class StarForceModule {
   StarForceModule copyWith({
     num? possibleStars,
     num? currentStars,
+    num? str,
+    num? dex,
+    num? int,
+    num? luk,
+    num? hp,
+    num? mp,
+    num? speed,
+    num? jump,
+    num? defense,
+    num? attackPower,
+    num? mattack,
   }) {
     return StarForceModule(
       possibleStars: possibleStars ?? this.possibleStars, 
       currentStars: currentStars ?? this.currentStars,
+      str: str ?? this.str,
+      dex: dex ?? this.dex,
+      int: int ?? this.int,
+      luk: luk ?? this.luk,
+      hp: hp ?? this.hp,
+      mp: mp ?? this.mp,
+      speed: speed ?? this.speed,
+      jump: jump ?? this.jump,
+      defense: defense ?? this.defense,
+      attackPower: attackPower ?? this.attackPower,
+      mattack: mattack ?? this.mattack,
     );
   }
 }

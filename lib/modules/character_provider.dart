@@ -225,7 +225,6 @@ class CharacterModel with ChangeNotifier {
       updateTempStats(equipStats);
     }
     
-    
     totalHp = (pureHp + tempHp) * (1 + hpPercentage) + flatHp;
     totalMp = (pureMP + tempMp) * (1 + mpPercentage) + flatMP;
     totalStr = (pureStr + tempStr) * (1 + strPercentage) + flatStr;
