@@ -131,9 +131,9 @@ class DifferenceCalculator with ChangeNotifier {
     diffCharacterModel.apStatsModule = tempApStats;
   }
 
-  Widget compareEditingEquip(){
+  Widget? compareEditingEquip(){
     Equip? tempEquip;
-    Widget widgetReturn = const SizedBox.shrink();
+    Widget? widgetReturn;
     switch(mainCharacterModel.editingEquip?.equipType){
       case EquipType.totem:
         var widgetChildren = <Widget>[];
@@ -420,9 +420,11 @@ class DifferenceCalculator with ChangeNotifier {
         return widgetReturn;
     }
 
-    // This is to ensure that we only return the below decorated box when there is actually something to display
+
+
+    // This allows us to return a no difference text widget
     if (widgetReturn is SizedBox) {
-      return widgetReturn;
+      return noDifferenceEquip;
     }
     else if (widgetReturn is Column) {
       bool isAllSizedBox = true;
@@ -433,21 +435,16 @@ class DifferenceCalculator with ChangeNotifier {
         }
       }
       if (isAllSizedBox) {
-        return const SizedBox.shrink();
+        return noDifferenceEquip;
       }
     }
 
-    return Container(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: statColor),
-          borderRadius: const BorderRadius.all(Radius.circular(10))
-        ),
-        padding: const EdgeInsets.all(5),
-        child: SingleChildScrollView(child: widgetReturn),
-      ),
-    );
+    return widgetReturn;
   }
 
 }
+
+const Text noDifferenceEquip = Text(
+  "NO DIFFERENCE IN EQUIPMENT",
+  style: TextStyle(color: Colors.greenAccent),
+);

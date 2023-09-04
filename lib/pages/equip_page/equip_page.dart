@@ -732,7 +732,7 @@ class _EquipBuilder extends StatelessWidget {
     Expanded(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             width: 300,
@@ -756,9 +756,7 @@ class _EquipBuilder extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
-          SingleChildScrollView(
-            padding: const EdgeInsets.only(right: 13),
+          Expanded(
             child: Column(
               children: [
                 Container(
@@ -768,10 +766,30 @@ class _EquipBuilder extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
-                Consumer<CharacterModel>(
-                  builder: (_, characterModel, __) {
-                    return context.read<DifferenceCalculator>().compareEditingEquip();
-                  }
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: statColor),
+                        borderRadius: const BorderRadius.all(Radius.circular(10))
+                      ),
+                      padding: const EdgeInsets.only(right: 5, left: 18),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.only(right: 13),
+                        child: Consumer<CharacterModel>(
+                          builder: (_, characterModel, __) {
+                            return context.read<DifferenceCalculator>().compareEditingEquip() 
+                            ?? 
+                            const Text(
+                              "NOT CURRENTLY EDITING AN EQUIP",
+                              style: TextStyle(color: Colors.red),
+                            );
+                          }
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
