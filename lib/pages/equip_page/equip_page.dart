@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/core/constants/potential_stats.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/items/potentials.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
@@ -229,8 +231,7 @@ class EquippedItemSelector extends StatelessWidget {
     }
   );
 
-  List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipType equipType) {
-    EquipModule equipModule = context.read<CharacterModel>().equipModule;
+  List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipModule equipModule, EquipType equipType) {
     var filteredList = equipModule.allEquips.where((element) {
       if (equipType == EquipType.secondary) {
         return secondaryTypes.contains(element.equipType);
@@ -239,21 +240,9 @@ class EquippedItemSelector extends StatelessWidget {
         return element.equipType == equipType;
       }
     }).toList();
-    var dropdownItems =  filteredList.map((value) {
-      return DropdownMenuItem(
-        value: value,
-        child: MapleTooltip(
-          maxWidth: 310,
-          tooltipWidgets: [value.createEquipContainer(context)],
-          child: Text(
-            value.name,
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-        ),
-      );
-    }).toList();
+
     // Always add a default null selector to the list
-    dropdownItems.add(
+    List<DropdownMenuItem> dropdownItems = [
       DropdownMenuItem(
         value: null,
         child: Text(
@@ -261,7 +250,24 @@ class EquippedItemSelector extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium
         ),
       )
+    ];
+
+    dropdownItems.addAll(
+      filteredList.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: MapleTooltip(
+            maxWidth: 310,
+            tooltipWidgets: [value.createEquipContainer(context)],
+            child: Text(
+              value.name,
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+          ),
+        );
+      }).toList()
     );
+
     return dropdownItems;
   }
 
@@ -384,7 +390,7 @@ class EquippedItemSelector extends StatelessWidget {
                   var character = context.read<CharacterModel>();
                   character.equipEquip(newValue, equipType, equipPosition: equipPosition);
                 },
-                items: getDropdownItemList(context, equipType)
+                items: getDropdownItemList(context, characterModel.equipModule, equipType)
               ),
             );
           }
@@ -747,12 +753,23 @@ class _EquipBuilder extends StatelessWidget {
                   ),
                 ),
                 const _FlameSelector(),
+                const Divider(
+                  height: 15,
+                  thickness: 1,
+                  color: statColor,
+                ),
                 const _StarForceSlider(),
+                const Divider(
+                  height: 15,
+                  thickness: 1,
+                  color: statColor,
+                ),
                 Consumer<CharacterModel>(
                   builder: (_, characterModel, __) {
-                    return characterModel.editingEquip?.createEquipContainer(context) ?? const SizedBox.shrink();
+                    return characterModel.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
                   }
                 ),
+                const _PotentialSelector(),
               ],
             ),
           ),
@@ -1020,6 +1037,237 @@ class _FlameDropdowns extends StatelessWidget {
               ),
             ),
           ]
+        );
+      }
+    );
+  }
+}
+
+class _PotentialSelector extends StatelessWidget {
+
+  const _PotentialSelector();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 5),
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Divider(
+            height: 15,
+            thickness: 1,
+            color: statColor,
+          ),
+          Text("Main Potential Selection"),
+          _PotenialTierDropdown(),
+          _PotentialDropdowns(potentialPosition: 1),
+          _PotentialDropdowns(potentialPosition: 2),
+          _PotentialDropdowns(potentialPosition: 3),
+          Divider(
+            height: 15,
+            thickness: 1,
+            color: statColor,
+          ),
+          Text("Bonus Potential Selection"),
+          _PotenialTierDropdown(isBonus: true),
+          _PotentialDropdowns(potentialPosition: 1, isBonus: true),
+          _PotentialDropdowns(potentialPosition: 2, isBonus: true),
+          _PotentialDropdowns(potentialPosition: 3, isBonus: true),
+        ],
+      ),
+    );
+  }
+}
+
+class _PotenialTierDropdown extends StatelessWidget {
+  final bool isBonus;
+
+  const _PotenialTierDropdown({
+    this.isBonus = false,
+  });
+
+  List<DropdownMenuItem> getDropdownPotentialsTierList(BuildContext context) {
+    List<DropdownMenuItem<PotentialTier>> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    dropdownItems.addAll(
+      PotentialTier.values.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: value.color)
+          ),
+        );
+      }).toList()
+    );
+
+    return dropdownItems;
+  }
+
+  PotentialTier? getSelectedPotentialTier(Equip? editingEquip) {
+    if (isBonus) {
+      return editingEquip?.potentialModule?.bonusPotential;
+    }
+    else {
+      return editingEquip?.potentialModule?.mainPotential;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CharacterModel>(
+      builder: (context, characterModel, child) {
+        return Row(
+          children: [
+            Text(
+              "Potential: ",
+              style: TextStyle(
+                color: getSelectedPotentialTier(characterModel.editingEquip)?.color
+              ),
+            ),
+            SizedBox(
+              width: 234,
+              child: DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedPotentialTier(characterModel.editingEquip),
+                onChanged: (newValue) {
+                  characterModel.updatePotentialTier(newValue, isBonus: isBonus);
+                },
+                items: getDropdownPotentialsTierList(context)
+              ),
+            ),
+          ]
+        );
+      }
+    );
+  }
+}
+
+class _PotentialDropdowns extends StatelessWidget {
+  final int potentialPosition;
+  final bool isBonus;
+
+  const _PotentialDropdowns({
+    required this.potentialPosition,
+    this.isBonus = false,
+  });
+
+  List<DropdownMenuItem> getDropdownPotentialsList(BuildContext context, Equip? editingEquip) {
+    List<DropdownMenuItem<PotentialLine>> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    if (editingEquip != null && editingEquip.potentialModule != null && editingEquip.canPotential) {
+
+      List<PotentialLine> filteredList = [];
+
+      switch(editingEquip.equipType) {
+        case EquipType.hat:
+          if (isBonus) {
+            filteredList = hatPotentials[editingEquip.potentialModule?.bonusPotential] ?? [];
+          }
+          else {
+            filteredList = hatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+          }
+        default:
+          return dropdownItems;
+      }
+
+      dropdownItems.addAll(
+        filteredList.map((value) {
+          var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
+          num? valueToDisplay;
+          if (value.statValue != null) {
+            valueToDisplay = value.statValue![offset];
+          }
+          else {
+            // TODO: add skill stuff here
+          }
+
+          return DropdownMenuItem(
+            value: value,
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "${value.statType.formattedName} +${value.statType.isPercentage ? doubleRoundPercentFormater.format(valueToDisplay) : valueToDisplay}",
+                    style: Theme.of(context).textTheme.bodyMedium
+                  ),
+                  TextSpan(
+                    text: value.isPrime ? "  (Prime)" : "",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: starColor)
+                  ),
+                ]
+              )
+            ),
+          );
+        }).toList()
+      );
+    }
+
+    return dropdownItems;
+  }
+
+  PotentialLine? getSelectedPotentialLine(Equip? editingEquip, int potentialPosition) {
+    if (isBonus) {
+      if (potentialPosition == 1) {
+        return editingEquip?.potentialModule?.bonusPotentialLine1;
+      }
+      else if (potentialPosition == 2) {
+        return editingEquip?.potentialModule?.bonusPotentialLine2;
+      }
+      else {
+        return editingEquip?.potentialModule?.bonusPotentialLine3;
+      }
+    }
+    else {
+      if (potentialPosition == 1) {
+        return editingEquip?.potentialModule?.mainPotentialLine1;
+      }
+      else if (potentialPosition == 2) {
+        return editingEquip?.potentialModule?.mainPotentialLine2;
+      }
+      else {
+        return editingEquip?.potentialModule?.mainPotentialLine3;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CharacterModel>(
+      builder: (context, characterModel, child) {
+        return  SizedBox(
+          width: 300,
+          child: DropdownButton(
+            alignment: AlignmentDirectional.center,
+            isDense: true,
+            isExpanded: true,
+            value: getSelectedPotentialLine(characterModel.editingEquip, potentialPosition),
+            onChanged: (newValue) {
+              characterModel.updatePotential(potentialPosition, newValue);
+            },
+            items: getDropdownPotentialsList(context, characterModel.editingEquip)
+          ),
         );
       }
     );
