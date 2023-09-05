@@ -897,6 +897,10 @@ class _FlameDropdowns extends StatelessWidget {
         else if ((flameType == FlameType.speed || flameType == FlameType.jump) && editingEquip.equipType == EquipType.weapon) {
           continue;
         }
+        // Only weapons can roll damage and boss damage
+        else if ((flameType == FlameType.damage || flameType == FlameType.bossDamage) && editingEquip.equipType != EquipType.weapon) {
+          continue;
+        }
 
         if (flamePosition != 1 && flameType == editingEquip.flameModule?.flameLine1?.flameType) {
           continue;
