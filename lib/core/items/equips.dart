@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/base.dart';
 import 'package:maplestory_builder/core/constants/flame_stats.dart';
+import 'package:maplestory_builder/core/constants/potential_stats.dart';
 import 'package:maplestory_builder/core/items/flames.dart';
+import 'package:maplestory_builder/core/items/potentials.dart';
 import 'package:maplestory_builder/core/items/starforce.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'dart:math';
@@ -15,8 +17,10 @@ class Equip extends Base {
   bool canStar = true;
   bool canFlame = true;
   bool isFlameAdvantaged = true;
+  bool canPotential = true;
   StarForceModule? starForceModule;
   FlameModule? flameModule;
+  PotentialModule? potentialModule;
   num equipHash = -1;
 
   Equip({
@@ -26,6 +30,7 @@ class Equip extends Base {
     this.canStar = true,
     this.canFlame = true,
     this.isFlameAdvantaged = true,
+    this.canPotential = true,
     super.itemLevel = 0,
     super.str = 0,
     super.dex = 0,
@@ -54,10 +59,12 @@ class Equip extends Base {
     super.finalMAttack = 0,
     this.starForceModule,
     this.flameModule,
+    this.potentialModule,
     this.equipHash = -1,
-  }){
+  }) {
     if (starForceModule != null) {
       starForceModule = starForceModule;
+      starForceModule!.updateStarforce(this, starForceModule!.currentStars);
     }
     else if (canStar) {
       starForceModule = StarForceModule(possibleStars: getStarforceLimit(itemLevel));
@@ -76,7 +83,20 @@ class Equip extends Base {
       flameModule = FlameModule();
     }
     else {
-      starForceModule = null;
+      flameModule = null;
+    }
+
+    if (potentialModule != null) {
+      potentialModule = potentialModule;
+    }
+    else if (noPotentialCategory.contains(equipType)){
+      potentialModule = null;
+    }
+    else if (canPotential) {
+      potentialModule = PotentialModule();
+    }
+    else {
+      potentialModule = null;
     }
   }
 
@@ -88,24 +108,34 @@ class Equip extends Base {
     flameModule?.updateFlame(this, flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
   }
 
+  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
+    potentialModule?.updatePotentialTier(potentialTier, isBonus: isBonus);
+  }
+
+  void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+    potentialModule?.updatePotential(this, potentialPosition, potentialLine, isBonus: isBonus);
+  }
+
   Map<StatType, num> calculateStats() {
     return <StatType, num>{
       StatType.attackSpeed: attackSpeed,
-      StatType.str: str + (starForceModule?.str ?? 0) + (flameModule?.str ?? 0),
-      StatType.dex: dex + (starForceModule?.dex ?? 0) + (flameModule?.dex ?? 0),
-      StatType.int: this.int + (starForceModule?.int ?? 0) + (flameModule?.int ?? 0),
-      StatType.luk: luk + (starForceModule?.luk ?? 0) + (flameModule?.luk ?? 0),
-      StatType.hp: hp + (starForceModule?.hp ?? 0) + (flameModule?.hp ?? 0),
-      StatType.mp: mp + (starForceModule?.mp ?? 0) + (flameModule?.mp ?? 0),
-      StatType.attack: attackPower + (starForceModule?.attackPower ?? 0) + (flameModule?.attackPower ?? 0),
-      StatType.mattack: mattack + (starForceModule?.mattack ?? 0) + (flameModule?.mattack ?? 0),
-      StatType.defense: defense + (starForceModule?.defense ?? 0) + (flameModule?.defense ?? 0),
+      StatType.str: str + (starForceModule?.str ?? 0) + (flameModule?.str ?? 0) + (potentialModule?.str ?? 0),
+      StatType.dex: dex + (starForceModule?.dex ?? 0) + (flameModule?.dex ?? 0) + (potentialModule?.dex ?? 0),
+      StatType.int: this.int + (starForceModule?.int ?? 0) + (flameModule?.int ?? 0) + (potentialModule?.int ?? 0),
+      StatType.luk: luk + (starForceModule?.luk ?? 0) + (flameModule?.luk ?? 0) + (potentialModule?.luk ?? 0),
+      StatType.allStats: (potentialModule?.allStats ?? 0),
+      StatType.hp: hp + (starForceModule?.hp ?? 0) + (flameModule?.hp ?? 0) + (potentialModule?.hp ?? 0),
+      StatType.mp: mp + (starForceModule?.mp ?? 0) + (flameModule?.mp ?? 0) + (potentialModule?.mp ?? 0),
+      StatType.attack: attackPower + (starForceModule?.attackPower ?? 0) + (flameModule?.attackPower ?? 0) + (potentialModule?.attackPower ?? 0),
+      StatType.mattack: mattack + (starForceModule?.mattack ?? 0) + (flameModule?.mattack ?? 0) + (potentialModule?.mattack ?? 0),
+      StatType.defense: defense + (starForceModule?.defense ?? 0) + (flameModule?.defense ?? 0) + (potentialModule?.defense ?? 0),
       StatType.starForce: starForceModule?.currentStars ?? 0,
-      StatType.ignoreDefense: ignoreDefense,
-      StatType.speed: speed + (starForceModule?.speed ?? 0) + (flameModule?.speed ?? 0),
-      StatType.jump: jump + (starForceModule?.jump ?? 0) + (flameModule?.jump ?? 0),
-      StatType.bossDamage: bossDamage,
-      StatType.damage: damage,
+      // TODO: Fix this calculation
+      StatType.ignoreDefense: ignoreDefense + (potentialModule?.ignoreDefense ?? 0),
+      StatType.speed: speed + (starForceModule?.speed ?? 0) + (flameModule?.speed ?? 0) + (potentialModule?.speed ?? 0),
+      StatType.jump: jump + (starForceModule?.jump ?? 0) + (flameModule?.jump ?? 0) + (potentialModule?.jump ?? 0),
+      StatType.bossDamage: bossDamage + (potentialModule?.bossDamage ?? 0),
+      StatType.damage: damage + (potentialModule?.damage ?? 0),
       StatType.damageNormalMobs: damageNormalMobs,
       StatType.ignoreElementalDefense: ignoreElementalDefense,
       StatType.finalStr: finalStr,
@@ -116,7 +146,16 @@ class Equip extends Base {
       StatType.finalMp: finalMp,
       StatType.finalAttack: finalAttack,
       StatType.finalMAttack: finalMAttack,
-      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.allStatsPercentage ?? 0),
+      StatType.strPercentage: (potentialModule?.strPercentage ?? 0),
+      StatType.dexPercentage: (potentialModule?.dexPercentage ?? 0),
+      StatType.intPercentage: (potentialModule?.intPercentage ?? 0),
+      StatType.lukPercentage: (potentialModule?.lukPercentage ?? 0),
+      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.allStatsPercentage ?? 0) + (potentialModule?.jump ?? 0),
+      StatType.hpPercentage: (potentialModule?.hpPercentage ?? 0),
+      StatType.mpPercentage: (potentialModule?.mpPercentage ?? 0),
+      StatType.attackPercentage: (potentialModule?.attackPercentage ?? 0),
+      StatType.mattackPercentage: (potentialModule?.mattackPercentage ?? 0),
+      StatType.defensePercentage: (potentialModule?.defensePercentage ?? 0),
     };
   }
 
@@ -196,7 +235,7 @@ class Equip extends Base {
     );
   }
 
-  Container createEquipContainer(BuildContext context, {bool includeName = false}){
+  Container createEquipContainer(BuildContext context, {bool includeName=false, bool isEquipEditing=false}) {
     return Container(
       width: 300,
       padding: const EdgeInsets.all(2.5),
@@ -233,6 +272,7 @@ class Equip extends Base {
           __createTextLine(context, StatType.finalMp),
           __createTextLine(context, StatType.finalAttack),
           __createTextLine(context, StatType.finalMAttack),
+          isEquipEditing ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
         ],
       )
     );
