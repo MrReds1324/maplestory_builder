@@ -68,6 +68,13 @@ class Equip extends Base {
     super.defensePercentage = 0,
     super.attackPercentage = 0,
     super.mattackPercentage = 0,
+    super.criticalDamage = 0,
+    super.criticalRate = 0,
+    super.mesosObtained = 0,
+    super.itemDropRate = 0,
+    super.hpRecovery = 0,
+    super.skillCooldown = 0,
+    super.skillCooldownPercentage = 0,
     this.starForceModule,
     this.flameModule,
     this.potentialModule,
@@ -167,105 +174,14 @@ class Equip extends Base {
       StatType.attackPercentage: attackPercentage + (potentialModule?.attackPercentage ?? 0),
       StatType.mattackPercentage: mattackPercentage + (potentialModule?.mattackPercentage ?? 0),
       StatType.defensePercentage: defensePercentage + (potentialModule?.defensePercentage ?? 0),
+      StatType.critDamage: criticalDamage + (potentialModule?.criticalDamage ?? 0),
+      StatType.critRate: criticalRate + (potentialModule?.criticalRate ?? 0),
+      StatType.mesosObtained: mesosObtained + (potentialModule?.mesosObtained ?? 0),
+      StatType.itemDropRate: itemDropRate + (potentialModule?.itemDropRate ?? 0),
+      StatType.hpRecovery: hpRecovery + (potentialModule?.hpRecovery ?? 0),
+      StatType.skillCooldown: skillCooldown + (potentialModule?.skillCooldown ?? 0),
+      StatType.skillCooldownPercentage: skillCooldownPercentage,
     };
-  }
-
-  Equip copyWith({
-    String? name,
-    EquipType? equipType,
-    ClassType? classType,
-    bool? canStar,
-    bool? canFlame,
-    bool? isFlameAdvantaged,
-    num? itemLevel,
-    num? str,
-    num? dex,
-    num? int,
-    num? luk,
-    num? allStats,
-    num? hp,
-    num? mp,
-    num? attackPower,
-    num? mattack,
-    num? defense,
-    num? speed,
-    num? jump,
-    double? ignoreDefense,
-    double? bossDamage,
-    double? damage,
-    double? damageNormalMobs,
-    num? attackSpeed,
-    double? ignoreElementalDefense,
-    int? finalStr,
-    int? finalDex,
-    int? finalInt,
-    int? finalLuk,
-    int? finalHp,
-    int? finalMp,
-    int? finalAttack,
-    int? finalMAttack,
-    double? strPercentage,
-    double? dexPercentage,
-    double? intPercentage,
-    double? lukPercentage,
-    double? allStatsPercentage,
-    double? hpPercentage,
-    double? mpPercentage,
-    double? defensePercentage,
-    double? attackPercentage,
-    double? mattackPercentage,
-    StarForceModule? starForceModule,
-    FlameModule? flameModule,
-    num? equipHash,
-  }) {
-    return Equip(
-      name: name ?? this.name,
-      equipType: equipType ?? this.equipType,
-      classType: classType ?? this.classType,
-      canStar: canStar ?? this.canStar,
-      canFlame: canFlame ?? this.canFlame,
-      isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
-      itemLevel: itemLevel ?? this.itemLevel,
-      str: str ?? this.str,
-      dex: dex ?? this.dex,
-      int: int ?? this.int,
-      luk: luk ?? this.luk,
-      allStats: allStats ?? this.allStats,
-      hp: hp ?? this.hp,
-      mp: mp ?? this.mp,
-      attackPower: attackPower ?? this.attackPower,
-      mattack: mattack ?? this.mattack,
-      defense: defense ?? this.defense,
-      speed: speed ?? this.speed,
-      jump: jump ?? this.jump,
-      ignoreDefense: ignoreDefense ?? this.ignoreDefense,
-      bossDamage: bossDamage ?? this.bossDamage,
-      damage: damage ?? this.damage,
-      damageNormalMobs: damageNormalMobs ?? this.damageNormalMobs,
-      attackSpeed: attackSpeed?? this.attackSpeed,
-      ignoreElementalDefense: ignoreElementalDefense ?? this.ignoreElementalDefense,
-      finalStr: finalStr ?? this.finalStr,
-      finalDex: finalDex ?? this.finalDex,
-      finalInt: finalInt ?? this.finalInt,
-      finalLuk: finalLuk ?? this.finalLuk,
-      finalHp: finalHp ?? this.finalHp,
-      finalMp: finalMp ?? this.finalMp,
-      finalAttack: finalAttack ?? this.finalAttack,
-      finalMAttack: finalMAttack ?? this.finalMAttack,
-      strPercentage: strPercentage ?? this.strPercentage,
-      dexPercentage: dexPercentage ?? this.dexPercentage,
-      intPercentage: intPercentage ?? this.intPercentage,
-      lukPercentage: lukPercentage ?? this.lukPercentage,
-      allStatsPercentage: allStatsPercentage ?? this.allStatsPercentage,
-      hpPercentage: hpPercentage ?? this.hpPercentage,
-      mpPercentage: mpPercentage ?? this.mpPercentage,
-      defensePercentage: defensePercentage ?? this.defensePercentage,
-      attackPercentage: attackPercentage ?? this.attackPercentage,
-      mattackPercentage: mattackPercentage ?? this.mattackPercentage,
-      starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
-      flameModule: flameModule ?? this.flameModule?.copyWith(),
-      equipHash: equipHash ?? this.equipHash,
-    );
   }
 
   Container createEquipContainer(BuildContext context, {bool includeName=false, bool isEquipEditing=false}) {
@@ -305,6 +221,22 @@ class Equip extends Base {
           __createTextLine(context, StatType.finalMp),
           __createTextLine(context, StatType.finalAttack),
           __createTextLine(context, StatType.finalMAttack),
+          __createTextLine(context, StatType.strPercentage),
+          __createTextLine(context, StatType.dexPercentage),
+          __createTextLine(context, StatType.intPercentage),
+          __createTextLine(context, StatType.lukPercentage),
+          __createTextLine(context, StatType.hpPercentage),
+          __createTextLine(context, StatType.mpPercentage),
+          __createTextLine(context, StatType.defensePercentage),
+          __createTextLine(context, StatType.attackPercentage),
+          __createTextLine(context, StatType.mattackPercentage),
+          __createTextLine(context, StatType.critDamage),
+          __createTextLine(context, StatType.critRate),
+          __createTextLine(context, StatType.mesosObtained),
+          __createTextLine(context, StatType.itemDropRate),
+          __createTextLine(context, StatType.hpRecovery),
+          __createTextLine(context, StatType.skillCooldown),
+          __createTextLine(context, StatType.skillCooldownPercentage),
           isEquipEditing ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
         ],
       )
@@ -312,7 +244,7 @@ class Equip extends Base {
   }
 
   Widget __createTextLine(BuildContext context, StatType statType) {
-    var isPercentage = false;
+    var isPercentage = statType.isPercentage;
     num totalStat = 0;
     num baseStat = 0;
     num starForceStat = 0;
@@ -363,19 +295,19 @@ class Equip extends Base {
           ),
         );
       case StatType.str:
-        baseStat = str;
+        baseStat = str + allStats;
         starForceStat = starForceModule?.str ?? 0;
         flameStat = flameModule?.str ?? 0;
       case StatType.dex:
-        baseStat = dex;
+        baseStat = dex + allStats;
         starForceStat = starForceModule?.dex ?? 0;
         flameStat = flameModule?.dex ?? 0;
       case StatType.int:
-        baseStat = this.int;
+        baseStat = this.int + allStats;
         starForceStat = starForceModule?.int ?? 0;
         flameStat = flameModule?.int ?? 0;
       case StatType.luk:
-        baseStat = luk;
+        baseStat = luk + allStats;
         starForceStat = starForceModule?.luk ?? 0;
         flameStat = flameModule?.luk ?? 0;
       case StatType.hp:
@@ -399,7 +331,6 @@ class Equip extends Base {
         starForceStat = starForceModule?.defense ?? 0;
         flameStat = flameModule?.defense ?? 0;
       case StatType.bossDamage:
-        isPercentage = true;
         baseStat = bossDamage;
         flameStat = flameModule?.bossDamage ?? 0;
       case StatType.speed:
@@ -409,21 +340,16 @@ class Equip extends Base {
         baseStat = jump;
         flameStat = flameModule?.jump ?? 0;
       case StatType.ignoreDefense:
-        isPercentage = true;
         baseStat = ignoreDefense;
       case StatType.damage:
-        isPercentage = true;
         baseStat = damage;
         flameStat = flameModule?.damage ?? 0;
       case StatType.allStatsPercentage:
-        isPercentage = true;
         baseStat = allStatsPercentage;
         flameStat = flameModule?.allStatsPercentage ?? 0;
       case StatType.damageNormalMobs:
-        isPercentage = true;
         baseStat = damageNormalMobs;
       case StatType.ignoreElementalDefense:
-        isPercentage = true;
         baseStat = ignoreElementalDefense;
       case StatType.finalStr:
         baseStat = finalStr;
@@ -503,6 +429,118 @@ class Equip extends Base {
     }
   }
 
+  Equip copyWith({
+    String? name,
+    EquipType? equipType,
+    ClassType? classType,
+    bool? canStar,
+    bool? canFlame,
+    bool? isFlameAdvantaged,
+    num? itemLevel,
+    num? str,
+    num? dex,
+    num? int,
+    num? luk,
+    num? allStats,
+    num? hp,
+    num? mp,
+    num? attackPower,
+    num? mattack,
+    num? defense,
+    num? speed,
+    num? jump,
+    double? ignoreDefense,
+    double? bossDamage,
+    double? damage,
+    double? damageNormalMobs,
+    num? attackSpeed,
+    double? ignoreElementalDefense,
+    int? finalStr,
+    int? finalDex,
+    int? finalInt,
+    int? finalLuk,
+    int? finalHp,
+    int? finalMp,
+    int? finalAttack,
+    int? finalMAttack,
+    double? strPercentage,
+    double? dexPercentage,
+    double? intPercentage,
+    double? lukPercentage,
+    double? allStatsPercentage,
+    double? hpPercentage,
+    double? mpPercentage,
+    double? defensePercentage,
+    double? attackPercentage,
+    double? mattackPercentage,
+    double? criticalDamage,
+    double? criticalRate,
+    double? mesosObtained,
+    double? itemDropRate,
+    double? hpRecovery,
+    num? skillCooldown,
+    double? skillCooldownPercentage,
+    StarForceModule? starForceModule,
+    FlameModule? flameModule,
+    num? equipHash,
+  }) {
+    return Equip(
+      name: name ?? this.name,
+      equipType: equipType ?? this.equipType,
+      classType: classType ?? this.classType,
+      canStar: canStar ?? this.canStar,
+      canFlame: canFlame ?? this.canFlame,
+      isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
+      itemLevel: itemLevel ?? this.itemLevel,
+      str: str ?? this.str,
+      dex: dex ?? this.dex,
+      int: int ?? this.int,
+      luk: luk ?? this.luk,
+      allStats: allStats ?? this.allStats,
+      hp: hp ?? this.hp,
+      mp: mp ?? this.mp,
+      attackPower: attackPower ?? this.attackPower,
+      mattack: mattack ?? this.mattack,
+      defense: defense ?? this.defense,
+      speed: speed ?? this.speed,
+      jump: jump ?? this.jump,
+      ignoreDefense: ignoreDefense ?? this.ignoreDefense,
+      bossDamage: bossDamage ?? this.bossDamage,
+      damage: damage ?? this.damage,
+      damageNormalMobs: damageNormalMobs ?? this.damageNormalMobs,
+      attackSpeed: attackSpeed?? this.attackSpeed,
+      ignoreElementalDefense: ignoreElementalDefense ?? this.ignoreElementalDefense,
+      finalStr: finalStr ?? this.finalStr,
+      finalDex: finalDex ?? this.finalDex,
+      finalInt: finalInt ?? this.finalInt,
+      finalLuk: finalLuk ?? this.finalLuk,
+      finalHp: finalHp ?? this.finalHp,
+      finalMp: finalMp ?? this.finalMp,
+      finalAttack: finalAttack ?? this.finalAttack,
+      finalMAttack: finalMAttack ?? this.finalMAttack,
+      strPercentage: strPercentage ?? this.strPercentage,
+      dexPercentage: dexPercentage ?? this.dexPercentage,
+      intPercentage: intPercentage ?? this.intPercentage,
+      lukPercentage: lukPercentage ?? this.lukPercentage,
+      allStatsPercentage: allStatsPercentage ?? this.allStatsPercentage,
+      hpPercentage: hpPercentage ?? this.hpPercentage,
+      mpPercentage: mpPercentage ?? this.mpPercentage,
+      defensePercentage: defensePercentage ?? this.defensePercentage,
+      attackPercentage: attackPercentage ?? this.attackPercentage,
+      mattackPercentage: mattackPercentage ?? this.mattackPercentage,
+      criticalDamage: criticalDamage ?? this.criticalDamage,
+      criticalRate: criticalRate ?? this.criticalRate,
+      mesosObtained: mesosObtained ?? this.mesosObtained,
+      itemDropRate: itemDropRate ?? this.itemDropRate,
+      hpRecovery: hpRecovery ?? this.hpRecovery,
+      skillCooldown: skillCooldown ?? this.skillCooldown,
+      skillCooldownPercentage: skillCooldownPercentage ?? this.skillCooldownPercentage,
+      starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
+      flameModule: flameModule ?? this.flameModule?.copyWith(),
+      equipHash: equipHash ?? this.equipHash,
+    );
+  }
+
   @override
   operator ==(Object other){
     if (other is Equip){
@@ -528,6 +566,6 @@ class Equip extends Base {
 
 final List<Equip> equipList = [
   Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
-  Equip(name: "Sengoku Hakase Badge", equipType: EquipType.badge, itemLevel: 160, str: 10, dex: 10, int: 10, luk: 10, attackPower: 10, mattack: 10),
-  Equip(name: "Superior Gollux Ring", equipType: EquipType.ring, itemLevel: 150, str: 10, dex: 10, int: 10, luk: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10)
+  Equip(name: "Sengoku Hakase Badge", equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
+  Equip(name: "Superior Gollux Ring", equipType: EquipType.ring, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10)
 ];

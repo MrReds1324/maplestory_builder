@@ -50,6 +50,13 @@ class Base {
   double defensePercentage = 0;
   double attackPercentage = 0;
   double mattackPercentage = 0;
+  double criticalDamage = 0;
+  double criticalRate = 0;
+  double mesosObtained = 0;
+  double itemDropRate = 0;
+  double hpRecovery = 0;
+  num skillCooldown = 0;
+  double skillCooldownPercentage = 0;
 
   Base({
     required this.name,
@@ -90,5 +97,12 @@ class Base {
     this.defensePercentage = 0,
     this.attackPercentage = 0,
     this.mattackPercentage = 0,
+    this.criticalDamage = 0,
+    this.criticalRate = 0,
+    this.mesosObtained = 0,
+    this.itemDropRate = 0,
+    this.hpRecovery = 0,
+    this.skillCooldown = 0,
+    this.skillCooldownPercentage = 0,
   });
 }

@@ -162,7 +162,8 @@ enum StatType {
   mattackPercentage(formattedName: "MATT", isPercentage: true),
   hpRecovery(formattedName: "Skills and Potion HP Recovery"),
   skill(formattedName: "Skill"),
-  skillCooldown(formattedName: "Skill Cooldown");
+  skillCooldown(formattedName: "Skill Cooldown"),
+  skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true);
 
   const StatType({
     required this.formattedName,
