@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/core/constants/potential_stats.dart';
 import 'package:maplestory_builder/core/items/equips.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
@@ -118,15 +119,35 @@ class CharacterModel with ChangeNotifier {
   }
 
   void calculateEverything(){
-    totalStarForce = 0;
-    totalAttackSpeed = 0;
-    totalSpeed = 100;
-    totalJump = 100;
-    totalBossDamage = 0;
-    totalElementalIgnoreDefense = 0;
+    totalStr = 0;
+    totalDex = 0;
+    totalInt = 0;
+    totalLuk = 0;
+    totalHp = 0;
+    totalMp = 0;
     totalDamage = 0;
     totalDamageNormalMobs = 0;
+    totalBossDamage = 0;
     totalFinalDamage = 0;
+    totalMastery = 0.8;
+    totalBuffDuration = 0;
+    totalIgnoreDefense = 0;
+    totalElementalIgnoreDefense = 0;
+    totalItemDropRate = 0;
+    totalMesosObtained = 0;
+    totalCritRate = 0;
+    totalCritDamage = 0;
+    totalAttackSpeed = 0;
+    totalAttack = 0;
+    totalMAttack = 0;
+    totalStatusResistance = 0;
+    totalKnockbackResistance = 0;
+    totalDefense = 0;
+    totalStarForce = 0;
+    totalSpeed = 100;
+    totalJump = 100;
+    totalArcaneForce = 0;
+    totalSacredPower = 0;
     flatHp = 0;
     flatMP = 0;
     flatStr = 0;
@@ -139,6 +160,13 @@ class CharacterModel with ChangeNotifier {
     dexPercentage = 0;
     intPercentage = 0;
     lukPercentage = 0;
+    hpPercentage = 0;
+    mpPercentage = 0;
+    defensePercentage = 0;
+    attackPercentage = 0;
+    mattackPercentage = 0;
+    totalMesosObtained = 0;
+    totalItemDropRate = 0;
 
     num tempStr = 0;
     num tempDex = 0;
@@ -166,6 +194,11 @@ class CharacterModel with ChangeNotifier {
           case StatType.int:
             tempInt += entry.value;
           case StatType.luk:
+            tempLuk += entry.value;
+          case StatType.allStats:
+            tempStr += entry.value;
+            tempDex += entry.value;
+            tempInt += entry.value;
             tempLuk += entry.value;
           case StatType.attack:
             tempAttack += entry.value;
@@ -209,11 +242,33 @@ class CharacterModel with ChangeNotifier {
             flatMAttack += entry.value;
           case StatType.attackSpeed:
             totalAttackSpeed += entry.value.toInt();
+          case StatType.strPercentage:
+            strPercentage += entry.value;
+          case StatType.dexPercentage:
+            dexPercentage += entry.value;
+          case StatType.intPercentage:
+            intPercentage += entry.value;
+          case StatType.lukPercentage:
+            lukPercentage += entry.value;
           case StatType.allStatsPercentage:
             strPercentage += entry.value;
             dexPercentage += entry.value;
             intPercentage += entry.value;
             lukPercentage += entry.value;
+          case StatType.hpPercentage:
+            hpPercentage += entry.value;
+          case StatType.mpPercentage:
+            mpPercentage += entry.value;
+          case StatType.attackPercentage:
+            attackPercentage += entry.value;
+          case StatType.mattackPercentage:
+            mattackPercentage += entry.value;
+          case StatType.defensePercentage:
+            defensePercentage += entry.value;
+          case StatType.mesosObtained:
+            totalMesosObtained += entry.value;
+          case StatType.itemDropRate:
+            totalItemDropRate += entry.value;
           default:
             throw Exception("Unhandled StatType for returned Stats: ${entry.key}");
         }
@@ -221,9 +276,13 @@ class CharacterModel with ChangeNotifier {
     }
 
     updatePureStats(apStatsModule.calculateStats());
+
     for (Map<StatType, num> equipStats in equipModule.calculateStats()){
       updateTempStats(equipStats);
     }
+    // Specific caps on stats from items
+    totalItemDropRate = min(totalItemDropRate, dropRateItemCap);
+    totalMesosObtained = min(totalMesosObtained, mesoObtainedItemCap);
     
     totalHp = (pureHp + tempHp) * (1 + hpPercentage) + flatHp;
     totalMp = (pureMP + tempMp) * (1 + mpPercentage) + flatMP;
@@ -233,10 +292,14 @@ class CharacterModel with ChangeNotifier {
     totalLuk = (pureLuk + tempLuk) * (1 + lukPercentage) + flatLuk;
     totalAttack = (attack + tempAttack) * (1 + attackPercentage) + flatAttack;
     totalMAttack = (mattack + tempMattack) * (1 + mattackPercentage) + flatMAttack;
-    totalJump = min(totalJump, jumpCap);
-    totalSpeed = min(totalSpeed, speedCap);
     totalDefense = tempDefense.toDouble();
     totalIgnoreDefense = tempIgnoreDefense.toDouble();
+
+    // Stats with a non-visual upper bound
+    totalJump = min(totalJump, jumpCap);
+    totalSpeed = min(totalSpeed, speedCap);
+    totalItemDropRate = min(totalItemDropRate, dropRateCap);
+    totalMesosObtained = min(totalMesosObtained, mesoObtainedCap);
 
     var statValue = ((4 * totalDex) + totalStr);
     var upperRange = weaponMultiplier * statValue * (totalAttack) * (1 + totalFinalDamage);
