@@ -278,6 +278,16 @@ class CharacterModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
+    editingEquip?.updatePotentialTier(potentialTier, isBonus: isBonus);
+    notifyListeners();
+  }
+
+  void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+    editingEquip?.updatePotential(potentialPosition, potentialLine, isBonus: isBonus);
+    notifyListeners();
+  }
+
   void deleteEquip(Equip deletingEquip) {
     var didRemoveEquip = equipModule.deleteEquip(deletingEquip);
     if (didRemoveEquip) {
