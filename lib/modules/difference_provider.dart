@@ -71,36 +71,54 @@ class DifferenceCalculator with ChangeNotifier {
     createText(textList, diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
     createText(textList, diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
     createText(textList, diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
+    createText(textList, diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
+    createText(textList, diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
+
     createText(textList, diffCharacterModel.totalDex, mainCharacterModel.totalDex, statType: StatType.dex);
+    createText(textList, diffCharacterModel.dexPercentage, mainCharacterModel.dexPercentage, statType: StatType.dexPercentage);
+    createText(textList, diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
+
     createText(textList, diffCharacterModel.totalInt, mainCharacterModel.totalInt, statType: StatType.int);
+    createText(textList, diffCharacterModel.intPercentage, mainCharacterModel.intPercentage, statType: StatType.intPercentage);
+    createText(textList, diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
+
     createText(textList, diffCharacterModel.totalLuk, mainCharacterModel.totalLuk, statType: StatType.luk);
+    createText(textList, diffCharacterModel.lukPercentage, mainCharacterModel.lukPercentage, statType: StatType.lukPercentage);
+    createText(textList, diffCharacterModel.flatLuk, mainCharacterModel.flatLuk, statType: StatType.finalLuk);
+
     createText(textList, diffCharacterModel.totalHp, mainCharacterModel.totalHp, statType: StatType.hp);
+    createText(textList, diffCharacterModel.hpPercentage, mainCharacterModel.hpPercentage, statType: StatType.hpPercentage);
+    createText(textList, diffCharacterModel.flatHp, mainCharacterModel.flatHp, statType: StatType.finalHp);
+
     createText(textList, diffCharacterModel.totalMp, mainCharacterModel.totalMp, statType: StatType.mp);
+    createText(textList, diffCharacterModel.mpPercentage, mainCharacterModel.mpPercentage, statType: StatType.mpPercentage);
+    createText(textList, diffCharacterModel.flatMP, mainCharacterModel.flatMP, statType: StatType.finalMp);
+
     createText(textList, diffCharacterModel.totalAttack, mainCharacterModel.totalAttack, statType: StatType.attack);
+    createText(textList, diffCharacterModel.attackPercentage, mainCharacterModel.attackPercentage, statType: StatType.attackPercentage);
+    createText(textList, diffCharacterModel.flatAttack, mainCharacterModel.flatAttack, statType: StatType.finalAttack);
+
     createText(textList, diffCharacterModel.totalMAttack, mainCharacterModel.totalMAttack, statType: StatType.mattack);
+    createText(textList, diffCharacterModel.mattackPercentage, mainCharacterModel.mattackPercentage, statType: StatType.mattackPercentage);
+    createText(textList, diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
+    
     createText(textList, diffCharacterModel.totalDefense, mainCharacterModel.totalDefense, statType: StatType.defense);
+    createText(textList, diffCharacterModel.defensePercentage, mainCharacterModel.defensePercentage, statType: StatType.defensePercentage);
+    createText(textList, diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage);
     createText(textList, diffCharacterModel.totalBossDamage, mainCharacterModel.totalBossDamage, statType: StatType.bossDamage);
+    createText(textList, diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs);
+    createText(textList, diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense);
+    createText(textList, diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense);
     createText(textList, diffCharacterModel.totalSpeed, mainCharacterModel.totalSpeed, statType: StatType.speed);
     createText(textList, diffCharacterModel.totalJump, mainCharacterModel.totalJump, statType: StatType.jump);
-    createText(textList, diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
-    createText(textList, diffCharacterModel.dexPercentage, mainCharacterModel.dexPercentage, statType: StatType.dexPercentage);
-    createText(textList, diffCharacterModel.intPercentage, mainCharacterModel.intPercentage, statType: StatType.intPercentage);
-    createText(textList, diffCharacterModel.lukPercentage, mainCharacterModel.lukPercentage, statType: StatType.lukPercentage);
-    createText(textList, diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense);
-    createText(textList, diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage);
-    createText(textList, diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs);
-    createText(textList, diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense);
     createText(textList, diffCharacterModel.totalStarForce, mainCharacterModel.totalStarForce, statType: StatType.starForce);
     createText(textList, diffCharacterModel.totalArcaneForce, mainCharacterModel.totalArcaneForce, statType: StatType.arcaneForce);
     createText(textList, diffCharacterModel.totalSacredPower, mainCharacterModel.totalSacredPower, statType: StatType.sacredPower);
-    createText(textList, diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
-    createText(textList, diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
-    createText(textList, diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
-    createText(textList, diffCharacterModel.flatLuk, mainCharacterModel.flatLuk, statType: StatType.finalLuk);
-    createText(textList, diffCharacterModel.flatHp, mainCharacterModel.flatHp, statType: StatType.finalHp);
-    createText(textList, diffCharacterModel.flatMP, mainCharacterModel.flatMP, statType: StatType.finalMp);
-    createText(textList, diffCharacterModel.flatAttack, mainCharacterModel.flatAttack, statType: StatType.finalAttack);
-    createText(textList, diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
+    createText(textList, diffCharacterModel.totalCritDamage, mainCharacterModel.totalCritDamage, statType: StatType.critDamage);
+    createText(textList, diffCharacterModel.totalCritRate, mainCharacterModel.totalCritRate, statType: StatType.critRate);
+    createText(textList, diffCharacterModel.totalItemDropRate, mainCharacterModel.totalItemDropRate, statType: StatType.itemDropRate);
+    createText(textList, diffCharacterModel.totalMesosObtained, mainCharacterModel.totalMesosObtained, statType: StatType.mesosObtained);
+    createText(textList, diffCharacterModel.totalHpRecovery, mainCharacterModel.totalHpRecovery, statType: StatType.hpRecovery);
 
     if (isEquipEditing) {
       if (textList.length > 1) {
