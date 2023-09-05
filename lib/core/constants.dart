@@ -267,6 +267,10 @@ const equipStarColor = Color.fromARGB(255, 255, 204, 0);
 const equipScrollColor = Color.fromARGB(255, 170, 170, 255);
 const equipReductionColor = Color.fromARGB(255, 255, 0, 102);
 const starColor = Color.fromARGB(255, 255, 212, 1);
+const rarePotentialColor = Color.fromARGB(255, 102, 255, 255);
+const epicPotentialColor = Color.fromARGB(255, 173, 109, 236);
+const uniquePotentialColor = Color.fromARGB(255, 255, 231, 16);
+const legendaryPotentialColor = Color.fromARGB(255, 119, 238, 0);
 
 const emptyStar = Icon(Icons.star_border, size: 16);
 const filledStar = Icon(Icons.star, size: 16, color: starColor);
