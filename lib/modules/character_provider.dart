@@ -25,35 +25,35 @@ class CharacterModel with ChangeNotifier {
   // Include things not normally shown in the damage range, ied, iedr, crit damage (crit rate)
   double upperEffectiveDamageRange = 0;
   double upperEffectiveBossDamangeRange = 0;
-  double totalHp = 395;
-  double totalMp = 395;
-  double totalStr = 4;
-  double totalDex = 4;
-  double totalInt = 4;
-  double totalLuk = 4;
-  double totalDamage = 0.10;
+  double totalHp = 0;
+  double totalMp = 0;
+  double totalStr = 0;
+  double totalDex = 0;
+  double totalInt = 0;
+  double totalLuk = 0;
+  double totalDamage = 0;
   double totalDamageNormalMobs = 0;
-  double totalBossDamage = 0.20;
-  double totalFinalDamage = 0.30;
+  double totalBossDamage = 0;
+  double totalFinalDamage = 0;
   double totalMastery = 0.8;
-  double totalBuffDuration = 0.1;
-  double totalIgnoreDefense = 0.9632;
-  double totalElementalIgnoreDefense = 0.05;
-  double totalItemDropRate = 0.5;
-  double totalMesosObtained = 0.5;
-  double totalCritRate = 1.23;
-  double totalCritDamage = 1.53;
-  int totalAttackSpeed = 10;
-  double totalAttack = 6000;
-  double totalMAttack = 500;
-  int totalStatusResistance = 78;
-  double totalKnockbackResistance = 1.00;
-  double totalDefense = 60000;
-  int totalStarForce = 600;
+  double totalBuffDuration = 0;
+  double totalIgnoreDefense = 0;
+  double totalElementalIgnoreDefense = 0;
+  double totalItemDropRate = 0;
+  double totalMesosObtained = 0;
+  double totalCritRate = 0;
+  double totalCritDamage = 0;
+  int totalAttackSpeed = 0;
+  double totalAttack = 0;
+  double totalMAttack = 0;
+  int totalStatusResistance = 0;
+  double totalKnockbackResistance = 0;
+  double totalDefense = 0;
+  int totalStarForce = 0;
   int totalSpeed = 100;
-  int totalArcaneForce = 100;
   int totalJump = 100;
-  int totalSacredPower = 500;
+  int totalArcaneForce = 0;
+  int totalSacredPower = 0;
   // Weapon Multiplier will change depending on equipped weapon, default (no weapon) is 1.4 
   double weaponMultiplier = 1.4;
 
@@ -64,7 +64,7 @@ class CharacterModel with ChangeNotifier {
   num pureDex = 0;
   num pureInt = 0;
   num pureLuk = 0;
-  num attack = 100;
+  num attack = 0;
   num mattack = 0;
 
   // Track flat stats that will be added later
@@ -78,15 +78,15 @@ class CharacterModel with ChangeNotifier {
   num flatMAttack = 0;
 
   // Track the total percentage for stats
-  double hpPercentage = .00;
-  double mpPercentage = .00;
-  double strPercentage = .00;
-  double dexPercentage = .00;
-  double intPercentage = .00;
-  double lukPercentage = .00;
-  double defensePercentage = .00;
-  double attackPercentage = .00;
-  double mattackPercentage = .00;
+  double strPercentage = 0;
+  double dexPercentage = 0;
+  double intPercentage = 0;
+  double lukPercentage = 0;
+  double hpPercentage = 0;
+  double mpPercentage = 0;
+  double defensePercentage = 0;
+  double attackPercentage = 0;
+  double mattackPercentage = 0;
   
   HyperStatsModule hyperStatsModule = HyperStatsModule();
   APStatsModule apStatsModule = APStatsModule();
