@@ -4,7 +4,7 @@ import 'package:maplestory_builder/core/constants.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
 final doubleRoundFormater = NumberFormat('#######');
-final doublePercentFormater = NumberFormat('####.00%');
+final doublePercentFormater = NumberFormat('###0.00%');
 final doubleFormater = NumberFormat('#######.00');
 final rangeFormatter = NumberFormat('###,###,###,###,###');
 
