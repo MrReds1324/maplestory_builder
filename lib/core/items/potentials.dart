@@ -244,7 +244,7 @@ class PotentialModule {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "Potential",
+                text: "Potential (${mainPotential!.formattedName})",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: mainPotential!.color)
               )
             ]
@@ -262,7 +262,7 @@ class PotentialModule {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "Potential",
+                text: "Potential (${bonusPotential!.formattedName})",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: bonusPotential!.color)
               )
             ]

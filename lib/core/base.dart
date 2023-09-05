@@ -5,6 +5,7 @@ class Base {
   num dex = 0;
   num int = 0;
   num luk = 0;
+  num allStats = 0;
   num hp = 0;
   num mp = 0;
   num attackPower = 0;
@@ -39,11 +40,16 @@ class Base {
   num finalAttack = 0;
   num finalMAttack = 0;
   // Percentage Stats to facilitate flames and potentials
-  double allStatsPercentage = 0.0;
-  double strPercentage = 0.0;
-  double dexPercentage = 0.0;
-  double intPercentage = 0.0;
-  double lukPercentage = 0.0;
+  double strPercentage = 0;
+  double dexPercentage = 0;
+  double intPercentage = 0;
+  double lukPercentage = 0;
+  double allStatsPercentage = 0;
+  double hpPercentage = 0;
+  double mpPercentage = 0;
+  double defensePercentage = 0;
+  double attackPercentage = 0;
+  double mattackPercentage = 0;
 
   Base({
     required this.name,
@@ -52,6 +58,7 @@ class Base {
     this.dex = 0,
     this.int = 0,
     this.luk = 0,
+    this.allStats = 0,
     this.hp = 0,
     this.mp = 0,
     this.attackPower = 0,
@@ -73,5 +80,15 @@ class Base {
     this.finalMp = 0,
     this.finalAttack = 0,
     this.finalMAttack = 0,
+    this.strPercentage = 0,
+    this.dexPercentage = 0,
+    this.intPercentage = 0,
+    this.lukPercentage = 0,
+    this.allStatsPercentage = 0,
+    this.hpPercentage = 0,
+    this.mpPercentage = 0,
+    this.defensePercentage = 0,
+    this.attackPercentage = 0,
+    this.mattackPercentage = 0,
   });
 }
