@@ -612,7 +612,7 @@ Selector _getStatSelector(StatType statType) {
         selector: (_, character) => (character.totalStr, character.apStatsModule.apStr),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
+          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
         }
       );
     case StatType.dex:
@@ -620,7 +620,7 @@ Selector _getStatSelector(StatType statType) {
         selector: (_, character) => (character.totalDex, character.apStatsModule.apDex),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
+          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
         }
       );
     case StatType.int:
@@ -628,7 +628,7 @@ Selector _getStatSelector(StatType statType) {
         selector: (_, character) => (character.totalInt, character.apStatsModule.apInt),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
+          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
         }
       );
     case StatType.luk:
@@ -636,7 +636,7 @@ Selector _getStatSelector(StatType statType) {
         selector: (_, character) => (character.totalLuk, character.apStatsModule.apLuk),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${doubleRoundFormater.format(diff)} + ${data.$2})');
+          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
         }
       );
     case StatType.hp:
