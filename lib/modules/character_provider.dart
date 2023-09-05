@@ -26,6 +26,9 @@ class CharacterModel with ChangeNotifier {
   // Include things not normally shown in the damage range, ied, iedr, crit damage (crit rate)
   double upperEffectiveDamageRange = 0;
   double upperEffectiveBossDamangeRange = 0;
+  double totalHpRecovery = 0;
+  int totalSkillCooldown = 0;
+  double totalSkillCooldownPercentage = 0;
   double totalHp = 0;
   double totalMp = 0;
   double totalStr = 0;
@@ -119,6 +122,7 @@ class CharacterModel with ChangeNotifier {
   }
 
   void calculateEverything(){
+    totalHpRecovery = 0;
     totalStr = 0;
     totalDex = 0;
     totalInt = 0;
@@ -167,6 +171,8 @@ class CharacterModel with ChangeNotifier {
     mattackPercentage = 0;
     totalMesosObtained = 0;
     totalItemDropRate = 0;
+    totalSkillCooldown = 0;
+    totalSkillCooldownPercentage = 0;
 
     num tempStr = 0;
     num tempDex = 0;
@@ -269,6 +275,16 @@ class CharacterModel with ChangeNotifier {
             totalMesosObtained += entry.value;
           case StatType.itemDropRate:
             totalItemDropRate += entry.value;
+          case StatType.critDamage:
+            totalCritDamage += entry.value;
+          case StatType.critRate:
+            totalCritRate += entry.value;
+          case StatType.hpRecovery:
+            totalHpRecovery += entry.value;
+          case StatType.skillCooldown:
+            totalSkillCooldown += entry.value.toInt();
+          case StatType.skillCooldownPercentage:
+            totalSkillCooldownPercentage += entry.value;
           default:
             throw Exception("Unhandled StatType for returned Stats: ${entry.key}");
         }
