@@ -1200,8 +1200,14 @@ class _PotentialDropdowns extends StatelessWidget {
         filteredList.map((value) {
           var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
           num? valueToDisplay;
+
           if (value.statValue != null) {
-            valueToDisplay = value.statValue![offset];
+            if (value is StaticPotentialLine) {
+              valueToDisplay = value.statValue![0];
+            }
+            else {
+              valueToDisplay = value.statValue![offset];
+            }
           }
           else {
             // TODO: add skill stuff here
@@ -1213,7 +1219,7 @@ class _PotentialDropdowns extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "${value.statType.formattedName} +${value.statType.isPercentage ? doubleRoundPercentFormater.format(valueToDisplay) : valueToDisplay}",
+                    text: "${value.statType.formattedName} ${value.statType.isPositive ? '+' : '-'}${value.statType.isPercentage ? doubleRoundPercentFormater.format(valueToDisplay) : valueToDisplay}",
                     style: Theme.of(context).textTheme.bodyMedium
                   ),
                   TextSpan(

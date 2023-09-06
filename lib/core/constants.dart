@@ -160,20 +160,22 @@ enum StatType {
   allStatsPercentage(formattedName: "All Stats", isPercentage: true),
   attackPercentage(formattedName: "ATT", isPercentage: true),
   mattackPercentage(formattedName: "MATT", isPercentage: true),
-  hpRecovery(formattedName: "Skills and Potion HP Recovery"),
+  hpRecovery(formattedName: "Skills and Potion HP Recovery", isPercentage: true),
   skill(formattedName: "Skill"),
-  skillCooldown(formattedName: "Skill Cooldown"),
+  skillCooldown(formattedName: "Skill Cooldown", isPositive: false),
   skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true);
 
   const StatType({
     required this.formattedName,
     this.description = "",
     this.isPercentage = false,
+    this.isPositive = true,
   });
 
   final String formattedName;
   final String description;
   final bool isPercentage;
+  final bool isPositive;
 }
 
 enum FlameType {

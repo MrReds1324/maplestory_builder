@@ -29,7 +29,7 @@ class DifferenceCalculator with ChangeNotifier {
       Text? text;
       if (statType != null){
         text = Text(
-          '${difference < 0 ? "" : "+"}${statType.isPercentage ? doublePercentFormater.format(difference) : doubleRoundFormater.format(difference)} ${statType.formattedName} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
+          '${difference < 0 ? "" : "+"}${statType.isPositive ? '' : ' -'}${statType.isPercentage ? doublePercentFormater.format(difference) : doubleRoundFormater.format(difference)} ${statType.formattedName} (${difference < 0 ? "" : "+"}${doublePercentFormater.format(calculteDifferencePercentage(newValue, originalValue))})',
           style: TextStyle(
             color: difference < 0 ?Colors.redAccent: Colors.greenAccent,
           ),
@@ -70,6 +70,7 @@ class DifferenceCalculator with ChangeNotifier {
 
     createText(textList, diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
     createText(textList, diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
+    
     createText(textList, diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
     createText(textList, diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
     createText(textList, diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
@@ -101,7 +102,7 @@ class DifferenceCalculator with ChangeNotifier {
     createText(textList, diffCharacterModel.totalMAttack, mainCharacterModel.totalMAttack, statType: StatType.mattack);
     createText(textList, diffCharacterModel.mattackPercentage, mainCharacterModel.mattackPercentage, statType: StatType.mattackPercentage);
     createText(textList, diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
-    
+
     createText(textList, diffCharacterModel.totalDefense, mainCharacterModel.totalDefense, statType: StatType.defense);
     createText(textList, diffCharacterModel.defensePercentage, mainCharacterModel.defensePercentage, statType: StatType.defensePercentage);
     createText(textList, diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage);
@@ -119,6 +120,8 @@ class DifferenceCalculator with ChangeNotifier {
     createText(textList, diffCharacterModel.totalItemDropRate, mainCharacterModel.totalItemDropRate, statType: StatType.itemDropRate);
     createText(textList, diffCharacterModel.totalMesosObtained, mainCharacterModel.totalMesosObtained, statType: StatType.mesosObtained);
     createText(textList, diffCharacterModel.totalHpRecovery, mainCharacterModel.totalHpRecovery, statType: StatType.hpRecovery);
+    createText(textList, diffCharacterModel.totalSkillCooldown, mainCharacterModel.totalSkillCooldown, statType: StatType.skillCooldown);
+    createText(textList, diffCharacterModel.totalSkillCooldownPercentage, mainCharacterModel.totalSkillCooldownPercentage, statType: StatType.skillCooldownPercentage);
 
     if (isEquipEditing) {
       if (textList.length > 1) {
