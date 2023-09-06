@@ -120,7 +120,13 @@ class PotentialModule {
         return;
       }
       else {
-        num statvalue = potentialLine.statValue![offset];
+        num statvalue;
+        if (potentialLine is StaticPotentialLine) {
+          statvalue = potentialLine.statValue![0];
+        }
+        else {
+          statvalue = potentialLine.statValue![offset];
+        }
 
         switch(potentialLine.statType) {
           case StatType.str:
@@ -213,7 +219,12 @@ class PotentialModule {
         var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
         num? valueToDisplay;
         if (potentialLine.statValue != null) {
-          valueToDisplay = potentialLine.statValue![offset];
+          if (potentialLine is StaticPotentialLine) {
+            valueToDisplay = potentialLine.statValue![0];
+          }
+          else {
+            valueToDisplay = potentialLine.statValue![offset];
+          }
         }
         else {
           // TODO: add skill stuff here
