@@ -168,7 +168,7 @@ class Equip extends Base {
       StatType.dexPercentage: dexPercentage + (potentialModule?.dexPercentage ?? 0),
       StatType.intPercentage: intPercentage + (potentialModule?.intPercentage ?? 0),
       StatType.lukPercentage: lukPercentage + (potentialModule?.lukPercentage ?? 0),
-      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.allStatsPercentage ?? 0) + (potentialModule?.jump ?? 0),
+      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.allStatsPercentage ?? 0) + (potentialModule?.allStatsPercentage ?? 0),
       StatType.hpPercentage: hpPercentage + (potentialModule?.hpPercentage ?? 0),
       StatType.mpPercentage: mpPercentage + (potentialModule?.mpPercentage ?? 0),
       StatType.attackPercentage: attackPercentage + (potentialModule?.attackPercentage ?? 0),
