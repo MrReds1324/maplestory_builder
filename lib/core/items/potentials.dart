@@ -120,12 +120,15 @@ class PotentialModule {
         return;
       }
       else {
-        num statvalue;
-        if (potentialLine is StaticPotentialLine) {
-          statvalue = potentialLine.statValue![0];
+        num statvalue = 0;
+        if (potentialLine is PotentialLineStatic) {
+          statvalue = potentialLine.statValue;
+        }
+        else if (potentialLine is PotentialLineRange) {
+          statvalue = potentialLine.statValue[offset];
         }
         else {
-          statvalue = potentialLine.statValue![offset];
+          // TODO: add skill stuff here
         }
 
         switch(potentialLine.statType) {
@@ -218,13 +221,11 @@ class PotentialModule {
       else {
         var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
         num? valueToDisplay;
-        if (potentialLine.statValue != null) {
-          if (potentialLine is StaticPotentialLine) {
-            valueToDisplay = potentialLine.statValue![0];
-          }
-          else {
-            valueToDisplay = potentialLine.statValue![offset];
-          }
+        if (potentialLine is PotentialLineStatic) {
+          valueToDisplay = potentialLine.statValue;
+        }
+        else if (potentialLine is PotentialLineRange) {
+          valueToDisplay = potentialLine.statValue[offset];
         }
         else {
           // TODO: add skill stuff here

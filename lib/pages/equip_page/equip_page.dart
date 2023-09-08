@@ -1189,13 +1189,11 @@ class _PotentialDropdowns extends StatelessWidget {
           var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
           num? valueToDisplay;
 
-          if (value.statValue != null) {
-            if (value is StaticPotentialLine) {
-              valueToDisplay = value.statValue![0];
-            }
-            else {
-              valueToDisplay = value.statValue![offset];
-            }
+          if (value is PotentialLineStatic) {
+            valueToDisplay = value.statValue;
+          }
+          else if (value is PotentialLineRange) {
+            valueToDisplay = value.statValue[offset];
           }
           else {
             // TODO: add skill stuff here
