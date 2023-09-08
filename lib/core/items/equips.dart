@@ -482,6 +482,7 @@ class Equip extends Base {
     double? skillCooldownPercentage,
     StarForceModule? starForceModule,
     FlameModule? flameModule,
+    PotentialModule? potentialModule,
     num? equipHash,
   }) {
     return Equip(
@@ -537,6 +538,7 @@ class Equip extends Base {
       skillCooldownPercentage: skillCooldownPercentage ?? this.skillCooldownPercentage,
       starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
       flameModule: flameModule ?? this.flameModule?.copyWith(),
+      potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
   }
