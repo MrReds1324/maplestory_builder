@@ -1182,19 +1182,7 @@ class _PotentialDropdowns extends StatelessWidget {
 
     if (editingEquip != null && editingEquip.potentialModule != null && editingEquip.canPotential) {
 
-      List<PotentialLine> filteredList = [];
-
-      switch(editingEquip.equipType) {
-        case EquipType.hat:
-          if (isBonus) {
-            filteredList = hatPotentials[editingEquip.potentialModule?.bonusPotential] ?? [];
-          }
-          else {
-            filteredList = hatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
-          }
-        default:
-          return dropdownItems;
-      }
+      List<PotentialLine> filteredList = getPotentialsListForEquip(editingEquip, isBonus: isBonus);
 
       dropdownItems.addAll(
         filteredList.map((value) {
@@ -1274,7 +1262,7 @@ class _PotentialDropdowns extends StatelessWidget {
             isExpanded: true,
             value: getSelectedPotentialLine(characterModel.editingEquip, potentialPosition),
             onChanged: (newValue) {
-              characterModel.updatePotential(potentialPosition, newValue);
+              characterModel.updatePotential(potentialPosition, newValue, isBonus: isBonus);
             },
             items: getDropdownPotentialsList(context, characterModel.editingEquip)
           ),

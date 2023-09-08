@@ -273,7 +273,7 @@ class PotentialModule {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "Potential (${bonusPotential!.formattedName})",
+                text: "Bonus Potential (${bonusPotential!.formattedName})",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: bonusPotential!.color)
               )
             ]
@@ -461,4 +461,85 @@ int getPotentialOffsetFromItemLevel(int itemLevel) {
   else { // 151+
     return INDEX_151;
   }
+}
+
+List<PotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=false}) {
+  List<PotentialLine> filteredList;
+  if (isBonus) {
+    switch(editingEquip.equipType) {
+      case EquipType.hat:
+        filteredList = bonusHatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.overall:
+      case EquipType.top:
+      case EquipType.bottom:
+      case EquipType.shoes:
+      case EquipType.cape:
+      case EquipType.belt:
+      case EquipType.shoulder:
+        filteredList = bonusTopOverallBottomShoesCapeBeltShoulderPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.gloves:
+        filteredList = bonusGlovesPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.face:
+      case EquipType.eye:
+      case EquipType.ring:
+      case EquipType.pendant:
+      case EquipType.earrings:
+        filteredList = bonusFaceEyeRingPendantEarringPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.weapon:
+        filteredList = bonusWeaponPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
+        filteredList = bonusSecondaryPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.emblem:
+        filteredList = bonusEmblemPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.heart:
+      case EquipType.badge:
+        filteredList = bonusHeartBadgePotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      default:
+        return [];
+    }
+  }
+  else {
+    switch(editingEquip.equipType) {
+      case EquipType.hat:
+        filteredList = hatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.overall:
+      case EquipType.top:
+        filteredList = topAndOverallPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.bottom:
+        filteredList = bottomPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.gloves:
+        filteredList = glovesPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.shoes:
+        filteredList = shoesPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.cape:
+      case EquipType.belt:
+      case EquipType.shoulder:
+        filteredList = capeBeltShoulderPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.face:
+      case EquipType.eye:
+      case EquipType.ring:
+      case EquipType.pendant:
+      case EquipType.earrings:
+        filteredList = faceEyeRingPendantEarringPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.weapon:
+      case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
+        filteredList = weaponSecondaryPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.emblem:
+        filteredList = emblemPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      case EquipType.heart:
+      case EquipType.badge:
+        filteredList = heartAndBadgePotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+      default:
+        return [];
+    }
+  }
+  
+
+  filteredList += isBonus ? bonusDefaultPotentials[editingEquip.potentialModule?.bonusPotential] ?? [] : defaultPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+
+  return filteredList;
 }
