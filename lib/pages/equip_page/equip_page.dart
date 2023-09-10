@@ -741,7 +741,7 @@ class _EquipBuilder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 300,
+            width: 313,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Column(
               children: [
@@ -752,24 +752,21 @@ class _EquipBuilder extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
-                const _FlameSelector(),
-                const Divider(
-                  height: 15,
-                  thickness: 1,
-                  color: statColor,
+                Expanded(child: 
+                  ListView(
+                    padding: const EdgeInsets.only(right: 13, bottom: 5),
+                    children: <Widget>[
+                      Consumer<CharacterModel>(
+                        builder: (_, characterModel, __) {
+                          return characterModel.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
+                        }
+                      ),
+                      const _StarForceSlider(),
+                      const _PotentialSelector(),
+                      const _FlameSelector(),
+                    ],
+                  ),
                 ),
-                const _StarForceSlider(),
-                const Divider(
-                  height: 15,
-                  thickness: 1,
-                  color: statColor,
-                ),
-                Consumer<CharacterModel>(
-                  builder: (_, characterModel, __) {
-                    return characterModel.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
-                  }
-                ),
-                const _PotentialSelector(),
               ],
             ),
           ),
@@ -823,24 +820,30 @@ class _StarForceSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return ExpansionTile(
+      iconColor: equipStarColor,
+      title: const Text("Star Force"),
       children: [
-        const Text("Star Force:"),
-        Expanded(
-          child: Consumer<CharacterModel>(
-            builder: (_, characterModel, __) {
-              return Slider(
-                value: characterModel.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
-                max: characterModel.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
-                divisions: characterModel.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
-                label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
-                onChanged: (double newValue) {
-                  context.read<CharacterModel>().updateStarforce(newValue);
-                  context.read<DifferenceCalculator>().compareEditingEquip();
-                },
-              );
-            }
-          ),
+        Row(
+          children: [
+            const Text("Star Force:"),
+            Expanded(
+              child: Consumer<CharacterModel>(
+                builder: (_, characterModel, __) {
+                  return Slider(
+                    value: characterModel.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
+                    max: characterModel.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
+                    divisions: characterModel.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
+                    label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
+                    onChanged: (double newValue) {
+                      context.read<CharacterModel>().updateStarforce(newValue);
+                      context.read<DifferenceCalculator>().compareEditingEquip();
+                    },
+                  );
+                }
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -853,9 +856,11 @@ class _FlameSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return const ExpansionTile(
+      iconColor: equipStarColor,
+      childrenPadding: EdgeInsets.only(bottom: 5),
+      title: Text("Flames"),
       children: [
-        Text("Flame Selection"),
         _FlameDropdowns(flamePosition: 1),
         _FlameDropdowns(flamePosition: 2),
         _FlameDropdowns(flamePosition: 3),
@@ -1053,33 +1058,25 @@ class _PotentialSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 5),
-      child: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Divider(
-            height: 15,
-            thickness: 1,
-            color: statColor,
-          ),
-          Text("Main Potential Selection"),
-          _PotenialTierDropdown(),
-          _PotentialDropdowns(potentialPosition: 1),
-          _PotentialDropdowns(potentialPosition: 2),
-          _PotentialDropdowns(potentialPosition: 3),
-          Divider(
-            height: 15,
-            thickness: 1,
-            color: statColor,
-          ),
-          Text("Bonus Potential Selection"),
-          _PotenialTierDropdown(isBonus: true),
-          _PotentialDropdowns(potentialPosition: 1, isBonus: true),
-          _PotentialDropdowns(potentialPosition: 2, isBonus: true),
-          _PotentialDropdowns(potentialPosition: 3, isBonus: true),
-        ],
-      ),
+    return const ExpansionTile(
+      iconColor: equipStarColor,
+      childrenPadding: EdgeInsets.only(bottom: 5),
+      title: Text("Potentials"),
+      children: [
+        _PotenialTierDropdown(),
+        _PotentialDropdowns(potentialPosition: 1),
+        _PotentialDropdowns(potentialPosition: 2),
+        _PotentialDropdowns(potentialPosition: 3),
+        Divider(
+          height: 15,
+          thickness: 1,
+          color: statColor,
+        ),
+        _PotenialTierDropdown(isBonus: true),
+        _PotentialDropdowns(potentialPosition: 1, isBonus: true),
+        _PotentialDropdowns(potentialPosition: 2, isBonus: true),
+        _PotentialDropdowns(potentialPosition: 3, isBonus: true),
+      ],
     );
   }
 }
@@ -1134,13 +1131,13 @@ class _PotenialTierDropdown extends StatelessWidget {
         return Row(
           children: [
             Text(
-              "Potential: ",
+              "${isBonus ? 'Bonus' : 'Main'} Potential: ",
               style: TextStyle(
                 color: getSelectedPotentialTier(characterModel.editingEquip)?.color
               ),
             ),
             SizedBox(
-              width: 234,
+              width: isBonus ? 197 : 203,
               child: DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
