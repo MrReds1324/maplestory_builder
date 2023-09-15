@@ -124,7 +124,7 @@ class CharacterModel with ChangeNotifier {
     }
   }
 
-  void calculateEverything(){
+  void calculateEverything({bool recalculateCache = false}){
     totalHpRecovery = 0;
     totalStr = 0;
     totalDex = 0;
@@ -296,7 +296,7 @@ class CharacterModel with ChangeNotifier {
 
     updatePureStats(apStatsModule.calculateStats());
 
-    for (Map<StatType, num> equipStats in equipModule.calculateStats()){
+    for (Map<StatType, num> equipStats in equipModule.calculateStats(recalculateCache: recalculateCache)){
       updateTempStats(equipStats);
     }
     // Specific caps on stats from items
