@@ -1,4 +1,5 @@
 import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/core/items/equip_sets.dart';
 
 import 'package:maplestory_builder/core/items/equips.dart';
 
@@ -7,6 +8,7 @@ class EquipModule {
   // rebuilding from json we can ensure the items stay "linked"
   int equipHash = 1;
   List<Equip> allEquips = <Equip>[];
+  SetEffectModule setEffectModule = SetEffectModule();
 
   // Totems
   Equip? totem1;
@@ -436,6 +438,7 @@ class EquipModule {
 
   EquipModule({
     List<Equip>? allEquips,
+    SetEffectModule? setEffectModule,
     this.totem1,
     this.totem2,
     this.totem3,
@@ -474,9 +477,10 @@ class EquipModule {
     this.equipHash = 1,
   }) {
     this.allEquips = allEquips ?? [];
+    this.setEffectModule = setEffectModule ?? SetEffectModule();
   }
 
-  List<Map<StatType, num>> calculateStats() {
+  List<Map<StatType, num>> calculateStats({bool recalculateCache = false}) {
     var equipStats = <Map<StatType, num>>[];
 
     void addToList(Equip? equip){
@@ -526,6 +530,7 @@ class EquipModule {
 
   EquipModule copyWith({
     List<Equip>? allEquips,
+    SetEffectModule? setEffectModule,
     Equip? totem1,
     Equip? totem2,
     Equip? totem3,
@@ -565,6 +570,7 @@ class EquipModule {
   }) {
     return EquipModule(
       allEquips: allEquips ?? List.from(this.allEquips),
+      setEffectModule: setEffectModule ?? this.setEffectModule.copyWith(),
       totem1: totem1 ?? this.totem1,
       totem2: totem2 ?? this.totem2,
       totem3: totem3 ?? this.totem3,
