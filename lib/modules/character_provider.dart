@@ -397,11 +397,13 @@ class CharacterModel with ChangeNotifier {
     notifyListeners();
   }
 
-  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule}){
+  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = false}){
     this.apStatsModule = apStatsModule ?? APStatsModule();
     this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
     this.equipModule = equipModule ?? EquipModule();
-    calculateEverything();
+    if (doCalculation) {
+      calculateEverything();
+    }
   }
 
   CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule}){
