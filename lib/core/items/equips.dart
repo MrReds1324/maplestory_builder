@@ -25,6 +25,7 @@ class Equip extends Base {
 
   Equip({
     required super.name,
+    required super.itemId,
     required this.equipType,
     this.classType = ClassType.all,
     this.canStar = true,
@@ -193,7 +194,8 @@ class Equip extends Base {
         children: [
           includeName ? Text(name) : const SizedBox.shrink(),
           __createTextLine(context, StatType.starForce),
-          Text(name, style: Theme.of(context).textTheme.headlineSmall),
+          Center(child: Text(name, style: Theme.of(context).textTheme.headlineSmall)),
+          isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
           __createTextLine(context, StatType.level),
           __createTextLine(context, StatType.attackSpeed),
           __createTextLine(context, StatType.str),
@@ -431,6 +433,7 @@ class Equip extends Base {
 
   Equip copyWith({
     String? name,
+    num? itemId,
     EquipType? equipType,
     ClassType? classType,
     bool? canStar,
@@ -487,6 +490,7 @@ class Equip extends Base {
   }) {
     return Equip(
       name: name ?? this.name,
+      itemId: itemId ?? this.itemId,
       equipType: equipType ?? this.equipType,
       classType: classType ?? this.classType,
       canStar: canStar ?? this.canStar,
