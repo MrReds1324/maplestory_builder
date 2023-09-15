@@ -555,14 +555,16 @@ class Equip extends Base {
   @override
   operator ==(Object other){
     if (other is Equip){
+      // If they are the exact same reference
       if (identical(this, other)){
         return true;
       }
-      else if (other.equipHash == -1 || equipHash == -1) {
-        return false;
+      // If they are both non-editted items then compare their itemId
+      else if (equipHash == -1 && other.equipHash == -1) {
+        return itemId == other.itemId;
       }
       else {
-        return other.equipHash == other.equipHash;
+        return equipHash == other.equipHash;
       }
     }
     return false;
