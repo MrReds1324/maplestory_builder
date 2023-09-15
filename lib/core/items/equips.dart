@@ -14,6 +14,8 @@ import 'dart:math';
 class Equip extends Base {
   final EquipType equipType;
   final ClassType classType;
+  bool isEquipped = false;
+  bool isUniqueItem = false;
   bool canStar = true;
   bool canFlame = true;
   bool isFlameAdvantaged = true;
@@ -28,6 +30,7 @@ class Equip extends Base {
     required super.itemId,
     required this.equipType,
     this.classType = ClassType.all,
+    this.isUniqueItem = false,
     this.canStar = true,
     this.canFlame = true,
     this.isFlameAdvantaged = true,
@@ -436,6 +439,7 @@ class Equip extends Base {
     num? itemId,
     EquipType? equipType,
     ClassType? classType,
+    bool? isUniqueItem,
     bool? canStar,
     bool? canFlame,
     bool? isFlameAdvantaged,
@@ -493,6 +497,7 @@ class Equip extends Base {
       itemId: itemId ?? this.itemId,
       equipType: equipType ?? this.equipType,
       classType: classType ?? this.classType,
+      isUniqueItem: isUniqueItem ?? this.isUniqueItem,
       canStar: canStar ?? this.canStar,
       canFlame: canFlame ?? this.canFlame,
       isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
