@@ -541,6 +541,8 @@ class EquipModule {
     addToList(petEquip2);
     addToList(petEquip3);
 
+    equipStats.addAll(setEffectModule.calculateStats(recalculateCache: recalculateCache));
+
     return equipStats;
   }
 
