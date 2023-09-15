@@ -5,6 +5,7 @@ import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/base.dart';
 import 'package:maplestory_builder/core/constants/flame_stats.dart';
 import 'package:maplestory_builder/core/constants/potential_stats.dart';
+import 'package:maplestory_builder/core/constants/set_effect_stats.dart';
 import 'package:maplestory_builder/core/items/flames.dart';
 import 'package:maplestory_builder/core/items/potentials.dart';
 import 'package:maplestory_builder/core/items/starforce.dart';
@@ -14,6 +15,7 @@ import 'dart:math';
 class Equip extends Base {
   final EquipType equipType;
   final ClassType classType;
+  final EquipSet? equipSet;
   bool isEquipped = false;
   bool isUniqueItem = false;
   bool canStar = true;
@@ -29,6 +31,7 @@ class Equip extends Base {
     required super.name,
     required super.itemId,
     required this.equipType,
+    this.equipSet,
     this.classType = ClassType.all,
     this.isUniqueItem = false,
     this.canStar = true,
@@ -438,6 +441,7 @@ class Equip extends Base {
     String? name,
     num? itemId,
     EquipType? equipType,
+    EquipSet? equipSet,
     ClassType? classType,
     bool? isUniqueItem,
     bool? canStar,
@@ -496,6 +500,7 @@ class Equip extends Base {
       name: name ?? this.name,
       itemId: itemId ?? this.itemId,
       equipType: equipType ?? this.equipType,
+      equipSet: equipSet ?? this.equipSet,
       classType: classType ?? this.classType,
       isUniqueItem: isUniqueItem ?? this.isUniqueItem,
       canStar: canStar ?? this.canStar,
@@ -578,8 +583,11 @@ class Equip extends Base {
 
 
 final List<Equip> equipList = [
-  Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
-  Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
-  Equip(name: "Superior Gollux Ring", itemId: 3, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
-  Equip(name: "Dawn Guardian Angel Ring", itemId: 4, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),
+  // Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
+  // Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
+  // Equip(name: "Dawn Guardian Angel Ring", itemId: 4, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),Equip(name: "Superior Gollux Ring", itemId: 3, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
+  Equip(name: "Superior Gollux Ring", itemId: 1, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
+  Equip(name: "Superior Gollux Pendant", itemId: 2, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
+  Equip(name: "Superior Gollux Belt", itemId: 3, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
+  Equip(name: "Superior Gollux Earrings", itemId: 4, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 15, hp: 150, mp: 150, attackPower: 10, mattack: 10, defense: 100),
 ];
