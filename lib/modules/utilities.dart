@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/core/constants/set_effect_stats.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
 final doubleRoundFormater = NumberFormat('#######');
@@ -14,6 +15,16 @@ String formatCharacterClassEnumName(CharacterClass characterClass) {
 
 double calculteDifferencePercentage(num newValue, num originalValue) {
   return (newValue - originalValue) / originalValue;
+}
+
+Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
+    Map<EquipSet, SetEffect> newMap = {};
+
+    map.forEach((key, value) {
+      newMap[key] = value.copyWith();
+    });
+
+    return newMap;
 }
 
 class MapleTooltip extends StatelessWidget{
