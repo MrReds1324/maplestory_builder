@@ -68,107 +68,158 @@ class EquipModule {
   Equip? petEquip2;
   Equip? petEquip3;
 
-  void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
+  bool equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
+    if ((equip?.isEquipped ?? false) && (equip?.isUniqueItem ?? false)) {
+      return false;
+    }
+
+    equip?.isEquipped = true;
+    Equip? replacedItem;
+
     switch(equipType) {
       case EquipType.totem:
         if (equipPosition == 1) {
+          replacedItem = totem1;
           totem1 = equip;
         }
         else if (equipPosition == 2) {
+          replacedItem = totem2;
           totem2 = equip;
         }
         else {
+          replacedItem = totem3;
           totem3 = equip;
         }
       case EquipType.ring:
         if (equipPosition == 1) {
+          replacedItem = ring1;
           ring1 = equip;
         }
         else if (equipPosition == 2) {
+          replacedItem = ring2;
           ring2 = equip;
         }
         else if (equipPosition == 3) {
+          replacedItem = ring3;
           ring3 = equip;
         }
         else {
+          replacedItem = ring4;
           ring4 = equip;
         }
       case EquipType.pocket:
+        replacedItem = pocketItem;
         pocketItem = equip;
       case EquipType.pendant:
         if (equipPosition == 1) {
+          replacedItem = pendant1;
           pendant1 = equip;
         }
         else {
+          replacedItem = pendant2;
           pendant2 = equip;
         }
       case EquipType.weapon:
+        replacedItem = weapon;
         weapon = equip;
       case EquipType.belt:
+        replacedItem = belt;
         belt = equip;
       case EquipType.hat:
+        replacedItem = hat;
         hat = equip;
       case EquipType.face:
+        replacedItem = face;
         face = equip;
       case EquipType.eye:
+        replacedItem = eye;
         eye = equip;
       case EquipType.overall:
+        replacedItem = overall;
+        top?.isEquipped = false;
+        bottom?.isEquipped = false;
         overall = equip;
         top = null;
         bottom = null;
       case EquipType.top:
+        replacedItem = top;
         top = equip;
+        overall?.isEquipped = false;
         overall = null;
       case EquipType.bottom:
+        replacedItem = bottom;
         bottom = equip;
+        overall?.isEquipped = false;
         overall = null;
       case EquipType.shoes:
+        replacedItem = shoes;
         shoes = equip;
       case EquipType.earrings:
+        replacedItem = earrings;
         earrings = equip;
       case EquipType.shoulder:
+        replacedItem = shoulder;
         shoulder = equip;
       case EquipType.gloves:
+        replacedItem = gloves;
         gloves = equip;
       case EquipType.emblem:
+        replacedItem = emblem;
         emblem = equip;
       case EquipType.badge:
+        replacedItem = badge;
         badge = equip;
       case EquipType.medal:
+        replacedItem =  medal;
         medal = equip;
       case EquipType.secondary:
       case EquipType.shield:
       case EquipType.katara:
+        replacedItem = secondary;
         secondary = equip;
       case EquipType.cape:
+        replacedItem = cape;
         cape = equip;
       case EquipType.heart:
+        replacedItem = heart;
         heart = equip;
       case EquipType.title:
+        replacedItem = title;
         title = equip;
       case EquipType.pet:
         if (equipPosition == 1) {
+          replacedItem = pet1;
           pet1 = equip;
         }
         else if (equipPosition == 2) {
+          replacedItem = pet2;
           pet2 = equip;
         }
         else {
+          replacedItem = pet3;
           pet3 = equip;
         }
       case EquipType.petEquip:
         if (equipPosition == 1) {
+          replacedItem = petEquip1;
           petEquip1 = equip;
         }
         else if (equipPosition == 2) {
+          replacedItem = petEquip2;
           petEquip2 = equip;
         }
         else {
+          replacedItem = petEquip3;
           petEquip3 = equip;
         }
       default:
         throw Exception("Unhandled EquipType $equipType trying to be equipped");
     }
+
+    if (replacedItem != equip) {
+      replacedItem?.isEquipped = false;
+    }
+    return true;
   }
   
   bool _updateEquippedEquip(Equip targetEquip, {bool isRemoving=false}) {

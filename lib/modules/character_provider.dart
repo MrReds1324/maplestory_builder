@@ -116,9 +116,12 @@ class CharacterModel with ChangeNotifier {
   }
 
   void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
-    equipModule.equipEquip(equip, equipType, equipPosition: equipPosition);
-    calculateEverything();
-    notifyListeners();
+    var didUpdate = equipModule.equipEquip(equip, equipType, equipPosition: equipPosition);
+    
+    if (didUpdate) {
+      calculateEverything();
+      notifyListeners();
+    }
   }
 
   void calculateEverything(){
