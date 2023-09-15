@@ -578,7 +578,8 @@ class Equip extends Base {
 
 
 final List<Equip> equipList = [
-  Equip(name: "Royal Ranger Beret", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
-  Equip(name: "Sengoku Hakase Badge", equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
-  Equip(name: "Superior Gollux Ring", equipType: EquipType.ring, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10)
+  Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
+  Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
+  Equip(name: "Superior Gollux Ring", itemId: 3, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
+  Equip(name: "Dawn Guardian Angel Ring", itemId: 4, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),
 ];
