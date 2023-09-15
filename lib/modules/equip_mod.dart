@@ -70,12 +70,14 @@ class EquipModule {
   Equip? petEquip2;
   Equip? petEquip3;
 
-  bool equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
-    if ((equip?.isEquipped ?? false) && (equip?.isUniqueItem ?? false)) {
+  bool equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0, bool isCalculatingDifference = false}) {
+    if (!isCalculatingDifference && (equip?.isEquipped ?? false) && (equip?.isUniqueItem ?? false)) {
       return false;
     }
 
-    equip?.isEquipped = true;
+    if (!isCalculatingDifference) {
+      equip?.isEquipped = true;
+    }
     Equip? replacedItem;
 
     switch(equipType) {
@@ -138,20 +140,30 @@ class EquipModule {
         eye = equip;
       case EquipType.overall:
         replacedItem = overall;
-        top?.isEquipped = false;
-        bottom?.isEquipped = false;
+        if (!isCalculatingDifference) {
+          top?.isEquipped = false;
+          bottom?.isEquipped = false;
+        }
+        setEffectModule.removeEquip(top, isCalculatingDifference: isCalculatingDifference);
+        setEffectModule.removeEquip(bottom, isCalculatingDifference: isCalculatingDifference);
         overall = equip;
         top = null;
         bottom = null;
       case EquipType.top:
         replacedItem = top;
         top = equip;
-        overall?.isEquipped = false;
+        if (!isCalculatingDifference) {
+          overall?.isEquipped = false;
+        }
+        setEffectModule.removeEquip(overall, isCalculatingDifference: isCalculatingDifference);
         overall = null;
       case EquipType.bottom:
         replacedItem = bottom;
         bottom = equip;
-        overall?.isEquipped = false;
+        if (!isCalculatingDifference) {
+          overall?.isEquipped = false;
+        }
+        setEffectModule.removeEquip(overall, isCalculatingDifference: isCalculatingDifference);
         overall = null;
       case EquipType.shoes:
         replacedItem = shoes;
@@ -219,7 +231,11 @@ class EquipModule {
     }
 
     if (replacedItem != equip) {
-      replacedItem?.isEquipped = false;
+      if (!isCalculatingDifference) {
+        replacedItem?.isEquipped = false;
+      }
+      setEffectModule.removeEquip(replacedItem, isCalculatingDifference: isCalculatingDifference);
+      setEffectModule.addEquip(equip, isCalculatingDifference: isCalculatingDifference);
     }
     return true;
   }
