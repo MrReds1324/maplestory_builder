@@ -155,20 +155,32 @@ class DifferenceCalculator with ChangeNotifier {
   Widget? compareEditingEquip(){
     Equip? tempEquip;
     Widget? widgetReturn;
+    // Used for items that are uniqueEquipped like Superior Gollux Items
+    bool isUniqueItem = mainCharacterModel.editingEquip?.isUniqueItem ?? false;
+    // Used for items that have multiple positions like totems, rings, etc
+    List<Widget> widgetChildren = <Widget>[];
+    bool hasEquipped = false;
+
+    int? getUniqueItemPosition(List<Equip?> positionedEquips) {
+      if (mainCharacterModel.editingEquip?.isUniqueItem ?? false) {
+        for(var i = 0; i < positionedEquips.length; i++){
+          if (positionedEquips[i]?.itemId == mainCharacterModel.editingEquip?.itemId) {
+            return i + 1;
+          }
+        }
+      }
+      return null;
+    }
+
     switch(mainCharacterModel.editingEquip?.equipType){
       case EquipType.totem:
-        var widgetChildren = <Widget>[];
-        var hasEquipped = false;
+        var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.totem1, mainCharacterModel.equipModule.totem2, mainCharacterModel.equipModule.totem3]);
 
         tempEquip = diffCharacterModel.equipModule.totem1;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.totem1 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.totem1 = tempEquip;
-        }
-        else {
+        if (tempEquip == null) {
           hasEquipped = true;
+        }
+        if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.totem1 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -176,14 +188,10 @@ class DifferenceCalculator with ChangeNotifier {
         }
 
         tempEquip = diffCharacterModel.equipModule.totem2;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.totem2 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.totem2 = tempEquip;
-        }
-        else if (!hasEquipped) {
-          hasEquipped = true;
+        if ((isUniqueItem && uniqueItemPosition == 2) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          if (tempEquip == null) {
+            hasEquipped = true;
+          }
           diffCharacterModel.equipModule.totem2 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -191,14 +199,7 @@ class DifferenceCalculator with ChangeNotifier {
         }
 
         tempEquip = diffCharacterModel.equipModule.totem3;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.totem3 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.totem3 = tempEquip;
-        }
-        else if (!hasEquipped) {
-          hasEquipped = true;
+        if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.totem3 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -207,18 +208,13 @@ class DifferenceCalculator with ChangeNotifier {
 
         widgetReturn = Column(children: widgetChildren);
       case EquipType.ring:
-        var widgetChildren = <Widget>[];
-        var hasEquipped = false;
+        var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.ring1, mainCharacterModel.equipModule.ring2, mainCharacterModel.equipModule.ring3, mainCharacterModel.equipModule.ring4]);
 
         tempEquip = diffCharacterModel.equipModule.ring1;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.ring1 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.ring1 = tempEquip;
-        }
-        else {
+        if (tempEquip == null) {
           hasEquipped = true;
+        }
+        if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.ring1 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -226,14 +222,10 @@ class DifferenceCalculator with ChangeNotifier {
         }
 
         tempEquip = diffCharacterModel.equipModule.ring2;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.ring2 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.ring2 = tempEquip;
-        }
-        else if (!hasEquipped) {
-          hasEquipped = true;
+        if ((isUniqueItem && uniqueItemPosition == 2) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          if (tempEquip == null) {
+            hasEquipped = true;
+          }
           diffCharacterModel.equipModule.ring2 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -241,14 +233,10 @@ class DifferenceCalculator with ChangeNotifier {
         }
 
         tempEquip = diffCharacterModel.equipModule.ring3;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.ring3 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.ring3 = tempEquip;
-        }
-        else if (!hasEquipped) {
-          hasEquipped = true;
+        if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          if (tempEquip == null) {
+            hasEquipped = true;
+          }
           diffCharacterModel.equipModule.ring3 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -256,14 +244,7 @@ class DifferenceCalculator with ChangeNotifier {
         }
 
         tempEquip = diffCharacterModel.equipModule.ring4;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.ring4 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.ring4 = tempEquip;
-        }
-        else if (!hasEquipped) {
-          hasEquipped = true;
+        if ((isUniqueItem && uniqueItemPosition == 4) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.ring4 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -278,18 +259,13 @@ class DifferenceCalculator with ChangeNotifier {
         widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.pocketItem = tempEquip;
       case EquipType.pendant:
-        var widgetChildren = <Widget>[];
-        var hasEquipped = false;
+        var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.pendant1, mainCharacterModel.equipModule.pendant2]);
 
         tempEquip = diffCharacterModel.equipModule.pendant1;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.pendant1 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.pendant1 = tempEquip;
-        }
-        else {
+        if (tempEquip == null) {
           hasEquipped = true;
+        }
+        if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.pendant1 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -297,14 +273,7 @@ class DifferenceCalculator with ChangeNotifier {
         }
 
         tempEquip = diffCharacterModel.equipModule.pendant2;
-        if (tempEquip != null) {
-          diffCharacterModel.equipModule.pendant2 = mainCharacterModel.editingEquip;
-          diffCharacterModel.calculateEverything();
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
-          diffCharacterModel.equipModule.pendant2 = tempEquip;
-        }
-        else if (!hasEquipped) {
-          hasEquipped = true;
+        if ((isUniqueItem && uniqueItemPosition == 2) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.pendant2 = mainCharacterModel.editingEquip;
           diffCharacterModel.calculateEverything();
           widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
@@ -437,6 +406,80 @@ class DifferenceCalculator with ChangeNotifier {
         diffCharacterModel.calculateEverything();
         widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.heart = tempEquip;
+      case EquipType.title:
+        tempEquip = diffCharacterModel.equipModule.title;
+        diffCharacterModel.equipModule.title = mainCharacterModel.editingEquip;
+        diffCharacterModel.calculateEverything();
+        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        diffCharacterModel.equipModule.title = tempEquip;
+      case EquipType.pet:
+        var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.pet1, mainCharacterModel.equipModule.pet2, mainCharacterModel.equipModule.pet3]);
+
+        tempEquip = diffCharacterModel.equipModule.pet1;
+        if (tempEquip == null) {
+          hasEquipped = true;
+        }
+        if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
+          diffCharacterModel.equipModule.pet1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pet1 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.totem2;
+        if ((isUniqueItem && uniqueItemPosition == 2) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          if (tempEquip == null) {
+            hasEquipped = true;
+          }
+          diffCharacterModel.equipModule.pet2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pet2 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.pet3;
+        if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          diffCharacterModel.equipModule.pet3 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.pet3 = tempEquip;
+        }
+
+        widgetReturn = Column(children: widgetChildren);
+      case EquipType.petEquip:
+        var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.petEquip1, mainCharacterModel.equipModule.petEquip2, mainCharacterModel.equipModule.petEquip3]);
+
+        tempEquip = diffCharacterModel.equipModule.petEquip1;
+        if (tempEquip == null) {
+          hasEquipped = true;
+        }
+        if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
+          diffCharacterModel.equipModule.petEquip1 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.petEquip1 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.petEquip2;
+        if ((isUniqueItem && uniqueItemPosition == 2) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          if (tempEquip == null) {
+            hasEquipped = true;
+          }
+          diffCharacterModel.equipModule.petEquip2 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.petEquip2 = tempEquip;
+        }
+
+        tempEquip = diffCharacterModel.equipModule.petEquip3;
+        if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
+          diffCharacterModel.equipModule.petEquip3 = mainCharacterModel.editingEquip;
+          diffCharacterModel.calculateEverything();
+          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          diffCharacterModel.equipModule.petEquip3 = tempEquip;
+        }
+
+        widgetReturn = Column(children: widgetChildren);
       default:
         return widgetReturn;
     }
