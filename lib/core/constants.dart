@@ -310,18 +310,21 @@ enum CharacterClass {
   zero,
 }
 
-const statColor = Color.fromARGB(255, 105, 105, 105);
-const apColor = Colors.green;
-const equipEnhancedColor = Color.fromARGB(255, 102, 255, 255);
-const equipFlameColor = Color.fromARGB(255, 204, 255, 0);
-const equipStarColor = Color.fromARGB(255, 255, 204, 0);
-const equipScrollColor = Color.fromARGB(255, 170, 170, 255);
-const equipReductionColor = Color.fromARGB(255, 255, 0, 102);
-const starColor = Color.fromARGB(255, 255, 212, 1);
-const rarePotentialColor = Color.fromARGB(255, 102, 255, 255);
-const epicPotentialColor = Color.fromARGB(255, 173, 109, 236);
-const uniquePotentialColor = Color.fromARGB(255, 255, 231, 16);
-const legendaryPotentialColor = Color.fromARGB(255, 119, 238, 0);
+const Color statColor = Color.fromARGB(255, 105, 105, 105);
+const Color apColor = Colors.green;
 
-const emptyStar = Icon(Icons.star_border, size: 16);
-const filledStar = Icon(Icons.star, size: 16, color: starColor);
+const Color equipEnhancedColor = Color.fromARGB(255, 102, 255, 255);
+const Color equipFlameColor = Color.fromARGB(255, 204, 255, 0);
+const Color equipStarColor = Color.fromARGB(255, 255, 204, 0);
+const Color equipScrollColor = Color.fromARGB(255, 170, 170, 255);
+const Color equipReductionColor = Color.fromARGB(255, 255, 0, 102);
+const Color equipUniqueColor = Colors.deepOrangeAccent;
+
+const Color starColor = Color.fromARGB(255, 255, 212, 1);
+const Color rarePotentialColor = Color.fromARGB(255, 102, 255, 255);
+const Color epicPotentialColor = Color.fromARGB(255, 173, 109, 236);
+const Color uniquePotentialColor = Color.fromARGB(255, 255, 231, 16);
+const Color legendaryPotentialColor = Color.fromARGB(255, 119, 238, 0);
+
+const Icon emptyStar = Icon(Icons.star_border, size: 16);
+const Icon filledStar = Icon(Icons.star, size: 16, color: starColor);
