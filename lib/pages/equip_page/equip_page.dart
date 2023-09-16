@@ -631,7 +631,13 @@ class _SearchableItemListState extends State<SearchableItemList> {
                 itemBuilder: (context, index) {
                   return MapleTooltip(
                     maxWidth: items[index].getTooltipWidth(),
-                    tooltipWidgets: [items[index].createEquipContainer(context)],
+                    tooltipWidgets: [
+                      Consumer<CharacterModel>(
+                        builder: (_, characterModel, __) {
+                          return items[index].createEquipContainer(context);
+                        }
+                      ),
+                    ],
                     child: ListTile(
                       title: Row(
                         children: [
