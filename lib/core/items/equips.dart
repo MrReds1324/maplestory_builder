@@ -334,7 +334,9 @@ class Equip extends Base {
               __createTextLine(context, StatType.int),
               __createTextLine(context, StatType.luk),
               __createTextLine(context, StatType.hp),
+              __createTextLine(context, StatType.hpPercentage),
               __createTextLine(context, StatType.mp),
+              __createTextLine(context, StatType.mpPercentage),
               __createTextLine(context, StatType.attack),
               __createTextLine(context, StatType.mattack),
               __createTextLine(context, StatType.defense),
@@ -358,8 +360,6 @@ class Equip extends Base {
               __createTextLine(context, StatType.dexPercentage),
               __createTextLine(context, StatType.intPercentage),
               __createTextLine(context, StatType.lukPercentage),
-              __createTextLine(context, StatType.hpPercentage),
-              __createTextLine(context, StatType.mpPercentage),
               __createTextLine(context, StatType.defensePercentage),
               __createTextLine(context, StatType.attackPercentage),
               __createTextLine(context, StatType.mattackPercentage),
@@ -454,10 +454,14 @@ class Equip extends Base {
         baseStat = hp;
         starForceStat = starForceModule?.hp ?? 0;
         flameStat = flameModule?.hp ?? 0;
+      case StatType.hpPercentage:
+        baseStat = hpPercentage;
       case StatType.mp:
         baseStat = mp;
         starForceStat = starForceModule?.mp ?? 0;
         flameStat = flameModule?.mp ?? 0;
+      case StatType.mpPercentage:
+        baseStat = mpPercentage;
       case StatType.attack:
         baseStat = attackPower;
         starForceStat = starForceModule?.attackPower ?? 0;
@@ -507,8 +511,38 @@ class Equip extends Base {
         baseStat = finalAttack;
       case StatType.finalMAttack:
         baseStat = finalMAttack;
+      case StatType.attackSpeed:
+        baseStat = attackSpeed;
+      case StatType.strPercentage:
+        baseStat = strPercentage;
+      case StatType.dexPercentage:
+        baseStat = dexPercentage;
+      case StatType.intPercentage:
+        baseStat = intPercentage;
+      case StatType.lukPercentage:
+        baseStat = lukPercentage;
+      case StatType.defensePercentage:
+        baseStat = defensePercentage;
+      case StatType.attackPercentage:
+        baseStat = attackPercentage;
+      case StatType.mattackPercentage:
+        baseStat = mattackPercentage;
+      case StatType.critDamage:
+        baseStat = criticalDamage;
+      case StatType.critRate:
+        baseStat = criticalRate;
+      case StatType.mesosObtained:
+        baseStat = mesosObtained;
+      case StatType.itemDropRate:
+        baseStat = itemDropRate;
+      case StatType.hpRecovery:
+        baseStat = hpRecovery;
+      case StatType.skillCooldown:
+        baseStat = skillCooldown;
+      case StatType.skillCooldownPercentage:
+        baseStat = skillCooldownPercentage;
       default:
-        baseStat = 0;
+        throw Exception("Unhandled StatType $statType when building equip container");
     }
     totalStat = baseStat + starForceStat + scrollStat + flameStat;
     
