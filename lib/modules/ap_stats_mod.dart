@@ -3,8 +3,8 @@ import 'dart:math';
 
 class APStatsModule {
   // All relavent to calculating ap stats and ap usage
-  int totalAvailableAP = 10; // 10 + 5 * CharacterLevel
-  int availableAP = 10;
+  int totalAvailableAP = 14; // 14 + 5 * CharacterLevel
+  int availableAP = 14;
   int assignedAP = 0;
 
   // Each ap into HP/MP increases by 15
@@ -30,7 +30,7 @@ class APStatsModule {
   }
 
   void setAvailableAPFromLevel(int characterLevel) {
-    totalAvailableAP = 10 + characterLevel * 5;
+    totalAvailableAP = 14 + characterLevel * 5;
     availableAP = totalAvailableAP - assignedAP;
   }
 
@@ -106,8 +106,8 @@ class APStatsModule {
   }
 
   APStatsModule({
-    this.totalAvailableAP = 10,
-    this.availableAP = 10,
+    this.totalAvailableAP = 14,
+    this.availableAP = 14,
     this.assignedAP = 0,
     this.apAssignedHP = 0,
     this.apAssignedMP = 0,
