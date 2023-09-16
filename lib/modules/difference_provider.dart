@@ -523,7 +523,12 @@ class DifferenceCalculator with ChangeNotifier {
       }
     }
 
-    return widgetReturn;
+    return Column(
+      children: [
+        mainCharacterModel.editingEquip?.createSetEffectContainer(isEquipEditing: true) ?? const SizedBox.shrink(),
+        widgetReturn,
+      ],
+    );
   }
 
 }
