@@ -20,7 +20,7 @@ class SetEffectModule {
     return activeSetEffectStats;
   }
 
-  bool addEquip(Equip? equip, {bool isCalculatingDifference = false}) {
+  bool addEquip(Equip? equip) {
     if (equip == null) {
       return false;
     }
@@ -30,18 +30,12 @@ class SetEffectModule {
     }
 
     if (activeSetEffects[equip.equipSet] == null) {
-      // We want to update the "global" set effect when we are modifying the main character
-      if (!isCalculatingDifference) {
-        activeSetEffects[equip.equipSet!] = allSetEffects[equip.equipSet]!;
-      }
-      else {
-        activeSetEffects[equip.equipSet!] = allSetEffects[equip.equipSet]!.copyWith();
-      }
+      activeSetEffects[equip.equipSet!] = allSetEffects[equip.equipSet]!.copyWith();
     }
     return activeSetEffects[equip.equipSet]!.addEquip(equip);
   }
 
-  bool removeEquip(Equip? equip, {bool isCalculatingDifference = false}) {
+  bool removeEquip(Equip? equip) {
     if (equip == null) {
       return false;
     }
@@ -55,7 +49,7 @@ class SetEffectModule {
     }
     var returnValue = activeSetEffects[equip.equipSet]!.removeEquip(equip);
     // Really only want to track "active" set effects, remove any that fall to zero and are no longer "active"
-    if (!isCalculatingDifference && activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
+    if (activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
       activeSetEffects.remove(equip.equipSet);
     }
     return returnValue;

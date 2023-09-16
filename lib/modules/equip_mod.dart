@@ -270,8 +270,8 @@ class EquipModule {
           top?.isEquipped = false;
           bottom?.isEquipped = false;
         }
-        setEffectModule.removeEquip(top, isCalculatingDifference: isCalculatingDifference);
-        setEffectModule.removeEquip(bottom, isCalculatingDifference: isCalculatingDifference);
+        setEffectModule.removeEquip(top);
+        setEffectModule.removeEquip(bottom);
         overall = equip;
         top = null;
         bottom = null;
@@ -281,7 +281,7 @@ class EquipModule {
         if (!isCalculatingDifference) {
           overall?.isEquipped = false;
         }
-        setEffectModule.removeEquip(overall, isCalculatingDifference: isCalculatingDifference);
+        setEffectModule.removeEquip(overall);
         overall = null;
       case EquipType.bottom:
         replacedItem = bottom;
@@ -289,7 +289,7 @@ class EquipModule {
         if (!isCalculatingDifference) {
           overall?.isEquipped = false;
         }
-        setEffectModule.removeEquip(overall, isCalculatingDifference: isCalculatingDifference);
+        setEffectModule.removeEquip(overall);
         overall = null;
       case EquipType.shoes:
         replacedItem = shoes;
