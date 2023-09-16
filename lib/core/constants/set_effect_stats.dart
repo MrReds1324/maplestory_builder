@@ -34,8 +34,8 @@ class SetEffect {
     );
   }
 
-  Widget createSetEffectContainer({Equip? addingEquip}) {
-    Widget __createRawSetEffectLine(int setEffectCount, Map<StatType, num> rawEffect) {
+  Widget createSetEffectContainer(BuildContext context, {Equip? addingEquip, Equip? removingEquip}) {
+    Widget createRawSetEffectLine(int setEffectCount, Map<StatType, num> rawEffect) {
       List<Widget> rawEffectChildren = [
         Text(
           "$setEffectCount Set Items Equipped",
@@ -44,8 +44,13 @@ class SetEffect {
       ];
 
       Color? rawEffectColor;
-      // If the equip we are adding is not in the alread equipped equips
-      if (addingEquip != null && !(equippedEquips[addingEquip.equipType]?.contains(addingEquip.equipName) ?? false) && setEffectCount == (totalSetItems + 1)) {
+      // The totalSetItems will already be updated here (adding and removing will have already been reflected by the time we ask to draw the container)
+      // If we are removing an equip and the totalSetItems + 1 matches the set effect count we are at
+      if (removingEquip != null && setEffectCount == (totalSetItems + 1)) {
+        rawEffectColor = Colors.redAccent;
+      }
+      // If we are adding an equip and the totalSetItems matches the set effect count we are at
+      else if (addingEquip != null && setEffectCount == totalSetItems) {
         rawEffectColor = Colors.greenAccent;
       }
       else {
@@ -80,7 +85,7 @@ class SetEffect {
     ];
 
     requiredEquips.forEach((key, value) { 
-      widgetChildren.addAll(value.createSlotContainer(key, equippedEquips[key] ?? {}, addingEquip: addingEquip));
+      widgetChildren.addAll(value.createSlotContainer(key, equippedEquips[key] ?? {}, addingEquip: addingEquip, removingEquip: removingEquip));
     });
 
     widgetChildren.add(
@@ -92,7 +97,7 @@ class SetEffect {
     );
 
     rawSetEffect.forEach((key, value) {
-      widgetChildren.add(__createRawSetEffectLine(key, value));
+      widgetChildren.add(createRawSetEffectLine(key, value));
     });
 
     return Container(
@@ -222,7 +227,7 @@ abstract class AbstractSetEffectSlot {
   const AbstractSetEffectSlot();
 
   bool contains(EquipName equipName);
-  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip});
+  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip});
 }
 
 // Slot that defines a regular
@@ -239,13 +244,16 @@ class SetEffectSlot extends AbstractSetEffectSlot {
   }
 
   @override
-  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip}) {
+  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip}) {
     List<Widget> returnWidgets = [];
 
     for (EquipName equipName in any) { 
       Color? textColor;
-      if (addingEquip?.equipName == equipName) {
-        textColor = equippedEquips.contains(equipName) ? starColor : Colors.greenAccent;
+      if (removingEquip?.equipName == equipName) {
+        textColor = Colors.redAccent;
+      }
+      else if (addingEquip?.equipName == equipName) {
+        textColor = Colors.greenAccent;
       }
       else {
         textColor = equippedEquips.contains(equipName) ? null : missingColor;
@@ -288,7 +296,7 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
   }
 
   @override
-  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip}) {
+  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip}) {
     return [
       Row(
         children: [
