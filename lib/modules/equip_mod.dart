@@ -270,8 +270,8 @@ class EquipModule {
           top?.isEquipped = false;
           bottom?.isEquipped = false;
         }
-        setEffectModule.removeEquip(top);
-        setEffectModule.removeEquip(bottom);
+        setEffectModule.removeEquip(top, isCalculatingDifference: isCalculatingDifference);
+        setEffectModule.removeEquip(bottom, isCalculatingDifference: isCalculatingDifference);
         overall = equip;
         top = null;
         bottom = null;
@@ -281,7 +281,7 @@ class EquipModule {
         if (!isCalculatingDifference) {
           overall?.isEquipped = false;
         }
-        setEffectModule.removeEquip(overall);
+        setEffectModule.removeEquip(overall, isCalculatingDifference: isCalculatingDifference);
         overall = null;
       case EquipType.bottom:
         replacedItem = bottom;
@@ -289,7 +289,7 @@ class EquipModule {
         if (!isCalculatingDifference) {
           overall?.isEquipped = false;
         }
-        setEffectModule.removeEquip(overall);
+        setEffectModule.removeEquip(overall, isCalculatingDifference: isCalculatingDifference);
         overall = null;
       case EquipType.shoes:
         replacedItem = shoes;
@@ -361,7 +361,7 @@ class EquipModule {
     }
     // Only need to update set effects if the replaced item differs from the item we are equipping
     if (replacedItem?.equipName != equip?.equipName) {
-      setEffectModule.removeEquip(replacedItem);
+      setEffectModule.removeEquip(replacedItem, isCalculatingDifference: isCalculatingDifference);
       setEffectModule.addEquip(equip);
     }
     return true;

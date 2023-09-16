@@ -35,7 +35,7 @@ class SetEffectModule {
     return activeSetEffects[equip.equipSet]!.addEquip(equip);
   }
 
-  bool removeEquip(Equip? equip) {
+  bool removeEquip(Equip? equip, {bool isCalculatingDifference = false}) {
     if (equip == null) {
       return false;
     }
@@ -49,7 +49,8 @@ class SetEffectModule {
     }
     var returnValue = activeSetEffects[equip.equipSet]!.removeEquip(equip);
     // Really only want to track "active" set effects, remove any that fall to zero and are no longer "active"
-    if (activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
+    // Dont do this if we are calculating differences as it causes some weird issues with display
+    if (!isCalculatingDifference && activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
       activeSetEffects.remove(equip.equipSet);
     }
     return returnValue;
