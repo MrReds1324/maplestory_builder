@@ -10,8 +10,12 @@ import 'package:maplestory_builder/core/constants/set_effect_stats.dart';
 import 'package:maplestory_builder/core/items/flames.dart';
 import 'package:maplestory_builder/core/items/potentials.dart';
 import 'package:maplestory_builder/core/items/starforce.dart';
+import 'package:maplestory_builder/modules/character_provider.dart';
+import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 class Equip extends Base {
   final EquipName equipName;
@@ -374,13 +378,21 @@ class Equip extends Base {
             ],
           ),
         ),
-        isEquipEditing ? const SizedBox.shrink() : createSetEffectContainer(),
+        isEquipEditing ? const SizedBox.shrink() : createSetEffectContainer(context),
       ]
     );
   }
 
-  Widget createSetEffectContainer({bool isEquipEditing = false}) {
-    return allSetEffects[equipSet]?.createSetEffectContainer(addingEquip: isEquipEditing ? this : null) ?? const SizedBox.shrink();
+  Widget createSetEffectContainer(BuildContext context, {bool isEquipEditing = false, bool isAdding = false, bool isRemoving = false}) {
+    // If we are editing an equip then we always want to target the difference character model
+    SetEffect? setEffect;
+    if (isEquipEditing) {
+      setEffect = context.read<DifferenceCalculator>().diffCharacterModel.equipModule.setEffectModule.activeSetEffects[equipSet]!;
+    }
+    else {
+      setEffect = context.read<CharacterModel>().equipModule.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;
+    }
+    return setEffect.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null);
   }
 
   Widget __createTextLine(BuildContext context, StatType statType) {
