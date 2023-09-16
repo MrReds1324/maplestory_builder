@@ -310,64 +310,77 @@ class Equip extends Base {
     };
   }
 
-  Container createEquipContainer(BuildContext context, {bool includeName=false, bool isEquipEditing=false}) {
-    return Container(
-      width: 300,
-      padding: const EdgeInsets.all(2.5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          includeName ? Text(name) : const SizedBox.shrink(),
-          __createTextLine(context, StatType.starForce),
-          Center(child: Text(name, style: Theme.of(context).textTheme.headlineSmall)),
-          isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
-          __createTextLine(context, StatType.level),
-          __createTextLine(context, StatType.attackSpeed),
-          __createTextLine(context, StatType.str),
-          __createTextLine(context, StatType.dex),
-          __createTextLine(context, StatType.int),
-          __createTextLine(context, StatType.luk),
-          __createTextLine(context, StatType.hp),
-          __createTextLine(context, StatType.mp),
-          __createTextLine(context, StatType.attack),
-          __createTextLine(context, StatType.mattack),
-          __createTextLine(context, StatType.defense),
-          __createTextLine(context, StatType.bossDamage),
-          __createTextLine(context, StatType.speed),
-          __createTextLine(context, StatType.jump),
-          __createTextLine(context, StatType.ignoreDefense),
-          __createTextLine(context, StatType.damage),
-          __createTextLine(context, StatType.allStatsPercentage),
-          __createTextLine(context, StatType.damageNormalMobs),
-          __createTextLine(context, StatType.ignoreElementalDefense),
-          __createTextLine(context, StatType.finalStr),
-          __createTextLine(context, StatType.finalDex),
-          __createTextLine(context, StatType.finalInt),
-          __createTextLine(context, StatType.finalLuk),
-          __createTextLine(context, StatType.finalHp),
-          __createTextLine(context, StatType.finalMp),
-          __createTextLine(context, StatType.finalAttack),
-          __createTextLine(context, StatType.finalMAttack),
-          __createTextLine(context, StatType.strPercentage),
-          __createTextLine(context, StatType.dexPercentage),
-          __createTextLine(context, StatType.intPercentage),
-          __createTextLine(context, StatType.lukPercentage),
-          __createTextLine(context, StatType.hpPercentage),
-          __createTextLine(context, StatType.mpPercentage),
-          __createTextLine(context, StatType.defensePercentage),
-          __createTextLine(context, StatType.attackPercentage),
-          __createTextLine(context, StatType.mattackPercentage),
-          __createTextLine(context, StatType.critDamage),
-          __createTextLine(context, StatType.critRate),
-          __createTextLine(context, StatType.mesosObtained),
-          __createTextLine(context, StatType.itemDropRate),
-          __createTextLine(context, StatType.hpRecovery),
-          __createTextLine(context, StatType.skillCooldown),
-          __createTextLine(context, StatType.skillCooldownPercentage),
-          isEquipEditing ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
-        ],
-      )
+  double getTooltipWidth() {
+    return equipSet != null ? 535 : 310;
+  }
+
+  Row createEquipContainer(BuildContext context, {bool isEquipEditing=false}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 300,
+          padding: const EdgeInsets.all(2.5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              __createTextLine(context, StatType.starForce),
+              Center(child: Text(equipName.formattedName, style: Theme.of(context).textTheme.headlineSmall)),
+              isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
+              __createTextLine(context, StatType.level),
+              __createTextLine(context, StatType.attackSpeed),
+              __createTextLine(context, StatType.str),
+              __createTextLine(context, StatType.dex),
+              __createTextLine(context, StatType.int),
+              __createTextLine(context, StatType.luk),
+              __createTextLine(context, StatType.hp),
+              __createTextLine(context, StatType.mp),
+              __createTextLine(context, StatType.attack),
+              __createTextLine(context, StatType.mattack),
+              __createTextLine(context, StatType.defense),
+              __createTextLine(context, StatType.bossDamage),
+              __createTextLine(context, StatType.speed),
+              __createTextLine(context, StatType.jump),
+              __createTextLine(context, StatType.ignoreDefense),
+              __createTextLine(context, StatType.damage),
+              __createTextLine(context, StatType.allStatsPercentage),
+              __createTextLine(context, StatType.damageNormalMobs),
+              __createTextLine(context, StatType.ignoreElementalDefense),
+              __createTextLine(context, StatType.finalStr),
+              __createTextLine(context, StatType.finalDex),
+              __createTextLine(context, StatType.finalInt),
+              __createTextLine(context, StatType.finalLuk),
+              __createTextLine(context, StatType.finalHp),
+              __createTextLine(context, StatType.finalMp),
+              __createTextLine(context, StatType.finalAttack),
+              __createTextLine(context, StatType.finalMAttack),
+              __createTextLine(context, StatType.strPercentage),
+              __createTextLine(context, StatType.dexPercentage),
+              __createTextLine(context, StatType.intPercentage),
+              __createTextLine(context, StatType.lukPercentage),
+              __createTextLine(context, StatType.hpPercentage),
+              __createTextLine(context, StatType.mpPercentage),
+              __createTextLine(context, StatType.defensePercentage),
+              __createTextLine(context, StatType.attackPercentage),
+              __createTextLine(context, StatType.mattackPercentage),
+              __createTextLine(context, StatType.critDamage),
+              __createTextLine(context, StatType.critRate),
+              __createTextLine(context, StatType.mesosObtained),
+              __createTextLine(context, StatType.itemDropRate),
+              __createTextLine(context, StatType.hpRecovery),
+              __createTextLine(context, StatType.skillCooldown),
+              __createTextLine(context, StatType.skillCooldownPercentage),
+              isEquipEditing ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
+            ],
+          ),
+        ),
+        isEquipEditing ? const SizedBox.shrink() : createSetEffectContainer(),
+      ]
     );
+  }
+
+  Widget createSetEffectContainer({bool isEquipEditing = false}) {
+    return allSetEffects[equipSet]?.createSetEffectContainer(addingEquip: isEquipEditing ? this : null) ?? const SizedBox.shrink();
   }
 
   Widget __createTextLine(BuildContext context, StatType statType) {
