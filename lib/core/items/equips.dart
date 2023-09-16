@@ -638,7 +638,7 @@ final List<Equip> equipList = [
   Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, isUniqueItem: true, itemLevel: 140, allStats: 8, hpPercentage: 0.05, attackPower: 2, mattack: 2, defense: 100),
   // Superior Gollux Items
   Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
-  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
-  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
-  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 15, hp: 150, mp: 150, attackPower: 10, mattack: 10, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux,  isFlameAdvantaged: false,itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux,  isFlameAdvantaged: false,itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux,  isFlameAdvantaged: false, itemLevel: 150, allStats: 15, hp: 150, mp: 150, attackPower: 10, mattack: 10, defense: 100),
 ];
