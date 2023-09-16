@@ -1,16 +1,39 @@
-# maplestory_builder
+# BuildStory
 
-A new Flutter project.
+A project to simulate most of the MapleStory systems that affect the character's damage range. To aid in determing what to aim for when min/maxing a character. 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Check List/WIP items
+- [x] Character Stats
+	- [x] Ap Stats
+	- [ ] HP/MP Per Level - Missing data, implemented as 50/50 for now until data is gathered
+	- [ ] Default Range Calculation - Mostly completed, missing handling of class specific calculations (Xenon and Demon Avenger)
+	- [ ] Boss Range Calculation - Mostly completed, missing handling of class specific calculations (Xenon and Demon Avenger)
+	- [ ] Effective Default Range Calculation - Not started
+	- [ ] Effective Boss Range Calculation - Not started
+- [ ] Items
+	- [x] Star Force
+	- [x] Flames
+	- [ ] Potentials
+		- [ ] Main Potentials - Mostly completed, missing Decent Skills
+		- [x] Bonus Potentials
+	- [ ] Equipment Sets - Mostly completed, missing lucky item handling
+	- [ ] Scrolling - Not started
+- [ ] Legion - Not started
+	- [ ] Legion Character Effects
+	- [ ] Legion Board Effects
+- [ ] Familiars - Not started
+	- [ ] Badge Effects
+	- [ ] Familiar Effects
+- [ ] Skills - Not started
+	- [ ] Class Specific Skills
+	- [ ] 5th Job Skills
+	- [ ] 6th Job Skills
+- [ ] Options - Not started
+	- [ ] Burst Skill Toggles
+	- [ ] Buff Skill Toggles
+	- [ ] Boss Monster Selection
+	- [ ] Consumable Buffs
+- [ ] Guild Bonuses - Not Started
+	- [ ] Guild Buffs
+	- [ ] Guild Stats
+- [ ] Traits - Not Started
