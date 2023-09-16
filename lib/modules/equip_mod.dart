@@ -541,6 +541,10 @@ class EquipModule {
         throw Exception("Unhandled EquipType ${targetEquip.equipType} trying to be updated");
     }
 
+    if (isRemoving) {
+      setEffectModule.removeEquip(targetEquip);
+    }
+
     return didUpdateEquipped;
   }
 
