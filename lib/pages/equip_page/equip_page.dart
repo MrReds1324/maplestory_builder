@@ -257,7 +257,7 @@ class EquippedItemSelector extends StatelessWidget {
         return DropdownMenuItem(
           value: value,
           child: MapleTooltip(
-            maxWidth: 310,
+            maxWidth: value.getTooltipWidth(),
             tooltipWidgets: [value.createEquipContainer(context)],
             child: Text(
               value.equipName.formattedName,
@@ -458,7 +458,7 @@ class InventoryItems extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return MapleTooltip(
-                        maxWidth: 310,
+                        maxWidth: characterModel.equipModule.allEquips[index].getTooltipWidth(),
                         tooltipWidgets: [characterModel.equipModule.allEquips[index].createEquipContainer(context)],
                         child: ListTile(
                           title: Row(
@@ -630,7 +630,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return MapleTooltip(
-                    maxWidth: 310,
+                    maxWidth: items[index].getTooltipWidth(),
                     tooltipWidgets: [items[index].createEquipContainer(context)],
                     child: ListTile(
                       title: Row(
@@ -741,7 +741,7 @@ class _EquipBuilder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 313,
+            width: 323,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Column(
               children: [
@@ -788,7 +788,7 @@ class _EquipBuilder extends StatelessWidget {
                         border: Border.all(color: statColor),
                         borderRadius: const BorderRadius.all(Radius.circular(10))
                       ),
-                      padding: const EdgeInsets.only(right: 5, left: 18),
+                      padding: const EdgeInsets.only(right: 5, left: 18, top: 5),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.only(right: 13),
                         child: Consumer<CharacterModel>(
@@ -1137,7 +1137,7 @@ class _PotenialTierDropdown extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: isBonus ? 197 : 203,
+              width: isBonus ? 207 : 213,
               child: DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
