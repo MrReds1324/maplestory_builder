@@ -301,7 +301,9 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
 }
 
 enum EquipSet {
-  superiorGollux(formattedName: "Superior Gollux Set");
+  superiorGollux(formattedName: "Superior Gollux Set"),
+  dawnBossSet(formattedName: "Dawn Boss Set"),
+  ;
 
   const EquipSet({
     required this.formattedName
@@ -337,7 +339,42 @@ SetEffect superiorGollux = SetEffect(
   }
 );
 
+SetEffect dawnBossSet = SetEffect(
+  equipSet: EquipSet.dawnBossSet, 
+  requiredEquips: const {
+    EquipType.face: SetEffectSlot(any: {EquipName.twilightMark}),
+    EquipType.earrings: SetEffectSlot(any: {EquipName.estellaEarrings}),
+    EquipType.ring: SetEffectSlot(any: {EquipName.dawnGuardianAngelRing}),
+    EquipType.pendant: SetEffectSlot(any: {EquipName.daybreakPendant}),
+  }, 
+  rawSetEffect: const {
+    2: {
+      StatType.allStats: 10,
+      StatType.hp: 250,
+      StatType.attack: 10,
+      StatType.mattack: 10,
+      StatType.bossDamage: 0.1,
+    },
+    3: {
+      StatType.allStats: 10,
+      StatType.hp: 250,
+      StatType.attack: 10,
+      StatType.mattack: 10,
+    },
+    4: {
+      StatType.allStats: 10,
+      StatType.hp: 250,
+      StatType.attack: 10,
+      StatType.mattack: 10,
+      StatType.defense: 100,
+      StatType.ignoreDefense: 0.1,
+    },
+  }
+);
+
+
 final Map<EquipSet, SetEffect> allSetEffects = {
-  EquipSet.superiorGollux: superiorGollux
+  EquipSet.superiorGollux: superiorGollux,
+  EquipSet.dawnBossSet: dawnBossSet,
 };
 

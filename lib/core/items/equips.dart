@@ -631,7 +631,12 @@ class Equip extends Base {
 final List<Equip> equipList = [
   // Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
   // Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
-  // Equip(name: "Dawn Guardian Angel Ring", itemId: 4, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),Equip(name: "Superior Gollux Ring", itemId: 3, equipType: EquipType.ring, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
+  // Dawn Boss Set Items
+  Equip(equipName: EquipName.dawnGuardianAngelRing, equipType: EquipType.ring, equipSet: EquipSet.dawnBossSet, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),
+  Equip(equipName: EquipName.twilightMark, equipType: EquipType.face, equipSet: EquipSet.dawnBossSet, itemLevel: 140, allStats: 5, attackPower: 5, mattack: 5, defense: 100),
+  Equip(equipName: EquipName.estellaEarrings, equipType: EquipType.earrings, equipSet: EquipSet.dawnBossSet, itemLevel: 160, allStats: 7, hp: 300, mp: 300, attackPower: 2, mattack: 2, defense: 100),
+  Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, isUniqueItem: true, itemLevel: 140, allStats: 8, hpPercentage: 0.05, attackPower: 2, mattack: 2, defense: 100),
+  // Superior Gollux Items
   Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
   Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
   Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
