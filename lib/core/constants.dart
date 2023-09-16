@@ -312,6 +312,7 @@ enum CharacterClass {
 
 const Color statColor = Color.fromARGB(255, 105, 105, 105);
 const Color apColor = Colors.green;
+const Color missingColor = Color.fromARGB(255, 150, 150, 150);
 
 const Color equipEnhancedColor = Color.fromARGB(255, 102, 255, 255);
 const Color equipFlameColor = Color.fromARGB(255, 204, 255, 0);
