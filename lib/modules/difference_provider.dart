@@ -17,9 +17,10 @@ class DifferenceCalculator with ChangeNotifier {
     }
   }
 
-  Widget updateDifferenceText({bool isEquipEditing=false, Equip? replacing}){
+  Widget updateDifferenceText({BuildContext? context, bool isEquipEditing=false, Equip? replacing}){
+    var textList = <Widget>[];
 
-    void createText(List<Text> textList, num newValue, num originalValue, {StatType? statType, RangeType? rangeType}) {
+    void createText(num newValue, num originalValue, {StatType? statType, RangeType? rangeType}) {
       assert(statType != null || rangeType != null, "Must provide statType or RangeType");
       var difference = newValue - originalValue;
       if (difference == 0) {
@@ -49,86 +50,94 @@ class DifferenceCalculator with ChangeNotifier {
       }
     }
 
-    var textList = <Text>[];
+    List<Widget> editingWidgets = [];
 
     if (isEquipEditing){
       if (replacing == null) {
-        textList.add(
+        editingWidgets.add(
           const Text(
             "Equipping: ",
           )
         );
+        editingWidgets.add(mainCharacterModel.editingEquip?.createSetEffectContainer(context!, isEquipEditing: true, isAdding: true) ?? const SizedBox.shrink());
       }
       else{
-        textList.add(
+        editingWidgets.add(
           Text(
             "Replacing ${replacing.equipName.formattedName}: "
           )
         );
+        if (replacing.equipName != mainCharacterModel.editingEquip?.equipName) {
+          editingWidgets.add(mainCharacterModel.editingEquip?.createSetEffectContainer(context!, isEquipEditing: true, isAdding: true) ?? const SizedBox.shrink());
+          editingWidgets.add(replacing.createSetEffectContainer(context!, isEquipEditing: true, isRemoving: true));
+        }
+        else {
+          editingWidgets.add(mainCharacterModel.editingEquip?.createSetEffectContainer(context!, isEquipEditing: true, isAdding: true) ?? const SizedBox.shrink());
+        }
       }
     }
 
-    createText(textList, diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
-    createText(textList, diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
+    createText(diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
+    createText(diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
     
-    createText(textList, diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
-    createText(textList, diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
-    createText(textList, diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
+    createText(diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
+    createText(diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
+    createText(diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
 
-    createText(textList, diffCharacterModel.totalDex, mainCharacterModel.totalDex, statType: StatType.dex);
-    createText(textList, diffCharacterModel.dexPercentage, mainCharacterModel.dexPercentage, statType: StatType.dexPercentage);
-    createText(textList, diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
+    createText(diffCharacterModel.totalDex, mainCharacterModel.totalDex, statType: StatType.dex);
+    createText(diffCharacterModel.dexPercentage, mainCharacterModel.dexPercentage, statType: StatType.dexPercentage);
+    createText(diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
 
-    createText(textList, diffCharacterModel.totalInt, mainCharacterModel.totalInt, statType: StatType.int);
-    createText(textList, diffCharacterModel.intPercentage, mainCharacterModel.intPercentage, statType: StatType.intPercentage);
-    createText(textList, diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
+    createText(diffCharacterModel.totalInt, mainCharacterModel.totalInt, statType: StatType.int);
+    createText(diffCharacterModel.intPercentage, mainCharacterModel.intPercentage, statType: StatType.intPercentage);
+    createText(diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
 
-    createText(textList, diffCharacterModel.totalLuk, mainCharacterModel.totalLuk, statType: StatType.luk);
-    createText(textList, diffCharacterModel.lukPercentage, mainCharacterModel.lukPercentage, statType: StatType.lukPercentage);
-    createText(textList, diffCharacterModel.flatLuk, mainCharacterModel.flatLuk, statType: StatType.finalLuk);
+    createText(diffCharacterModel.totalLuk, mainCharacterModel.totalLuk, statType: StatType.luk);
+    createText(diffCharacterModel.lukPercentage, mainCharacterModel.lukPercentage, statType: StatType.lukPercentage);
+    createText(diffCharacterModel.flatLuk, mainCharacterModel.flatLuk, statType: StatType.finalLuk);
 
-    createText(textList, diffCharacterModel.totalHp, mainCharacterModel.totalHp, statType: StatType.hp);
-    createText(textList, diffCharacterModel.hpPercentage, mainCharacterModel.hpPercentage, statType: StatType.hpPercentage);
-    createText(textList, diffCharacterModel.flatHp, mainCharacterModel.flatHp, statType: StatType.finalHp);
+    createText(diffCharacterModel.totalHp, mainCharacterModel.totalHp, statType: StatType.hp);
+    createText(diffCharacterModel.hpPercentage, mainCharacterModel.hpPercentage, statType: StatType.hpPercentage);
+    createText(diffCharacterModel.flatHp, mainCharacterModel.flatHp, statType: StatType.finalHp);
 
-    createText(textList, diffCharacterModel.totalMp, mainCharacterModel.totalMp, statType: StatType.mp);
-    createText(textList, diffCharacterModel.mpPercentage, mainCharacterModel.mpPercentage, statType: StatType.mpPercentage);
-    createText(textList, diffCharacterModel.flatMP, mainCharacterModel.flatMP, statType: StatType.finalMp);
+    createText(diffCharacterModel.totalMp, mainCharacterModel.totalMp, statType: StatType.mp);
+    createText(diffCharacterModel.mpPercentage, mainCharacterModel.mpPercentage, statType: StatType.mpPercentage);
+    createText(diffCharacterModel.flatMP, mainCharacterModel.flatMP, statType: StatType.finalMp);
 
-    createText(textList, diffCharacterModel.totalAttack, mainCharacterModel.totalAttack, statType: StatType.attack);
-    createText(textList, diffCharacterModel.attackPercentage, mainCharacterModel.attackPercentage, statType: StatType.attackPercentage);
-    createText(textList, diffCharacterModel.flatAttack, mainCharacterModel.flatAttack, statType: StatType.finalAttack);
+    createText(diffCharacterModel.totalAttack, mainCharacterModel.totalAttack, statType: StatType.attack);
+    createText(diffCharacterModel.attackPercentage, mainCharacterModel.attackPercentage, statType: StatType.attackPercentage);
+    createText(diffCharacterModel.flatAttack, mainCharacterModel.flatAttack, statType: StatType.finalAttack);
 
-    createText(textList, diffCharacterModel.totalMAttack, mainCharacterModel.totalMAttack, statType: StatType.mattack);
-    createText(textList, diffCharacterModel.mattackPercentage, mainCharacterModel.mattackPercentage, statType: StatType.mattackPercentage);
-    createText(textList, diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
+    createText(diffCharacterModel.totalMAttack, mainCharacterModel.totalMAttack, statType: StatType.mattack);
+    createText(diffCharacterModel.mattackPercentage, mainCharacterModel.mattackPercentage, statType: StatType.mattackPercentage);
+    createText(diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
 
-    createText(textList, diffCharacterModel.totalDefense, mainCharacterModel.totalDefense, statType: StatType.defense);
-    createText(textList, diffCharacterModel.defensePercentage, mainCharacterModel.defensePercentage, statType: StatType.defensePercentage);
-    createText(textList, diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage);
-    createText(textList, diffCharacterModel.totalBossDamage, mainCharacterModel.totalBossDamage, statType: StatType.bossDamage);
-    createText(textList, diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs);
-    createText(textList, diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense);
-    createText(textList, diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense);
-    createText(textList, diffCharacterModel.totalSpeed, mainCharacterModel.totalSpeed, statType: StatType.speed);
-    createText(textList, diffCharacterModel.totalJump, mainCharacterModel.totalJump, statType: StatType.jump);
-    createText(textList, diffCharacterModel.totalStarForce, mainCharacterModel.totalStarForce, statType: StatType.starForce);
-    createText(textList, diffCharacterModel.totalArcaneForce, mainCharacterModel.totalArcaneForce, statType: StatType.arcaneForce);
-    createText(textList, diffCharacterModel.totalSacredPower, mainCharacterModel.totalSacredPower, statType: StatType.sacredPower);
-    createText(textList, diffCharacterModel.totalCritDamage, mainCharacterModel.totalCritDamage, statType: StatType.critDamage);
-    createText(textList, diffCharacterModel.totalCritRate, mainCharacterModel.totalCritRate, statType: StatType.critRate);
-    createText(textList, diffCharacterModel.totalItemDropRate, mainCharacterModel.totalItemDropRate, statType: StatType.itemDropRate);
-    createText(textList, diffCharacterModel.totalMesosObtained, mainCharacterModel.totalMesosObtained, statType: StatType.mesosObtained);
-    createText(textList, diffCharacterModel.totalHpRecovery, mainCharacterModel.totalHpRecovery, statType: StatType.hpRecovery);
-    createText(textList, diffCharacterModel.totalSkillCooldown, mainCharacterModel.totalSkillCooldown, statType: StatType.skillCooldown);
-    createText(textList, diffCharacterModel.totalSkillCooldownPercentage, mainCharacterModel.totalSkillCooldownPercentage, statType: StatType.skillCooldownPercentage);
+    createText(diffCharacterModel.totalDefense, mainCharacterModel.totalDefense, statType: StatType.defense);
+    createText(diffCharacterModel.defensePercentage, mainCharacterModel.defensePercentage, statType: StatType.defensePercentage);
+    createText(diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage);
+    createText(diffCharacterModel.totalBossDamage, mainCharacterModel.totalBossDamage, statType: StatType.bossDamage);
+    createText(diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs);
+    createText(diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense);
+    createText(diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense);
+    createText(diffCharacterModel.totalSpeed, mainCharacterModel.totalSpeed, statType: StatType.speed);
+    createText(diffCharacterModel.totalJump, mainCharacterModel.totalJump, statType: StatType.jump);
+    createText(diffCharacterModel.totalStarForce, mainCharacterModel.totalStarForce, statType: StatType.starForce);
+    createText(diffCharacterModel.totalArcaneForce, mainCharacterModel.totalArcaneForce, statType: StatType.arcaneForce);
+    createText(diffCharacterModel.totalSacredPower, mainCharacterModel.totalSacredPower, statType: StatType.sacredPower);
+    createText(diffCharacterModel.totalCritDamage, mainCharacterModel.totalCritDamage, statType: StatType.critDamage);
+    createText(diffCharacterModel.totalCritRate, mainCharacterModel.totalCritRate, statType: StatType.critRate);
+    createText(diffCharacterModel.totalItemDropRate, mainCharacterModel.totalItemDropRate, statType: StatType.itemDropRate);
+    createText(diffCharacterModel.totalMesosObtained, mainCharacterModel.totalMesosObtained, statType: StatType.mesosObtained);
+    createText(diffCharacterModel.totalHpRecovery, mainCharacterModel.totalHpRecovery, statType: StatType.hpRecovery);
+    createText(diffCharacterModel.totalSkillCooldown, mainCharacterModel.totalSkillCooldown, statType: StatType.skillCooldown);
+    createText(diffCharacterModel.totalSkillCooldownPercentage, mainCharacterModel.totalSkillCooldownPercentage, statType: StatType.skillCooldownPercentage);
 
     if (isEquipEditing) {
       if (textList.length > 1) {
-        return Column(children: textList);
+        return Column(children: editingWidgets + textList);
       }
       else {
-        return const SizedBox.shrink();
+        return Column(children: editingWidgets + [noDifferenceEquip]);
       }
     }
     differenceWidget = Column(children: textList);
@@ -152,7 +161,7 @@ class DifferenceCalculator with ChangeNotifier {
     diffCharacterModel.apStatsModule = tempApStats;
   }
 
-  Widget? compareEditingEquip(){
+  Widget? compareEditingEquip(BuildContext context){
     Equip? tempEquip;
     Widget? widgetReturn;
     // Used for items that are uniqueEquipped like Superior Gollux Items
@@ -183,7 +192,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.totem, equipPosition: 1, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.totem, equipPosition: 1);
         }
 
@@ -194,7 +203,7 @@ class DifferenceCalculator with ChangeNotifier {
           }
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.totem, equipPosition: 2, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.totem, equipPosition: 2);
         }
 
@@ -202,7 +211,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.totem, equipPosition: 3, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.totem, equipPosition: 3);
         }
 
@@ -217,7 +226,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.ring, equipPosition: 1, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.ring, equipPosition: 1, isCalculatingDifference: true);
         }
 
@@ -228,7 +237,7 @@ class DifferenceCalculator with ChangeNotifier {
           }
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.ring, equipPosition: 2, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.ring, equipPosition: 2, isCalculatingDifference: true);
         }
 
@@ -239,7 +248,7 @@ class DifferenceCalculator with ChangeNotifier {
           }
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.ring, equipPosition: 3, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.ring, equipPosition: 3, isCalculatingDifference: true);
         }
 
@@ -247,7 +256,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 4) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.ring, equipPosition: 4, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.ring, equipPosition: 4, isCalculatingDifference: true);
         }
 
@@ -256,7 +265,7 @@ class DifferenceCalculator with ChangeNotifier {
         tempEquip = diffCharacterModel.equipModule.pocketItem;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.pocket, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.pocket, isCalculatingDifference: true);
       case EquipType.pendant:
         var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.pendant1, mainCharacterModel.equipModule.pendant2]);
@@ -268,7 +277,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.pendant, equipPosition: 1, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.pendant, equipPosition: 1, isCalculatingDifference: true);
         }
 
@@ -276,7 +285,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 2) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.pendant, equipPosition: 2, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.pendant, equipPosition: 2, isCalculatingDifference: true);
         }
 
@@ -285,31 +294,31 @@ class DifferenceCalculator with ChangeNotifier {
         tempEquip = diffCharacterModel.equipModule.weapon;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.weapon, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.weapon, isCalculatingDifference: true);
       case EquipType.belt:
         tempEquip = diffCharacterModel.equipModule.belt;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.belt, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.belt, isCalculatingDifference: true);
       case EquipType.hat:
         tempEquip = diffCharacterModel.equipModule.hat;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.hat, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.hat, isCalculatingDifference: true);
       case EquipType.face:
         tempEquip = diffCharacterModel.equipModule.face;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.face, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.face, isCalculatingDifference: true);
       case EquipType.eye:
         tempEquip = diffCharacterModel.equipModule.eye;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.eye, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.eye, isCalculatingDifference: true);
       case EquipType.overall:
         var tempTop = diffCharacterModel.equipModule.top;
@@ -318,7 +327,7 @@ class DifferenceCalculator with ChangeNotifier {
         
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.overall, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         // Order matters here due to how equipEquip works, if we are checking against no overall
         // then do overall -> top/bottom otherwise do top/bottom -> overall
         if (tempEquip == null) {
@@ -337,7 +346,7 @@ class DifferenceCalculator with ChangeNotifier {
         
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.top, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         // Order matters here due to how equipEquip works, if we are checking against no top
         // then do top -> overall otherwise do overall -> top
         if (tempEquip == null) {
@@ -354,7 +363,7 @@ class DifferenceCalculator with ChangeNotifier {
         
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.top, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         // Order matters here due to how equipEquip works, if we are checking against no top
         // then do bottom -> overall otherwise do overall -> bottom
         if (tempEquip == null) {
@@ -369,68 +378,68 @@ class DifferenceCalculator with ChangeNotifier {
         tempEquip = diffCharacterModel.equipModule.shoes;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.shoes, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.shoes, isCalculatingDifference: true);
       case EquipType.earrings:
         tempEquip = diffCharacterModel.equipModule.earrings;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.earrings, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.earrings, isCalculatingDifference: true);
       case EquipType.shoulder:
         tempEquip = diffCharacterModel.equipModule.shoulder;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.shoulder, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.shoulder, isCalculatingDifference: true);
       case EquipType.gloves:
         tempEquip = diffCharacterModel.equipModule.gloves;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.gloves, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.gloves, isCalculatingDifference: true);
       case EquipType.emblem:
         tempEquip = diffCharacterModel.equipModule.emblem;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.emblem, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.emblem, isCalculatingDifference: true);
       case EquipType.badge:
         tempEquip = diffCharacterModel.equipModule.badge;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.badge, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.badge, isCalculatingDifference: true);
       case EquipType.medal:
         tempEquip = diffCharacterModel.equipModule.medal;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.medal, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.medal, isCalculatingDifference: true);
       case EquipType.secondary:
       case EquipType.shield:
       case EquipType.katara:
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.secondary, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.secondary, isCalculatingDifference: true);
       case EquipType.cape:
         tempEquip = diffCharacterModel.equipModule.cape;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.cape, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.cape, isCalculatingDifference: true);
       case EquipType.heart:
         tempEquip = diffCharacterModel.equipModule.heart;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.heart, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.heart, isCalculatingDifference: true);
       case EquipType.title:
         tempEquip = diffCharacterModel.equipModule.title;
         diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.title, isCalculatingDifference: true);
         diffCharacterModel.calculateEverything(recalculateCache: true);
-        widgetReturn = updateDifferenceText(isEquipEditing: true, replacing: tempEquip);
+        widgetReturn = updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip);
         diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.title, isCalculatingDifference: true);
       case EquipType.pet:
         var uniqueItemPosition = getUniqueItemPosition([mainCharacterModel.equipModule.pet1, mainCharacterModel.equipModule.pet2, mainCharacterModel.equipModule.pet3]);
@@ -442,7 +451,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.pet, equipPosition: 1, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.pet, equipPosition: 1, isCalculatingDifference: true);
         }
 
@@ -453,7 +462,7 @@ class DifferenceCalculator with ChangeNotifier {
           }
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.pet, equipPosition: 2, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.pet, equipPosition: 2, isCalculatingDifference: true);
         }
 
@@ -461,7 +470,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.pet, equipPosition: 3, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.pet, equipPosition: 3, isCalculatingDifference: true);
         }
 
@@ -476,7 +485,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 1) || uniqueItemPosition == null) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.petEquip, equipPosition: 1, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.petEquip, equipPosition: 1, isCalculatingDifference: true);
         }
 
@@ -487,7 +496,7 @@ class DifferenceCalculator with ChangeNotifier {
           }
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.petEquip, equipPosition: 2, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.petEquip, equipPosition: 2, isCalculatingDifference: true);
         }
 
@@ -495,7 +504,7 @@ class DifferenceCalculator with ChangeNotifier {
         if ((isUniqueItem && uniqueItemPosition == 3) || (uniqueItemPosition == null && (!hasEquipped || tempEquip != null))) {
           diffCharacterModel.equipModule.equipEquip(mainCharacterModel.editingEquip, EquipType.petEquip, equipPosition: 3, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(isEquipEditing: true, replacing: tempEquip));
+          widgetChildren.add(updateDifferenceText(context: context, isEquipEditing: true, replacing: tempEquip));
           diffCharacterModel.equipModule.equipEquip(tempEquip, EquipType.petEquip, equipPosition: 3, isCalculatingDifference: true);
         }
 
@@ -506,29 +515,7 @@ class DifferenceCalculator with ChangeNotifier {
         throw Exception("Unhandled equipType ${mainCharacterModel.editingEquip?.equipType}");
     }
 
-    // This allows us to return a no difference text widget
-    if (widgetReturn is SizedBox) {
-      return noDifferenceEquip;
-    }
-    else if (widgetReturn is Column) {
-      bool isAllSizedBox = true;
-      for (var i = 0; i < widgetReturn.children.length; i++){
-        if (widgetReturn.children[i] is! SizedBox) {
-          isAllSizedBox = false;
-          break;
-        }
-      }
-      if (isAllSizedBox) {
-        return noDifferenceEquip;
-      }
-    }
-
-    return Column(
-      children: [
-        mainCharacterModel.editingEquip?.createSetEffectContainer(isEquipEditing: true) ?? const SizedBox.shrink(),
-        widgetReturn,
-      ],
-    );
+    return widgetReturn;
   }
 
 }
