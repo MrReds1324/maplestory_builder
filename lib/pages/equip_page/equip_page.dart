@@ -788,12 +788,12 @@ class _EquipBuilder extends StatelessWidget {
                         border: Border.all(color: statColor),
                         borderRadius: const BorderRadius.all(Radius.circular(10))
                       ),
-                      padding: const EdgeInsets.only(right: 5, left: 18, top: 5),
+                      padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.only(right: 13),
                         child: Consumer<CharacterModel>(
                           builder: (_, characterModel, __) {
-                            return context.read<DifferenceCalculator>().compareEditingEquip() 
+                            return context.read<DifferenceCalculator>().compareEditingEquip(context) 
                             ?? 
                             const Text(
                               "NOT CURRENTLY EDITING AN EQUIP",
@@ -837,7 +837,6 @@ class _StarForceSlider extends StatelessWidget {
                     label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
                     onChanged: (double newValue) {
                       context.read<CharacterModel>().updateStarforce(newValue);
-                      context.read<DifferenceCalculator>().compareEditingEquip();
                     },
                   );
                 }
