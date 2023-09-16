@@ -260,7 +260,7 @@ class EquippedItemSelector extends StatelessWidget {
             maxWidth: 310,
             tooltipWidgets: [value.createEquipContainer(context)],
             child: Text(
-              value.name,
+              value.equipName.formattedName,
               style: Theme.of(context).textTheme.bodyMedium
             ),
           ),
@@ -463,7 +463,7 @@ class InventoryItems extends StatelessWidget {
                         child: ListTile(
                           title: Row(
                             children: [
-                              Text(characterModel.equipModule.allEquips[index].name),
+                              Text(characterModel.equipModule.allEquips[index].equipName.formattedName),
                               const Spacer(),
                               TextButton(
                                 onPressed: () => characterModel.deleteEquip(characterModel.equipModule.allEquips[index]), 
@@ -531,7 +531,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
       }
 
       items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
-        element.name.toLowerCase().contains(stringQuery.toLowerCase())
+        element.equipName.formattedName.toLowerCase().contains(stringQuery.toLowerCase())
       ).toList();
     });
   }
@@ -550,7 +550,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
       }
 
       items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
-        element.name.toLowerCase().contains(stringQuery.toLowerCase())
+        element.equipName.formattedName.toLowerCase().contains(stringQuery.toLowerCase())
       ).toList();
     });
   }
@@ -635,7 +635,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                     child: ListTile(
                       title: Row(
                         children: [
-                          Text(items[index].name),
+                          Text(items[index].equipName.formattedName),
                           const Spacer(),
                           TextButton(
                             onPressed: () => context.read<CharacterModel>().addEditingEquip(items[index]), 

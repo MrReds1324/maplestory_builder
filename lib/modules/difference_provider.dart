@@ -62,7 +62,7 @@ class DifferenceCalculator with ChangeNotifier {
       else{
         textList.add(
           Text(
-            "Replacing ${replacing.name}: "
+            "Replacing ${replacing.equipName.formattedName}: "
           )
         );
       }
@@ -164,7 +164,7 @@ class DifferenceCalculator with ChangeNotifier {
     int? getUniqueItemPosition(List<Equip?> positionedEquips) {
       if (mainCharacterModel.editingEquip?.isUniqueItem ?? false) {
         for(var i = 0; i < positionedEquips.length; i++){
-          if (positionedEquips[i]?.itemId == mainCharacterModel.editingEquip?.itemId) {
+          if (positionedEquips[i]?.equipName == mainCharacterModel.editingEquip?.equipName) {
             return i + 1;
           }
         }

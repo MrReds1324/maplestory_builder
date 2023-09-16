@@ -1,6 +1,4 @@
 class Base {
-  final String name;
-  final num itemId;
   num itemLevel = 0;
   num str = 0;
   num dex = 0;
@@ -60,8 +58,6 @@ class Base {
   double skillCooldownPercentage = 0;
 
   Base({
-    required this.name,
-    required this.itemId,
     this.itemLevel = 0,
     this.str = 0,
     this.dex = 0,
