@@ -356,12 +356,13 @@ class EquipModule {
         throw Exception("Unhandled EquipType $equipType trying to be equipped");
     }
 
-    if (replacedItem != equip) {
-      if (!isCalculatingDifference) {
-        replacedItem?.isEquipped = false;
-      }
-      setEffectModule.removeEquip(replacedItem, isCalculatingDifference: isCalculatingDifference);
-      setEffectModule.addEquip(equip, isCalculatingDifference: isCalculatingDifference);
+    if (!isCalculatingDifference) {
+      replacedItem?.isEquipped = false;
+    }
+    // Only need to update set effects if the replaced item differs from the item we are equipping
+    if (replacedItem?.equipName != equip?.equipName) {
+      setEffectModule.removeEquip(replacedItem);
+      setEffectModule.addEquip(equip);
     }
     return true;
   }
