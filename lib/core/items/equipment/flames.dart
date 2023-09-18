@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/constants/flame_stats.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/constants/equipment/flame_stats.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
 
 class FlameModule {
   FlameLine? flameLine1;

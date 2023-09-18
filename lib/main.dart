@@ -12,7 +12,7 @@ void main() {
         ChangeNotifierProvider<CharacterModel>(create: (_) => CharacterModel()),
         ChangeNotifierProxyProvider<CharacterModel, DifferenceCalculator>(            
           create: (BuildContext context) => DifferenceCalculator(Provider.of<CharacterModel>(context, listen: false)),
-          update: (BuildContext context, CharacterModel character, DifferenceCalculator? damageCalculator) => DifferenceCalculator(character),
+          update: (BuildContext context, CharacterModel character, DifferenceCalculator? differenceCalculator) => differenceCalculator?.update(character) ?? DifferenceCalculator(character),
         ),
         ChangeNotifierProxyProvider<CharacterModel, BreadkdownCalculator>(          
           create: (BuildContext context) => BreadkdownCalculator(Provider.of<CharacterModel>(context, listen: false)),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/core/constants/potential_stats.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
@@ -397,7 +397,7 @@ class CharacterModel with ChangeNotifier {
     notifyListeners();
   }
 
-  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = false}){
+  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
     this.apStatsModule = apStatsModule ?? APStatsModule();
     this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
     this.equipModule = equipModule ?? EquipModule();
@@ -406,7 +406,7 @@ class CharacterModel with ChangeNotifier {
     }
   }
 
-  CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule}){
+  CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
     return CharacterModel(
       apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
       hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 
@@ -15,6 +15,12 @@ class DifferenceCalculator with ChangeNotifier {
     diffCharacterModel = characterModel.copyWith();
     if (mainCharacterModel.editingEquip != null) {
     }
+  }
+
+  DifferenceCalculator update(CharacterModel characterModel) {
+    mainCharacterModel = characterModel;
+    diffCharacterModel = characterModel.copyWith(doCalculation: false);
+    return this;
   }
 
   Widget updateDifferenceText({BuildContext? context, bool isEquipEditing=false, Equip? replacing}){

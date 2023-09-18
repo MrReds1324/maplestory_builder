@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/constants/potential_stats.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
-import 'package:maplestory_builder/core/items/potentials.dart';
+import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
+import 'package:maplestory_builder/core/items/equipment/potentials.dart';
 import 'package:maplestory_builder/modules/character_provider.dart';
 import 'package:maplestory_builder/modules/difference_provider.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';

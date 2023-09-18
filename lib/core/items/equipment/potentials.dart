@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/constants/potential_stats.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 
 class PotentialModule {

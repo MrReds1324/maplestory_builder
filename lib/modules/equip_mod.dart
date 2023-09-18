@@ -1,7 +1,7 @@
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/items/equip_sets.dart';
+import 'package:maplestory_builder/core/items/equipment/equip_sets.dart';
 
-import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
 
 class EquipModule {
   // This is what we are going to use to set the equips hash value once it is saved here so that when 

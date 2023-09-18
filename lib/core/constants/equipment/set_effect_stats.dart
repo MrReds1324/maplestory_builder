@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/constants/equip_constants.dart';
-import 'package:maplestory_builder/core/items/equips.dart';
+import 'package:maplestory_builder/core/constants/equipment/equip_constants.dart';
+import 'package:maplestory_builder/core/items/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 
 class SetEffect {
