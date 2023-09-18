@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/modules/character_provider.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
 
 class BreadkdownCalculator with ChangeNotifier {
 

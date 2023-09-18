@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/modules/character_provider.dart';
-import 'package:maplestory_builder/modules/difference_provider.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'package:maplestory_builder/core/constants.dart';

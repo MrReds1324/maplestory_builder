@@ -10,8 +10,8 @@ import 'package:maplestory_builder/core/constants/equipment/set_effect_stats.dar
 import 'package:maplestory_builder/core/items/equipment/flames.dart';
 import 'package:maplestory_builder/core/items/equipment/potentials.dart';
 import 'package:maplestory_builder/core/items/equipment/starforce.dart';
-import 'package:maplestory_builder/modules/character_provider.dart';
-import 'package:maplestory_builder/modules/difference_provider.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'dart:math';
 
