@@ -549,12 +549,10 @@ class EquipModule {
     return didUpdateEquipped;
   }
 
-  bool saveEditingEquip(Equip? editingEquip) {
-    bool didUpdateEquipped = false;
-    
+  void saveEditingEquip(Equip? editingEquip) {
     // Nothing to actually save
     if (editingEquip == null) {
-      return didUpdateEquipped;
+      return;
     }
     
     // New equip that cannot be equipped
@@ -562,7 +560,7 @@ class EquipModule {
       editingEquip.equipHash = equipHash;
       equipHash++;
       allEquips.add(editingEquip);
-      return didUpdateEquipped;
+      // TODO: add notifyListeners here
     }
 
     // Repalce the old version of the item with the new one if we updated one already
@@ -573,8 +571,8 @@ class EquipModule {
       }
     }
 
-    didUpdateEquipped = _updateEquippedEquip(editingEquip);
-    return didUpdateEquipped;
+    _updateEquippedEquip(editingEquip);
+    // TODO: add notifyListeners here
   }
 
   bool deleteEquip(Equip deletingEquip) {
