@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
-import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
+import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
 import 'dart:math';
 
 class CharacterProvider with ChangeNotifier {
@@ -90,18 +90,18 @@ class CharacterProvider with ChangeNotifier {
   double attackPercentage = 0;
   double mattackPercentage = 0;
   
-  HyperStatsModule hyperStatsModule = HyperStatsModule();
+  HyperStatsProvider hyperStatsModule = HyperStatsProvider();
   APStatsProvider apStatsProvider;
   EquipsProvider equipsProvider;
 
-  CharacterProvider({required this.apStatsProvider, HyperStatsModule? hyperStatsModule, required this.equipsProvider, bool doCalculation = true}){
-    this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
+  CharacterProvider({required this.apStatsProvider, HyperStatsProvider? hyperStatsModule, required this.equipsProvider, bool doCalculation = true}){
+    this.hyperStatsModule = hyperStatsModule ?? HyperStatsProvider();
     if (doCalculation) {
       calculateEverything();
     }
   }
 
-  CharacterProvider copyWith({APStatsProvider? apStatsProvider, HyperStatsModule? hyperStatsModule, EquipsProvider? equipsProvider, bool doCalculation = true}){
+  CharacterProvider copyWith({APStatsProvider? apStatsProvider, HyperStatsProvider? hyperStatsModule, EquipsProvider? equipsProvider, bool doCalculation = true}){
     return CharacterProvider(
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
       hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
