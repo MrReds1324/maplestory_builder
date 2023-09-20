@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/items/equipment/equip_sets.dart';
+import 'package:maplestory_builder/modules/equip_sets_mod.dart';
 
 import 'package:maplestory_builder/core/items/equipment/equips.dart';
 
