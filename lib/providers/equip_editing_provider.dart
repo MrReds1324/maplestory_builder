@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/core/items/equipment/equips.dart';
+import 'package:maplestory_builder/providers/equips_provider.dart';
+import 'package:provider/provider.dart';
 
 // ignore: constant_identifier_names
 const int START_EDITING_EQUIP = 1;
@@ -30,8 +32,8 @@ class EquipEditingProvider with ChangeNotifier {
   }
 
   void saveEditingEquip(BuildContext context) {
-    // var equipModule = context.read<EquipModule>();
-    // equipModule.saveEditingEquip(editingEquip);
+    var equipModule = context.read<EquipsProvider>();
+    equipModule.saveEditingEquip(editingEquip);
     editingEquip = null;
     updateCounter = NO_EDITING_EQUIP;
     notifyListeners();
