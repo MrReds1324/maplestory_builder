@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/items/equipment/equip_sets.dart';
 
 import 'package:maplestory_builder/core/items/equipment/equips.dart';
 
-class EquipModule {
+class EquipsProvider with ChangeNotifier{
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
   int equipHash = 1;
@@ -70,7 +71,7 @@ class EquipModule {
   Equip? petEquip2;
   Equip? petEquip3;
 
-  EquipModule({
+  EquipsProvider({
     List<Equip>? allEquips,
     SetEffectModule? setEffectModule,
     this.totem1,
@@ -114,7 +115,7 @@ class EquipModule {
     this.setEffectModule = setEffectModule ?? SetEffectModule();
   }
 
-  EquipModule copyWith({
+  EquipsProvider copyWith({
     List<Equip>? allEquips,
     SetEffectModule? setEffectModule,
     Equip? totem1,
@@ -154,7 +155,7 @@ class EquipModule {
     Equip? petEquip3,
     int? equipHash,
   }) {
-    return EquipModule(
+    return EquipsProvider(
       allEquips: allEquips ?? List.from(this.allEquips),
       setEffectModule: setEffectModule ?? this.setEffectModule.copyWith(),
       totem1: totem1 ?? this.totem1,
@@ -196,9 +197,9 @@ class EquipModule {
     );
   }
 
-  bool equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0, bool isCalculatingDifference = false}) {
+  void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0, bool isCalculatingDifference = false}) {
     if (!isCalculatingDifference && (equip?.isEquipped ?? false) && (equip?.isUniqueItem ?? false)) {
-      return false;
+      return;
     }
 
     if (!isCalculatingDifference) {
@@ -364,7 +365,7 @@ class EquipModule {
       setEffectModule.removeEquip(replacedItem, isCalculatingDifference: isCalculatingDifference);
       setEffectModule.addEquip(equip);
     }
-    return true;
+    notifyListeners();
   }
   
   bool _updateEquippedEquip(Equip targetEquip, {bool isRemoving=false}) {
@@ -560,25 +561,25 @@ class EquipModule {
       editingEquip.equipHash = equipHash;
       equipHash++;
       allEquips.add(editingEquip);
-      // TODO: add notifyListeners here
     }
-
-    // Repalce the old version of the item with the new one if we updated one already
-    for (var i = 0; i < allEquips.length; i ++) {
-      if (allEquips[i] == editingEquip) {
-        allEquips[i] = editingEquip;
-        break;
+    else {
+      // Repalce the old version of the item with the new one if we updated one already
+      for (var i = 0; i < allEquips.length; i ++) {
+        if (allEquips[i] == editingEquip) {
+          allEquips[i] = editingEquip;
+          break;
+        }
       }
-    }
 
-    _updateEquippedEquip(editingEquip);
-    // TODO: add notifyListeners here
+      _updateEquippedEquip(editingEquip);
+    }
+    notifyListeners();
   }
 
-  bool deleteEquip(Equip deletingEquip) {
-    bool didRemoveEquip = _updateEquippedEquip(deletingEquip, isRemoving: true);
+  void deleteEquip(Equip deletingEquip) {
+    _updateEquippedEquip(deletingEquip, isRemoving: true);
     allEquips.remove(deletingEquip);
-    return didRemoveEquip;
+    notifyListeners();
   }
 
   List<Map<StatType, num>> calculateStats({bool recalculateCache = false}) {
