@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/core/items/equipment/equips.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
-import 'package:maplestory_builder/modules/equip_mod.dart';
+import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
 import 'dart:math';
 
@@ -93,7 +92,29 @@ class CharacterProvider with ChangeNotifier {
   
   HyperStatsModule hyperStatsModule = HyperStatsModule();
   APStatsModule apStatsModule = APStatsModule();
-  EquipModule equipModule = EquipModule();
+  EquipsProvider equipsProvider;
+
+  CharacterProvider({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, required this.equipsProvider, bool doCalculation = true}){
+    this.apStatsModule = apStatsModule ?? APStatsModule();
+    this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
+    if (doCalculation) {
+      calculateEverything();
+    }
+  }
+
+  CharacterProvider copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipsProvider? equipsProvider, bool doCalculation = true}){
+    return CharacterProvider(
+      apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
+      hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
+      equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
+    );
+  }
+
+  CharacterProvider update(EquipsProvider equipsProvider) {
+    calculateEverything();
+    notifyListeners();
+    return this;
+  }
 
   void updateCharacterLevel(int selectedLevel) {
     apStatsModule.setAvailableAPFromLevel(selectedLevel);
@@ -295,7 +316,7 @@ class CharacterProvider with ChangeNotifier {
 
     updatePureStats(apStatsModule.calculateStats());
 
-    for (Map<StatType, num> equipStats in equipModule.calculateStats(recalculateCache: recalculateCache)){
+    for (Map<StatType, num> equipStats in equipsProvider.calculateStats(recalculateCache: recalculateCache)){
       updateTempStats(equipStats);
     }
     // Specific caps on stats from items
@@ -354,20 +375,4 @@ class CharacterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  CharacterProvider({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
-    this.apStatsModule = apStatsModule ?? APStatsModule();
-    this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
-    this.equipModule = equipModule ?? EquipModule();
-    if (doCalculation) {
-      calculateEverything();
-    }
-  }
-
-  CharacterProvider copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
-    return CharacterProvider(
-      apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
-      hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
-      equipModule: equipModule ?? this.equipModule.copyWith(),
-    );
-  }
 }
