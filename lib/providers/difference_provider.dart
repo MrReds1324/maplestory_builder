@@ -19,7 +19,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }) : diffCharacterModel = mainCharacterModel.copyWith(
     apStatsProvider: mainCharacterModel.apStatsProvider,
     equipsProvider: mainCharacterModel.equipsProvider,
-    hyperStatsModule: mainCharacterModel.hyperStatsModule,
+    hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
   );
 
 
