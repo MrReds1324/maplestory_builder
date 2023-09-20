@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'dart:math';
 
-class APStatsModule {
+class APStatsProvider with ChangeNotifier{
   // All relavent to calculating ap stats and ap usage
   int totalAvailableAP = 14; // 14 + 5 * CharacterLevel
   int availableAP = 14;
@@ -17,6 +18,48 @@ class APStatsModule {
   int apDex = 4;
   int apInt = 4;
   int apLuk = 4;
+
+  APStatsProvider({
+    this.totalAvailableAP = 14,
+    this.availableAP = 14,
+    this.assignedAP = 0,
+    this.apAssignedHP = 0,
+    this.apAssignedMP = 0,
+    this.apHP = 395,
+    this.apMP = 395,
+    this.apStr = 4,
+    this.apDex = 4,
+    this.apInt = 4,
+    this.apLuk = 4,
+  });
+
+  APStatsProvider copyWith({
+    int? totalAvailableAP,
+    int? availableAP,
+    int? assignedAP,
+    int? apAssignedHP,
+    int? apAssignedMP,
+    int? apHP,
+    int? apMP,
+    int? apStr,
+    int? apDex,
+    int? apInt,
+    int? apLuk
+  }) {
+    return APStatsProvider(
+      totalAvailableAP: totalAvailableAP ?? this.totalAvailableAP,
+      availableAP: availableAP ?? this.availableAP,
+      assignedAP: assignedAP ?? this.assignedAP,
+      apAssignedHP: apAssignedHP ?? this.apAssignedHP,
+      apAssignedMP: apAssignedMP ?? this.apAssignedMP,
+      apHP: apHP ?? this.apHP,
+      apMP: apMP ?? this.apMP,
+      apStr: apStr ?? this.apStr,
+      apDex: apDex ?? this.apDex,
+      apInt: apInt ?? this.apInt,
+      apLuk: apLuk ?? this.apLuk,
+    );
+  }
 
   Map<StatType, num> calculateStats() {
     return <StatType, num>{
@@ -59,6 +102,7 @@ class APStatsModule {
       default:
         Exception("$statType is not something you can increase with Abilitiy Points");
     }
+    notifyListeners();
   }
 
   void subtractApToStat(int apAmount, StatType statType) {
@@ -103,46 +147,6 @@ class APStatsModule {
     }
     availableAP += apAmount;
     assignedAP -= apAmount;
-  }
-
-  APStatsModule({
-    this.totalAvailableAP = 14,
-    this.availableAP = 14,
-    this.assignedAP = 0,
-    this.apAssignedHP = 0,
-    this.apAssignedMP = 0,
-    this.apHP = 395,
-    this.apMP = 395,
-    this.apStr = 4,
-    this.apDex = 4,
-    this.apInt = 4,
-    this.apLuk = 4,
-  });
-
-  APStatsModule copyWith(
-      {int? totalAvailableAP,
-      int? availableAP,
-      int? assignedAP,
-      int? apAssignedHP,
-      int? apAssignedMP,
-      int? apHP,
-      int? apMP,
-      int? apStr,
-      int? apDex,
-      int? apInt,
-      int? apLuk}) {
-    return APStatsModule(
-      totalAvailableAP: totalAvailableAP ?? this.totalAvailableAP,
-      availableAP: availableAP ?? this.availableAP,
-      assignedAP: assignedAP ?? this.assignedAP,
-      apAssignedHP: apAssignedHP ?? this.apAssignedHP,
-      apAssignedMP: apAssignedMP ?? this.apAssignedMP,
-      apHP: apHP ?? this.apHP,
-      apMP: apMP ?? this.apMP,
-      apStr: apStr ?? this.apStr,
-      apDex: apDex ?? this.apDex,
-      apInt: apInt ?? this.apInt,
-      apLuk: apLuk ?? this.apLuk,
-    );
+    notifyListeners();
   }
 }
