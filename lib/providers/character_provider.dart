@@ -135,15 +135,6 @@ class CharacterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0}) {
-    var didUpdate = equipModule.equipEquip(equip, equipType, equipPosition: equipPosition);
-    
-    if (didUpdate) {
-      calculateEverything();
-      notifyListeners();
-    }
-  }
-
   void calculateEverything({bool recalculateCache = false}){
     totalHpRecovery = 0;
     totalStr = 0;
@@ -366,13 +357,4 @@ class CharacterProvider with ChangeNotifier {
       }
     }
   }
-
-  void deleteEquip(Equip deletingEquip) {
-    var didRemoveEquip = equipModule.deleteEquip(deletingEquip);
-    if (didRemoveEquip) {
-      calculateEverything();
-    }
-    notifyListeners();
-  }
-
 }

@@ -4,6 +4,7 @@ import 'package:maplestory_builder/pages/homepage.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/modules/breakdown_provider.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -11,7 +12,11 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
-        ChangeNotifierProvider<CharacterProvider>(create: (_) => CharacterProvider()),
+        ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
+        ChangeNotifierProxyProvider<EquipsProvider, CharacterProvider>(
+          create: (BuildContext context) => CharacterProvider(equipsProvider: Provider.of<EquipsProvider>(context, listen: false)), 
+          update: (BuildContext context, EquipsProvider equipsProvider, CharacterProvider? characterProvider) => characterProvider?.update(equipsProvider) ?? CharacterProvider(equipsProvider: equipsProvider),
+        ),
         ChangeNotifierProxyProvider2<EquipEditingProvider, CharacterProvider, DifferenceCalculatorProvider>(            
           create: (BuildContext context) => DifferenceCalculatorProvider(equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), mainCharacterModel: Provider.of<CharacterProvider>(context, listen: false)),
           update: (BuildContext context, EquipEditingProvider equipEditingProvider, CharacterProvider characterProvider, DifferenceCalculatorProvider? differenceCalculator) 
