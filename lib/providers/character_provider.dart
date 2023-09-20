@@ -90,26 +90,26 @@ class CharacterProvider with ChangeNotifier {
   double attackPercentage = 0;
   double mattackPercentage = 0;
   
-  HyperStatsProvider hyperStatsModule = HyperStatsProvider();
+  HyperStatsProvider hyperStatsProvider;
   APStatsProvider apStatsProvider;
   EquipsProvider equipsProvider;
 
-  CharacterProvider({required this.apStatsProvider, HyperStatsProvider? hyperStatsModule, required this.equipsProvider, bool doCalculation = true}){
-    this.hyperStatsModule = hyperStatsModule ?? HyperStatsProvider();
+  CharacterProvider({required this.apStatsProvider, required this.hyperStatsProvider, required this.equipsProvider, bool doCalculation = true}){
     if (doCalculation) {
       calculateEverything();
     }
   }
 
-  CharacterProvider copyWith({APStatsProvider? apStatsProvider, HyperStatsProvider? hyperStatsModule, EquipsProvider? equipsProvider, bool doCalculation = true}){
+  CharacterProvider copyWith({APStatsProvider? apStatsProvider, HyperStatsProvider? hyperStatsProvider, EquipsProvider? equipsProvider, bool doCalculation = true}){
     return CharacterProvider(
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
-      hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
+      hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
+      doCalculation: doCalculation,
     );
   }
 
-  CharacterProvider update(APStatsProvider apStatsProvider, EquipsProvider equipsProvider) {
+  CharacterProvider update(APStatsProvider apStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider) {
     calculateEverything();
     notifyListeners();
     return this;
@@ -117,7 +117,7 @@ class CharacterProvider with ChangeNotifier {
 
   void updateCharacterLevel(int selectedLevel) {
     apStatsProvider.setAvailableAPFromLevel(selectedLevel);
-    hyperStatsModule.setAvailableHyperStatsFromLevel(selectedLevel);
+    hyperStatsProvider.setAvailableHyperStatsFromLevel(selectedLevel);
     characterLevel = selectedLevel;
     notifyListeners();
   }
