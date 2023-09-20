@@ -17,7 +17,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     required this.equipEditingProvider,
     required this.mainCharacterModel,
   }) : diffCharacterModel = mainCharacterModel.copyWith(
-    apStatsModule: mainCharacterModel.apStatsModule,
+    apStatsProvider: mainCharacterModel.apStatsProvider,
     equipsProvider: mainCharacterModel.equipsProvider,
     hyperStatsModule: mainCharacterModel.hyperStatsModule,
   );
@@ -169,22 +169,22 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
   void subtractApToStat(int apAmount, StatType statType) {
     // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
-    var tempApStats = diffCharacterModel.apStatsModule;
-    diffCharacterModel.apStatsModule = tempApStats.copyWith();
-    diffCharacterModel.apStatsModule.subtractApToStat(apAmount, statType);
+    var tempApStats = diffCharacterModel.apStatsProvider;
+    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
+    diffCharacterModel.apStatsProvider.subtractApToStat(apAmount, statType);
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.apStatsModule = tempApStats;
+    diffCharacterModel.apStatsProvider = tempApStats;
   }
 
   void addApToStat(int apAmount, StatType statType) {
     // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
-    var tempApStats = diffCharacterModel.apStatsModule;
-    diffCharacterModel.apStatsModule = tempApStats.copyWith();
-    diffCharacterModel.apStatsModule.addApToStat(apAmount, statType);
+    var tempApStats = diffCharacterModel.apStatsProvider;
+    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
+    diffCharacterModel.apStatsProvider.addApToStat(apAmount, statType);
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.apStatsModule = tempApStats;
+    diffCharacterModel.apStatsProvider = tempApStats;
   }
 
   Widget? compareEditingEquip(BuildContext context){

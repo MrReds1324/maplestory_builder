@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:provider/provider.dart';
@@ -430,8 +431,8 @@ class APCell extends StatelessWidget {
         ),
         child: Selector<CharacterProvider, (int, int, int, int)>(
             selector: (_, character) => (
-              character.apStatsModule.assignedAP, 
-              character.apStatsModule.totalAvailableAP,
+              character.apStatsProvider.assignedAP, 
+              character.apStatsProvider.totalAvailableAP,
               character.hyperStatsModule.assignedHyperStats,
               character.hyperStatsModule.totalAvailableHyperStats
               ),
@@ -441,8 +442,8 @@ class APCell extends StatelessWidget {
                 children: [
                   Selector<CharacterProvider, (int, int)>(
                     selector: (_, character) => (
-                      character.apStatsModule.assignedAP, 
-                      character.apStatsModule.totalAvailableAP,
+                      character.apStatsProvider.assignedAP, 
+                      character.apStatsProvider.totalAvailableAP,
                       ),
                     builder: (context, data, child) {
                       return Text(
@@ -591,8 +592,8 @@ class APStatButton extends StatelessWidget {
       child: IconButton(
         iconSize: 12,
         onPressed: () {
-          var character = context.read<CharacterProvider>();
-          var func = isSubtract ? character.subtractApToStat : character.addApToStat;
+          var apStatsProvider = context.read<APStatsProvider>();
+          var func = isSubtract ? apStatsProvider.subtractApToStat : apStatsProvider.addApToStat;
           func(isLarge ? 50 : 1, statType);
         },
         icon: Icon(
@@ -609,7 +610,7 @@ Selector _getStatSelector(StatType statType) {
   switch(statType){
     case StatType.str:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalStr, character.apStatsModule.apStr),
+        selector: (_, character) => (character.totalStr, character.apStatsProvider.apStr),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
@@ -617,7 +618,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.dex:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalDex, character.apStatsModule.apDex),
+        selector: (_, character) => (character.totalDex, character.apStatsProvider.apDex),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
@@ -625,7 +626,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.int:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalInt, character.apStatsModule.apInt),
+        selector: (_, character) => (character.totalInt, character.apStatsProvider.apInt),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
@@ -633,7 +634,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.luk:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalLuk, character.apStatsModule.apLuk),
+        selector: (_, character) => (character.totalLuk, character.apStatsProvider.apLuk),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');

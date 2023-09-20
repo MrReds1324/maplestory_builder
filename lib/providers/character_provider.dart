@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/modules/ap_stats_mod.dart';
+import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
 import 'dart:math';
@@ -91,47 +91,34 @@ class CharacterProvider with ChangeNotifier {
   double mattackPercentage = 0;
   
   HyperStatsModule hyperStatsModule = HyperStatsModule();
-  APStatsModule apStatsModule = APStatsModule();
+  APStatsProvider apStatsProvider;
   EquipsProvider equipsProvider;
 
-  CharacterProvider({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, required this.equipsProvider, bool doCalculation = true}){
-    this.apStatsModule = apStatsModule ?? APStatsModule();
+  CharacterProvider({required this.apStatsProvider, HyperStatsModule? hyperStatsModule, required this.equipsProvider, bool doCalculation = true}){
     this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
     if (doCalculation) {
       calculateEverything();
     }
   }
 
-  CharacterProvider copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipsProvider? equipsProvider, bool doCalculation = true}){
+  CharacterProvider copyWith({APStatsProvider? apStatsProvider, HyperStatsModule? hyperStatsModule, EquipsProvider? equipsProvider, bool doCalculation = true}){
     return CharacterProvider(
-      apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
+      apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
       hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
     );
   }
 
-  CharacterProvider update(EquipsProvider equipsProvider) {
+  CharacterProvider update(APStatsProvider apStatsProvider, EquipsProvider equipsProvider) {
     calculateEverything();
     notifyListeners();
     return this;
   }
 
   void updateCharacterLevel(int selectedLevel) {
-    apStatsModule.setAvailableAPFromLevel(selectedLevel);
+    apStatsProvider.setAvailableAPFromLevel(selectedLevel);
     hyperStatsModule.setAvailableHyperStatsFromLevel(selectedLevel);
     characterLevel = selectedLevel;
-    notifyListeners();
-  }
-
-  void addApToStat(int apAmount, StatType statType) {
-    apStatsModule.addApToStat(apAmount, statType);
-    calculateEverything();
-    notifyListeners();
-  }
-
-  void subtractApToStat(int apAmount, StatType statType) {
-    apStatsModule.subtractApToStat(apAmount, statType);
-    calculateEverything();
     notifyListeners();
   }
 
@@ -305,7 +292,7 @@ class CharacterProvider with ChangeNotifier {
       }
     }
 
-    updatePureStats(apStatsModule.calculateStats());
+    updatePureStats(apStatsProvider.calculateStats());
 
     for (Map<StatType, num> equipStats in equipsProvider.calculateStats(recalculateCache: recalculateCache)){
       updateTempStats(equipStats);
