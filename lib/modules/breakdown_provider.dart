@@ -3,10 +3,10 @@ import 'package:maplestory_builder/providers/character_provider.dart';
 
 class BreadkdownCalculator with ChangeNotifier {
 
-  CharacterModel? mainCharacterModel;
+  CharacterProvider? mainCharacterModel;
 
 
-  BreadkdownCalculator(CharacterModel characterModel){
+  BreadkdownCalculator(CharacterProvider characterModel){
     mainCharacterModel = characterModel;
   }
 }

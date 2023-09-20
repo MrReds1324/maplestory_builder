@@ -387,10 +387,10 @@ class Equip extends Base {
     // If we are editing an equip then we always want to target the difference character model
     SetEffect? setEffect;
     if (isEquipEditing) {
-      setEffect = context.read<DifferenceCalculator>().diffCharacterModel.equipModule.setEffectModule.activeSetEffects[equipSet]!;
+      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipModule.setEffectModule.activeSetEffects[equipSet]!;
     }
     else {
-      setEffect = context.read<CharacterModel>().equipModule.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;
+      setEffect = context.read<CharacterProvider>().equipModule.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;
     }
     return setEffect.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null);
   }

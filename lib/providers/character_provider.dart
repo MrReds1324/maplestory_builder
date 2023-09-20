@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/core/items/equipment/equips.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/modules/ap_stats_mod.dart';
@@ -7,7 +6,7 @@ import 'package:maplestory_builder/modules/equip_mod.dart';
 import 'package:maplestory_builder/modules/hyper_stats_mod.dart';
 import 'dart:math';
 
-class CharacterModel with ChangeNotifier {
+class CharacterProvider with ChangeNotifier {
   String characterName = '';
   int characterLevel = 0;
 
@@ -347,29 +346,6 @@ class CharacterModel with ChangeNotifier {
     }
   }
 
-  // Editing equip logic
-  Equip? editingEquip;
-
-  void updateStarforce(num newStarValue) {
-    editingEquip?.updateStarforce(newStarValue);
-    notifyListeners();
-  }
-
-  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}){
-    editingEquip?.updateFlame(flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
-    notifyListeners();
-  }
-
-  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
-    editingEquip?.updatePotentialTier(potentialTier, isBonus: isBonus);
-    notifyListeners();
-  }
-
-  void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
-    editingEquip?.updatePotential(potentialPosition, potentialLine, isBonus: isBonus);
-    notifyListeners();
-  }
-
   void deleteEquip(Equip deletingEquip) {
     var didRemoveEquip = equipModule.deleteEquip(deletingEquip);
     if (didRemoveEquip) {
@@ -378,26 +354,7 @@ class CharacterModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void addEditingEquip(Equip equip) {
-    editingEquip = equip.copyWith();
-    notifyListeners();
-  }
-
-  void cancelEquipEditing() {
-    editingEquip = null;
-    notifyListeners();
-  }
-
-  void saveEditingEquip() {
-    var didUpdateEquipped = equipModule.saveEditingEquip(editingEquip);
-    if (didUpdateEquipped) {
-      calculateEverything();
-    }
-    editingEquip = null;
-    notifyListeners();
-  }
-
-  CharacterModel({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
+  CharacterProvider({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
     this.apStatsModule = apStatsModule ?? APStatsModule();
     this.hyperStatsModule = hyperStatsModule ?? HyperStatsModule();
     this.equipModule = equipModule ?? EquipModule();
@@ -406,8 +363,8 @@ class CharacterModel with ChangeNotifier {
     }
   }
 
-  CharacterModel copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
-    return CharacterModel(
+  CharacterProvider copyWith({APStatsModule? apStatsModule, HyperStatsModule? hyperStatsModule, EquipModule? equipModule, bool doCalculation = true}){
+    return CharacterProvider(
       apStatsModule: apStatsModule ?? this.apStatsModule.copyWith(),
       hyperStatsModule: hyperStatsModule ?? this.hyperStatsModule.copyWith(),
       equipModule: equipModule ?? this.equipModule.copyWith(),

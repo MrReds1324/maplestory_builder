@@ -310,7 +310,7 @@ class IGNCell extends StatelessWidget {
             child: Expanded(
               child: TextField(
                 onChanged: (value) {
-                  var character = context.read<CharacterModel>();
+                  var character = context.read<CharacterProvider>();
                   character.characterName = value;
                 },
               ),
@@ -373,7 +373,7 @@ class LevelCell extends StatelessWidget {
               ),
             ),
             child: Expanded(
-              child: Selector<CharacterModel, int>(
+              child: Selector<CharacterProvider, int>(
                 selector: (_, character) => character.characterLevel,
                 builder: (context, characterLevel, child) {
                   return DropdownButtonHideUnderline(
@@ -381,7 +381,7 @@ class LevelCell extends StatelessWidget {
                       value: characterLevel,
                       onChanged: (newValue) {
                         if (newValue != null) {
-                          var character = context.read<CharacterModel>();
+                          var character = context.read<CharacterProvider>();
                           character.updateCharacterLevel(newValue);
                         }
                       },
@@ -428,7 +428,7 @@ class APCell extends StatelessWidget {
             Radius.circular(10),
           ),
         ),
-        child: Selector<CharacterModel, (int, int, int, int)>(
+        child: Selector<CharacterProvider, (int, int, int, int)>(
             selector: (_, character) => (
               character.apStatsModule.assignedAP, 
               character.apStatsModule.totalAvailableAP,
@@ -439,7 +439,7 @@ class APCell extends StatelessWidget {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Selector<CharacterModel, (int, int)>(
+                  Selector<CharacterProvider, (int, int)>(
                     selector: (_, character) => (
                       character.apStatsModule.assignedAP, 
                       character.apStatsModule.totalAvailableAP,
@@ -453,7 +453,7 @@ class APCell extends StatelessWidget {
                       );
                     }
                   ),
-                  Selector<CharacterModel, (int, int)>(
+                  Selector<CharacterProvider, (int, int)>(
                     selector: (_, character) => (
                       character.hyperStatsModule.assignedHyperStats, 
                       character.hyperStatsModule.totalAvailableHyperStats,
@@ -564,7 +564,7 @@ class APStatButton extends StatelessWidget {
   final bool isSubtract;
 
   void onHover(BuildContext context){
-    var differenceCalculator = context.read<DifferenceCalculator>();
+    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
     var func = isSubtract ? differenceCalculator.subtractApToStat : differenceCalculator.addApToStat;
     func(isLarge ? 50 : 1, statType);
   }
@@ -583,7 +583,7 @@ class APStatButton extends StatelessWidget {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}'),
-        Consumer<DifferenceCalculator>(
+        Consumer<DifferenceCalculatorProvider>(
           builder: (context, differenceCalculator, child) =>  differenceCalculator.differenceWidget
         ),
       ],
@@ -591,7 +591,7 @@ class APStatButton extends StatelessWidget {
       child: IconButton(
         iconSize: 12,
         onPressed: () {
-          var character = context.read<CharacterModel>();
+          var character = context.read<CharacterProvider>();
           var func = isSubtract ? character.subtractApToStat : character.addApToStat;
           func(isLarge ? 50 : 1, statType);
         },
@@ -608,7 +608,7 @@ class APStatButton extends StatelessWidget {
 Selector _getStatSelector(StatType statType) {
   switch(statType){
     case StatType.str:
-      return Selector<CharacterModel, (double, int)>(
+      return Selector<CharacterProvider, (double, int)>(
         selector: (_, character) => (character.totalStr, character.apStatsModule.apStr),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
@@ -616,7 +616,7 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.dex:
-      return Selector<CharacterModel, (double, int)>(
+      return Selector<CharacterProvider, (double, int)>(
         selector: (_, character) => (character.totalDex, character.apStatsModule.apDex),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
@@ -624,7 +624,7 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.int:
-      return Selector<CharacterModel, (double, int)>(
+      return Selector<CharacterProvider, (double, int)>(
         selector: (_, character) => (character.totalInt, character.apStatsModule.apInt),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
@@ -632,7 +632,7 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.luk:
-      return Selector<CharacterModel, (double, int)>(
+      return Selector<CharacterProvider, (double, int)>(
         selector: (_, character) => (character.totalLuk, character.apStatsModule.apLuk),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
@@ -640,7 +640,7 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.hp:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalHp,
         builder: (context, totalHp, child) {
           return MapleTooltip(
@@ -650,7 +650,7 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.mp:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalMp,
         builder: (context, totalMp, child) {
           return MapleTooltip(
@@ -660,49 +660,49 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.damage:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalDamage,
         builder: (context, totalDamage, child) {
           return Text(doubleRoundPercentFormater.format(totalDamage));
         }
       );
     case StatType.bossDamage:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalBossDamage,
         builder: (context, totalBossDmanage, child) {
           return Text(doubleRoundPercentFormater.format(totalBossDmanage));
         }
       );
     case StatType.finalDamage:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalFinalDamage,
         builder: (context, totalFinalDamage, child) {
           return Text(doublePercentFormater.format(totalFinalDamage));
         }
       );
     case StatType.buffDuration:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalBuffDuration,
         builder: (context, totalBuffDuration, child) {
           return Text(doubleRoundPercentFormater.format(totalBuffDuration));
         }
       );
     case StatType.ignoreDefense:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalIgnoreDefense,
         builder: (context, totalIgnoreDefense, child) {
           return Text(doublePercentFormater.format(totalIgnoreDefense));
         }
       );
     case StatType.itemDropRate:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalItemDropRate,
         builder: (context, totalItemDropRate, child) {
           return Text(doubleRoundPercentFormater.format(totalItemDropRate));
         }
       );
     case StatType.critRate:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalCritRate,
         builder: (context, totalCritRate, child) {
           return MapleTooltip(
@@ -712,91 +712,91 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.mesosObtained:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalMesosObtained,
         builder: (context, totalMesosObtained, child) {
           return Text(doubleRoundPercentFormater.format(totalMesosObtained));
         }
       );
     case StatType.critDamage:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalCritDamage,
         builder: (context, totalCritDamage, child) {
           return Text(doublePercentFormater.format(totalCritDamage));
         }
       );
     case StatType.attackSpeed:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalAttackSpeed,
         builder: (context, totalAttackSpeed, child) {
           return Text('$totalAttackSpeed Level');
         }
       );
     case StatType.attack:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalAttack,
         builder: (context, totalAttack, child) {
           return Text(doubleRoundFormater.format(totalAttack));
         }
       );
     case StatType.mattack:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalMAttack,
         builder: (context, totalMAttack, child) {
           return Text(doubleRoundFormater.format(totalMAttack));
         }
       );
     case StatType.statusResistance:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalStatusResistance,
         builder: (context, totalStatusResistance, child) {
           return Text('$totalStatusResistance');
         }
       );
     case StatType.knockbackResistance:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalKnockbackResistance,
         builder: (context, totalKnockbackResistance, child) {
           return Text(doubleRoundPercentFormater.format(totalKnockbackResistance));
         }
       );
     case StatType.defense:
-      return Selector<CharacterModel, double>(
+      return Selector<CharacterProvider, double>(
         selector: (_, character) => character.totalDefense,
         builder: (context, totalDefense, child) {
           return Text(doubleRoundFormater.format(totalDefense));
         }
       );
     case StatType.starForce:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalStarForce,
         builder: (context, totalStarForce, child) {
           return Text('$totalStarForce');
         }
       );
     case StatType.speed:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalSpeed,
         builder: (context, totalSpeed, child) {
           return Text("$totalSpeed%");
         }
       );
     case StatType.arcaneForce:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalArcaneForce,
         builder: (context, totalArcaneForce, child) {
           return Text('$totalArcaneForce');
         }
       );
     case StatType.jump:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalJump,
         builder: (context, totalJump, child) {
           return Text("$totalJump%");
         }
       );
     case StatType.sacredPower:
-      return Selector<CharacterModel, int>(
+      return Selector<CharacterProvider, int>(
         selector: (_, character) => character.totalSacredPower,
         builder: (context, totalSacredPower, child) {
           return Text('$totalSacredPower');
@@ -811,7 +811,7 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
   switch(rangeType){
     case RangeType.damageRange:
       if (!isLower){
-        return Selector<CharacterModel, double>(
+        return Selector<CharacterProvider, double>(
           selector: (_, character) => character.upperDamageRange,
           builder: (context, upperDamageRange, child) {
             return Text(rangeFormatter.format(upperDamageRange));
@@ -819,7 +819,7 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
         );
       }
       else {
-        return Selector<CharacterModel, (double, double)>(
+        return Selector<CharacterProvider, (double, double)>(
           selector: (_, character) => (character.upperDamageRange, character.totalMastery),
           builder: (context, data, child) {
             return Text(rangeFormatter.format(data.$1 * data.$2));
@@ -828,7 +828,7 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
       }
     case RangeType.bossDamageRange:
       if (!isLower){
-        return Selector<CharacterModel, double>(
+        return Selector<CharacterProvider, double>(
           selector: (_, character) => character.upperBossDamangeRange,
           builder: (context, upperDamageRange, child) {
             return Text(rangeFormatter.format(upperDamageRange));
@@ -836,7 +836,7 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
         );
       }
       else {
-        return Selector<CharacterModel, (double, double)>(
+        return Selector<CharacterProvider, (double, double)>(
           selector: (_, character) => (character.upperBossDamangeRange, character.totalMastery),
           builder: (context, data, child) {
             return Text(rangeFormatter.format(data.$1 * data.$2));

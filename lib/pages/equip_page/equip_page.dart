@@ -7,6 +7,7 @@ import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/modules/equip_mod.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
+import 'package:maplestory_builder/providers/equip_editing_provider.dart';
 import 'package:provider/provider.dart';
 
 class EquipPage extends StatelessWidget {
@@ -377,20 +378,19 @@ class EquippedItemSelector extends StatelessWidget {
           width: 75,
           child: Text("${equipType.formattedName.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
         ),
-        Consumer<CharacterModel>(
-          builder: (context, characterModel, child) {
+        Consumer<CharacterProvider>(
+          builder: (context, characterProvider, child) {
             return SizedBox(
               width: 225,
               child: DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
                 isExpanded: true,
-                value: getSelectedEquip(characterModel.equipModule, equipType, equipPosition),
+                value: getSelectedEquip(characterProvider.equipModule, equipType, equipPosition),
                 onChanged: (newValue) {
-                  var character = context.read<CharacterModel>();
-                  character.equipEquip(newValue, equipType, equipPosition: equipPosition);
+                  characterProvider.equipEquip(newValue, equipType, equipPosition: equipPosition);
                 },
-                items: getDropdownItemList(context, characterModel.equipModule, equipType)
+                items: getDropdownItemList(context, characterProvider.equipModule, equipType)
               ),
             );
           }
@@ -445,7 +445,7 @@ class InventoryItems extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium
             ),
           ),
-          Consumer<CharacterModel>(
+          Consumer<CharacterProvider>(
             builder: (context, characterModel, child) {
               return Expanded(
                 child: Container(
@@ -470,7 +470,7 @@ class InventoryItems extends StatelessWidget {
                                 child: const Text("Delete")
                               ),
                               TextButton(
-                                onPressed: () => context.read<CharacterModel>().addEditingEquip(characterModel.equipModule.allEquips[index]), 
+                                onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(characterModel.equipModule.allEquips[index]), 
                                 child: const Text("Edit")
                               ),
                             ]
@@ -632,7 +632,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                   return MapleTooltip(
                     maxWidth: items[index].getTooltipWidth(),
                     tooltipWidgets: [
-                      Consumer<CharacterModel>(
+                      Consumer<CharacterProvider>(
                         builder: (_, characterModel, __) {
                           return items[index].createEquipContainer(context);
                         }
@@ -644,7 +644,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                           Text(items[index].equipName.formattedName),
                           const Spacer(),
                           TextButton(
-                            onPressed: () => context.read<CharacterModel>().addEditingEquip(items[index]), 
+                            onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(items[index]), 
                             child: const Text("Edit")
                           )
                         ]
@@ -716,11 +716,11 @@ class EquipBuilder extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () => context.read<CharacterModel>().cancelEquipEditing(),
+                    onPressed: () => context.read<EquipEditingProvider>().cancelEquipEditing(),
                     child: const Text("Cancel")
                   ),
                   TextButton(
-                    onPressed: () => context.read<CharacterModel>().saveEditingEquip(), 
+                    onPressed: () => context.read<EquipEditingProvider>().saveEditingEquip(context), 
                     child: const Text("Save")
                   ),
                 ],
@@ -762,9 +762,9 @@ class _EquipBuilder extends StatelessWidget {
                   ListView(
                     padding: const EdgeInsets.only(right: 13, bottom: 5),
                     children: <Widget>[
-                      Consumer<CharacterModel>(
-                        builder: (_, characterModel, __) {
-                          return characterModel.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
+                      Consumer<EquipEditingProvider>(
+                        builder: (_, equipEditingProvider, __) {
+                          return equipEditingProvider.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
                         }
                       ),
                       const _StarForceSlider(),
@@ -797,9 +797,9 @@ class _EquipBuilder extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.only(right: 13),
-                        child: Consumer<CharacterModel>(
-                          builder: (_, characterModel, __) {
-                            return context.read<DifferenceCalculator>().compareEditingEquip(context) 
+                        child: Consumer2<EquipEditingProvider, DifferenceCalculatorProvider>(
+                          builder: (_, equipEditingProvider, differenceCalculatorProvider, __) {
+                            return differenceCalculatorProvider.compareEditingEquip(context) 
                             ?? 
                             const Text(
                               "NOT CURRENTLY EDITING AN EQUIP",
@@ -834,15 +834,15 @@ class _StarForceSlider extends StatelessWidget {
           children: [
             const Text("Star Force:"),
             Expanded(
-              child: Consumer<CharacterModel>(
-                builder: (_, characterModel, __) {
+              child: Consumer<EquipEditingProvider>(
+                builder: (_, equipEditingProvider, __) {
                   return Slider(
-                    value: characterModel.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
-                    max: characterModel.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
-                    divisions: characterModel.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
-                    label: characterModel.editingEquip?.starForceModule?.currentStars.round().toString(),
+                    value: equipEditingProvider.editingEquip?.starForceModule?.currentStars.toDouble() ?? 0,
+                    max: equipEditingProvider.editingEquip?.starForceModule?.possibleStars.toDouble() ?? 0,
+                    divisions: equipEditingProvider.editingEquip?.starForceModule?.possibleStars.toInt() ?? 1,
+                    label: equipEditingProvider.editingEquip?.starForceModule?.currentStars.round().toString(),
                     onChanged: (double newValue) {
-                      context.read<CharacterModel>().updateStarforce(newValue);
+                      equipEditingProvider.updateStarforce(newValue);
                     },
                   );
                 }
@@ -1017,42 +1017,46 @@ class _FlameDropdowns extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CharacterModel>(
-      builder: (context, characterModel, child) {
-        return Row(
-          children: [
-            const Text("Flame: "),
-            SizedBox(
-              width: 120,
-              child: DropdownButton(
+    return Row(
+      children: [
+        const Text("Flame: "),
+        SizedBox(
+          width: 120,
+          child: Consumer<EquipEditingProvider>(
+            builder: (context, equipEditingProvider, child) {
+              return DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
                 isExpanded: true,
-                value: getSelectedFlameType(characterModel.editingEquip, flamePosition),
+                value: getSelectedFlameType(equipEditingProvider.editingEquip, flamePosition),
                 onChanged: (newValue) {
-                  characterModel.updateFlame(flamePosition, flameType: newValue);
+                  equipEditingProvider.updateFlame(flamePosition, flameType: newValue);
                 },
-                items: getDropdownFlameList(context, characterModel.editingEquip)
-              ),
-            ),
-            const Spacer(),
-            const Text("Tier: "),
-            SizedBox(
-              width: 80,
-              child: DropdownButton(
+                items: getDropdownFlameList(context, equipEditingProvider.editingEquip)
+              );
+            }
+          ),
+        ),
+        const Spacer(),
+        const Text("Tier: "),
+        SizedBox(
+          width: 80,
+          child: Consumer<EquipEditingProvider>(
+            builder: (context, equipEditingProvider, child) {
+              return DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
                 isExpanded: true,
-                value: getSelectedFlameTier(characterModel.editingEquip, flamePosition),
+                value: getSelectedFlameTier(equipEditingProvider.editingEquip, flamePosition),
                 onChanged: (newValue) {
-                  characterModel.updateFlame(flamePosition, flameTier: newValue, isUpdatingTier: true);
+                  equipEditingProvider.updateFlame(flamePosition, flameTier: newValue, isUpdatingTier: true);
                 },
-                items: getDropdownFlameTierList(context, characterModel.editingEquip)
-              ),
-            ),
-          ]
-        );
-      }
+                items: getDropdownFlameTierList(context, equipEditingProvider.editingEquip)
+              );
+            }
+          ),
+        ),
+      ]
     );
   }
 }
@@ -1131,32 +1135,36 @@ class _PotenialTierDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CharacterModel>(
-      builder: (context, characterModel, child) {
-        return Row(
-          children: [
-            Text(
+    return  Row(
+      children: [
+        Consumer<EquipEditingProvider>(
+          builder: (context, equipEditingProvider, child) {
+            return Text(
               "${isBonus ? 'Bonus' : 'Main'} Potential: ",
               style: TextStyle(
-                color: getSelectedPotentialTier(characterModel.editingEquip)?.color
+                color: getSelectedPotentialTier(equipEditingProvider.editingEquip)?.color
               ),
-            ),
-            SizedBox(
-              width: isBonus ? 207 : 213,
-              child: DropdownButton(
+            );
+          }
+        ),
+        SizedBox(
+          width: isBonus ? 207 : 213,
+          child: Consumer<EquipEditingProvider>(
+            builder: (context, equipEditingProvider, child) {
+              return DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
                 isExpanded: true,
-                value: getSelectedPotentialTier(characterModel.editingEquip),
+                value: getSelectedPotentialTier(equipEditingProvider.editingEquip),
                 onChanged: (newValue) {
-                  characterModel.updatePotentialTier(newValue, isBonus: isBonus);
+                  equipEditingProvider.updatePotentialTier(newValue, isBonus: isBonus);
                 },
                 items: getDropdownPotentialsTierList(context)
-              ),
-            ),
-          ]
-        );
-      }
+              );
+            }
+          ),
+        ),
+      ]
     );
   }
 }
@@ -1252,22 +1260,22 @@ class _PotentialDropdowns extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CharacterModel>(
-      builder: (context, characterModel, child) {
-        return  SizedBox(
-          width: 300,
-          child: DropdownButton(
+    return  SizedBox(
+      width: 300,
+      child: Consumer<EquipEditingProvider>(
+        builder: (context, equipEditingProvider, child) {
+          return DropdownButton(
             alignment: AlignmentDirectional.center,
             isDense: true,
             isExpanded: true,
-            value: getSelectedPotentialLine(characterModel.editingEquip, potentialPosition),
+            value: getSelectedPotentialLine(equipEditingProvider.editingEquip, potentialPosition),
             onChanged: (newValue) {
-              characterModel.updatePotential(potentialPosition, newValue, isBonus: isBonus);
+              equipEditingProvider.updatePotential(potentialPosition, newValue, isBonus: isBonus);
             },
-            items: getDropdownPotentialsList(context, characterModel.editingEquip)
-          ),
-        );
-      }
+            items: getDropdownPotentialsList(context, equipEditingProvider.editingEquip)
+          );
+        }
+      ),
     );
   }
 }
