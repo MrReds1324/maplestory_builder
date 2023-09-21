@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/core/constants/hyper_stats.dart';
+import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 
 class HyperStatsProvider with ChangeNotifier {
   int totalAvailableHyperStats = 0;

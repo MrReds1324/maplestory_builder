@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
 final doubleRoundFormater = NumberFormat('#######');

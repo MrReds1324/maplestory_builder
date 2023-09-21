@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 // Gives us the row index into the bonus stats tables
-import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/constants/constants.dart';
 
 const List<List<int>> singleStatFlame = [
   [1, 2, 3, 4, 5, 6, 7],         // 0-9

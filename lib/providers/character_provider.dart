@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';

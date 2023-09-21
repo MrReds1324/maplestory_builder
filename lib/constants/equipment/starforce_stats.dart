@@ -2,7 +2,7 @@
 // ignore_for_file: constant_identifier_names
 
 // Gives us the index into the bonus stats tables
-import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/constants/constants.dart';
 
 const INDEX_128 = 0; // 128-137
 const INDEX_138 = 1; // 138-149

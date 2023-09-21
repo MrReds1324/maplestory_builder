@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/constants/constants.dart';
 
 const List<EquipType> noPotentialCategory = <EquipType>[
   EquipType.medal,

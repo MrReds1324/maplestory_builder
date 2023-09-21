@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_types_as_parameter_names
 
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/core/constants.dart';
+import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
-import 'package:maplestory_builder/core/constants/equipment/equip_constants.dart';
-import 'package:maplestory_builder/core/constants/equipment/flame_stats.dart';
-import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
-import 'package:maplestory_builder/core/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
+import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
+import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
+import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
