@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/core/items/base.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/core/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/core/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/core/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/core/constants/equipment/set_effect_stats.dart';
-import 'package:maplestory_builder/core/items/equipment/flames.dart';
-import 'package:maplestory_builder/core/items/equipment/potentials.dart';
-import 'package:maplestory_builder/core/items/equipment/starforce.dart';
+import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
+import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
+import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';

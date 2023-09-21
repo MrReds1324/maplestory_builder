@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
-import 'package:maplestory_builder/modules/equip_sets_mod.dart';
+import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 
-import 'package:maplestory_builder/core/items/equipment/equips.dart';
+import 'package:maplestory_builder/modules/equipment/equips.dart';
 
 class EquipsProvider with ChangeNotifier{
   // This is what we are going to use to set the equips hash value once it is saved here so that when 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/core/constants.dart';
 import 'package:maplestory_builder/core/constants/equipment/starforce_stats.dart';
-import 'package:maplestory_builder/core/items/equipment/equips.dart';
+import 'package:maplestory_builder/modules/equipment/equips.dart';
 
 class StarForceModule {
   num possibleStars = 0;
