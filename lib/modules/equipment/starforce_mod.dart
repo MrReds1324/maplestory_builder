@@ -4,67 +4,64 @@ import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 
 class StarForceModule {
-  num possibleStars = 0;
-  num currentStars = 0;
+  int possibleStars = 0;
+  int currentStars = 0;
 
-  num str = 0;
-  num dex = 0;
-  num int = 0;
-  num luk = 0;
-  num hp = 0;
-  num mp = 0;
-  num speed = 0;
-  num jump = 0;
-  num defense = 0;
-  num attackPower = 0;
-  num mattack = 0;
+  Map<StatType, num> moduleStats;
 
   StarForceModule({
     required this.possibleStars,
     this.currentStars = 0,
-    this.str = 0,
-    this.dex = 0,
-    this.int = 0,
-    this.luk = 0,
-    this.hp = 0,
-    this.mp = 0,
-    this.speed = 0,
-    this.jump = 0,
-    this.defense = 0,
-    this.attackPower = 0,
-    this.mattack = 0,
-  });
+    Map<StatType, num>? moduleStats
+  }) : moduleStats = moduleStats ?? {};
+
+  StarForceModule copyWith({
+    int? possibleStars,
+    int? currentStars,
+    Map<StatType, num>? moduleStats,
+  }) {
+    return StarForceModule(
+      possibleStars: possibleStars ?? this.possibleStars, 
+      currentStars: currentStars ?? this.currentStars,
+      moduleStats: moduleStats ?? Map<StatType, num>.from(this.moduleStats),
+    );
+  }
+
+  num get(StatType statType) {
+    return moduleStats[statType] ?? 0;
+  }
   
   void updateStarforce(Equip targetEquip, num newStarValue) {
     currentStars = newStarValue.toInt();
+    moduleStats = {};
 
     void updateStatValue(num statValue){
       switch(targetEquip.classType){
         case ClassType.all:
-          str = statValue;
-          dex = statValue;
-          int = statValue;
-          luk = statValue;
+          moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + statValue;
+          moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + statValue;
+          moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + statValue;
+          moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + statValue;
         case ClassType.bowman:
         case ClassType.warrior:
         case ClassType.pirate:
-          str = statValue;
-          dex = statValue;
+          moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + statValue;
+          moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + statValue;
         case ClassType.magician:
-          int = statValue;
-          luk = statValue;
+          moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + statValue;
+          moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + statValue;
         case ClassType.thief:
-          luk = statValue;
-          dex = statValue;
+          moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + statValue;
+          moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + statValue;
       }
     }
 
     void updateNonWepDefense(num star) {
-      defense = targetEquip.defense;
+      var defense = targetEquip.defense;
       for (var i = 0; i < currentStars; i++){
         defense = (defense * 1.05001).ceil();
       }
-      defense = defense - targetEquip.defense;
+      moduleStats[StatType.defense] = defense - targetEquip.defense;
     }
 
     void updateWepAttValue(num attValue, num star){
@@ -83,21 +80,21 @@ class StarForceModule {
 
       switch(targetEquip.classType) {
         case ClassType.all:
-          attackPower = attValue + wepAttEarlyStar(targetEquip.attackPower, star);
-          mattack = attValue + wepAttEarlyStar(targetEquip.mattack, star);
+          moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.attackPower, star);
+          moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.mattack, star);
         case ClassType.bowman:
         case ClassType.warrior:
         case ClassType.pirate:
         case ClassType.thief:
-          attackPower = attValue + wepAttEarlyStar(targetEquip.attackPower, star);
+          moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.attackPower, star);
         case ClassType.magician:
-          mattack = attValue + wepAttEarlyStar(targetEquip.mattack, star);
+          moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.mattack, star);
       }
     }
 
     void updateAttValue(num attValue) {
-      attackPower = attValue;
-      mattack = attValue;
+      moduleStats[StatType.attack] = attValue;
+      moduleStats[StatType.mattack] = attValue;
     }
 
     void updateBonusStars(num star, {num gloveAtt = 0}) {
@@ -131,22 +128,15 @@ class StarForceModule {
 
     if (currentStars == 0){
       updateStatValue(0);
-      hp = 0;
-      mp = 0;
-      speed = 0;
-      jump = 0;
-      defense = 0;
-      attackPower = 0;
-      mattack = 0;
     }
     else if (currentStars == 1) {
       updateStatValue(2);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 5;
+        moduleStats[StatType.hp] = 5;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 5;
+        moduleStats[StatType.mp] = 5;
         updateWepAttValue(0, currentStars);
       }
       else {
@@ -156,35 +146,31 @@ class StarForceModule {
     else if (currentStars == 2) {
       updateStatValue(4);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 10;
+        moduleStats[StatType.hp] = 10;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 10;
+        moduleStats[StatType.mp] = 10;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
-          speed = 0;
-          jump = 0;
-        }
         updateNonWepDefense(currentStars);
       }
     }
     else if (currentStars == 3) {
       updateStatValue(6);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 15;
+        moduleStats[StatType.hp] = 15;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 15;
+        moduleStats[StatType.mp] = 15;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 1;
-          jump = 1;
+          moduleStats[StatType.speed] = 1;
+          moduleStats[StatType.jump] = 1;
         }
         updateNonWepDefense(currentStars);
       }
@@ -192,17 +178,17 @@ class StarForceModule {
     else if (currentStars == 4) {
       updateStatValue(8);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 25;
+        moduleStats[StatType.hp] = 25;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 25;
+        moduleStats[StatType.mp] = 25;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 2;
-          jump = 2;
+          moduleStats[StatType.speed] = 2;
+          moduleStats[StatType.jump] = 2;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(0);
@@ -214,17 +200,17 @@ class StarForceModule {
       updateStatValue(10);
 
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 35;
+        moduleStats[StatType.hp] = 35;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 35;
+        moduleStats[StatType.mp] = 35;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 3;
-          jump = 3;
+          moduleStats[StatType.speed] = 3;
+          moduleStats[StatType.jump] = 3;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(1);
@@ -235,17 +221,17 @@ class StarForceModule {
     else if (currentStars == 6) {
       updateStatValue(13);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 50;
+        moduleStats[StatType.hp] = 50;
       }
       
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 50;
+        moduleStats[StatType.mp] = 50;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 4;
-          jump = 4;
+          moduleStats[StatType.speed] = 4;
+          moduleStats[StatType.jump] = 4;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(1);
@@ -256,17 +242,17 @@ class StarForceModule {
     else if (currentStars == 7) {
       updateStatValue(16);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 65;
+        moduleStats[StatType.hp] = 65;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 65;
+        moduleStats[StatType.mp] = 65;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 5;
-          jump = 5;
+          moduleStats[StatType.speed] = 5;
+          moduleStats[StatType.jump] = 5;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(2);
@@ -277,17 +263,17 @@ class StarForceModule {
     else if (currentStars == 8) {
       updateStatValue(29);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 85;
+        moduleStats[StatType.hp] = 85;
       }
       
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 85;
+        moduleStats[StatType.mp] = 85;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 6;
-          jump = 6;
+          moduleStats[StatType.speed] = 6;
+          moduleStats[StatType.jump] = 6;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(2);
@@ -298,17 +284,17 @@ class StarForceModule {
     else if (currentStars == 9) {
       updateStatValue(22);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 105;
+        moduleStats[StatType.hp] = 105;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 105;
+        moduleStats[StatType.mp] = 105;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 7;
-          jump = 7;
+          moduleStats[StatType.speed] = 7;
+          moduleStats[StatType.jump] = 7;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(3);
@@ -319,17 +305,17 @@ class StarForceModule {
     else if (currentStars == 10) {
       updateStatValue(25);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 130;
+        moduleStats[StatType.hp] = 130;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 130;
+        moduleStats[StatType.mp] = 130;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 8;
-          jump = 8;
+          moduleStats[StatType.speed] = 8;
+          moduleStats[StatType.jump] = 8;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(3);
@@ -340,17 +326,17 @@ class StarForceModule {
     else if (currentStars == 11) {
       updateStatValue(28);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 155;
+        moduleStats[StatType.hp] = 155;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 155;
+        moduleStats[StatType.mp] = 155;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 10;
-          jump = 10;
+          moduleStats[StatType.speed] = 10;
+          moduleStats[StatType.jump] = 10;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(4);
@@ -361,17 +347,17 @@ class StarForceModule {
     else if (currentStars == 12) {
       updateStatValue(31);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 180;
+        moduleStats[StatType.hp] = 180;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 180;
+        moduleStats[StatType.mp] = 180;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 12;
-          jump = 12;
+          moduleStats[StatType.speed] = 12;
+          moduleStats[StatType.jump] = 12;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(4);
@@ -382,17 +368,17 @@ class StarForceModule {
     else if (currentStars == 13) {
       updateStatValue(34);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 205;
+        moduleStats[StatType.hp] = 205;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 205;
+        moduleStats[StatType.mp] = 205;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 14;
-          jump = 14;
+          moduleStats[StatType.speed] = 14;
+          moduleStats[StatType.jump] = 14;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(5);
@@ -403,17 +389,17 @@ class StarForceModule {
     else if (currentStars == 14) {
       updateStatValue(37);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 230;
+        moduleStats[StatType.hp] = 230;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 230;
+        moduleStats[StatType.mp] = 230;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 16;
-          jump = 16;
+          moduleStats[StatType.speed] = 16;
+          moduleStats[StatType.jump] = 16;
         }
         else if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(6);
@@ -424,17 +410,17 @@ class StarForceModule {
     else if (currentStars == 15) {
       updateStatValue(40);
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 255;
+        moduleStats[StatType.hp] = 255;
       }
 
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
-        mp = 255;
+        moduleStats[StatType.mp] = 255;
         updateWepAttValue(0, currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 18;
-          jump = 18;
+          moduleStats[StatType.speed] = 18;
+          moduleStats[StatType.jump] = 18;
         }
         if (targetEquip.equipType == EquipType.gloves) {
           updateAttValue(7);
@@ -447,16 +433,16 @@ class StarForceModule {
     }
     else {
       if (hpCategory.contains(targetEquip.equipType)) {
-        hp = 255;
+        moduleStats[StatType.hp] = 255;
       }
       if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara){
-        mp = 255;
+        moduleStats[StatType.mp] = 255;
         updateBonusStars(currentStars);
       }
       else {
         if (targetEquip.equipType == EquipType.shoes) {
-          speed = 18;
-          jump = 18;
+          moduleStats[StatType.speed] = 18;
+          moduleStats[StatType.jump] = 18;
         }
         if (targetEquip.equipType == EquipType.gloves) {
           updateBonusStars(currentStars, gloveAtt: 7);
@@ -531,38 +517,6 @@ class StarForceModule {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
         children: [firstColumn, secondColumn],
-    );
-  }
-
-  StarForceModule copyWith({
-    num? possibleStars,
-    num? currentStars,
-    num? str,
-    num? dex,
-    num? int,
-    num? luk,
-    num? hp,
-    num? mp,
-    num? speed,
-    num? jump,
-    num? defense,
-    num? attackPower,
-    num? mattack,
-  }) {
-    return StarForceModule(
-      possibleStars: possibleStars ?? this.possibleStars, 
-      currentStars: currentStars ?? this.currentStars,
-      str: str ?? this.str,
-      dex: dex ?? this.dex,
-      int: int ?? this.int,
-      luk: luk ?? this.luk,
-      hp: hp ?? this.hp,
-      mp: mp ?? this.mp,
-      speed: speed ?? this.speed,
-      jump: jump ?? this.jump,
-      defense: defense ?? this.defense,
-      attackPower: attackPower ?? this.attackPower,
-      mattack: mattack ?? this.mattack,
     );
   }
 }

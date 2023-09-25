@@ -486,7 +486,6 @@ class InventoryItems extends StatelessWidget {
   }
 }
 
-
 class SearchableItemList extends StatefulWidget {
   
   const SearchableItemList(
