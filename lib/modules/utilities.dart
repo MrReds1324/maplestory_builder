@@ -120,3 +120,24 @@ class OnHoverTooltipState extends TooltipState {
     return change;
   }
 }
+
+class HorizontalLine extends StatelessWidget {
+  final EdgeInsets? padding;
+  
+  const HorizontalLine({this.padding, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Padding(
+        padding: padding ?? const EdgeInsets.only(left: 10),
+          child: Container(
+          height: 2,
+          color: statColor,
+        ),
+      ),
+    );
+  }
+}
+
