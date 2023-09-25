@@ -77,19 +77,25 @@ class EquipBuilderContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
-                Expanded(child: 
-                  ListView(
-                    padding: const EdgeInsets.only(right: 13, bottom: 5),
-                    children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: [
                       Consumer<EquipEditingProvider>(
                         builder: (_, equipEditingProvider, __) {
                           return equipEditingProvider.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
                         }
                       ),
-                      const _ScrollSelector(),
-                      const _StarForceSlider(),
-                      const _PotentialSelector(),
-                      const _FlameSelector(),
+                      Expanded(
+                        child: ListView(
+                          padding: const EdgeInsets.only(right: 13, bottom: 5),
+                          children: const <Widget>[
+                            _ScrollSelector(),
+                            _StarForceSlider(),
+                            _PotentialSelector(),
+                            _FlameSelector(),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -631,7 +637,7 @@ class _UsedScrolls extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 310,
-      height: 200,
+      height: 150,
       child: Column(
         children: <Widget>[
           Text(
@@ -709,7 +715,7 @@ class _EditingScroll extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 310,
-      height: 200,
+      height: 150,
       child: Column(
         children: <Widget>[
           Row(
@@ -794,7 +800,7 @@ class _AvailableScrolls extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 310,
-      height: 200,
+      height: 150,
       child: Column(
         children: <Widget>[
           Text(
