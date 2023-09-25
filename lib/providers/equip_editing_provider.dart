@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
+import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:provider/provider.dart';
@@ -40,26 +41,74 @@ class EquipEditingProvider with ChangeNotifier {
   }
 
   void updateStarforce(num newStarValue) {
-    editingEquip?.updateStarforce(newStarValue);
-    updateCounter += 1;
-    notifyListeners();
+    if (editingEquip?.starForceModule != null) {
+      editingEquip?.starForceModule?.updateStarforce(editingEquip!, newStarValue);
+      updateCounter += 1;
+      notifyListeners();
+    }
   }
 
-  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}){
-    editingEquip?.updateFlame(flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
-    updateCounter += 1;
-    notifyListeners();
+  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}) {
+    if (editingEquip?.flameModule != null) {
+      editingEquip?.flameModule?.updateFlame(editingEquip!, flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
+      updateCounter += 1;
+      notifyListeners();
+    }
   }
 
   void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
-    editingEquip?.updatePotentialTier(potentialTier, isBonus: isBonus);
-    updateCounter += 1;
-    notifyListeners();
+    if (editingEquip?.potentialModule != null) {
+      editingEquip?.potentialModule?.updatePotentialTier(potentialTier, isBonus: isBonus);
+      updateCounter += 1;
+      notifyListeners();
+    }
   }
 
   void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
-    editingEquip?.updatePotential(potentialPosition, potentialLine, isBonus: isBonus);
-    updateCounter += 1;
-    notifyListeners();
+    if (editingEquip?.potentialModule != null) {
+      editingEquip?.potentialModule?.updatePotential(editingEquip!, potentialPosition, potentialLine, isBonus: isBonus);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void addEditingScroll(BaseScroll? baseScroll) {
+    if (baseScroll != null && editingEquip?.scrollModule != null) {
+      editingEquip?.scrollModule?.addEditingScroll(baseScroll);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void addScroll(BaseScroll? baseScroll) {
+    if (baseScroll != null && editingEquip?.scrollModule != null) {
+      editingEquip?.scrollModule?.addScroll(baseScroll);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void deleteScroll(BaseScroll? scroll) {
+    if (scroll != null && editingEquip?.scrollModule != null) {
+      editingEquip?.scrollModule?.deleteScroll(scroll);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void updateEditingScrollStatsValue(StatType statType, double statValue) {
+    if (editingEquip?.scrollModule != null) {
+      editingEquip!.scrollModule!.updateEditingScrollStatsValue(statType, statValue);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void clearEditingScroll() {
+    if (editingEquip?.scrollModule != null) {
+      editingEquip!.scrollModule!.clearEditingScroll();
+      updateCounter += 1;
+      notifyListeners();
+    }
   }
 } 

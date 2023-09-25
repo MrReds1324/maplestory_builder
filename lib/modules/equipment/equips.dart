@@ -28,9 +28,11 @@ class Equip extends Base {
   bool canFlame = true;
   bool isFlameAdvantaged = true;
   bool canPotential = true;
+  final int maxScrollsSlots;
   StarForceModule? starForceModule;
   FlameModule? flameModule;
   PotentialModule? potentialModule;
+  ScrollModule? scrollModule;
   num equipHash = -1;
 
   Equip({
@@ -43,6 +45,7 @@ class Equip extends Base {
     this.canFlame = true,
     this.isFlameAdvantaged = true,
     this.canPotential = true,
+    this.maxScrollsSlots = 0,
     super.itemLevel = 0,
     super.str = 0,
     super.dex = 0,
@@ -90,6 +93,7 @@ class Equip extends Base {
     this.starForceModule,
     this.flameModule,
     this.potentialModule,
+    this.scrollModule,
     this.equipHash = -1,
   }) {
     if (starForceModule != null) {
@@ -97,7 +101,7 @@ class Equip extends Base {
       starForceModule!.updateStarforce(this, starForceModule!.currentStars);
     }
     else if (canStar) {
-      starForceModule = StarForceModule(possibleStars: getStarforceLimit(itemLevel));
+      starForceModule = StarForceModule(possibleStars: getStarforceLimit(itemLevel).toInt());
     }
     else {
       starForceModule = null;
@@ -128,6 +132,19 @@ class Equip extends Base {
     else {
       potentialModule = null;
     }
+
+    if (scrollModule != null) {
+      scrollModule = scrollModule;
+    }
+    else if (maxScrollsSlots == 0) {
+      scrollModule = null;
+    }
+    else {
+      scrollModule = ScrollModule(
+        totalScrollSlots: maxScrollsSlots,
+        scrollOffset: getScrollOffsetFromItemLevelint(itemLevel.toInt())
+      );
+    }
   }
 
   Equip copyWith({
@@ -139,6 +156,8 @@ class Equip extends Base {
     bool? canStar,
     bool? canFlame,
     bool? isFlameAdvantaged,
+    bool? canPotential,
+    int? maxScrollsSlots,
     num? itemLevel,
     num? str,
     num? dex,
@@ -186,6 +205,7 @@ class Equip extends Base {
     StarForceModule? starForceModule,
     FlameModule? flameModule,
     PotentialModule? potentialModule,
+    ScrollModule? scrollModule,
     num? equipHash,
   }) {
     return Equip(
@@ -197,6 +217,8 @@ class Equip extends Base {
       canStar: canStar ?? this.canStar,
       canFlame: canFlame ?? this.canFlame,
       isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
+      canPotential: canPotential ?? this.canPotential,
+      maxScrollsSlots: maxScrollsSlots ?? this.maxScrollsSlots,
       itemLevel: itemLevel ?? this.itemLevel,
       str: str ?? this.str,
       dex: dex ?? this.dex,
@@ -244,6 +266,7 @@ class Equip extends Base {
       starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
       flameModule: flameModule ?? this.flameModule?.copyWith(),
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
+      scrollModule: scrollModule ?? this.scrollModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
   }
@@ -329,7 +352,11 @@ class Equip extends Base {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               __createTextLine(context, StatType.starForce),
-              Center(child: Text(equipName.formattedName, style: Theme.of(context).textTheme.headlineSmall)),
+              Center(
+                child: Text(
+                  "${equipName.formattedName}${(scrollModule?.usedScrolls.length ?? 0) > 0 ? ' +${scrollModule?.usedScrolls.length}' : ''}", style: Theme.of(context).textTheme.headlineSmall
+                )
+              ),
               isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
               __createTextLine(context, StatType.level),
               __createTextLine(context, StatType.attackSpeed),
@@ -374,6 +401,10 @@ class Equip extends Base {
               __createTextLine(context, StatType.hpRecovery),
               __createTextLine(context, StatType.skillCooldown),
               __createTextLine(context, StatType.skillCooldownPercentage),
+              Text(
+                "${(scrollModule?.usedScrollSlots ?? 0)}/${(scrollModule?.totalScrollSlots ?? 0)} Scrolls Enhancements Applied", 
+                style: Theme.of(context).textTheme.bodyMedium
+              ),
               isEquipEditing ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
             ],
           ),
@@ -644,13 +675,13 @@ final List<Equip> equipList = [
   // Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
   // Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
   // Dawn Boss Set Items
-  Equip(equipName: EquipName.dawnGuardianAngelRing, equipType: EquipType.ring, equipSet: EquipSet.dawnBossSet, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),
-  Equip(equipName: EquipName.twilightMark, equipType: EquipType.face, equipSet: EquipSet.dawnBossSet, itemLevel: 140, allStats: 5, attackPower: 5, mattack: 5, defense: 100),
-  Equip(equipName: EquipName.estellaEarrings, equipType: EquipType.earrings, equipSet: EquipSet.dawnBossSet, itemLevel: 160, allStats: 7, hp: 300, mp: 300, attackPower: 2, mattack: 2, defense: 100),
-  Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, isUniqueItem: true, itemLevel: 140, allStats: 8, hpPercentage: 0.05, attackPower: 2, mattack: 2, defense: 100),
+  Equip(equipName: EquipName.dawnGuardianAngelRing, equipType: EquipType.ring, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 4, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),
+  Equip(equipName: EquipName.twilightMark, equipType: EquipType.face, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 8, itemLevel: 140, allStats: 5, attackPower: 5, mattack: 5, defense: 100),
+  Equip(equipName: EquipName.estellaEarrings, equipType: EquipType.earrings, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 5, itemLevel: 160, allStats: 7, hp: 300, mp: 300, attackPower: 2, mattack: 2, defense: 100),
+  Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 7, isUniqueItem: true, itemLevel: 140, allStats: 8, hpPercentage: 0.05, attackPower: 2, mattack: 2, defense: 100),
   // Superior Gollux Items
-  Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
-  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux,  isFlameAdvantaged: false,itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
-  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux,  isFlameAdvantaged: false,itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
-  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux,  isFlameAdvantaged: false, itemLevel: 150, allStats: 15, hp: 150, mp: 150, attackPower: 10, mattack: 10, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
+  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isFlameAdvantaged: false,itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 5, isFlameAdvantaged: false,itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 9, isFlameAdvantaged: false, itemLevel: 150, allStats: 15, hp: 150, mp: 150, attackPower: 10, mattack: 10, defense: 100),
 ];
