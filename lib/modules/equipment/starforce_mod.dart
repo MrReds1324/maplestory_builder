@@ -57,11 +57,11 @@ class StarForceModule {
     }
 
     void updateNonWepDefense(num star) {
-      var defense = targetEquip.defense;
+      var defense = targetEquip.get(StatType.defense);
       for (var i = 0; i < currentStars; i++){
         defense = (defense * 1.05001).ceil();
       }
-      moduleStats[StatType.defense] = defense - targetEquip.defense;
+      moduleStats[StatType.defense] = defense - targetEquip.get(StatType.defense);
     }
 
     void updateWepAttValue(num attValue, num star){
@@ -80,15 +80,15 @@ class StarForceModule {
 
       switch(targetEquip.classType) {
         case ClassType.all:
-          moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.attackPower, star);
-          moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.mattack, star);
+          moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.attack), star);
+          moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.mattack), star);
         case ClassType.bowman:
         case ClassType.warrior:
         case ClassType.pirate:
         case ClassType.thief:
-          moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.attackPower, star);
+          moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.attack), star);
         case ClassType.magician:
-          moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.mattack, star);
+          moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.mattack), star);
       }
     }
 

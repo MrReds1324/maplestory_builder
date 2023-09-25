@@ -125,9 +125,9 @@ class FlameModule {
           moduleStats[StatType.defense] = (moduleStats[StatType.defense] ?? 0) + defenseFlame[flameLevelOffset][flameLine.flameTier!.index];
         case FlameType.attack:
           if (targetEquip.equipType == EquipType.weapon) {
-            var tagetCalculation = targetEquip.attackPower;
+            var tagetCalculation = targetEquip.get(StatType.attack);
             if (tagetCalculation == 0) {
-              tagetCalculation = targetEquip.mattack;
+              tagetCalculation = targetEquip.get(StatType.mattack);
             }
 
             if (targetEquip.isFlameAdvantaged) {
@@ -142,9 +142,9 @@ class FlameModule {
           }
         case FlameType.mattack:
           if (targetEquip.equipType == EquipType.weapon) {
-            var tagetCalculation = targetEquip.mattack;
+            var tagetCalculation = targetEquip.get(StatType.mattack);
             if (tagetCalculation == 0) {
-              tagetCalculation = targetEquip.attackPower;
+              tagetCalculation = targetEquip.get(StatType.attack);
             }
 
             if (targetEquip.isFlameAdvantaged) {

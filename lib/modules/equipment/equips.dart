@@ -48,49 +48,7 @@ class Equip extends Base {
     this.canPotential = true,
     this.maxScrollsSlots = 0,
     super.itemLevel = 0,
-    super.str = 0,
-    super.dex = 0,
-    super.int = 0,
-    super.luk = 0,
-    super.allStats = 0,
-    super.hp = 0,
-    super.mp = 0,
-    super.attackPower = 0,
-    super.mattack = 0,
-    super.defense = 0,
-    super.speed = 0,
-    super.jump = 0,
-    super.ignoreDefense = 0.0,
-    super.bossDamage = 0.0,
-    super.damage = 0.0,
-    super.damageNormalMobs = 0.0,
-    super.attackSpeed = 0,
-    super.ignoreElementalDefense = 0.0,
-    super.finalStr = 0,
-    super.finalDex = 0,
-    super.finalInt = 0,
-    super.finalLuk = 0,
-    super.finalHp = 0,
-    super.finalMp = 0,
-    super.finalAttack = 0,
-    super.finalMAttack = 0,
-    super.strPercentage = 0,
-    super.dexPercentage = 0,
-    super.intPercentage = 0,
-    super.lukPercentage = 0,
-    super.allStatsPercentage = 0,
-    super.hpPercentage = 0,
-    super.mpPercentage = 0,
-    super.defensePercentage = 0,
-    super.attackPercentage = 0,
-    super.mattackPercentage = 0,
-    super.criticalDamage = 0,
-    super.criticalRate = 0,
-    super.mesosObtained = 0,
-    super.itemDropRate = 0,
-    super.hpRecovery = 0,
-    super.skillCooldown = 0,
-    super.skillCooldownPercentage = 0,
+    super.baseStats,
     this.starForceModule,
     this.flameModule,
     this.potentialModule,
@@ -159,50 +117,8 @@ class Equip extends Base {
     bool? isFlameAdvantaged,
     bool? canPotential,
     int? maxScrollsSlots,
-    num? itemLevel,
-    num? str,
-    num? dex,
-    num? int,
-    num? luk,
-    num? allStats,
-    num? hp,
-    num? mp,
-    num? attackPower,
-    num? mattack,
-    num? defense,
-    num? speed,
-    num? jump,
-    double? ignoreDefense,
-    double? bossDamage,
-    double? damage,
-    double? damageNormalMobs,
-    num? attackSpeed,
-    double? ignoreElementalDefense,
-    int? finalStr,
-    int? finalDex,
-    int? finalInt,
-    int? finalLuk,
-    int? finalHp,
-    int? finalMp,
-    int? finalAttack,
-    int? finalMAttack,
-    double? strPercentage,
-    double? dexPercentage,
-    double? intPercentage,
-    double? lukPercentage,
-    double? allStatsPercentage,
-    double? hpPercentage,
-    double? mpPercentage,
-    double? defensePercentage,
-    double? attackPercentage,
-    double? mattackPercentage,
-    double? criticalDamage,
-    double? criticalRate,
-    double? mesosObtained,
-    double? itemDropRate,
-    double? hpRecovery,
-    num? skillCooldown,
-    double? skillCooldownPercentage,
+    int? itemLevel,
+    Map<StatType, num>? baseStats,
     StarForceModule? starForceModule,
     FlameModule? flameModule,
     PotentialModule? potentialModule,
@@ -221,49 +137,7 @@ class Equip extends Base {
       canPotential: canPotential ?? this.canPotential,
       maxScrollsSlots: maxScrollsSlots ?? this.maxScrollsSlots,
       itemLevel: itemLevel ?? this.itemLevel,
-      str: str ?? this.str,
-      dex: dex ?? this.dex,
-      int: int ?? this.int,
-      luk: luk ?? this.luk,
-      allStats: allStats ?? this.allStats,
-      hp: hp ?? this.hp,
-      mp: mp ?? this.mp,
-      attackPower: attackPower ?? this.attackPower,
-      mattack: mattack ?? this.mattack,
-      defense: defense ?? this.defense,
-      speed: speed ?? this.speed,
-      jump: jump ?? this.jump,
-      ignoreDefense: ignoreDefense ?? this.ignoreDefense,
-      bossDamage: bossDamage ?? this.bossDamage,
-      damage: damage ?? this.damage,
-      damageNormalMobs: damageNormalMobs ?? this.damageNormalMobs,
-      attackSpeed: attackSpeed?? this.attackSpeed,
-      ignoreElementalDefense: ignoreElementalDefense ?? this.ignoreElementalDefense,
-      finalStr: finalStr ?? this.finalStr,
-      finalDex: finalDex ?? this.finalDex,
-      finalInt: finalInt ?? this.finalInt,
-      finalLuk: finalLuk ?? this.finalLuk,
-      finalHp: finalHp ?? this.finalHp,
-      finalMp: finalMp ?? this.finalMp,
-      finalAttack: finalAttack ?? this.finalAttack,
-      finalMAttack: finalMAttack ?? this.finalMAttack,
-      strPercentage: strPercentage ?? this.strPercentage,
-      dexPercentage: dexPercentage ?? this.dexPercentage,
-      intPercentage: intPercentage ?? this.intPercentage,
-      lukPercentage: lukPercentage ?? this.lukPercentage,
-      allStatsPercentage: allStatsPercentage ?? this.allStatsPercentage,
-      hpPercentage: hpPercentage ?? this.hpPercentage,
-      mpPercentage: mpPercentage ?? this.mpPercentage,
-      defensePercentage: defensePercentage ?? this.defensePercentage,
-      attackPercentage: attackPercentage ?? this.attackPercentage,
-      mattackPercentage: mattackPercentage ?? this.mattackPercentage,
-      criticalDamage: criticalDamage ?? this.criticalDamage,
-      criticalRate: criticalRate ?? this.criticalRate,
-      mesosObtained: mesosObtained ?? this.mesosObtained,
-      itemDropRate: itemDropRate ?? this.itemDropRate,
-      hpRecovery: hpRecovery ?? this.hpRecovery,
-      skillCooldown: skillCooldown ?? this.skillCooldown,
-      skillCooldownPercentage: skillCooldownPercentage ?? this.skillCooldownPercentage,
+      baseStats: baseStats ?? Map<StatType, num>.from(this.baseStats),
       starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
       flameModule: flameModule ?? this.flameModule?.copyWith(),
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
@@ -273,64 +147,69 @@ class Equip extends Base {
   }
 
   num get(StatType statType) {
-    return 0;
+    return baseStats[statType] ?? 0;
   }
 
   num getTotalStat(StatType statType) {
     switch(statType) {
+      case StatType.str:
+      case StatType.dex:
+      case StatType.int:
+      case StatType.luk:  
+        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0);
+      // TODO fix these calculation
+      case StatType.ignoreDefense:
+      case StatType.ignoreElementalDefense:
       default:
-        return str + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0);
+        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0);
     }
-    
   }
 
   Map<StatType, num> calculateStats() {
     return <StatType, num>{
-      StatType.attackSpeed: attackSpeed,
-      StatType.str: str + (starForceModule?.get(StatType.str) ?? 0) + (flameModule?.get(StatType.str) ?? 0) + (potentialModule?.get(StatType.str) ?? 0),
-      StatType.dex: dex + (starForceModule?.get(StatType.dex) ?? 0) + (flameModule?.get(StatType.dex) ?? 0) + (potentialModule?.get(StatType.dex) ?? 0),
-      StatType.int: this.int + (starForceModule?.get(StatType.int) ?? 0) + (flameModule?.get(StatType.int) ?? 0) + (potentialModule?.get(StatType.int) ?? 0),
-      StatType.luk: luk + (starForceModule?.get(StatType.luk) ?? 0) + (flameModule?.get(StatType.luk) ?? 0) + (potentialModule?.get(StatType.luk) ?? 0),
-      StatType.allStats: allStats + (potentialModule?.get(StatType.allStats) ?? 0),
-      StatType.hp: hp + (starForceModule?.get(StatType.hp) ?? 0) + (flameModule?.get(StatType.hp) ?? 0) + (potentialModule?.get(StatType.hp) ?? 0),
-      StatType.mp: mp + (starForceModule?.get(StatType.mp) ?? 0) + (flameModule?.get(StatType.mp) ?? 0) + (potentialModule?.get(StatType.mp) ?? 0),
-      StatType.attack: attackPower + (starForceModule?.get(StatType.attack) ?? 0) + (flameModule?.get(StatType.attack) ?? 0) + (potentialModule?.get(StatType.attack) ?? 0),
-      StatType.mattack: mattack + (starForceModule?.get(StatType.mattack) ?? 0) + (flameModule?.get(StatType.mattack) ?? 0) + (potentialModule?.get(StatType.mattack) ?? 0),
-      StatType.defense: defense + (starForceModule?.get(StatType.defense) ?? 0) + (flameModule?.get(StatType.defense) ?? 0) + (potentialModule?.get(StatType.defense) ?? 0),
+      StatType.attackSpeed: getTotalStat(StatType.attackSpeed),
+      StatType.str: getTotalStat(StatType.str),
+      StatType.dex: getTotalStat(StatType.dex),
+      StatType.int: getTotalStat(StatType.int),
+      StatType.luk: getTotalStat(StatType.luk),
+      StatType.hp: getTotalStat(StatType.hp),
+      StatType.mp: getTotalStat(StatType.mp),
+      StatType.attack: getTotalStat(StatType.attack),
+      StatType.mattack: getTotalStat(StatType.mattack),
+      StatType.defense: getTotalStat(StatType.defense),
       StatType.starForce: starForceModule?.currentStars ?? 0,
-      // TODO: Fix this calculation
-      StatType.ignoreDefense: ignoreDefense + (potentialModule?.get(StatType.ignoreDefense) ?? 0),
-      StatType.speed: speed + (starForceModule?.get(StatType.speed) ?? 0) + (flameModule?.get(StatType.speed) ?? 0) + (potentialModule?.get(StatType.speed) ?? 0),
-      StatType.jump: jump + (starForceModule?.get(StatType.jump) ?? 0) + (flameModule?.get(StatType.jump) ?? 0) + (potentialModule?.get(StatType.jump) ?? 0),
-      StatType.bossDamage: bossDamage + (flameModule?.get(StatType.bossDamage) ?? 0) + (potentialModule?.get(StatType.bossDamage) ?? 0),
-      StatType.damage: damage + (flameModule?.get(StatType.damage) ?? 0) + (potentialModule?.get(StatType.damage) ?? 0),
-      StatType.damageNormalMobs: damageNormalMobs,
-      StatType.ignoreElementalDefense: ignoreElementalDefense,
-      StatType.finalStr: finalStr,
-      StatType.finalDex: finalDex,
-      StatType.finalInt: finalInt,
-      StatType.finalLuk: finalLuk,
-      StatType.finalHp: finalHp,
-      StatType.finalMp: finalMp,
-      StatType.finalAttack: finalAttack,
-      StatType.finalMAttack: finalMAttack,
-      StatType.strPercentage: strPercentage + (potentialModule?.get(StatType.strPercentage) ?? 0),
-      StatType.dexPercentage: dexPercentage + (potentialModule?.get(StatType.dexPercentage) ?? 0),
-      StatType.intPercentage: intPercentage + (potentialModule?.get(StatType.intPercentage) ?? 0),
-      StatType.lukPercentage: lukPercentage + (potentialModule?.get(StatType.lukPercentage) ?? 0),
-      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.get(StatType.allStatsPercentage) ?? 0) + (potentialModule?.get(StatType.allStatsPercentage) ?? 0),
-      StatType.hpPercentage: hpPercentage + (potentialModule?.get(StatType.hpPercentage) ?? 0),
-      StatType.mpPercentage: mpPercentage + (potentialModule?.get(StatType.mpPercentage) ?? 0),
-      StatType.attackPercentage: attackPercentage + (potentialModule?.get(StatType.attackPercentage) ?? 0),
-      StatType.mattackPercentage: mattackPercentage + (potentialModule?.get(StatType.mattackPercentage) ?? 0),
-      StatType.defensePercentage: defensePercentage + (potentialModule?.get(StatType.defensePercentage) ?? 0),
-      StatType.critDamage: criticalDamage + (potentialModule?.get(StatType.critDamage) ?? 0),
-      StatType.critRate: criticalRate + (potentialModule?.get(StatType.critRate) ?? 0),
-      StatType.mesosObtained: mesosObtained + (potentialModule?.get(StatType.mesosObtained) ?? 0),
-      StatType.itemDropRate: itemDropRate + (potentialModule?.get(StatType.itemDropRate) ?? 0),
-      StatType.hpRecovery: hpRecovery + (potentialModule?.get(StatType.hpPercentage) ?? 0),
-      StatType.skillCooldown: skillCooldown + (potentialModule?.get(StatType.skillCooldown) ?? 0),
-      StatType.skillCooldownPercentage: skillCooldownPercentage,
+      StatType.ignoreDefense: getTotalStat(StatType.ignoreDefense),
+      StatType.speed: getTotalStat(StatType.speed),
+      StatType.jump: getTotalStat(StatType.jump),
+      StatType.bossDamage: getTotalStat(StatType.bossDamage),
+      StatType.damage: getTotalStat(StatType.damage),
+      StatType.damageNormalMobs: getTotalStat(StatType.damageNormalMobs),
+      StatType.ignoreElementalDefense: getTotalStat(StatType.ignoreElementalDefense),
+      StatType.finalStr: getTotalStat(StatType.finalStr),
+      StatType.finalDex: getTotalStat(StatType.finalDex),
+      StatType.finalInt: getTotalStat(StatType.finalInt),
+      StatType.finalLuk: getTotalStat(StatType.finalLuk),
+      StatType.finalHp: getTotalStat(StatType.finalHp),
+      StatType.finalMp: getTotalStat(StatType.finalMp),
+      StatType.finalAttack: getTotalStat(StatType.finalAttack),
+      StatType.finalMAttack: getTotalStat(StatType.finalMAttack),
+      StatType.strPercentage: getTotalStat(StatType.strPercentage),
+      StatType.dexPercentage: getTotalStat(StatType.dexPercentage),
+      StatType.intPercentage: getTotalStat(StatType.intPercentage),
+      StatType.lukPercentage: getTotalStat(StatType.lukPercentage),
+      StatType.allStatsPercentage: getTotalStat(StatType.allStatsPercentage),
+      StatType.hpPercentage: getTotalStat(StatType.hpPercentage),
+      StatType.mpPercentage: getTotalStat(StatType.mpPercentage),
+      StatType.attackPercentage: getTotalStat(StatType.attackPercentage),
+      StatType.mattackPercentage: getTotalStat(StatType.mattackPercentage),
+      StatType.defensePercentage: getTotalStat(StatType.defensePercentage),
+      StatType.critDamage: getTotalStat(StatType.critDamage),
+      StatType.critRate: getTotalStat(StatType.critRate),
+      StatType.mesosObtained: getTotalStat(StatType.mesosObtained),
+      StatType.itemDropRate: getTotalStat(StatType.itemDropRate),
+      StatType.hpRecovery: getTotalStat(StatType.hpRecovery),
+      StatType.skillCooldown: getTotalStat(StatType.skillCooldown),
+      StatType.skillCooldownPercentage: getTotalStat(StatType.skillCooldownPercentage),
     };
   }
 
@@ -475,116 +354,21 @@ class Equip extends Base {
           ),
         );
       case StatType.str:
-        baseStat = str + allStats;
-        starForceStat = starForceModule?.get(StatType.str) ?? 0;
-        flameStat = flameModule?.get(StatType.str) ?? 0;
-        scrollStat = scrollModule?.get(StatType.str) ?? 0;
       case StatType.dex:
-        baseStat = dex + allStats;
-        starForceStat = starForceModule?.get(StatType.dex) ?? 0;
-        flameStat = flameModule?.get(StatType.dex) ?? 0;
-        scrollStat = scrollModule?.get(StatType.dex) ?? 0;
       case StatType.int:
-        baseStat = this.int + allStats;
-        starForceStat = starForceModule?.get(StatType.int) ?? 0;
-        flameStat = flameModule?.get(StatType.int) ?? 0;
       case StatType.luk:
-        baseStat = luk + allStats;
-        starForceStat = starForceModule?.get(StatType.luk) ?? 0;
-        flameStat = flameModule?.get(StatType.luk) ?? 0;
-      case StatType.hp:
-        baseStat = hp;
-        starForceStat = starForceModule?.get(StatType.hp) ?? 0;
-        flameStat = flameModule?.get(StatType.hp) ?? 0;
-      case StatType.hpPercentage:
-        baseStat = hpPercentage;
-      case StatType.mp:
-        baseStat = mp;
-        starForceStat = starForceModule?.get(StatType.mp) ?? 0;
-        flameStat = flameModule?.get(StatType.mp) ?? 0;
-      case StatType.mpPercentage:
-        baseStat = mpPercentage;
-      case StatType.attack:
-        baseStat = attackPower;
-        starForceStat = starForceModule?.get(StatType.attack) ?? 0;
-        flameStat = flameModule?.get(StatType.attack) ?? 0;
-      case StatType.mattack:
-        baseStat = mattack;
-        starForceStat = starForceModule?.get(StatType.mattack) ?? 0;
-        flameStat = flameModule?.get(StatType.mattack) ?? 0;
-      case StatType.defense:
-        baseStat = defense;
-        starForceStat = starForceModule?.get(StatType.defense) ?? 0;
-        flameStat = flameModule?.get(StatType.defense) ?? 0;
-      case StatType.bossDamage:
-        baseStat = bossDamage;
-        flameStat = flameModule?.get(StatType.bossDamage) ?? 0;
-      case StatType.speed:
-        baseStat = speed;
-        flameStat = flameModule?.get(StatType.speed) ?? 0;
-      case StatType.jump:
-        baseStat = jump;
-        flameStat = flameModule?.get(StatType.jump) ?? 0;
+        baseStat = get(statType) + get(StatType.allStats);
+        starForceStat = starForceModule?.get(statType) ?? 0;
+        flameStat = flameModule?.get(statType) ?? 0;
+        scrollStat = (scrollModule?.get(statType) ?? 0) + (scrollModule?.get(StatType.allStats) ?? 0);
+      // TODO: Fix these calculations
       case StatType.ignoreDefense:
-        baseStat = ignoreDefense;
-      case StatType.damage:
-        baseStat = damage;
-        flameStat = flameModule?.get(StatType.damage) ?? 0;
-      case StatType.allStatsPercentage:
-        baseStat = allStatsPercentage;
-        flameStat = flameModule?.get(StatType.allStatsPercentage) ?? 0;
-      case StatType.damageNormalMobs:
-        baseStat = damageNormalMobs;
       case StatType.ignoreElementalDefense:
-        baseStat = ignoreElementalDefense;
-      case StatType.finalStr:
-        baseStat = finalStr;
-      case StatType.finalDex:
-        baseStat = finalDex;
-      case StatType.finalInt:
-        baseStat = finalInt;
-      case StatType.finalLuk:
-        baseStat = finalLuk;
-      case StatType.finalHp:
-        baseStat = finalHp;
-      case StatType.finalMp:
-        baseStat = finalMp;
-      case StatType.finalAttack:
-        baseStat = finalAttack;
-      case StatType.finalMAttack:
-        baseStat = finalMAttack;
-      case StatType.attackSpeed:
-        baseStat = attackSpeed;
-      case StatType.strPercentage:
-        baseStat = strPercentage;
-      case StatType.dexPercentage:
-        baseStat = dexPercentage;
-      case StatType.intPercentage:
-        baseStat = intPercentage;
-      case StatType.lukPercentage:
-        baseStat = lukPercentage;
-      case StatType.defensePercentage:
-        baseStat = defensePercentage;
-      case StatType.attackPercentage:
-        baseStat = attackPercentage;
-      case StatType.mattackPercentage:
-        baseStat = mattackPercentage;
-      case StatType.critDamage:
-        baseStat = criticalDamage;
-      case StatType.critRate:
-        baseStat = criticalRate;
-      case StatType.mesosObtained:
-        baseStat = mesosObtained;
-      case StatType.itemDropRate:
-        baseStat = itemDropRate;
-      case StatType.hpRecovery:
-        baseStat = hpRecovery;
-      case StatType.skillCooldown:
-        baseStat = skillCooldown;
-      case StatType.skillCooldownPercentage:
-        baseStat = skillCooldownPercentage;
       default:
-        throw Exception("Unhandled StatType $statType when building equip container");
+        baseStat = get(statType);
+        starForceStat = starForceModule?.get(statType) ?? 0;
+        flameStat = flameModule?.get(statType) ?? 0;
+        scrollStat = scrollModule?.get(statType) ?? 0;
     }
     totalStat = baseStat + starForceStat + scrollStat + flameStat;
     
@@ -674,13 +458,13 @@ final List<Equip> equipList = [
   // Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
   // Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
   // Dawn Boss Set Items
-  Equip(equipName: EquipName.dawnGuardianAngelRing, equipType: EquipType.ring, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 4, isUniqueItem: true, itemLevel: 160, allStats: 5, hp: 200, mp: 200, attackPower: 2, mattack: 2),
-  Equip(equipName: EquipName.twilightMark, equipType: EquipType.face, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 8, itemLevel: 140, allStats: 5, attackPower: 5, mattack: 5, defense: 100),
-  Equip(equipName: EquipName.estellaEarrings, equipType: EquipType.earrings, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 5, itemLevel: 160, allStats: 7, hp: 300, mp: 300, attackPower: 2, mattack: 2, defense: 100),
-  Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 7, isUniqueItem: true, itemLevel: 140, allStats: 8, hpPercentage: 0.05, attackPower: 2, mattack: 2, defense: 100),
+  Equip(equipName: EquipName.dawnGuardianAngelRing, equipType: EquipType.ring, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 4, isUniqueItem: true, itemLevel: 160, baseStats: const {StatType.allStats: 5, StatType.hp: 200, StatType.mp: 200, StatType.attack: 2, StatType.mattack: 2}),
+  Equip(equipName: EquipName.twilightMark, equipType: EquipType.face, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 8, itemLevel: 140, baseStats: const {StatType.allStats: 5, StatType.attack: 5, StatType.mattack: 5, StatType.defense: 100}),
+  Equip(equipName: EquipName.estellaEarrings, equipType: EquipType.earrings, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 5, itemLevel: 160, baseStats: const {StatType.allStats: 7, StatType.hp: 300, StatType.mp: 300, StatType.attack: 2, StatType.mattack: 2, StatType.defense: 100}),
+  Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 7, isUniqueItem: true, itemLevel: 140, baseStats: const {StatType.allStats: 8, StatType.hpPercentage: 0.05, StatType.attack: 2, StatType.mattack: 2, StatType.defense: 100}),
   // Superior Gollux Items
-  Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isUniqueItem: true, itemLevel: 150, allStats: 10, hp: 250, mp: 250, attackPower: 8, mattack: 8, defense: 150, speed: 10),
-  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isFlameAdvantaged: false,itemLevel: 150, allStats: 28, hp: 300, mp: 300, attackPower: 5, mattack: 5, defense: 100),
-  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 5, isFlameAdvantaged: false,itemLevel: 150, allStats: 60, hp: 200, mp: 200, attackPower: 35, mattack: 35, defense: 100),
-  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 9, isFlameAdvantaged: false, itemLevel: 150, allStats: 15, hp: 150, mp: 150, attackPower: 10, mattack: 10, defense: 100),
+  Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isUniqueItem: true, itemLevel: 150, baseStats: const {StatType.allStats: 10, StatType.hp: 250, StatType.mp: 250, StatType.attack: 8, StatType.mattack: 8, StatType.defense: 150, StatType.speed: 10}),
+  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isFlameAdvantaged: false,itemLevel: 150, baseStats: const {StatType.allStats: 28, StatType.hp: 300, StatType.mp: 300, StatType.attack: 5, StatType.mattack: 5, StatType.defense: 100}),
+  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 5, isFlameAdvantaged: false,itemLevel: 150, baseStats: const {StatType.allStats: 60, StatType.hp: 200, StatType.mp: 200, StatType.attack: 35, StatType.mattack: 35, StatType.defense: 100}),
+  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 9, isFlameAdvantaged: false, itemLevel: 150, baseStats: const {StatType.allStats: 15, StatType.hp: 150, StatType.mp: 150, StatType.attack: 10, StatType.mattack: 10, StatType.defense: 100}),
 ];
