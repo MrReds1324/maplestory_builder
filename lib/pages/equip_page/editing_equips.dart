@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
+import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
+import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
@@ -84,6 +86,7 @@ class EquipBuilderContent extends StatelessWidget {
                           return equipEditingProvider.editingEquip?.createEquipContainer(context, isEquipEditing: true) ?? const SizedBox.shrink();
                         }
                       ),
+                      const _ScrollSelector(),
                       const _StarForceSlider(),
                       const _PotentialSelector(),
                       const _FlameSelector(),
@@ -513,14 +516,13 @@ class _PotentialDropdowns extends StatelessWidget {
 
       dropdownItems.addAll(
         filteredList.map((value) {
-          var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
           num? valueToDisplay;
 
           if (value is PotentialLineStatic) {
             valueToDisplay = value.statValue;
           }
           else if (value is PotentialLineRange) {
-            valueToDisplay = value.statValue[offset];
+            valueToDisplay = value.statValue[getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt())];
           }
           else {
             // TODO: add skill stuff here
@@ -593,6 +595,268 @@ class _PotentialDropdowns extends StatelessWidget {
           );
         }
       ),
+    );
+  }
+}
+
+
+class _ScrollSelector extends StatelessWidget {
+
+  const _ScrollSelector();
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      iconColor: equipStarColor,
+      childrenPadding: const EdgeInsets.only(bottom: 5),
+      title: Consumer<EquipEditingProvider>(
+        builder: (context, equipEditingProvider, child) {
+          return Text("Scrolls (${(equipEditingProvider.editingEquip?.scrollModule?.usedScrollSlots ?? 0)}/${(equipEditingProvider.editingEquip?.scrollModule?.totalScrollSlots ?? 0)})");
+        }
+      ),
+      children: const [
+        _UsedScrolls(),
+        _EditingScroll(),
+        _AvailableScrolls(),
+      ],
+    );
+  }
+}
+
+class _UsedScrolls extends StatelessWidget {
+
+  const _UsedScrolls();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 310,
+      height: 200,
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Used Scrolls",
+            style: Theme.of(context).textTheme.headlineSmall
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: statColor),
+                borderRadius: const BorderRadius.all(Radius.circular(10))
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: Consumer<EquipEditingProvider>(
+                builder: (context, equipEditingProvider, child) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.only(right: 13),
+                    itemCount: equipEditingProvider.editingEquip?.scrollModule?.usedScrolls.length ?? 0,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return MapleTooltip(
+                        maxWidth: 300,
+                        tooltipWidgets: [],
+                        // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                        child: ListTile(
+                          title: Row(
+                            children: [
+                              SizedBox(
+                                width: 121,
+                                child: Text(
+                                  equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName ?? "UNKNOWN",
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: getScrollEditingColor(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index])),
+                                ),
+                              ),
+                              const Spacer(),
+                              equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index] is ScrolledRange ? 
+                              TextButton(
+                                onPressed: () {
+                                  var selectScroll = equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index];
+                                  if (selectScroll is ScrolledRange) {
+                                    equipEditingProvider.addEditingScroll(selectScroll);
+                                  }
+                                },
+                                // onPressed: () => equipEditingProvider.addEditingScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
+                                child: const Text("Edit")
+                              )
+                              :
+                              const SizedBox.shrink(),
+                              TextButton(
+                                onPressed: () => equipEditingProvider.deleteScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
+                                child: const Text("Delete")
+                              ),
+                            ]
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              ),
+            ),
+          ),
+        ],
+      )
+    );
+  }
+}
+
+class _EditingScroll extends StatelessWidget {
+
+  const _EditingScroll();
+
+@override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 310,
+      height: 200,
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(flex: 3),
+              Text(
+                "Editing Scroll",
+                style: Theme.of(context).textTheme.headlineSmall
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () => context.read<EquipEditingProvider>().clearEditingScroll(), 
+                child: const Text("Clear")
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: statColor),
+                borderRadius: const BorderRadius.all(Radius.circular(10))
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: Consumer<EquipEditingProvider>(
+                builder: (context, equipEditingProvider, child) {
+                  List<MapEntry<StatType, ScrollRange>> scrollStats = equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStats() ?? [];
+
+                  return ListView.builder(
+                    itemCount: scrollStats.length,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(right: 13),
+                    itemBuilder: (context, index) {
+                      return MapleTooltip(
+                        maxWidth: 300,
+                        tooltipWidgets: [],
+                        // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                        child: Expanded(
+                          child: ListTile(
+                            title: Row(
+                              children: [
+                                Text(
+                                  scrollStats[index].key.formattedName,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                const HorizontalLine(),
+                                SizedBox(
+                                  width: 172,
+                                  child: Slider(
+                                    value: equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStatsValue(scrollStats[index].key) ?? 0,
+                                    min: scrollStats[index].value.minRange,
+                                    max: scrollStats[index].value.maxRange,
+                                    divisions: scrollStats[index].value.divisions,
+                                    label: (equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStatsValue(scrollStats[index].key) ?? 0).toInt().toString(),
+                                    onChanged: (double newValue) {
+                                      equipEditingProvider.updateEditingScrollStatsValue(scrollStats[index].key, newValue);
+                                    },
+                                  )
+                                )
+                              ]
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              ),
+            ),
+          ),
+        ],
+      )
+    );
+  }
+}
+
+class _AvailableScrolls extends StatelessWidget {
+
+  const _AvailableScrolls();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 310,
+      height: 200,
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Available Scrolls",
+            style: Theme.of(context).textTheme.headlineSmall
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: statColor),
+                borderRadius: const BorderRadius.all(Radius.circular(10))
+              ),
+              clipBehavior: Clip.hardEdge,
+              child: Consumer<EquipEditingProvider>(
+                builder: (context, equipEditingProvider, child) {
+                  List<BaseScroll> availableScrolls = getScrollsListForEquip(equipEditingProvider.editingEquip);
+
+                  return ListView.builder(
+                    itemCount: availableScrolls.length,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(right: 13),
+                    itemBuilder: (context, index) {
+                      return MapleTooltip(
+                        maxWidth: 300,
+                        tooltipWidgets: [],
+                        // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                        child: ListTile(
+                          title: Row(
+                            children: [
+                              SizedBox(
+                                width: 187,
+                                child: Text(
+                                  availableScrolls[index].scrollName,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ),
+                              const Spacer(),
+                              TextButton(
+                                onPressed: () {
+                                  var selectScroll = availableScrolls[index];
+                                  if (selectScroll is ScrollWithRange) {
+                                    equipEditingProvider.addEditingScroll(selectScroll);
+                                  }
+                                  else {
+                                    equipEditingProvider.addScroll(selectScroll);
+                                  }
+                                },
+                                // onPressed: () => equipEditingProvider.addEditingScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
+                                child: availableScrolls[index] is ScrollWithRange ? const Text("Edit") : const Text("Add")
+                              ),
+                            ]
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              ),
+            ),
+          ),
+        ],
+      )
     );
   }
 }
