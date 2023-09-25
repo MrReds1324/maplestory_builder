@@ -9,6 +9,7 @@ import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
+import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
@@ -271,42 +272,38 @@ class Equip extends Base {
     );
   }
 
-  void updateStarforce(num newStarValue) {
-    starForceModule?.updateStarforce(this, newStarValue);
+  num get(StatType statType) {
+    return 0;
   }
 
-  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}) {
-    flameModule?.updateFlame(this, flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
-  }
-
-  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
-    potentialModule?.updatePotentialTier(potentialTier, isBonus: isBonus);
-  }
-
-  void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
-    potentialModule?.updatePotential(this, potentialPosition, potentialLine, isBonus: isBonus);
+  num getTotalStat(StatType statType) {
+    switch(statType) {
+      default:
+        return str + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0);
+    }
+    
   }
 
   Map<StatType, num> calculateStats() {
     return <StatType, num>{
       StatType.attackSpeed: attackSpeed,
-      StatType.str: str + (starForceModule?.str ?? 0) + (flameModule?.str ?? 0) + (potentialModule?.str ?? 0),
-      StatType.dex: dex + (starForceModule?.dex ?? 0) + (flameModule?.dex ?? 0) + (potentialModule?.dex ?? 0),
-      StatType.int: this.int + (starForceModule?.int ?? 0) + (flameModule?.int ?? 0) + (potentialModule?.int ?? 0),
-      StatType.luk: luk + (starForceModule?.luk ?? 0) + (flameModule?.luk ?? 0) + (potentialModule?.luk ?? 0),
-      StatType.allStats: allStats + (potentialModule?.allStats ?? 0),
-      StatType.hp: hp + (starForceModule?.hp ?? 0) + (flameModule?.hp ?? 0) + (potentialModule?.hp ?? 0),
-      StatType.mp: mp + (starForceModule?.mp ?? 0) + (flameModule?.mp ?? 0) + (potentialModule?.mp ?? 0),
-      StatType.attack: attackPower + (starForceModule?.attackPower ?? 0) + (flameModule?.attackPower ?? 0) + (potentialModule?.attackPower ?? 0),
-      StatType.mattack: mattack + (starForceModule?.mattack ?? 0) + (flameModule?.mattack ?? 0) + (potentialModule?.mattack ?? 0),
-      StatType.defense: defense + (starForceModule?.defense ?? 0) + (flameModule?.defense ?? 0) + (potentialModule?.defense ?? 0),
+      StatType.str: str + (starForceModule?.get(StatType.str) ?? 0) + (flameModule?.get(StatType.str) ?? 0) + (potentialModule?.get(StatType.str) ?? 0),
+      StatType.dex: dex + (starForceModule?.get(StatType.dex) ?? 0) + (flameModule?.get(StatType.dex) ?? 0) + (potentialModule?.get(StatType.dex) ?? 0),
+      StatType.int: this.int + (starForceModule?.get(StatType.int) ?? 0) + (flameModule?.get(StatType.int) ?? 0) + (potentialModule?.get(StatType.int) ?? 0),
+      StatType.luk: luk + (starForceModule?.get(StatType.luk) ?? 0) + (flameModule?.get(StatType.luk) ?? 0) + (potentialModule?.get(StatType.luk) ?? 0),
+      StatType.allStats: allStats + (potentialModule?.get(StatType.allStats) ?? 0),
+      StatType.hp: hp + (starForceModule?.get(StatType.hp) ?? 0) + (flameModule?.get(StatType.hp) ?? 0) + (potentialModule?.get(StatType.hp) ?? 0),
+      StatType.mp: mp + (starForceModule?.get(StatType.mp) ?? 0) + (flameModule?.get(StatType.mp) ?? 0) + (potentialModule?.get(StatType.mp) ?? 0),
+      StatType.attack: attackPower + (starForceModule?.get(StatType.attack) ?? 0) + (flameModule?.get(StatType.attack) ?? 0) + (potentialModule?.get(StatType.attack) ?? 0),
+      StatType.mattack: mattack + (starForceModule?.get(StatType.mattack) ?? 0) + (flameModule?.get(StatType.mattack) ?? 0) + (potentialModule?.get(StatType.mattack) ?? 0),
+      StatType.defense: defense + (starForceModule?.get(StatType.defense) ?? 0) + (flameModule?.get(StatType.defense) ?? 0) + (potentialModule?.get(StatType.defense) ?? 0),
       StatType.starForce: starForceModule?.currentStars ?? 0,
       // TODO: Fix this calculation
-      StatType.ignoreDefense: ignoreDefense + (potentialModule?.ignoreDefense ?? 0),
-      StatType.speed: speed + (starForceModule?.speed ?? 0) + (flameModule?.speed ?? 0) + (potentialModule?.speed ?? 0),
-      StatType.jump: jump + (starForceModule?.jump ?? 0) + (flameModule?.jump ?? 0) + (potentialModule?.jump ?? 0),
-      StatType.bossDamage: bossDamage + (flameModule?.bossDamage ?? 0) + (potentialModule?.bossDamage ?? 0),
-      StatType.damage: damage + (flameModule?.damage ?? 0) + (potentialModule?.damage ?? 0),
+      StatType.ignoreDefense: ignoreDefense + (potentialModule?.get(StatType.ignoreDefense) ?? 0),
+      StatType.speed: speed + (starForceModule?.get(StatType.speed) ?? 0) + (flameModule?.get(StatType.speed) ?? 0) + (potentialModule?.get(StatType.speed) ?? 0),
+      StatType.jump: jump + (starForceModule?.get(StatType.jump) ?? 0) + (flameModule?.get(StatType.jump) ?? 0) + (potentialModule?.get(StatType.jump) ?? 0),
+      StatType.bossDamage: bossDamage + (flameModule?.get(StatType.bossDamage) ?? 0) + (potentialModule?.get(StatType.bossDamage) ?? 0),
+      StatType.damage: damage + (flameModule?.get(StatType.damage) ?? 0) + (potentialModule?.get(StatType.damage) ?? 0),
       StatType.damageNormalMobs: damageNormalMobs,
       StatType.ignoreElementalDefense: ignoreElementalDefense,
       StatType.finalStr: finalStr,
@@ -317,22 +314,22 @@ class Equip extends Base {
       StatType.finalMp: finalMp,
       StatType.finalAttack: finalAttack,
       StatType.finalMAttack: finalMAttack,
-      StatType.strPercentage: strPercentage + (potentialModule?.strPercentage ?? 0),
-      StatType.dexPercentage: dexPercentage + (potentialModule?.dexPercentage ?? 0),
-      StatType.intPercentage: intPercentage + (potentialModule?.intPercentage ?? 0),
-      StatType.lukPercentage: lukPercentage + (potentialModule?.lukPercentage ?? 0),
-      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.allStatsPercentage ?? 0) + (potentialModule?.allStatsPercentage ?? 0),
-      StatType.hpPercentage: hpPercentage + (potentialModule?.hpPercentage ?? 0),
-      StatType.mpPercentage: mpPercentage + (potentialModule?.mpPercentage ?? 0),
-      StatType.attackPercentage: attackPercentage + (potentialModule?.attackPercentage ?? 0),
-      StatType.mattackPercentage: mattackPercentage + (potentialModule?.mattackPercentage ?? 0),
-      StatType.defensePercentage: defensePercentage + (potentialModule?.defensePercentage ?? 0),
-      StatType.critDamage: criticalDamage + (potentialModule?.criticalDamage ?? 0),
-      StatType.critRate: criticalRate + (potentialModule?.criticalRate ?? 0),
-      StatType.mesosObtained: mesosObtained + (potentialModule?.mesosObtained ?? 0),
-      StatType.itemDropRate: itemDropRate + (potentialModule?.itemDropRate ?? 0),
-      StatType.hpRecovery: hpRecovery + (potentialModule?.hpRecovery ?? 0),
-      StatType.skillCooldown: skillCooldown + (potentialModule?.skillCooldown ?? 0),
+      StatType.strPercentage: strPercentage + (potentialModule?.get(StatType.strPercentage) ?? 0),
+      StatType.dexPercentage: dexPercentage + (potentialModule?.get(StatType.dexPercentage) ?? 0),
+      StatType.intPercentage: intPercentage + (potentialModule?.get(StatType.intPercentage) ?? 0),
+      StatType.lukPercentage: lukPercentage + (potentialModule?.get(StatType.lukPercentage) ?? 0),
+      StatType.allStatsPercentage: allStatsPercentage + (flameModule?.get(StatType.allStatsPercentage) ?? 0) + (potentialModule?.get(StatType.allStatsPercentage) ?? 0),
+      StatType.hpPercentage: hpPercentage + (potentialModule?.get(StatType.hpPercentage) ?? 0),
+      StatType.mpPercentage: mpPercentage + (potentialModule?.get(StatType.mpPercentage) ?? 0),
+      StatType.attackPercentage: attackPercentage + (potentialModule?.get(StatType.attackPercentage) ?? 0),
+      StatType.mattackPercentage: mattackPercentage + (potentialModule?.get(StatType.mattackPercentage) ?? 0),
+      StatType.defensePercentage: defensePercentage + (potentialModule?.get(StatType.defensePercentage) ?? 0),
+      StatType.critDamage: criticalDamage + (potentialModule?.get(StatType.critDamage) ?? 0),
+      StatType.critRate: criticalRate + (potentialModule?.get(StatType.critRate) ?? 0),
+      StatType.mesosObtained: mesosObtained + (potentialModule?.get(StatType.mesosObtained) ?? 0),
+      StatType.itemDropRate: itemDropRate + (potentialModule?.get(StatType.itemDropRate) ?? 0),
+      StatType.hpRecovery: hpRecovery + (potentialModule?.get(StatType.hpPercentage) ?? 0),
+      StatType.skillCooldown: skillCooldown + (potentialModule?.get(StatType.skillCooldown) ?? 0),
       StatType.skillCooldownPercentage: skillCooldownPercentage,
     };
   }
@@ -439,10 +436,10 @@ class Equip extends Base {
         return starForceModule?.buildStarForceWidget() ?? const SizedBox.shrink();
       case StatType.level:
         List<TextSpan> levelText = [];
-        if ((flameModule?.levelReduction ?? 0) > 0) {
+        if ((flameModule?.get(StatType.level) ?? 0) > 0) {
           levelText.add(
             TextSpan(
-              text: "Required Level: ${max(itemLevel - (flameModule?.levelReduction ?? 0), 0).toInt()}",
+              text: "Required Level: ${max(itemLevel - (flameModule?.get(StatType.level) ?? 0), 0).toInt()}",
               style: const TextStyle(color: starColor)
             )
           );
@@ -453,7 +450,7 @@ class Equip extends Base {
           );
           levelText.add(
             TextSpan(
-              text: "-${flameModule?.levelReduction.toInt() ?? 0}",
+              text: "-${flameModule?.get(StatType.level).toInt() ?? 0}",
               style: const TextStyle(color: starColor)
             )
           );
@@ -479,61 +476,63 @@ class Equip extends Base {
         );
       case StatType.str:
         baseStat = str + allStats;
-        starForceStat = starForceModule?.str ?? 0;
-        flameStat = flameModule?.str ?? 0;
+        starForceStat = starForceModule?.get(StatType.str) ?? 0;
+        flameStat = flameModule?.get(StatType.str) ?? 0;
+        scrollStat = scrollModule?.get(StatType.str) ?? 0;
       case StatType.dex:
         baseStat = dex + allStats;
-        starForceStat = starForceModule?.dex ?? 0;
-        flameStat = flameModule?.dex ?? 0;
+        starForceStat = starForceModule?.get(StatType.dex) ?? 0;
+        flameStat = flameModule?.get(StatType.dex) ?? 0;
+        scrollStat = scrollModule?.get(StatType.dex) ?? 0;
       case StatType.int:
         baseStat = this.int + allStats;
-        starForceStat = starForceModule?.int ?? 0;
-        flameStat = flameModule?.int ?? 0;
+        starForceStat = starForceModule?.get(StatType.int) ?? 0;
+        flameStat = flameModule?.get(StatType.int) ?? 0;
       case StatType.luk:
         baseStat = luk + allStats;
-        starForceStat = starForceModule?.luk ?? 0;
-        flameStat = flameModule?.luk ?? 0;
+        starForceStat = starForceModule?.get(StatType.luk) ?? 0;
+        flameStat = flameModule?.get(StatType.luk) ?? 0;
       case StatType.hp:
         baseStat = hp;
-        starForceStat = starForceModule?.hp ?? 0;
-        flameStat = flameModule?.hp ?? 0;
+        starForceStat = starForceModule?.get(StatType.hp) ?? 0;
+        flameStat = flameModule?.get(StatType.hp) ?? 0;
       case StatType.hpPercentage:
         baseStat = hpPercentage;
       case StatType.mp:
         baseStat = mp;
-        starForceStat = starForceModule?.mp ?? 0;
-        flameStat = flameModule?.mp ?? 0;
+        starForceStat = starForceModule?.get(StatType.mp) ?? 0;
+        flameStat = flameModule?.get(StatType.mp) ?? 0;
       case StatType.mpPercentage:
         baseStat = mpPercentage;
       case StatType.attack:
         baseStat = attackPower;
-        starForceStat = starForceModule?.attackPower ?? 0;
-        flameStat = flameModule?.attackPower ?? 0;
+        starForceStat = starForceModule?.get(StatType.attack) ?? 0;
+        flameStat = flameModule?.get(StatType.attack) ?? 0;
       case StatType.mattack:
         baseStat = mattack;
-        starForceStat = starForceModule?.mattack ?? 0;
-        flameStat = flameModule?.mattack ?? 0;
+        starForceStat = starForceModule?.get(StatType.mattack) ?? 0;
+        flameStat = flameModule?.get(StatType.mattack) ?? 0;
       case StatType.defense:
         baseStat = defense;
-        starForceStat = starForceModule?.defense ?? 0;
-        flameStat = flameModule?.defense ?? 0;
+        starForceStat = starForceModule?.get(StatType.defense) ?? 0;
+        flameStat = flameModule?.get(StatType.defense) ?? 0;
       case StatType.bossDamage:
         baseStat = bossDamage;
-        flameStat = flameModule?.bossDamage ?? 0;
+        flameStat = flameModule?.get(StatType.bossDamage) ?? 0;
       case StatType.speed:
         baseStat = speed;
-        flameStat = flameModule?.speed ?? 0;
+        flameStat = flameModule?.get(StatType.speed) ?? 0;
       case StatType.jump:
         baseStat = jump;
-        flameStat = flameModule?.jump ?? 0;
+        flameStat = flameModule?.get(StatType.jump) ?? 0;
       case StatType.ignoreDefense:
         baseStat = ignoreDefense;
       case StatType.damage:
         baseStat = damage;
-        flameStat = flameModule?.damage ?? 0;
+        flameStat = flameModule?.get(StatType.damage) ?? 0;
       case StatType.allStatsPercentage:
         baseStat = allStatsPercentage;
-        flameStat = flameModule?.allStatsPercentage ?? 0;
+        flameStat = flameModule?.get(StatType.allStatsPercentage) ?? 0;
       case StatType.damageNormalMobs:
         baseStat = damageNormalMobs;
       case StatType.ignoreElementalDefense:
