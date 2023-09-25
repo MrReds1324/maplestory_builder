@@ -86,7 +86,9 @@ class Equip extends Base {
       potentialModule = null;
     }
     else if (canPotential) {
-      potentialModule = PotentialModule();
+      potentialModule = PotentialModule(
+        potentialOffset: getPotentialOffsetFromItemLevel(itemLevel)
+      );
     }
     else {
       potentialModule = null;
@@ -101,7 +103,7 @@ class Equip extends Base {
     else {
       scrollModule = ScrollModule(
         totalScrollSlots: maxScrollsSlots,
-        scrollOffset: getScrollOffsetFromItemLevelint(itemLevel.toInt())
+        scrollOffset: getScrollOffsetFromItemLevelint(itemLevel)
       );
     }
   }

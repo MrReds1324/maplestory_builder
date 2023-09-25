@@ -160,7 +160,7 @@ const List<num> uniquePrimeStatAttackDamageCriticalRatePercentage = [
   0.09, // 91-100
   0.09, // 101-110
   0.09, // 111-150
-  0.010, // 151+
+  0.10, // 151+
 ];
 const List<num> uniquePrimeDefenseHpMpPercentage = [
   0.03, // 0-10

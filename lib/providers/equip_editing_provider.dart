@@ -66,7 +66,7 @@ class EquipEditingProvider with ChangeNotifier {
 
   void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
     if (editingEquip?.potentialModule != null) {
-      editingEquip?.potentialModule?.updatePotential(editingEquip!, potentialPosition, potentialLine, isBonus: isBonus);
+      editingEquip?.potentialModule?.updatePotential(potentialPosition, potentialLine, isBonus: isBonus);
       updateCounter += 1;
       notifyListeners();
     }

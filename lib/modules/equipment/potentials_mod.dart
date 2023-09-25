@@ -17,6 +17,7 @@ class PotentialModule {
   PotentialLine? bonusPotentialLine3;
 
   Map<StatType, num> moduleStats;
+  int potentialOffset;
 
   PotentialModule({
     this.mainPotential,
@@ -27,6 +28,7 @@ class PotentialModule {
     this.bonusPotentialLine1,
     this.bonusPotentialLine2,
     this.bonusPotentialLine3,
+    required this.potentialOffset,
     Map<StatType, num>? moduleStats,
   }): moduleStats = moduleStats ?? {};
 
@@ -39,6 +41,7 @@ class PotentialModule {
     PotentialLine? bonusPotentialLine1,
     PotentialLine? bonusPotentialLine2,
     PotentialLine? bonusPotentialLine3,
+    int? potentialOffset,
     Map<StatType, num>? moduleStats,
   }) {
     return PotentialModule(
@@ -50,6 +53,7 @@ class PotentialModule {
       bonusPotentialLine1: bonusPotentialLine1 ?? this.bonusPotentialLine1,
       bonusPotentialLine2: bonusPotentialLine2 ?? this.bonusPotentialLine2,
       bonusPotentialLine3: bonusPotentialLine3 ?? this.bonusPotentialLine3,
+      potentialOffset: potentialOffset ?? this.potentialOffset,
       moduleStats: moduleStats ?? Map<StatType, num>.from(this.moduleStats)
     );
   }
@@ -60,17 +64,25 @@ class PotentialModule {
 
   void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
     if (isBonus) {
-      bonusPotential = potentialTier;
+      if (bonusPotential != potentialTier) {
+        bonusPotentialLine1 = null;
+        bonusPotentialLine2 = null;
+        bonusPotentialLine3 = null;
+        bonusPotential = potentialTier;
+      }
     }
     else {
-      mainPotential = potentialTier;
+      if (mainPotential != potentialTier) {
+        mainPotentialLine1 = null;
+        mainPotentialLine2 = null;
+        mainPotentialLine3 = null;
+        mainPotential = potentialTier;
+      }
     }
   }
 
-  void updatePotential(Equip editingEquip, num potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+  void updatePotential(num potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
     moduleStats = {};
-
-    var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
 
     if (isBonus) {
       if (potentialPosition == 1) {
@@ -105,7 +117,7 @@ class PotentialModule {
           statvalue = potentialLine.statValue;
         }
         else if (potentialLine is PotentialLineRange) {
-          statvalue = potentialLine.statValue[offset];
+          statvalue = potentialLine.statValue[potentialOffset];
         }
         else {
           // TODO: add skill stuff here
