@@ -86,6 +86,16 @@ class ScrollWithRange extends BaseScroll {
       slotCost: slotCost ?? this.slotCost,
     );
   }
+
+  Map<StatType, int> getScrollStartingStats() {
+    Map<StatType, int> scrollStartingStats = {};
+
+    scrollStats.forEach((key, value) { 
+      scrollStartingStats[key] = value.minRange.toInt();
+    });
+
+    return scrollStartingStats;
+  }
 }
 
 class ScrolledRange extends BaseScroll {

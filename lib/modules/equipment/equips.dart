@@ -68,6 +68,7 @@ class Equip extends Base {
 
     if (flameModule != null) {
       flameModule = flameModule;
+      flameModule!.calculateModuleStats(this);
     }
     else if (noFlameCategory.contains(equipType)){
       flameModule = null;
@@ -81,6 +82,7 @@ class Equip extends Base {
 
     if (potentialModule != null) {
       potentialModule = potentialModule;
+      potentialModule!.calculateModuleStats();
     }
     else if (noPotentialCategory.contains(equipType)){
       potentialModule = null;
@@ -96,6 +98,7 @@ class Equip extends Base {
 
     if (scrollModule != null) {
       scrollModule = scrollModule;
+      scrollModule!.calculateModuleStats();
     }
     else if (maxScrollsSlots == 0) {
       scrollModule = null;
@@ -374,60 +377,62 @@ class Equip extends Base {
     }
     totalStat = baseStat + starForceStat + scrollStat + flameStat;
     
-    if (totalStat > 0){
-      List<TextSpan> childrenText = <TextSpan>[];
+    List<TextSpan> childrenText = <TextSpan>[];
 
-      if (totalStat > baseStat) {
+    if (totalStat != baseStat) {
+      childrenText.add(
+        TextSpan(
+          text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
+          style: const TextStyle(color: equipEnhancedColor)
+        )
+      );
+      childrenText.add(TextSpan(text: "(${isPercentage ? doubleRoundPercentFormater.format(baseStat) : baseStat}",));
+      if (flameStat != 0) {
         childrenText.add(
           TextSpan(
-            text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
-            style: const TextStyle(color: equipEnhancedColor)
-          )
-        );
-        childrenText.add(TextSpan(text: "(${isPercentage ? doubleRoundPercentFormater.format(baseStat) : baseStat}",));
-        if (flameStat > 0) {
-          childrenText.add(
-            TextSpan(
-              text: " +${isPercentage ? doubleRoundPercentFormater.format(flameStat) : flameStat}",
-              style: const TextStyle(color: equipFlameColor)
-            )
-          );
-        }
-        if (scrollStat > 0){
-          childrenText.add(
-            TextSpan(
-              text: " +${isPercentage ? doubleRoundPercentFormater.format(scrollStat) : scrollStat}",
-              style: const TextStyle(color: equipScrollColor)
-            )
-          );
-        }
-        if (starForceStat > 0) {
-          childrenText.add(
-            TextSpan(
-              text: " +${isPercentage ? doubleRoundPercentFormater.format(starForceStat) : starForceStat}",
-              style: const TextStyle(color: equipStarColor)
-            )
-          );
-        }
-        childrenText.add(const TextSpan(text: ")",));
-      }
-      else {
-        childrenText.add(
-          TextSpan(
-            text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat}",
+            text: " +${isPercentage ? doubleRoundPercentFormater.format(flameStat) : flameStat}",
+            style: const TextStyle(color: equipFlameColor)
           )
         );
       }
+      if (scrollStat != 0){
+        childrenText.add(
+          TextSpan(
+            text: " ${scrollStat > 0 ? '+' : ''}${isPercentage ? doubleRoundPercentFormater.format(scrollStat) : scrollStat}",
+            style: const TextStyle(
+              color: equipScrollColor
+            )
+          )
+        );
+      }
+      if (starForceStat != 0) {
+        childrenText.add(
+          TextSpan(
+            text: " +${isPercentage ? doubleRoundPercentFormater.format(starForceStat) : starForceStat}",
+            style: const TextStyle(color: equipStarColor)
+          )
+        );
+      }
+      childrenText.add(const TextSpan(text: ")",));
+    }
+    else if (baseStat != 0) {
+      childrenText.add(
+        TextSpan(
+          text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat}",
+        )
+      );
+    }
 
+    if (childrenText.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    else {
       return RichText(
         text: TextSpan(
           style: DefaultTextStyle.of(context).style,
           children: childrenText
         ),
       );
-    }
-    else {
-      return const SizedBox.shrink();
     }
   }
 

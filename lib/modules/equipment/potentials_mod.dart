@@ -62,52 +62,7 @@ class PotentialModule {
     return moduleStats[statType] ?? 0;
   }
 
-  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
-    if (isBonus) {
-      if (bonusPotential != potentialTier) {
-        bonusPotentialLine1 = null;
-        bonusPotentialLine2 = null;
-        bonusPotentialLine3 = null;
-        bonusPotential = potentialTier;
-      }
-    }
-    else {
-      if (mainPotential != potentialTier) {
-        mainPotentialLine1 = null;
-        mainPotentialLine2 = null;
-        mainPotentialLine3 = null;
-        mainPotential = potentialTier;
-      }
-    }
-  }
-
-  void updatePotential(num potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
-    moduleStats = {};
-
-    if (isBonus) {
-      if (potentialPosition == 1) {
-        bonusPotentialLine1 = potentialLine;
-      }
-      else if (potentialPosition == 2) {
-        bonusPotentialLine2 = potentialLine;
-      }
-      else {
-        bonusPotentialLine3 = potentialLine;
-      }
-    }
-    else {
-      if (potentialPosition == 1) {
-        mainPotentialLine1 = potentialLine;
-      }
-      else if (potentialPosition == 2) {
-        mainPotentialLine2 = potentialLine;
-      }
-      else {
-        mainPotentialLine3 = potentialLine;
-      }
-    }
-
-    void updateStatFromPotential(PotentialLine? potentialLine) {
+  void _updateStatFromPotential(PotentialLine? potentialLine) {
       if (potentialLine == null) {
         return;
       }
@@ -135,12 +90,60 @@ class PotentialModule {
       }
     }
 
-    updateStatFromPotential(mainPotentialLine1);
-    updateStatFromPotential(mainPotentialLine2);
-    updateStatFromPotential(mainPotentialLine3);
-    updateStatFromPotential(bonusPotentialLine1);
-    updateStatFromPotential(bonusPotentialLine2);
-    updateStatFromPotential(bonusPotentialLine3);
+  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
+    if (isBonus) {
+      if (bonusPotential != potentialTier) {
+        bonusPotentialLine1 = null;
+        bonusPotentialLine2 = null;
+        bonusPotentialLine3 = null;
+        bonusPotential = potentialTier;
+      }
+    }
+    else {
+      if (mainPotential != potentialTier) {
+        mainPotentialLine1 = null;
+        mainPotentialLine2 = null;
+        mainPotentialLine3 = null;
+        mainPotential = potentialTier;
+      }
+    }
+  }
+
+  void updatePotential(num potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+    if (isBonus) {
+      if (potentialPosition == 1) {
+        bonusPotentialLine1 = potentialLine;
+      }
+      else if (potentialPosition == 2) {
+        bonusPotentialLine2 = potentialLine;
+      }
+      else {
+        bonusPotentialLine3 = potentialLine;
+      }
+    }
+    else {
+      if (potentialPosition == 1) {
+        mainPotentialLine1 = potentialLine;
+      }
+      else if (potentialPosition == 2) {
+        mainPotentialLine2 = potentialLine;
+      }
+      else {
+        mainPotentialLine3 = potentialLine;
+      }
+    }
+
+    calculateModuleStats();
+  }
+
+  void calculateModuleStats() {
+    moduleStats = {};
+    _updateStatFromPotential(mainPotentialLine1);
+    _updateStatFromPotential(mainPotentialLine2);
+    _updateStatFromPotential(mainPotentialLine3);
+    _updateStatFromPotential(bonusPotentialLine1);
+    _updateStatFromPotential(bonusPotentialLine2);
+    _updateStatFromPotential(bonusPotentialLine3);
   }
 
   Widget buildPotentialWidget(BuildContext context, Equip editingEquip) {

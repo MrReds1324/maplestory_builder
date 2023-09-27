@@ -49,7 +49,12 @@ class ScrollModule {
       if (baseScroll.slotCost > (totalScrollSlots - usedScrollSlots)) {
         return;
       }
-      editingScroll = ScrolledRange(scrollName: baseScroll.scrollName, referenceScroll: baseScroll);
+      clearEditingScroll();
+      editingScroll = ScrolledRange(
+        scrollStats: baseScroll.getScrollStartingStats(),
+        scrollName: baseScroll.scrollName, 
+        referenceScroll: baseScroll
+      );
       editingScroll!.isEditing = true;
       addScroll(editingScroll!);
     }
