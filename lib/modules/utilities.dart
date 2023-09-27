@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
@@ -25,6 +26,21 @@ Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
     });
 
     return newMap;
+}
+
+List<BaseScroll> deepCopyScrollsList(List<BaseScroll> list) {
+    List<BaseScroll> newList = [];
+
+    for (BaseScroll baseScroll in list) {
+      if (baseScroll is SavedScroll) {
+        newList.add(baseScroll.copyWith());
+      }
+      else if (baseScroll is SavedScrolledRange) {
+        newList.add(baseScroll.copyWith());
+      }
+    }
+
+    return newList;
 }
 
 class MapleTooltip extends StatelessWidget{

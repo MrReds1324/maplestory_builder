@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
+import 'package:maplestory_builder/modules/utilities.dart';
 
 class ScrollModule {
   final int totalScrollSlots;
@@ -34,7 +35,7 @@ class ScrollModule {
       totalScrollSlots: totalScrollSlots ?? this.totalScrollSlots,
       scrollOffset: scrollOffset ?? this.scrollOffset,
       usedScrollSlots: usedScrollSlots ?? this.usedScrollSlots,
-      usedScrolls: usedScrolls ?? List.from(this.usedScrolls),
+      usedScrolls: usedScrolls ?? deepCopyScrollsList(this.usedScrolls),
       moduleStats: moduleStats ?? Map<StatType, int>.from(this.moduleStats),
     );
   }
