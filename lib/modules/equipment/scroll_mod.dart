@@ -8,7 +8,7 @@ class ScrollModule {
   final int scrollOffset;
   int usedScrollSlots;
   List<BaseScroll> usedScrolls;
-  ScrolledRange? editingScroll;
+  SavedScrolledRange? editingScroll;
   
 
   Map<StatType, int> moduleStats;
@@ -43,6 +43,13 @@ class ScrollModule {
     return moduleStats[statType] ?? 0;
   }
 
+  void addScrollByName(ScrollName editingScrollName) {
+    var editingScrollValue = allScrolls[editingScrollName];
+    if (editingScrollValue != null) {
+      addEditingScroll(editingScrollValue);
+    }
+  }
+
   void addEditingScroll(BaseScroll baseScroll) {
     // Scroll with range means we have selected a new scroll to edit
     if (baseScroll is ScrollWithRange) {
@@ -50,17 +57,21 @@ class ScrollModule {
         return;
       }
       clearEditingScroll();
-      editingScroll = ScrolledRange(
+      editingScroll = SavedScrolledRange(
         scrollStats: baseScroll.getScrollStartingStats(),
         scrollName: baseScroll.scrollName, 
-        referenceScroll: baseScroll
+        slotCost: baseScroll.slotCost,
       );
       editingScroll!.isEditing = true;
       addScroll(editingScroll!);
     }
-    else if (baseScroll is ScrolledRange) {
+    else if (baseScroll is SavedScrolledRange) {
+      clearEditingScroll();
       editingScroll = baseScroll;
       editingScroll!.isEditing = true;
+    }
+    else {
+      addScroll(baseScroll);
     }
   }
 
@@ -69,11 +80,16 @@ class ScrollModule {
       return;
     }
     usedScrollSlots += baseScroll.slotCost;
-    if (baseScroll is ScrolledRange) {
+    if (baseScroll is SavedScrolledRange) {
       usedScrolls.add(baseScroll);
     }
     else {
-      usedScrolls.add(baseScroll.copyWith());
+      usedScrolls.add(
+        SavedScroll(
+          scrollName: baseScroll.scrollName,
+          slotCost: baseScroll.slotCost,
+        )
+      );
     }
     calculateModuleStats();
   }
@@ -93,17 +109,13 @@ class ScrollModule {
   }
 
   List<MapEntry<StatType, ScrollRange>> getEditingScrollStats() {
-    return editingScroll?.referenceScroll.scrollStats.entries.toList() ?? [];
+    var selectedScroll = allScrolls[editingScroll?.scrollName];
+    return selectedScroll is ScrollWithRange ? selectedScroll.scrollStats.entries.toList() : [];
   }
 
   double getEditingScrollStatsValue(StatType statType) {
     if (editingScroll != null) {
-      var statValue = editingScroll!.scrollStats[statType];
-      if (statValue == null) {
-        statValue = editingScroll!.referenceScroll.scrollStats[statType]!.minRange.toInt();
-        editingScroll!.scrollStats[statType] = statValue;
-      }
-      return statValue.toDouble();
+      return editingScroll!.scrollStats[statType]!.toDouble();
     }
     else {
       return 0;
@@ -121,18 +133,18 @@ class ScrollModule {
     moduleStats = {};
 
     void calculateScroll(BaseScroll baseScroll) {
-      Map<StatType, int> scrollStats;
-      if (baseScroll is StaticScroll) {
+      Map<StatType, int> scrollStats = {};
+      if (baseScroll is SavedScrolledRange) {
         scrollStats = baseScroll.scrollStats;
       }
-      else if (baseScroll is Scroll) {
-        scrollStats = baseScroll.scrollStats[scrollOffset];
-      }
-      else if (baseScroll is ScrolledRange) {
-        scrollStats = baseScroll.scrollStats;
-      }
-      else {
-        scrollStats = {};
+      else if (baseScroll is SavedScroll) {
+        var selectedScroll = allScrolls[baseScroll.scrollName];
+        if (selectedScroll is StaticScroll) {
+          scrollStats = selectedScroll.scrollStats;
+        }
+        else if (selectedScroll is Scroll) {
+          scrollStats = selectedScroll.scrollStats[scrollOffset];
+        }
       }
 
       scrollStats.forEach((key, value) { 
@@ -159,8 +171,8 @@ int getScrollOffsetFromItemLevelint(int itemLevel) {
   }
 }
 
-List<BaseScroll> getScrollsListForEquip(Equip? editingEquip) {
-  List<BaseScroll> filteredList;
+List<ScrollName> getScrollsListForEquip(Equip? editingEquip) {
+  List<ScrollName> filteredList;
   switch(editingEquip?.equipType) {
     case EquipType.hat:
     case EquipType.overall:
@@ -181,7 +193,7 @@ List<BaseScroll> getScrollsListForEquip(Equip? editingEquip) {
     case EquipType.belt:
       filteredList = chaosScrolls + accessoryScrolls;
     case EquipType.earrings:
-      filteredList = chaosScrolls + accessoryScrolls + [earringInt10];
+      filteredList = chaosScrolls + accessoryScrolls + earringOnly;
     case EquipType.weapon:
     case EquipType.secondary:
     case EquipType.shield:
@@ -197,7 +209,7 @@ List<BaseScroll> getScrollsListForEquip(Equip? editingEquip) {
 }
 
 Color? getScrollEditingColor(BaseScroll? baseScroll) {
-  if (baseScroll != null && baseScroll is ScrolledRange) {
+  if (baseScroll != null && baseScroll is SavedScrolledRange) {
     return baseScroll.isEditing ? Colors.greenAccent : null;
   }
   return null;

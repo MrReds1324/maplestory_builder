@@ -668,17 +668,17 @@ class _UsedScrolls extends StatelessWidget {
                               SizedBox(
                                 width: 121,
                                 child: Text(
-                                  equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName ?? "UNKNOWN",
+                                  equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName.formattedName ?? "UNKNOWN",
                                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     color: getScrollEditingColor(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index])),
                                 ),
                               ),
                               const Spacer(),
-                              equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index] is ScrolledRange ? 
+                              equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index] is SavedScrolledRange ? 
                               TextButton(
                                 onPressed: () {
                                   var selectScroll = equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index];
-                                  if (selectScroll is ScrolledRange) {
+                                  if (selectScroll is SavedScrolledRange) {
                                     equipEditingProvider.addEditingScroll(selectScroll);
                                   }
                                 },
@@ -816,7 +816,7 @@ class _AvailableScrolls extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               child: Consumer<EquipEditingProvider>(
                 builder: (context, equipEditingProvider, child) {
-                  List<BaseScroll> availableScrolls = getScrollsListForEquip(equipEditingProvider.editingEquip);
+                  List<ScrollName> availableScrolls = getScrollsListForEquip(equipEditingProvider.editingEquip);
 
                   return ListView.builder(
                     itemCount: availableScrolls.length,
@@ -833,23 +833,16 @@ class _AvailableScrolls extends StatelessWidget {
                               SizedBox(
                                 width: 187,
                                 child: Text(
-                                  availableScrolls[index].scrollName,
+                                  availableScrolls[index].formattedName,
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ),
                               const Spacer(),
                               TextButton(
                                 onPressed: () {
-                                  var selectScroll = availableScrolls[index];
-                                  if (selectScroll is ScrollWithRange) {
-                                    equipEditingProvider.addEditingScroll(selectScroll);
-                                  }
-                                  else {
-                                    equipEditingProvider.addScroll(selectScroll);
-                                  }
+                                  equipEditingProvider.addScrollByName(availableScrolls[index]);
                                 },
-                                // onPressed: () => equipEditingProvider.addEditingScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
-                                child: availableScrolls[index] is ScrollWithRange ? const Text("Edit") : const Text("Add")
+                                child: const Text("Add")
                               ),
                             ]
                           ),

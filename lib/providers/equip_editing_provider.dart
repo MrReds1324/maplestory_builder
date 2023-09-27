@@ -72,6 +72,14 @@ class EquipEditingProvider with ChangeNotifier {
     }
   }
 
+  void addScrollByName(ScrollName? baseScroll) {
+    if (baseScroll != null && editingEquip?.scrollModule != null) {
+      editingEquip?.scrollModule?.addScrollByName(baseScroll);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
   void addEditingScroll(BaseScroll? baseScroll) {
     if (baseScroll != null && editingEquip?.scrollModule != null) {
       editingEquip?.scrollModule?.addEditingScroll(baseScroll);

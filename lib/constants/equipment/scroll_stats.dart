@@ -2,12 +2,149 @@
 
 import 'package:maplestory_builder/constants/constants.dart';
 
+enum ScrollName {
+  // Pet Equipment Scrolls
+  premiumPetAtt100(formattedName: "Premium Scroll for Pet Equip for Attack Power 100%"),
+  premiumPetMatt100(formattedName: "Premium Scroll for Pet Equip for Magic Attack 100%"),
+  petAtt100(formattedName: "Scroll for Pet Equip for Attack Power 100%"),
+  petMatt100(formattedName: "Scroll for Pet Equip for Magic Attack 100%"),
+  petAtt70(formattedName: "Scroll for Pet Equip for Attack Power 70%"),
+  petMatt70(formattedName: "Scroll for Pet Equip for Magic Attack 70%"),
+  miraclePetAtt50(formattedName: "Miracle Scroll for Pet Equip for Attack Power 50%"),
+  miraclePetMatt50(formattedName: "Miracle Scroll for Pet Equip for Magic Attack 50%"),
+  petSpeed100(formattedName: "Scroll for Pet Equip for Speed 100%"),
+  petSpeed10(formattedName: "Scroll for Pet Equip for Speed 10%"),
+  petJump100(formattedName: "Scroll for Pet Equip for Jump 100%"),
+  petJump10(formattedName: "Scroll for Pet Equip for Jump 10%"),
+  // Chaos Scrolls
+  incredibleChaosScrollOfGoodness(formattedName: "Incredible Chaos Scroll of Goodness"),
+  chaosScrollOfGoodness(formattedName: "Chaos Scroll of Goodness"),
+  miraculousChaosScroll(formattedName: "Miraculous Chaos Scroll"),
+  chaosScroll(formattedName: "Chaos Scroll"),
+  // Armor only
+  miracleArmorAtt50(formattedName: "Miracle Scroll for Attack Power 50%"),
+  miracleArmorMatt50(formattedName: "Miracle Scroll for Magic Attack 50%"),
+  armorAtt70(formattedName: "Armor Scroll for Attack Power 70%"),
+  armorMatt70(formattedName: "Armor Scroll for Magic Attack 70%"),
+  // Armor and Shoulder
+  armorAndShoulderStr100(formattedName: "STR 100%"),
+  armorAndShoulderStr70(formattedName: "STR 70%"),
+  armorAndShoulderStr30(formattedName: "STR 30%"),
+  armorAndShoulderStr15(formattedName: "STR 15%"),
+  armorAndShoulderDex100(formattedName: "DEX 100%"),
+  armorAndShoulderDex70(formattedName: "DEX 70%"),
+  armorAndShoulderDex30(formattedName: "DEX 30%"),
+  armorAndShoulderDex15(formattedName: "DEX 15%"),
+  armorAndShoulderInt100(formattedName: "INT 100%"),
+  armorAndShoulderInt70(formattedName: "INT 70%"),
+  armorAndShoulderInt30(formattedName: "INT 30%"),
+  armorAndShoulderInt15(formattedName: "INT 15%"),
+  armorAndShoulderLuk100(formattedName: "LUK 100%"),
+  armorAndShoulderLuk70(formattedName: "LUK 70%"),
+  armorAndShoulderLuk30(formattedName: "LUK 30%"),
+  armorAndShoulderLuk15(formattedName: "LUK 15%"),
+  armorAndShoulderAllStat30(formattedName: "All Stats 30%"),
+  armorAndShoulderAllStat15(formattedName: "All Stats 15%"),
+  armorAndShoulderHP100(formattedName: "HP 100%"),
+  armorAndShoulderHP70(formattedName: "HP 70%"),
+  armorAndShoulderHP30(formattedName: "HP 30%"),
+  armorAndShoulderHP15(formattedName: "HP 15%"),
+  // Gloves
+  glovesAtt100(formattedName: "Attack Power 100%"),
+  glovesAtt70(formattedName: "Attack Power 70%"),
+  glovesAtt30(formattedName: "Attack Power 30%"),
+  glovesAtt15(formattedName: "Attack Power 15%"),
+  glovesMatt100(formattedName: "Magic Attack 100%"),
+  glovesMatt70(formattedName: "Magic Attack 70%"),
+  glovesMatt30(formattedName: "Magic Attack 30%"),
+  glovesMatt15(formattedName: "Magic Attack 15%"),
+  // Dominator
+  fragmentOfDistortedTime(formattedName: "Fragment of Distorted Time"),
+  // Superior/Reinforced Gollux
+  advancedGolluxScroll(formattedName: "Advanced Gollux Scroll"),
+  // Solid/Cracked Gollux
+  basicGolluxScroll(formattedName: "Basic Gollux Scroll"),
+  // Masteria 
+  // Glona's Heart, Delgrunds Honor, and Numenal's Willpower
+  masteriaGrandmasterScroll(formattedName: "Masteria Grandmaster Accessory Exclusive Enhancement Scroll"),
+  // Legacy of Light/Darkness
+  legacyOfLightAndDarknessScroll(formattedName: "Legacy of Light／Darkness Exclusive Enhancement Scroll"),
+  // Chaos Horntail/Horntail Pendandt
+  dragonStone(formattedName: "Dragon Stone"),
+  // Accessory
+  // Earring Only
+  earringInt10(formattedName: "Scroll for Earring for INT 10%"),
+  accessoryStr100(formattedName: "STR 100%"),
+  accessoryStr70(formattedName: "STR 70%"),
+  accessoryStr30(formattedName: "STR 30%"),
+  accessoryDex100(formattedName: "DEX 100%"),
+  accessoryDex70(formattedName: "DEX 70%"),
+  accessoryDex30(formattedName: "DEX 30%"),
+  accessoryInt100(formattedName: "INT 100%"),
+  accessoryInt70(formattedName: "INT 70%"),
+  accessoryInt30(formattedName: "INT 30%"),
+  accessoryLuk100(formattedName: "LUK 100%"),
+  accessoryLuk70(formattedName: "LUK 70%"),
+  accessoryLuk30(formattedName: "LUK 30%"),
+  accessoryAllStat30(formattedName: "All Stats 30%"),
+  accessoryHP100(formattedName: "HP 100%"),
+  accessoryHP70(formattedName: "HP 70%"),
+  accessoryHP30(formattedName: "HP 30%"),
+  premiumAccessoryAtt(formattedName: "Premium Accessory Scroll for Attack Power"),
+  premiumAccessoryMatt(formattedName: "Premium Accessory Scroll for Magic Attack"),
+  miracleAccessoryAtt50(formattedName: "Miracle Scroll for Accessory for Attack Power 50%"),
+  miracleAccessoryMatt50(formattedName: "Miracle Scroll for Accessory for Magic Attack 50%"),
+  accessoryAtt(formattedName: "Accessory Scroll for Attack Power"),
+  accessoryMatt(formattedName: "Accessory Scroll for Magic Attack"),
+  accessoryAtt70(formattedName: "Accessory Scroll for Attack Power 70%"),
+  accessoryMatt70(formattedName: "Accessory Scroll for Magic Attack 70%"),
+  // Hearts
+  heartAtt100(formattedName: "Attack Power 100%"),
+  heartAtt70(formattedName: "Attack Power 70%"),
+  heartAtt30(formattedName: "Attack Power 30%"),
+  heartMatt100(formattedName: "Magic Attack 100%"),
+  heartMatt70(formattedName: "Magic Attack 70%"),
+  heartMatt30(formattedName: "Magic Attack 30%"),
+  // Weapons
+  weaponAttStr100(formattedName: "Attack Power (STR) 100%"),
+  weaponAttStr70(formattedName: "Attack Power (STR) 70%"),
+  weaponAttStr30(formattedName: "Attack Power (STR) 30%"),
+  weaponAttStr15(formattedName: "Attack Power (STR) 15%"),
+  weaponAttDex100(formattedName: "Attack Power (DEX) 100%"),
+  weaponAttDex70(formattedName: "Attack Power (DEX) 70%"),
+  weaponAttDex30(formattedName: "Attack Power (DEX) 30%"),
+  weaponAttDex15(formattedName: "Attack Power (DEX) 15%"),
+  weaponMattInt100(formattedName: "Magic Attack (INT) 100%"),
+  weaponMattInt70(formattedName: "Magic Attack (INT) 70%"),
+  weaponMattInt30(formattedName: "Magic Attack (INT) 30%"),
+  weaponMattInt15(formattedName: "Magic Attack (INT) 15%"),
+  weaponAttLuk100(formattedName: "Attack Power (LUK) 100%"),
+  weaponAttLuk70(formattedName: "Attack Power (LUK) 70%"),
+  weaponAttLuk30(formattedName: "Attack Power (LUK) 30%"),
+  weaponAttLuk15(formattedName: "Attack Power (LUK) 15%"),
+  weaponAttHP100(formattedName: "Attack Power (HP) 100%"),
+  weaponAttHP70(formattedName: "Attack Power (HP) 70%"),
+  weaponAttHP30(formattedName: "Attack Power (HP) 30%"),
+  weaponAttHP15(formattedName: "Attack Power (HP) 15%"),
+  magicalWeaponAtt50(formattedName: "Magical Scroll for Attack Power 50%"),
+  magicalWeaponMatt50(formattedName: "Magical Scroll for Magic Attack 50%"),
+  miracleWeaponAtt50(formattedName: "Miracle Scroll for Attack Power 50%"),
+  miracleWeaponMatt50(formattedName: "Miracle Scroll for Magic Attack 50%"),
+  ;
+
+  const ScrollName({
+    required this.formattedName
+  });
+
+  final String formattedName;
+}
+
 const INDEX_0 = 0; // 0-74
 const INDEX_75 = 1; // 75-114
 const INDEX_115 = 2; // 115+
 
 abstract class BaseScroll {
-  final String scrollName;
+  final ScrollName scrollName;
   final int slotCost;
 
   const BaseScroll({
@@ -15,7 +152,6 @@ abstract class BaseScroll {
     this.slotCost = 1,
   });
 
-  BaseScroll copyWith();
 }
 
 class Scroll extends BaseScroll {
@@ -26,19 +162,6 @@ class Scroll extends BaseScroll {
     required this.scrollStats,
     super.slotCost = 1,
   });
-
-  @override
-  Scroll copyWith({
-    String? scrollName,
-    List<Map<StatType, int>>? scrollStats,
-    int? slotCost,
-  }){
-    return Scroll(
-      scrollName: scrollName ?? this.scrollName, 
-      scrollStats: scrollStats ?? this.scrollStats,
-      slotCost: slotCost ?? this.slotCost,
-    );
-  }
 }
 
 class StaticScroll extends BaseScroll {
@@ -49,23 +172,9 @@ class StaticScroll extends BaseScroll {
     required this.scrollStats,
     super.slotCost = 1,
   });
-
-  @override
-  StaticScroll copyWith({
-    String? scrollName,
-    Map<StatType, int>? scrollStats,
-    int? slotCost,
-  }){
-    return StaticScroll(
-      scrollName: scrollName ?? this.scrollName, 
-      scrollStats: scrollStats ?? this.scrollStats,
-      slotCost: slotCost ?? this.slotCost,
-    );
-  }
 }
 
 class ScrollWithRange extends BaseScroll {
-  
   final Map<StatType, ScrollRange> scrollStats;
 
   const ScrollWithRange({
@@ -73,19 +182,6 @@ class ScrollWithRange extends BaseScroll {
     required this.scrollStats,
     super.slotCost = 1,
   });
-
-  @override
-  ScrollWithRange copyWith({
-    String? scrollName,
-    Map<StatType, ScrollRange>? scrollStats,
-    int? slotCost,
-  }){
-    return ScrollWithRange(
-      scrollName: scrollName ?? this.scrollName, 
-      scrollStats: scrollStats ?? this.scrollStats,
-      slotCost: slotCost ?? this.slotCost,
-    );
-  }
 
   Map<StatType, int> getScrollStartingStats() {
     Map<StatType, int> scrollStartingStats = {};
@@ -98,29 +194,42 @@ class ScrollWithRange extends BaseScroll {
   }
 }
 
-class ScrolledRange extends BaseScroll {
+class SavedScrolledRange extends BaseScroll {
   Map<StatType, int> scrollStats;
-  ScrollWithRange referenceScroll;
   bool isEditing = false;
 
-  ScrolledRange({
+  SavedScrolledRange({
     required super.scrollName,
-    required this.referenceScroll,
     Map<StatType, int>? scrollStats,
     super.slotCost = 1,
   }) : scrollStats = scrollStats ?? {};
 
-  @override
-  ScrolledRange copyWith({
-    String? scrollName,
-    ScrollWithRange? referenceScroll,
+  SavedScrolledRange copyWith({
+    ScrollName? scrollName,
     Map<StatType, int>? scrollStats,
     int? slotCost,
-  }){
-    return ScrolledRange(
+  }) {
+    return SavedScrolledRange(
       scrollName: scrollName ?? this.scrollName, 
-      referenceScroll: referenceScroll ?? this.referenceScroll,
       scrollStats: scrollStats ?? this.scrollStats,
+      slotCost: slotCost ?? this.slotCost,
+    );
+  }
+}
+
+class SavedScroll extends BaseScroll {
+
+  SavedScroll({
+    required super.scrollName,
+    super.slotCost = 1,
+  });
+
+  SavedScrolledRange copyWith({
+    ScrollName? scrollName,
+    int? slotCost,
+  }) {
+    return SavedScrolledRange(
+      scrollName: scrollName ?? this.scrollName, 
       slotCost: slotCost ?? this.slotCost,
     );
   }
@@ -139,85 +248,224 @@ class ScrollRange {
 }
 
 // Pet Equipment Scrolls
-const List<BaseScroll> petScrolls = [
-  ScrollWithRange(
-    scrollName: "Premium Scroll for Pet Equip for Attack Power 100%", 
+const List<ScrollName> petScrolls = [
+  ScrollName.premiumPetAtt100,
+  ScrollName.premiumPetMatt100,
+  ScrollName.petAtt100,
+  ScrollName.petMatt100,
+  ScrollName.petAtt70,
+  ScrollName.petMatt70,
+  ScrollName.miraclePetAtt50,
+  ScrollName.miraclePetMatt50,
+  ScrollName.petSpeed100,
+  ScrollName.petSpeed10,
+  ScrollName.petJump100,
+  ScrollName.petJump10,
+];
+
+// Chaos Scrolls
+const List<ScrollName> chaosScrolls = [
+  ScrollName.incredibleChaosScrollOfGoodness,
+  ScrollName.chaosScrollOfGoodness,
+  ScrollName.miraculousChaosScroll,
+  ScrollName.chaosScroll,
+];
+
+// Armor
+const List<ScrollName> armorOnlyScrolls = [
+  ScrollName.miracleArmorAtt50,
+  ScrollName.miracleArmorMatt50,
+  ScrollName.armorAtt70,
+  ScrollName.armorMatt70,
+];
+
+// Armor + Shoulder
+const List<ScrollName> armorAndShoulderScrolls = [
+  ScrollName.armorAndShoulderStr100,
+  ScrollName.armorAndShoulderStr70,
+  ScrollName.armorAndShoulderStr30,
+  ScrollName.armorAndShoulderStr15,
+  ScrollName.armorAndShoulderDex100,
+  ScrollName.armorAndShoulderDex70,
+  ScrollName.armorAndShoulderDex30,
+  ScrollName.armorAndShoulderDex15,
+  ScrollName.armorAndShoulderInt100,
+  ScrollName.armorAndShoulderInt70,
+  ScrollName.armorAndShoulderInt30,
+  ScrollName.armorAndShoulderInt15,
+  ScrollName.armorAndShoulderLuk100,
+  ScrollName.armorAndShoulderLuk70,
+  ScrollName.armorAndShoulderLuk30,
+  ScrollName.armorAndShoulderLuk15,
+  ScrollName.armorAndShoulderAllStat30,
+  ScrollName.armorAndShoulderAllStat15,
+  ScrollName.armorAndShoulderHP100,
+  ScrollName.armorAndShoulderHP70,
+  ScrollName.armorAndShoulderHP30,
+  ScrollName.armorAndShoulderHP15,
+];
+
+// Gloves
+const List<ScrollName> gloveScrolls = [
+  ScrollName.glovesAtt100,
+  ScrollName.glovesAtt70,
+  ScrollName.glovesAtt30,
+  ScrollName.glovesAtt15,
+  ScrollName.glovesMatt100,
+  ScrollName.glovesMatt70,
+  ScrollName.glovesMatt30,
+  ScrollName.glovesMatt15,
+];
+
+// Accessories
+// Earring only
+const List<ScrollName> earringOnly = [
+  ScrollName.earringInt10,
+];
+const List<ScrollName> accessoryScrolls = [
+  ScrollName.accessoryStr100,
+  ScrollName.accessoryStr70,
+  ScrollName.accessoryStr30,
+  ScrollName.accessoryDex100,
+  ScrollName.accessoryDex70,
+  ScrollName.accessoryDex30,
+  ScrollName.accessoryInt100,
+  ScrollName.accessoryInt70,
+  ScrollName.accessoryInt30,
+  ScrollName.accessoryLuk100,
+  ScrollName.accessoryLuk70,
+  ScrollName.accessoryLuk30,
+  ScrollName.accessoryAllStat30,
+  ScrollName.accessoryHP100,
+  ScrollName.accessoryHP70,
+  ScrollName.accessoryHP30,
+  ScrollName.premiumAccessoryAtt,
+  ScrollName.premiumAccessoryMatt,
+  ScrollName.miracleAccessoryAtt50,
+  ScrollName.miracleAccessoryMatt50,
+  ScrollName.accessoryAtt,
+  ScrollName.accessoryMatt,
+  ScrollName.accessoryAtt70,
+  ScrollName.accessoryMatt70,
+
+  
+];
+
+// Hearts
+const List<ScrollName> heartScrolls = [
+  ScrollName.heartAtt100,
+  ScrollName.heartAtt70,
+  ScrollName.heartAtt30,
+  ScrollName.heartMatt100,
+  ScrollName.heartMatt70,
+  ScrollName.heartMatt30,
+];
+
+// Weapons
+const List<ScrollName> weaponScrolls = [
+  ScrollName.weaponAttStr100,
+  ScrollName.weaponAttStr70,
+  ScrollName.weaponAttStr30,
+  ScrollName.weaponAttStr15,
+  ScrollName.weaponAttDex100,
+  ScrollName.weaponAttDex70,
+  ScrollName.weaponAttDex30,
+  ScrollName.weaponAttDex15,
+  ScrollName.weaponMattInt100,
+  ScrollName.weaponMattInt70,
+  ScrollName.weaponMattInt30,
+  ScrollName.weaponMattInt15,
+  ScrollName.weaponAttLuk100,
+  ScrollName.weaponAttLuk70,
+  ScrollName.weaponAttLuk30,
+  ScrollName.weaponAttLuk15,
+  ScrollName.weaponAttHP100,
+  ScrollName.weaponAttHP70,
+  ScrollName.weaponAttHP30,
+  ScrollName.weaponAttHP15,
+  ScrollName.magicalWeaponAtt50,
+  ScrollName.magicalWeaponMatt50,
+  ScrollName.miracleWeaponAtt50,
+  ScrollName.miracleWeaponMatt50,
+];
+
+const Map<ScrollName, BaseScroll> allScrolls = {
+  // Pet Equipment Scrolls
+  ScrollName.premiumPetAtt100: ScrollWithRange(
+    scrollName: ScrollName.premiumPetAtt100, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 4, maxRange: 5, divisions: 1)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Premium Scroll for Pet Equip for Magic Attack 100%", 
+  ScrollName.premiumPetMatt100: ScrollWithRange(
+    scrollName: ScrollName.premiumPetMatt100, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 4, maxRange: 5, divisions: 1)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Scroll for Pet Equip for Attack Power 100%", 
+  ScrollName.petAtt100: ScrollWithRange(
+    scrollName: ScrollName.petAtt100, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 2, maxRange: 4, divisions: 2)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Scroll for Pet Equip for Magic Attack 100%", 
+  ScrollName.petMatt100: ScrollWithRange(
+    scrollName: ScrollName.petMatt100, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 2, maxRange: 4, divisions: 2)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Scroll for Pet Equip for Attack Power 70%", 
+  ScrollName.petAtt70: ScrollWithRange(
+    scrollName: ScrollName.petAtt70, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 1, maxRange: 2, divisions: 1)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Scroll for Pet Equip for Magic Attack 70%", 
+  ScrollName.petMatt70: ScrollWithRange(
+    scrollName: ScrollName.petMatt70, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 1, maxRange: 2, divisions: 1)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Pet Equip for Attack Power 50%", 
+  ScrollName.miraclePetAtt50: ScrollWithRange(
+    scrollName: ScrollName.miraclePetAtt50, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 1, maxRange: 4, divisions: 3)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Pet Equip for Magic Attack 50%", 
+  ScrollName.miraclePetMatt50: ScrollWithRange(
+    scrollName: ScrollName.miraclePetMatt50, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 1, maxRange: 4, divisions: 3)
     }
   ),
-  StaticScroll(
-    scrollName: "Scroll for Pet Equip for Speed 100%", 
+  ScrollName.petSpeed100: StaticScroll(
+    scrollName: ScrollName.petSpeed100, 
     scrollStats: {
       StatType.speed: 1
     }
   ),
-  StaticScroll(
-    scrollName: "Scroll for Pet Equip for Speed 10%", 
+  ScrollName.petSpeed10: StaticScroll(
+    scrollName: ScrollName.petSpeed10, 
     scrollStats: {
       StatType.speed: 3
     }
   ),
-  StaticScroll(
-    scrollName: "Scroll for Pet Equip for Jump 100%", 
+  ScrollName.petJump100: StaticScroll(
+    scrollName: ScrollName.petJump100, 
     scrollStats: {
       StatType.jump: 1
     }
   ),
-  StaticScroll(
-    scrollName: "Scroll for Pet Equip for Jump 10%", 
+  ScrollName.petJump10: StaticScroll(
+    scrollName: ScrollName.petJump10, 
     scrollStats: {
       StatType.jump: 3
     }
   ),
-];
-
-const List<BaseScroll> chaosScrolls = [
-  // Incredible Chaos Scroll of Goodness
-  ScrollWithRange(
-    scrollName: "Incredible Chaos Scroll of Goodness", 
+  // Chaos Scrolls
+  ScrollName.incredibleChaosScrollOfGoodness: ScrollWithRange(
+    scrollName: ScrollName.incredibleChaosScrollOfGoodness, 
     scrollStats: {
       StatType.str: ScrollRange(maxRange: 6, divisions: 6),
       StatType.dex: ScrollRange(maxRange: 6, divisions: 6),
@@ -229,9 +477,8 @@ const List<BaseScroll> chaosScrolls = [
       StatType.mp: ScrollRange(maxRange: 60, divisions: 6),
     }
   ),
-  // Chaos Scroll of Goodness
-  ScrollWithRange(
-    scrollName: "Chaos Scroll of Goodness", 
+  ScrollName.chaosScrollOfGoodness: ScrollWithRange(
+    scrollName: ScrollName.chaosScrollOfGoodness, 
     scrollStats: {
       StatType.str: ScrollRange(maxRange: 5, divisions: 5),
       StatType.dex: ScrollRange(maxRange: 5, divisions: 5),
@@ -243,9 +490,8 @@ const List<BaseScroll> chaosScrolls = [
       StatType.mp: ScrollRange(maxRange: 50, divisions: 5),
     }
   ),
-  // Miraculous Chaos Scroll
-  ScrollWithRange(
-    scrollName: "Miraculous Chaos Scroll", 
+  ScrollName.miraculousChaosScroll: ScrollWithRange(
+    scrollName: ScrollName.miraculousChaosScroll, 
     scrollStats: {
       StatType.str: ScrollRange(minRange: -6, maxRange: 6, divisions: 12),
       StatType.dex: ScrollRange(minRange: -6, maxRange: 6, divisions: 12),
@@ -257,9 +503,8 @@ const List<BaseScroll> chaosScrolls = [
       StatType.mp: ScrollRange(minRange: -60, maxRange: 60, divisions: 12),
     }
   ),
-  // Chaos Scrolls
-  ScrollWithRange(
-    scrollName: "Chaos Scroll", 
+  ScrollName.chaosScroll: ScrollWithRange(
+    scrollName: ScrollName.chaosScroll, 
     scrollStats: {
       StatType.str: ScrollRange(minRange: -5, maxRange: 5, divisions: 10),
       StatType.dex: ScrollRange(minRange: -5, maxRange: 5, divisions: 10),
@@ -271,624 +516,751 @@ const List<BaseScroll> chaosScrolls = [
       StatType.mp: ScrollRange(minRange: -50, maxRange: 50, divisions: 10),
     }
   ),
-];
-
-// Armor
-const List<BaseScroll> armorOnlyScrolls = [
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Attack Power 50%", 
+  // Armor only
+  ScrollName.miracleArmorAtt50: ScrollWithRange(
+    scrollName: ScrollName.miracleArmorAtt50, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 2, maxRange: 3, divisions: 1),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Magic Attack 50%", 
+  ScrollName.miracleArmorMatt50: ScrollWithRange(
+    scrollName: ScrollName.miracleArmorMatt50, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 2, maxRange: 3, divisions: 1),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Armor Scroll for Attack Power 70%", 
+  ScrollName.armorAtt70: ScrollWithRange(
+    scrollName: ScrollName.armorAtt70, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 1, maxRange: 2, divisions: 1),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Armor Scroll for Magic Attack 70%", 
+  ScrollName.armorMatt70: ScrollWithRange(
+    scrollName: ScrollName.armorMatt70, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 1, maxRange: 2, divisions: 1),
     }
   ),
-];
-
-// Armor + Shoulder
-const List<BaseScroll> armorAndShoulderScrolls = [
-  Scroll(scrollName: "STR 100%", scrollStats: [
+  // Armor and Shoulder
+  ScrollName.armorAndShoulderStr100: Scroll(
+    scrollName: ScrollName.armorAndShoulderStr100, 
+    scrollStats: [
       {StatType.str: 1, StatType.hp: 5, StatType.defense: 1}, 
       {StatType.str: 2, StatType.hp: 20, StatType.defense: 2}, 
       {StatType.str: 3, StatType.hp: 30, StatType.defense: 3}, 
     ]
   ),
-  Scroll(scrollName: "STR 70%", scrollStats: [
+  ScrollName.armorAndShoulderStr70: Scroll(
+    scrollName: ScrollName.armorAndShoulderStr70, 
+    scrollStats: [
       {StatType.str: 2, StatType.hp: 15, StatType.defense: 2}, 
       {StatType.str: 3, StatType.hp: 50, StatType.defense: 4}, 
       {StatType.str: 4, StatType.hp: 70, StatType.defense: 5}, 
     ]
   ),
-  Scroll(scrollName: "STR 30%", scrollStats: [
+  ScrollName.armorAndShoulderStr30: Scroll(
+    scrollName: ScrollName.armorAndShoulderStr30, 
+    scrollStats: [
       {StatType.str: 3, StatType.hp: 30, StatType.defense: 4}, 
       {StatType.str: 5, StatType.hp: 70, StatType.defense: 7}, 
       {StatType.str: 7, StatType.hp: 120, StatType.defense: 10}, 
     ]
   ),
-  Scroll(scrollName: "STR 15%", scrollStats: [
+  ScrollName.armorAndShoulderStr15: Scroll(
+    scrollName: ScrollName.armorAndShoulderStr15, 
+    scrollStats: [
       {StatType.str: 4, StatType.hp: 45, StatType.defense: 6}, 
       {StatType.str: 7, StatType.hp: 110, StatType.defense: 10}, 
       {StatType.str: 10, StatType.hp: 170, StatType.defense: 15}, 
     ]
   ),
-  Scroll(scrollName: "DEX 100%", scrollStats: [
+  ScrollName.armorAndShoulderDex100: Scroll(
+    scrollName: ScrollName.armorAndShoulderDex100, 
+    scrollStats: [
       {StatType.dex: 1, StatType.hp: 5, StatType.defense: 1}, 
       {StatType.dex: 2, StatType.hp: 20, StatType.defense: 2}, 
       {StatType.dex: 3, StatType.hp: 30, StatType.defense: 3}, 
     ]
   ),
-  Scroll(scrollName: "DEX 70%", scrollStats: [
+  ScrollName.armorAndShoulderDex70: Scroll(
+    scrollName: ScrollName.armorAndShoulderDex70, 
+    scrollStats: [
       {StatType.dex: 2, StatType.hp: 15, StatType.defense: 2}, 
       {StatType.dex: 3, StatType.hp: 50, StatType.defense: 4}, 
       {StatType.dex: 4, StatType.hp: 70, StatType.defense: 5}, 
     ]
   ),
-  Scroll(scrollName: "DEX 30%", scrollStats: [
+  ScrollName.armorAndShoulderDex30: Scroll(
+    scrollName: ScrollName.armorAndShoulderDex30, 
+    scrollStats: [
       {StatType.dex: 3, StatType.hp: 30, StatType.defense: 4}, 
       {StatType.dex: 5, StatType.hp: 70, StatType.defense: 7}, 
       {StatType.dex: 7, StatType.hp: 120, StatType.defense: 10}, 
     ]
   ),
-  Scroll(scrollName: "DEX 15%", scrollStats: [
+  ScrollName.armorAndShoulderDex15: Scroll(
+    scrollName: ScrollName.armorAndShoulderDex15, 
+    scrollStats: [
       {StatType.dex: 4, StatType.hp: 45, StatType.defense: 6}, 
       {StatType.dex: 7, StatType.hp: 110, StatType.defense: 10}, 
       {StatType.dex: 10, StatType.hp: 170, StatType.defense: 15}, 
     ]
   ),
-  Scroll(scrollName: "INT 100%", scrollStats: [
+  ScrollName.armorAndShoulderInt100: Scroll(
+    scrollName: ScrollName.armorAndShoulderInt100, 
+    scrollStats: [
       {StatType.int: 1, StatType.hp: 5, StatType.defense: 1}, 
       {StatType.int: 2, StatType.hp: 20, StatType.defense: 2}, 
       {StatType.int: 3, StatType.hp: 30, StatType.defense: 3}, 
     ]
   ),
-  Scroll(scrollName: "INT 70%", scrollStats: [
+  ScrollName.armorAndShoulderInt70: Scroll(
+    scrollName: ScrollName.armorAndShoulderInt70, 
+    scrollStats: [
       {StatType.int: 2, StatType.hp: 15, StatType.defense: 2}, 
       {StatType.int: 3, StatType.hp: 50, StatType.defense: 4}, 
       {StatType.int: 4, StatType.hp: 70, StatType.defense: 5}, 
     ]
   ),
-  Scroll(scrollName: "INT 30%", scrollStats: [
+  ScrollName.armorAndShoulderInt30: Scroll(
+    scrollName: ScrollName.armorAndShoulderInt30, 
+    scrollStats: [
       {StatType.int: 3, StatType.hp: 30, StatType.defense: 4}, 
       {StatType.int: 5, StatType.hp: 70, StatType.defense: 7}, 
       {StatType.int: 7, StatType.hp: 120, StatType.defense: 10}, 
     ]
   ),
-  Scroll(scrollName: "INT 15%", scrollStats: [
+  ScrollName.armorAndShoulderInt15: Scroll(
+    scrollName: ScrollName.armorAndShoulderInt15, 
+    scrollStats: [
       {StatType.int: 4, StatType.hp: 45, StatType.defense: 6}, 
       {StatType.int: 7, StatType.hp: 110, StatType.defense: 10}, 
       {StatType.int: 10, StatType.hp: 170, StatType.defense: 15}, 
     ]
   ),
-  Scroll(scrollName: "LUK 100%", scrollStats: [
+  ScrollName.armorAndShoulderLuk100: Scroll(
+    scrollName: ScrollName.armorAndShoulderLuk100, 
+    scrollStats: [
       {StatType.luk: 1, StatType.hp: 5, StatType.defense: 1}, 
       {StatType.luk: 2, StatType.hp: 20, StatType.defense: 2}, 
       {StatType.luk: 3, StatType.hp: 30, StatType.defense: 3}, 
     ]
   ),
-  Scroll(scrollName: "LUK 70%", scrollStats: [
+  ScrollName.armorAndShoulderLuk70: Scroll(
+    scrollName: ScrollName.armorAndShoulderLuk70, 
+    scrollStats: [
       {StatType.luk: 2, StatType.hp: 15, StatType.defense: 2}, 
       {StatType.luk: 3, StatType.hp: 50, StatType.defense: 4}, 
       {StatType.luk: 4, StatType.hp: 70, StatType.defense: 5}, 
     ]
   ),
-  Scroll(scrollName: "LUK 30%", scrollStats: [
+  ScrollName.armorAndShoulderLuk30: Scroll(
+    scrollName: ScrollName.armorAndShoulderLuk30, 
+    scrollStats: [
       {StatType.luk: 3, StatType.hp: 30, StatType.defense: 4}, 
       {StatType.luk: 5, StatType.hp: 70, StatType.defense: 7}, 
       {StatType.luk: 7, StatType.hp: 120, StatType.defense: 10}, 
     ]
   ),
-  Scroll(scrollName: "LUK 15%", scrollStats: [
+  ScrollName.armorAndShoulderLuk15: Scroll(
+    scrollName: ScrollName.armorAndShoulderLuk15, 
+    scrollStats: [
       {StatType.luk: 4, StatType.hp: 45, StatType.defense: 6}, 
       {StatType.luk: 7, StatType.hp: 110, StatType.defense: 10}, 
       {StatType.luk: 10, StatType.hp: 170, StatType.defense: 15}, 
     ]
   ),
-  Scroll(scrollName: "All Stats 30%", scrollStats: [
+  ScrollName.armorAndShoulderAllStat30: Scroll(
+    scrollName: ScrollName.armorAndShoulderAllStat30, 
+    scrollStats: [
       {StatType.allStats: 1, StatType.hp: 30, StatType.defense: 4}, 
       {StatType.allStats: 2, StatType.hp: 70, StatType.defense: 7}, 
       {StatType.allStats: 3, StatType.hp: 120, StatType.defense: 10}, 
     ]
   ),
-  Scroll(scrollName: "All Stats 15%", scrollStats: [
+  ScrollName.armorAndShoulderAllStat15: Scroll(
+    scrollName: ScrollName.armorAndShoulderAllStat15, 
+    scrollStats: [
       {StatType.allStats: 2, StatType.hp: 45, StatType.defense: 6}, 
       {StatType.allStats: 3, StatType.hp: 110, StatType.defense: 10}, 
       {StatType.allStats: 4, StatType.hp: 170, StatType.defense: 15}, 
     ]
   ),
-  Scroll(scrollName: "HP 100%", scrollStats: [
+  ScrollName.armorAndShoulderHP100: Scroll(
+    scrollName: ScrollName.armorAndShoulderHP100, 
+    scrollStats: [
       {StatType.hp: 55, StatType.defense: 1}, 
       {StatType.hp: 120, StatType.defense: 2}, 
       {StatType.hp: 180, StatType.defense: 3}, 
     ]
   ),
-  Scroll(scrollName: "HP 70%", scrollStats: [
+  ScrollName.armorAndShoulderHP70: Scroll(
+    scrollName: ScrollName.armorAndShoulderHP70, 
+    scrollStats: [
       {StatType.hp: 115, StatType.defense: 2}, 
       {StatType.hp: 190, StatType.defense: 4}, 
       {StatType.hp: 270, StatType.defense: 5}, 
     ]
   ),
-  Scroll(scrollName: "HP 30%", scrollStats: [
+  ScrollName.armorAndShoulderHP30: Scroll(
+    scrollName: ScrollName.armorAndShoulderHP30, 
+    scrollStats: [
       {StatType.hp: 180, StatType.defense: 4}, 
       {StatType.hp: 320, StatType.defense: 7}, 
       {StatType.hp: 470, StatType.defense: 10}, 
     ]
   ),
-  Scroll(scrollName: "HP 15%", scrollStats: [
+  ScrollName.armorAndShoulderHP15: Scroll(
+    scrollName: ScrollName.armorAndShoulderHP15, 
+    scrollStats: [
       {StatType.hp: 245, StatType.defense: 6}, 
       {StatType.hp: 460, StatType.defense: 10}, 
       {StatType.hp: 670, StatType.defense: 15}, 
     ]
   ),
-];
-
-// Gloves
-const List<BaseScroll> gloveScrolls = [
-  Scroll(scrollName: "Attack Power 100%", scrollStats: [
+  // Gloves
+  ScrollName.glovesAtt100: Scroll(
+    scrollName: ScrollName.glovesAtt100, 
+    scrollStats: [
       {StatType.attack: 0},
       {StatType.attack: 1}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power 70%", scrollStats: [
+  ScrollName.glovesAtt70: Scroll(
+    scrollName: ScrollName.glovesAtt70, 
+    scrollStats: [
       {StatType.attack: 1},
       {StatType.attack: 2}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power 30%", scrollStats: [
+  ScrollName.glovesAtt30: Scroll(
+    scrollName: ScrollName.glovesAtt30, 
+    scrollStats: [
       {StatType.attack: 2},
       {StatType.attack: 3}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power 15%", scrollStats: [
+  ScrollName.glovesAtt15: Scroll(
+    scrollName: ScrollName.glovesAtt15, 
+    scrollStats: [
       {StatType.attack: 3},
       {StatType.attack: 4}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack 100%", scrollStats: [
+  ScrollName.glovesMatt100: Scroll(
+    scrollName: ScrollName.glovesMatt100, 
+    scrollStats: [
       {StatType.mattack: 0},
       {StatType.mattack: 1}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack 70%", scrollStats: [
+  ScrollName.glovesMatt70: Scroll(
+    scrollName: ScrollName.glovesMatt70, 
+    scrollStats: [
       {StatType.mattack: 1},
       {StatType.mattack: 2}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack 30%", scrollStats: [
+  ScrollName.glovesMatt30: Scroll(
+    scrollName: ScrollName.glovesMatt30, 
+    scrollStats: [
       {StatType.mattack: 2},
       {StatType.mattack: 3}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack 15%", scrollStats: [
+  ScrollName.glovesMatt15: Scroll(
+    scrollName: ScrollName.glovesMatt15, 
+    scrollStats: [
       {StatType.mattack: 3},
       {StatType.mattack: 4}, 
     ]
   ),
-];
-
-// Accessories
-// Dominator Pendant Only
-const fragmentOfDistortedTime = StaticScroll(
-  scrollName: "Fragment of Distorted Time", 
-  scrollStats: {
-    StatType.allStats: 3,
-    StatType.attack: 3,
-    StatType.mattack: 3,
-    StatType.hp: 40,
-    StatType.mp: 40,
-    StatType.defense: 25,
-    StatType.speed: 3,
-    StatType.jump: 2,
-  }
-);
-// Reinforced/Superior Gollux earrings, rings, pendant, belt
-const advancedGolluxScroll = StaticScroll(
-  scrollName: "Advanced Gollux Scroll", 
-  scrollStats: {
-    StatType.allStats: 3,
-    StatType.attack: 4,
-    StatType.mattack: 4,
-  }
-);
-// Cracked/Solid Gollux earrings, rings, pendant, belt
-const basicGolluxScroll = StaticScroll(
-  scrollName: "Basic Gollux Scroll", 
-  scrollStats: {
-    StatType.allStats: 1,
-    StatType.attack: 2,
-    StatType.mattack: 2,
-  }
-);
-// Glona's Heart, Delgrunds Honor, and Numenal's Willpower
-const masteriaGrandmasterScroll = StaticScroll(
-  scrollName: "Masteria Grandmaster Accessory Exclusive Enhancement Scroll", 
-  scrollStats: {
-    StatType.allStats: 13,
-    StatType.attack: 5,
-    StatType.mattack: 5,
-    StatType.hp: 10,
-    StatType.mp: 10,
-    StatType.defense: 10,
-  }
-);
-// Legacy of Light/Darkness
-const legacyOfLightAndDarknessScroll = StaticScroll(
-  scrollName: "Legacy of Light／Darkness Exclusive Enhancement Scroll", 
-  scrollStats: {
-    StatType.allStats: 6,
-    StatType.attack: 2,
-    StatType.mattack: 2,
-  }
-);
-// Horntail and Chaos Horntail Necklace
-const dragonStone = StaticScroll(
-  scrollName: "Dragon Stone", 
-  slotCost: 3,
-  scrollStats: {
-    StatType.allStats: 15,
-    StatType.hp: 750,
-    StatType.defense: 360,
-  }
-);
-// Earring only
-const earringInt10 = StaticScroll(
-  scrollName: "Scroll for Earring for INT 10%", 
-  scrollStats: {
-    StatType.int: 3,
-    StatType.mattack: 5,
-  }
-);
-
-const List<BaseScroll> accessoryScrolls = [
-  Scroll(scrollName: "STR 100%", scrollStats: [
+  // Dominator
+  ScrollName.fragmentOfDistortedTime: StaticScroll(
+    scrollName: ScrollName.fragmentOfDistortedTime, 
+    scrollStats: {
+      StatType.allStats: 3,
+      StatType.attack: 3,
+      StatType.mattack: 3,
+      StatType.hp: 40,
+      StatType.mp: 40,
+      StatType.defense: 25,
+      StatType.speed: 3,
+      StatType.jump: 2,
+    }
+  ),
+  // Superior/Reinforced Gollux
+  ScrollName.advancedGolluxScroll: StaticScroll(
+    scrollName: ScrollName.advancedGolluxScroll, 
+    scrollStats: {
+      StatType.allStats: 3,
+      StatType.attack: 4,
+      StatType.mattack: 4,
+    }
+  ),
+  // Solid/Cracked Gollux
+  ScrollName.basicGolluxScroll: StaticScroll(
+    scrollName: ScrollName.basicGolluxScroll, 
+    scrollStats: {
+      StatType.allStats: 1,
+      StatType.attack: 2,
+      StatType.mattack: 2,
+    }
+  ),
+  // Masteria 
+  // Glona's Heart, Delgrunds Honor, and Numenal's Willpower
+  ScrollName.masteriaGrandmasterScroll: StaticScroll(
+    scrollName: ScrollName.masteriaGrandmasterScroll, 
+    scrollStats: {
+      StatType.allStats: 13,
+      StatType.attack: 5,
+      StatType.mattack: 5,
+      StatType.hp: 10,
+      StatType.mp: 10,
+      StatType.defense: 10,
+    }
+  ),
+  // Legacy of Light/Darkness
+  ScrollName.legacyOfLightAndDarknessScroll: StaticScroll(
+    scrollName: ScrollName.legacyOfLightAndDarknessScroll, 
+    scrollStats: {
+      StatType.allStats: 6,
+      StatType.attack: 2,
+      StatType.mattack: 2,
+    }
+  ),
+  // Chaos Horntail/Horntail Pendandt
+  ScrollName.dragonStone: StaticScroll(
+    scrollName: ScrollName.dragonStone, 
+    slotCost: 3,
+    scrollStats: {
+      StatType.allStats: 15,
+      StatType.hp: 750,
+      StatType.defense: 360,
+    }
+  ),
+  // Accessory
+  // Earring Only
+  ScrollName.earringInt10: StaticScroll(
+    scrollName: ScrollName.earringInt10, 
+    scrollStats: {
+      StatType.int: 3,
+      StatType.mattack: 5,
+    }
+  ),
+  ScrollName.accessoryStr100: Scroll(
+    scrollName: ScrollName.accessoryStr100, 
+    scrollStats: [
       {StatType.str: 1}, 
       {StatType.str: 1}, 
       {StatType.str: 2}, 
     ]
   ),
-  Scroll(scrollName: "STR 70%", scrollStats: [
+  ScrollName.accessoryStr70: Scroll(
+    scrollName: ScrollName.accessoryStr70,
+    scrollStats: [
       {StatType.str: 2}, 
       {StatType.str: 2}, 
       {StatType.str: 3}, 
     ]
   ),
-  Scroll(scrollName: "STR 30%", scrollStats: [
+  ScrollName.accessoryStr30: Scroll(
+    scrollName: ScrollName.accessoryStr30, 
+    scrollStats: [
       {StatType.str: 3}, 
       {StatType.str: 4}, 
       {StatType.str: 5}, 
     ]
   ),
-  Scroll(scrollName: "DEX 100%", scrollStats: [
+  ScrollName.accessoryDex100: Scroll(
+    scrollName: ScrollName.accessoryDex100, 
+    scrollStats: [
       {StatType.dex: 1}, 
       {StatType.dex: 1}, 
       {StatType.dex: 2}, 
     ]
   ),
-  Scroll(scrollName: "DEX 70%", scrollStats: [
+  ScrollName.accessoryDex70: Scroll(
+    scrollName: ScrollName.accessoryDex70, 
+    scrollStats: [
       {StatType.dex: 2}, 
       {StatType.dex: 2}, 
       {StatType.dex: 3},  
     ]
   ),
-  Scroll(scrollName: "DEX 30%", scrollStats: [
+  ScrollName.accessoryDex30: Scroll(
+    scrollName: ScrollName.accessoryDex30, 
+    scrollStats: [
       {StatType.dex: 3}, 
       {StatType.dex: 4}, 
       {StatType.dex: 5},
     ]
   ),
-  Scroll(scrollName: "INT 100%", scrollStats: [
+  ScrollName.accessoryInt100: Scroll(
+    scrollName: ScrollName.accessoryInt100, 
+    scrollStats: [
       {StatType.int: 1}, 
       {StatType.int: 1}, 
       {StatType.int: 2},
     ]
   ),
-  Scroll(scrollName: "INT 70%", scrollStats: [
+  ScrollName.accessoryInt70: Scroll(
+    scrollName: ScrollName.accessoryInt70, 
+    scrollStats: [
       {StatType.int: 2}, 
       {StatType.int: 2}, 
       {StatType.int: 3},
     ]
   ),
-  Scroll(scrollName: "INT 30%", scrollStats: [
+  ScrollName.accessoryInt30: Scroll(
+    scrollName: ScrollName.accessoryInt30, 
+    scrollStats: [
       {StatType.int: 3}, 
       {StatType.int: 4}, 
       {StatType.int: 5},
     ]
   ),
-  Scroll(scrollName: "LUK 100%", scrollStats: [
+  ScrollName.accessoryLuk100: Scroll(
+    scrollName: ScrollName.accessoryLuk100, 
+    scrollStats: [
       {StatType.luk: 1}, 
       {StatType.luk: 1}, 
       {StatType.luk: 2},
     ]
   ),
-  Scroll(scrollName: "LUK 70%", scrollStats: [
+  ScrollName.accessoryLuk70: Scroll(
+    scrollName: ScrollName.accessoryLuk70, 
+    scrollStats: [
       {StatType.luk: 2}, 
       {StatType.luk: 2}, 
       {StatType.luk: 3},
     ]
   ),
-  Scroll(scrollName: "LUK 30%", scrollStats: [
+  ScrollName.accessoryLuk30: Scroll(
+    scrollName: ScrollName.accessoryLuk30, 
+    scrollStats: [
       {StatType.luk: 3}, 
       {StatType.luk: 4}, 
       {StatType.luk: 5}, 
     ]
   ),
-  Scroll(scrollName: "All Stats 30%", scrollStats: [
+  ScrollName.accessoryAllStat30: Scroll(
+    scrollName: ScrollName.accessoryAllStat30, 
+    scrollStats: [
       {StatType.allStats: 1}, 
       {StatType.allStats: 2}, 
       {StatType.allStats: 3}, 
     ]
   ),
-  Scroll(scrollName: "HP 100%", scrollStats: [
+  ScrollName.accessoryHP100: Scroll(
+    scrollName: ScrollName.accessoryHP100, 
+    scrollStats: [
       {StatType.hp: 50}, 
       {StatType.hp: 50}, 
       {StatType.hp: 100}, 
     ]
   ),
-  Scroll(scrollName: "HP 70%", scrollStats: [
+  ScrollName.accessoryHP70: Scroll(
+    scrollName: ScrollName.accessoryHP70, 
+    scrollStats: [
       {StatType.hp: 100}, 
       {StatType.hp: 100}, 
       {StatType.hp: 150}, 
     ]
   ),
-  Scroll(scrollName: "HP 30%", scrollStats: [
+  ScrollName.accessoryHP30: Scroll(
+    scrollName: ScrollName.accessoryHP30, 
+    scrollStats: [
       {StatType.hp: 150}, 
       {StatType.hp: 200}, 
       {StatType.hp: 250}, 
     ]
   ),
-  ScrollWithRange(
-    scrollName: "Premium Accessory Scroll for Attack Power", 
+  ScrollName.premiumAccessoryAtt: ScrollWithRange(
+    scrollName: ScrollName.premiumAccessoryAtt, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 4, maxRange: 5, divisions: 1),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Premium Accessory Scroll for Magic Attack", 
+  ScrollName.premiumAccessoryMatt: ScrollWithRange(
+    scrollName: ScrollName.premiumAccessoryMatt, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 4, maxRange: 5, divisions: 1),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Accessory for Attack Power 50%", 
+  ScrollName.miracleAccessoryAtt50: ScrollWithRange(
+    scrollName: ScrollName.miracleAccessoryAtt50, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 1, maxRange: 4, divisions: 3),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Accessory for Magic Attack 50%", 
+  ScrollName.miracleAccessoryMatt50: ScrollWithRange(
+    scrollName: ScrollName.miracleAccessoryMatt50, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 1, maxRange: 4, divisions: 3),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Accessory Scroll for Attack Power", 
+  ScrollName.accessoryAtt: ScrollWithRange(
+    scrollName: ScrollName.accessoryAtt, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 2, maxRange: 4, divisions: 2),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Accessory Scroll for Magic Attack", 
+  ScrollName.accessoryMatt: ScrollWithRange(
+    scrollName: ScrollName.accessoryMatt, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 2, maxRange: 4, divisions: 2),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Accessory Scroll for Attack Power 70%", 
+  ScrollName.accessoryAtt70: ScrollWithRange(
+    scrollName: ScrollName.accessoryAtt70, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 1, maxRange: 2, divisions: 1),
     }
   ),
-  ScrollWithRange(
-    scrollName: "Accessory Scroll for Magic Attack 70%", 
+  ScrollName.accessoryMatt70: ScrollWithRange(
+    scrollName: ScrollName.accessoryMatt70, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 1, maxRange: 2, divisions: 1),
     }
   ),
-];
-
-// Hearts
-const List<BaseScroll> heartScrolls = [
-  Scroll(scrollName: "Attack Power 100%", scrollStats: [
+  // Hearts
+  ScrollName.heartAtt100: Scroll(
+    scrollName: ScrollName.heartAtt100, 
+    scrollStats: [
       {StatType.attack: 1},
       {StatType.attack: 2}, 
       {StatType.attack: 3}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power 70%", scrollStats: [
+  ScrollName.heartAtt70: Scroll(
+    scrollName: ScrollName.heartAtt70, 
+    scrollStats: [
       {StatType.attack: 2},
       {StatType.attack: 3}, 
       {StatType.attack: 4},  
     ]
   ),
-  Scroll(scrollName: "Attack Power 30%", scrollStats: [
+  ScrollName.heartAtt30: Scroll(
+    scrollName: ScrollName.heartAtt30, 
+    scrollStats: [
       {StatType.attack: 3},
       {StatType.attack: 5}, 
       {StatType.attack: 7},  
     ]
   ),
-  Scroll(scrollName: "Magic Attack 100%", scrollStats: [
+  ScrollName.heartMatt100: Scroll(
+    scrollName: ScrollName.heartMatt100, 
+    scrollStats: [
       {StatType.mattack: 1},
       {StatType.mattack: 2}, 
       {StatType.mattack: 3}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack 70%", scrollStats: [
+  ScrollName.heartMatt70: Scroll(
+    scrollName: ScrollName.heartMatt70, 
+    scrollStats: [
       {StatType.mattack: 2},
       {StatType.mattack: 3}, 
       {StatType.mattack: 4}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack 30%", scrollStats: [
+  ScrollName.heartMatt30: Scroll(
+    scrollName: ScrollName.heartMatt30, 
+    scrollStats: [
       {StatType.mattack: 3},
       {StatType.mattack: 5}, 
       {StatType.mattack: 7}, 
     ]
   ),
-];
 
-// Weapons
-const List<BaseScroll> weaponScrolls = [
-  Scroll(scrollName: "Attack Power (STR) 100%", scrollStats: [
+  // Weapons
+  ScrollName.weaponAttStr100: Scroll(
+    scrollName: ScrollName.weaponAttStr100, 
+    scrollStats: [
       {StatType.attack: 1}, 
       {StatType.attack: 2},
       {StatType.attack: 3, StatType.str: 1},
     ]
   ),
-  Scroll(scrollName: "Attack Power (STR) 70%", scrollStats: [
+  ScrollName.weaponAttStr70: Scroll(
+    scrollName: ScrollName.weaponAttStr70, 
+    scrollStats: [
       {StatType.attack: 2}, 
       {StatType.attack: 3, StatType.str: 1},
       {StatType.attack: 5, StatType.str: 2},
     ]
   ),
-  Scroll(scrollName: "Attack Power (STR) 30%", scrollStats: [
+  ScrollName.weaponAttStr30: Scroll(
+    scrollName: ScrollName.weaponAttStr30, 
+    scrollStats: [
       {StatType.attack: 3, StatType.str: 1}, 
       {StatType.attack: 5, StatType.str: 2},
       {StatType.attack: 7, StatType.str: 3},
     ]
   ),
-  Scroll(scrollName: "Attack Power (STR) 15%", scrollStats: [
+  ScrollName.weaponAttStr15: Scroll(
+    scrollName: ScrollName.weaponAttStr15, 
+    scrollStats: [
       {StatType.attack: 5, StatType.str: 2}, 
       {StatType.attack: 7, StatType.str: 3},
       {StatType.attack: 9, StatType.str: 4},
     ]
   ),
-  Scroll(scrollName: "Attack Power (DEX) 100%", scrollStats: [
+  ScrollName.weaponAttDex100: Scroll(
+    scrollName: ScrollName.weaponAttDex100,
+     scrollStats: [
       {StatType.attack: 1}, 
       {StatType.attack: 2},
       {StatType.attack: 3, StatType.dex: 1}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power (DEX) 70%", scrollStats: [
+  ScrollName.weaponAttDex70: Scroll(
+    scrollName: ScrollName.weaponAttDex70,
+     scrollStats: [
       {StatType.attack: 2}, 
       {StatType.attack: 3, StatType.dex: 1},
       {StatType.attack: 5, StatType.dex: 2},
     ]
   ),
-  Scroll(scrollName: "Attack Power (DEX) 30%", scrollStats: [
+  ScrollName.weaponAttDex30: Scroll(
+    scrollName: ScrollName.weaponAttDex30, 
+    scrollStats: [
       {StatType.attack: 3, StatType.dex: 1}, 
       {StatType.attack: 5, StatType.dex: 2},
       {StatType.attack: 7, StatType.dex: 3}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power (DEX) 15%", scrollStats: [
+  ScrollName.weaponAttDex15: Scroll(
+    scrollName: ScrollName.weaponAttDex15, 
+    scrollStats: [
       {StatType.attack: 5, StatType.dex: 2}, 
       {StatType.attack: 7, StatType.dex: 3},
       {StatType.attack: 9, StatType.dex: 4}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack (INT) 100%", scrollStats: [
+  ScrollName.weaponMattInt100: Scroll(
+    scrollName: ScrollName.weaponMattInt100, 
+    scrollStats: [
       {StatType.mattack: 1}, 
       {StatType.mattack: 2},
       {StatType.mattack: 3, StatType.int: 1},
     ]
   ),
-  Scroll(scrollName: "Magic Attack (INT) 70%", scrollStats: [
+  ScrollName.weaponMattInt70: Scroll(
+    scrollName: ScrollName.weaponMattInt70,
+    scrollStats: [
       {StatType.mattack: 2}, 
       {StatType.mattack: 3, StatType.int: 1},
       {StatType.mattack: 5, StatType.int: 2},
     ]
   ),
-  Scroll(scrollName: "Magic Attack (INT) 30%", scrollStats: [
+  ScrollName.weaponMattInt30: Scroll(
+    scrollName: ScrollName.weaponMattInt30, 
+    scrollStats: [
       {StatType.mattack: 3, StatType.int: 1}, 
       {StatType.mattack: 5, StatType.int: 2},
       {StatType.mattack: 7, StatType.int: 3}, 
     ]
   ),
-  Scroll(scrollName: "Magic Attack (INT) 15%", scrollStats: [
+  ScrollName.weaponMattInt15: Scroll(
+    scrollName: ScrollName.weaponMattInt15, 
+    scrollStats: [
       {StatType.mattack: 5, StatType.int: 2}, 
       {StatType.mattack: 7, StatType.int: 3},
       {StatType.mattack: 9, StatType.int: 4},
     ]
   ),
-  Scroll(scrollName: "Attack Power (LUK) 100%", scrollStats: [
+  ScrollName.weaponAttLuk100: Scroll(
+    scrollName: ScrollName.weaponAttLuk100, 
+    scrollStats: [
       {StatType.attack: 1}, 
       {StatType.attack: 2},
       {StatType.attack: 3, StatType.luk: 1},
     ]
   ),
-  Scroll(scrollName: "Attack Power (LUK) 70%", scrollStats: [
+  ScrollName.weaponAttLuk70: Scroll(
+    scrollName: ScrollName.weaponAttLuk70, 
+    scrollStats: [
       {StatType.attack: 2}, 
       {StatType.attack: 3, StatType.luk: 1},
       {StatType.attack: 5, StatType.luk: 2},
     ]
   ),
-  Scroll(scrollName: "Attack Power (LUK) 30%", scrollStats: [
+  ScrollName.weaponAttLuk30: Scroll(
+    scrollName: ScrollName.weaponAttLuk30, 
+    scrollStats: [
       {StatType.attack: 3, StatType.luk: 1}, 
       {StatType.attack: 5, StatType.luk: 2},
       {StatType.attack: 7, StatType.luk: 3}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power (LUK) 15%", scrollStats: [
+  ScrollName.weaponAttLuk15: Scroll(
+    scrollName: ScrollName.weaponAttLuk15, 
+    scrollStats: [
       {StatType.attack: 5, StatType.luk: 2}, 
       {StatType.attack: 7, StatType.luk: 3},
       {StatType.attack: 9, StatType.luk: 4},
     ]
   ),
-  Scroll(scrollName: "Attack Power (HP) 100%", scrollStats: [
+  ScrollName.weaponAttHP100: Scroll(
+    scrollName: ScrollName.weaponAttHP100, 
+    scrollStats: [
       {StatType.attack: 1}, 
       {StatType.attack: 2},
       {StatType.attack: 3, StatType.hp: 50},
     ]
   ),
-  Scroll(scrollName: "Attack Power (HP) 70%", scrollStats: [
+  ScrollName.weaponAttHP70: Scroll(
+    scrollName: ScrollName.weaponAttHP70, 
+    scrollStats: [
       {StatType.attack: 2}, 
       {StatType.attack: 3, StatType.hp: 50},
       {StatType.attack: 5, StatType.hp: 100}, 
     ]
   ),
-  Scroll(scrollName: "Attack Power (HP) 30%", scrollStats: [
+  ScrollName.weaponAttHP30: Scroll(
+    scrollName: ScrollName.weaponAttHP30, 
+    scrollStats: [
       {StatType.attack: 3, StatType.hp: 50}, 
       {StatType.attack: 5, StatType.hp: 100},
       {StatType.attack: 7, StatType.hp: 150},
     ]
   ),
-  Scroll(scrollName: "Attack Power (HP) 15%", scrollStats: [
+  ScrollName.weaponAttHP15: Scroll(
+    scrollName: ScrollName.weaponAttHP15, 
+    scrollStats: [
       {StatType.attack: 5, StatType.hp: 100}, 
       {StatType.attack: 7, StatType.hp: 150},
       {StatType.attack: 9, StatType.hp: 200},
     ]
   ),
-  ScrollWithRange(
-    scrollName: "Magical Scroll for Attack Power 50%", 
+  ScrollName.magicalWeaponAtt50: ScrollWithRange(
+    scrollName: ScrollName.magicalWeaponAtt50, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 9, maxRange: 11, divisions: 2),
       StatType.allStats: ScrollRange(minRange: 3, maxRange: 3)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Magical Scroll for Magic Attack 50%", 
+  ScrollName.magicalWeaponMatt50: ScrollWithRange(
+    scrollName: ScrollName.magicalWeaponMatt50, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 9, maxRange: 11, divisions: 2),
       StatType.allStats: ScrollRange(minRange: 3, maxRange: 3)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Attack Power 50%", 
+  ScrollName.miracleWeaponAtt50: ScrollWithRange(
+    scrollName: ScrollName.miracleWeaponAtt50, 
     scrollStats: {
       StatType.attack: ScrollRange(minRange: 2, maxRange: 5, divisions: 3),
       StatType.allStats: ScrollRange(minRange: 3, maxRange: 3)
     }
   ),
-  ScrollWithRange(
-    scrollName: "Miracle Scroll for Magic Attack 50%", 
+  ScrollName.miracleWeaponMatt50: ScrollWithRange(
+    scrollName: ScrollName.miracleWeaponMatt50, 
     scrollStats: {
       StatType.mattack: ScrollRange(minRange: 2, maxRange: 5, divisions: 3),
       StatType.allStats: ScrollRange(minRange: 3, maxRange: 3)
     }
   ),
-];
+};
