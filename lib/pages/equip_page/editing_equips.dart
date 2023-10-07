@@ -620,10 +620,18 @@ class _ScrollSelector extends StatelessWidget {
           return Text("Scrolls (${(equipEditingProvider.editingEquip?.scrollModule?.usedScrollSlots ?? 0)}/${(equipEditingProvider.editingEquip?.scrollModule?.totalScrollSlots ?? 0)})");
         }
       ),
-      children: const [
-        _UsedScrolls(),
-        _EditingScroll(),
-        _AvailableScrolls(),
+      children: [
+        SizedBox(
+          height: 450,
+          child: ListView(
+            padding: const EdgeInsets.only(right: 13, bottom: 5),
+            children: const <Widget>[
+              _UsedScrolls(),
+              _EditingScroll(),
+              _AvailableScrolls(),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -635,74 +643,58 @@ class _UsedScrolls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 310,
-      height: 150,
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Used Scrolls",
-            style: Theme.of(context).textTheme.headlineSmall
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: statColor),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: Consumer<EquipEditingProvider>(
-                builder: (context, equipEditingProvider, child) {
-                  return ListView.builder(
-                    padding: const EdgeInsets.only(right: 13),
-                    itemCount: equipEditingProvider.editingEquip?.scrollModule?.usedScrolls.length ?? 0,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return MapleTooltip(
-                        maxWidth: 300,
-                        tooltipWidgets: [],
-                        // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              SizedBox(
-                                width: 121,
-                                child: Text(
-                                  equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName.formattedName ?? "UNKNOWN",
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: getScrollEditingColor(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index])),
-                                ),
-                              ),
-                              const Spacer(),
-                              equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index] is SavedScrolledRange ? 
-                              TextButton(
-                                onPressed: () {
-                                  var selectScroll = equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index];
-                                  if (selectScroll is SavedScrolledRange) {
-                                    equipEditingProvider.addEditingScroll(selectScroll);
-                                  }
-                                },
-                                // onPressed: () => equipEditingProvider.addEditingScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
-                                child: const Text("Edit")
-                              )
-                              :
-                              const SizedBox.shrink(),
-                              TextButton(
-                                onPressed: () => equipEditingProvider.deleteScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
-                                child: const Text("Delete")
-                              ),
-                            ]
+    return ExpansionTile(
+      title: const Text("Used Scrolls"),
+      children: [
+        Consumer<EquipEditingProvider>(
+          builder: (context, equipEditingProvider, child) {
+            return ListView.builder(
+              padding: const EdgeInsets.only(right: 13),
+              itemCount: equipEditingProvider.editingEquip?.scrollModule?.usedScrolls.length ?? 0,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return MapleTooltip(
+                  maxWidth: 300,
+                  tooltipWidgets: [],
+                  // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          width: 112,
+                          child: Text(
+                            equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName.formattedName ?? "UNKNOWN",
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: getScrollEditingColor(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index])),
                           ),
                         ),
-                      );
-                    },
-                  );
-                }
-              ),
-            ),
-          ),
-        ],
-      )
+                        const Spacer(),
+                        equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index] is SavedScrolledRange ? 
+                        TextButton(
+                          onPressed: () {
+                            var selectScroll = equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index];
+                            if (selectScroll is SavedScrolledRange) {
+                              equipEditingProvider.addEditingScroll(selectScroll);
+                            }
+                          },
+                          // onPressed: () => equipEditingProvider.addEditingScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
+                          child: const Text("Edit")
+                        )
+                        :
+                        const SizedBox.shrink(),
+                        TextButton(
+                          onPressed: () => equipEditingProvider.deleteScroll(equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index]), 
+                          child: const Text("Delete")
+                        ),
+                      ]
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        ),
+      ],
     );
   }
 }
@@ -713,81 +705,63 @@ class _EditingScroll extends StatelessWidget {
 
 @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 310,
-      height: 150,
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(flex: 3),
-              Text(
-                "Editing Scroll",
-                style: Theme.of(context).textTheme.headlineSmall
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: () => context.read<EquipEditingProvider>().clearEditingScroll(), 
-                child: const Text("Clear")
-              ),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: statColor),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: Consumer<EquipEditingProvider>(
-                builder: (context, equipEditingProvider, child) {
-                  List<MapEntry<StatType, ScrollRange>> scrollStats = equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStats() ?? [];
-
-                  return ListView.builder(
-                    itemCount: scrollStats.length,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.only(right: 13),
-                    itemBuilder: (context, index) {
-                      return MapleTooltip(
-                        maxWidth: 300,
-                        tooltipWidgets: [],
-                        // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
-                        child: Expanded(
-                          child: ListTile(
-                            title: Row(
-                              children: [
-                                Text(
-                                  scrollStats[index].key.formattedName,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                                const HorizontalLine(),
-                                SizedBox(
-                                  width: 172,
-                                  child: Slider(
-                                    value: equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStatsValue(scrollStats[index].key) ?? 0,
-                                    min: scrollStats[index].value.minRange,
-                                    max: scrollStats[index].value.maxRange,
-                                    divisions: scrollStats[index].value.divisions,
-                                    label: (equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStatsValue(scrollStats[index].key) ?? 0).toInt().toString(),
-                                    onChanged: (double newValue) {
-                                      equipEditingProvider.updateEditingScrollStatsValue(scrollStats[index].key, newValue);
-                                    },
-                                  )
-                                )
-                              ]
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }
-              ),
-            ),
+    return ExpansionTile(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Editing Scroll"),
+          const Spacer(),
+          TextButton(
+            onPressed: () => context.read<EquipEditingProvider>().clearEditingScroll(), 
+            child: const Text("Clear")
           ),
         ],
-      )
+      ),
+      children: <Widget>[
+        Consumer<EquipEditingProvider>(
+          builder: (context, equipEditingProvider, child) {
+            List<MapEntry<StatType, ScrollRange>> scrollStats = equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStats() ?? [];
+            return ListView.builder(
+              itemCount: scrollStats.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(right: 13),
+              itemBuilder: (context, index) {
+                return MapleTooltip(
+                  maxWidth: 300,
+                  tooltipWidgets: [],
+                  // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                  child: Expanded(
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          Text(
+                            scrollStats[index].key.formattedName,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          const HorizontalLine(),
+                          SizedBox(
+                            width: 161,
+                            child: Slider(
+                              value: equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStatsValue(scrollStats[index].key) ?? 0,
+                              min: scrollStats[index].value.minRange,
+                              max: scrollStats[index].value.maxRange,
+                              divisions: scrollStats[index].value.divisions,
+                              label: (equipEditingProvider.editingEquip?.scrollModule?.getEditingScrollStatsValue(scrollStats[index].key) ?? 0).toInt().toString(),
+                              onChanged: (double newValue) {
+                                equipEditingProvider.updateEditingScrollStatsValue(scrollStats[index].key, newValue);
+                              },
+                            )
+                          )
+                        ]
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        ),
+      ],
     );
   }
 }
@@ -798,64 +772,48 @@ class _AvailableScrolls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 310,
-      height: 150,
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Available Scrolls",
-            style: Theme.of(context).textTheme.headlineSmall
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: statColor),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
-              ),
-              clipBehavior: Clip.hardEdge,
-              child: Consumer<EquipEditingProvider>(
-                builder: (context, equipEditingProvider, child) {
-                  List<ScrollName> availableScrolls = getScrollsListForEquip(equipEditingProvider.editingEquip);
+    return ExpansionTile(
+      title: const Text("Available Scrolls"),
+      children: [
+        Consumer<EquipEditingProvider>(
+          builder: (context, equipEditingProvider, child) {
+            List<ScrollName> availableScrolls = getScrollsListForEquip(equipEditingProvider.editingEquip);
 
-                  return ListView.builder(
-                    itemCount: availableScrolls.length,
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.only(right: 13),
-                    itemBuilder: (context, index) {
-                      return MapleTooltip(
-                        maxWidth: 300,
-                        tooltipWidgets: [],
-                        // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              SizedBox(
-                                width: 187,
-                                child: Text(
-                                  availableScrolls[index].formattedName,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
-                              const Spacer(),
-                              TextButton(
-                                onPressed: () {
-                                  equipEditingProvider.addScrollByName(availableScrolls[index]);
-                                },
-                                child: const Text("Add")
-                              ),
-                            ]
+            return ListView.builder(
+              itemCount: availableScrolls.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(right: 13),
+              itemBuilder: (context, index) {
+                return MapleTooltip(
+                  maxWidth: 300,
+                  tooltipWidgets: [],
+                  // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          width: 178,
+                          child: Text(
+                            availableScrolls[index].formattedName,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
-                      );
-                    },
-                  );
-                }
-              ),
-            ),
-          ),
-        ],
-      )
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            equipEditingProvider.addScrollByName(availableScrolls[index]);
+                          },
+                          child: const Text("Add")
+                        ),
+                      ]
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+        ),
+      ],
     );
   }
 }
