@@ -20,6 +20,203 @@ const INDEX_101 = 10; // 101-110
 const INDEX_111 = 11; // 111-150
 const INDEX_151 = 12; // 151+
 
+enum PotentialName {
+  // ---------------------------------------------------------------------- //
+  // Main Potentials
+  // ---------------------------------------------------------------------- //
+  // Rare Non Prime
+  rareNonPrimeStat,
+  rareNonPrimeAtt,
+  rareNonPrimeDefense,
+  rareNonPrimeHp,
+  rareNonPrimeMp,
+  // Rare Prime & Epic Non Prime
+  rarePrimeStat,
+  rarePrimeAtt,
+  rarePrimeAllStat,
+  rarePrimeDefense,
+  rarePrimeHp,
+  rarePrimeMp,
+  rarePrimeStatPercentage,
+  rarePrimeDefensePercentage,
+  rarePrimeHpPercentage,
+  rarePrimeMpPercentage,
+  rarePrimeCriticalRate,
+  // Epic Prime & Unique Non Prime
+  epicPrimeStatPercentage,
+  epicPrimeAttackPercentage,
+  epicPrimeDamage,
+  epicPrimeDefensePercentage,
+  epicPrimeHpPercentage,
+  epicPrimeMpPercentage,
+  epicPrimeAllStatPercentage,
+  epicPrimeCriticalRate,
+  epicPrimeIgnoreDefense,
+  // Unique Prime & Legendary Non Prime
+  uniquePrimeStatPercentage,
+  uniquePrimeAttackPercentage,
+  uniquePrimeDamage,
+  uniquePrimeCriticalRate,
+  uniquePrimeDefensePercentage,
+  uniquePrimeHpPercentage,
+  uniquePrimeMpPercentage,
+  uniquePrimeAllStatPercentage,
+  uniquePrimeHpRecovery,
+  uniquePrimeStat,
+  uniquePrimeAtt,
+  uniquePrimeBossDamage,
+  uniquePrimeIgnoreDefense,
+  uniquePrimeDecentMysticDoor,
+  uniquePrimeDecentHyperBody,
+  unqiuePrimeDecentSharpEyes,
+  uniquePrimeDecentHaste,
+  // Legendary Prime
+  legendaryPrimeStat,
+  legendaryPrimeAtt,
+  legendaryPrimeStatPercentage,
+  legendaryPrimeAttackPercentage,
+  legendaryPrimeDamagePercentage,
+  legendaryPrimeCriticalRatePercentage,
+  legendaryPrimeHpPercentage,
+  legendaryPrimeMpPercentage,
+  legendaryPrimeAllStatPercentage,
+  legendaryPrimeHpRecovery,
+  legendaryPrimeSkillCooldown1,
+  legendaryPrimeSkillCooldown2,
+  legendaryPrimeCriticalDamage,
+  legendaryPrimeMesosObtained,
+  legendaryPrimeItemDropRate,
+  legendaryPrimeBossDamage35,
+  legendaryPrimeBossDamage40,
+  legendaryPrimeIgnoreDefense35,
+  legendaryPrimeIgnoreDefense40,
+  legendaryPrimeDecentAdvancedBlessing,
+  legendaryPrimeDecentSpeedInfusion,
+  legendaryPrimeDecentCombatOrders,
+  // ---------------------------------------------------------------------- //
+  // Bonus Potentials
+  // ---------------------------------------------------------------------- //
+  // Rare Non Prime
+  bonusRareNonPrimeStat,
+  bonusRareNonPrimeAtt,
+  bonusRareNonPrimeDefense,
+  bonusRareNonPrimeHp,
+  bonusRareNonPrimeMp,
+  bonusRareNonPrimeSpeed,
+  bonusRareNonPrimeJump,
+  // Rare Prime & Epic Non Prime
+  bonusRarePrimeStat,
+  bonusRarePrimeAtt,
+  bonusRarePrimeAllStat,
+  bonusRarePrimeDefense,
+  bonusRarePrimeHp,
+  bonusRarePrimeMp,
+  bonusRarePrimeStatPercentage,
+  bonusRarePrimeHpPercentage,
+  bonusRarePrimeMpPercentage,
+  bonusRarePrimeDefensePercentage,
+  bonusRarePrimeAttackPercentage,
+  bonusRarePrimeDamage,
+  bonusRarePrimeCriticalRate,
+  bonusRarePrimeSpeed,
+  bonusRarePrimeJump,
+  // Epic Prime & Unique Non Prime
+  bonusEpicPrimeStat,
+  bonusEpicPrimeAtt,
+  bonusEpicPrimeHp,
+  bonusEpicPrimeMp,
+  bonusEpicPrimeDefense,
+  bonusEpicPrimeSpeed,
+  bonusEpicPrimeJump,
+  bonusEpicPrimeStatPercentage,
+  bonusEpicPrimeDefensePercentage,
+  bonusEpicPrimeAttackPercentage,
+  bonusEpicPrimeDamage,
+  bonusEpicPrimeCriticalRate,
+  bonusEpicPrimeHpPercentage,
+  bonusEpicPrimeMpPercentage,
+  bonusEpicPrimeAllStatPercentage,
+  bonusEpicPrimeIgnoreDefense,
+  // Unique Prime & Legendary Non Prime
+  bonusUniquePrimeStat,
+  bonusUniquePrimeStatPerLevel,
+  bonusUniquePrimeAtt,
+  bonusUniquePrimeHp,
+  bonusUniquePrimeMp,
+  bonusUniquePrimeStatPercentage,
+  bonusUniquePrimeAttackPercentage,
+  bonusUniquePrimeDamage,
+  bonusUniquePrimeCriticalRate,
+  bonusUniquePrimeHpPercentage,
+  bonusUniquePrimeMpPercentage,
+  bonusUniquePrimeAllStatPercentage,
+  bonusUniquePrimeHpRecovery,
+  bonusUniquePrimeBossDamage,
+  bonusUniquePrimeIgnoreDefense,
+  // Legendary Prime
+  bonusLegendaryPrimeStat,
+  bonusLegendaryPrimeAtt,
+  bonusLegendaryPrimeHp,
+  bonusLegendaryPrimeMp,
+  bonusLegendaryPrimeStatPercentage,
+  bonusLegendaryPrimeAttackPercentage,
+  bonusLegendaryPrimeDamage,
+  bonusLegendaryPrimeCriticalRate,
+  bonusLegendaryPrimeHpPercentage,
+  bonusLegendaryPrimeMpPercentage,
+  bonusLegendaryPrimeAllStatPercentage,
+  bonusLegendaryPrimeStatPerLevel,
+  bonusLegendaryPrimeHpRecovery,
+  bonusLegendaryPrimeMesosObtained,
+  bonusLegendaryPrimeItemDropRate,
+  bonusLegendaryPrimeSkillCooldown1,
+  bonusLegendaryPrimeCriticalDamageStatic,
+  bonusLegendaryPrimeCriticalDamage,
+  bonusLegendaryPrimeBossDamage,
+  bonusLegendaryPrimeIgnoreDefense,
+}
+
+class BasePotentialLine {
+  final StatType statType;
+  final bool isPrime;
+  final PotentialName potentialName;
+
+  const BasePotentialLine({
+    required this.statType,
+    required this.potentialName,
+    this.isPrime = false,
+  });
+}
+
+// Defines a Potential Line with all the stats per level to choose from
+class PotentialLineRange extends BasePotentialLine {
+
+  const PotentialLineRange({
+    required super.statType,
+    required super.potentialName,
+    super.isPrime = false,
+  });
+}
+
+// Defines a Potential Line with only a single value to choose from
+class PotentialLineStatic extends BasePotentialLine {
+
+  const PotentialLineStatic({
+    required super.statType,
+    required super.potentialName,
+    super.isPrime = false,
+  });
+}
+
+// Defines a Potential Line with a skill
+class PotentialLineSkill extends BasePotentialLine {
+
+  const PotentialLineSkill({
+    required super.statType,
+    required super.potentialName,
+    super.isPrime = false,
+  });
+}
 
 //Main Potential
 const List<num> rareNonPrimeStatAtt = [
@@ -226,7 +423,7 @@ const num uniquePrimeBossDamage = 0.3; // 100+
 const num uniquePrimeIgnoreDefense = 0.3; // 100+
 
 const List<num> legendaryPrimeStatAtt = uniquePrimeStatAtt;
-const List<num> legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage = [
+const List<num> legendaryPrimeStatAttackDamageCriticalRatePercentage = [
   0.06, // 0-10
   0.06, // 11-20
   0.06, // 21-30
@@ -310,353 +507,353 @@ const num legendaryPrimeIgnoreDefense35 = 0.35; // 100+
 const num legendaryPrimeIgnoreDefense40 = 0.4; // 100+
 
 // Default that is shared between all equips
-const Map<PotentialTier, List<PotentialLine>> defaultPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> defaultPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.allStats, isPrime: true, statValue: rarePrimeAllStat),
-    PotentialLineRange(statType: StatType.str, isPrime: true, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.dex, isPrime: true, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.int, isPrime: true, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.luk, isPrime: true, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.hp, isPrime: true, statValue: rarePrimeDefenseHpMp),
-    PotentialLineRange(statType: StatType.mp, isPrime: true, statValue: rarePrimeDefenseHpMp),
-    PotentialLineRange(statType: StatType.defense, isPrime: true, statValue: rarePrimeDefenseHpMp),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.rarePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.rarePrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.rarePrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.allStats, isPrime: true, potentialName: PotentialName.rarePrimeAllStat),
+    PotentialLineRange(statType: StatType.str, isPrime: true, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.dex, isPrime: true, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.int, isPrime: true, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.luk, isPrime: true, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.hp, isPrime: true, potentialName: PotentialName.rarePrimeHp),
+    PotentialLineRange(statType: StatType.mp, isPrime: true, potentialName: PotentialName.rarePrimeMp),
+    PotentialLineRange(statType: StatType.defense, isPrime: true, potentialName: PotentialName.rarePrimeDefense),
     // Non-Prime
-    PotentialLineRange(statType: StatType.str, statValue: rareNonPrimeStatAtt),
-    PotentialLineRange(statType: StatType.dex, statValue: rareNonPrimeStatAtt),
-    PotentialLineRange(statType: StatType.int, statValue: rareNonPrimeStatAtt),
-    PotentialLineRange(statType: StatType.luk, statValue: rareNonPrimeStatAtt),
-    PotentialLineRange(statType: StatType.hp, statValue: rareNonPrimeDefenseHpMp),
-    PotentialLineRange(statType: StatType.mp, statValue: rareNonPrimeDefenseHpMp),
-    PotentialLineRange(statType: StatType.defense, statValue: rareNonPrimeDefenseHpMp),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLineRange(statType: StatType.hp, potentialName: PotentialName.rareNonPrimeHp),
+    PotentialLineRange(statType: StatType.mp, potentialName: PotentialName.rareNonPrimeMp),
+    PotentialLineRange(statType: StatType.defense, potentialName: PotentialName.rareNonPrimeDefense),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, statValue: epicPrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.epicPrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.epicPrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.epicPrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAllStatPercentage),
     // Non-Prime
-    PotentialLineRange(statType: StatType.strPercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.intPercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, statValue: rarePrimeStatDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.str, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.dex, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.int, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.luk, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.allStats, statValue: rarePrimeAllStat),
-    PotentialLineRange(statType: StatType.hp, statValue: rarePrimeDefenseHpMp),
-    PotentialLineRange(statType: StatType.mp, statValue: rarePrimeDefenseHpMp),
-    PotentialLineRange(statType: StatType.defense, statValue: rarePrimeDefenseHpMp),
+    PotentialLineRange(statType: StatType.strPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, potentialName: PotentialName.rarePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, potentialName: PotentialName.rarePrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, potentialName: PotentialName.rarePrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.rarePrimeStat),
+    PotentialLineRange(statType: StatType.allStats, potentialName: PotentialName.rarePrimeAllStat),
+    PotentialLineRange(statType: StatType.hp, potentialName: PotentialName.rarePrimeHp),
+    PotentialLineRange(statType: StatType.mp, potentialName: PotentialName.rarePrimeMp),
+    PotentialLineRange(statType: StatType.defense, potentialName: PotentialName.rarePrimeDefense),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, statValue: uniquePrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: uniquePrimeDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: uniquePrimeDefenseHpMpPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeMpPercentage),
     // Non-Prime
-    PotentialLineRange(statType: StatType.allStatsPercentage, statValue: epicPrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.strPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.intPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
+    PotentialLineRange(statType: StatType.strPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, potentialName: PotentialName.epicPrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, potentialName: PotentialName.epicPrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, potentialName: PotentialName.epicPrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, potentialName: PotentialName.epicPrimeAllStatPercentage),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, statValue: legendaryPrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: legendaryPrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: legendaryPrimeHpMpPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeMpPercentage),
     // Non-Prime
-    PotentialLineRange(statType: StatType.allStatsPercentage, statValue: uniquePrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.strPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, statValue: uniquePrimeDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, statValue: uniquePrimeDefenseHpMpPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, potentialName: PotentialName.uniquePrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.strPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, potentialName: PotentialName.uniquePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, potentialName: PotentialName.uniquePrimeMpPercentage),
   ],
 };
 
 // Hat
-const Map<PotentialTier, List<PotentialLine>> hatPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> hatPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Mystic Door - requires 70+
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineStatic(statType: StatType.skillCooldown, isPrime: true, statValue: legendaryPrimeSkillCooldown2),
-    PotentialLineStatic(statType: StatType.skillCooldown, isPrime: true, statValue: legendaryPrimeSkillCooldown1),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineStatic(statType: StatType.skillCooldown, isPrime: true, potentialName: PotentialName.legendaryPrimeSkillCooldown2),
+    PotentialLineStatic(statType: StatType.skillCooldown, isPrime: true, potentialName: PotentialName.legendaryPrimeSkillCooldown1),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // TODO: StatType.skill - Decent Advanced Blessing - requires 120+
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Mystic Door - requires 70+
   ],
 };
 
 //Top, Overall
-const Map<PotentialTier, List<PotentialLine>> topAndOverallPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> topAndOverallPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
 //Bottom
-const Map<PotentialTier, List<PotentialLine>> bottomPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bottomPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Hyper Body - requires 70+
     
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Hyper Body - requires 70+
   ],
 };
 
 //Gloves
-const Map<PotentialTier, List<PotentialLine>> glovesPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> glovesPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
-    PotentialLineRange(statType: StatType.str, isPrime: true, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.dex, isPrime: true, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.int, isPrime: true, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.luk, isPrime: true, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: uniquePrimeStatAtt),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.str, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.dex, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.int, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.luk, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.uniquePrimeAtt),
     // TODO: StatType.skill - Decent Sharp Eyes - requires 120+
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.critDamage, isPrime: true, statValue: legendaryPrimeCriticalDamage),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.legendaryPrimeCriticalDamage),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // TODO: StatType.skill - Decent Speed Infusion - requires 120+
     // Non-Prime
-    PotentialLineRange(statType: StatType.str, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.dex, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.int, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.luk, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.attack, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: uniquePrimeStatAtt),
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Sharp Eyes - requires 120+
   ],
 };
 
 //Shoes
-const Map<PotentialTier, List<PotentialLine>> shoesPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> shoesPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Haste - requires 70+
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // TODO: StatType.skill - Decent Combat Orders - requires 70+
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Haste - requires 70+
   ],
 };
 
 //Cape, Belt, Shoulder
-const Map<PotentialTier, List<PotentialLine>> capeBeltShoulderPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> capeBeltShoulderPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
 //Face, Eye, Ring, Pendant, Earring
-const Map<PotentialTier, List<PotentialLine>> faceEyeRingPendantEarringPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> faceEyeRingPendantEarringPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, statValue: legendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, statValue: legendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.legendaryPrimeItemDropRate),
+    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.legendaryPrimeMesosObtained),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
 //Weapon, Secondary
-const Map<PotentialTier, List<PotentialLine>> weaponSecondaryPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> weaponSecondaryPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineStatic(statType: StatType.critRate, isPrime: true, statValue: rarePrimeCriticalRate),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: rarePrimeStatAtt),
+    PotentialLineStatic(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
     // Non Prime
-    PotentialLineRange(statType: StatType.attack, statValue: rareNonPrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: rareNonPrimeStatAtt),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.rareNonPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.rareNonPrimeAtt),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: epicPrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.critRate, isPrime: true, statValue: epicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.epicPrimeDamage),
+    PotentialLineStatic(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.epicPrimeCriticalRate),
     // Non Prime
-    PotentialLineStatic(statType: StatType.critRate, statValue: rarePrimeCriticalRate),
-    PotentialLineRange(statType: StatType.attack, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: rarePrimeStatAtt),
+    PotentialLineStatic(statType: StatType.critRate, potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.rarePrimeAtt),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: uniquePrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: uniquePrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.uniquePrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.uniquePrimeCriticalRate),
     // Non Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: epicPrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.critRate, statValue: epicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.epicPrimeDamage),
+    PotentialLineStatic(statType: StatType.critRate, potentialName: PotentialName.epicPrimeCriticalRate),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: legendaryPrimeBossDamage40),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: legendaryPrimeBossDamage35),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: legendaryPrimeIgnoreDefense40),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: legendaryPrimeIgnoreDefense35),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: legendaryPrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: legendaryPrimeStatAtt),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.legendaryPrimeBossDamage40),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.legendaryPrimeBossDamage35),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense40),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense35),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.legendaryPrimeDamagePercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.legendaryPrimeCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
     // Non Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, statValue: uniquePrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: uniquePrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.bossDamage, potentialName: PotentialName.uniquePrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.uniquePrimeCriticalRate),
   ],
 };
 
 //Emblem
-const Map<PotentialTier, List<PotentialLine>> emblemPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> emblemPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineStatic(statType: StatType.critRate, isPrime: true, statValue: rarePrimeCriticalRate),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: rarePrimeStatAtt),
+    PotentialLineStatic(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
     // Non Prime
-    PotentialLineRange(statType: StatType.attack, statValue: rareNonPrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: rareNonPrimeStatAtt),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.rareNonPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.rareNonPrimeAtt),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: epicPrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.critRate, isPrime: true, statValue: epicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.epicPrimeDamage),
+    PotentialLineStatic(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.epicPrimeCriticalRate),
     // Non Prime
-    PotentialLineStatic(statType: StatType.critRate, statValue: rarePrimeCriticalRate),
-    PotentialLineRange(statType: StatType.attack, statValue: rarePrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: rarePrimeStatAtt),
+    PotentialLineStatic(statType: StatType.critRate, potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.rarePrimeAtt),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: uniquePrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.uniquePrimeCriticalRate),
     // Non Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: epicPrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentage),
-    PotentialLineStatic(statType: StatType.critRate, statValue: epicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.epicPrimeDamage),
+    PotentialLineStatic(statType: StatType.critRate, potentialName: PotentialName.epicPrimeCriticalRate),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: legendaryPrimeIgnoreDefense40),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: legendaryPrimeIgnoreDefense35),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentagePercentage),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: legendaryPrimeStatAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: legendaryPrimeStatAtt),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense40),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense35),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.legendaryPrimeDamagePercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.legendaryPrimeCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
     // Non Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: uniquePrimeIgnoreDefense),
-    PotentialLineRange(statType: StatType.damage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLineStatic(statType: StatType.ignoreDefense,potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.uniquePrimeCriticalRate),
   ],
 };
 
 //Heart, Badge
-const Map<PotentialTier, List<PotentialLine>> heartAndBadgePotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> heartAndBadgePotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: uniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
@@ -767,7 +964,7 @@ const List<num> bonusRarePrimeAllStat = [
   5, // 111-150
   6, // 151+
 ];
-const List<num> bonusRarePrimeHpMpDefense = [
+const List<num> bonusRarePrimeDefenseHpMp = [
   10, // 0-10
   20, // 11-20
   30, // 21-30
@@ -797,7 +994,7 @@ const List<num> bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage 
   0.03, // 111-150
   0.04, // 151+
 ];
-const List<num> bonusRarePrimeSpeedjump = [
+const List<num> bonusRarePrimeSpeedJump = [
   2, // 0-10
   2, // 11-20
   3, // 21-30
@@ -1184,462 +1381,573 @@ const List<num> bonusLegendaryPrimeCriticalDamage = [
   0.03, // 151+
 ];
 const num bonusLegendaryPrimeBossDamage = 0.18;
-const num bonusLegendaryprimeIgnoreDefense = 0.05;
+const num bonusLegendaryPrimeIgnoreDefense = 0.05;
 
-const Map<PotentialTier, List<PotentialLine>> bonusDefaultPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusDefaultPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStats, isPrime: true, statValue: bonusRarePrimeAllStat),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.str, isPrime: true, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.dex, isPrime: true, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.int, isPrime: true, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.luk, isPrime: true, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: bonusRarePrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: bonusRarePrimeAtt),
-    PotentialLineRange(statType: StatType.hp, isPrime: true, statValue: bonusRarePrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.mp, isPrime: true, statValue: bonusRarePrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.defense, isPrime: true, statValue: bonusRarePrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.speed, isPrime: true, statValue: bonusRarePrimeSpeedjump),
-    PotentialLineRange(statType: StatType.jump, isPrime: true, statValue: bonusRarePrimeSpeedjump),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStats, isPrime: true, potentialName: PotentialName.bonusRarePrimeAllStat),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLineRange(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusRarePrimeHp),
+    PotentialLineRange(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusRarePrimeMp),
+    PotentialLineRange(statType: StatType.defense, isPrime: true, potentialName: PotentialName.bonusRarePrimeDefense),
+    PotentialLineRange(statType: StatType.speed, isPrime: true, potentialName: PotentialName.bonusRarePrimeSpeed),
+    PotentialLineRange(statType: StatType.jump, isPrime: true, potentialName: PotentialName.bonusRarePrimeJump),
     // Non-Prime
-    PotentialLineRange(statType: StatType.str, statValue: bonusRareNonPrimeStat),
-    PotentialLineRange(statType: StatType.dex, statValue: bonusRareNonPrimeStat),
-    PotentialLineRange(statType: StatType.int, statValue: bonusRareNonPrimeStat),
-    PotentialLineRange(statType: StatType.luk, statValue: bonusRareNonPrimeStat),
-    PotentialLineRange(statType: StatType.attack, statValue: bonusRareNonPrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: bonusRareNonPrimeAtt),
-    PotentialLineRange(statType: StatType.hp, statValue: bonusRareNonPrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.mp, statValue: bonusRareNonPrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.defense, statValue: bonusRareNonPrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.speed, statValue: bonusRareNonPrimeSpeedJump),
-    PotentialLineRange(statType: StatType.jump, statValue: bonusRareNonPrimeSpeedJump),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.bonusRareNonPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.bonusRareNonPrimeAtt),
+    PotentialLineRange(statType: StatType.hp, potentialName: PotentialName.bonusRareNonPrimeHp),
+    PotentialLineRange(statType: StatType.mp, potentialName: PotentialName.bonusRareNonPrimeMp),
+    PotentialLineRange(statType: StatType.defense, potentialName: PotentialName.bonusRareNonPrimeDefense),
+    PotentialLineRange(statType: StatType.speed, potentialName: PotentialName.bonusRareNonPrimeSpeed),
+    PotentialLineRange(statType: StatType.jump, potentialName: PotentialName.bonusRareNonPrimeJump),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, statValue: bonusEpicPrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: bonusEpicPrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: bonusEpicPrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.str, isPrime: true, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.dex, isPrime: true, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.int, isPrime: true, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.luk, isPrime: true, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: bonusEpicPrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: bonusEpicPrimeAtt),
-    PotentialLineRange(statType: StatType.hp, isPrime: true, statValue: bonusEpicPrimeHpMp),
-    PotentialLineRange(statType: StatType.mp, isPrime: true, statValue: bonusEpicPrimeHpMp),
-    PotentialLineRange(statType: StatType.defense, isPrime: true, statValue: bonusEpicPrimeDefense),
-    PotentialLineRange(statType: StatType.speed, isPrime: true, statValue: bonusEpicPrimeSpeedJump),
-    PotentialLineRange(statType: StatType.jump, isPrime: true, statValue: bonusEpicPrimeSpeedJump),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLineRange(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusEpicPrimeHp),
+    PotentialLineRange(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusEpicPrimeMp),
+    PotentialLineRange(statType: StatType.defense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDefense),
+    PotentialLineRange(statType: StatType.speed, isPrime: true, potentialName: PotentialName.bonusEpicPrimeSpeed),
+    PotentialLineRange(statType: StatType.jump, isPrime: true, potentialName: PotentialName.bonusEpicPrimeJump),
     // Non-Prime
-    PotentialLineRange(statType: StatType.strPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStats, statValue: bonusRarePrimeAllStat),
-    PotentialLineRange(statType: StatType.hpPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.str, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.dex, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.int, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.luk, statValue: bonusRarePrimeStat),
-    PotentialLineRange(statType: StatType.attack, statValue: bonusRarePrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: bonusRarePrimeAtt),
-    PotentialLineRange(statType: StatType.hp, statValue: bonusRarePrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.mp, statValue: bonusRarePrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.defense, statValue: bonusRarePrimeHpMpDefense),
-    PotentialLineRange(statType: StatType.speed, statValue: bonusRarePrimeSpeedjump),
-    PotentialLineRange(statType: StatType.jump, statValue: bonusRarePrimeSpeedjump),
+    PotentialLineRange(statType: StatType.strPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStats, potentialName: PotentialName.bonusRarePrimeAllStat),
+    PotentialLineRange(statType: StatType.hpPercentage, potentialName: PotentialName.bonusRarePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, potentialName: PotentialName.bonusRarePrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, potentialName: PotentialName.bonusRarePrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLineRange(statType: StatType.hp, potentialName: PotentialName.bonusRarePrimeHp),
+    PotentialLineRange(statType: StatType.mp, potentialName: PotentialName.bonusRarePrimeMp),
+    PotentialLineRange(statType: StatType.defense, potentialName: PotentialName.bonusRarePrimeDefense),
+    PotentialLineRange(statType: StatType.speed, potentialName: PotentialName.bonusRarePrimeSpeed),
+    PotentialLineRange(statType: StatType.jump, potentialName: PotentialName.bonusRarePrimeJump),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, statValue: bonusUniquePrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: bonusUniquePrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: bonusUniquePrimeHpMpPercentage),
-    PotentialLineStatic(statType: StatType.str, isPrime: true, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.dex, isPrime: true, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.int, isPrime: true, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.luk, isPrime: true, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineRange(statType: StatType.str, isPrime: true, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.dex, isPrime: true, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.int, isPrime: true, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.luk, isPrime: true, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: bonusUniquePrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: bonusUniquePrimeAtt),
-    PotentialLineRange(statType: StatType.hp, isPrime: true, statValue: bonusUniquePrimeHpMp),
-    PotentialLineRange(statType: StatType.mp, isPrime: true, statValue: bonusUniquePrimeHpMp),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeMpPercentage),
+    PotentialLineStatic(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineRange(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLineRange(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHp),
+    PotentialLineRange(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusUniquePrimeMp),
     // Non-Prime
-    PotentialLineRange(statType: StatType.strPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStatsPercentage, statValue: bonusEpicPrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, statValue: bonusEpicPrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, statValue: bonusEpicPrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.defensePercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.str, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.dex, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.int, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.luk, statValue: bonusEpicPrimeStat),
-    PotentialLineRange(statType: StatType.attack, statValue: bonusEpicPrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: bonusEpicPrimeAtt),
-    PotentialLineRange(statType: StatType.hp, statValue: bonusEpicPrimeHpMp),
-    PotentialLineRange(statType: StatType.mp, statValue: bonusEpicPrimeHpMp),
-    PotentialLineRange(statType: StatType.defense, statValue: bonusEpicPrimeDefense),
-    PotentialLineRange(statType: StatType.speed, statValue: bonusEpicPrimeSpeedJump),
-    PotentialLineRange(statType: StatType.jump, statValue: bonusEpicPrimeSpeedJump),
+    PotentialLineRange(statType: StatType.strPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, potentialName: PotentialName.bonusEpicPrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, potentialName: PotentialName.bonusEpicPrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, potentialName: PotentialName.bonusEpicPrimeMpPercentage),
+    PotentialLineRange(statType: StatType.defensePercentage, potentialName: PotentialName.bonusEpicPrimeDefensePercentage),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLineRange(statType: StatType.hp, potentialName: PotentialName.bonusEpicPrimeHp),
+    PotentialLineRange(statType: StatType.mp, potentialName: PotentialName.bonusEpicPrimeMp),
+    PotentialLineRange(statType: StatType.defense, potentialName: PotentialName.bonusEpicPrimeDefense),
+    PotentialLineRange(statType: StatType.speed, potentialName: PotentialName.bonusEpicPrimeSpeed),
+    PotentialLineRange(statType: StatType.jump, potentialName: PotentialName.bonusEpicPrimeJump),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, statValue: bonusLegendaryPrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, statValue: bonusLegendaryPrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, statValue: bonusLegendaryPrimeHpMpPercentage),
-    PotentialLineStatic(statType: StatType.str, isPrime: true, statValue: bonusLegendaryPrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.dex, isPrime: true, statValue: bonusLegendaryPrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.int, isPrime: true, statValue: bonusLegendaryPrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.luk, isPrime: true, statValue: bonusLegendaryPrimeStatPerLevel),
-    PotentialLineRange(statType: StatType.str, isPrime: true, statValue: bonusLegendaryPrimeStat),
-    PotentialLineRange(statType: StatType.dex, isPrime: true, statValue: bonusLegendaryPrimeStat),
-    PotentialLineRange(statType: StatType.int, isPrime: true, statValue: bonusLegendaryPrimeStat),
-    PotentialLineRange(statType: StatType.luk, isPrime: true, statValue: bonusLegendaryPrimeStat),
-    PotentialLineRange(statType: StatType.attack, isPrime: true, statValue: bonusLegendaryPrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, isPrime: true, statValue: bonusLegendaryPrimeAtt),
-    PotentialLineRange(statType: StatType.hp, isPrime: true, statValue: bonusLegendaryPrimeHpMp),
-    PotentialLineRange(statType: StatType.mp, isPrime: true, statValue: bonusLegendaryPrimeHpMp),
+    PotentialLineRange(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMpPercentage),
+    PotentialLineStatic(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLineRange(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLineRange(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLineRange(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLineRange(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLineRange(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAtt),
+    PotentialLineRange(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeHp),
+    PotentialLineRange(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMp),
     // Non-Prime
-    PotentialLineRange(statType: StatType.strPercentage, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.dexPercentage, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.intPercentage, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.lukPercentage, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.allStatsPercentage, statValue: bonusUniquePrimeAllStatPercentage),
-    PotentialLineRange(statType: StatType.hpPercentage, statValue: bonusUniquePrimeHpMpPercentage),
-    PotentialLineRange(statType: StatType.mpPercentage, statValue: bonusUniquePrimeHpMpPercentage),
-    PotentialLineStatic(statType: StatType.str, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.dex, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.int, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineStatic(statType: StatType.luk, statValue: bonusUniquePrimeStatPerLevel),
-    PotentialLineRange(statType: StatType.str, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.dex, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.int, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.luk, statValue: bonusUniquePrimeStat),
-    PotentialLineRange(statType: StatType.attack, statValue: bonusUniquePrimeAtt),
-    PotentialLineRange(statType: StatType.mattack, statValue: bonusUniquePrimeAtt),
-    PotentialLineRange(statType: StatType.hp, statValue: bonusUniquePrimeHpMp),
-    PotentialLineRange(statType: StatType.mp, statValue: bonusUniquePrimeHpMp),
+    PotentialLineRange(statType: StatType.strPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.dexPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.intPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.lukPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLineRange(statType: StatType.allStatsPercentage, potentialName: PotentialName.bonusUniquePrimeAllStatPercentage),
+    PotentialLineRange(statType: StatType.hpPercentage, potentialName: PotentialName.bonusUniquePrimeHpPercentage),
+    PotentialLineRange(statType: StatType.mpPercentage, potentialName: PotentialName.bonusUniquePrimeMpPercentage),
+    PotentialLineStatic(statType: StatType.str, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.dex, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.int, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineStatic(statType: StatType.luk, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLineRange(statType: StatType.str, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.dex, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.int, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.luk, potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLineRange(statType: StatType.attack, potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLineRange(statType: StatType.mattack, potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLineRange(statType: StatType.hp, potentialName: PotentialName.bonusUniquePrimeHp),
+    PotentialLineRange(statType: StatType.mp, potentialName: PotentialName.bonusUniquePrimeMp),
   ],
 };
 
 // Hat
-const Map<PotentialTier, List<PotentialLine>> bonusHatPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusHatPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLineStatic(statType: StatType.skillCooldown, isPrime: true, statValue: bonusLegendaryPrimeSkillCooldown1),
-    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLineStatic(statType: StatType.skillCooldown, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeSkillCooldown1),
+    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
 //Top, Overall, Bottom, Shoes, Cape, Belt, Shoulder
-const Map<PotentialTier, List<PotentialLine>> bonusTopOverallBottomShoesCapeBeltShoulderPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusTopOverallBottomShoesCapeBeltShoulderPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
 //Gloves
-const Map<PotentialTier, List<PotentialLine>> bonusGlovesPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusGlovesPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamage),
-    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineRange(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamage),
+    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
 //Face, Eye, Ring, Pendant, Earring
-const Map<PotentialTier, List<PotentialLine>> bonusFaceEyeRingPendantEarringPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusFaceEyeRingPendantEarringPotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
 //Weapon
-const Map<PotentialTier, List<PotentialLine>> bonusWeaponPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusWeaponPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusEpicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: bonusUniquePrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusUniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
     // None-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: bonusEpicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: bonusLegendaryPrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusLegendaryprimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeDamage),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, statValue: bonusUniquePrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: bonusUniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLineStatic(statType: StatType.bossDamage, potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
   ],
 };
 
 //Secondary
-const Map<PotentialTier, List<PotentialLine>> bonusSecondaryPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusSecondaryPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusEpicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: bonusUniquePrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusUniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
     // None-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: bonusEpicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, statValue: bonusLegendaryPrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusLegendaryprimeIgnoreDefense),
-    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeDamage),
+    PotentialLineStatic(statType: StatType.bossDamage, isPrime: true, potentialName:PotentialName. bonusLegendaryPrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
+    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
     // Non-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.bossDamage, statValue: bonusUniquePrimeBossDamage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: bonusUniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLineStatic(statType: StatType.bossDamage, potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
   ],
 };
 
 //Emblem
-const Map<PotentialTier, List<PotentialLine>> bonusEmblemPotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusEmblemPotentials = {
   PotentialTier.rare: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusEpicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusUniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
     // None-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: bonusEpicPrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, isPrime: true, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, statValue: bonusLegendaryprimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLineRange(statType: StatType.attackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.mattackPercentage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.critRate, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineRange(statType: StatType.damage, statValue: uniquePrimeStatAttackDamageCriticalRatePercentage),
-    PotentialLineStatic(statType: StatType.ignoreDefense, statValue: bonusUniquePrimeIgnoreDefense),
+    PotentialLineRange(statType: StatType.attackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLineRange(statType: StatType.critRate, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLineRange(statType: StatType.damage, potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLineStatic(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
   ],
 };
 
 //Heart, Badge
-const Map<PotentialTier, List<PotentialLine>> bonusHeartBadgePotentials = {
+const Map<PotentialTier, List<BasePotentialLine>> bonusHeartBadgePotentials = {
   PotentialTier.unique: [
     // Prime
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, statValue: bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, statValue: bonusLegendaryPrimeMesosObtainedItemDropRate),
-    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, statValue: legendaryPrimeHpRecovery),
+    PotentialLineStatic(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLineRange(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLineRange(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLineRange(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLineRange(statType: StatType.hpRecovery, statValue: bonusUniquePrimeHpRecovery),
+    PotentialLineRange(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
-
-class PotentialLine {
-  final StatType statType;
-  final bool isPrime;
-
-  const PotentialLine({
-    required this.statType,
-    this.isPrime = false,
-  });
-}
-
-// Defines a Potential Line with all the stats per level to choose from
-class PotentialLineRange extends PotentialLine {
-  final List<num> statValue;
-
-  const PotentialLineRange({
-    required super.statType,
-    required this.statValue,
-    super.isPrime = false,
-  });
-}
-
-// Defines a Potential Line with only a single value to choose from
-class PotentialLineStatic extends PotentialLine {
-  final num statValue;
-
-  const PotentialLineStatic({
-    required super.statType,
-    required this.statValue,
-    super.isPrime = false,
-  });
-}
-
-// Defines a Potential Line with a skill
-class PotentialLineSkill extends PotentialLine {
-  // TODO turn this into a skill
-  final dynamic skillValue;
-
-  const PotentialLineSkill({
-    required super.statType,
-    required this.skillValue,
-    super.isPrime = false,
-  });
-}
+const Map<PotentialName, dynamic> allPotentialStats = {
+  // ---------------------------------------------------------------------- //
+  // Main Potentials
+  // ---------------------------------------------------------------------- //
+  // Rare Non Prime
+  PotentialName.rareNonPrimeStat: rareNonPrimeStatAtt,
+  PotentialName.rareNonPrimeAtt: rareNonPrimeStatAtt,
+  PotentialName.rareNonPrimeDefense: rareNonPrimeDefenseHpMp,
+  PotentialName.rareNonPrimeHp: rareNonPrimeDefenseHpMp,
+  PotentialName.rareNonPrimeMp: rareNonPrimeDefenseHpMp,
+  // Rare Prime & Epic Non Prime
+  PotentialName.rarePrimeStat: rarePrimeStatAtt,
+  PotentialName.rarePrimeAtt: rarePrimeStatAtt,
+  PotentialName.rarePrimeAllStat: rarePrimeAllStat,
+  PotentialName.rarePrimeDefense: rarePrimeDefenseHpMp,
+  PotentialName.rarePrimeHp: rarePrimeDefenseHpMp,
+  PotentialName.rarePrimeMp: rarePrimeDefenseHpMp,
+  PotentialName.rarePrimeStatPercentage: rarePrimeStatDefenseHpMpPercentage,
+  PotentialName.rarePrimeDefensePercentage: rarePrimeStatDefenseHpMpPercentage,
+  PotentialName.rarePrimeHpPercentage: rarePrimeStatDefenseHpMpPercentage,
+  PotentialName.rarePrimeMpPercentage: rarePrimeStatDefenseHpMpPercentage,
+  PotentialName.rarePrimeCriticalRate: rarePrimeCriticalRate,
+  // Epic Prime & Unique Non Prime
+  PotentialName.epicPrimeStatPercentage: epicPrimeStatAttackDamageDefenseHpMpPercentage,
+  PotentialName.epicPrimeAttackPercentage: epicPrimeStatAttackDamageDefenseHpMpPercentage,
+  PotentialName.epicPrimeDamage: epicPrimeStatAttackDamageDefenseHpMpPercentage,
+  PotentialName.epicPrimeDefensePercentage: epicPrimeStatAttackDamageDefenseHpMpPercentage,
+  PotentialName.epicPrimeHpPercentage: epicPrimeStatAttackDamageDefenseHpMpPercentage,
+  PotentialName.epicPrimeMpPercentage: epicPrimeStatAttackDamageDefenseHpMpPercentage,
+  PotentialName.epicPrimeAllStatPercentage: epicPrimeAllStatPercentage,
+  PotentialName.epicPrimeCriticalRate: epicPrimeCriticalRate,
+  PotentialName.epicPrimeIgnoreDefense: epicPrimeIgnoreDefense,
+  // Unique Prime & Legendary Non Prime
+  PotentialName.uniquePrimeStatPercentage: uniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.uniquePrimeAttackPercentage: uniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.uniquePrimeDamage: uniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.uniquePrimeCriticalRate: uniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.uniquePrimeDefensePercentage: uniquePrimeDefenseHpMpPercentage,
+  PotentialName.uniquePrimeHpPercentage: uniquePrimeDefenseHpMpPercentage,
+  PotentialName.uniquePrimeMpPercentage: uniquePrimeDefenseHpMpPercentage,
+  PotentialName.uniquePrimeAllStatPercentage: uniquePrimeAllStatPercentage,
+  PotentialName.uniquePrimeHpRecovery: uniquePrimeHpRecovery,
+  PotentialName.uniquePrimeStat: uniquePrimeStatAtt,
+  PotentialName.uniquePrimeAtt: uniquePrimeStatAtt,
+  PotentialName.uniquePrimeBossDamage: uniquePrimeBossDamage,
+  PotentialName.uniquePrimeIgnoreDefense: uniquePrimeIgnoreDefense,
+  // PotentialName.uniquePrimeDecentMysticDoor: ,
+  // PotentialName.uniquePrimeDecentHyperBody: ,
+  // PotentialName.unqiuePrimeDecentSharpEyes: ,
+  // PotentialName.uniquePrimeDecentHaste: ,
+  // Legendary Prime
+  PotentialName.legendaryPrimeStat: legendaryPrimeStatAtt,
+  PotentialName.legendaryPrimeAtt: legendaryPrimeStatAtt,
+  PotentialName.legendaryPrimeStatPercentage: legendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.legendaryPrimeAttackPercentage: legendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.legendaryPrimeDamagePercentage: legendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.legendaryPrimeCriticalRatePercentage: legendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.legendaryPrimeHpPercentage: legendaryPrimeHpMpPercentage,
+  PotentialName.legendaryPrimeMpPercentage: legendaryPrimeHpMpPercentage,
+  PotentialName.legendaryPrimeAllStatPercentage: legendaryPrimeAllStatPercentage,
+  PotentialName.legendaryPrimeHpRecovery: legendaryPrimeHpRecovery,
+  PotentialName.legendaryPrimeSkillCooldown1: legendaryPrimeSkillCooldown1,
+  PotentialName.legendaryPrimeSkillCooldown2: legendaryPrimeSkillCooldown2,
+  PotentialName.legendaryPrimeCriticalDamage: legendaryPrimeCriticalDamage,
+  PotentialName.legendaryPrimeMesosObtained: legendaryPrimeMesosObtainedItemDropRate,
+  PotentialName.legendaryPrimeItemDropRate: legendaryPrimeMesosObtainedItemDropRate,
+  PotentialName.legendaryPrimeBossDamage35: legendaryPrimeBossDamage35,
+  PotentialName.legendaryPrimeBossDamage40: legendaryPrimeBossDamage40,
+  PotentialName.legendaryPrimeIgnoreDefense35: legendaryPrimeIgnoreDefense35,
+  PotentialName.legendaryPrimeIgnoreDefense40: legendaryPrimeIgnoreDefense40,
+  // PotentialName.legendaryPrimeDecentAdvancedBlessing: ,
+  // PotentialName.legendaryPrimeDecentSpeedInfusion: ,
+  // PotentialName.legendaryPrimeDecentCombatOrders: ,
+  // ---------------------------------------------------------------------- //
+  // Bonus Potentials
+  // ---------------------------------------------------------------------- //
+  // Rare Non Prime
+  PotentialName.bonusRareNonPrimeStat: bonusRareNonPrimeStat,
+  PotentialName.bonusRareNonPrimeAtt: bonusRareNonPrimeAtt,
+  PotentialName.bonusRareNonPrimeDefense: bonusRareNonPrimeHpMpDefense,
+  PotentialName.bonusRareNonPrimeHp: bonusRareNonPrimeHpMpDefense,
+  PotentialName.bonusRareNonPrimeMp: bonusRareNonPrimeHpMpDefense,
+  PotentialName.bonusRareNonPrimeSpeed: bonusRareNonPrimeSpeedJump,
+  PotentialName.bonusRareNonPrimeJump: bonusRareNonPrimeSpeedJump,
+  // Rare Prime & Epic Non Prime
+  PotentialName.bonusRarePrimeStat: bonusRarePrimeStat,
+  PotentialName.bonusRarePrimeAtt: bonusRarePrimeAtt,
+  PotentialName.bonusRarePrimeAllStat: bonusRarePrimeAllStat,
+  PotentialName.bonusRarePrimeDefense: bonusRarePrimeDefenseHpMp,
+  PotentialName.bonusRarePrimeHp: bonusRarePrimeDefenseHpMp,
+  PotentialName.bonusRarePrimeMp: bonusRarePrimeDefenseHpMp,
+  PotentialName.bonusRarePrimeStatPercentage: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeHpPercentage: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeMpPercentage: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeDefensePercentage: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeAttackPercentage: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeDamage: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeCriticalRate: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusRarePrimeSpeed: bonusRarePrimeSpeedJump,
+  PotentialName.bonusRarePrimeJump: bonusRarePrimeSpeedJump,
+  // Epic Prime & Unique Non Prime
+  PotentialName.bonusEpicPrimeStat: bonusEpicPrimeStat,
+  PotentialName.bonusEpicPrimeAtt: bonusEpicPrimeAtt,
+  PotentialName.bonusEpicPrimeHp: bonusEpicPrimeHpMp,
+  PotentialName.bonusEpicPrimeMp: bonusEpicPrimeHpMp,
+  PotentialName.bonusEpicPrimeDefense: bonusEpicPrimeDefense,
+  PotentialName.bonusEpicPrimeSpeed: bonusEpicPrimeSpeedJump,
+  PotentialName.bonusEpicPrimeJump: bonusEpicPrimeSpeedJump,
+  PotentialName.bonusEpicPrimeStatPercentage: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusEpicPrimeDefensePercentage: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusEpicPrimeAttackPercentage: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusEpicPrimeDamage: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusEpicPrimeCriticalRate: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentage,
+  PotentialName.bonusEpicPrimeHpPercentage: bonusEpicPrimeHpMpPercentage,
+  PotentialName.bonusEpicPrimeMpPercentage: bonusEpicPrimeHpMpPercentage,
+  PotentialName.bonusEpicPrimeAllStatPercentage: bonusEpicPrimeAllStatPercentage,
+  PotentialName.bonusEpicPrimeIgnoreDefense: bonusEpicPrimeIgnoreDefense,
+  // Unique Prime & Legendary Non Prime
+  PotentialName.bonusUniquePrimeStat: bonusUniquePrimeStat,
+  PotentialName.bonusUniquePrimeStatPerLevel: bonusUniquePrimeStatPerLevel,
+  PotentialName.bonusUniquePrimeAtt: bonusUniquePrimeAtt,
+  PotentialName.bonusUniquePrimeHp: bonusUniquePrimeHpMp,
+  PotentialName.bonusUniquePrimeMp: bonusUniquePrimeHpMp,
+  PotentialName.bonusUniquePrimeStatPercentage: bonusUniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusUniquePrimeAttackPercentage: bonusUniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusUniquePrimeDamage: bonusUniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusUniquePrimeCriticalRate: bonusUniquePrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusUniquePrimeHpPercentage: bonusUniquePrimeHpMpPercentage,
+  PotentialName.bonusUniquePrimeMpPercentage: bonusUniquePrimeHpMpPercentage,
+  PotentialName.bonusUniquePrimeAllStatPercentage: bonusUniquePrimeAllStatPercentage,
+  PotentialName.bonusUniquePrimeHpRecovery: bonusUniquePrimeHpRecovery,
+  PotentialName.bonusUniquePrimeBossDamage: bonusUniquePrimeBossDamage,
+  PotentialName.bonusUniquePrimeIgnoreDefense: bonusUniquePrimeIgnoreDefense,
+  // Legendary Prime
+  PotentialName.bonusLegendaryPrimeStat: bonusLegendaryPrimeStat,
+  PotentialName.bonusLegendaryPrimeAtt: bonusLegendaryPrimeAtt,
+  PotentialName.bonusLegendaryPrimeHp: bonusLegendaryPrimeHpMp,
+  PotentialName.bonusLegendaryPrimeMp: bonusLegendaryPrimeHpMp,
+  PotentialName.bonusLegendaryPrimeStatPercentage: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusLegendaryPrimeAttackPercentage: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusLegendaryPrimeDamage: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusLegendaryPrimeCriticalRate: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentage,
+  PotentialName.bonusLegendaryPrimeHpPercentage: bonusLegendaryPrimeHpMpPercentage,
+  PotentialName.bonusLegendaryPrimeMpPercentage: bonusLegendaryPrimeHpMpPercentage,
+  PotentialName.bonusLegendaryPrimeAllStatPercentage: bonusLegendaryPrimeAllStatPercentage,
+  PotentialName.bonusLegendaryPrimeStatPerLevel: bonusLegendaryPrimeStatPerLevel,
+  PotentialName.bonusLegendaryPrimeHpRecovery: bonusLegendaryPrimeHpRecovery,
+  PotentialName.bonusLegendaryPrimeMesosObtained: bonusLegendaryPrimeMesosObtainedItemDropRate,
+  PotentialName.bonusLegendaryPrimeItemDropRate: bonusLegendaryPrimeMesosObtainedItemDropRate,
+  PotentialName.bonusLegendaryPrimeSkillCooldown1: bonusLegendaryPrimeSkillCooldown1,
+  PotentialName.bonusLegendaryPrimeCriticalDamageStatic: bonusLegendaryPrimeCriticalDamageStatic,
+  PotentialName.bonusLegendaryPrimeCriticalDamage: bonusLegendaryPrimeCriticalDamage,
+  PotentialName.bonusLegendaryPrimeBossDamage: bonusLegendaryPrimeBossDamage,
+  PotentialName.bonusLegendaryPrimeIgnoreDefense: bonusLegendaryPrimeIgnoreDefense
+};

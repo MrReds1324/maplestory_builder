@@ -505,7 +505,7 @@ class _PotentialDropdowns extends StatelessWidget {
   });
 
   List<DropdownMenuItem> getDropdownPotentialsList(BuildContext context, Equip? editingEquip) {
-    List<DropdownMenuItem<PotentialLine>> dropdownItems = [
+    List<DropdownMenuItem<BasePotentialLine>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
         value: null,
@@ -518,17 +518,17 @@ class _PotentialDropdowns extends StatelessWidget {
 
     if (editingEquip != null && editingEquip.potentialModule != null && editingEquip.canPotential) {
 
-      List<PotentialLine> filteredList = getPotentialsListForEquip(editingEquip, isBonus: isBonus);
+      List<BasePotentialLine> filteredList = getPotentialsListForEquip(editingEquip, isBonus: isBonus);
 
       dropdownItems.addAll(
         filteredList.map((value) {
           num? valueToDisplay;
 
           if (value is PotentialLineStatic) {
-            valueToDisplay = value.statValue;
+            valueToDisplay = allPotentialStats[value.potentialName];
           }
           else if (value is PotentialLineRange) {
-            valueToDisplay = value.statValue[getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt())];
+            valueToDisplay = allPotentialStats[value.potentialName]![getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt())];
           }
           else {
             // TODO: add skill stuff here
@@ -558,7 +558,7 @@ class _PotentialDropdowns extends StatelessWidget {
     return dropdownItems;
   }
 
-  PotentialLine? getSelectedPotentialLine(Equip? editingEquip, int potentialPosition) {
+  BasePotentialLine? getSelectedPotentialLine(Equip? editingEquip, int potentialPosition) {
     if (isBonus) {
       if (potentialPosition == 1) {
         return editingEquip?.potentialModule?.bonusPotentialLine1;

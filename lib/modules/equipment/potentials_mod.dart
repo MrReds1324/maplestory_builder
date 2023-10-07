@@ -7,14 +7,14 @@ import 'package:maplestory_builder/modules/utilities.dart';
 class PotentialModule {
 
   PotentialTier? mainPotential;
-  PotentialLine? mainPotentialLine1;
-  PotentialLine? mainPotentialLine2;
-  PotentialLine? mainPotentialLine3;
+  BasePotentialLine? mainPotentialLine1;
+  BasePotentialLine? mainPotentialLine2;
+  BasePotentialLine? mainPotentialLine3;
 
   PotentialTier? bonusPotential;
-  PotentialLine? bonusPotentialLine1;
-  PotentialLine? bonusPotentialLine2;
-  PotentialLine? bonusPotentialLine3;
+  BasePotentialLine? bonusPotentialLine1;
+  BasePotentialLine? bonusPotentialLine2;
+  BasePotentialLine? bonusPotentialLine3;
 
   Map<StatType, num> moduleStats;
   int potentialOffset;
@@ -34,13 +34,13 @@ class PotentialModule {
 
   PotentialModule copyWith({
     PotentialTier? mainPotential,
-    PotentialLine? mainPotentialLine1,
-    PotentialLine? mainPotentialLine2,
-    PotentialLine? mainPotentialLine3,
+    BasePotentialLine? mainPotentialLine1,
+    BasePotentialLine? mainPotentialLine2,
+    BasePotentialLine? mainPotentialLine3,
     PotentialTier? bonusPotential,
-    PotentialLine? bonusPotentialLine1,
-    PotentialLine? bonusPotentialLine2,
-    PotentialLine? bonusPotentialLine3,
+    BasePotentialLine? bonusPotentialLine1,
+    BasePotentialLine? bonusPotentialLine2,
+    BasePotentialLine? bonusPotentialLine3,
     int? potentialOffset,
     Map<StatType, num>? moduleStats,
   }) {
@@ -62,17 +62,17 @@ class PotentialModule {
     return moduleStats[statType] ?? 0;
   }
 
-  void _updateStatFromPotential(PotentialLine? potentialLine) {
+  void _updateStatFromPotential(BasePotentialLine? potentialLine) {
       if (potentialLine == null) {
         return;
       }
       else {
         num statvalue = 0;
         if (potentialLine is PotentialLineStatic) {
-          statvalue = potentialLine.statValue;
+          statvalue = allPotentialStats[potentialLine.potentialName];
         }
         else if (potentialLine is PotentialLineRange) {
-          statvalue = potentialLine.statValue[potentialOffset];
+          statvalue = allPotentialStats[potentialLine.potentialName]![potentialOffset];
         }
         else {
           // TODO: add skill stuff here
@@ -109,7 +109,7 @@ class PotentialModule {
     }
   }
 
-  void updatePotential(num potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+  void updatePotential(num potentialPosition, BasePotentialLine? potentialLine, {bool isBonus=false}) {
     if (isBonus) {
       if (potentialPosition == 1) {
         bonusPotentialLine1 = potentialLine;
@@ -149,18 +149,18 @@ class PotentialModule {
   Widget buildPotentialWidget(BuildContext context, Equip editingEquip) {
     List<Widget> childrenWidgets = [];
 
-    void addPotentialLine(PotentialLine? potentialLine) {
+    void addPotentialLine(BasePotentialLine? potentialLine) {
       if (potentialLine == null) {
         return;
       }
       else {
-        var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
         num? valueToDisplay;
         if (potentialLine is PotentialLineStatic) {
-          valueToDisplay = potentialLine.statValue;
+          valueToDisplay = allPotentialStats[potentialLine.potentialName];
         }
         else if (potentialLine is PotentialLineRange) {
-          valueToDisplay = potentialLine.statValue[offset];
+          var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
+          valueToDisplay = allPotentialStats[potentialLine.potentialName]![offset];
         }
         else {
           // TODO: add skill stuff here
@@ -273,8 +273,8 @@ int getPotentialOffsetFromItemLevel(int itemLevel) {
   }
 }
 
-List<PotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=false}) {
-  List<PotentialLine> filteredList;
+List<BasePotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=false}) {
+  List<BasePotentialLine> filteredList;
   if (isBonus) {
     switch(editingEquip.equipType) {
       case EquipType.hat:
