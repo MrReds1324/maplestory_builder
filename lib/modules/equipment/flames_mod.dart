@@ -173,6 +173,7 @@ class FlameModule {
         flameLine4?.flameType = flameType;
       }
     }
+    calculateModuleStats(targetEquip);
   }
 
   void calculateModuleStats(Equip targetEquip) {

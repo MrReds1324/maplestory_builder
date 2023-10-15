@@ -644,6 +644,7 @@ class _UsedScrolls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      iconColor: equipStarColor,
       title: const Text("Used Scrolls"),
       children: [
         Consumer<EquipEditingProvider>(
@@ -706,6 +707,7 @@ class _EditingScroll extends StatelessWidget {
 @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      iconColor: equipStarColor,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -773,6 +775,7 @@ class _AvailableScrolls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      iconColor: equipStarColor,
       title: const Text("Available Scrolls"),
       children: [
         Consumer<EquipEditingProvider>(

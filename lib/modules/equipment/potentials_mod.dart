@@ -107,6 +107,8 @@ class PotentialModule {
         mainPotential = potentialTier;
       }
     }
+
+    calculateModuleStats();
   }
 
   void updatePotential(num potentialPosition, BasePotentialLine? potentialLine, {bool isBonus=false}) {
