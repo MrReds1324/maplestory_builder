@@ -93,6 +93,7 @@ class EquipBuilderContent extends StatelessWidget {
                             _StarForceSlider(),
                             _PotentialSelector(),
                             _FlameSelector(),
+                            _StatsTweak(),
                           ],
                         ),
                       ),
@@ -818,5 +819,29 @@ class _AvailableScrolls extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _StatsTweak extends StatelessWidget {
+  const _StatsTweak();
+
+  @override
+  Widget build(BuildContext context) {
+    return const ExpansionTile(
+      iconColor: equipStarColor,
+      title: Text("Stat Tweaks"),
+      children: [
+        _StatsTweakInput(),
+      ],
+    );
+  }
+}
+
+class _StatsTweakInput extends StatelessWidget {
+  const _StatsTweakInput();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox.shrink();
   }
 }
