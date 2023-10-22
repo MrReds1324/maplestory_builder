@@ -15,6 +15,7 @@ class EquipEditingProvider with ChangeNotifier {
 
   Equip? editingEquip;
   int updateCounter = NO_EDITING_EQUIP;
+  Map<StatType, TextEditingController> tweakTextControllers = {};
 
   EquipEditingProvider({
     this.editingEquip
@@ -23,12 +24,19 @@ class EquipEditingProvider with ChangeNotifier {
   void addEditingEquip(Equip equip) {
     editingEquip = equip.copyWith();
     updateCounter = START_EDITING_EQUIP;
+
+    tweakTextControllers.forEach((key, value) {
+      value.text = editingEquip?.tweakModule?.get(key).toString() ?? "0";
+    });
+
     notifyListeners();
   }
 
   void cancelEquipEditing() {
     editingEquip = null;
     updateCounter = NO_EDITING_EQUIP;
+    _clearTweakTextControllers();
+
     notifyListeners();
   }
 
@@ -37,6 +45,8 @@ class EquipEditingProvider with ChangeNotifier {
     equipModule.saveEditingEquip(editingEquip);
     editingEquip = null;
     updateCounter = NO_EDITING_EQUIP;
+    _clearTweakTextControllers();
+
     notifyListeners();
   }
 
@@ -126,5 +136,21 @@ class EquipEditingProvider with ChangeNotifier {
       updateCounter += 1;
       notifyListeners();
     }
+  }
+
+  TextEditingController getTweakTextController(StatType statType) {
+    var textController = tweakTextControllers[statType];
+    if (textController == null) {
+      textController = TextEditingController(text: editingEquip?.tweakModule?.get(statType).toString() ?? "0");
+      tweakTextControllers[statType] = textController;
+    }
+
+    return textController;
+  }
+
+  void _clearTweakTextControllers() {
+    tweakTextControllers.forEach((key, value) {
+      value.text = "0";
+    });
   }
 } 

@@ -173,7 +173,7 @@ class Equip extends Base {
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
       default:
-        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0);
+        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
     }
   }
 
@@ -392,7 +392,7 @@ class Equip extends Base {
     if (totalStat != baseStat) {
       childrenText.add(
         TextSpan(
-          text: "${statType.formattedName}: +${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
+          text: "${statType.formattedName}: ${totalStat > 0 ? "+" : ""}${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
           style: const TextStyle(color: equipEnhancedColor)
         )
       );

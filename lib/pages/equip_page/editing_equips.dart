@@ -832,7 +832,26 @@ class _StatsTweak extends StatelessWidget {
       iconColor: equipStarColor,
       title: const Text("Stat Tweaks"),
       children: [
-        _StatsTweakInput(statType: StatType.dex, textController: TextEditingController()),
+        SizedBox(
+          height: 450,
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(right: 13, bottom: 5),
+            children: const <Widget>[
+              _StatsTweakInput(statType: StatType.str),
+              _StatsTweakInput(statType: StatType.dex),
+              _StatsTweakInput(statType: StatType.int),
+              _StatsTweakInput(statType: StatType.luk),
+              _StatsTweakInput(statType: StatType.attack),
+              _StatsTweakInput(statType: StatType.mattack),
+              _StatsTweakInput(statType: StatType.mp),
+              _StatsTweakInput(statType: StatType.hp),
+              _StatsTweakInput(statType: StatType.defense),
+              _StatsTweakInput(statType: StatType.speed),
+              _StatsTweakInput(statType: StatType.jump),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -840,25 +859,29 @@ class _StatsTweak extends StatelessWidget {
 
 class _StatsTweakInput extends StatelessWidget {
   final StatType statType;
-  final TextEditingController textController;
 
-  const _StatsTweakInput({required this.statType, required this.textController});
+  const _StatsTweakInput({required this.statType});
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<EquipEditingProvider>(
-      builder: (_, equipEditingProvider, __) {
-        // textController.text = equipEditingProvider.editingEquip?.tweakModule?.get(statType).toString() ?? '0';
-        return TextField(
-          controller: textController,
-          onChanged: (value) => context.read<EquipEditingProvider>().updateTweakStat(statType, value.isNotEmpty && value != "-" ? int.parse(value) : 0),
-          decoration: const InputDecoration(labelText: "Enter number"),
-          keyboardType: TextInputType.number,
-          inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
-          ],
-        );
-      }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(statType.formattedName),
+        const Spacer(),
+        SizedBox(
+          width: 200,
+          child: TextField(
+            style: Theme.of(context).textTheme.bodyMedium,
+            controller: context.read<EquipEditingProvider>().getTweakTextController(statType),
+            onChanged: (value) => context.read<EquipEditingProvider>().updateTweakStat(statType, value.isNotEmpty && value != "-" ? int.parse(value) : 0),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
+            ],
+          )
+        )
+      ]
     );
   }
 }

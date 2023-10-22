@@ -12,7 +12,7 @@ class TweakModule {
     Map<StatType, int>? moduleStats,
   }) {
     return TweakModule(
-      moduleStats: moduleStats ?? this.moduleStats,
+      moduleStats: moduleStats ?? Map.from(this.moduleStats),
     );
   }
 
