@@ -11,6 +11,7 @@ import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
+import 'package:maplestory_builder/modules/equipment/tweak_mod.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
@@ -34,6 +35,7 @@ class Equip extends Base {
   FlameModule? flameModule;
   PotentialModule? potentialModule;
   ScrollModule? scrollModule;
+  TweakModule? tweakModule;
   num equipHash = -1;
 
   Equip({
@@ -53,6 +55,7 @@ class Equip extends Base {
     this.flameModule,
     this.potentialModule,
     this.scrollModule,
+    this.tweakModule,
     this.equipHash = -1,
   }) {
     if (starForceModule != null) {
@@ -109,6 +112,8 @@ class Equip extends Base {
         scrollOffset: getScrollOffsetFromItemLevelint(itemLevel)
       );
     }
+
+    tweakModule = tweakModule ?? TweakModule();
   }
 
   Equip copyWith({
@@ -128,6 +133,7 @@ class Equip extends Base {
     FlameModule? flameModule,
     PotentialModule? potentialModule,
     ScrollModule? scrollModule,
+    TweakModule? tweakModule,
     num? equipHash,
   }) {
     return Equip(
@@ -147,6 +153,7 @@ class Equip extends Base {
       flameModule: flameModule ?? this.flameModule?.copyWith(),
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
       scrollModule: scrollModule ?? this.scrollModule?.copyWith(),
+      tweakModule: tweakModule ?? this.tweakModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
   }
@@ -161,7 +168,7 @@ class Equip extends Base {
       case StatType.dex:
       case StatType.int:
       case StatType.luk:  
-        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0);
+        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
       // TODO fix these calculation
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
@@ -314,6 +321,7 @@ class Equip extends Base {
     num starForceStat = 0;
     num scrollStat = 0;
     num flameStat = 0;
+    int tweakStat = 0;
 
     switch(statType){
       case StatType.starForce:
@@ -366,6 +374,7 @@ class Equip extends Base {
         starForceStat = starForceModule?.get(statType) ?? 0;
         flameStat = flameModule?.get(statType) ?? 0;
         scrollStat = (scrollModule?.get(statType) ?? 0) + (scrollModule?.get(StatType.allStats) ?? 0);
+        tweakStat = tweakModule?.get(statType) ?? 0;
       // TODO: Fix these calculations
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
@@ -374,8 +383,9 @@ class Equip extends Base {
         starForceStat = starForceModule?.get(statType) ?? 0;
         flameStat = flameModule?.get(statType) ?? 0;
         scrollStat = scrollModule?.get(statType) ?? 0;
+        tweakStat = tweakModule?.get(statType) ?? 0;
     }
-    totalStat = baseStat + starForceStat + scrollStat + flameStat;
+    totalStat = baseStat + starForceStat + scrollStat + flameStat + tweakStat;
     
     List<TextSpan> childrenText = <TextSpan>[];
 
@@ -402,6 +412,14 @@ class Equip extends Base {
             style: const TextStyle(
               color: equipScrollColor
             )
+          )
+        );
+      }
+      if (tweakStat != 0) {
+        childrenText.add(
+          TextSpan(
+            text: " ${tweakStat > 0 ? '+' : ''}${isPercentage ? doubleRoundPercentFormater.format(tweakStat) : tweakStat}",
+            style: TextStyle(color: tweakStat > 0 ? equipEnhancedColor : equipReductionColor)
           )
         );
       }

@@ -2,21 +2,21 @@ import 'package:maplestory_builder/constants/constants.dart';
 
 class TweakModule {
 
-  Map<StatType, num> moduleStats;
+  Map<StatType, int> moduleStats;
 
   TweakModule({
-    Map<StatType, num>? moduleStats,
+    Map<StatType, int>? moduleStats,
   }) : moduleStats = moduleStats ?? {};
 
   TweakModule copyWith({
-    Map<StatType, num>? moduleStats,
+    Map<StatType, int>? moduleStats,
   }) {
     return TweakModule(
       moduleStats: moduleStats ?? this.moduleStats,
     );
   }
 
-  num get(StatType statType) {
+  int get(StatType statType) {
     return moduleStats[statType] ?? 0;
   }
 

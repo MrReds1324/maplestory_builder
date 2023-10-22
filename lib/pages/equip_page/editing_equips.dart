@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
@@ -827,21 +828,37 @@ class _StatsTweak extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ExpansionTile(
+    return ExpansionTile(
       iconColor: equipStarColor,
-      title: Text("Stat Tweaks"),
+      title: const Text("Stat Tweaks"),
       children: [
-        _StatsTweakInput(),
+        _StatsTweakInput(statType: StatType.dex, textController: TextEditingController()),
       ],
     );
   }
 }
 
 class _StatsTweakInput extends StatelessWidget {
-  const _StatsTweakInput();
+  final StatType statType;
+  final TextEditingController textController;
+
+  const _StatsTweakInput({required this.statType, required this.textController});
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.shrink();
+    return Consumer<EquipEditingProvider>(
+      builder: (_, equipEditingProvider, __) {
+        // textController.text = equipEditingProvider.editingEquip?.tweakModule?.get(statType).toString() ?? '0';
+        return TextField(
+          controller: textController,
+          onChanged: (value) => context.read<EquipEditingProvider>().updateTweakStat(statType, value.isNotEmpty && value != "-" ? int.parse(value) : 0),
+          decoration: const InputDecoration(labelText: "Enter number"),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
+          ],
+        );
+      }
+    );
   }
 }

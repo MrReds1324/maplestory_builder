@@ -119,4 +119,12 @@ class EquipEditingProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void updateTweakStat(StatType statType, int statValue) {
+    if (editingEquip?.tweakModule != null) {
+      editingEquip!.tweakModule!.updateTweakStat(statType, statValue);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
 } 
