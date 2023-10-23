@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 
 import 'package:maplestory_builder/modules/equipment/equips.dart';
@@ -12,7 +11,6 @@ class EquipsProvider with ChangeNotifier{
   late Map<int, Equip> allEquips;
   late Map<int, EquipmentModule> equipSets; 
   late EquipmentModule activeEquipSet;
-  SetEffectModule setEffectModule = SetEffectModule();
 
   EquipsProvider({
     Map<int, Equip>? allEquips,

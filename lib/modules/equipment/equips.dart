@@ -309,7 +309,7 @@ class Equip extends Base {
       setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet]!;
     }
     else {
-      setEffect = context.read<CharacterProvider>().equipsProvider.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;
+      setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;
     }
     return setEffect.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null);
   }

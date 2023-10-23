@@ -93,6 +93,9 @@ class EquippedItems extends StatelessWidget {
                   equipType: EquipType.ring,
                   equipPosition: 4,
                 ),
+                EquippedItemSelector(
+                  equipType: EquipType.ozRing,
+                ),
                 // Pocket
                 EquippedItemSelector(
                   equipType: EquipType.pocket,

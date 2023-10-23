@@ -5,8 +5,8 @@ import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 
 class EquipmentModule {
-  Map<String, int?> equippedEquips = {};
-  List<EquipName> equippedEquipNames = [];
+  late Map<String, int?> equippedEquips;
+  late List<EquipName> equippedEquipNames;
   Equip? Function(int? equipHash) getEquipCallback;
   late SetEffectModule setEffectModule;
 
@@ -84,21 +84,28 @@ class EquipmentModule {
     switch(equipType) {
       case EquipType.overall:
         replacedItemHash = equippedEquips[EquipType.overall.formattedName];
-        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.top.formattedName]), isCalculatingDifference: isCalculatingDifference);
-        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.bottom.formattedName]), isCalculatingDifference: isCalculatingDifference);
-        
         equippedEquips[EquipType.overall.formattedName] = equip?.equipHash;
+
+        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.top.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.top.formattedName])?.equipName);
         equippedEquips[EquipType.top.formattedName] = null;
+        
+        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.bottom.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.bottom.formattedName])?.equipName);
         equippedEquips[EquipType.bottom.formattedName] = null;
       case EquipType.top:
         replacedItemHash = equippedEquips[EquipType.top.formattedName];
         equippedEquips[EquipType.top.formattedName] = equip?.equipHash;
+
         setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.overall.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.overall.formattedName])?.equipName);
         equippedEquips[EquipType.overall.formattedName] = null;
       case EquipType.bottom:
         replacedItemHash = equippedEquips[EquipType.bottom.formattedName];
         equippedEquips[EquipType.bottom.formattedName] = equip?.equipHash;
+
         setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.overall.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.secondary.formattedName])?.equipName);
         equippedEquips[EquipType.overall.formattedName] = null;
       case EquipType.secondary:
       case EquipType.shield:
@@ -123,6 +130,8 @@ class EquipmentModule {
       setEffectModule.removeEquip(replacedItem, isCalculatingDifference: isCalculatingDifference);
       setEffectModule.addEquip(equip);
     }
+    // Make sure to remove the itemName from the tracker
+    equippedEquipNames.remove(replacedItem?.equipName);
 
     return true;
   }
