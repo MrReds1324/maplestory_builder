@@ -36,7 +36,7 @@ class Equip extends Base {
   PotentialModule? potentialModule;
   ScrollModule? scrollModule;
   TweakModule? tweakModule;
-  num equipHash = -1;
+  int equipHash = -1;
 
   Equip({
     required this.equipName,
@@ -134,7 +134,7 @@ class Equip extends Base {
     PotentialModule? potentialModule,
     ScrollModule? scrollModule,
     TweakModule? tweakModule,
-    num? equipHash,
+    int? equipHash,
   }) {
     return Equip(
       equipName: equipName ?? this.equipName,
@@ -306,7 +306,7 @@ class Equip extends Base {
     // If we are editing an equip then we always want to target the difference character model
     SetEffect? setEffect;
     if (isEquipEditing) {
-      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.setEffectModule.activeSetEffects[equipSet]!;
+      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet]!;
     }
     else {
       setEffect = context.read<CharacterProvider>().equipsProvider.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;

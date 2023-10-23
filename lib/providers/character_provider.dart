@@ -294,7 +294,7 @@ class CharacterProvider with ChangeNotifier {
 
     updatePureStats(apStatsProvider.calculateStats());
 
-    for (Map<StatType, num> equipStats in equipsProvider.calculateStats(recalculateCache: recalculateCache)){
+    for (Map<StatType, num> equipStats in equipsProvider.calculateStats()){
       updateTempStats(equipStats);
     }
     // Specific caps on stats from items

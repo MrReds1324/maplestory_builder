@@ -14,7 +14,7 @@ const double dropRateUseCap = 1.00;
 const double dropRateCap = 4.00;
 
 enum EquipType {
-  all(formattedName: "All"),
+  all(formattedName: "All"), // # Only Used for filtering the equip selection, should not be used anywhere else
   badge(formattedName: "Badge"),
   belt(formattedName: "Belt"),
   bottom(formattedName: "Bottom"),

@@ -1,0 +1,154 @@
+import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
+import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
+
+import 'package:maplestory_builder/modules/equipment/equips.dart';
+
+class EquipmentModule {
+  Map<String, int?> equippedEquips = {};
+  List<EquipName> equippedEquipNames = [];
+  Equip? Function(int? equipHash) getEquipCallback;
+  late SetEffectModule setEffectModule;
+
+  EquipmentModule({
+    Map<String, int?>? equippedEquips,
+    List<EquipName>? equippedEquipNames,
+    required this.getEquipCallback,
+    SetEffectModule? setEffectModule
+  }) {
+    this.equippedEquips = equippedEquips ?? {};
+    this.equippedEquipNames = equippedEquipNames ?? [];
+    this.setEffectModule = setEffectModule ?? SetEffectModule();
+  }
+
+  EquipmentModule copyWith({
+    Map<String, int?>? equippedEquips,
+    List<EquipName>? equippedEquipNames,
+    Equip? Function(int?)? getEquipCallback,
+    SetEffectModule? setEffectModule,
+  }) {
+    return EquipmentModule(
+      equippedEquips: equippedEquips ?? Map.from(this.equippedEquips),
+      equippedEquipNames: equippedEquipNames ?? List.from(this.equippedEquipNames),
+      setEffectModule: setEffectModule ?? this.setEffectModule.copyWith(),
+      getEquipCallback: getEquipCallback ?? this.getEquipCallback
+    );
+  }
+
+  void registerEquipCallback(Equip? Function(int?) function) {
+    getEquipCallback = function;
+  }
+
+  Equip? getSelectedEquip(EquipType equipType, {int equipPosition = 0}) {
+    switch(equipType) {
+      case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
+        return getEquipCallback(equippedEquips[EquipType.secondary.formattedName]);
+      default:
+        String equipKey;
+        if (equipPosition > 0) {
+          equipKey = "${equipType.formattedName}$equipPosition";
+        }
+        else {
+          equipKey = equipType.formattedName;
+        }
+        return getEquipCallback(equippedEquips[equipKey]);
+    }
+  }
+
+  int? getUniqueItemPosition(EquipName equipName, EquipType equipType) {
+    if (equippedEquipNames.contains(equipName)) {
+      for (int i = 1; i <=3 ; i++) {
+        String equipKey = "${equipType.formattedName}$i";
+        if (getEquipCallback(equippedEquips[equipKey])?.equipName == equipName) {
+          return i;
+        }
+      }
+    }
+    return null;
+  }
+
+  bool equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0, bool isCalculatingDifference = false}) {
+    // Only equip a single unique item
+    if (!isCalculatingDifference && (equippedEquipNames.contains(equip?.equipName)) && (equip?.isUniqueItem ?? false)) {
+      return false;
+    }
+
+    if (!isCalculatingDifference && equip != null) {
+      equippedEquipNames.add(equip.equipName);
+    }
+
+    int? replacedItemHash;
+
+    switch(equipType) {
+      case EquipType.overall:
+        replacedItemHash = equippedEquips[EquipType.overall.formattedName];
+        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.top.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.bottom.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        
+        equippedEquips[EquipType.overall.formattedName] = equip?.equipHash;
+        equippedEquips[EquipType.top.formattedName] = null;
+        equippedEquips[EquipType.bottom.formattedName] = null;
+      case EquipType.top:
+        replacedItemHash = equippedEquips[EquipType.top.formattedName];
+        equippedEquips[EquipType.top.formattedName] = equip?.equipHash;
+        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.overall.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        equippedEquips[EquipType.overall.formattedName] = null;
+      case EquipType.bottom:
+        replacedItemHash = equippedEquips[EquipType.bottom.formattedName];
+        equippedEquips[EquipType.bottom.formattedName] = equip?.equipHash;
+        setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.overall.formattedName]), isCalculatingDifference: isCalculatingDifference);
+        equippedEquips[EquipType.overall.formattedName] = null;
+      case EquipType.secondary:
+      case EquipType.shield:
+      case EquipType.katara:
+        replacedItemHash = equippedEquips[EquipType.secondary.formattedName];
+        equippedEquips[EquipType.secondary.formattedName] = equip?.equipHash;
+      default:
+        String equipKey;
+        if (equipPosition > 0) {
+          equipKey = "${equipType.formattedName}$equipPosition";
+        }
+        else {
+          equipKey = equipType.formattedName;
+        }
+        replacedItemHash = equippedEquips[equipKey];
+        equippedEquips[equipKey] = equip?.equipHash;
+    }
+
+    // Only need to update set effects if the replaced item differs from the item we are equipping
+    Equip? replacedItem = getEquipCallback(replacedItemHash);
+    if (replacedItem?.equipName != equip?.equipName) {
+      setEffectModule.removeEquip(replacedItem, isCalculatingDifference: isCalculatingDifference);
+      setEffectModule.addEquip(equip);
+    }
+
+    return true;
+  }
+
+  void deleteEquip(Equip deletingEquip) {
+    equippedEquips.forEach((key, value) {
+      if (value == deletingEquip.equipHash) {
+        equippedEquipNames.remove(deletingEquip.equipName);
+        equippedEquips[key] = null;
+        setEffectModule.removeEquip(deletingEquip);
+      }
+    });
+  }
+
+  List<Map<StatType, num>> calculateStats() {
+    List<Map<StatType, num>> equipStats = <Map<StatType, num>>[];
+
+    for (int? equipHash in equippedEquips.values) {
+      var mapValue = getEquipCallback(equipHash)?.calculateStats();
+      if (mapValue != null) {
+        equipStats.add(mapValue);
+      }
+    }
+
+    equipStats.addAll(setEffectModule.calculateStats());
+
+    return equipStats;
+  }
+}

@@ -230,7 +230,7 @@ class EquippedItemSelector extends StatelessWidget {
   );
 
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipsProvider equipsProvider, EquipType equipType) {
-    var filteredList = equipsProvider.allEquips.where((element) {
+    var filteredList = equipsProvider.allEquips.values.where((element) {
       if (equipType == EquipType.secondary) {
         return secondaryTypes.contains(element.equipType);
       }
@@ -270,100 +270,7 @@ class EquippedItemSelector extends StatelessWidget {
   }
 
   Equip? getSelectedEquip(EquipsProvider equipsProvider, EquipType equipType, int equipPosition) {
-    switch(equipType) {
-      case EquipType.totem:
-        if (equipPosition == 1) {
-          return equipsProvider.totem1;
-        }
-        else if (equipPosition == 2) {
-          return equipsProvider.totem2;
-        }
-        else {
-          return equipsProvider.totem3;
-        }
-      case EquipType.ring:
-        if (equipPosition == 1) {
-          return equipsProvider.ring1;
-        }
-        else if (equipPosition == 2) {
-          return equipsProvider.ring2;
-        }
-        else if (equipPosition == 3) {
-          return equipsProvider.ring3;
-        }
-        else {
-          return equipsProvider.ring4;
-        }
-      case EquipType.pocket:
-        return equipsProvider.pocketItem;
-      case EquipType.pendant:
-        if (equipPosition == 1) {
-          return equipsProvider.pendant1;
-        }
-        else {
-          return equipsProvider.pendant2;
-        }
-      case EquipType.weapon:
-        return equipsProvider.weapon;
-      case EquipType.belt:
-        return equipsProvider.belt;
-      case EquipType.hat:
-        return equipsProvider.hat;
-      case EquipType.face:
-        return equipsProvider.face;
-      case EquipType.eye:
-        return equipsProvider.eye;
-      case EquipType.overall:
-        return equipsProvider.overall;
-      case EquipType.top:
-        return equipsProvider.top;
-      case EquipType.bottom:
-        return equipsProvider.bottom;
-      case EquipType.shoes:
-        return equipsProvider.shoes;
-      case EquipType.earrings:
-        return equipsProvider.earrings;
-      case EquipType.shoulder:
-        return equipsProvider.shoulder;
-      case EquipType.gloves:
-        return equipsProvider.gloves;
-      case EquipType.emblem:
-        return equipsProvider.emblem;
-      case EquipType.badge:
-        return equipsProvider.badge;
-      case EquipType.medal:
-        return equipsProvider.medal;
-      case EquipType.secondary:
-        return equipsProvider.secondary;
-      case EquipType.cape:
-        return equipsProvider.cape;
-      case EquipType.heart:
-        return equipsProvider.heart;
-      case EquipType.title:
-        return equipsProvider.title;
-      case EquipType.pet:
-        if (equipPosition == 1) {
-          return equipsProvider.pet1;
-        }
-        else if (equipPosition == 2) {
-          return equipsProvider.pet2;
-        }
-        else {
-          return equipsProvider.pet3;
-        }
-      case EquipType.petEquip:
-        if (equipPosition == 1) {
-          return equipsProvider.petEquip1;
-        }
-        else if (equipPosition == 2) {
-          return equipsProvider.petEquip2;
-        }
-        else {
-          return equipsProvider.petEquip3;
-        }
-      default:
-        throw Exception("Unhandled EquipType $equipType trying to be equipped");
-    }
+    return equipsProvider.activeEquipSet.getSelectedEquip(equipType, equipPosition: equipPosition);
   }
 
   @override
@@ -450,24 +357,25 @@ class InventoryItems extends StatelessWidget {
               ),
               child: Consumer<EquipsProvider>(
                 builder: (context, equipsProvider, child) {
+                  var allEquipsList = equipsProvider.allEquips.values.toList();
                   return ListView.builder(
                     itemCount: equipsProvider.allEquips.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return MapleTooltip(
-                        maxWidth: equipsProvider.allEquips[index].getTooltipWidth(),
-                        tooltipWidgets: [equipsProvider.allEquips[index].createEquipContainer(context)],
+                        maxWidth: allEquipsList[index].getTooltipWidth(),
+                        tooltipWidgets: [allEquipsList[index].createEquipContainer(context)],
                         child: ListTile(
                           title: Row(
                             children: [
-                              Text(equipsProvider.allEquips[index].equipName.formattedName),
+                              Text(allEquipsList[index].equipName.formattedName),
                               const Spacer(),
                               TextButton(
-                                onPressed: () => equipsProvider.deleteEquip(equipsProvider.allEquips[index]), 
+                                onPressed: () => equipsProvider.deleteEquip(allEquipsList[index]), 
                                 child: const Text("Delete")
                               ),
                               TextButton(
-                                onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(equipsProvider.allEquips[index]), 
+                                onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(allEquipsList[index]), 
                                 child: const Text("Edit")
                               ),
                             ]
