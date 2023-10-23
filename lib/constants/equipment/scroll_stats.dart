@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 
 enum ScrollName {
   // Pet Equipment Scrolls
@@ -153,7 +154,7 @@ abstract class BaseScroll {
     this.slotCost = 1,
   });
 
-  Widget createScrollContainer(BuildContext context);
+  Widget createScrollContainer(BuildContext context, int? itemLevel);
 }
 
 class Scroll extends BaseScroll {
@@ -166,11 +167,32 @@ class Scroll extends BaseScroll {
   });
 
   @override
-  Widget createScrollContainer(BuildContext context) {
-    return Column(
-      children: [
+  Widget createScrollContainer(BuildContext context, int? itemLevel) {
+    var scrollOffset = getScrollOffsetFromItemLevel(itemLevel ?? 0);
 
-      ],
+    List<Widget> createTextLines(BuildContext context) {
+      List<Widget> childrenRows = [
+        Text(
+          scrollName.formattedName,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+        ),
+      ];
+      
+      scrollStats[scrollOffset].forEach((key, value) {
+        childrenRows.add(
+          Text(
+            "${key.formattedName}: +$value",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        );
+      });
+
+      return childrenRows;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: createTextLines(context)
     );
   }
 }
@@ -185,35 +207,31 @@ class StaticScroll extends BaseScroll {
   });
 
   @override
-  Widget createScrollContainer(BuildContext context) {
+  Widget createScrollContainer(BuildContext context, int? itemLevel) {
 
     List<Widget> createTextLines(BuildContext context) {
-      List<Row> childrenRows = [];
+      List<Widget> childrenRows = [
+        Text(
+          scrollName.formattedName,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+        ),
+      ];
+      
       scrollStats.forEach((key, value) {
         childrenRows.add(
-          Row(
-            children: [
-              Text(key.formattedName),
-              const Spacer(),
-              Text("$value")
-            ]
-          )
+          Text(
+            "${key.formattedName}: +$value",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
         );
       });
 
       return childrenRows;
     }
 
-    return SizedBox(
-      width: 300,
-      child: Column(
-        children: <Widget>[
-          Text(
-            scrollName.formattedName,
-            style: Theme.of(context).textTheme.bodyLarge,
-          )
-        ] + createTextLines(context)
-      )
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: createTextLines(context)
     );
   }
 }
@@ -238,8 +256,32 @@ class ScrollWithRange extends BaseScroll {
   }
 
   @override
-  Widget createScrollContainer(BuildContext context) {
-    return const SizedBox.shrink();
+  Widget createScrollContainer(BuildContext context, int? itemLevel) {
+
+    List<Widget> createTextLines(BuildContext context) {
+      List<Widget> childrenRows = [
+        Text(
+          scrollName.formattedName,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+        )
+      ];
+      
+      scrollStats.forEach((key, value) {
+        childrenRows.add(
+          Text(
+            "${key.formattedName}: ${value.minRange >=0 ? '+': ''}${value.minRange.toInt()} to ${value.maxRange >=0 ? '+': ''}${value.maxRange.toInt()}",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        );
+      });
+
+      return childrenRows;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: createTextLines(context)
+    );
   }
 }
 
@@ -266,8 +308,32 @@ class SavedScrolledRange extends BaseScroll {
   }
 
   @override
-  Widget createScrollContainer(BuildContext context) {
-    return const SizedBox.shrink();
+  Widget createScrollContainer(BuildContext context, int? itemLevel) {
+
+    List<Widget> createTextLines(BuildContext context) {
+      List<Widget> childrenRows = [
+        Text(
+          scrollName.formattedName,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+        ),
+      ];
+      
+      scrollStats.forEach((key, value) {
+        childrenRows.add(
+          Text(
+            "${key.formattedName}: +$value",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        );
+      });
+
+      return childrenRows;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: createTextLines(context)
+    );
   }
 }
 
@@ -289,8 +355,8 @@ class SavedScroll extends BaseScroll {
   }
 
   @override
-  Widget createScrollContainer(BuildContext context) {
-    return const SizedBox.shrink();
+  Widget createScrollContainer(BuildContext context, int? itemLevel) {
+    return allScrolls[scrollName]!.createScrollContainer(context, itemLevel);
   }
 }
 

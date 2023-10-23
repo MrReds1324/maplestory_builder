@@ -160,7 +160,7 @@ class ScrollModule {
   }
 }
 
-int getScrollOffsetFromItemLevelint(int itemLevel) {
+int getScrollOffsetFromItemLevel(int itemLevel) {
   if (itemLevel <= 74) { // 0-74
     return INDEX_0;
   }

@@ -109,7 +109,7 @@ class Equip extends Base {
     else {
       scrollModule = ScrollModule(
         totalScrollSlots: maxScrollsSlots,
-        scrollOffset: getScrollOffsetFromItemLevelint(itemLevel)
+        scrollOffset: getScrollOffsetFromItemLevel(itemLevel)
       );
     }
 

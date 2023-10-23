@@ -658,7 +658,7 @@ class _UsedScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context, equipEditingProvider.editingEquip?.itemLevel) ?? const SizedBox.shrink()],
                   child: ListTile(
                     title: Row(
                       children: [
@@ -731,7 +731,7 @@ class _EditingScroll extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.editingScroll?.createScrollContainer(context) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.editingScroll?.createScrollContainer(context, equipEditingProvider.editingEquip?.itemLevel) ?? const SizedBox.shrink()],
                   child: Expanded(
                     child: ListTile(
                       title: Row(
@@ -789,7 +789,7 @@ class _AvailableScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [allScrolls[availableScrolls[index]]?.createScrollContainer(context) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [allScrolls[availableScrolls[index]]?.createScrollContainer(context, equipEditingProvider.editingEquip?.itemLevel) ?? const SizedBox.shrink()],
                   child: ListTile(
                     title: Row(
                       children: [
