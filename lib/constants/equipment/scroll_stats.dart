@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum ScrollName {
@@ -152,6 +153,7 @@ abstract class BaseScroll {
     this.slotCost = 1,
   });
 
+  Widget createScrollContainer(BuildContext context);
 }
 
 class Scroll extends BaseScroll {
@@ -162,6 +164,15 @@ class Scroll extends BaseScroll {
     required this.scrollStats,
     super.slotCost = 1,
   });
+
+  @override
+  Widget createScrollContainer(BuildContext context) {
+    return Column(
+      children: [
+
+      ],
+    );
+  }
 }
 
 class StaticScroll extends BaseScroll {
@@ -172,6 +183,39 @@ class StaticScroll extends BaseScroll {
     required this.scrollStats,
     super.slotCost = 1,
   });
+
+  @override
+  Widget createScrollContainer(BuildContext context) {
+
+    List<Widget> createTextLines(BuildContext context) {
+      List<Row> childrenRows = [];
+      scrollStats.forEach((key, value) {
+        childrenRows.add(
+          Row(
+            children: [
+              Text(key.formattedName),
+              const Spacer(),
+              Text("$value")
+            ]
+          )
+        );
+      });
+
+      return childrenRows;
+    }
+
+    return SizedBox(
+      width: 300,
+      child: Column(
+        children: <Widget>[
+          Text(
+            scrollName.formattedName,
+            style: Theme.of(context).textTheme.bodyLarge,
+          )
+        ] + createTextLines(context)
+      )
+    );
+  }
 }
 
 class ScrollWithRange extends BaseScroll {
@@ -191,6 +235,11 @@ class ScrollWithRange extends BaseScroll {
     });
 
     return scrollStartingStats;
+  }
+
+  @override
+  Widget createScrollContainer(BuildContext context) {
+    return const SizedBox.shrink();
   }
 }
 
@@ -215,6 +264,11 @@ class SavedScrolledRange extends BaseScroll {
       slotCost: slotCost ?? this.slotCost,
     );
   }
+
+  @override
+  Widget createScrollContainer(BuildContext context) {
+    return const SizedBox.shrink();
+  }
 }
 
 class SavedScroll extends BaseScroll {
@@ -224,14 +278,19 @@ class SavedScroll extends BaseScroll {
     super.slotCost = 1,
   });
 
-  SavedScrolledRange copyWith({
+  SavedScroll copyWith({
     ScrollName? scrollName,
     int? slotCost,
   }) {
-    return SavedScrolledRange(
+    return SavedScroll(
       scrollName: scrollName ?? this.scrollName, 
       slotCost: slotCost ?? this.slotCost,
     );
+  }
+
+  @override
+  Widget createScrollContainer(BuildContext context) {
+    return const SizedBox.shrink();
   }
 }
 

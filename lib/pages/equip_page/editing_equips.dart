@@ -658,8 +658,7 @@ class _UsedScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [],
-                  // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context) ?? const SizedBox.shrink()],
                   child: ListTile(
                     title: Row(
                       children: [
@@ -706,7 +705,7 @@ class _EditingScroll extends StatelessWidget {
 
   const _EditingScroll();
 
-@override
+  @override
   Widget build(BuildContext context) {
     return ExpansionTile(
       iconColor: equipStarColor,
@@ -732,8 +731,7 @@ class _EditingScroll extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [],
-                  // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.editingScroll?.createScrollContainer(context) ?? const SizedBox.shrink()],
                   child: Expanded(
                     child: ListTile(
                       title: Row(
@@ -791,8 +789,7 @@ class _AvailableScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [],
-                  // tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context)],
+                  tooltipWidgets: [allScrolls[availableScrolls[index]]?.createScrollContainer(context) ?? const SizedBox.shrink()],
                   child: ListTile(
                     title: Row(
                       children: [
