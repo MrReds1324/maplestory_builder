@@ -10,6 +10,15 @@ class SetEffectModule {
     activeSetEffects
   }) : activeSetEffects = activeSetEffects ?? {};
 
+  SetEffectModule copyWith({
+    Map<EquipSet, SetEffect>? activeSetEffects,
+  }){
+    return SetEffectModule(
+      // Deep copy the map
+      activeSetEffects: activeSetEffects ?? deepCopySetEffectsMap(this.activeSetEffects),
+    );
+  }
+
   List<Map<StatType, num>> calculateStats({bool recalculateCache = false}) {
     List<Map<StatType, num>> activeSetEffectStats = [];
 
@@ -56,12 +65,13 @@ class SetEffectModule {
     return returnValue;
   }
 
-  SetEffectModule copyWith({
-    Map<EquipSet, SetEffect>? activeSetEffects,
-  }){
-    return SetEffectModule(
-      // Deep copy the map
-      activeSetEffects: activeSetEffects ?? deepCopySetEffectsMap(this.activeSetEffects),
-    );
+  Map<EquipSet, int> getEquippedSetCounts() {
+    Map<EquipSet, int> equippedSetCount = {};
+
+    activeSetEffects.forEach((key, value) { 
+      equippedSetCount[key] = value.totalSetItems;
+    });
+
+    return equippedSetCount;
   }
 }

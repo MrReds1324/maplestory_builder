@@ -121,6 +121,7 @@ class SetEffect {
 
     Map<StatType, num> totalSetEffect = {};
 
+    // Need at least two items to be active
     if (totalSetItems < 1) {
       return totalSetEffect;
     }
