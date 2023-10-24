@@ -1,7 +1,7 @@
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
-import 'package:maplestory_builder/modules/utilities.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class SetEffectModule {
   Map<EquipSet, SetEffect> activeSetEffects;
