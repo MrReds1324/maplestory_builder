@@ -564,12 +564,6 @@ class APStatButton extends StatelessWidget {
   final bool isLarge;
   final bool isSubtract;
 
-  void onHover(BuildContext context){
-    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
-    var func = isSubtract ? differenceCalculator.subtractApToStat : differenceCalculator.addApToStat;
-    func(isLarge ? 50 : 1, statType);
-  }
-
   const APStatButton(
     {
       required this.statType,
@@ -579,16 +573,22 @@ class APStatButton extends StatelessWidget {
     }
   );
 
+  void _onHover(BuildContext context){
+    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
+    var func = isSubtract ? differenceCalculator.subtractApToStat : differenceCalculator.addApToStat;
+    func(isLarge ? 50 : 1, statType);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}'),
         Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) =>  differenceCalculator.differenceWidget
+          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
         ),
       ],
-      onHoverFunction: onHover,
+      onHoverFunction: _onHover,
       child: IconButton(
         iconSize: 12,
         onPressed: () {

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/pages/equip_page/editing_equips.dart';
+import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/modules/utilities.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EquipPage extends StatelessWidget {
@@ -53,9 +55,19 @@ class EquippedItems extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.only(bottom: 5),
-          child: Text(
-            "Equipped Items",
-            style: Theme.of(context).textTheme.headlineMedium
+          child: Expanded(child: Row(
+            children: [
+              Text(
+                "Equipped Items",
+                style: Theme.of(context).textTheme.headlineMedium
+              ),
+              const EquipSetSelectButton(equipSetPosition: 1),
+              const EquipSetSelectButton(equipSetPosition: 2),
+              const EquipSetSelectButton(equipSetPosition: 3),
+              const EquipSetSelectButton(equipSetPosition: 4),
+              const EquipSetSelectButton(equipSetPosition: 5),
+            ]
+          ),
           ),
         ),
         const Expanded(
@@ -593,6 +605,65 @@ class DropDownSelector extends StatelessWidget {
           items: menuItems,
         );
       }
+    );
+  }
+}
+
+class EquipSetSelectButton extends StatelessWidget {
+  final int equipSetPosition;
+
+  const EquipSetSelectButton({
+    super.key, 
+    required this.equipSetPosition
+  });
+
+  IconData _getIconData() {
+    switch(equipSetPosition) {
+      case 1:
+        return MdiIcons.numeric1CircleOutline;
+      case 2:
+        return MdiIcons.numeric2CircleOutline;
+      case 3:
+        return MdiIcons.numeric3CircleOutline;
+      case 4:
+        return MdiIcons.numeric4CircleOutline;
+      case 5:
+        return MdiIcons.numeric5CircleOutline;
+      default:
+        return MdiIcons.exclamation;
+    }
+  }
+
+  void _onHover(BuildContext context){
+    context.read<DifferenceCalculatorProvider>().compareEquipSets(context, equipSetPosition);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MapleTooltip(
+      tooltipWidgets: [
+        Consumer<DifferenceCalculatorProvider>(
+          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        ),
+      ],
+      onHoverFunction: _onHover,
+      child: Container(
+        padding: const EdgeInsets.only(top: 9),
+        child: IconButton(
+          padding: const EdgeInsets.all(1),
+          constraints: const BoxConstraints(),
+          iconSize: 19,
+          onPressed: () => context.read<EquipsProvider>().changeActiveSet(equipSetPosition), 
+          icon: Consumer<EquipsProvider>(
+            builder: (_, equipsProvider, __) {
+              return Icon(
+                _getIconData(),
+                color: equipSetPosition == equipsProvider.activeSetNumber ? starColor : null,
+              );
+            }
+          ),
+        )
+      )
     );
   }
 }

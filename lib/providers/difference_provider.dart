@@ -40,7 +40,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     return this;
   }
 
-  Widget updateDifferenceText({BuildContext? context, bool isEquipEditing=false, Equip? replacing}){
+  Widget updateDifferenceText({BuildContext? context, bool isEquipEditing=false, Equip? replacing, bool isComparing = false}){
     var textList = <Widget>[];
 
     void createText(num newValue, num originalValue, {StatType? statType, RangeType? rangeType}) {
@@ -298,6 +298,17 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     return widgetReturn;
   }
 
+  void compareEquipSets(BuildContext context, int newEquipSetPosition) {
+    var tempEquipProvider = diffCharacterModel.equipsProvider;
+    diffCharacterModel.equipsProvider = tempEquipProvider.copyWith();
+    diffCharacterModel.equipsProvider.changeActiveSet(newEquipSetPosition);
+    diffCharacterModel.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, isComparing: true);
+
+    // Reset the equips provider for the diff character model
+    diffCharacterModel.equipsProvider = tempEquipProvider;
+    notifyListeners();
+  }
 }
 
 const Text noDifferenceEquip = Text(

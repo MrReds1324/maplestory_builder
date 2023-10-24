@@ -8,6 +8,7 @@ class EquipsProvider with ChangeNotifier{
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
   int equipHash = 1;
+  int activeSetNumber = 1;
   late Map<int, Equip> allEquips;
   late Map<int, EquipmentModule> equipSets; 
   late EquipmentModule activeEquipSet;
@@ -17,6 +18,7 @@ class EquipsProvider with ChangeNotifier{
     Map<int, EquipmentModule>? equipSets,
     EquipmentModule? activeEquipSet,
     this.equipHash = 1,
+    this.activeSetNumber = 1,
   }) {
     this.allEquips = allEquips ?? {};
     this.equipSets = equipSets ?? {
@@ -34,12 +36,14 @@ class EquipsProvider with ChangeNotifier{
     Map<int, EquipmentModule>? equipSets,
     EquipmentModule? activeEquipSet,
     int? equipHash,
+    int? activeSetNumber,
   }) {
     return EquipsProvider(
       allEquips: allEquips ?? Map.from(this.allEquips),
       equipSets: equipSets ?? Map.from(this.equipSets),
       activeEquipSet: activeEquipSet ?? this.activeEquipSet.copyWith(),
       equipHash: equipHash ?? this.equipHash,
+      activeSetNumber: activeSetNumber ?? this.activeSetNumber,
     );
   }
 
@@ -79,6 +83,13 @@ class EquipsProvider with ChangeNotifier{
     for (EquipmentModule equipmentModule in equipSets.values) {
       equipmentModule.deleteEquip(deletingEquip);
     }
+    notifyListeners();
+  }
+
+  void changeActiveSet(int equipSetPosition) {
+    activeSetNumber = equipSetPosition;
+    activeEquipSet = equipSets[equipSetPosition]!;
+
     notifyListeners();
   }
 
