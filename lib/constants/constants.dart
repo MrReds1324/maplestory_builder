@@ -329,3 +329,5 @@ const Color legendaryPotentialColor = Color.fromARGB(255, 119, 238, 0);
 
 const Icon emptyStar = Icon(Icons.star_border, size: 16);
 const Icon filledStar = Icon(Icons.star, size: 16, color: starColor);
+
+const int attackSpeedNormal6 = 6;

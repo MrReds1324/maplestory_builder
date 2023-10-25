@@ -6,7 +6,7 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class SetEffect {
   final EquipSet equipSet;
-  final Map<EquipType, SetEffectSlot> requiredEquips;
+  final Map<EquipType, AbstractSetEffectSlot> requiredEquips;
   final Map<int, Map<StatType, num>> rawSetEffect;
   Map<EquipType, Set<EquipName>> equippedEquips;
   int totalSetItems = 0;
@@ -106,7 +106,7 @@ class SetEffect {
         borderRadius: const BorderRadius.all(Radius.circular(10))
       ),
       padding: const EdgeInsets.all(5),
-      width: 225,
+      width: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: widgetChildren
@@ -298,11 +298,35 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
 
   @override
   List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip}) {
+    Color? textColor;
+    if (chooseOne.contains(removingEquip?.equipName)) {
+      textColor = Colors.redAccent;
+    }
+    else if (chooseOne.contains(addingEquip?.equipName)) {
+      textColor = Colors.greenAccent;
+    }
+    else {
+      textColor = missingColor;
+      for (EquipName equipName in equippedEquips) {
+        if (chooseOne.contains(equipName)) {
+          textColor = null;
+          break;
+        }
+      }
+    }
+    
     return [
       Row(
         children: [
-          Text("Choose one of $choosingName Weapon"),
-          // Spacer(),
+          Text(
+            "Choose one of $choosingName Weapon",
+            style: TextStyle(color: textColor),
+          ),
+          const Spacer(),
+          Text(
+            "(${equipType.formattedName})",
+            style: TextStyle(color: textColor),
+          ),
         ]
       )
     ];
@@ -312,6 +336,8 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
 enum EquipSet {
   superiorGollux(formattedName: "Superior Gollux Set"),
   dawnBossSet(formattedName: "Dawn Boss Set"),
+  eternalSetBowman(formattedName: "Eternal Set (Bowman)"),
+  arcaneSetBowman(formattedName: "Arcane Umbra Set (Bowman)"),
   ;
 
   const EquipSet({
@@ -381,9 +407,55 @@ SetEffect dawnBossSet = SetEffect(
   }
 );
 
+SetEffect eternalSetBowman = SetEffect(
+  equipSet: EquipSet.eternalSetBowman, 
+  requiredEquips: const {
+    EquipType.hat: SetEffectSlot(any: {EquipName.eternalArcherHat}),
+    EquipType.top: SetEffectSlot(any: {EquipName.eternalArcherHood}),
+    EquipType.bottom: SetEffectSlot(any: {EquipName.eternalArcherPants}),
+    EquipType.shoulder: SetEffectSlot(any: {EquipName.eternalArcherShoulder}),
+    EquipType.weapon: SetEffectSlotChooseOne(chooseOne: {EquipName.genesisCrossbow}, choosingName: "Genesis")
+  }, 
+  rawSetEffect: const {
+    2: {
+      StatType.hp: 2500,
+      StatType.mp: 2500,
+      StatType.attack: 40,
+      StatType.mattack: 40,
+      StatType.bossDamage: 0.1
+    },
+    3: {
+      StatType.allStats: 50,
+      StatType.attack: 40,
+      StatType.mattack: 40,
+      StatType.defense: 600,
+      StatType.bossDamage: 0.1
+    },
+    4: {
+      StatType.hpPercentage: 0.15,
+      StatType.mpPercentage: 0.15,
+      StatType.attack: 40,
+      StatType.mattack: 40,
+      StatType.bossDamage: 0.1
+    },
+    5: {
+      StatType.attack: 40,
+      StatType.mattack: 40,
+      StatType.ignoreDefense: 0.2
+    }
+  }
+);
+
+SetEffect arcaneSetBowman = SetEffect(
+  equipSet: EquipSet.arcaneSetBowman, 
+  requiredEquips: const {}, 
+  rawSetEffect: const {}
+);
 
 final Map<EquipSet, SetEffect> allSetEffects = {
   EquipSet.superiorGollux: superiorGollux,
   EquipSet.dawnBossSet: dawnBossSet,
+  EquipSet.eternalSetBowman: eternalSetBowman,
+  EquipSet.arcaneSetBowman: arcaneSetBowman,
 };
 

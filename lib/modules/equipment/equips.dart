@@ -24,12 +24,12 @@ class Equip extends Base {
   final EquipType equipType;
   final ClassType classType;
   final EquipSet? equipSet;
-  bool isEquipped = false;
-  bool isUniqueItem = false;
-  bool canStar = true;
-  bool canFlame = true;
-  bool isFlameAdvantaged = true;
-  bool canPotential = true;
+  final bool isUniqueItem;
+  final bool canStar;
+  final bool canFlame;
+  final bool isFlameAdvantaged;
+  final bool canPotential;
+  final bool isLuckyItem;
   final int maxScrollsSlots;
   StarForceModule? starForceModule;
   FlameModule? flameModule;
@@ -48,6 +48,7 @@ class Equip extends Base {
     this.canFlame = true,
     this.isFlameAdvantaged = true,
     this.canPotential = true,
+    this.isLuckyItem = false,
     this.maxScrollsSlots = 0,
     super.itemLevel = 0,
     super.baseStats,
@@ -126,6 +127,7 @@ class Equip extends Base {
     bool? canFlame,
     bool? isFlameAdvantaged,
     bool? canPotential,
+    bool? isLuckyItem,
     int? maxScrollsSlots,
     int? itemLevel,
     Map<StatType, num>? baseStats,
@@ -146,6 +148,7 @@ class Equip extends Base {
       canFlame: canFlame ?? this.canFlame,
       isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
       canPotential: canPotential ?? this.canPotential,
+      isLuckyItem: isLuckyItem ?? this.isLuckyItem,
       maxScrollsSlots: maxScrollsSlots ?? this.maxScrollsSlots,
       itemLevel: itemLevel ?? this.itemLevel,
       baseStats: baseStats ?? Map<StatType, num>.from(this.baseStats),
@@ -226,7 +229,7 @@ class Equip extends Base {
   }
 
   double getTooltipWidth() {
-    return equipSet != null ? 535 : 310;
+    return equipSet != null ? 560 : 310;
   }
 
   Row createEquipContainer(BuildContext context, {bool isEquipEditing=false}) {
@@ -492,4 +495,15 @@ final List<Equip> equipList = [
   Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isFlameAdvantaged: false,itemLevel: 150, baseStats: const {StatType.allStats: 28, StatType.hp: 300, StatType.mp: 300, StatType.attack: 5, StatType.mattack: 5, StatType.defense: 100}),
   Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 5, isFlameAdvantaged: false,itemLevel: 150, baseStats: const {StatType.allStats: 60, StatType.hp: 200, StatType.mp: 200, StatType.attack: 35, StatType.mattack: 35, StatType.defense: 100}),
   Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 9, isFlameAdvantaged: false, itemLevel: 150, baseStats: const {StatType.allStats: 15, StatType.hp: 150, StatType.mp: 150, StatType.attack: 10, StatType.mattack: 10, StatType.defense: 100}),
+  // Eternal Bowman Items
+  Equip(equipName: EquipName.eternalArcherHat, equipType: EquipType.hat, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 13, isFlameAdvantaged: true, itemLevel: 250, baseStats: const {StatType.str: 80, StatType.dex: 80, StatType.attack: 10, StatType.defense: 750, StatType.ignoreDefense: 0.15}),
+  Equip(equipName: EquipName.eternalArcherHood, equipType: EquipType.top, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 9, isFlameAdvantaged: true, itemLevel: 250, baseStats: const {StatType.str: 50, StatType.dex: 50, StatType.attack: 6, StatType.defense: 325, StatType.ignoreDefense: 0.05}),
+  Equip(equipName: EquipName.eternalArcherPants, equipType: EquipType.bottom, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 9, isFlameAdvantaged: true, itemLevel: 250, baseStats: const {StatType.str: 50, StatType.dex: 50, StatType.attack: 6, StatType.defense: 325, StatType.ignoreDefense: 0.05}),
+  Equip(equipName: EquipName.eternalArcherShoulder, equipType: EquipType.shoulder, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 3, canFlame: false, itemLevel: 250, baseStats: const {StatType.allStats: 51, StatType.attack: 28, StatType.mattack: 28, StatType.defense: 450}),
+  // Genesis Weapons
+  Equip(equipName: EquipName.genesisCrossbow, equipType: EquipType.weapon, equipSet: EquipSet.eternalSetBowman, isFlameAdvantaged: true, isLuckyItem: true, itemLevel: 200, baseStats: const {StatType.attackSpeed: attackSpeedNormal6, StatType.str: 150, StatType.dex: 150, StatType.attack: 326, StatType.speed: 19, StatType.bossDamage: 0.3, StatType.ignoreDefense: 0.2}),
+
+  // Arcane Bowman Items
+  
+  // Arcane Weapons
 ];
