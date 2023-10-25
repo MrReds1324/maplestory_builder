@@ -21,7 +21,7 @@ enum EquipName {
   eternalArcherPants(formattedName: "Eternal Archer Pants", equipType: EquipType.bottom, classType: ClassType.bowman, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 9, itemLevel: 250, baseStats: {StatType.str: 50, StatType.dex: 50, StatType.attack: 6, StatType.defense: 325, StatType.ignoreDefense: 0.05}),
   eternalArcherShoulder(formattedName: "Eternal Archer Shoulder", equipType: EquipType.shoulder, classType: ClassType.bowman, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 3, flameCategory: FlameCategory.none, itemLevel: 250, baseStats: {StatType.allStats: 51, StatType.attack: 28, StatType.mattack: 28, StatType.defense: 450}),
   // Genesis Weapons
-  genesisCrossbow(formattedName: "Genesis Crossbow", equipType: EquipType.weapon, equipSet: EquipSet.eternalSetBowman, isLuckyItem: true, itemLevel: 200, baseStats: {StatType.attackSpeed: attackSpeedNormal6, StatType.str: 150, StatType.dex: 150, StatType.attack: 326, StatType.speed: 19, StatType.bossDamage: 0.3, StatType.ignoreDefense: 0.2}),
+  genesisCrossbow(formattedName: "Genesis Crossbow", equipType: EquipType.weapon, classType: ClassType.bowman, equipSet: EquipSet.eternalSetBowman, isLuckyItem: true, itemLevel: 200, starForceCategory: StarForceCategory.static, baseStats: {StatType.attackSpeed: attackSpeedNormal6, StatType.str: 150, StatType.dex: 150, StatType.attack: 326, StatType.speed: 19, StatType.bossDamage: 0.3, StatType.ignoreDefense: 0.2}),
   // Arcane Bowman Set Items
   arcaneUmbraArcherHat(formattedName: "Arcane Umbra Archer Hat", equipType: EquipType.hat, classType: ClassType.bowman),
   arcaneUmbraArcherSuit(formattedName: "Arcane Umbra Archer Suit", equipType: EquipType.overall, classType: ClassType.bowman),

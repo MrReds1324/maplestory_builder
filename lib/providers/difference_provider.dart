@@ -235,7 +235,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     Equip? editingEquip = equipEditingProvider.editingEquip;
     if (editingEquip != null) {
       // Used for items that are uniqueEquipped like Superior Gollux Items
-      bool isUniqueItem = editingEquip.isUniqueItem;
+      bool isUniqueItem = editingEquip.equipName.isUniqueItem;
       // Save a reference to the equipModule, then replace the target with a copy for destructive calculations
       var tempEquipProvider = diffCharacterModel.equipsProvider;
       diffCharacterModel.equipsProvider = tempEquipProvider.copyWith();
@@ -244,9 +244,9 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       activeEquipmentModule.registerEquipCallback(diffCharacterModel.equipsProvider.getEquipCallback);
 
       diffCharacterModel.equipsProvider.allEquips[editingEquip.equipHash] = editingEquip;
-      var uniqueItemPosition = activeEquipmentModule.getUniqueItemPosition(editingEquip.equipName, editingEquip.equipType);
+      var uniqueItemPosition = activeEquipmentModule.getUniqueItemPosition(editingEquip.equipName, editingEquip.equipName.equipType);
 
-      switch(editingEquip.equipType) {
+      switch(editingEquip.equipName.equipType) {
         case EquipType.totem:
           for (int i = 1; i <=3; i++) {
             tempEquip = activeEquipmentModule.getSelectedEquip(EquipType.totem, equipPosition: i);
@@ -323,8 +323,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
           widgetReturn = Column(children: widgetChildren);
         default:
-          tempEquip = activeEquipmentModule.getSelectedEquip(editingEquip.equipType);
-          diffCharacterModel.equipsProvider.equipEquip(editingEquip, editingEquip.equipType, isCalculatingDifference: true);
+          tempEquip = activeEquipmentModule.getSelectedEquip(editingEquip.equipName.equipType);
+          diffCharacterModel.equipsProvider.equipEquip(editingEquip, editingEquip.equipName.equipType, isCalculatingDifference: true);
           diffCharacterModel.calculateEverything(recalculateCache: true);
           widgetReturn = updateDifferenceText(context: context, replacing: tempEquip, calculationType: CalculationType.equipment);
       }

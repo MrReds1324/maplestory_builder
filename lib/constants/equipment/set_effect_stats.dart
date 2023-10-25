@@ -161,30 +161,30 @@ class SetEffect {
     return totalSetEffect;
   }
 
-  bool addEquip(Equip equip) {
+  bool addEquip(EquipName equipName) {
     // Invalidate the cache
     cachedSetBonus = null;
 
-    var requiredEquipType = requiredEquips[equip.equipType];
+    var requiredEquipType = requiredEquips[equipName.equipType];
     // If we got this wrong for some reason and this equipType does not exist in the set effect
     if (requiredEquipType == null) {
       return false;
     }
     // The set effect does contain the equip
-    else if (requiredEquipType.contains(equip.equipName)) {
-      var equippedEquipType = equippedEquips[equip.equipType];
+    else if (requiredEquipType.contains(equipName)) {
+      var equippedEquipType = equippedEquips[equipName.equipType];
       // We have not added the equip yet
       if (equippedEquipType == null) {
-        equippedEquips[equip.equipType] = {equip.equipName};
+        equippedEquips[equipName.equipType] = {equipName};
         totalSetItems += 1;
         return true;
       }
       // The equip is already part of the set
-      else if (equippedEquipType.contains(equip.equipName)) {
+      else if (equippedEquipType.contains(equipName)) {
         return false;
       }
       else {
-        equippedEquips[equip.equipType]!.add(equip.equipName);
+        equippedEquips[equipName.equipType]!.add(equipName);
         totalSetItems += 1;
         return true;
       }
@@ -192,25 +192,25 @@ class SetEffect {
     return false;
   }
 
-  bool removeEquip(Equip equip) {
+  bool removeEquip(EquipName equipName) {
     // Invalidate the cache
     cachedSetBonus = null;
 
-    var requiredEquipType = requiredEquips[equip.equipType];
+    var requiredEquipType = requiredEquips[equipName.equipType];
     // If we got this wrong for some reason and this equipType does not exist in the set effect
     if (requiredEquipType == null) {
       return false;
     }
     // The set effect does contain the equip
-    else if (requiredEquipType.contains(equip.equipName)) {
-      var equippedEquipType = equippedEquips[equip.equipType];
+    else if (requiredEquipType.contains(equipName)) {
+      var equippedEquipType = equippedEquips[equipName.equipType];
       // We have not added the equip yet
       if (equippedEquipType == null) {
         return false;
       }
       // The equip is already part of the set
-      else if (equippedEquipType.contains(equip.equipName)) {
-        equippedEquips[equip.equipType]!.remove(equip.equipName);
+      else if (equippedEquipType.contains(equipName)) {
+        equippedEquips[equipName.equipType]!.remove(equipName);
         totalSetItems -= 1;
         return true;
       }
@@ -458,4 +458,3 @@ final Map<EquipSet, SetEffect> allSetEffects = {
   EquipSet.eternalSetBowman: eternalSetBowman,
   EquipSet.arcaneSetBowman: arcaneSetBowman,
 };
-

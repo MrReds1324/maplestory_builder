@@ -71,6 +71,6 @@ const starForceWepAtt = {
 // Weapon (including Kataras)
 
 const hpCategory = <EquipType>[
-  EquipType.hat, EquipType.top, EquipType.bottom, EquipType.overall, EquipType.cape,
-  EquipType.ring, EquipType.pendant, EquipType.belt, EquipType.shoulder, EquipType.shield, EquipType.katara,
+  EquipType.hat, EquipType.top, EquipType.bottom, EquipType.overall, EquipType.cape, EquipType.ring, EquipType.pendant, 
+  EquipType.belt, EquipType.shoulder, EquipType.shield, EquipType.weapon, EquipType.katara,
 ];

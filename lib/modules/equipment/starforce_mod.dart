@@ -36,7 +36,7 @@ class StarForceModule {
     moduleStats = {};
 
     void updateStatValue(num statValue){
-      switch(targetEquip.classType){
+      switch(targetEquip.equipName.classType){
         case ClassType.all:
           moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + statValue;
           moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + statValue;
@@ -65,20 +65,19 @@ class StarForceModule {
     }
 
     void updateWepAttValue(num attValue, num star){
-      num wepAttEarlyStar(num star, num startAtt){
+      num wepAttEarlyStar(num startAtt, num star){
         if (star > 15) {
           star = 15;
         }
 
         var earlyStarAtt = startAtt;
-        for (var i = 0; i < currentStars; i++){
+        for (var i = 0; i < star; i++){
           earlyStarAtt = (earlyStarAtt * 1.02001).ceil();
         }
         return earlyStarAtt - startAtt;
       }
       
-
-      switch(targetEquip.classType) {
+      switch(targetEquip.equipName.classType) {
         case ClassType.all:
           moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.attack), star);
           moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.mattack), star);
@@ -99,29 +98,29 @@ class StarForceModule {
 
     void updateBonusStars(num star, {num gloveAtt = 0}) {
       var idx = 0;
-      if (targetEquip.itemLevel < 138) {
+      if (targetEquip.equipName.itemLevel < 138) {
         idx = INDEX_128;
       }
-      else if (targetEquip.itemLevel < 150) {
+      else if (targetEquip.equipName.itemLevel < 150) {
         idx = INDEX_138;
       }
-      else if (targetEquip.itemLevel < 160) {
+      else if (targetEquip.equipName.itemLevel < 160) {
         idx = INDEX_150;
       }
-      else if (targetEquip.itemLevel < 200) {
+      else if (targetEquip.equipName.itemLevel < 200) {
         idx = INDEX_160;
       }
-      else if (targetEquip.itemLevel < 250) {
+      else if (targetEquip.equipName.itemLevel < 250) {
         idx = INDEX_200;
       }
       else {
         idx = INDEX_250;
       }
       updateStatValue(40 + starForceStats[star]![idx]);
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         updateWepAttValue(starForceWepAtt[star]![idx], star);
       }
-      else if (targetEquip.equipType != EquipType.badge) {
+      else if (targetEquip.equipName.equipType != EquipType.badge) {
         updateAttValue(gloveAtt + starForceNonWepAtt[star]![idx]);
       }
     }
@@ -131,11 +130,11 @@ class StarForceModule {
     }
     else if (currentStars == 1) {
       updateStatValue(2);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 5;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 5;
         updateWepAttValue(0, currentStars);
       }
@@ -145,11 +144,11 @@ class StarForceModule {
     }
     else if (currentStars == 2) {
       updateStatValue(4);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 10;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 10;
         updateWepAttValue(0, currentStars);
       }
@@ -159,16 +158,16 @@ class StarForceModule {
     }
     else if (currentStars == 3) {
       updateStatValue(6);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 15;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 15;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 1;
           moduleStats[StatType.jump] = 1;
         }
@@ -177,20 +176,20 @@ class StarForceModule {
     }
     else if (currentStars == 4) {
       updateStatValue(8);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 25;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 25;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 2;
           moduleStats[StatType.jump] = 2;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(0);
         }
         updateNonWepDefense(currentStars);
@@ -199,20 +198,20 @@ class StarForceModule {
     else if (currentStars == 5) {
       updateStatValue(10);
 
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 35;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 35;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 3;
           moduleStats[StatType.jump] = 3;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(1);
         }
         updateNonWepDefense(currentStars);
@@ -220,20 +219,20 @@ class StarForceModule {
     }
     else if (currentStars == 6) {
       updateStatValue(13);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 50;
       }
       
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 50;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 4;
           moduleStats[StatType.jump] = 4;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(1);
         }
         updateNonWepDefense(currentStars);
@@ -241,20 +240,20 @@ class StarForceModule {
     }
     else if (currentStars == 7) {
       updateStatValue(16);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 65;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 65;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 5;
           moduleStats[StatType.jump] = 5;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(2);
         }
         updateNonWepDefense(currentStars);
@@ -262,20 +261,20 @@ class StarForceModule {
     }
     else if (currentStars == 8) {
       updateStatValue(29);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 85;
       }
       
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 85;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 6;
           moduleStats[StatType.jump] = 6;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(2);
         }
         updateNonWepDefense(currentStars);
@@ -283,20 +282,20 @@ class StarForceModule {
     }
     else if (currentStars == 9) {
       updateStatValue(22);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 105;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 105;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 7;
           moduleStats[StatType.jump] = 7;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(3);
         }
         updateNonWepDefense(currentStars);
@@ -304,20 +303,20 @@ class StarForceModule {
     }
     else if (currentStars == 10) {
       updateStatValue(25);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 130;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 130;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 8;
           moduleStats[StatType.jump] = 8;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(3);
         }
         updateNonWepDefense(currentStars);
@@ -325,20 +324,20 @@ class StarForceModule {
     }
     else if (currentStars == 11) {
       updateStatValue(28);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 155;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 155;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 10;
           moduleStats[StatType.jump] = 10;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(4);
         }
         updateNonWepDefense(currentStars);
@@ -346,20 +345,20 @@ class StarForceModule {
     }
     else if (currentStars == 12) {
       updateStatValue(31);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 180;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 180;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 12;
           moduleStats[StatType.jump] = 12;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(4);
         }
         updateNonWepDefense(currentStars);
@@ -367,20 +366,20 @@ class StarForceModule {
     }
     else if (currentStars == 13) {
       updateStatValue(34);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 205;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 205;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 14;
           moduleStats[StatType.jump] = 14;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(5);
         }
         updateNonWepDefense(currentStars);
@@ -388,20 +387,20 @@ class StarForceModule {
     }
     else if (currentStars == 14) {
       updateStatValue(37);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 230;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 230;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 16;
           moduleStats[StatType.jump] = 16;
         }
-        else if (targetEquip.equipType == EquipType.gloves) {
+        else if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(6);
         }
         updateNonWepDefense(currentStars);
@@ -409,20 +408,20 @@ class StarForceModule {
     }
     else if (currentStars == 15) {
       updateStatValue(40);
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 255;
       }
 
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara) {
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
         moduleStats[StatType.mp] = 255;
         updateWepAttValue(0, currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 18;
           moduleStats[StatType.jump] = 18;
         }
-        if (targetEquip.equipType == EquipType.gloves) {
+        if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateAttValue(7);
         }
         else {
@@ -432,19 +431,19 @@ class StarForceModule {
       }
     }
     else {
-      if (hpCategory.contains(targetEquip.equipType)) {
+      if (hpCategory.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 255;
       }
-      if (targetEquip.equipType == EquipType.weapon || targetEquip.equipType == EquipType.katara){
+      if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara){
         moduleStats[StatType.mp] = 255;
         updateBonusStars(currentStars);
       }
       else {
-        if (targetEquip.equipType == EquipType.shoes) {
+        if (targetEquip.equipName.equipType == EquipType.shoes) {
           moduleStats[StatType.speed] = 18;
           moduleStats[StatType.jump] = 18;
         }
-        if (targetEquip.equipType == EquipType.gloves) {
+        if (targetEquip.equipName.equipType == EquipType.gloves) {
           updateBonusStars(currentStars, gloveAtt: 7);
         } 
         else {

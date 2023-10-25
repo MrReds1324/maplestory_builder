@@ -34,14 +34,14 @@ class SetEffectModule {
       return false;
     }
     
-    if (equip.equipSet == null) {
+    if (equip.equipName.equipSet == null) {
       return false;
     }
 
-    if (activeSetEffects[equip.equipSet] == null) {
-      activeSetEffects[equip.equipSet!] = allSetEffects[equip.equipSet]!.copyWith();
+    if (activeSetEffects[equip.equipName.equipSet] == null) {
+      activeSetEffects[equip.equipName.equipSet!] = allSetEffects[equip.equipName.equipSet]!.copyWith();
     }
-    return activeSetEffects[equip.equipSet]!.addEquip(equip);
+    return activeSetEffects[equip.equipName.equipSet]!.addEquip(equip.equipName);
   }
 
   bool removeEquip(Equip? equip, {bool isCalculatingDifference = false}) {
@@ -49,18 +49,18 @@ class SetEffectModule {
       return false;
     }
 
-    if (equip.equipSet == null) {
+    if (equip.equipName.equipSet == null) {
       return false;
     }
 
-    if (activeSetEffects[equip.equipSet] == null) {
+    if (activeSetEffects[equip.equipName.equipSet] == null) {
       return false;
     }
-    var returnValue = activeSetEffects[equip.equipSet]!.removeEquip(equip);
+    var returnValue = activeSetEffects[equip.equipName.equipSet]!.removeEquip(equip.equipName);
     // Really only want to track "active" set effects, remove any that fall to zero and are no longer "active"
     // Dont do this if we are calculating differences as it causes some weird issues with display
-    if (!isCalculatingDifference && activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
-      activeSetEffects.remove(equip.equipSet);
+    if (!isCalculatingDifference && activeSetEffects[equip.equipName.equipSet]!.totalSetItems == 0) {
+      activeSetEffects.remove(equip.equipName.equipSet);
     }
     return returnValue;
   }

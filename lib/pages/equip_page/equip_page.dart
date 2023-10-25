@@ -247,10 +247,10 @@ class EquippedItemSelector extends StatelessWidget {
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipsProvider equipsProvider, EquipType equipType) {
     var filteredList = equipsProvider.allEquips.values.where((element) {
       if (equipType == EquipType.secondary) {
-        return secondaryTypes.contains(element.equipType);
+        return secondaryTypes.contains(element.equipName.equipType);
       }
       else {
-        return element.equipType == equipType;
+        return element.equipName.equipType == equipType;
       }
     }).toList();
 
@@ -442,11 +442,11 @@ class _SearchableItemListState extends State<SearchableItemList> {
       var tempItems = equipList;
 
       if (selectedClassType.value != ClassType.all) {
-        tempItems = tempItems.where((element) => element.classType == ClassType.all || element.classType == selectedClassType.value).toList();
+        tempItems = tempItems.where((element) => element.equipName.classType == ClassType.all || element.equipName.classType == selectedClassType.value).toList();
       }
 
       if (selectedEquipType.value != EquipType.all) {
-        tempItems = tempItems.where((element) => element.equipType == selectedEquipType.value).toList();
+        tempItems = tempItems.where((element) => element.equipName.equipType == selectedEquipType.value).toList();
       }
 
       items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
@@ -461,11 +461,11 @@ class _SearchableItemListState extends State<SearchableItemList> {
       var tempItems = equipList;
       
       if (selectedClassType.value != ClassType.all) {
-        tempItems = tempItems.where((element) => element.classType == ClassType.all || element.classType == selectedClassType.value).toList();
+        tempItems = tempItems.where((element) => element.equipName.classType == ClassType.all || element.equipName.classType == selectedClassType.value).toList();
       }
 
       if (selectedEquipType.value != EquipType.all) {
-        tempItems = tempItems.where((element) => element.equipType == selectedEquipType.value).toList();
+        tempItems = tempItems.where((element) => element.equipName.equipType == selectedEquipType.value).toList();
       }
 
       items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 

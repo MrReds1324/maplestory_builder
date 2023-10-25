@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/modules/base.dart';
+import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
@@ -19,18 +19,8 @@ import 'dart:math';
 
 import 'package:provider/provider.dart';
 
-class Equip extends Base {
+class Equip {
   final EquipName equipName;
-  final EquipType equipType;
-  final ClassType classType;
-  final EquipSet? equipSet;
-  final bool isUniqueItem;
-  final bool canStar;
-  final bool canFlame;
-  final bool isFlameAdvantaged;
-  final bool canPotential;
-  final bool isLuckyItem;
-  final int maxScrollsSlots;
   StarForceModule? starForceModule;
   FlameModule? flameModule;
   PotentialModule? potentialModule;
@@ -40,18 +30,6 @@ class Equip extends Base {
 
   Equip({
     required this.equipName,
-    required this.equipType,
-    this.equipSet,
-    this.classType = ClassType.all,
-    this.isUniqueItem = false,
-    this.canStar = true,
-    this.canFlame = true,
-    this.isFlameAdvantaged = true,
-    this.canPotential = true,
-    this.isLuckyItem = false,
-    this.maxScrollsSlots = 0,
-    super.itemLevel = 0,
-    super.baseStats,
     this.starForceModule,
     this.flameModule,
     this.potentialModule,
@@ -63,8 +41,8 @@ class Equip extends Base {
       starForceModule = starForceModule;
       starForceModule!.updateStarforce(this, starForceModule!.currentStars);
     }
-    else if (canStar) {
-      starForceModule = StarForceModule(possibleStars: getStarforceLimit(itemLevel).toInt());
+    else if (equipName.starForceCategory == StarForceCategory.player) {
+      starForceModule = StarForceModule(possibleStars: getStarforceLimit(equipName.itemLevel).toInt());
     }
     else {
       starForceModule = null;
@@ -74,10 +52,10 @@ class Equip extends Base {
       flameModule = flameModule;
       flameModule!.calculateModuleStats(this);
     }
-    else if (noFlameCategory.contains(equipType)){
+    else if (noFlameCategory.contains(equipName.equipType)){
       flameModule = null;
     }
-    else if (canFlame) {
+    else if (equipName.flameCategory != FlameCategory.none) {
       flameModule = FlameModule();
     }
     else {
@@ -88,12 +66,12 @@ class Equip extends Base {
       potentialModule = potentialModule;
       potentialModule!.calculateModuleStats();
     }
-    else if (noPotentialCategory.contains(equipType)){
+    else if (noPotentialCategory.contains(equipName.equipType)){
       potentialModule = null;
     }
-    else if (canPotential) {
+    else if (equipName.potentialCategory == PotentialCategory.player) {
       potentialModule = PotentialModule(
-        potentialOffset: getPotentialOffsetFromItemLevel(itemLevel)
+        potentialOffset: getPotentialOffsetFromItemLevel(equipName.itemLevel)
       );
     }
     else {
@@ -104,13 +82,13 @@ class Equip extends Base {
       scrollModule = scrollModule;
       scrollModule!.calculateModuleStats();
     }
-    else if (maxScrollsSlots == 0) {
+    else if (equipName.maxScrollsSlots == 0) {
       scrollModule = null;
     }
     else {
       scrollModule = ScrollModule(
-        totalScrollSlots: maxScrollsSlots,
-        scrollOffset: getScrollOffsetFromItemLevel(itemLevel)
+        totalScrollSlots: equipName.maxScrollsSlots,
+        scrollOffset: getScrollOffsetFromItemLevel(equipName.itemLevel)
       );
     }
 
@@ -119,18 +97,6 @@ class Equip extends Base {
 
   Equip copyWith({
     EquipName? equipName,
-    EquipType? equipType,
-    EquipSet? equipSet,
-    ClassType? classType,
-    bool? isUniqueItem,
-    bool? canStar,
-    bool? canFlame,
-    bool? isFlameAdvantaged,
-    bool? canPotential,
-    bool? isLuckyItem,
-    int? maxScrollsSlots,
-    int? itemLevel,
-    Map<StatType, num>? baseStats,
     StarForceModule? starForceModule,
     FlameModule? flameModule,
     PotentialModule? potentialModule,
@@ -140,18 +106,6 @@ class Equip extends Base {
   }) {
     return Equip(
       equipName: equipName ?? this.equipName,
-      equipType: equipType ?? this.equipType,
-      equipSet: equipSet ?? this.equipSet,
-      classType: classType ?? this.classType,
-      isUniqueItem: isUniqueItem ?? this.isUniqueItem,
-      canStar: canStar ?? this.canStar,
-      canFlame: canFlame ?? this.canFlame,
-      isFlameAdvantaged: isFlameAdvantaged ?? this.isFlameAdvantaged,
-      canPotential: canPotential ?? this.canPotential,
-      isLuckyItem: isLuckyItem ?? this.isLuckyItem,
-      maxScrollsSlots: maxScrollsSlots ?? this.maxScrollsSlots,
-      itemLevel: itemLevel ?? this.itemLevel,
-      baseStats: baseStats ?? Map<StatType, num>.from(this.baseStats),
       starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
       flameModule: flameModule ?? this.flameModule?.copyWith(),
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
@@ -162,7 +116,7 @@ class Equip extends Base {
   }
 
   num get(StatType statType) {
-    return baseStats[statType] ?? 0;
+    return equipName.baseStats[statType] ?? 0;
   }
 
   num getTotalStat(StatType statType) {
@@ -229,7 +183,7 @@ class Equip extends Base {
   }
 
   double getTooltipWidth() {
-    return equipSet != null ? 560 : 310;
+    return equipName.equipSet != null ? 560 : 310;
   }
 
   Row createEquipContainer(BuildContext context, {bool isEquipEditing=false}) {
@@ -248,7 +202,7 @@ class Equip extends Base {
                   "${equipName.formattedName}${(scrollModule?.usedScrolls.length ?? 0) > 0 ? ' +${scrollModule?.usedScrolls.length}' : ''}", style: Theme.of(context).textTheme.headlineSmall
                 )
               ),
-              isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
+              equipName.isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
               __createTextLine(context, StatType.level),
               __createTextLine(context, StatType.attackSpeed),
               __createTextLine(context, StatType.str),
@@ -309,10 +263,10 @@ class Equip extends Base {
     // If we are editing an equip then we always want to target the difference character model
     SetEffect? setEffect;
     if (isEquipEditing) {
-      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet]!;
+      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipName.equipSet]!;
     }
     else {
-      setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet] ?? allSetEffects[equipSet]!;
+      setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipName.equipSet] ?? allSetEffects[equipName.equipSet]!;
     }
     return setEffect.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null);
   }
@@ -334,13 +288,13 @@ class Equip extends Base {
         if ((flameModule?.get(StatType.level) ?? 0) > 0) {
           levelText.add(
             TextSpan(
-              text: "Required Level: ${max(itemLevel - (flameModule?.get(StatType.level) ?? 0), 0).toInt()}",
+              text: "Required Level: ${max(equipName.itemLevel - (flameModule?.get(StatType.level) ?? 0), 0).toInt()}",
               style: const TextStyle(color: starColor)
             )
           );
           levelText.add(
             TextSpan(
-              text: "($itemLevel",
+              text: "(${equipName.itemLevel}",
             )
           );
           levelText.add(
@@ -358,7 +312,7 @@ class Equip extends Base {
         else {
           levelText.add(
             TextSpan(
-              text: "Required Level: $itemLevel",
+              text: "Required Level: ${equipName.itemLevel}",
               style: const TextStyle(color: starColor)
             )
           );
@@ -486,22 +440,22 @@ final List<Equip> equipList = [
   // Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
   // Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
   // Dawn Boss Set Items
-  Equip(equipName: EquipName.dawnGuardianAngelRing, equipType: EquipType.ring, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 4, isUniqueItem: true, itemLevel: 160, baseStats: const {StatType.allStats: 5, StatType.hp: 200, StatType.mp: 200, StatType.attack: 2, StatType.mattack: 2}),
-  Equip(equipName: EquipName.twilightMark, equipType: EquipType.face, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 8, itemLevel: 140, baseStats: const {StatType.allStats: 5, StatType.attack: 5, StatType.mattack: 5, StatType.defense: 100}),
-  Equip(equipName: EquipName.estellaEarrings, equipType: EquipType.earrings, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 5, itemLevel: 160, baseStats: const {StatType.allStats: 7, StatType.hp: 300, StatType.mp: 300, StatType.attack: 2, StatType.mattack: 2, StatType.defense: 100}),
-  Equip(equipName: EquipName.daybreakPendant, equipType: EquipType.pendant, equipSet: EquipSet.dawnBossSet, maxScrollsSlots: 7, isUniqueItem: true, itemLevel: 140, baseStats: const {StatType.allStats: 8, StatType.hpPercentage: 0.05, StatType.attack: 2, StatType.mattack: 2, StatType.defense: 100}),
+  Equip(equipName: EquipName.dawnGuardianAngelRing),
+  Equip(equipName: EquipName.twilightMark),
+  Equip(equipName: EquipName.estellaEarrings),
+  Equip(equipName: EquipName.daybreakPendant),
   // Superior Gollux Items
-  Equip(equipName: EquipName.superiorGolluxRing, equipType: EquipType.ring, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isUniqueItem: true, itemLevel: 150, baseStats: const {StatType.allStats: 10, StatType.hp: 250, StatType.mp: 250, StatType.attack: 8, StatType.mattack: 8, StatType.defense: 150, StatType.speed: 10}),
-  Equip(equipName: EquipName.superiorGolluxPendant, equipType: EquipType.pendant, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 8, isFlameAdvantaged: false,itemLevel: 150, baseStats: const {StatType.allStats: 28, StatType.hp: 300, StatType.mp: 300, StatType.attack: 5, StatType.mattack: 5, StatType.defense: 100}),
-  Equip(equipName: EquipName.superiorGolluxBelt, equipType: EquipType.belt, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 5, isFlameAdvantaged: false,itemLevel: 150, baseStats: const {StatType.allStats: 60, StatType.hp: 200, StatType.mp: 200, StatType.attack: 35, StatType.mattack: 35, StatType.defense: 100}),
-  Equip(equipName: EquipName.superiorGolluxEarrings, equipType: EquipType.earrings, equipSet: EquipSet.superiorGollux, maxScrollsSlots: 9, isFlameAdvantaged: false, itemLevel: 150, baseStats: const {StatType.allStats: 15, StatType.hp: 150, StatType.mp: 150, StatType.attack: 10, StatType.mattack: 10, StatType.defense: 100}),
+  Equip(equipName: EquipName.superiorGolluxRing),
+  Equip(equipName: EquipName.superiorGolluxPendant),
+  Equip(equipName: EquipName.superiorGolluxBelt),
+  Equip(equipName: EquipName.superiorGolluxEarrings),
   // Eternal Bowman Items
-  Equip(equipName: EquipName.eternalArcherHat, equipType: EquipType.hat, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 13, isFlameAdvantaged: true, itemLevel: 250, baseStats: const {StatType.str: 80, StatType.dex: 80, StatType.attack: 10, StatType.defense: 750, StatType.ignoreDefense: 0.15}),
-  Equip(equipName: EquipName.eternalArcherHood, equipType: EquipType.top, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 9, isFlameAdvantaged: true, itemLevel: 250, baseStats: const {StatType.str: 50, StatType.dex: 50, StatType.attack: 6, StatType.defense: 325, StatType.ignoreDefense: 0.05}),
-  Equip(equipName: EquipName.eternalArcherPants, equipType: EquipType.bottom, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 9, isFlameAdvantaged: true, itemLevel: 250, baseStats: const {StatType.str: 50, StatType.dex: 50, StatType.attack: 6, StatType.defense: 325, StatType.ignoreDefense: 0.05}),
-  Equip(equipName: EquipName.eternalArcherShoulder, equipType: EquipType.shoulder, equipSet: EquipSet.eternalSetBowman, maxScrollsSlots: 3, canFlame: false, itemLevel: 250, baseStats: const {StatType.allStats: 51, StatType.attack: 28, StatType.mattack: 28, StatType.defense: 450}),
+  Equip(equipName: EquipName.eternalArcherHat),
+  Equip(equipName: EquipName.eternalArcherHood),
+  Equip(equipName: EquipName.eternalArcherPants),
+  Equip(equipName: EquipName.eternalArcherShoulder),
   // Genesis Weapons
-  Equip(equipName: EquipName.genesisCrossbow, equipType: EquipType.weapon, equipSet: EquipSet.eternalSetBowman, isFlameAdvantaged: true, isLuckyItem: true, itemLevel: 200, baseStats: const {StatType.attackSpeed: attackSpeedNormal6, StatType.str: 150, StatType.dex: 150, StatType.attack: 326, StatType.speed: 19, StatType.bossDamage: 0.3, StatType.ignoreDefense: 0.2}),
+  Equip(equipName: EquipName.genesisCrossbow, starForceModule: StarForceModule(possibleStars: 25, currentStars: 22)),
 
   // Arcane Bowman Items
   

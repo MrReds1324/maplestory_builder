@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
@@ -223,21 +224,21 @@ class _FlameDropdowns extends StatelessWidget {
       )
     ];
 
-    if (editingEquip != null && editingEquip.flameModule != null && editingEquip.canFlame) {
+    if (editingEquip != null && editingEquip.flameModule != null && editingEquip.equipName.flameCategory != FlameCategory.none) {
 
       List<FlameType> filteredList = <FlameType>[];
       // We can only have one of the flame types per equip, filter out any ones already used here
       for(FlameType flameType in FlameType.values) { 
         // Can only get level reduction if there is at one level to reduce
-        if (flameType == FlameType.levelReduction && editingEquip.itemLevel == 0) {
+        if (flameType == FlameType.levelReduction && editingEquip.equipName.itemLevel == 0) {
           continue;
         }
         // Weapons do not roll speed or jump
-        else if ((flameType == FlameType.speed || flameType == FlameType.jump) && editingEquip.equipType == EquipType.weapon) {
+        else if ((flameType == FlameType.speed || flameType == FlameType.jump) && editingEquip.equipName.equipType == EquipType.weapon) {
           continue;
         }
         // Only weapons can roll damage and boss damage
-        else if ((flameType == FlameType.damage || flameType == FlameType.bossDamage) && editingEquip.equipType != EquipType.weapon) {
+        else if ((flameType == FlameType.damage || flameType == FlameType.bossDamage) && editingEquip.equipName.equipType != EquipType.weapon) {
           continue;
         }
 
@@ -286,12 +287,16 @@ class _FlameDropdowns extends StatelessWidget {
       )
     ];
 
-    if (editingEquip != null && editingEquip.flameModule != null && editingEquip.canFlame) {
+    if (editingEquip != null && editingEquip.flameModule != null && editingEquip.equipName.flameCategory != FlameCategory.none) {
 
       List<FlameTier> filteredList;
       // If the item is flame advantaged, remove the first two tiers
-      if (editingEquip.isFlameAdvantaged) {
+      if (editingEquip.equipName.flameCategory == FlameCategory.advantaged) {
         filteredList = FlameTier.values.sublist(2);
+      }
+      // If we can access all the flames
+      else if (editingEquip.equipName.flameCategory == FlameCategory.all) {
+        filteredList = FlameTier.values;
       }
       // Else remove the last two tiers
       else {
@@ -519,7 +524,7 @@ class _PotentialDropdowns extends StatelessWidget {
       )
     ];
 
-    if (editingEquip != null && editingEquip.potentialModule != null && editingEquip.canPotential) {
+    if (editingEquip != null && editingEquip.potentialModule != null && editingEquip.equipName.potentialCategory != PotentialCategory.none) {
 
       List<BasePotentialLine> filteredList = getPotentialsListForEquip(editingEquip, isBonus: isBonus);
 
@@ -531,7 +536,7 @@ class _PotentialDropdowns extends StatelessWidget {
             valueToDisplay = allPotentialStats[value.potentialName];
           }
           else if (value is PotentialLineRange) {
-            valueToDisplay = allPotentialStats[value.potentialName]![getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt())];
+            valueToDisplay = allPotentialStats[value.potentialName]![getPotentialOffsetFromItemLevel(editingEquip.equipName.itemLevel)];
           }
           else {
             // TODO: add skill stuff here
@@ -659,7 +664,7 @@ class _UsedScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context, equipEditingProvider.editingEquip?.itemLevel) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context, equipEditingProvider.editingEquip?.equipName.itemLevel) ?? const SizedBox.shrink()],
                   child: ListTile(
                     title: Row(
                       children: [
@@ -732,7 +737,7 @@ class _EditingScroll extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.editingScroll?.createScrollContainer(context, equipEditingProvider.editingEquip?.itemLevel) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [equipEditingProvider.editingEquip?.scrollModule?.editingScroll?.createScrollContainer(context, equipEditingProvider.editingEquip?.equipName.itemLevel) ?? const SizedBox.shrink()],
                   child: Expanded(
                     child: ListTile(
                       title: Row(
@@ -790,7 +795,7 @@ class _AvailableScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [allScrolls[availableScrolls[index]]?.createScrollContainer(context, equipEditingProvider.editingEquip?.itemLevel) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [allScrolls[availableScrolls[index]]?.createScrollContainer(context, equipEditingProvider.editingEquip?.equipName.itemLevel) ?? const SizedBox.shrink()],
                   child: ListTile(
                     title: Row(
                       children: [

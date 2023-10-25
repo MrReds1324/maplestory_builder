@@ -161,7 +161,7 @@ class PotentialModule {
           valueToDisplay = allPotentialStats[potentialLine.potentialName];
         }
         else if (potentialLine is PotentialLineRange) {
-          var offset = getPotentialOffsetFromItemLevel(editingEquip.itemLevel.toInt());
+          var offset = getPotentialOffsetFromItemLevel(editingEquip.equipName.itemLevel);
           valueToDisplay = allPotentialStats[potentialLine.potentialName]![offset];
         }
         else {
@@ -278,7 +278,7 @@ int getPotentialOffsetFromItemLevel(int itemLevel) {
 List<BasePotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=false}) {
   List<BasePotentialLine> filteredList;
   if (isBonus) {
-    switch(editingEquip.equipType) {
+    switch(editingEquip.equipName.equipType) {
       case EquipType.hat:
         filteredList = bonusHatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.overall:
@@ -313,7 +313,7 @@ List<BasePotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBo
     }
   }
   else {
-    switch(editingEquip.equipType) {
+    switch(editingEquip.equipName.equipType) {
       case EquipType.hat:
         filteredList = hatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.overall:

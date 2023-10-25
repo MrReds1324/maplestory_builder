@@ -71,7 +71,7 @@ class EquipmentModule {
 
   bool equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0, bool isCalculatingDifference = false}) {
     // Only equip a single unique item
-    if (!isCalculatingDifference && (equippedEquipNames.contains(equip?.equipName)) && (equip?.isUniqueItem ?? false)) {
+    if (!isCalculatingDifference && (equippedEquipNames.contains(equip?.equipName)) && (equip?.equipName.isUniqueItem ?? false)) {
       return false;
     }
 

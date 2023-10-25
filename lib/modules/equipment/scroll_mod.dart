@@ -174,7 +174,7 @@ int getScrollOffsetFromItemLevel(int itemLevel) {
 
 List<ScrollName> getScrollsListForEquip(Equip? editingEquip) {
   List<ScrollName> filteredList;
-  switch(editingEquip?.equipType) {
+  switch(editingEquip?.equipName.equipType) {
     case EquipType.hat:
     case EquipType.overall:
     case EquipType.top:

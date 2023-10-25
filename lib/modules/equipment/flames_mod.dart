@@ -50,7 +50,7 @@ class FlameModule {
       return;
     }
 
-    var flameLevelOffset = getFlameOffset(targetEquip.itemLevel);
+    var flameLevelOffset = getFlameOffset(targetEquip.equipName.itemLevel);
 
     switch(flameLine.flameType) {
       case FlameType.str:
@@ -92,13 +92,13 @@ class FlameModule {
       case FlameType.defense:
         moduleStats[StatType.defense] = (moduleStats[StatType.defense] ?? 0) + defenseFlame[flameLevelOffset][flameLine.flameTier!.index];
       case FlameType.attack:
-        if (targetEquip.equipType == EquipType.weapon) {
+        if (targetEquip.equipName.equipType == EquipType.weapon) {
           var tagetCalculation = targetEquip.get(StatType.attack);
           if (tagetCalculation == 0) {
             tagetCalculation = targetEquip.get(StatType.mattack);
           }
 
-          if (targetEquip.isFlameAdvantaged) {
+          if (targetEquip.equipName.flameCategory == FlameCategory.advantaged) {
             moduleStats[StatType.attack] = (tagetCalculation * wepAttAdvantagedFlame[flameLevelOffset][flameLine.flameTier!.index]).ceil();
           }
           else {
@@ -109,13 +109,13 @@ class FlameModule {
           moduleStats[StatType.attack] = nonWepAttFlame[flameLine.flameTier!.index];
         }
       case FlameType.mattack:
-        if (targetEquip.equipType == EquipType.weapon) {
+        if (targetEquip.equipName.equipType == EquipType.weapon) {
           var tagetCalculation = targetEquip.get(StatType.mattack);
           if (tagetCalculation == 0) {
             tagetCalculation = targetEquip.get(StatType.attack);
           }
 
-          if (targetEquip.isFlameAdvantaged) {
+          if (targetEquip.equipName.flameCategory == FlameCategory.advantaged) {
             moduleStats[StatType.mattack] = (tagetCalculation * wepAttAdvantagedFlame[flameLevelOffset][flameLine.flameTier!.index]).ceil();
           }
           else {
