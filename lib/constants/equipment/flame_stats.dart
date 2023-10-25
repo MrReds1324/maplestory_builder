@@ -3,6 +3,13 @@
 // Gives us the row index into the bonus stats tables
 import 'package:maplestory_builder/constants/constants.dart';
 
+enum FlameCategory {
+  none,
+  nonAdvantaged,
+  advantaged,
+  all,
+}
+
 const List<List<int>> singleStatFlame = [
   [1, 2, 3, 4, 5, 6, 7],         // 0-9
   [1, 2, 3, 4, 5, 6, 7],         // 10-19
