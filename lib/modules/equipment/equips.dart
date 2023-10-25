@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 
 class Equip {
   final EquipName equipName;
+  final EquipSet? equipSet;
   StarForceModule? starForceModule;
   FlameModule? flameModule;
   PotentialModule? potentialModule;
@@ -30,6 +31,7 @@ class Equip {
 
   Equip({
     required this.equipName,
+    this.equipSet,
     this.starForceModule,
     this.flameModule,
     this.potentialModule,
@@ -97,6 +99,7 @@ class Equip {
 
   Equip copyWith({
     EquipName? equipName,
+    EquipSet? equipSet,
     StarForceModule? starForceModule,
     FlameModule? flameModule,
     PotentialModule? potentialModule,
@@ -106,6 +109,7 @@ class Equip {
   }) {
     return Equip(
       equipName: equipName ?? this.equipName,
+      equipSet: equipSet ?? this.equipSet,
       starForceModule: starForceModule ?? this.starForceModule?.copyWith(),
       flameModule: flameModule ?? this.flameModule?.copyWith(),
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
@@ -183,7 +187,7 @@ class Equip {
   }
 
   double getTooltipWidth() {
-    return equipName.equipSet != null ? 560 : 310;
+    return equipSet != null ? 560 : 310;
   }
 
   Row createEquipContainer(BuildContext context, {bool isEquipEditing=false}) {
@@ -263,12 +267,12 @@ class Equip {
     // If we are editing an equip then we always want to target the difference character model
     SetEffect? setEffect;
     if (isEquipEditing) {
-      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipName.equipSet]!;
+      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet];
     }
     else {
-      setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipName.equipSet] ?? allSetEffects[equipName.equipSet]!;
+      setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet] ?? (equipSet != null ? SetEffect(equipSet: equipSet!) : null);
     }
-    return setEffect.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null);
+    return setEffect?.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null) ?? const SizedBox.shrink();
   }
 
   Widget __createTextLine(BuildContext context, StatType statType) {
@@ -440,22 +444,22 @@ final List<Equip> equipList = [
   // Equip(name: "Royal Ranger Beret", itemId: 1, equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 150, str: 40, dex: 40, hp: 360, mp: 360, attackPower: 2, defense: 300, ignoreDefense: .1),
   // Equip(name: "Sengoku Hakase Badge", itemId: 2, equipType: EquipType.badge, itemLevel: 160, allStats: 10, attackPower: 10, mattack: 10),
   // Dawn Boss Set Items
-  Equip(equipName: EquipName.dawnGuardianAngelRing),
-  Equip(equipName: EquipName.twilightMark),
-  Equip(equipName: EquipName.estellaEarrings),
-  Equip(equipName: EquipName.daybreakPendant),
+  Equip(equipName: EquipName.dawnGuardianAngelRing, equipSet: EquipSet.dawnBossSet),
+  Equip(equipName: EquipName.twilightMark, equipSet: EquipSet.dawnBossSet),
+  Equip(equipName: EquipName.estellaEarrings, equipSet: EquipSet.dawnBossSet),
+  Equip(equipName: EquipName.daybreakPendant, equipSet: EquipSet.dawnBossSet),
   // Superior Gollux Items
-  Equip(equipName: EquipName.superiorGolluxRing),
-  Equip(equipName: EquipName.superiorGolluxPendant),
-  Equip(equipName: EquipName.superiorGolluxBelt),
-  Equip(equipName: EquipName.superiorGolluxEarrings),
+  Equip(equipName: EquipName.superiorGolluxRing, equipSet: EquipSet.superiorGollux),
+  Equip(equipName: EquipName.superiorGolluxPendant, equipSet: EquipSet.superiorGollux),
+  Equip(equipName: EquipName.superiorGolluxBelt, equipSet: EquipSet.superiorGollux),
+  Equip(equipName: EquipName.superiorGolluxEarrings, equipSet: EquipSet.superiorGollux),
   // Eternal Bowman Items
-  Equip(equipName: EquipName.eternalArcherHat),
-  Equip(equipName: EquipName.eternalArcherHood),
-  Equip(equipName: EquipName.eternalArcherPants),
-  Equip(equipName: EquipName.eternalArcherShoulder),
+  Equip(equipName: EquipName.eternalArcherHat, equipSet: EquipSet.eternalSetBowman),
+  Equip(equipName: EquipName.eternalArcherHood, equipSet: EquipSet.eternalSetBowman),
+  Equip(equipName: EquipName.eternalArcherPants, equipSet: EquipSet.eternalSetBowman),
+  Equip(equipName: EquipName.eternalArcherShoulder, equipSet: EquipSet.eternalSetBowman),
   // Genesis Weapons
-  Equip(equipName: EquipName.genesisCrossbow, starForceModule: StarForceModule(possibleStars: 25, currentStars: 22)),
+  Equip(equipName: EquipName.genesisCrossbow, equipSet: EquipSet.eternalSetBowman, starForceModule: StarForceModule(possibleStars: 25, currentStars: 22)),
 
   // Arcane Bowman Items
   

@@ -110,6 +110,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     createText(diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
     createText(diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
     
+    createText(diffCharacterModel.totalAttackSpeed, mainCharacterModel.totalAttackSpeed, statType: StatType.attackSpeed);
+
     createText(diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
     createText(diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
     createText(diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
