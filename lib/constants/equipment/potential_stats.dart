@@ -2,6 +2,12 @@
 
 import 'package:maplestory_builder/constants/constants.dart';
 
+enum PotentialCategory {
+  none, // Used for equipment the player is unable to potential at all
+  player, // Used for equipment the player is able to modify
+  static, // Used for equipment that has static/unmodifiable potentials
+}
+
 const List<EquipType> noPotentialCategory = <EquipType>[
   EquipType.medal,
 ];
