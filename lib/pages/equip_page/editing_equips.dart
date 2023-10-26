@@ -213,7 +213,7 @@ class _FlameDropdowns extends StatelessWidget {
   });
 
   List<DropdownMenuItem> getDropdownFlameList(BuildContext context, Equip? editingEquip) {
-    List<DropdownMenuItem<FlameType>> dropdownItems = [
+    List<DropdownMenuItem<FlameName>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
         value: null,
@@ -226,36 +226,45 @@ class _FlameDropdowns extends StatelessWidget {
 
     if (editingEquip != null && editingEquip.flameModule != null && editingEquip.equipName.flameCategory != FlameCategory.none) {
 
-      List<FlameType> filteredList = <FlameType>[];
+      List<FlameName> filteredList = <FlameName>[];
       // We can only have one of the flame types per equip, filter out any ones already used here
-      for(FlameType flameType in FlameType.values) { 
+      for(FlameName flameName in FlameName.values) { 
         // Can only get level reduction if there is at one level to reduce
-        if (flameType == FlameType.levelReduction && editingEquip.equipName.itemLevel == 0) {
+        if (flameName == FlameName.levelReduction && editingEquip.equipName.itemLevel == 0) {
           continue;
         }
-        // Weapons do not roll speed or jump
-        else if ((flameType == FlameType.speed || flameType == FlameType.jump) && editingEquip.equipName.equipType == EquipType.weapon) {
+        // Weapons do not roll speed, jump, or regular attack flames
+        else if (weaponExcludedFlames.contains(flameName) && editingEquip.equipName.equipType == EquipType.weapon) {
           continue;
         }
-        // Only weapons can roll damage and boss damage
-        else if ((flameType == FlameType.damage || flameType == FlameType.bossDamage) && editingEquip.equipName.equipType != EquipType.weapon) {
-          continue;
+        // Only weapons can roll damage, boss damage, and weapon flames
+        else if (weaponOnlyFlames.contains(flameName)) {
+          if (editingEquip.equipName.equipType != EquipType.weapon) {
+            continue;
+          }
+          else if (editingEquip.equipName.flameCategory == FlameCategory.advantaged && <FlameName>{FlameName.wepAttackFlameNonAdvantaged, FlameName.wepMattackFlameNonAdvantaged}.contains(flameName)) {
+            continue;
+          }
+          else if (editingEquip.equipName.flameCategory == FlameCategory.nonAdvantaged && <FlameName>{FlameName.wepAttackFlameAdvantaged, FlameName.wepMattackFlameAdvantaged}.contains(flameName)) {
+            continue;
+          }
         }
 
-        if (flamePosition != 1 && flameType == editingEquip.flameModule?.flameLine1?.flameType) {
+        // Stops us from being able to select multiple of a single flame
+        if (flamePosition != 1 && flameName == editingEquip.flameModule?.flameLine1?.flameName) {
           continue;
         }
-        else if (flamePosition != 2 && flameType == editingEquip.flameModule?.flameLine2?.flameType) {
+        else if (flamePosition != 2 && flameName == editingEquip.flameModule?.flameLine2?.flameName) {
           continue;
         }
-        else if (flamePosition != 3 && flameType == editingEquip.flameModule?.flameLine3?.flameType) {
+        else if (flamePosition != 3 && flameName == editingEquip.flameModule?.flameLine3?.flameName) {
           continue;
         }
-        else if (flamePosition != 4 && flameType == editingEquip.flameModule?.flameLine4?.flameType) {
+        else if (flamePosition != 4 && flameName == editingEquip.flameModule?.flameLine4?.flameName) {
           continue;
         }
         else {
-          filteredList.add(flameType);
+          filteredList.add(flameName);
         }
       }
 
@@ -319,18 +328,18 @@ class _FlameDropdowns extends StatelessWidget {
     return dropdownItems;
   }
 
-  FlameType? getSelectedFlameType(Equip? editingEquip, int flamePosition){
+  FlameName? getSelectedFlameName(Equip? editingEquip, int flamePosition){
     if (flamePosition == 1) {
-      return editingEquip?.flameModule?.flameLine1?.flameType;
+      return editingEquip?.flameModule?.flameLine1?.flameName;
     }
     if (flamePosition == 2) {
-      return editingEquip?.flameModule?.flameLine2?.flameType;
+      return editingEquip?.flameModule?.flameLine2?.flameName;
     }
     if (flamePosition == 3) {
-      return editingEquip?.flameModule?.flameLine3?.flameType;
+      return editingEquip?.flameModule?.flameLine3?.flameName;
     }
     else {
-      return editingEquip?.flameModule?.flameLine4?.flameType;
+      return editingEquip?.flameModule?.flameLine4?.flameName;
     }
   }
 
@@ -362,9 +371,9 @@ class _FlameDropdowns extends StatelessWidget {
                 alignment: AlignmentDirectional.center,
                 isDense: true,
                 isExpanded: true,
-                value: getSelectedFlameType(equipEditingProvider.editingEquip, flamePosition),
+                value: getSelectedFlameName(equipEditingProvider.editingEquip, flamePosition),
                 onChanged: (newValue) {
-                  equipEditingProvider.updateFlame(flamePosition, flameType: newValue);
+                  equipEditingProvider.updateFlame(flamePosition, flameName: newValue);
                 },
                 items: getDropdownFlameList(context, equipEditingProvider.editingEquip)
               );

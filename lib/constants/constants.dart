@@ -178,36 +178,6 @@ enum StatType {
   final bool isPositive;
 }
 
-enum FlameType {
-  str(formattedName: "STR"),
-  dex(formattedName: "DEX"),
-  int(formattedName: "INT"),
-  luk(formattedName: "LUK"),
-  strDex(formattedName: "STR & DEX"),
-  strInt(formattedName: "STR & INT"),
-  strLuk(formattedName: "STR & LUK"),
-  dexInt(formattedName: "DEX & INT"),
-  dexLuk(formattedName: "DEX & LUK"),
-  intLuk(formattedName: "INT & LUK"),
-  attack(formattedName: "Attack Power"),
-  mattack(formattedName: "Magic Attack"),
-  defense(formattedName: "Defense"),
-  hp(formattedName: "HP"),
-  mp(formattedName: "MP"),
-  speed(formattedName: "Speed"),
-  jump(formattedName: "Jump"),
-  allStats(formattedName: "All Stats"),
-  bossDamage(formattedName: "Boss Damage"),
-  damage(formattedName: "Damage"),
-  levelReduction(formattedName: "Level Reduction");
-
-  const FlameType({
-    required this.formattedName
-  });
-
-  final String formattedName;
-}
-
 enum FlameTier {
   tier1(formattedName: "1"),
   tier2(formattedName: "2"),

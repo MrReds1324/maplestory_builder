@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
@@ -58,9 +59,9 @@ class EquipEditingProvider with ChangeNotifier {
     }
   }
 
-  void updateFlame(int flamePosition, {FlameType? flameType, FlameTier? flameTier, isUpdatingTier=false}) {
+  void updateFlame(int flamePosition, {FlameName? flameName, FlameTier? flameTier, isUpdatingTier=false}) {
     if (editingEquip?.flameModule != null) {
-      editingEquip?.flameModule?.updateFlame(editingEquip!, flamePosition, flameType: flameType, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
+      editingEquip?.flameModule?.updateFlame(editingEquip!, flamePosition, flameName: flameName, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
       updateCounter += 1;
       notifyListeners();
     }
