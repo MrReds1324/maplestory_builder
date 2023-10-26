@@ -513,7 +513,7 @@ class _PotentialDropdowns extends StatelessWidget {
   });
 
   List<DropdownMenuItem> getDropdownPotentialsList(BuildContext context, Equip? editingEquip) {
-    List<DropdownMenuItem<BasePotentialLine>> dropdownItems = [
+    List<DropdownMenuItem<PotentialLine>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
         value: null,
@@ -526,17 +526,18 @@ class _PotentialDropdowns extends StatelessWidget {
 
     if (editingEquip != null && editingEquip.potentialModule != null && editingEquip.equipName.potentialCategory != PotentialCategory.none) {
 
-      List<BasePotentialLine> filteredList = getPotentialsListForEquip(editingEquip, isBonus: isBonus);
+      List<PotentialLine> filteredList = getPotentialsListForEquip(editingEquip, isBonus: isBonus);
 
       dropdownItems.addAll(
         filteredList.map((value) {
           num? valueToDisplay;
-
-          if (value is PotentialLineStatic) {
-            valueToDisplay = allPotentialStats[value.potentialName];
+          if (value.potentialName.potentialType == PotentialType.static) {
+            assert(value.potentialName.statValue is num, "Static potential lines must be of type num");
+            valueToDisplay = value.potentialName.statValue;
           }
-          else if (value is PotentialLineRange) {
-            valueToDisplay = allPotentialStats[value.potentialName]![getPotentialOffsetFromItemLevel(editingEquip.equipName.itemLevel)];
+          else if (value.potentialName.potentialType == PotentialType.range) {
+            assert(value.potentialName.statValue is List, "Range potential lines must be of type num");
+            valueToDisplay = value.potentialName.statValue[getPotentialOffsetFromItemLevel(editingEquip.equipName.itemLevel)];
           }
           else {
             // TODO: add skill stuff here
@@ -566,7 +567,7 @@ class _PotentialDropdowns extends StatelessWidget {
     return dropdownItems;
   }
 
-  BasePotentialLine? getSelectedPotentialLine(Equip? editingEquip, int potentialPosition) {
+  PotentialLine? getSelectedPotentialLine(Equip? editingEquip, int potentialPosition) {
     if (isBonus) {
       if (potentialPosition == 1) {
         return editingEquip?.potentialModule?.bonusPotentialLine1;
