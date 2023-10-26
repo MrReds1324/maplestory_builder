@@ -27,10 +27,10 @@ Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
     return newMap;
 }
 
-List<BaseScroll> deepCopyScrollsList(List<BaseScroll> list) {
-    List<BaseScroll> newList = [];
+List<AbstractScroll> deepCopyScrollsList(List<AbstractScroll> list) {
+    List<AbstractScroll> newList = [];
 
-    for (BaseScroll baseScroll in list) {
+    for (AbstractScroll baseScroll in list) {
       if (baseScroll is SavedScroll) {
         newList.add(baseScroll.copyWith());
       }

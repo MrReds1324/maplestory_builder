@@ -805,7 +805,7 @@ class _AvailableScrolls extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MapleTooltip(
                   maxWidth: 300,
-                  tooltipWidgets: [allScrolls[availableScrolls[index]]?.createScrollContainer(context, equipEditingProvider.editingEquip?.equipName.itemLevel) ?? const SizedBox.shrink()],
+                  tooltipWidgets: [availableScrolls[index].createScrollObject().createScrollContainer(context, equipEditingProvider.editingEquip?.equipName.itemLevel)],
                   child: ListTile(
                     title: Row(
                       children: [

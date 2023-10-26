@@ -91,23 +91,23 @@ class EquipEditingProvider with ChangeNotifier {
     }
   }
 
-  void addEditingScroll(BaseScroll? baseScroll) {
-    if (baseScroll != null && editingEquip?.scrollModule != null) {
-      editingEquip?.scrollModule?.addEditingScroll(baseScroll);
+  void addEditingScroll(AbstractScroll? scroll) {
+    if (scroll != null && editingEquip?.scrollModule != null) {
+      editingEquip?.scrollModule?.addEditingScroll(scroll);
       updateCounter += 1;
       notifyListeners();
     }
   }
 
-  void addScroll(BaseScroll? baseScroll) {
-    if (baseScroll != null && editingEquip?.scrollModule != null) {
-      editingEquip?.scrollModule?.addScroll(baseScroll);
+  void addScroll(AbstractScroll? scroll) {
+    if (scroll != null && editingEquip?.scrollModule != null) {
+      editingEquip?.scrollModule?.addScroll(scroll);
       updateCounter += 1;
       notifyListeners();
     }
   }
 
-  void deleteScroll(BaseScroll? scroll) {
+  void deleteScroll(AbstractScroll? scroll) {
     if (scroll != null && editingEquip?.scrollModule != null) {
       editingEquip?.scrollModule?.deleteScroll(scroll);
       updateCounter += 1;
