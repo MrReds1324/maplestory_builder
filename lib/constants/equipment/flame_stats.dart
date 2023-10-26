@@ -15,6 +15,9 @@ enum FlameType {
   range,
 }
 
+typedef StaticFlameType = List<num>;
+typedef RangedFlameType = List<List<num>>;
+
 enum FlameName {
   str(formattedName: "STR", flameType: FlameType.range, statValue: singleStatFlame),
   dex(formattedName: "DEX", flameType: FlameType.range, statValue: singleStatFlame),
@@ -51,6 +54,19 @@ enum FlameName {
   final String formattedName;
   final FlameType flameType;
   final List statValue;
+
+  void validate() {
+    switch(flameType) {
+      case FlameType.range:
+        if (statValue is! RangedFlameType) {
+          throw Exception("Flame '$formattedName' has the wrong statValue for its FlameType $flameType");
+        }
+      case FlameType.static:
+        if (statValue is! StaticFlameType) {
+          throw Exception("Flame '$formattedName' has the wrong statValue for its FlameType $flameType");
+        }
+    }
+  }
 }
 
 const List<List<int>> singleStatFlame = [

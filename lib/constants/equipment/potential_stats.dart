@@ -14,6 +14,10 @@ enum PotentialType {
   skill
 }
 
+typedef RangedPotentialType = List<num>;
+typedef StaticPotentialType = num;
+// typedef SkillPotentialType = Skill;
+
 const List<EquipType> noPotentialCategory = <EquipType>[
   EquipType.medal,
 ];
@@ -53,7 +57,7 @@ enum PotentialName {
   rarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
   rarePrimeHpPercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
   rarePrimeMpPercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
-  rarePrimeCriticalRate(potentialType: PotentialType.range, statValue: rarePrimeCriticalRateValue),
+  rarePrimeCriticalRate(potentialType: PotentialType.static, statValue: rarePrimeCriticalRateValue),
   // Epic Prime & Unique Non Prime
   epicPrimeStatPercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
   epicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
@@ -148,10 +152,10 @@ enum PotentialName {
   bonusEpicPrimeHpPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeHpMpPercentageValues),
   bonusEpicPrimeMpPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeHpMpPercentageValues),
   bonusEpicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeAllStatPercentageValues),
-  bonusEpicPrimeIgnoreDefense(potentialType: PotentialType.range, statValue: bonusEpicPrimeIgnoreDefenseValue),
+  bonusEpicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: bonusEpicPrimeIgnoreDefenseValue),
   // Unique Prime & Legendary Non Prime
   bonusUniquePrimeStat(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatValues),
-  bonusUniquePrimeStatPerLevel(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatPerLevelValue),
+  bonusUniquePrimeStatPerLevel(potentialType: PotentialType.static, statValue: bonusUniquePrimeStatPerLevelValue),
   bonusUniquePrimeAtt(potentialType: PotentialType.range, statValue: bonusUniquePrimeAttValues),
   bonusUniquePrimeHp(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpMpValues),
   bonusUniquePrimeMp(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpMpValues),
@@ -177,7 +181,7 @@ enum PotentialName {
   bonusLegendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpMpPercentageValues),
   bonusLegendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpMpPercentageValues),
   bonusLegendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeAllStatPercentageValues),
-  bonusLegendaryPrimeStatPerLevel(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeStatPerLevelValue),
+  bonusLegendaryPrimeStatPerLevel(potentialType: PotentialType.static, statValue: bonusLegendaryPrimeStatPerLevelValue),
   bonusLegendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpRecoveryValues),
   bonusLegendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeMesosObtainedItemDropRateValues),
   bonusLegendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeMesosObtainedItemDropRateValues),
@@ -194,6 +198,21 @@ enum PotentialName {
 
   final PotentialType potentialType; // Using this to ensure we know what type to expect from statValue
   final dynamic statValue; // We lost the type safety here
+
+  void validate() {
+    switch(potentialType) {
+      case PotentialType.range:
+        if (statValue is! RangedPotentialType) {
+          throw Exception("Potential '$this' has the wrong statValue for its PotentialType $potentialType");
+        }
+      case PotentialType.static:
+        if (statValue is! StaticPotentialType) {
+          throw Exception("Potential '$this' has the wrong statValue for its PotentialType $potentialType");
+        }
+      case PotentialType.skill:
+        return;
+    }
+  }
 }
 
 class PotentialLine {
