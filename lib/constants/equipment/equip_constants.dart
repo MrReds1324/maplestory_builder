@@ -23,14 +23,14 @@ enum EquipName {
   // Genesis Weapons
   genesisCrossbow(formattedName: "Genesis Crossbow", equipType: EquipType.weapon, classType: ClassType.bowman, isLuckyItem: true, itemLevel: 200, starForceCategory: StarForceCategory.static, baseStats: {StatType.attackSpeed: attackSpeedNormal6, StatType.str: 150, StatType.dex: 150, StatType.attack: 326, StatType.speed: 19, StatType.bossDamage: 0.3, StatType.ignoreDefense: 0.2}),
   // Arcane Bowman Set Items
-  arcaneUmbraArcherHat(formattedName: "Arcane Umbra Archer Hat", equipType: EquipType.hat, classType: ClassType.bowman),
-  arcaneUmbraArcherSuit(formattedName: "Arcane Umbra Archer Suit", equipType: EquipType.overall, classType: ClassType.bowman),
-  arcaneUmbraArcherShoes(formattedName: "Arcane Umbra Archer Shoes", equipType: EquipType.shoes, classType: ClassType.bowman),
-  arcaneUmbraArcherGloves(formattedName: "Arcane Umbra Archer Gloves", equipType: EquipType.gloves, classType: ClassType.bowman),
-  arcaneUmbraArcherCape(formattedName: "Arcane Umbra Archer Cape", equipType: EquipType.cape, classType: ClassType.bowman),
-  arcaneUmbraArcherShoulder(formattedName: "Arcane Umbra Archer Shoulder", equipType: EquipType.shoulder, classType: ClassType.bowman, flameCategory: FlameCategory.none),
+  arcaneUmbraArcherHat(formattedName: "Arcane Umbra Archer Hat", equipType: EquipType.hat, classType: ClassType.bowman, itemLevel: 200),
+  arcaneUmbraArcherSuit(formattedName: "Arcane Umbra Archer Suit", equipType: EquipType.overall, classType: ClassType.bowman, itemLevel: 200),
+  arcaneUmbraArcherShoes(formattedName: "Arcane Umbra Archer Shoes", equipType: EquipType.shoes, classType: ClassType.bowman, itemLevel: 200),
+  arcaneUmbraArcherGloves(formattedName: "Arcane Umbra Archer Gloves", equipType: EquipType.gloves, classType: ClassType.bowman, itemLevel: 200),
+  arcaneUmbraArcherCape(formattedName: "Arcane Umbra Archer Cape", equipType: EquipType.cape, classType: ClassType.bowman, itemLevel: 200),
+  arcaneUmbraArcherShoulder(formattedName: "Arcane Umbra Archer Shoulder", equipType: EquipType.shoulder, classType: ClassType.bowman, flameCategory: FlameCategory.none, itemLevel: 200),
   // Arcane Weapons
-  arcaneUmbraArcherCrossbow(formattedName: "Arcane Umbra Archer Crossbow", equipType: EquipType.weapon, classType: ClassType.bowman),
+  arcaneUmbraCrossbow(formattedName: "Arcane Umbra Archer Crossbow", equipType: EquipType.weapon, classType: ClassType.bowman, itemLevel: 200),
 ;
 
   const EquipName({

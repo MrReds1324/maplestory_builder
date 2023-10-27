@@ -7,22 +7,28 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class SetEffectModule {
   Map<EquipSet, SetEffect> activeSetEffects;
+  Map<int, LuckyItem> trackedLuckyItems;
   LuckyItem? activeLuckyItem;
 
   SetEffectModule({
-    activeSetEffects,
+    Map<EquipSet, SetEffect>? activeSetEffects,
     this.activeLuckyItem,
-    bool isLuckyItemActive = false,
-  }) : activeSetEffects = activeSetEffects ?? {};
+    Map<int, LuckyItem>? trackedLuckyItems,
+  }) 
+  : 
+  activeSetEffects = activeSetEffects ?? {},
+  trackedLuckyItems = trackedLuckyItems ?? {};
 
   SetEffectModule copyWith({
     Map<EquipSet, SetEffect>? activeSetEffects,
     LuckyItem? activeLuckyItem,
+    Map<int, LuckyItem>? trackedLuckyItems,
   }){
     return SetEffectModule(
       // Deep copy the map
       activeSetEffects: activeSetEffects ?? deepCopySetEffectsMap(this.activeSetEffects),
       activeLuckyItem: activeLuckyItem ?? this.activeLuckyItem,
+      trackedLuckyItems: trackedLuckyItems ?? Map.from(this.trackedLuckyItems),
     );
   }
 
@@ -40,6 +46,10 @@ class SetEffectModule {
     if (equip == null) {
       return false;
     }
+
+    if (equip.equipName.isLuckyItem) {
+      _updateLuckyItems(equip);
+    }
     
     if (equip.equipSet == null) {
       return false;
@@ -55,6 +65,10 @@ class SetEffectModule {
     if (equip == null) {
       return false;
     }
+
+    if (equip.equipName.isLuckyItem) {
+      _updateLuckyItems(equip, isRemoving: true);
+    }    
 
     if (equip.equipSet == null) {
       return false;
@@ -72,9 +86,41 @@ class SetEffectModule {
     return returnValue;
   }
 
-  void _updateLuckyItems(LuckyItem newLuckyItem) {
-    for (SetEffect setEffect in activeSetEffects.values) {
-      setEffect.updateLuckyItem(newLuckyItem);
+  void _updateLuckyItems(Equip equip, {bool isRemoving = false}) {
+    LuckyItem luckyItem = LuckyItem.getLuckyItem(equip)!;
+
+    if (isRemoving) {
+      trackedLuckyItems.remove(luckyItem.priority);
+
+      // Only need to bother updating active lucky items if we are removing the active lucky item
+      if (luckyItem.priority == activeLuckyItem?.priority) {
+        activeLuckyItem = null;
+        // If we are removing the active lucky item, then find the next one if any
+        if (luckyItem.priority == activeLuckyItem?.priority) {
+          for (int priority in LuckyItem.luckyItemPriority.keys) {
+            if (trackedLuckyItems[priority] != null) {
+              activeLuckyItem = trackedLuckyItems[priority];
+              break;
+            }
+          }
+        }
+
+        for (SetEffect setEffect in activeSetEffects.values) {
+          setEffect.updateLuckyItem(activeLuckyItem);
+        }
+      }
+    }
+    else {
+      trackedLuckyItems[luckyItem.priority] = luckyItem;
+      // If the activeLuckyItem is null then we can immediately activate and update set effects
+      // If the luckyItem is the same priority as the current one
+      // If the luckyItem is a higher priortiy as the current one
+      if (activeLuckyItem == null || luckyItem.priority == activeLuckyItem!.priority || luckyItem.priority < activeLuckyItem!.priority) {
+        activeLuckyItem = luckyItem;
+        for (SetEffect setEffect in activeSetEffects.values) {
+          setEffect.updateLuckyItem(activeLuckyItem);
+        }
+      } 
     }
   }
 
@@ -196,7 +242,7 @@ class SetEffect {
         borderRadius: const BorderRadius.all(Radius.circular(10))
       ),
       padding: const EdgeInsets.all(5),
-      width: 250,
+      width: 300,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: widgetChildren
@@ -267,6 +313,7 @@ class SetEffect {
       if (equippedEquipType == null) {
         equippedEquips[equipName.equipType] = {equipName};
         totalSetItems += 1;
+        _caluclateLuckyItemBonus();
         return true;
       }
       // The equip is already part of the set
@@ -276,6 +323,7 @@ class SetEffect {
       else {
         equippedEquips[equipName.equipType]!.add(equipName);
         totalSetItems += 1;
+        _caluclateLuckyItemBonus();
         return true;
       }
     }
@@ -302,6 +350,7 @@ class SetEffect {
       else if (equippedEquipType.contains(equipName)) {
         equippedEquips[equipName.equipType]!.remove(equipName);
         totalSetItems -= 1;
+        _caluclateLuckyItemBonus();
         return true;
       }
       // The equip is not already part of the set
@@ -312,19 +361,51 @@ class SetEffect {
     return false;
   }
 
-  void updateLuckyItem(LuckyItem newLuckyItem) {
-    // If no current active lucky item, then we can immediately try to activate this one
-    if (activeLuckyItem == null) {
-      activeLuckyItem = newLuckyItem;
+  void updateLuckyItem(LuckyItem? newLuckyItem) {
+    // Only want to update if the lucky item would actually activate part of the set
+    if (newLuckyItem == null || equipSet.requiredEquips.keys.toList().contains(newLuckyItem.equipName.equipType)) {
+      // This only applies to Genesis Weapons - Do not want to be a lucky item for the set that the equip is also a part of
+      if (newLuckyItem != null && newLuckyItem.equipSet == equipSet) {
+        activeLuckyItem = null;
+      }
+      else {
+        activeLuckyItem = newLuckyItem;
+      }
     }
-    // If the priority is the same, then its the same "type" of lucky item and nothing further needs to be done outside of updating this for when
-    // we need to remove this item later
-    else if (newLuckyItem.priority == activeLuckyItem?.priority) {
-      activeLuckyItem = newLuckyItem;
+    else {
+      activeLuckyItem = null;
     }
-    // If the priorty is lower, we can ignore this lucky item altogether
-    else if (newLuckyItem.priority > activeLuckyItem!.priority) {
-      return;
+    _calculateLuckyItemUpdate();
+  }
+
+  void _calculateLuckyItemUpdate() {
+    // If we update a LuckyItem to null, or one that does not count towards the set effect
+    if (activeLuckyItem == null && _isLuckyItemActive) {
+      totalSetItems -= 1;
+      _isLuckyItemActive = false;
+    }
+    else {
+      _caluclateLuckyItemBonus();
+    }
+  }
+
+  void _caluclateLuckyItemBonus() {
+    // Determine if we need to deactive the lucky item bonus, happens when we fall below the required 3 items equipped
+    if (_isLuckyItemActive) {
+      if (totalSetItems <= 3) {
+        totalSetItems -= 1;
+        _isLuckyItemActive = false;
+      }
+    }
+    // Determine if we need to activate the lucky item bonus
+    else {
+      if (activeLuckyItem == null) {
+        return;
+      }
+      else if (totalSetItems >= 3) {
+        totalSetItems += 1;
+        _isLuckyItemActive = true;
+      }
     }
   }
 }
@@ -454,22 +535,25 @@ class LuckyItem {
   };
 
   final EquipName equipName;
+  final EquipSet? equipSet;
   final int priority;
 
   const LuckyItem({
     required this.equipName,
+    required this.equipSet,
     required this.priority,
   });
 
-  static LuckyItem? getLuckyItem(EquipName equipName) {
-    if (!equipName.isLuckyItem) {
+  static LuckyItem? getLuckyItem(Equip equip) {
+    if (!equip.equipName.isLuckyItem) {
       return null;
     }
 
     for (MapEntry<int, Set<EquipName>> mapEntry in luckyItemPriority.entries) {
-      if (mapEntry.value.isNotEmpty && mapEntry.value.contains(equipName)) {
+      if (mapEntry.value.isNotEmpty && mapEntry.value.contains(equip.equipName)) {
         return LuckyItem(
-          equipName: equipName, 
+          equipName: equip.equipName, 
+          equipSet: equip.equipSet,
           priority: mapEntry.key
         );
       }

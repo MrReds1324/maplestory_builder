@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
 final doubleRoundFormater = NumberFormat('#######');

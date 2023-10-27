@@ -7,6 +7,7 @@ import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
@@ -187,7 +188,7 @@ class Equip {
   }
 
   double getTooltipWidth() {
-    return equipSet != null ? 560 : 310;
+    return equipSet != null ? 610 : 310;
   }
 
   Row createEquipContainer(BuildContext context, {bool isEquipEditing=false}) {
@@ -460,8 +461,13 @@ final List<Equip> equipList = [
   Equip(equipName: EquipName.eternalArcherShoulder, equipSet: EquipSet.eternalSetBowman),
   // Genesis Weapons
   Equip(equipName: EquipName.genesisCrossbow, equipSet: EquipSet.eternalSetBowman, starForceModule: StarForceModule(possibleStars: 25, currentStars: 22)),
-
   // Arcane Bowman Items
-  
+  Equip(equipName: EquipName.arcaneUmbraArcherHat, equipSet: EquipSet.arcaneSetBowman),
+  Equip(equipName: EquipName.arcaneUmbraArcherSuit, equipSet: EquipSet.arcaneSetBowman),
+  Equip(equipName: EquipName.arcaneUmbraArcherShoes, equipSet: EquipSet.arcaneSetBowman),
+  Equip(equipName: EquipName.arcaneUmbraArcherShoulder, equipSet: EquipSet.arcaneSetBowman),
+  Equip(equipName: EquipName.arcaneUmbraArcherGloves, equipSet: EquipSet.arcaneSetBowman),
+  Equip(equipName: EquipName.arcaneUmbraArcherCape, equipSet: EquipSet.arcaneSetBowman),
   // Arcane Weapons
+  Equip(equipName: EquipName.arcaneUmbraCrossbow, equipSet: EquipSet.arcaneSetBowman),
 ];

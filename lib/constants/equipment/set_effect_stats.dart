@@ -101,8 +101,52 @@ enum EquipSet {
   ),
   arcaneSetBowman(
     formattedName: "Arcane Umbra Set (Bowman)", 
-    requiredEquips: {}, 
-    rawSetEffect: {}
+    requiredEquips: {
+      EquipType.hat: SetEffectSlot(any: {EquipName.arcaneUmbraArcherHat}),
+      EquipType.overall: SetEffectSlot(any: {EquipName.arcaneUmbraArcherSuit}),
+      EquipType.shoes: SetEffectSlot(any: {EquipName.arcaneUmbraArcherShoes}),
+      EquipType.shoulder: SetEffectSlot(any: {EquipName.arcaneUmbraArcherShoulder}),
+      EquipType.gloves: SetEffectSlot(any: {EquipName.arcaneUmbraArcherGloves}),
+      EquipType.cape: SetEffectSlot(any: {EquipName.arcaneUmbraArcherCape}),
+      EquipType.weapon: SetEffectSlotChooseOne(chooseOne: {EquipName.arcaneUmbraCrossbow}, choosingName: "Arcane Umbra"),
+    }, 
+    rawSetEffect: {
+      2: {
+        StatType.attack: 30,
+        StatType.mattack: 30,
+        StatType.bossDamage: 0.1,
+      },
+      3: {
+        StatType.attack: 30,
+        StatType.mattack: 30,
+        StatType.defense: 400,
+        StatType.ignoreDefense: 0.1,
+      },
+      4: {
+        StatType.allStats: 50,
+        StatType.attack: 35,
+        StatType.mattack: 35,
+        StatType.bossDamage: 0.1,
+      },
+      5: {
+        StatType.hp: 2000,
+        StatType.mp: 2000,
+        StatType.attack: 40,
+        StatType.mattack: 40,
+        StatType.bossDamage: 0.1,
+      },
+      6: {
+        StatType.hpPercentage: 0.3,
+        StatType.mpPercentage: 0.3,
+        StatType.attack: 30,
+        StatType.mattack: 30,
+      },
+      7: {
+        StatType.attack: 30,
+        StatType.mattack: 30,
+        StatType.ignoreDefense: 0.1,
+      },
+    }
   ),
   ;
 
