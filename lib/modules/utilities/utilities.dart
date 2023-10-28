@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
@@ -23,6 +24,16 @@ Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
 
     map.forEach((key, value) {
       newMap[key] = value.copyWith();
+    });
+
+    return newMap;
+}
+
+Map<EquipType, Set<EquipName>> deepCopyEquippedEquips(Map<EquipType, Set<EquipName>> map) {
+  Map<EquipType, Set<EquipName>> newMap = {};
+
+    map.forEach((key, value) {
+      newMap[key] = Set.of(value);
     });
 
     return newMap;

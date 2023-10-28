@@ -57,6 +57,7 @@ class SetEffectModule {
 
     if (activeSetEffects[equip.equipSet] == null) {
       activeSetEffects[equip.equipSet!] = SetEffect(equipSet: equip.equipSet!);
+      activeSetEffects[equip.equipSet!]!.updateLuckyItem(activeLuckyItem);
     }
     return activeSetEffects[equip.equipSet]!.addEquip(equip.equipName);
   }
@@ -163,7 +164,7 @@ class SetEffect {
   }) {
     return SetEffect(
       equipSet: equipSet, 
-      equippedEquips: equippedEquips ?? Map.of(this.equippedEquips),
+      equippedEquips: equippedEquips ?? deepCopyEquippedEquips(this.equippedEquips),
       activeLuckyItem: activeLuckyItem ?? this.activeLuckyItem,
       isLuckyItemActive: isLuckyItemActive ?? _isLuckyItemActive,
       totalSetItems: totalSetItems ?? this.totalSetItems,
@@ -182,11 +183,11 @@ class SetEffect {
       Color? rawEffectColor;
       // The totalSetItems will already be updated here (adding and removing will have already been reflected by the time we ask to draw the container)
       // If we are removing an equip and the totalSetItems + 1 matches the set effect count we are at
-      if (removingEquip != null && setEffectCount == (totalSetItems + 1)) {
+      if (removingEquip != null && (setEffectCount == (totalSetItems + 1) || (activeLuckyItem != null && totalSetItems == 2 && setEffectCount == (totalSetItems + 2)))) {
         rawEffectColor = Colors.redAccent;
       }
-      // If we are adding an equip and the totalSetItems matches the set effect count we are at
-      else if (addingEquip != null && setEffectCount == totalSetItems) {
+      // If we are adding an equip and the totalSetItems matches both the set effect count we are at or we recently activated a lucky item (3 -> 4 items)
+      else if (addingEquip != null && (setEffectCount == totalSetItems || (_isLuckyItemActive && totalSetItems == 4 && setEffectCount == totalSetItems -1))) {
         rawEffectColor = Colors.greenAccent;
       }
       else {
@@ -220,9 +221,9 @@ class SetEffect {
       )
     ];
 
-    equipSet.requiredEquips.forEach((key, value) { 
-      widgetChildren.addAll(value.createSlotContainer(key, equippedEquips[key] ?? {}, addingEquip: addingEquip, removingEquip: removingEquip));
-    });
+    for (AbstractSetEffectSlot effectSlot in equipSet.requiredEquips.values) {
+      widgetChildren.addAll(effectSlot.createSlotContainer(this, addingEquip: addingEquip, removingEquip: removingEquip));
+    }
 
     widgetChildren.add(
       const Divider(
@@ -411,11 +412,12 @@ class SetEffect {
 }
 
 abstract class AbstractSetEffectSlot {
+  final EquipType equipType;
 
-  const AbstractSetEffectSlot();
+  const AbstractSetEffectSlot({required this.equipType});
 
   bool contains(EquipName equipName);
-  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip});
+  List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip});
 }
 
 // Slot that defines a regular
@@ -423,6 +425,7 @@ class SetEffectSlot extends AbstractSetEffectSlot {
   final Set<EquipName> any;
 
   const SetEffectSlot({
+    required super.equipType,
     required this.any
   });
 
@@ -432,8 +435,34 @@ class SetEffectSlot extends AbstractSetEffectSlot {
   }
 
   @override
-  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip}) {
+  List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip}) {
     List<Widget> returnWidgets = [];
+
+    if (setEffect.activeLuckyItem != null && setEffect.activeLuckyItem!.equipName.equipType == equipType) {
+      var luckyColor = starColor;
+      if (addingEquip != null && setEffect.totalSetItems == 4 && setEffect._isLuckyItemActive) {
+        luckyColor = Colors.greenAccent;
+      }
+      else if (removingEquip != null && setEffect.activeLuckyItem != null && setEffect.totalSetItems == 2) {
+        luckyColor = Colors.redAccent;
+      }
+
+      returnWidgets.add(
+        Row(
+          children: [
+            Text(
+              setEffect.activeLuckyItem!.equipName.formattedName,
+              style: TextStyle(color: luckyColor),
+            ),
+            const Spacer(),
+            Text(
+              "(${equipType.formattedName})",
+              style: TextStyle(color: luckyColor),
+            ),
+          ]
+        )
+      );
+    }
 
     for (EquipName equipName in any) { 
       Color? textColor;
@@ -444,7 +473,7 @@ class SetEffectSlot extends AbstractSetEffectSlot {
         textColor = Colors.greenAccent;
       }
       else {
-        textColor = equippedEquips.contains(equipName) ? null : missingColor;
+        textColor = (setEffect.equippedEquips[equipType] ?? {}).contains(equipName) ? null : missingColor;
       }
 
       returnWidgets.add(
@@ -474,6 +503,7 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
   final String choosingName;
 
   const SetEffectSlotChooseOne({
+    required super.equipType,
     required this.chooseOne,
     required this.choosingName
   });
@@ -484,9 +514,18 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
   }
 
   @override
-  List<Widget> createSlotContainer(EquipType equipType, Set<EquipName> equippedEquips, {Equip? addingEquip, Equip? removingEquip}) {
+  List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip}) {
     Color? textColor;
-    if (chooseOne.contains(removingEquip?.equipName)) {
+    if (setEffect.activeLuckyItem != null && setEffect.activeLuckyItem!.equipName.equipType == equipType) {
+      textColor = starColor;
+      if (addingEquip != null && setEffect.totalSetItems == 4 && setEffect._isLuckyItemActive) {
+        textColor = Colors.greenAccent;
+      }
+      else if (removingEquip != null && setEffect.activeLuckyItem != null && setEffect.totalSetItems == 2) {
+        textColor = Colors.redAccent;
+      }
+    }
+    else if (chooseOne.contains(removingEquip?.equipName)) {
       textColor = Colors.redAccent;
     }
     else if (chooseOne.contains(addingEquip?.equipName)) {
@@ -494,7 +533,7 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
     }
     else {
       textColor = missingColor;
-      for (EquipName equipName in equippedEquips) {
+      for (EquipName equipName in (setEffect.equippedEquips[equipType] ?? {})) {
         if (chooseOne.contains(equipName)) {
           textColor = null;
           break;

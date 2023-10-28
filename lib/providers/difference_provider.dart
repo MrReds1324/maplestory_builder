@@ -82,7 +82,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
     List<Widget> editingWidgets = [];
 
-    if (calculationType == CalculationType.equipment){
+    if (calculationType == CalculationType.equipment) {
       if (replacing == null) {
         editingWidgets.add(
           const Text(
@@ -103,6 +103,29 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         }
         else {
           editingWidgets.add(equipEditingProvider.editingEquip?.createSetEffectContainer(context!, isEquipEditing: true, isAdding: true) ?? const SizedBox.shrink());
+        }
+      }
+
+      if ((equipEditingProvider.editingEquip?.equipName.isLuckyItem ?? false) || (replacing?.equipName.isLuckyItem ?? false)) {
+        // Compare the two Total Set Effects if two different equipment sets are being compared
+        var oldEquipSet = mainCharacterModel.equipsProvider.activeEquipSet.setEffectModule.getEquippedSetCounts();
+        var newEquipSet = diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.getEquippedSetCounts();
+
+        var allEquipSetNames = Set.from(oldEquipSet.keys.toList() + newEquipSet.keys.toList());
+        for (EquipSet equipSet in allEquipSetNames) {
+          if (equipEditingProvider.editingEquip?.equipSet == equipSet || replacing?.equipSet == equipSet) {
+            continue;
+          }
+
+          var difference = (newEquipSet[equipSet] ?? 0) - (oldEquipSet[equipSet] ?? 0);
+          editingWidgets.add(
+            Text(
+              '${equipSet.formattedName}: ${difference > 0 ? "+" : ""}$difference items',
+              style: TextStyle(
+                color: difference < 0 ?Colors.redAccent: Colors.greenAccent,
+              ),
+            )
+          );
         }
       }
     }

@@ -6,10 +6,10 @@ enum EquipSet {
   superiorGollux(
     formattedName: "Superior Gollux Set", 
     requiredEquips: {
-      EquipType.ring: SetEffectSlot(any: {EquipName.superiorGolluxRing}),
-      EquipType.pendant: SetEffectSlot(any: {EquipName.superiorGolluxPendant}),
-      EquipType.belt: SetEffectSlot(any: {EquipName.superiorGolluxBelt}),
-      EquipType.earrings: SetEffectSlot(any: {EquipName.superiorGolluxEarrings}),
+      EquipType.ring: SetEffectSlot(equipType: EquipType.ring, any: {EquipName.superiorGolluxRing}),
+      EquipType.pendant: SetEffectSlot(equipType: EquipType.pendant, any: {EquipName.superiorGolluxPendant}),
+      EquipType.belt: SetEffectSlot(equipType: EquipType.belt, any: {EquipName.superiorGolluxBelt}),
+      EquipType.earrings: SetEffectSlot(equipType: EquipType.earrings, any: {EquipName.superiorGolluxEarrings}),
     },
     rawSetEffect: {
       2: {
@@ -32,10 +32,10 @@ enum EquipSet {
   dawnBossSet(
     formattedName: "Dawn Boss Set",
     requiredEquips: {
-      EquipType.face: SetEffectSlot(any: {EquipName.twilightMark}),
-      EquipType.earrings: SetEffectSlot(any: {EquipName.estellaEarrings}),
-      EquipType.ring: SetEffectSlot(any: {EquipName.dawnGuardianAngelRing}),
-      EquipType.pendant: SetEffectSlot(any: {EquipName.daybreakPendant}),
+      EquipType.face: SetEffectSlot(equipType: EquipType.face, any: {EquipName.twilightMark}),
+      EquipType.earrings: SetEffectSlot(equipType: EquipType.earrings, any: {EquipName.estellaEarrings}),
+      EquipType.ring: SetEffectSlot(equipType: EquipType.ring, any: {EquipName.dawnGuardianAngelRing}),
+      EquipType.pendant: SetEffectSlot(equipType: EquipType.pendant, any: {EquipName.daybreakPendant}),
     }, 
     rawSetEffect: {
       2: {
@@ -64,11 +64,11 @@ enum EquipSet {
   eternalSetBowman(
     formattedName: "Eternal Set (Bowman)", 
     requiredEquips: {
-      EquipType.hat: SetEffectSlot(any: {EquipName.eternalArcherHat}),
-      EquipType.top: SetEffectSlot(any: {EquipName.eternalArcherHood}),
-      EquipType.bottom: SetEffectSlot(any: {EquipName.eternalArcherPants}),
-      EquipType.shoulder: SetEffectSlot(any: {EquipName.eternalArcherShoulder}),
-      EquipType.weapon: SetEffectSlotChooseOne(chooseOne: {EquipName.genesisCrossbow}, choosingName: "Genesis")
+      EquipType.hat: SetEffectSlot(equipType: EquipType.hat, any: {EquipName.eternalArcherHat}),
+      EquipType.top: SetEffectSlot(equipType: EquipType.top, any: {EquipName.eternalArcherHood}),
+      EquipType.bottom: SetEffectSlot(equipType: EquipType.bottom, any: {EquipName.eternalArcherPants}),
+      EquipType.shoulder: SetEffectSlot(equipType: EquipType.shoulder, any: {EquipName.eternalArcherShoulder}),
+      EquipType.weapon: SetEffectSlotChooseOne(equipType: EquipType.weapon, chooseOne: {EquipName.genesisCrossbow}, choosingName: "Genesis")
     }, 
     rawSetEffect: {
       2: {
@@ -102,13 +102,13 @@ enum EquipSet {
   arcaneSetBowman(
     formattedName: "Arcane Umbra Set (Bowman)", 
     requiredEquips: {
-      EquipType.hat: SetEffectSlot(any: {EquipName.arcaneUmbraArcherHat}),
-      EquipType.overall: SetEffectSlot(any: {EquipName.arcaneUmbraArcherSuit}),
-      EquipType.shoes: SetEffectSlot(any: {EquipName.arcaneUmbraArcherShoes}),
-      EquipType.shoulder: SetEffectSlot(any: {EquipName.arcaneUmbraArcherShoulder}),
-      EquipType.gloves: SetEffectSlot(any: {EquipName.arcaneUmbraArcherGloves}),
-      EquipType.cape: SetEffectSlot(any: {EquipName.arcaneUmbraArcherCape}),
-      EquipType.weapon: SetEffectSlotChooseOne(chooseOne: {EquipName.arcaneUmbraCrossbow}, choosingName: "Arcane Umbra"),
+      EquipType.hat: SetEffectSlot(equipType: EquipType.hat, any: {EquipName.arcaneUmbraArcherHat}),
+      EquipType.overall: SetEffectSlot(equipType: EquipType.overall, any: {EquipName.arcaneUmbraArcherSuit}),
+      EquipType.shoes: SetEffectSlot(equipType: EquipType.shoes, any: {EquipName.arcaneUmbraArcherShoes}),
+      EquipType.shoulder: SetEffectSlot(equipType: EquipType.shoulder, any: {EquipName.arcaneUmbraArcherShoulder}),
+      EquipType.gloves: SetEffectSlot(equipType: EquipType.gloves, any: {EquipName.arcaneUmbraArcherGloves}),
+      EquipType.cape: SetEffectSlot(equipType: EquipType.cape, any: {EquipName.arcaneUmbraArcherCape}),
+      EquipType.weapon: SetEffectSlotChooseOne(equipType: EquipType.weapon, chooseOne: {EquipName.arcaneUmbraCrossbow}, choosingName: "Arcane Umbra"),
     }, 
     rawSetEffect: {
       2: {
