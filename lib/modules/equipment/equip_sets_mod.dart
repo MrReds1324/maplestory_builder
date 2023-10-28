@@ -545,7 +545,7 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
       Row(
         children: [
           Text(
-            "Choose one of $choosingName Weapon",
+            "Choose 1 $choosingName Weapon",
             style: TextStyle(color: textColor),
           ),
           const Spacer(),
