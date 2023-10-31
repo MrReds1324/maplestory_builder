@@ -29,7 +29,8 @@ class MapleTooltip extends StatelessWidget{
         alignment: PlaceholderAlignment.baseline,
         baseline: TextBaseline.alphabetic,
         child: Container(
-          constraints: BoxConstraints(maxWidth: maxWidth != null ? (maxWidth! + 8) : 400.0, maxHeight: 550),
+          // Add 8 to the custom max width here to account for the scroll bar on the side
+          constraints: BoxConstraints(maxWidth: maxWidth != null ? (maxWidth! + 8) : 400.0, maxHeight: 470),
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(right: 8, left: 5, top: 5, bottom: 5),
             child: Column(

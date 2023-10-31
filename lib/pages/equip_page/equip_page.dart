@@ -350,6 +350,12 @@ class InventoryItems extends StatelessWidget {
     super.key
   });
 
+  Function _curriedOnHover(Equip equip) {
+    return (BuildContext context) {
+      return context.read<DifferenceCalculatorProvider>().compareEquip(context, equip);
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -379,7 +385,13 @@ class InventoryItems extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return MapleTooltip(
                         maxWidth: allEquipsList[index].getTooltipWidth(),
-                        tooltipWidgets: [allEquipsList[index].createEquipContainer(context)],
+                        onHoverFunction: _curriedOnHover(allEquipsList[index]),
+                        tooltipWidgets: [
+                          allEquipsList[index].createEquipContainer(context),
+                          Consumer<DifferenceCalculatorProvider>(
+                            builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+                          ),
+                        ],
                         child: ListTile(
                           title: Row(
                             children: [

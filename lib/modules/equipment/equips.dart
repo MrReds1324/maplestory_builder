@@ -264,16 +264,16 @@ class Equip {
     );
   }
 
-  Widget createSetEffectContainer(BuildContext context, {bool isEquipEditing = false, bool isAdding = false, bool isRemoving = false}) {
+  Widget createSetEffectContainer(BuildContext context, {bool isEquipComparing = false, bool isAdding = false, bool isRemoving = false}) {
     // If we are editing an equip then we always want to target the difference character model
     SetEffect? setEffect;
-    if (isEquipEditing) {
+    if (isEquipComparing) {
       setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet];
     }
     else {
       setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet] ?? (equipSet != null ? SetEffect(equipSet: equipSet!) : null);
     }
-    return setEffect?.createSetEffectContainer(context, addingEquip: isAdding && isEquipEditing ? this : null, removingEquip: isRemoving && isEquipEditing ? this : null) ?? const SizedBox.shrink();
+    return setEffect?.createSetEffectContainer(context, addingEquip: isAdding && isEquipComparing ? this : null, removingEquip: isRemoving && isEquipComparing ? this : null) ?? const SizedBox.shrink();
   }
 
   Widget __createTextLine(BuildContext context, StatType statType) {
