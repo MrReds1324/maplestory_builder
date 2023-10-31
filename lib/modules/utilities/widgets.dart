@@ -29,13 +29,15 @@ class MapleTooltip extends StatelessWidget{
         alignment: PlaceholderAlignment.baseline,
         baseline: TextBaseline.alphabetic,
         child: Container(
-          padding: const EdgeInsets.all(5),
-          constraints: BoxConstraints(maxWidth: maxWidth ?? 400.0),
-          child: Column(
-            children: tooltipTitle.isNotEmpty ? <Widget>[
-              Text(tooltipTitle, style: Theme.of(context).textTheme.headlineSmall)
-            ] + tooltipWidgets : tooltipWidgets
-          ),
+          constraints: BoxConstraints(maxWidth: maxWidth != null ? (maxWidth! + 8) : 400.0, maxHeight: 550),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(right: 8, left: 5, top: 5, bottom: 5),
+            child: Column(
+              children: tooltipTitle.isNotEmpty ? <Widget>[
+                Text(tooltipTitle, style: Theme.of(context).textTheme.headlineSmall)
+              ] + tooltipWidgets : tooltipWidgets
+            ),
+          )
         ),
       ),
       decoration: BoxDecoration(
