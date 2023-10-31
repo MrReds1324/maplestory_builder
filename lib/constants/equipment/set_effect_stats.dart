@@ -68,7 +68,7 @@ enum EquipSet {
       EquipType.top: SetEffectSlot(equipType: EquipType.top, any: {EquipName.eternalArcherHood}),
       EquipType.bottom: SetEffectSlot(equipType: EquipType.bottom, any: {EquipName.eternalArcherPants}),
       EquipType.shoulder: SetEffectSlot(equipType: EquipType.shoulder, any: {EquipName.eternalArcherShoulder}),
-      EquipType.weapon: SetEffectSlotChooseOne(equipType: EquipType.weapon, chooseOne: {EquipName.genesisCrossbow}, choosingName: "Genesis")
+      EquipType.weapon: SetEffectSlotSelectOne(equipType: EquipType.weapon, selectOne: {EquipName.genesisCrossbow}, selectString: "Genesis Weapon")
     }, 
     rawSetEffect: {
       2: {
@@ -108,7 +108,7 @@ enum EquipSet {
       EquipType.shoulder: SetEffectSlot(equipType: EquipType.shoulder, any: {EquipName.arcaneUmbraArcherShoulder}),
       EquipType.gloves: SetEffectSlot(equipType: EquipType.gloves, any: {EquipName.arcaneUmbraArcherGloves}),
       EquipType.cape: SetEffectSlot(equipType: EquipType.cape, any: {EquipName.arcaneUmbraArcherCape}),
-      EquipType.weapon: SetEffectSlotChooseOne(equipType: EquipType.weapon, chooseOne: {EquipName.arcaneUmbraCrossbow}, choosingName: "Arcane Umbra"),
+      EquipType.weapon: SetEffectSlotSelectOne(equipType: EquipType.weapon, selectOne: {EquipName.arcaneUmbraCrossbow}, selectString: "Arcane Umbra Weapon"),
     }, 
     rawSetEffect: {
       2: {
@@ -145,6 +145,80 @@ enum EquipSet {
         StatType.attack: 30,
         StatType.mattack: 30,
         StatType.ignoreDefense: 0.1,
+      },
+    }
+  ),
+  pitchedBoss(
+    formattedName: "Pitched Boss Set",
+    requiredEquips: {
+      EquipType.heart: SetEffectSlot(equipType: EquipType.heart, any: {EquipName.blackHeart}),
+      EquipType.face: SetEffectSlot(equipType: EquipType.face, any: {EquipName.berserked}),
+      EquipType.eye: SetEffectSlot(equipType: EquipType.eye, any: {EquipName.magicEyepatch}),
+      EquipType.pendant: SetEffectSlot(equipType: EquipType.pendant, any: {EquipName.sourceOfSuffering}),
+      EquipType.pocket: SetEffectSlotSelectOne(equipType: EquipType.pocket, selectOne: {EquipName.cursedBlueSpellbook, EquipName.cursedGreenSpellbook,EquipName.cursedRedSpellbook,EquipName.cursedYellowSpellbook,}, selectString: "Cursed Spellbook"),
+      EquipType.earrings: SetEffectSlot(equipType: EquipType.earrings, any: {EquipName.commandingForceEarring}),
+      EquipType.ring: SetEffectSlot(equipType: EquipType.ring, any: {EquipName.endlessTerror}),
+      EquipType.belt: SetEffectSlot(equipType: EquipType.belt, any: {EquipName.dreamyBelt}),
+      EquipType.badge: SetEffectSlot(equipType: EquipType.badge, any: {EquipName.genesisBadge}),
+      EquipType.emblem: SetEffectSlotSelectOne(equipType: EquipType.emblem, selectOne: {EquipName.mitrasRageWarrior, EquipName.mitrasRageBowman, EquipName.mitrasRagePirate, EquipName.mitrasRageMagician, EquipName.mitrasRageThief}, selectString: "Mitra's Rage")
+    },
+    rawSetEffect: {
+      2: {
+        StatType.allStats: 10,
+        StatType.hp: 250,
+        StatType.attack: 10,
+        StatType.mattack: 10,
+        StatType.bossDamage: 0.1
+      },
+      3: {
+        StatType.allStats: 10,
+        StatType.hp: 250,
+        StatType.attack: 10,
+        StatType.mattack: 10,
+        StatType.defense: 250,
+        StatType.ignoreDefense: 0.1
+      },
+      4: {
+        StatType.allStats: 15,
+        StatType.hp: 375,
+        StatType.attack: 15,
+        StatType.mattack: 15,
+        StatType.critDamage: 0.05
+      },
+      5: {
+        StatType.allStats: 15,
+        StatType.hp: 375,
+        StatType.attack: 15,
+        StatType.mattack: 15,
+        StatType.ignoreDefense: 0.1
+      },
+      6: {
+        StatType.allStats: 15,
+        StatType.hp: 375,
+        StatType.attack: 15,
+        StatType.mattack: 15,
+        StatType.ignoreDefense: 0.1
+      },
+      7: {
+        StatType.allStats: 15,
+        StatType.hp: 375,
+        StatType.attack: 15,
+        StatType.mattack: 15,
+        StatType.critDamage: 0.05
+      },
+      8: {
+        StatType.allStats: 15,
+        StatType.hp: 375,
+        StatType.attack: 15,
+        StatType.mattack: 15,
+        StatType.bossDamage: 0.1
+      },
+      9: {
+        StatType.allStats: 15,
+        StatType.hp: 375,
+        StatType.attack: 15,
+        StatType.mattack: 15,
+        StatType.critDamage: 0.05
       },
     }
   ),

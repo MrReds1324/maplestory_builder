@@ -147,7 +147,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
             editingWidgets.add(comparingEquip?.createSetEffectContainer(context!, isEquipComparing: true, isAdding: true) ?? const SizedBox.shrink());
           }
 
-          if ((comparingEquip?.equipName.isLuckyItem ?? false) || (replacing?.equipName.isLuckyItem ?? false)) {
+          if ((comparingEquip?.equipName.isLuckyItem ?? false) || (replacing.equipName.isLuckyItem)) {
             compareEquipSets(isComparingEquips: true, isComparingLuckyItem: true);
           }
         }

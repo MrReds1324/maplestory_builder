@@ -498,19 +498,19 @@ class SetEffectSlot extends AbstractSetEffectSlot {
 }
 
 // Choose one slot, used for weapons
-class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
-  final Set<EquipName> chooseOne;
-  final String choosingName;
+class SetEffectSlotSelectOne extends AbstractSetEffectSlot {
+  final Set<EquipName> selectOne;
+  final String selectString;
 
-  const SetEffectSlotChooseOne({
+  const SetEffectSlotSelectOne({
     required super.equipType,
-    required this.chooseOne,
-    required this.choosingName
+    required this.selectOne,
+    required this.selectString
   });
 
   @override
   bool contains(EquipName equipName) {
-    return chooseOne.contains(equipName);
+    return selectOne.contains(equipName);
   }
 
   @override
@@ -525,16 +525,16 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
         textColor = Colors.redAccent;
       }
     }
-    else if (chooseOne.contains(removingEquip?.equipName)) {
+    else if (selectOne.contains(removingEquip?.equipName)) {
       textColor = Colors.redAccent;
     }
-    else if (chooseOne.contains(addingEquip?.equipName)) {
+    else if (selectOne.contains(addingEquip?.equipName)) {
       textColor = Colors.greenAccent;
     }
     else {
       textColor = missingColor;
       for (EquipName equipName in (setEffect.equippedEquips[equipType] ?? {})) {
-        if (chooseOne.contains(equipName)) {
+        if (selectOne.contains(equipName)) {
           textColor = null;
           break;
         }
@@ -545,7 +545,7 @@ class SetEffectSlotChooseOne extends AbstractSetEffectSlot {
       Row(
         children: [
           Text(
-            "Choose 1 $choosingName Weapon",
+            "Select 1 $selectString",
             style: TextStyle(color: textColor),
           ),
           const Spacer(),

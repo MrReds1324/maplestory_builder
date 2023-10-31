@@ -9,6 +9,7 @@ import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
+import 'package:maplestory_builder/modules/equipment/pitched_boss_upgrade_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
@@ -27,6 +28,7 @@ class Equip {
   FlameModule? flameModule;
   PotentialModule? potentialModule;
   ScrollModule? scrollModule;
+  PitchedBossUpgradeModule? pitchedBossUpgradeModule;
   TweakModule? tweakModule;
   int equipHash = -1;
 
@@ -37,6 +39,7 @@ class Equip {
     this.flameModule,
     this.potentialModule,
     this.scrollModule,
+    this.pitchedBossUpgradeModule,
     this.tweakModule,
     this.equipHash = -1,
   }) {
@@ -105,6 +108,7 @@ class Equip {
     FlameModule? flameModule,
     PotentialModule? potentialModule,
     ScrollModule? scrollModule,
+    PitchedBossUpgradeModule? pitchedBossUpgradeModule,
     TweakModule? tweakModule,
     int? equipHash,
   }) {
@@ -115,6 +119,7 @@ class Equip {
       flameModule: flameModule ?? this.flameModule?.copyWith(),
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
       scrollModule: scrollModule ?? this.scrollModule?.copyWith(),
+      pitchedBossUpgradeModule: pitchedBossUpgradeModule ?? this.pitchedBossUpgradeModule?.copyWith(),
       tweakModule: tweakModule ?? this.tweakModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
@@ -130,12 +135,12 @@ class Equip {
       case StatType.dex:
       case StatType.int:
       case StatType.luk:  
-        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
+        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
       // TODO fix these calculation
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
       default:
-        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
+        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
     }
   }
 
@@ -335,7 +340,7 @@ class Equip {
         baseStat = get(statType) + get(StatType.allStats);
         starForceStat = starForceModule?.get(statType) ?? 0;
         flameStat = flameModule?.get(statType) ?? 0;
-        scrollStat = (scrollModule?.get(statType) ?? 0) + (scrollModule?.get(StatType.allStats) ?? 0);
+        scrollStat = (scrollModule?.get(statType) ?? 0) + (scrollModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0);
         tweakStat = tweakModule?.get(statType) ?? 0;
       // TODO: Fix these calculations
       case StatType.ignoreDefense:
@@ -344,7 +349,7 @@ class Equip {
         baseStat = get(statType);
         starForceStat = starForceModule?.get(statType) ?? 0;
         flameStat = flameModule?.get(statType) ?? 0;
-        scrollStat = scrollModule?.get(statType) ?? 0;
+        scrollStat = scrollModule?.get(statType) ?? 0 + (pitchedBossUpgradeModule?.get(statType) ?? 0);
         tweakStat = tweakModule?.get(statType) ?? 0;
     }
     totalStat = baseStat + starForceStat + scrollStat + flameStat + tweakStat;
@@ -470,4 +475,23 @@ final List<Equip> equipList = [
   Equip(equipName: EquipName.arcaneUmbraArcherCape, equipSet: EquipSet.arcaneSetBowman),
   // Arcane Weapons
   Equip(equipName: EquipName.arcaneUmbraCrossbow, equipSet: EquipSet.arcaneSetBowman),
+  // Pitched Boss Set Items
+  Equip(equipName: EquipName.blackHeart, equipSet: EquipSet.pitchedBoss, potentialModule: PotentialModule(potentialOffset: 0, mainPotential: PotentialTier.epic, mainPotentialLine1: const PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.uniquePrimeBossDamage), mainPotentialLine2: const PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.uniquePrimeIgnoreDefense))),
+  Equip(equipName: EquipName.berserked, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.magicEyepatch, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.sourceOfSuffering, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.cursedRedSpellbook, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.cursedGreenSpellbook, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.cursedBlueSpellbook, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.cursedYellowSpellbook, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.commandingForceEarring, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.endlessTerror, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.dreamyBelt, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.genesisBadge, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.mitrasRageWarrior, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.mitrasRageBowman, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.mitrasRagePirate, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.mitrasRageMagician, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.mitrasRageThief, equipSet: EquipSet.pitchedBoss),
+
 ];
