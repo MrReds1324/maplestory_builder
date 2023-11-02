@@ -91,12 +91,44 @@ class EquipBuilderContent extends StatelessWidget {
                       Expanded(
                         child: ListView(
                           padding: const EdgeInsets.only(right: 13, bottom: 5),
-                          children: const <Widget>[
-                            _ScrollSelector(),
-                            _StarForceSlider(),
-                            _PotentialSelector(),
-                            _FlameSelector(),
-                            _StatsTweak(),
+                          children: <Widget>[
+                            Selector<EquipEditingProvider, bool>(
+                              selector: (_, equipEditingProvider) => equipEditingProvider.canScroll,
+                              builder: (context, canScroll, child) {
+                                return canScroll ? const _ScrollSelector() : const SizedBox.shrink();
+                              }
+                            ),
+                            Selector<EquipEditingProvider, bool>(
+                              selector: (_, equipEditingProvider) => equipEditingProvider.canStar,
+                              builder: (context, canStar, child) {
+                                return canStar ? const _StarForceSlider() : const SizedBox.shrink();
+                              }
+                            ),
+                            Selector<EquipEditingProvider, bool>(
+                              selector: (_, equipEditingProvider) => equipEditingProvider.canPotential,
+                              builder: (context, canPotential, child) {
+                                return canPotential ? const _PotentialSelector() : const SizedBox.shrink();
+                              }
+                            ),
+                            Selector<EquipEditingProvider, bool>(
+                              selector: (_, equipEditingProvider) => equipEditingProvider.canFlame,
+                              builder: (context, canFlame, child) {
+                                return canFlame ? const _FlameSelector() : const SizedBox.shrink();
+                              }
+                            ),
+                            Selector<EquipEditingProvider, bool>(
+                              selector: (_, equipEditingProvider) => equipEditingProvider.canSoul,
+                              builder: (context, canSoul, child) {
+                                return canSoul ? const SizedBox.shrink() : const SizedBox.shrink();
+                              }
+                            ),
+                            Selector<EquipEditingProvider, bool>(
+                              selector: (_, equipEditingProvider) => equipEditingProvider.canPitchedBossUpgrade,
+                              builder: (context, canPitchedBossUpgrade, child) {
+                                return canPitchedBossUpgrade ? const SizedBox.shrink() : const SizedBox.shrink();
+                              }
+                            ),
+                            const _StatsTweak(),
                           ],
                         ),
                       ),

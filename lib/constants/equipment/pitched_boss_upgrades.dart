@@ -36,3 +36,13 @@ enum PitchedBossUpgrade {
   final Map<StatType, int> upgradeStats;
   final EquipName equipName;
 }
+
+bool isEquipPitchBossUpgradeable(EquipName equipName) {
+  for (PitchedBossUpgrade pitchedBossUpgrade in PitchedBossUpgrade.values) {
+    if (pitchedBossUpgrade.equipName == equipName) {
+      return true;
+    }
+  }
+
+  return false;
+}

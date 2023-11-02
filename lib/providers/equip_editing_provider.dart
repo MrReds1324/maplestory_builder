@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
+import 'package:maplestory_builder/constants/equipment/pitched_boss_upgrades.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
+import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +18,15 @@ class EquipEditingProvider with ChangeNotifier {
 
   Equip? editingEquip;
   int updateCounter = NO_EDITING_EQUIP;
+  // Used to hide/show editing expansion tiles and their contents in the editing window
+  bool canStar = false;
+  bool canFlame = false;
+  bool canPotential = false;
+  bool canScroll = false;
+  bool canSoul = false;
+  bool canPitchedBossUpgrade = false;
+  // Used to accurately modify/update the value in the tweak text controllers when loading an equip item
+  // that already has values in the tweak module
   Map<StatType, TextEditingController> tweakTextControllers = {};
 
   EquipEditingProvider({
@@ -24,19 +35,13 @@ class EquipEditingProvider with ChangeNotifier {
 
   void addEditingEquip(Equip equip) {
     editingEquip = equip.copyWith();
-    updateCounter = START_EDITING_EQUIP;
-
-    tweakTextControllers.forEach((key, value) {
-      value.text = editingEquip?.tweakModule?.get(key).toString() ?? "0";
-    });
+    _setEditingState();
 
     notifyListeners();
   }
 
   void cancelEquipEditing() {
-    editingEquip = null;
-    updateCounter = NO_EDITING_EQUIP;
-    _clearTweakTextControllers();
+    _clearEditingState();
 
     notifyListeners();
   }
@@ -44,9 +49,7 @@ class EquipEditingProvider with ChangeNotifier {
   void saveEditingEquip(BuildContext context) {
     var equipModule = context.read<EquipsProvider>();
     equipModule.saveEditingEquip(editingEquip);
-    editingEquip = null;
-    updateCounter = NO_EDITING_EQUIP;
-    _clearTweakTextControllers();
+    _clearEditingState();
 
     notifyListeners();
   }
@@ -149,9 +152,51 @@ class EquipEditingProvider with ChangeNotifier {
     return textController;
   }
 
+  void _setEditingState() {
+    updateCounter = START_EDITING_EQUIP;
+
+    tweakTextControllers.forEach((key, value) {
+      value.text = editingEquip!.tweakModule?.get(key).toString() ?? "";
+    });
+
+    if (editingEquip!.equipName.starForceCategory == StarForceCategory.player) {
+      canStar = true;
+    }
+
+    if (editingEquip!.equipName.flameCategory != FlameCategory.none) {
+      canFlame = true;
+    }
+
+    if (editingEquip!.equipName.potentialCategory == PotentialCategory.player) {
+      canPotential = true;
+    }
+
+    if (editingEquip!.equipName.maxScrollsSlots != 0) {
+      canScroll = true;
+    }
+
+    if (editingEquip!.equipName.equipType == EquipType.weapon && editingEquip!.equipName.itemLevel >= 75) {
+      canSoul = true;
+    }
+
+    canPitchedBossUpgrade = isEquipPitchBossUpgradeable(editingEquip!.equipName);   
+  }
+
   void _clearTweakTextControllers() {
     tweakTextControllers.forEach((key, value) {
-      value.text = "0";
+      value.text = "";
     });
+  }
+
+  void _clearEditingState() {
+    editingEquip = null;
+    updateCounter = NO_EDITING_EQUIP;
+    canStar = false;
+    canFlame = false;
+    canPotential = false;
+    canScroll = false;
+    canSoul = false;
+    canPitchedBossUpgrade = false;
+    _clearTweakTextControllers();
   }
 } 

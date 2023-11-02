@@ -206,7 +206,7 @@ class Equip {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              __createTextLine(context, StatType.starForce),
+              equipName.starForceCategory == StarForceCategory.none ? const SizedBox.shrink() : __createTextLine(context, StatType.starForce),
               Center(
                 child: Text(
                   "${equipName.formattedName}${(scrollModule?.usedScrolls.length ?? 0) > 0 ? ' +${scrollModule?.usedScrolls.length}' : ''}", style: Theme.of(context).textTheme.headlineSmall
