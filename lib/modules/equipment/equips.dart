@@ -260,7 +260,7 @@ class Equip {
                 "${(scrollModule?.usedScrollSlots ?? 0)}/${(scrollModule?.totalScrollSlots ?? 0)} Scrolls Enhancements Applied", 
                 style: Theme.of(context).textTheme.bodyMedium
               ),
-              isEquipEditing ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
+              isEquipEditing && equipName.potentialCategory == PotentialCategory.player ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
             ],
           ),
         ),

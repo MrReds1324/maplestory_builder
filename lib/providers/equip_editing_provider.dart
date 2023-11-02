@@ -145,7 +145,7 @@ class EquipEditingProvider with ChangeNotifier {
   TextEditingController getTweakTextController(StatType statType) {
     var textController = tweakTextControllers[statType];
     if (textController == null) {
-      textController = TextEditingController(text: editingEquip?.tweakModule?.get(statType).toString() ?? "0");
+      textController = TextEditingController(text: editingEquip?.tweakModule?.get(statType).toString() ?? "");
       tweakTextControllers[statType] = textController;
     }
 
