@@ -258,7 +258,7 @@ class Equip {
               __createTextLine(context, StatType.skillCooldown),
               __createTextLine(context, StatType.skillCooldownPercentage),
               Text(
-                "${(scrollModule?.usedScrollSlots ?? 0)}/${(scrollModule?.totalScrollSlots ?? 0)} Scrolls Enhancements Applied", 
+                "${(scrollModule?.usedScrollSlots ?? 0)}/${(scrollModule?.totalScrollSlots ?? 0)} Scroll Enhancements Applied", 
                 style: Theme.of(context).textTheme.bodyMedium
               ),
               isEquipEditing && equipName.potentialCategory == PotentialCategory.player ? const SizedBox.shrink() : potentialModule?.buildPotentialWidget(context, this) ?? const SizedBox.shrink(),
@@ -350,7 +350,7 @@ class Equip {
         baseStat = get(statType);
         starForceStat = starForceModule?.get(statType) ?? 0;
         flameStat = flameModule?.get(statType) ?? 0;
-        scrollStat = scrollModule?.get(statType) ?? 0 + (pitchedBossUpgradeModule?.get(statType) ?? 0);
+        scrollStat = (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0);
         tweakStat = tweakModule?.get(statType) ?? 0;
     }
     totalStat = baseStat + starForceStat + scrollStat + flameStat + tweakStat;
