@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/pitched_boss_upgrades.dart';
 import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
@@ -477,7 +478,7 @@ final List<Equip> equipList = [
   Equip(equipName: EquipName.arcaneUmbraCrossbow, equipSet: EquipSet.arcaneSetBowman),
   // Pitched Boss Set Items
   Equip(equipName: EquipName.blackHeart, equipSet: EquipSet.pitchedBoss, potentialModule: PotentialModule(potentialOffset: 0, mainPotential: PotentialTier.epic, mainPotentialLine1: const PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.uniquePrimeBossDamage), mainPotentialLine2: const PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.uniquePrimeIgnoreDefense))),
-  Equip(equipName: EquipName.berserked, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.berserked, equipSet: EquipSet.pitchedBoss, pitchedBossUpgradeModule: PitchedBossUpgradeModule(pitchedBossUpgrade: PitchedBossUpgrade.gravityModule)),
   Equip(equipName: EquipName.magicEyepatch, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.sourceOfSuffering, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.cursedRedSpellbook, equipSet: EquipSet.pitchedBoss),

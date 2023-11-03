@@ -21,12 +21,38 @@ class PitchedBossUpgradeModule {
     );
   }
 
-  Widget createPitchedBossUpgradeContainer() {
-    return const SizedBox.shrink();
-  }
-
   num get(StatType statType) {
     return isActive ? pitchedBossUpgrade.upgradeStats[statType] ?? 0 : 0;
   }
 
+  void activatePitchedBossUpgrade(bool trigger) {
+    isActive = trigger;
+  }
+
+  Widget createPitchedBossUpgradeContainer(BuildContext context) {
+    List<Widget> createTextLines(BuildContext context) {
+      List<Widget> childrenRows = [
+        Text(
+          pitchedBossUpgrade.formattedName,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+        ),
+      ];
+      
+      pitchedBossUpgrade.upgradeStats.forEach((key, value) {
+        childrenRows.add(
+          Text(
+            "${key.formattedName}: +$value",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        );
+      });
+
+      return childrenRows;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: createTextLines(context)
+    );
+  }
 }

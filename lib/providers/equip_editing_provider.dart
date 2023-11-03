@@ -134,6 +134,14 @@ class EquipEditingProvider with ChangeNotifier {
     }
   }
 
+  void updatePitchedBossUpgrade(bool trigger) {
+    if (editingEquip?.pitchedBossUpgradeModule != null) {
+      editingEquip!.pitchedBossUpgradeModule!.activatePitchedBossUpgrade(trigger);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
   void updateTweakStat(StatType statType, int statValue) {
     if (editingEquip?.tweakModule != null) {
       editingEquip!.tweakModule!.updateTweakStat(statType, statValue);

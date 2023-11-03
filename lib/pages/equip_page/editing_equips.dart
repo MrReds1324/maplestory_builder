@@ -125,7 +125,7 @@ class EquipBuilderContent extends StatelessWidget {
                             Selector<EquipEditingProvider, bool>(
                               selector: (_, equipEditingProvider) => equipEditingProvider.canPitchedBossUpgrade,
                               builder: (context, canPitchedBossUpgrade, child) {
-                                return canPitchedBossUpgrade ? const SizedBox.shrink() : const SizedBox.shrink();
+                                return canPitchedBossUpgrade ? const _PitchedBossUpgrades() : const SizedBox.shrink();
                               }
                             ),
                             const _StatsTweak(),
@@ -866,6 +866,40 @@ class _AvailableScrolls extends StatelessWidget {
       ],
     );
   }
+}
+
+class _PitchedBossUpgrades extends StatelessWidget {
+   const _PitchedBossUpgrades();
+
+   @override
+   Widget build(BuildContext context) {
+    return ExpansionTile(
+      iconColor: equipStarColor,
+      title: const Text("Pitched Boss Upgrade"),
+      children: [
+        Consumer<EquipEditingProvider>(
+          builder: (context, equipEditingProvider, child) {
+            return MapleTooltip(
+              tooltipWidgets: [
+                equipEditingProvider.editingEquip?.pitchedBossUpgradeModule?.createPitchedBossUpgradeContainer(context) ?? const SizedBox.shrink()
+              ],
+              child: Row(
+                children: [
+                  Checkbox(
+                    value: equipEditingProvider.editingEquip?.pitchedBossUpgradeModule?.isActive ?? false, 
+                    onChanged: (value) => equipEditingProvider.updatePitchedBossUpgrade(value ?? false),
+                  ),
+                  Text(
+                    equipEditingProvider.editingEquip?.pitchedBossUpgradeModule?.pitchedBossUpgrade.formattedName ?? ''
+                  ),
+                ],
+              ),
+            );
+          }
+        ),
+      ],
+    );
+   }
 }
 
 class _StatsTweak extends StatelessWidget {
