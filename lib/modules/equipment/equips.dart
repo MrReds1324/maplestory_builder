@@ -487,7 +487,7 @@ final List<Equip> equipList = [
   Equip(equipName: EquipName.cursedYellowSpellbook, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.commandingForceEarring, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.endlessTerror, equipSet: EquipSet.pitchedBoss),
-  Equip(equipName: EquipName.dreamyBelt, equipSet: EquipSet.pitchedBoss),
+  Equip(equipName: EquipName.dreamyBelt, equipSet: EquipSet.pitchedBoss, pitchedBossUpgradeModule: PitchedBossUpgradeModule(pitchedBossUpgrade: PitchedBossUpgrade.nightmareFragment)),
   Equip(equipName: EquipName.genesisBadge, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.mitrasRageWarrior, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.mitrasRageBowman, equipSet: EquipSet.pitchedBoss),
