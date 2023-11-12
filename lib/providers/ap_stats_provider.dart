@@ -55,7 +55,7 @@ class APStatsProvider with ChangeNotifier{
       assignedAP: assignedAP ?? this.assignedAP,
       apAssignedHP: apAssignedHP ?? this.apAssignedHP,
       apAssignedMP: apAssignedMP ?? this.apAssignedMP,
-      apStats: apStats ?? this.apStats,
+      apStats: apStats ?? Map<StatType, int>.of(this.apStats),
     );
   }
 
