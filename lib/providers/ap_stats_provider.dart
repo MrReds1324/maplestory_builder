@@ -11,13 +11,16 @@ class APStatsProvider with ChangeNotifier{
   // Each ap into HP/MP increases by 15
   int apAssignedHP = 0;
   int apAssignedMP = 0;
-  int apHP = 395; // Demon Avenger is 395 + (90 * pointsHP)
-  int apMP = 395;
-  // Each ap into Stats increase by 1
-  int apStr = 4;
-  int apDex = 4;
-  int apInt = 4;
-  int apLuk = 4;
+
+  Map<StatType, int> apStats = {
+    StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
+    StatType.mp: 395,
+    // Each ap into Stats increase by 1
+    StatType.str: 4,
+    StatType.dex: 4,
+    StatType.int: 4,
+    StatType.luk: 4,
+  };
 
   APStatsProvider({
     this.totalAvailableAP = 14,
@@ -25,13 +28,18 @@ class APStatsProvider with ChangeNotifier{
     this.assignedAP = 0,
     this.apAssignedHP = 0,
     this.apAssignedMP = 0,
-    this.apHP = 395,
-    this.apMP = 395,
-    this.apStr = 4,
-    this.apDex = 4,
-    this.apInt = 4,
-    this.apLuk = 4,
-  });
+    Map<StatType, int>? apStats,
+  }) {
+    this.apStats = apStats ?? {
+      StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
+      StatType.mp: 395,
+      // Each ap into Stats increase by 1
+      StatType.str: 4,
+      StatType.dex: 4,
+      StatType.int: 4,
+      StatType.luk: 4,
+    };
+  }
 
   APStatsProvider copyWith({
     int? totalAvailableAP,
@@ -39,12 +47,7 @@ class APStatsProvider with ChangeNotifier{
     int? assignedAP,
     int? apAssignedHP,
     int? apAssignedMP,
-    int? apHP,
-    int? apMP,
-    int? apStr,
-    int? apDex,
-    int? apInt,
-    int? apLuk
+    Map<StatType, int>? apStats,
   }) {
     return APStatsProvider(
       totalAvailableAP: totalAvailableAP ?? this.totalAvailableAP,
@@ -52,24 +55,12 @@ class APStatsProvider with ChangeNotifier{
       assignedAP: assignedAP ?? this.assignedAP,
       apAssignedHP: apAssignedHP ?? this.apAssignedHP,
       apAssignedMP: apAssignedMP ?? this.apAssignedMP,
-      apHP: apHP ?? this.apHP,
-      apMP: apMP ?? this.apMP,
-      apStr: apStr ?? this.apStr,
-      apDex: apDex ?? this.apDex,
-      apInt: apInt ?? this.apInt,
-      apLuk: apLuk ?? this.apLuk,
+      apStats: apStats ?? this.apStats,
     );
   }
 
-  Map<StatType, num> calculateStats() {
-    return <StatType, num>{
-      StatType.str: apStr,
-      StatType.dex: apDex,
-      StatType.int: apInt,
-      StatType.luk: apLuk,
-      StatType.hp: apHP,
-      StatType.mp: apMP
-    };
+  Map<StatType, int> calculateStats() {
+    return apStats;
   }
 
   void setAvailableAPFromLevel(int characterLevel) {
@@ -87,20 +78,12 @@ class APStatsProvider with ChangeNotifier{
     switch (statType) {
       case StatType.hp:
         apAssignedHP += apAmount;
-        apHP = 395 + (apAssignedHP * 15);
+        apStats[StatType.hp] = 395 + (apAssignedHP * 15);
       case StatType.mp:
         apAssignedMP += apAmount;
-        apMP = 395 + (apAssignedMP * 15);
-      case StatType.str:
-        apStr += apAmount;
-      case StatType.dex:
-        apDex += apAmount;
-      case StatType.int:
-        apInt += apAmount;
-      case StatType.luk:
-        apLuk += apAmount;
+        apStats[StatType.mp] = 395 + (apAssignedMP * 15);
       default:
-        Exception("$statType is not something you can increase with Abilitiy Points");
+        apStats[statType] = apStats[statType]! + apAmount;
     }
     notifyListeners();
   }
@@ -112,38 +95,19 @@ class APStatsProvider with ChangeNotifier{
       case StatType.hp:
         apAmount = min(apAssignedHP, apAmount);
         apAssignedHP -= apAmount;
-        apHP = 395 + (apAssignedHP * 15);
+        apStats[StatType.hp] = 395 + (apAssignedHP * 15);
       case StatType.mp:
         apAmount = min(apAssignedMP, apAmount);
         apAssignedMP -= apAmount;
-        apMP = 395 + (apAssignedMP * 15);
+        apStats[StatType.mp] = 395 + (apAssignedMP * 15);
       // Cannot go below 4 points in these stats
-      case StatType.str:
-        if (apStr == 4) {
-          return;
-        }
-        apAmount = min(apStr - 4, apAmount);
-        apStr -= apAmount;
-      case StatType.dex:
-        if (apDex == 4) {
-          return;
-        }
-        apAmount = min(apDex - 4, apAmount);
-        apDex -= apAmount;
-      case StatType.int:
-        if (apInt == 4) {
-          return;
-        }
-        apAmount = min(apInt - 4, apAmount);
-        apInt -= apAmount;
-      case StatType.luk:
-        if (apLuk == 4) {
-          return;
-        }
-        apAmount = min(apLuk - 4, apAmount);
-        apLuk -= apAmount;
       default:
-        Exception("$statType is not something you can increase with Abilitiy Points");
+        var currentApAmount = apStats[statType]!;
+        if (currentApAmount == 4) {
+          return;
+        }
+        apAmount = min(currentApAmount - 4, apAmount);
+        apStats[statType] = apStats[statType]! - apAmount;
     }
     availableAP += apAmount;
     assignedAP -= apAmount;

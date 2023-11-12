@@ -611,7 +611,7 @@ Selector _getStatSelector(StatType statType) {
   switch(statType){
     case StatType.str:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalStr, character.apStatsProvider.apStr),
+        selector: (_, character) => (character.totalStr, character.apStatsProvider.apStats[StatType.str]!),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
@@ -619,7 +619,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.dex:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalDex, character.apStatsProvider.apDex),
+        selector: (_, character) => (character.totalDex, character.apStatsProvider.apStats[StatType.dex]!),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
@@ -627,7 +627,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.int:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalInt, character.apStatsProvider.apInt),
+        selector: (_, character) => (character.totalInt, character.apStatsProvider.apStats[StatType.int]!),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
@@ -635,7 +635,7 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.luk:
       return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalLuk, character.apStatsProvider.apLuk),
+        selector: (_, character) => (character.totalLuk, character.apStatsProvider.apStats[StatType.luk]!),
         builder: (context, data, child) {
           var diff = data.$1 - data.$2;
           return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
