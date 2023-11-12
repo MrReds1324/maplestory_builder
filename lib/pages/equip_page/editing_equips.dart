@@ -4,6 +4,7 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
+import 'package:maplestory_builder/constants/equipment/soul_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
@@ -119,7 +120,7 @@ class EquipBuilderContent extends StatelessWidget {
                             Selector<EquipEditingProvider, bool>(
                               selector: (_, equipEditingProvider) => equipEditingProvider.canSoul,
                               builder: (context, canSoul, child) {
-                                return canSoul ? const SizedBox.shrink() : const SizedBox.shrink();
+                                return canSoul ? const _SoulSelector(): const SizedBox.shrink();
                               }
                             ),
                             Selector<EquipEditingProvider, bool>(
@@ -900,6 +901,124 @@ class _PitchedBossUpgrades extends StatelessWidget {
       ],
     );
    }
+}
+
+class _SoulSelector extends StatelessWidget {
+  const _SoulSelector();
+
+  List<DropdownMenuItem<SoulName>> getDropdownSoulNameList(BuildContext context) {
+    List<DropdownMenuItem<SoulName>> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    dropdownItems.addAll(
+      SoulName.values.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium
+          ),
+        );
+      }).toList()
+    );
+
+    return dropdownItems;
+  }
+
+  List<DropdownMenuItem> getDropdownSoulStatList(BuildContext context, Equip? editingEquip) {
+    List<DropdownMenuItem> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    var filteredList = editingEquip?.soulModule?.soulName?.soulStats ?? [];
+
+    dropdownItems.addAll(
+      filteredList.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            "${value.$1.formattedName}: ${value.$1.isPositive ? '+' : '-'}${value.$1.isPercentage ? doubleRoundPercentFormater.format(value.$2) : value.$2}",
+            style: Theme.of(context).textTheme.bodyMedium
+          ),
+        );
+      }).toList()
+    );
+
+    return dropdownItems;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      iconColor: equipStarColor,
+      title: const Text("Soul Weapon"),
+      children: [
+        Column(
+          children: [
+            Row(
+              children: [
+                const Text("Soul: "),
+                SizedBox(
+                  width: 269,
+                  child: Consumer<EquipEditingProvider>(
+                    builder: (context, equipEditingProvider, child) {
+                      return DropdownButton(
+                        alignment: AlignmentDirectional.center,
+                        isDense: true,
+                        isExpanded: true,
+                        value: equipEditingProvider.editingEquip?.soulModule?.soulName,
+                        onChanged: (newValue) {
+                          equipEditingProvider.updateSoulName(newValue);
+                        },
+                        items: getDropdownSoulNameList(context)
+                      );
+                    }
+                  ),
+                ),
+              ]
+            ),
+            Row(
+              children: [
+                const Text("Stat: "),
+                SizedBox(
+                  width: 272,
+                  child: Consumer<EquipEditingProvider>(
+                    builder: (context, equipEditingProvider, child) {
+                      return DropdownButton(
+                        alignment: AlignmentDirectional.center,
+                        isDense: true,
+                        isExpanded: true,
+                        value: equipEditingProvider.editingEquip?.soulModule?.selectedSoulStat,
+                        onChanged: (newValue) {
+                          equipEditingProvider.updateSoulStat(newValue);
+                        },
+                        items: getDropdownSoulStatList(context, equipEditingProvider.editingEquip)
+                      );
+                    }
+                  ),
+                ),
+              ]
+            )
+          ]
+        )
+      ],
+    );
+  }
 }
 
 class _StatsTweak extends StatelessWidget {

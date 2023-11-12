@@ -162,6 +162,7 @@ enum StatType {
   mattackPercentage(formattedName: "MATT", isPercentage: true),
   hpRecovery(formattedName: "Skills and Potion HP Recovery", isPercentage: true),
   skill(formattedName: "Skill"),
+  skillLevel(formattedName: "Skill Level"),
   skillCooldown(formattedName: "Skill Cooldown", isPositive: false),
   skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true);
 

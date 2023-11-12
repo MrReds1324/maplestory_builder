@@ -4,6 +4,7 @@ import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/pitched_boss_upgrades.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
+import 'package:maplestory_builder/constants/equipment/soul_stats.dart';
 import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
@@ -137,6 +138,22 @@ class EquipEditingProvider with ChangeNotifier {
   void updatePitchedBossUpgrade(bool trigger) {
     if (editingEquip?.pitchedBossUpgradeModule != null) {
       editingEquip!.pitchedBossUpgradeModule!.activatePitchedBossUpgrade(trigger);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void updateSoulName(SoulName? soulName) {
+    if (editingEquip?.soulModule != null) {
+      editingEquip!.soulModule?.updateSoulName(soulName);
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void updateSoulStat((StatType, num)? selectedSoulStat) {
+    if (editingEquip?.soulModule != null) {
+      editingEquip!.soulModule?.updateSoulStat(selectedSoulStat);
       updateCounter += 1;
       notifyListeners();
     }

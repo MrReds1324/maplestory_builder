@@ -11,7 +11,6 @@ class ScrollModule {
   List<AbstractScroll> usedScrolls;
   SavedScrolledRange? editingScroll;
   
-
   Map<StatType, int> moduleStats;
 
   ScrollModule({

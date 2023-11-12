@@ -13,6 +13,7 @@ import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/pitched_boss_upgrade_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
+import 'package:maplestory_builder/modules/equipment/soul_mod.dart';
 import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
 import 'package:maplestory_builder/modules/equipment/tweak_mod.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
@@ -30,6 +31,7 @@ class Equip {
   PotentialModule? potentialModule;
   ScrollModule? scrollModule;
   PitchedBossUpgradeModule? pitchedBossUpgradeModule;
+  SoulModule? soulModule;
   TweakModule? tweakModule;
   int equipHash = -1;
 
@@ -41,6 +43,7 @@ class Equip {
     this.potentialModule,
     this.scrollModule,
     this.pitchedBossUpgradeModule,
+    this.soulModule,
     this.tweakModule,
     this.equipHash = -1,
   }) {
@@ -99,6 +102,13 @@ class Equip {
       );
     }
 
+    if (soulModule != null) {
+      soulModule = soulModule;
+    }
+    else if (equipName.equipType == EquipType.weapon && equipName.itemLevel >= 75) {
+      soulModule = SoulModule();
+    }
+
     tweakModule = tweakModule ?? TweakModule();
   }
 
@@ -136,12 +146,12 @@ class Equip {
       case StatType.dex:
       case StatType.int:
       case StatType.luk:  
-        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
+        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (soulModule?.get(StatType.allStats) ?? 0) + (soulModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
       // TODO fix these calculation
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
       default:
-        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
+        return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (soulModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
     }
   }
 
