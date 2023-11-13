@@ -6,14 +6,15 @@ import 'package:maplestory_builder/constants/constants.dart';
 
 class HyperStatsProvider with ChangeNotifier {
   int totalAvailableHyperStats = 0;
-  int availableHyperStats = 0;
   int totalAssignedHyperStats = 0;
-
   late Map<StatType, int> assignedHyperStats;
+
+  int get availableHyperStats {
+    return totalAvailableHyperStats - totalAssignedHyperStats;
+  }
 
   HyperStatsProvider({
     this.totalAvailableHyperStats = 0,
-    this.availableHyperStats = 0,
     this.totalAssignedHyperStats = 0,
     Map<StatType, int>? assignedHyperStats,
   }) {
@@ -40,46 +41,50 @@ class HyperStatsProvider with ChangeNotifier {
 
   HyperStatsProvider copyWith({
     int? totalAvailableHyperStats,
-    int? availableHyperStats,
     int? totalAssignedHyperStats,
     Map<StatType, int>? assignedHyperStats,
   }) {
     return HyperStatsProvider(
       totalAvailableHyperStats: totalAvailableHyperStats ?? this.totalAvailableHyperStats,
-      availableHyperStats: availableHyperStats ?? this.availableHyperStats,
       totalAssignedHyperStats: totalAssignedHyperStats ?? this.totalAssignedHyperStats,
       assignedHyperStats: assignedHyperStats ?? Map<StatType, int>.of(this.assignedHyperStats),
     );
   }
 
   Map<StatType, num> calculateModuleStats() {
+
+    num getStatValue(StatType statType) {
+      return hyperStatsValues[statType]![assignedHyperStats[statType]!];
+    }
+
     return {
-      StatType.finalStr: 0,
-      StatType.finalDex: 0,
-      StatType.finalInt: 0,
-      StatType.finalLuk: 0,
-      StatType.hpPercentage: 0,
-      StatType.mpPercentage: 0,
-      StatType.specialMana: 0,
-      StatType.critRate: 0,
-      StatType.critDamage: 0,
-      StatType.ignoreDefense: 0,
-      StatType.damage: 0,
-      StatType.bossDamage: 0,
-      StatType.damageNormalMobs: 0,
-      StatType.statusResistance: 0,
-      StatType.attack: 0,
-      StatType.mattack: 0,
-      StatType.exp: 0,
-      StatType.arcaneForce: 0,
+      StatType.finalStr: getStatValue(StatType.str),
+      StatType.finalDex: getStatValue(StatType.dex),
+      StatType.finalInt: getStatValue(StatType.int),
+      StatType.finalLuk: getStatValue(StatType.luk),
+      StatType.hpPercentage: getStatValue(StatType.hp),
+      StatType.mpPercentage: getStatValue(StatType.mp),
+      StatType.specialMana: getStatValue(StatType.specialMana),
+      StatType.critRate: getStatValue(StatType.critRate),
+      StatType.critDamage: getStatValue(StatType.critDamage),
+      StatType.ignoreDefense: getStatValue(StatType.ignoreDefense),
+      StatType.damage: getStatValue(StatType.damage),
+      StatType.bossDamage: getStatValue(StatType.bossDamage),
+      StatType.damageNormalMobs: getStatValue(StatType.damageNormalMobs),
+      StatType.statusResistance: getStatValue(StatType.statusResistance),
+      StatType.attack: getStatValue(StatType.attack),
+      StatType.mattack: getStatValue(StatType.attack),
+      StatType.exp: getStatValue(StatType.exp),
+      StatType.arcaneForce: getStatValue(StatType.arcaneForce),
     };
   }
 
   void setAvailableHyperStatsFromLevel(int characterLevel) {
     totalAvailableHyperStats = levelToTotalHyperStatPoints[characterLevel] ?? 0;
+    notifyListeners();
   }
 
-  void addHyperStats(int levelsToAdd, StatType statType) {
+  void addHyperStats(int possibleLevelsToAdd, StatType statType) {
     var currentLevel = assignedHyperStats[statType]!;
     var maxLevel = hyperStatsValues[statType]!.length - 1;
 
@@ -89,13 +94,14 @@ class HyperStatsProvider with ChangeNotifier {
     }
 
     // Start by calculating the minimum levels we could even add due to the level restrictions
-    levelsToAdd = min(levelsToAdd, maxLevel - currentLevel);
+    possibleLevelsToAdd = min(possibleLevelsToAdd, maxLevel - currentLevel);
 
     // Then figure out if we even have enough points for each level, reduce down to the smallest levels we can add if possible
     var costToUpgrade = 0;
+    var possibleLevelsToAddByPoints = 0;
 
-    for (int i = 1; i <= levelsToAdd; i++) {
-      var costOfLevel = hyperStatsLevelToPoints[currentLevel + i]!;
+    for (possibleLevelsToAddByPoints; possibleLevelsToAddByPoints < possibleLevelsToAdd; possibleLevelsToAddByPoints++) {
+      var costOfLevel = hyperStatsLevelToPoints[currentLevel + possibleLevelsToAddByPoints + 1]!;
       if (costOfLevel <= (availableHyperStats - costToUpgrade)) {
         costToUpgrade += costOfLevel;
       }
@@ -104,22 +110,38 @@ class HyperStatsProvider with ChangeNotifier {
       }
     }
 
-    if (costToUpgrade == 0) {
+    if (possibleLevelsToAddByPoints == 0) {
       return;
     }
     else {
-      
+      totalAssignedHyperStats += costToUpgrade;
+      assignedHyperStats[statType] = assignedHyperStats[statType]! + possibleLevelsToAddByPoints;
+      notifyListeners();
     }
-
-
   }
 
-  void subtractHyperStats(int levelsToSubtract, StatType statType) {
+  void subtractHyperStats(int possibleLevelsToSubtract, StatType statType) {
     var currentLevel = assignedHyperStats[statType]!;
 
     // Check that we are not at the min level yet
     if (currentLevel == 0) {
       return;
     }
+
+    // Start by calculating the minimum levels we could even subtract due to the level restrictions
+    possibleLevelsToSubtract = min(possibleLevelsToSubtract, currentLevel);
+
+    // Refund all the points used to upgrade a stat
+    var downgradeCost = 0;
+
+    for (int i = 0; i < possibleLevelsToSubtract; i++) {
+      var costOfLevel = hyperStatsLevelToPoints[currentLevel - i]!;
+      downgradeCost += costOfLevel;
+    }
+
+    totalAssignedHyperStats -= downgradeCost;
+    assignedHyperStats[statType] = assignedHyperStats[statType]! - possibleLevelsToSubtract;
+    notifyListeners();
+    
   }
 }

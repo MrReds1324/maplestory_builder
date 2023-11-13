@@ -25,7 +25,7 @@ class MyHomePage extends StatelessWidget {
           title: Text(title),
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(MdiIcons.sword)),
+              Tab(icon: Icon(MdiIcons.shieldEdit)),
               Tab(icon: Icon(MdiIcons.accountEdit)),
             ],
           ),
