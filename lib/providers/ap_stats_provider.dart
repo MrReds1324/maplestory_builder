@@ -12,15 +12,7 @@ class APStatsProvider with ChangeNotifier{
   int apAssignedHP = 0;
   int apAssignedMP = 0;
 
-  Map<StatType, int> apStats = {
-    StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
-    StatType.mp: 395,
-    // Each ap into Stats increase by 1
-    StatType.str: 4,
-    StatType.dex: 4,
-    StatType.int: 4,
-    StatType.luk: 4,
-  };
+  late Map<StatType, int> apStats;
 
   APStatsProvider({
     this.totalAvailableAP = 14,

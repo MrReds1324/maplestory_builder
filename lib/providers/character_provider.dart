@@ -51,6 +51,7 @@ class CharacterProvider with ChangeNotifier {
   int totalStatusResistance = 0;
   double totalKnockbackResistance = 0;
   double totalDefense = 0;
+  int totalSpecialMana = 0;
   int totalStarForce = 0;
   int totalSpeed = 100;
   int totalJump = 100;
@@ -170,6 +171,7 @@ class CharacterProvider with ChangeNotifier {
     defensePercentage = 0;
     attackPercentage = 0;
     mattackPercentage = 0;
+    totalSpecialMana = 0;
     totalMesosObtained = 0;
     totalItemDropRate = 0;
     totalSkillCooldown = 0;
@@ -286,6 +288,15 @@ class CharacterProvider with ChangeNotifier {
             totalSkillCooldown += entry.value.toInt();
           case StatType.skillCooldownPercentage:
             totalSkillCooldownPercentage += entry.value;
+          case StatType.specialMana:
+            totalSpecialMana += entry.value.toInt();
+          case StatType.statusResistance:
+            totalStatusResistance += entry.value.toInt(); // TODO: Fix the calculation of this
+          case StatType.exp:
+            // TODO: figure out exp too...
+            var x = 0;
+          case StatType.arcaneForce:
+            totalArcaneForce += entry.value.toInt();
           default:
             throw Exception("Unhandled StatType for returned Stats: ${entry.key}");
         }
@@ -297,6 +308,9 @@ class CharacterProvider with ChangeNotifier {
     for (Map<StatType, num> equipStats in equipsProvider.calculateStats()){
       updateTempStats(equipStats);
     }
+
+    updateTempStats(hyperStatsProvider.calculateModuleStats());
+
     // Specific caps on stats from items
     totalItemDropRate = min(totalItemDropRate, dropRateItemCap);
     totalMesosObtained = min(totalMesosObtained, mesoObtainedItemCap);

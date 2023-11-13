@@ -1,4 +1,6 @@
 // The required hyper stats points to hit each level, 0->1 is 1 point and 14->15 is 110 points
+import 'package:maplestory_builder/constants/constants.dart';
+
 Map<int, int> hyperStatsLevelToPoints = {
   0: 0,
   1: 1,
@@ -181,4 +183,242 @@ Map<int, int> levelToTotalHyperStatPoints = {
   298: 1662,
   299: 1680,
   300: 1699,
+};
+
+List<int> statValues = [
+  0,  // 0
+  30, // 1
+  60, // 2
+  90, // 3
+  120,// 4
+  150,// 5
+  180,// 6
+  210,// 7
+  240,// 8
+  270,// 9
+  300,// 10
+  330,// 11
+  360,// 12
+  390,// 13
+  420,// 14
+  450,// 15
+];
+
+List<num> hpMpValues = [
+  0,   // 0
+  0.02,// 1
+  0.04,// 2
+  0.06,// 3
+  0.08,// 4
+  0.10,// 5
+  0.12,// 6
+  0.14,// 7
+  0.16,// 8
+  0.18,// 9
+  0.20,// 10
+  0.22,// 11
+  0.24,// 12
+  0.26,// 13
+  0.28,// 14
+  0.30,// 15
+];
+
+List<int> specialManaValues = [
+  0,  // 0
+  10, // 1
+  20, // 2
+  30, // 3
+  40, // 4
+  50, // 5
+  60, // 6
+  70, // 7
+  80, // 8
+  90, // 9
+  100,// 10
+];
+
+List<num> critRateValues = [
+  0,   // 0
+  0.01,// 1
+  0.02,// 2
+  0.03,// 3
+  0.04,// 4
+  0.05,// 5
+  0.06,// 6
+  0.09,// 7
+  0.11,// 8
+  0.13,// 9
+  0.15,// 10
+  0.17,// 11
+  0.19,// 12
+  0.21,// 13
+  0.23,// 14
+  0.25,// 15
+];
+
+List<num> critDamageValues = [
+  0,   // 0
+  0.01,// 1
+  0.02,// 2
+  0.03,// 3
+  0.04,// 4
+  0.05,// 5
+  0.06,// 6
+  0.07,// 7
+  0.08,// 8
+  0.09,// 9
+  0.10,// 10
+  0.11,// 11
+  0.12,// 12
+  0.13,// 13
+  0.14,// 14
+  0.15,// 15
+];
+
+List<num> ignoreDefenseDamageValues = [
+  0,   // 0
+  0.03,// 1
+  0.06,// 2
+  0.09,// 3
+  0.12,// 4
+  0.15,// 5
+  0.18,// 6
+  0.21,// 7
+  0.24,// 8
+  0.27,// 9
+  0.30,// 10
+  0.33,// 11
+  0.36,// 12
+  0.39,// 13
+  0.42,// 14
+  0.45,// 15
+];
+
+List<num> bossDamangeDamageNormalMobsValues = [
+  0,   // 0
+  0.03,// 1
+  0.06,// 2
+  0.09,// 3
+  0.12,// 4
+  0.15,// 5
+  0.19,// 6
+  0.23,// 7
+  0.27,// 8
+  0.31,// 9
+  0.35,// 10
+  0.39,// 11
+  0.43,// 12
+  0.47,// 13
+  0.51,// 14
+  0.55,// 15
+];
+
+List<int> abnormalStatusValues = [
+  0, // 0
+  1, // 1
+  2, // 2
+  3, // 3
+  4, // 4
+  5, // 5
+  7, // 6
+  9, // 7
+  13,// 8
+  15,// 9
+  15,// 10
+  17,// 11
+  19,// 12
+  21,// 13
+  23,// 14
+  25,// 15
+];
+
+List<num> knockbackResistanceValues = [
+  0,   // 0
+  0.02,// 1
+  0.04,// 2
+  0.06,// 3
+  0.08,// 4
+  0.10,// 5
+  0.12,// 6
+  0.14,// 7
+  0.16,// 8
+  0.18,// 9
+  0.20,// 10
+];
+
+List<int> attackMattackValues = [
+  0, // 0
+  3, // 1
+  6, // 2
+  9, // 3
+  12,// 4
+  15,// 5
+  18,// 6
+  21,// 7
+  24,// 8
+  27,// 9
+  30,// 10
+  33,// 11
+  36,// 12
+  39,// 13
+  42,// 14
+  45,// 15
+];
+
+List<num> expValues = [
+  0,    // 0
+  0.005,// 1
+  0.01, // 2
+  0.015,// 3
+  0.02, // 4
+  0.025,// 5
+  0.03, // 6
+  0.035,// 7
+  0.04, // 8
+  0.045,// 9
+  0.05, // 10
+  0.06, // 11
+  0.07, // 12
+  0.08, // 13
+  0.09, // 14
+  0.10, // 15
+];
+
+List<int> arcaneForceValues = [
+  0,  // 0
+  5,  // 1
+  10, // 2
+  15, // 3
+  20, // 4
+  25, // 5
+  30, // 6
+  35, // 7
+  40, // 8
+  45, // 9
+  50, // 10
+  60, // 11
+  70, // 12
+  80, // 13
+  90, // 14
+  100,// 15
+];
+
+Map<StatType, List<num>> hyperStatsValues = {
+  StatType.str: statValues,
+  StatType.dex: statValues,
+  StatType.int: statValues,
+  StatType.luk: statValues,
+  StatType.hp: hpMpValues,
+  StatType.mp: hpMpValues,
+  StatType.specialMana: specialManaValues,
+  StatType.critRate: critRateValues,
+  StatType.critDamage: critDamageValues,
+  StatType.ignoreDefense: ignoreDefenseDamageValues,
+  StatType.damage: ignoreDefenseDamageValues,
+  StatType.bossDamage: bossDamangeDamageNormalMobsValues,
+  StatType.damageNormalMobs: bossDamangeDamageNormalMobsValues,
+  StatType.statusResistance: abnormalStatusValues,
+  StatType.attack: attackMattackValues, // This technically raises both attack and magic attack
+  StatType.exp: expValues,
+  StatType.arcaneForce: arcaneForceValues,
 };

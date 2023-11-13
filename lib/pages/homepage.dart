@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/pages/misc_stats_page/misc_stats_page.dart';
 import 'package:maplestory_builder/pages/stats_bar/statsblock.dart';
 import 'package:maplestory_builder/pages/equip_page/equip_page.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -17,7 +18,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 1,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -25,6 +26,7 @@ class MyHomePage extends StatelessWidget {
           bottom: TabBar(
             tabs: [
               Tab(icon: Icon(MdiIcons.sword)),
+              Tab(icon: Icon(MdiIcons.accountEdit)),
             ],
           ),
         ),
@@ -35,6 +37,7 @@ class MyHomePage extends StatelessWidget {
               child: TabBarView(
                 children: [
                   EquipPage(),
+                  MiscStatsPage()
                 ],
               ),
             ),
