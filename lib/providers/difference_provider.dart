@@ -398,6 +398,26 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     }
   }
 
+  void addHyperStats(int possibleLevelsToAdd, StatType statType) {
+    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
+    var tempHyperStats = diffCharacterModel.hyperStatsProvider;
+    diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
+    diffCharacterModel.hyperStatsProvider.addHyperStats(possibleLevelsToAdd, statType);
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.hyperStatsProvider = tempHyperStats;
+  }
+
+  void subtractHyperStats(int possibleLevelsToSubtract, StatType statType) { 
+    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
+    var tempHyperStats = diffCharacterModel.hyperStatsProvider;
+    diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
+    diffCharacterModel.hyperStatsProvider.subtractHyperStats(possibleLevelsToSubtract, statType);
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.hyperStatsProvider = tempHyperStats;
+  }
+
 }
 
 const Text noDifferenceEquip = Text(
