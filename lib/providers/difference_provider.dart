@@ -24,11 +24,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   DifferenceCalculatorProvider({
     required this.equipEditingProvider,
     required this.mainCharacterModel,
-  }) : diffCharacterModel = mainCharacterModel.copyWith(
-    apStatsProvider: mainCharacterModel.apStatsProvider,
-    equipsProvider: mainCharacterModel.equipsProvider,
-    hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
-  );
+  }) : diffCharacterModel = mainCharacterModel.copyWith();
 
 
   DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CharacterProvider characterProvider) {
@@ -36,6 +32,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // mainly used for editing equip update
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
       // Only trigger an update if we are actually editing an equip, otherwise its wasted cycles
+      diffCharacterModel = mainCharacterModel.copyWith();
       if (equipEditingProvider.updateCounter != 0) {
         notifyListeners();
       }

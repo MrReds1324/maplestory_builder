@@ -95,14 +95,27 @@ class CharacterProvider with ChangeNotifier {
   APStatsProvider apStatsProvider;
   EquipsProvider equipsProvider;
 
-  CharacterProvider({required this.apStatsProvider, required this.hyperStatsProvider, required this.equipsProvider, bool doCalculation = true}){
+  CharacterProvider({
+    this.characterLevel = 0,
+    required this.apStatsProvider, 
+    required this.hyperStatsProvider, 
+    required this.equipsProvider, 
+    bool doCalculation = true
+  }){
     if (doCalculation) {
       calculateEverything();
     }
   }
 
-  CharacterProvider copyWith({APStatsProvider? apStatsProvider, HyperStatsProvider? hyperStatsProvider, EquipsProvider? equipsProvider, bool doCalculation = true}){
+  CharacterProvider copyWith({
+    int? characterLevel,
+    APStatsProvider? apStatsProvider, 
+    HyperStatsProvider? hyperStatsProvider, 
+    EquipsProvider? equipsProvider, 
+    bool doCalculation = true
+  }){
     return CharacterProvider(
+      characterLevel: characterLevel ?? this.characterLevel,
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
       hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
@@ -326,6 +339,9 @@ class CharacterProvider with ChangeNotifier {
     // Specific caps on stats from items
     totalItemDropRate = min(totalItemDropRate, dropRateItemCap);
     totalMesosObtained = min(totalMesosObtained, mesoObtainedItemCap);
+
+    tempHp += (characterLevel * 50);
+    tempMp += (characterLevel * 50);
     
     totalHp = (pureHp + tempHp) * (1 + hpPercentage) + flatHp;
     totalMp = (pureMP + tempMp) * (1 + mpPercentage) + flatMP;

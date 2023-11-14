@@ -11,7 +11,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 	- [ ] Effective Default Range Calculation - Not started
 	- [ ] Effective Boss Range Calculation - Not started
 	- [ ] Traits - Not Started
-	- [ ] Hyper Stats - Not Started
+	- [x] Hyper Stats
 	- [ ] Inner Ability - Not Started
 - [ ] Items
 	- [x] Star Force
@@ -19,8 +19,8 @@ A project to simulate most of the MapleStory systems that affect the character's
 	- [ ] Potentials
 		- [ ] Main Potentials - Mostly completed, missing Decent Skills
 		- [x] Bonus Potentials
-	- [ ] Equipment Sets - Mostly completed, missing lucky item handling
-	- [ ] Scrolling - Mostly completed, needs refactoring slightly
+	- [ ] Equipment Sets - Framework Implemented
+	- [ ] Scrolling - Mostly completed
 - [ ] Legion - Not started
 	- [ ] Legion Character Effects
 	- [ ] Legion Board Effects
