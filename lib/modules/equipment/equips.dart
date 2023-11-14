@@ -146,8 +146,35 @@ class Equip {
       case StatType.dex:
       case StatType.int:
       case StatType.luk:  
-        return get(StatType.allStats) + (potentialModule?.get(StatType.allStats) ?? 0) + get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (soulModule?.get(StatType.allStats) ?? 0) + (soulModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
+        return get(statType) + get(StatType.allStats) + 
+          (potentialModule?.get(StatType.allStats) ?? 0) + (potentialModule?.get(statType) ?? 0) + 
+          (starForceModule?.get(statType) ?? 0) + 
+          (flameModule?.get(statType) ?? 0) + 
+          (scrollModule?.get(statType) ?? 0) + 
+          (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + 
+          (soulModule?.get(StatType.allStats) ?? 0) + (soulModule?.get(statType) ?? 0) + 
+          (tweakModule?.get(statType) ?? 0);
       // TODO fix these calculation
+      case StatType.attack:
+      case StatType.mattack:
+        return get(statType) + get(StatType.attackMattack) + 
+          (potentialModule?.get(statType) ?? 0) + 
+          (starForceModule?.get(statType) ?? 0) + 
+          (flameModule?.get(statType) ?? 0) + 
+          (scrollModule?.get(statType) ?? 0) + 
+          (pitchedBossUpgradeModule?.get(StatType.attackMattack) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + 
+          (soulModule?.get(statType) ?? 0) + 
+          (tweakModule?.get(statType) ?? 0);
+      case StatType.hp:
+      case StatType.mp:
+        return get(statType) + get(StatType.hpMp) + 
+          (potentialModule?.get(statType) ?? 0) + 
+          (starForceModule?.get(statType) ?? 0) + 
+          (flameModule?.get(statType) ?? 0) + 
+          (scrollModule?.get(statType) ?? 0) + 
+          (pitchedBossUpgradeModule?.get(StatType.hpMp) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + 
+          (soulModule?.get(statType) ?? 0) + 
+          (tweakModule?.get(statType) ?? 0);
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
       default:

@@ -418,7 +418,7 @@ Map<StatType, List<num>> hyperStatsValues = {
   StatType.bossDamage: bossDamangeDamageNormalMobsValues,
   StatType.damageNormalMobs: bossDamangeDamageNormalMobsValues,
   StatType.statusResistance: abnormalStatusValues,
-  StatType.attack: attackMattackValues, // This technically raises both attack and magic attack
+  StatType.attackMattack: attackMattackValues,
   StatType.exp: expValues,
   StatType.arcaneForce: arcaneForceValues,
 };

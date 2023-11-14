@@ -77,6 +77,7 @@ enum RangeType {
 enum StatType {
   arcaneForce(formattedName: "Arcane Force", description: "In Arcane River areas, if you have less Arcane Force than the monsters do, you'll deal less damage to them. When you have more Arcane Force than a monster, you can attack through that monster's shield. Can be increased by obtaining and enhancing Arcane Symbols, and Hyper Stats."),
   attack(formattedName: "Attack Power", description: "Displays the current character's Attack Power. The final value is determined by the Attack Power sum and Attack Power % increase multiplication. However Pipsqueak Luminous (Equilibrium) from Monster Life and the Attack Power increase per level stat from Inner Ability are excluded from the multiplication."),
+  attackMattack(formattedName: "Attack Power & Magic Attack"),
   attackSpeed(formattedName: "Attack Speed", description: "Displays the current character's Attack Speed. Attack Speed +1 is the slowest while +8 is the soft limit and +10 is the hard limit. It increases with the equipped weapon's Attack Speed, skills, consumables, and Inner Ability. However Magician jobs are not affected by the weapon's Attack Speed, innately starting with +4."),
   bossDamage(
     formattedName: "Boss Damage", 
@@ -121,6 +122,7 @@ enum StatType {
   finalMp(formattedName: "Flat MP"),
   finalStr(formattedName: "Flat STR"),
   hp(formattedName: "HP", description: "HP increases the attack strength of Demon Avenger. Max HP cap is 500,000."),
+  hpMp(formattedName: "HP & MP"),
   ignoreDefense(
     formattedName: "Ignore Defense", 
     description: "The higher your Ignore Enemy Defense value the better your attacks penetrate enemy defenses. Determined by multiplying the Ignore Defense values of all your skills and equipment. Values that only apply to specific skills are not included in this calculation. Applies up to 100%.", 
@@ -159,11 +161,13 @@ enum StatType {
   lukPercentage(formattedName: "LUK", isPercentage: true),
   hpPercentage(formattedName: "HP", isPercentage: true),
   mpPercentage(formattedName: "MP", isPercentage: true),
+  hpMpPercentage(formattedName: "HP & MP", isPercentage: true),
   defensePercentage(formattedName: "DEF", isPercentage: true),
   allStats(formattedName: "All Stats"),
   allStatsPercentage(formattedName: "All Stats", isPercentage: true),
   attackPercentage(formattedName: "ATT", isPercentage: true),
   mattackPercentage(formattedName: "MATT", isPercentage: true),
+  attackMattackPercentage(formattedName: "ATT & MATT", isPercentage: true),
   hpRecovery(formattedName: "Skills and Potion HP Recovery", isPercentage: true),
   skill(formattedName: "Skill"),
   skillLevel(formattedName: "Skill Level"),

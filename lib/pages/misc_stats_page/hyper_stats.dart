@@ -42,7 +42,7 @@ class HyperStatTable extends StatelessWidget {
           const HyperStatCell(statType: StatType.bossDamage),          
           const HyperStatCell(statType: StatType.damageNormalMobs),
           const HyperStatCell(statType: StatType.statusResistance),
-          const HyperStatCell(statType: StatType.attack),
+          const HyperStatCell(statType: StatType.attackMattack),
           const HyperStatCell(statType: StatType.exp),
           const HyperStatCell(statType: StatType.arcaneForce),
         ]

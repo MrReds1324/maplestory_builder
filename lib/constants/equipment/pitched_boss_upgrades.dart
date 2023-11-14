@@ -6,10 +6,8 @@ enum PitchedBossUpgrade {
     formattedName: "Gravity Module", 
     upgradeStats: {
       StatType.allStats: 15,
-      StatType.attack: 10,
-      StatType.mattack: 10,
-      StatType.hp: 750,
-      StatType.mp: 750,
+      StatType.attackMattack: 10,
+      StatType.hpMp: 750,
     },
     equipName: EquipName.berserked
   ),
@@ -17,10 +15,8 @@ enum PitchedBossUpgrade {
     formattedName: "Nightmare Fragment", 
     upgradeStats: {
       StatType.allStats: 20,
-      StatType.attack: 10,
-      StatType.mattack: 10,
-      StatType.hp: 1000,
-      StatType.mp: 1000,
+      StatType.attackMattack: 10,
+      StatType.hpMp: 1000,
     },
     equipName: EquipName.dreamyBelt
   )

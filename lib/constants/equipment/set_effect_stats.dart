@@ -14,14 +14,11 @@ enum EquipSet {
     rawSetEffect: {
       2: {
         StatType.allStats: 20,
-        StatType.hp: 1500,
-        StatType.mp: 1500
+        StatType.hpMp: 1500,
       },
       3: {
-        StatType.hpPercentage: 0.13,
-        StatType.mpPercentage: 0.13,
-        StatType.attack: 35,
-        StatType.mattack: 35
+        StatType.hpMpPercentage: 0.13,
+        StatType.attackMattack: 35,
       },
       4: {
         StatType.bossDamage: 0.3,
@@ -41,21 +38,18 @@ enum EquipSet {
       2: {
         StatType.allStats: 10,
         StatType.hp: 250,
-        StatType.attack: 10,
-        StatType.mattack: 10,
+        StatType.attackMattack: 10,
         StatType.bossDamage: 0.1,
       },
       3: {
         StatType.allStats: 10,
         StatType.hp: 250,
-        StatType.attack: 10,
-        StatType.mattack: 10,
+        StatType.attackMattack: 10,
       },
       4: {
         StatType.allStats: 10,
         StatType.hp: 250,
-        StatType.attack: 10,
-        StatType.mattack: 10,
+        StatType.attackMattack: 10,
         StatType.defense: 100,
         StatType.ignoreDefense: 0.1,
       },
@@ -72,29 +66,23 @@ enum EquipSet {
     }, 
     rawSetEffect: {
       2: {
-        StatType.hp: 2500,
-        StatType.mp: 2500,
-        StatType.attack: 40,
-        StatType.mattack: 40,
+        StatType.hpMp: 2500,
+        StatType.attackMattack: 40,
         StatType.bossDamage: 0.1
       },
       3: {
         StatType.allStats: 50,
-        StatType.attack: 40,
-        StatType.mattack: 40,
+        StatType.attackMattack: 40,
         StatType.defense: 600,
         StatType.bossDamage: 0.1
       },
       4: {
-        StatType.hpPercentage: 0.15,
-        StatType.mpPercentage: 0.15,
-        StatType.attack: 40,
-        StatType.mattack: 40,
+        StatType.hpMpPercentage: 0.15,
+        StatType.attackMattack: 40,
         StatType.bossDamage: 0.1
       },
       5: {
-        StatType.attack: 40,
-        StatType.mattack: 40,
+        StatType.attackMattack: 40,
         StatType.ignoreDefense: 0.2
       }
     }
@@ -112,38 +100,30 @@ enum EquipSet {
     }, 
     rawSetEffect: {
       2: {
-        StatType.attack: 30,
-        StatType.mattack: 30,
+        StatType.attackMattack: 30,
         StatType.bossDamage: 0.1,
       },
       3: {
-        StatType.attack: 30,
-        StatType.mattack: 30,
+        StatType.attackMattack: 30,
         StatType.defense: 400,
         StatType.ignoreDefense: 0.1,
       },
       4: {
         StatType.allStats: 50,
-        StatType.attack: 35,
-        StatType.mattack: 35,
+        StatType.attackMattack: 35,
         StatType.bossDamage: 0.1,
       },
       5: {
-        StatType.hp: 2000,
-        StatType.mp: 2000,
-        StatType.attack: 40,
-        StatType.mattack: 40,
+        StatType.hpMp: 2000,
+        StatType.attackMattack: 40,
         StatType.bossDamage: 0.1,
       },
       6: {
-        StatType.hpPercentage: 0.3,
-        StatType.mpPercentage: 0.3,
-        StatType.attack: 30,
-        StatType.mattack: 30,
+        StatType.hpMpPercentage: 0.3,
+        StatType.attackMattack: 30,
       },
       7: {
-        StatType.attack: 30,
-        StatType.mattack: 30,
+        StatType.attackMattack: 30,
         StatType.ignoreDefense: 0.1,
       },
     }
@@ -166,58 +146,50 @@ enum EquipSet {
       2: {
         StatType.allStats: 10,
         StatType.hp: 250,
-        StatType.attack: 10,
-        StatType.mattack: 10,
+        StatType.attackMattack: 10,
         StatType.bossDamage: 0.1
       },
       3: {
         StatType.allStats: 10,
         StatType.hp: 250,
-        StatType.attack: 10,
-        StatType.mattack: 10,
+        StatType.attackMattack: 10,
         StatType.defense: 250,
         StatType.ignoreDefense: 0.1
       },
       4: {
         StatType.allStats: 15,
         StatType.hp: 375,
-        StatType.attack: 15,
-        StatType.mattack: 15,
+        StatType.attackMattack: 15,
         StatType.critDamage: 0.05
       },
       5: {
         StatType.allStats: 15,
         StatType.hp: 375,
-        StatType.attack: 15,
-        StatType.mattack: 15,
+        StatType.attackMattack: 15,
         StatType.ignoreDefense: 0.1
       },
       6: {
         StatType.allStats: 15,
         StatType.hp: 375,
-        StatType.attack: 15,
-        StatType.mattack: 15,
+        StatType.attackMattack: 15,
         StatType.ignoreDefense: 0.1
       },
       7: {
         StatType.allStats: 15,
         StatType.hp: 375,
-        StatType.attack: 15,
-        StatType.mattack: 15,
+        StatType.attackMattack: 15,
         StatType.critDamage: 0.05
       },
       8: {
         StatType.allStats: 15,
         StatType.hp: 375,
-        StatType.attack: 15,
-        StatType.mattack: 15,
+        StatType.attackMattack: 15,
         StatType.bossDamage: 0.1
       },
       9: {
         StatType.allStats: 15,
         StatType.hp: 375,
-        StatType.attack: 15,
-        StatType.mattack: 15,
+        StatType.attackMattack: 15,
         StatType.critDamage: 0.05
       },
     }

@@ -33,7 +33,7 @@ class HyperStatsProvider with ChangeNotifier {
       StatType.bossDamage: 0,
       StatType.damageNormalMobs: 0,
       StatType.statusResistance: 0,
-      StatType.attack: 0, // This technically raises both attack and magic attack
+      StatType.attackMattack: 0,
       StatType.exp: 0,
       StatType.arcaneForce: 0,
     };
@@ -72,8 +72,7 @@ class HyperStatsProvider with ChangeNotifier {
       StatType.bossDamage: getStatValue(StatType.bossDamage),
       StatType.damageNormalMobs: getStatValue(StatType.damageNormalMobs),
       StatType.statusResistance: getStatValue(StatType.statusResistance),
-      StatType.attack: getStatValue(StatType.attack),
-      StatType.mattack: getStatValue(StatType.attack),
+      StatType.attackMattack: getStatValue(StatType.attackMattack),
       StatType.exp: getStatValue(StatType.exp),
       StatType.arcaneForce: getStatValue(StatType.arcaneForce),
     };

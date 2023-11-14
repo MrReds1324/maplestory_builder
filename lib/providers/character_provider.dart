@@ -192,6 +192,9 @@ class CharacterProvider with ChangeNotifier {
     void updateTempStats(Map<StatType, num> stats) {
       for(MapEntry<StatType, num> entry in stats.entries) {
         switch(entry.key) {
+          case StatType.hpMp:
+            tempHp += entry.value;
+            tempMp += entry.value;
           case StatType.hp:
             tempHp += entry.value;
           case StatType.mp:
@@ -209,6 +212,9 @@ class CharacterProvider with ChangeNotifier {
             tempDex += entry.value;
             tempInt += entry.value;
             tempLuk += entry.value;
+          case StatType.attackMattack:
+            tempAttack += entry.value;
+            tempMattack += entry.value;
           case StatType.attack:
             tempAttack += entry.value;
           case StatType.mattack:
@@ -264,10 +270,16 @@ class CharacterProvider with ChangeNotifier {
             dexPercentage += entry.value;
             intPercentage += entry.value;
             lukPercentage += entry.value;
+          case StatType.hpMpPercentage:
+            hpPercentage += entry.value;
+            mpPercentage += entry.value;
           case StatType.hpPercentage:
             hpPercentage += entry.value;
           case StatType.mpPercentage:
             mpPercentage += entry.value;
+          case StatType.attackMattackPercentage:
+            attackPercentage += entry.value;
+            mattackPercentage += entry.value;
           case StatType.attackPercentage:
             attackPercentage += entry.value;
           case StatType.mattackPercentage:
