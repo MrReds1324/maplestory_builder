@@ -83,7 +83,7 @@ class HyperStatCell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Text(statType.formattedName)
+              child: _getStatTooltip(statType)
             )
           ),
           Container(
@@ -186,5 +186,25 @@ Selector _getStatSelector(StatType statType) {
     builder: (context, data, child) {
       return Text('$data');
     }
+  );
+}
+
+MapleTooltip _getStatTooltip(StatType statType) {
+
+  void _onHover(BuildContext context) {
+    context.read<HyperStatsProvider>().getHoverTooltipText(statType);
+  }
+
+  return MapleTooltip(
+    tooltipWidgets: [
+      Selector<HyperStatsProvider, Widget>(
+        selector: (_, hyperStatsProvider) => hyperStatsProvider.hoverTooltip,
+        builder: (context, data, child) {
+          return data;
+        }
+      )
+    ],
+    onHoverFunction: _onHover,
+    label: statType.formattedName,
   );
 }

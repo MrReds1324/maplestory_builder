@@ -3,11 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class HyperStatsProvider with ChangeNotifier {
   int totalAvailableHyperStats = 0;
   int totalAssignedHyperStats = 0;
   late Map<StatType, int> assignedHyperStats;
+  Widget hoverTooltip = const SizedBox.shrink();
 
   int get availableHyperStats {
     return totalAvailableHyperStats - totalAssignedHyperStats;
@@ -51,12 +53,11 @@ class HyperStatsProvider with ChangeNotifier {
     );
   }
 
-  Map<StatType, num> calculateModuleStats() {
-
-    num getStatValue(StatType statType) {
-      return hyperStatsValues[statType]![assignedHyperStats[statType]!];
+  num getStatValue(StatType statType, {int additionalLevels = 0}) {
+      return hyperStatsValues[statType]![assignedHyperStats[statType]! + additionalLevels];
     }
 
+  Map<StatType, num> calculateModuleStats() {
     return {
       StatType.finalStr: getStatValue(StatType.str),
       StatType.finalDex: getStatValue(StatType.dex),
@@ -142,5 +143,29 @@ class HyperStatsProvider with ChangeNotifier {
     assignedHyperStats[statType] = assignedHyperStats[statType]! - possibleLevelsToSubtract;
     notifyListeners();
     
+  }
+
+  void getHoverTooltipText(StatType statType) {
+    Widget? currentLevelText;
+    Widget? nextLevelText;
+    
+    var maxLevel = hyperStatsValues[statType]!.length - 1;
+    var currentLevel = assignedHyperStats[statType]!;
+
+    switch(statType) {
+      default:
+        currentLevelText = Text("Current Level (${assignedHyperStats[statType]}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)} ${statType.formattedName}");
+        if (currentLevel != maxLevel) {
+          nextLevelText = Text("Next Level (${assignedHyperStats[statType]! + 1}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)} ${statType.formattedName}");
+        }
+    }
+
+    hoverTooltip = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        currentLevelText ?? const SizedBox.shrink(),
+        nextLevelText ?? const SizedBox.shrink()
+      ],
+    );
   }
 }

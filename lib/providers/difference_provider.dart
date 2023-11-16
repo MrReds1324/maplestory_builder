@@ -31,8 +31,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
-      // Only trigger an update if we are actually editing an equip, otherwise its wasted cycles
       diffCharacterModel = mainCharacterModel.copyWith();
+      // Only trigger an update to redraw if we are actually editing an equip, otherwise its wasted cycles
       if (equipEditingProvider.updateCounter != 0) {
         notifyListeners();
       }
