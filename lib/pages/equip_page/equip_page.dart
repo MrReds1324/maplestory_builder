@@ -53,23 +53,18 @@ class EquippedItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Expanded(
-            child: Row(
-              children: [
-                Text(
-                  "Equipped Items",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                const EquipSetSelectButton(equipSetPosition: 1),
-                const EquipSetSelectButton(equipSetPosition: 2),
-                const EquipSetSelectButton(equipSetPosition: 3),
-                const EquipSetSelectButton(equipSetPosition: 4),
-                const EquipSetSelectButton(equipSetPosition: 5),
-              ]
-            ),
-          ),
+        Text(
+          "Equipped Items",
+          style: Theme.of(context).textTheme.headlineMedium
+        ),
+        const Row(
+          children: [
+            EquipSetSelectButton(equipSetPosition: 1),
+            EquipSetSelectButton(equipSetPosition: 2),
+            EquipSetSelectButton(equipSetPosition: 3),
+            EquipSetSelectButton(equipSetPosition: 4),
+            EquipSetSelectButton(equipSetPosition: 5),
+          ]
         ),
         const Expanded(
           child: SingleChildScrollView(
@@ -105,9 +100,6 @@ class EquippedItems extends StatelessWidget {
                 EquippedItemSelector(
                   equipType: EquipType.ring,
                   equipPosition: 4,
-                ),
-                EquippedItemSelector(
-                  equipType: EquipType.ozRing,
                 ),
                 // Pocket
                 EquippedItemSelector(
@@ -249,6 +241,9 @@ class EquippedItemSelector extends StatelessWidget {
     var filteredList = equipsProvider.allEquips.values.where((element) {
       if (equipType == EquipType.secondary) {
         return secondaryTypes.contains(element.equipName.equipType);
+      }
+      else if (equipType == EquipType.ring) {
+        return element.equipName.equipType == equipType || element.equipName.equipType == EquipType.ozRing;
       }
       else {
         return element.equipName.equipType == equipType;
@@ -660,22 +655,19 @@ class EquipSetSelectButton extends StatelessWidget {
         ),
       ],
       onHoverFunction: _onHover,
-      child: Container(
-        padding: const EdgeInsets.only(top: 9),
-        child: IconButton(
-          padding: const EdgeInsets.all(1),
-          constraints: const BoxConstraints(),
-          iconSize: 19,
-          onPressed: () => context.read<EquipsProvider>().changeActiveSet(equipSetPosition), 
-          icon: Consumer<EquipsProvider>(
-            builder: (_, equipsProvider, __) {
-              return Icon(
-                _getIconData(),
-                color: equipSetPosition == equipsProvider.activeSetNumber ? starColor : null,
-              );
-            }
-          ),
-        )
+      child: IconButton(
+        padding: const EdgeInsets.all(1),
+        constraints: const BoxConstraints(),
+        iconSize: 19,
+        onPressed: () => context.read<EquipsProvider>().changeActiveSet(equipSetPosition), 
+        icon: Consumer<EquipsProvider>(
+          builder: (_, equipsProvider, __) {
+            return Icon(
+              _getIconData(),
+              color: equipSetPosition == equipsProvider.activeSetNumber ? starColor : null,
+            );
+          }
+        ),
       )
     );
   }
