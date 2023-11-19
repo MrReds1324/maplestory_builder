@@ -28,7 +28,7 @@ class EquipsProvider with ChangeNotifier{
       4: EquipmentModule(getEquipCallback: getEquipCallback),
       5: EquipmentModule(getEquipCallback: getEquipCallback),
     };
-    this.activeEquipSet = activeEquipSet ?? this.equipSets[1]!;
+    this.activeEquipSet = activeEquipSet ?? this.equipSets[activeSetNumber]!;
   }
 
   EquipsProvider copyWith({
@@ -39,8 +39,8 @@ class EquipsProvider with ChangeNotifier{
     int? activeSetNumber,
   }) {
     return EquipsProvider(
-      allEquips: allEquips ?? Map.from(this.allEquips),
-      equipSets: equipSets ?? Map.from(this.equipSets),
+      allEquips: allEquips ?? Map.of(this.allEquips),
+      equipSets: equipSets ?? Map.of(this.equipSets),
       activeEquipSet: activeEquipSet ?? this.activeEquipSet.copyWith(),
       equipHash: equipHash ?? this.equipHash,
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,

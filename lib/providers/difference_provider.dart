@@ -11,6 +11,7 @@ enum CalculationType {
   compareEquipment,
   compareEquipmentSet,
   stats,
+  compareStats,
 }
 
 class DifferenceCalculatorProvider with ChangeNotifier {
@@ -229,6 +230,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         return Column(children: editingWidgets + [noDifferenceEquip]);
       }
     }
+    else if (calculationType == CalculationType.compareStats) {
+      if (textList.length > 1) {
+        differenceWidget = Column(children: textList);
+      }
+      else {
+        differenceWidget = noDifferenceStat;
+      }
+    }
     else {
       differenceWidget = Column(children: textList);
     }
@@ -415,9 +424,26 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCharacterModel.hyperStatsProvider = tempHyperStats;
   }
 
+  void compareHyperStats(BuildContext context, int newHyperStatPosition) {
+    var tempHyperStatProvider = diffCharacterModel.hyperStatsProvider;
+    diffCharacterModel.hyperStatsProvider = tempHyperStatProvider.copyWith();
+    diffCharacterModel.hyperStatsProvider.changeActiveSet(newHyperStatPosition);
+    diffCharacterModel.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the equips provider for the diff character model
+    diffCharacterModel.hyperStatsProvider = tempHyperStatProvider;
+    notifyListeners();
+  }  
+
 }
 
 const Text noDifferenceEquip = Text(
   "NO DIFFERENCE IN EQUIPMENT",
+  style: TextStyle(color: Colors.greenAccent),
+);
+
+const Text noDifferenceStat = Text(
+  "NO DIFFERENCE IN STATS",
   style: TextStyle(color: Colors.greenAccent),
 );

@@ -55,19 +55,20 @@ class EquippedItems extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.only(bottom: 5),
-          child: Expanded(child: Row(
-            children: [
-              Text(
-                "Equipped Items",
-                style: Theme.of(context).textTheme.headlineMedium
-              ),
-              const EquipSetSelectButton(equipSetPosition: 1),
-              const EquipSetSelectButton(equipSetPosition: 2),
-              const EquipSetSelectButton(equipSetPosition: 3),
-              const EquipSetSelectButton(equipSetPosition: 4),
-              const EquipSetSelectButton(equipSetPosition: 5),
-            ]
-          ),
+          child: Expanded(
+            child: Row(
+              children: [
+                Text(
+                  "Equipped Items",
+                  style: Theme.of(context).textTheme.headlineMedium
+                ),
+                const EquipSetSelectButton(equipSetPosition: 1),
+                const EquipSetSelectButton(equipSetPosition: 2),
+                const EquipSetSelectButton(equipSetPosition: 3),
+                const EquipSetSelectButton(equipSetPosition: 4),
+                const EquipSetSelectButton(equipSetPosition: 5),
+              ]
+            ),
           ),
         ),
         const Expanded(

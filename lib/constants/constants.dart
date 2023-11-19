@@ -148,7 +148,7 @@ enum StatType {
   mp(formattedName: "MP", description: "Required for many skills. Max MP cap is 500,000."),
   specialMana(
     formattedName: "Special Mana", 
-    description: "Special Mana:\nZero: Time Force\nDemon Slayer: Demon Fury\nKinesis: Psychic Points\nKanna: Mana"
+    description: "Zero - Time Force\nDemon Slayer - Demon Fury\nKinesis - Psychic Points\nKanna - Mana"
   ),
   sacredPower(formattedName: "Sacred Power", description: "In Grandis areas, if you have less Sacred Power than the monsters do, you'll deal less damage to them. When you have more Sacred Power than a monster, you can attack through that monster's shield. Can be increased by obtaining and enhancing Sacred Symbols."),
   speed(formattedName: "Speed", description: "Your movement speed. Can be increased to a max of 140% normally. Skills and equipment can boost this even further. Can be increased to 190% while riding a mount."),

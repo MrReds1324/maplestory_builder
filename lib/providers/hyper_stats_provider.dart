@@ -7,54 +7,54 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class HyperStatsProvider with ChangeNotifier {
   int totalAvailableHyperStats = 0;
-  int totalAssignedHyperStats = 0;
-  late Map<StatType, int> assignedHyperStats;
+  int activeSetNumber = 1;
+  late Map<int, HyperStatContainer> hyperStatsSets; 
+  late HyperStatContainer activeHyperStat;
+
   Widget hoverTooltip = const SizedBox.shrink();
 
   int get availableHyperStats {
-    return totalAvailableHyperStats - totalAssignedHyperStats;
+    return totalAvailableHyperStats - activeHyperStat.totalAssignedHyperStats;
   }
 
   HyperStatsProvider({
     this.totalAvailableHyperStats = 0,
-    this.totalAssignedHyperStats = 0,
-    Map<StatType, int>? assignedHyperStats,
+    this.activeSetNumber = 1,
+    HyperStatContainer? activeHyperStat,
+    Map<int, HyperStatContainer>? hyperStatsSets,
   }) {
-    this.assignedHyperStats = assignedHyperStats ?? {
-      StatType.str: 0,
-      StatType.dex: 0,
-      StatType.int: 0,
-      StatType.luk: 0,
-      StatType.hp: 0,
-      StatType.mp: 0,
-      StatType.specialMana: 0,
-      StatType.critRate: 0,
-      StatType.critDamage: 0,
-      StatType.ignoreDefense: 0,
-      StatType.damage: 0,
-      StatType.bossDamage: 0,
-      StatType.damageNormalMobs: 0,
-      StatType.statusResistance: 0,
-      StatType.attackMattack: 0,
-      StatType.exp: 0,
-      StatType.arcaneForce: 0,
+    this.hyperStatsSets = hyperStatsSets ?? {
+      1: HyperStatContainer(),
+      2: HyperStatContainer(),
+      3: HyperStatContainer(),
+      4: HyperStatContainer(),
+      5: HyperStatContainer(),
     };
+    this.activeHyperStat = activeHyperStat ?? this.hyperStatsSets[activeSetNumber]!;
   }
 
   HyperStatsProvider copyWith({
     int? totalAvailableHyperStats,
-    int? totalAssignedHyperStats,
-    Map<StatType, int>? assignedHyperStats,
+    int? activeSetNumber,
+    HyperStatContainer? activeHyperStat,
+    Map<int, HyperStatContainer>? hyperStatsSets,
   }) {
     return HyperStatsProvider(
       totalAvailableHyperStats: totalAvailableHyperStats ?? this.totalAvailableHyperStats,
-      totalAssignedHyperStats: totalAssignedHyperStats ?? this.totalAssignedHyperStats,
-      assignedHyperStats: assignedHyperStats ?? Map<StatType, int>.of(this.assignedHyperStats),
+      activeSetNumber: activeSetNumber ?? this.activeSetNumber,
+      activeHyperStat: activeHyperStat ?? this.activeHyperStat.copyWith(),
+      hyperStatsSets: hyperStatsSets ?? Map.of(this.hyperStatsSets),
     );
   }
 
   num getStatValue(StatType statType, {int additionalLevels = 0}) {
-      return hyperStatsValues[statType]![assignedHyperStats[statType]! + additionalLevels];
+      switch(statType) {
+        case StatType.specialMana:
+          var divisor = 1; // TODO - update this to divide by 10 when kinesis class
+          return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels] / divisor;
+        default:
+          return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels];
+      }
     }
 
   Map<StatType, num> calculateModuleStats() {
@@ -85,7 +85,7 @@ class HyperStatsProvider with ChangeNotifier {
   }
 
   void addHyperStats(int possibleLevelsToAdd, StatType statType) {
-    var currentLevel = assignedHyperStats[statType]!;
+    var currentLevel = activeHyperStat.assignedHyperStats[statType]!;
     var maxLevel = hyperStatsValues[statType]!.length - 1;
 
     // Check that we are not at the max level yet
@@ -114,14 +114,14 @@ class HyperStatsProvider with ChangeNotifier {
       return;
     }
     else {
-      totalAssignedHyperStats += costToUpgrade;
-      assignedHyperStats[statType] = assignedHyperStats[statType]! + possibleLevelsToAddByPoints;
+      activeHyperStat.totalAssignedHyperStats += costToUpgrade;
+      activeHyperStat.assignedHyperStats[statType] = activeHyperStat.assignedHyperStats[statType]! + possibleLevelsToAddByPoints;
       notifyListeners();
     }
   }
 
   void subtractHyperStats(int possibleLevelsToSubtract, StatType statType) {
-    var currentLevel = assignedHyperStats[statType]!;
+    var currentLevel = activeHyperStat.assignedHyperStats[statType]!;
 
     // Check that we are not at the min level yet
     if (currentLevel == 0) {
@@ -139,33 +139,90 @@ class HyperStatsProvider with ChangeNotifier {
       downgradeCost += costOfLevel;
     }
 
-    totalAssignedHyperStats -= downgradeCost;
-    assignedHyperStats[statType] = assignedHyperStats[statType]! - possibleLevelsToSubtract;
+    activeHyperStat.totalAssignedHyperStats -= downgradeCost;
+    activeHyperStat.assignedHyperStats[statType] = activeHyperStat.assignedHyperStats[statType]! - possibleLevelsToSubtract;
     notifyListeners();
     
   }
 
+  void changeActiveSet(int hyperStatPosition) {
+    activeSetNumber = hyperStatPosition;
+    activeHyperStat = hyperStatsSets[hyperStatPosition]!;
+
+    notifyListeners();
+  }
+
   void getHoverTooltipText(StatType statType) {
+    const Set<StatType> overrides = {StatType.hp, StatType.mp};
+    Widget? statDescription;
     Widget? currentLevelText;
     Widget? nextLevelText;
     
     var maxLevel = hyperStatsValues[statType]!.length - 1;
-    var currentLevel = assignedHyperStats[statType]!;
+    var currentLevel = activeHyperStat.assignedHyperStats[statType]!;
 
     switch(statType) {
-      default:
-        currentLevelText = Text("Current Level (${assignedHyperStats[statType]}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)} ${statType.formattedName}");
+      case StatType.specialMana:
+        statDescription = const Text("Zero - Time Force: +10\nDemon Slayer - Demon Fury: +10\nKinesis - Psychic Points: +1\nKanna - Mana: +10\n");
+        currentLevelText = Text("Current Level (${activeHyperStat.assignedHyperStats[statType]}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)} ${statType.formattedName}");
         if (currentLevel != maxLevel) {
-          nextLevelText = Text("Next Level (${assignedHyperStats[statType]! + 1}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)} ${statType.formattedName}");
+          nextLevelText = Text("Next Level (${activeHyperStat.assignedHyperStats[statType]! + 1}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)} ${statType.formattedName}");
+        }
+      default:
+        currentLevelText = Text("Current Level (${activeHyperStat.assignedHyperStats[statType]}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)} ${statType.formattedName}");
+        if (currentLevel != maxLevel) {
+          nextLevelText = Text("Next Level (${activeHyperStat.assignedHyperStats[statType]! + 1}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)} ${statType.formattedName}");
         }
     }
 
     hoverTooltip = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        currentLevelText ?? const SizedBox.shrink(),
+        statDescription ?? const SizedBox.shrink(),
+        currentLevelText,
         nextLevelText ?? const SizedBox.shrink()
       ],
+    );
+  }
+}
+
+
+class HyperStatContainer {
+  int totalAssignedHyperStats = 0;
+  late Map<StatType, int> assignedHyperStats;
+
+  HyperStatContainer({
+    this.totalAssignedHyperStats = 0,
+    Map<StatType, int>? assignedHyperStats,
+  }) {
+  this.assignedHyperStats = assignedHyperStats ?? {
+      StatType.str: 0,
+      StatType.dex: 0,
+      StatType.int: 0,
+      StatType.luk: 0,
+      StatType.hp: 0,
+      StatType.mp: 0,
+      StatType.specialMana: 0,
+      StatType.critRate: 0,
+      StatType.critDamage: 0,
+      StatType.ignoreDefense: 0,
+      StatType.damage: 0,
+      StatType.bossDamage: 0,
+      StatType.damageNormalMobs: 0,
+      StatType.statusResistance: 0,
+      StatType.attackMattack: 0,
+      StatType.exp: 0,
+      StatType.arcaneForce: 0,
+    };
+  }
+
+  HyperStatContainer copyWith({
+    int? totalAssignedHyperStats,
+    Map<StatType, int>? assignedHyperStats,
+  }) {
+    return HyperStatContainer(
+      totalAssignedHyperStats: totalAssignedHyperStats ?? this.totalAssignedHyperStats,
+      assignedHyperStats: assignedHyperStats ?? Map.of(this.assignedHyperStats)
     );
   }
 }

@@ -435,7 +435,7 @@ class APCell extends StatelessWidget {
             selector: (_, character) => (
               character.apStatsProvider.assignedAP, 
               character.apStatsProvider.totalAvailableAP,
-              character.hyperStatsProvider.totalAssignedHyperStats,
+              character.hyperStatsProvider.activeHyperStat.totalAssignedHyperStats,
               character.hyperStatsProvider.totalAvailableHyperStats
               ),
             builder: (context, data, child) {
@@ -458,7 +458,7 @@ class APCell extends StatelessWidget {
                   ),
                   Selector<HyperStatsProvider, (int, int)>(
                     selector: (_, hyperStatsProvider) => (
-                      hyperStatsProvider.totalAssignedHyperStats, 
+                      hyperStatsProvider.activeHyperStat.totalAssignedHyperStats, 
                       hyperStatsProvider.totalAvailableHyperStats,
                       ),
                     builder: (context, data, child) {
