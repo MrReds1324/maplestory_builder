@@ -611,102 +611,30 @@ class APStatButton extends StatelessWidget {
 Selector _getStatSelector(StatType statType) {
   switch(statType){
     case StatType.str:
-      return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalStr, character.apStatsProvider.apStats[StatType.str]!),
-        builder: (context, data, child) {
-          var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
-        }
-      );
     case StatType.dex:
-      return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalDex, character.apStatsProvider.apStats[StatType.dex]!),
-        builder: (context, data, child) {
-          var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
-        }
-      );
     case StatType.int:
-      return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalInt, character.apStatsProvider.apStats[StatType.int]!),
-        builder: (context, data, child) {
-          var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
-        }
-      );
     case StatType.luk:
-      return Selector<CharacterProvider, (double, int)>(
-        selector: (_, character) => (character.totalLuk, character.apStatsProvider.apStats[StatType.luk]!),
-        builder: (context, data, child) {
-          var diff = data.$1 - data.$2;
-          return Text('${doubleRoundFormater.format(data.$1)} (${data.$2} + ${doubleRoundFormater.format(diff)})');
+      return Selector<CharacterProvider, (num, num)>(
+        selector: (_, character) => (character.totalStats[statType]!, character.apStatsProvider.apStats[statType]!),
+        builder: (context, value, child) {
+          var diff = value.$1 - value.$2;
+          return Text('${doubleRoundFormater.format(value.$1)} (${value.$2} + ${doubleRoundFormater.format(diff)})');
         }
       );
     case StatType.hp:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalHp,
-        builder: (context, totalHp, child) {
-          return MapleTooltip(
-            label: doubleRoundFormater.format(min(500000, totalHp)),
-            tooltipWidgets: [Text(doubleRoundFormater.format(totalHp))],
-          );
-        }
-      );
     case StatType.mp:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalMp,
-        builder: (context, totalMp, child) {
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
+        builder: (context, value, child) {
           return MapleTooltip(
-            label: doubleRoundFormater.format(min(500000, totalMp)),
-            tooltipWidgets: [Text(doubleRoundFormater.format(totalMp))],
+            label: doubleRoundFormater.format(min(500000, value)),
+            tooltipWidgets: [Text(doubleRoundFormater.format(value))],
           );
-        }
-      );
-    case StatType.damage:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalDamage,
-        builder: (context, totalDamage, child) {
-          return Text(doubleRoundPercentFormater.format(totalDamage));
-        }
-      );
-    case StatType.bossDamage:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalBossDamage,
-        builder: (context, totalBossDmanage, child) {
-          return Text(doubleRoundPercentFormater.format(totalBossDmanage));
-        }
-      );
-    case StatType.finalDamage:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalFinalDamage,
-        builder: (context, totalFinalDamage, child) {
-          return Text(doublePercentFormater.format(totalFinalDamage));
-        }
-      );
-    case StatType.buffDuration:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalBuffDuration,
-        builder: (context, totalBuffDuration, child) {
-          return Text(doubleRoundPercentFormater.format(totalBuffDuration));
-        }
-      );
-    case StatType.ignoreDefense:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalIgnoreDefense,
-        builder: (context, totalIgnoreDefense, child) {
-          return Text(doublePercentFormater.format(totalIgnoreDefense));
-        }
-      );
-    case StatType.itemDropRate:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalItemDropRate,
-        builder: (context, totalItemDropRate, child) {
-          return Text(doubleRoundPercentFormater.format(totalItemDropRate));
         }
       );
     case StatType.critRate:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalCritRate,
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
         builder: (context, totalCritRate, child) {
           return MapleTooltip(
             label: doubleRoundPercentFormater.format(min(totalCritRate, 1)),
@@ -714,99 +642,28 @@ Selector _getStatSelector(StatType statType) {
           );
         }
       );
-    case StatType.mesosObtained:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalMesosObtained,
-        builder: (context, totalMesosObtained, child) {
-          return Text(doubleRoundPercentFormater.format(totalMesosObtained));
-        }
-      );
-    case StatType.critDamage:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalCritDamage,
-        builder: (context, totalCritDamage, child) {
-          return Text(doublePercentFormater.format(totalCritDamage));
-        }
-      );
     case StatType.attackSpeed:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalAttackSpeed,
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
         builder: (context, totalAttackSpeed, child) {
           return Text('$totalAttackSpeed Level');
         }
       );
-    case StatType.attack:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalAttack,
-        builder: (context, totalAttack, child) {
-          return Text(doubleRoundFormater.format(totalAttack));
-        }
-      );
-    case StatType.mattack:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalMAttack,
-        builder: (context, totalMAttack, child) {
-          return Text(doubleRoundFormater.format(totalMAttack));
-        }
-      );
-    case StatType.statusResistance:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalStatusResistance,
-        builder: (context, totalStatusResistance, child) {
-          return Text('$totalStatusResistance');
-        }
-      );
-    case StatType.knockbackResistance:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalKnockbackResistance,
-        builder: (context, totalKnockbackResistance, child) {
-          return Text(doubleRoundPercentFormater.format(totalKnockbackResistance));
-        }
-      );
-    case StatType.defense:
-      return Selector<CharacterProvider, double>(
-        selector: (_, character) => character.totalDefense,
-        builder: (context, totalDefense, child) {
-          return Text(doubleRoundFormater.format(totalDefense));
-        }
-      );
-    case StatType.starForce:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalStarForce,
-        builder: (context, totalStarForce, child) {
-          return Text('$totalStarForce');
-        }
-      );
     case StatType.speed:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalSpeed,
-        builder: (context, totalSpeed, child) {
-          return Text("$totalSpeed%");
-        }
-      );
-    case StatType.arcaneForce:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalArcaneForce,
-        builder: (context, totalArcaneForce, child) {
-          return Text('$totalArcaneForce');
-        }
-      );
     case StatType.jump:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalJump,
-        builder: (context, totalJump, child) {
-          return Text("$totalJump%");
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
+        builder: (context, value, child) {
+          return Text("$value%");
         }
       );
-    case StatType.sacredPower:
-      return Selector<CharacterProvider, int>(
-        selector: (_, character) => character.totalSacredPower,
+    default:
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
         builder: (context, totalSacredPower, child) {
           return Text('$totalSacredPower');
         }
       );
-    default:
-      throw Exception("Selector not Implemented for statType $statType");
   }
 }
 
@@ -822,8 +679,8 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
         );
       }
       else {
-        return Selector<CharacterProvider, (double, double)>(
-          selector: (_, character) => (character.upperDamageRange, character.totalMastery),
+        return Selector<CharacterProvider, (double, num)>(
+          selector: (_, character) => (character.upperDamageRange, character.totalStats[StatType.mastery]!),
           builder: (context, data, child) {
             return Text(rangeFormatter.format(data.$1 * data.$2));
           }
@@ -839,8 +696,8 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
         );
       }
       else {
-        return Selector<CharacterProvider, (double, double)>(
-          selector: (_, character) => (character.upperBossDamangeRange, character.totalMastery),
+        return Selector<CharacterProvider, (double, num)>(
+          selector: (_, character) => (character.upperBossDamangeRange, character.totalStats[StatType.mastery]!),
           builder: (context, data, child) {
             return Text(rangeFormatter.format(data.$1 * data.$2));
           }

@@ -172,7 +172,8 @@ enum StatType {
   skill(formattedName: "Skill"),
   skillLevel(formattedName: "Skill Level"),
   skillCooldown(formattedName: "Skill Cooldown", isPositive: false),
-  skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true);
+  skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true),
+  mastery(formattedName: "Mastery", isPercentage: true);
 
   const StatType({
     required this.formattedName,

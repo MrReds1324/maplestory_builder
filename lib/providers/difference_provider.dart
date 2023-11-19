@@ -158,59 +158,9 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     createText(diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
     createText(diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
     
-    createText(diffCharacterModel.totalAttackSpeed, mainCharacterModel.totalAttackSpeed, statType: StatType.attackSpeed);
-
-    createText(diffCharacterModel.totalStr, mainCharacterModel.totalStr, statType: StatType.str);
-    createText(diffCharacterModel.strPercentage, mainCharacterModel.strPercentage, statType: StatType.strPercentage);
-    createText(diffCharacterModel.flatStr, mainCharacterModel.flatStr, statType: StatType.finalStr);
-
-    createText(diffCharacterModel.totalDex, mainCharacterModel.totalDex, statType: StatType.dex);
-    createText(diffCharacterModel.dexPercentage, mainCharacterModel.dexPercentage, statType: StatType.dexPercentage);
-    createText(diffCharacterModel.flatDex, mainCharacterModel.flatDex, statType: StatType.finalDex);
-
-    createText(diffCharacterModel.totalInt, mainCharacterModel.totalInt, statType: StatType.int);
-    createText(diffCharacterModel.intPercentage, mainCharacterModel.intPercentage, statType: StatType.intPercentage);
-    createText(diffCharacterModel.flatInt, mainCharacterModel.flatInt, statType: StatType.finalInt);
-
-    createText(diffCharacterModel.totalLuk, mainCharacterModel.totalLuk, statType: StatType.luk);
-    createText(diffCharacterModel.lukPercentage, mainCharacterModel.lukPercentage, statType: StatType.lukPercentage);
-    createText(diffCharacterModel.flatLuk, mainCharacterModel.flatLuk, statType: StatType.finalLuk);
-
-    createText(diffCharacterModel.totalHp, mainCharacterModel.totalHp, statType: StatType.hp);
-    createText(diffCharacterModel.hpPercentage, mainCharacterModel.hpPercentage, statType: StatType.hpPercentage);
-    createText(diffCharacterModel.flatHp, mainCharacterModel.flatHp, statType: StatType.finalHp);
-
-    createText(diffCharacterModel.totalMp, mainCharacterModel.totalMp, statType: StatType.mp);
-    createText(diffCharacterModel.mpPercentage, mainCharacterModel.mpPercentage, statType: StatType.mpPercentage);
-    createText(diffCharacterModel.flatMP, mainCharacterModel.flatMP, statType: StatType.finalMp);
-
-    createText(diffCharacterModel.totalAttack, mainCharacterModel.totalAttack, statType: StatType.attack);
-    createText(diffCharacterModel.attackPercentage, mainCharacterModel.attackPercentage, statType: StatType.attackPercentage);
-    createText(diffCharacterModel.flatAttack, mainCharacterModel.flatAttack, statType: StatType.finalAttack);
-
-    createText(diffCharacterModel.totalMAttack, mainCharacterModel.totalMAttack, statType: StatType.mattack);
-    createText(diffCharacterModel.mattackPercentage, mainCharacterModel.mattackPercentage, statType: StatType.mattackPercentage);
-    createText(diffCharacterModel.flatMAttack, mainCharacterModel.flatMAttack, statType: StatType.finalMAttack);
-
-    createText(diffCharacterModel.totalDefense, mainCharacterModel.totalDefense, statType: StatType.defense);
-    createText(diffCharacterModel.defensePercentage, mainCharacterModel.defensePercentage, statType: StatType.defensePercentage);
-    createText(diffCharacterModel.totalDamage, mainCharacterModel.totalDamage, statType: StatType.damage);
-    createText(diffCharacterModel.totalBossDamage, mainCharacterModel.totalBossDamage, statType: StatType.bossDamage);
-    createText(diffCharacterModel.totalDamageNormalMobs, mainCharacterModel.totalDamageNormalMobs, statType: StatType.damageNormalMobs);
-    createText(diffCharacterModel.totalIgnoreDefense, mainCharacterModel.totalIgnoreDefense, statType: StatType.ignoreDefense);
-    createText(diffCharacterModel.totalElementalIgnoreDefense, mainCharacterModel.totalElementalIgnoreDefense, statType: StatType.ignoreElementalDefense);
-    createText(diffCharacterModel.totalSpeed, mainCharacterModel.totalSpeed, statType: StatType.speed);
-    createText(diffCharacterModel.totalJump, mainCharacterModel.totalJump, statType: StatType.jump);
-    createText(diffCharacterModel.totalStarForce, mainCharacterModel.totalStarForce, statType: StatType.starForce);
-    createText(diffCharacterModel.totalArcaneForce, mainCharacterModel.totalArcaneForce, statType: StatType.arcaneForce);
-    createText(diffCharacterModel.totalSacredPower, mainCharacterModel.totalSacredPower, statType: StatType.sacredPower);
-    createText(diffCharacterModel.totalCritDamage, mainCharacterModel.totalCritDamage, statType: StatType.critDamage);
-    createText(diffCharacterModel.totalCritRate, mainCharacterModel.totalCritRate, statType: StatType.critRate);
-    createText(diffCharacterModel.totalItemDropRate, mainCharacterModel.totalItemDropRate, statType: StatType.itemDropRate);
-    createText(diffCharacterModel.totalMesosObtained, mainCharacterModel.totalMesosObtained, statType: StatType.mesosObtained);
-    createText(diffCharacterModel.totalHpRecovery, mainCharacterModel.totalHpRecovery, statType: StatType.hpRecovery);
-    createText(diffCharacterModel.totalSkillCooldown, mainCharacterModel.totalSkillCooldown, statType: StatType.skillCooldown);
-    createText(diffCharacterModel.totalSkillCooldownPercentage, mainCharacterModel.totalSkillCooldownPercentage, statType: StatType.skillCooldownPercentage);
+    for (StatType statType in comparisonStats) {
+      createText(diffCharacterModel.totalStats[statType]!, mainCharacterModel.totalStats[statType]!, statType: statType);
+    }
 
     if (calculationType == CalculationType.compareEquipmentSet) {
       compareEquipSets();
@@ -447,3 +397,50 @@ const Text noDifferenceStat = Text(
   "NO DIFFERENCE IN STATS",
   style: TextStyle(color: Colors.greenAccent),
 );
+
+const List<StatType> comparisonStats = [
+  StatType.attackSpeed,
+  StatType.str,
+  StatType.strPercentage,
+  StatType.finalStr,
+  StatType.dex,
+  StatType.dexPercentage,
+  StatType.finalDex,
+  StatType.int,
+  StatType.intPercentage,
+  StatType.finalInt,
+  StatType.luk,
+  StatType.lukPercentage,
+  StatType.finalLuk,
+  StatType.hp,
+  StatType.hpPercentage,
+  StatType.finalHp,
+  StatType.mp,
+  StatType.mpPercentage,
+  StatType.finalMp,
+  StatType.attack,
+  StatType.attackPercentage,
+  StatType.finalAttack,
+  StatType.mattack,
+  StatType.mattackPercentage,
+  StatType.finalMAttack,
+  StatType.defense,
+  StatType.defensePercentage,
+  StatType.damage,
+  StatType.bossDamage,
+  StatType.damageNormalMobs,
+  StatType.ignoreDefense,
+  StatType.ignoreElementalDefense,
+  StatType.speed,
+  StatType.jump,
+  StatType.starForce,
+  StatType.arcaneForce,
+  StatType.sacredPower,
+  StatType.critDamage,
+  StatType.critRate,
+  StatType.itemDropRate,
+  StatType.mesosObtained,
+  StatType.hpRecovery,
+  StatType.skillCooldown,
+  StatType.skillCooldownPercentage,
+];
