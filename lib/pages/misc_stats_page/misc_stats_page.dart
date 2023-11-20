@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/pages/misc_stats_page/hyper_stats.dart';
+import 'package:maplestory_builder/pages/misc_stats_page/symbol_stats.dart';
 import 'package:maplestory_builder/pages/misc_stats_page/trait_stats.dart';
 
 class MiscStatsPage extends StatelessWidget {
@@ -26,6 +27,12 @@ class MiscStatsPage extends StatelessWidget {
           children: [
             HyperStatTable(),
             TraitStatsTable(),
+            Column(
+              children: [
+                ArcaneSymbolTable(),
+                SacredSymbolTable()
+              ],
+            )
           ],
         ),
       ),

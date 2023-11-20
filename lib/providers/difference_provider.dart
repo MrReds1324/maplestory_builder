@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/symbols_stats.dart';
 import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
@@ -411,6 +412,34 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.traitStatsProvider = tempTraitStatsProvider;
+  }
+
+  void modifyArcaneLevels(int possibleLevelsToAddOrSubtract, ArcaneSymbol arcaneSymbol, bool isSubtract) {
+    var tempSymbolStatsProvider = diffCharacterModel.traitStatsProvider;
+    // diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider.copyWith();
+    // if (isSubtract) {
+    //   diffCharacterModel.traitStatsProvider.subtractArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
+    // }
+    // else {
+    //   diffCharacterModel.traitStatsProvider.addArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
+    // }
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider;
+  }
+
+  void modifySacredLevels(int possibleLevelsToAddOrSubtract, SacredSymbol sacredSymbol, bool isSubtract) {
+    var tempSymbolStatsProvider = diffCharacterModel.traitStatsProvider;
+    // diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider.copyWith();
+    // if (isSubtract) {
+    //   diffCharacterModel.traitStatsProvider.subtractSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
+    // }
+    // else {
+    //   diffCharacterModel.traitStatsProvider.addSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
+    // }
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider;
   }
 }
 
