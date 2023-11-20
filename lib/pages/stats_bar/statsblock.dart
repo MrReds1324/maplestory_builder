@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
 import 'package:provider/provider.dart';
@@ -315,8 +315,7 @@ class IGNCell extends StatelessWidget {
             child: Expanded(
               child: TextField(
                 onChanged: (value) {
-                  var character = context.read<CharacterProvider>();
-                  character.characterName = value;
+                  context.read<CalculatorProvider>().characterName = value;
                 },
               ),
             ),
@@ -378,15 +377,15 @@ class LevelCell extends StatelessWidget {
               ),
             ),
             child: Expanded(
-              child: Selector<CharacterProvider, int>(
-                selector: (_, character) => character.characterLevel,
+              child: Selector<CalculatorProvider, int>(
+                selector: (_, calculatorProvider) => calculatorProvider.characterLevel,
                 builder: (context, characterLevel, child) {
                   return DropdownButtonHideUnderline(
                     child: DropdownButton(
                       value: characterLevel,
                       onChanged: (newValue) {
                         if (newValue != null) {
-                          var character = context.read<CharacterProvider>();
+                          var character = context.read<CalculatorProvider>();
                           character.updateCharacterLevel(newValue);
                         }
                       },
@@ -433,21 +432,21 @@ class APCell extends StatelessWidget {
             Radius.circular(10),
           ),
         ),
-        child: Selector<CharacterProvider, (int, int, int, int)>(
-            selector: (_, character) => (
-              character.apStatsProvider.assignedAP, 
-              character.apStatsProvider.totalAvailableAP,
-              character.hyperStatsProvider.activeHyperStat.totalAssignedHyperStats,
-              character.hyperStatsProvider.totalAvailableHyperStats
+        child: Selector<CalculatorProvider, (int, int, int, int)>(
+            selector: (_, calculatorProvider) => (
+              calculatorProvider.apStatsProvider.assignedAP, 
+              calculatorProvider.apStatsProvider.totalAvailableAP,
+              calculatorProvider.hyperStatsProvider.activeHyperStat.totalAssignedHyperStats,
+              calculatorProvider.hyperStatsProvider.totalAvailableHyperStats
               ),
             builder: (context, data, child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Selector<CharacterProvider, (int, int)>(
-                    selector: (_, character) => (
-                      character.apStatsProvider.assignedAP, 
-                      character.apStatsProvider.totalAvailableAP,
+                  Selector<CalculatorProvider, (int, int)>(
+                    selector: (_, calculatorProvider) => (
+                      calculatorProvider.apStatsProvider.assignedAP, 
+                      calculatorProvider.apStatsProvider.totalAvailableAP,
                       ),
                     builder: (context, data, child) {
                       return Text(
@@ -614,8 +613,8 @@ Selector _getStatSelector(StatType statType) {
     case StatType.dex:
     case StatType.int:
     case StatType.luk:
-      return Selector<CharacterProvider, (num, num)>(
-        selector: (_, character) => (character.totalStats[statType]!, character.apStatsProvider.apStats[statType]!),
+      return Selector<CalculatorProvider, (num, num)>(
+        selector: (_, calculatorProvider) => (calculatorProvider.totalStats[statType]!, calculatorProvider.apStatsProvider.apStats[statType]!),
         builder: (context, value, child) {
           var diff = value.$1 - value.$2;
           return Text('${doubleRoundFormater.format(value.$1)} (${value.$2} + ${doubleRoundFormater.format(diff)})');
@@ -623,8 +622,8 @@ Selector _getStatSelector(StatType statType) {
       );
     case StatType.hp:
     case StatType.mp:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, value, child) {
           return MapleTooltip(
             label: doubleRoundFormater.format(min(500000, value)),
@@ -633,8 +632,8 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.critRate:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, totalCritRate, child) {
           return MapleTooltip(
             label: doubleRoundPercentFormater.format(min(totalCritRate, 1)),
@@ -643,23 +642,23 @@ Selector _getStatSelector(StatType statType) {
         }
       );
     case StatType.attackSpeed:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, totalAttackSpeed, child) {
           return Text('$totalAttackSpeed Level');
         }
       );
     case StatType.speed:
     case StatType.jump:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, value, child) {
           return Text("$value%");
         }
       );
     case StatType.statusResistance:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, statusResistance, child) {
           return MapleTooltip(
             label: "$statusResistance",
@@ -672,15 +671,15 @@ Selector _getStatSelector(StatType statType) {
     case StatType.damage:
     case StatType.bossDamage:
     case StatType.ignoreDefense:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, value, child) {
           return Text('${statType.isPercentage ? doublePercentFormater.format(value) : value}');
         }
       );
     default:
-      return Selector<CharacterProvider, num>(
-        selector: (_, character) => character.totalStats[statType]!,
+      return Selector<CalculatorProvider, num>(
+        selector: (_, calculatorProvider) => calculatorProvider.totalStats[statType]!,
         builder: (context, value, child) {
           return Text('${statType.isPercentage ? doubleRoundPercentFormater.format(value) : value}');
         }
@@ -692,16 +691,16 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
   switch(rangeType){
     case RangeType.damageRange:
       if (!isLower){
-        return Selector<CharacterProvider, double>(
-          selector: (_, character) => character.upperDamageRange,
+        return Selector<CalculatorProvider, double>(
+          selector: (_, calculatorProvider) => calculatorProvider.upperDamageRange,
           builder: (context, upperDamageRange, child) {
             return Text(rangeFormatter.format(upperDamageRange));
           }
         );
       }
       else {
-        return Selector<CharacterProvider, (double, num)>(
-          selector: (_, character) => (character.upperDamageRange, character.totalStats[StatType.mastery]!),
+        return Selector<CalculatorProvider, (double, num)>(
+          selector: (_, calculatorProvider) => (calculatorProvider.upperDamageRange, calculatorProvider.totalStats[StatType.mastery]!),
           builder: (context, data, child) {
             return Text(rangeFormatter.format(data.$1 * data.$2));
           }
@@ -709,16 +708,16 @@ Selector _getRangeSelector(RangeType rangeType, {bool isLower = false}) {
       }
     case RangeType.bossDamageRange:
       if (!isLower){
-        return Selector<CharacterProvider, double>(
-          selector: (_, character) => character.upperBossDamangeRange,
+        return Selector<CalculatorProvider, double>(
+          selector: (_, calculatorProvider) => calculatorProvider.upperBossDamangeRange,
           builder: (context, upperDamageRange, child) {
             return Text(rangeFormatter.format(upperDamageRange));
           }
         );
       }
       else {
-        return Selector<CharacterProvider, (double, num)>(
-          selector: (_, character) => (character.upperBossDamangeRange, character.totalStats[StatType.mastery]!),
+        return Selector<CalculatorProvider, (double, num)>(
+          selector: (_, calculatorProvider) => (calculatorProvider.upperBossDamangeRange, calculatorProvider.totalStats[StatType.mastery]!),
           builder: (context, data, child) {
             return Text(rangeFormatter.format(data.$1 * data.$2));
           }

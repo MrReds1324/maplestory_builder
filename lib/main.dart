@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/pages/homepage.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/providers/breakdown_provider.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
@@ -19,39 +19,39 @@ void main() {
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
         ChangeNotifierProvider<HyperStatsProvider>(create: (_) => HyperStatsProvider()),
         ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
-        ChangeNotifierProxyProvider4<APStatsProvider, TraitStatsProvider, HyperStatsProvider, EquipsProvider, CharacterProvider>(
-          create: (BuildContext context) => CharacterProvider(
+        ChangeNotifierProxyProvider4<APStatsProvider, TraitStatsProvider, HyperStatsProvider, EquipsProvider, CalculatorProvider>(
+          create: (BuildContext context) => CalculatorProvider(
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
             traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
           ), 
-          update: (BuildContext context, APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CharacterProvider? characterProvider) 
+          update: (BuildContext context, APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CalculatorProvider? characterProvider) 
             => characterProvider?.update(apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
             ?? 
-            CharacterProvider(
+            CalculatorProvider(
               apStatsProvider: apStatsProvider,
               traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
               equipsProvider: equipsProvider
             ),
         ),
-        ChangeNotifierProxyProvider2<EquipEditingProvider, CharacterProvider, DifferenceCalculatorProvider>(            
+        ChangeNotifierProxyProvider2<EquipEditingProvider, CalculatorProvider, DifferenceCalculatorProvider>(            
           create: (BuildContext context) => DifferenceCalculatorProvider(
             equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), 
-            mainCharacterModel: Provider.of<CharacterProvider>(context, listen: false)
+            mainCalculatorProvider: Provider.of<CalculatorProvider>(context, listen: false)
           ),
-          update: (BuildContext context, EquipEditingProvider equipEditingProvider, CharacterProvider characterProvider, DifferenceCalculatorProvider? differenceCalculator) 
+          update: (BuildContext context, EquipEditingProvider equipEditingProvider, CalculatorProvider characterProvider, DifferenceCalculatorProvider? differenceCalculator) 
             => differenceCalculator?.update(equipEditingProvider, characterProvider) 
             ?? 
             DifferenceCalculatorProvider(
               equipEditingProvider: equipEditingProvider, 
-              mainCharacterModel: characterProvider
+              mainCalculatorProvider: characterProvider
             ),
         ),
-        ChangeNotifierProxyProvider<CharacterProvider, BreadkdownCalculator>(          
-          create: (BuildContext context) => BreadkdownCalculator(Provider.of<CharacterProvider>(context, listen: false)),
-          update: (BuildContext context, CharacterProvider character, BreadkdownCalculator? damageCalculator) => BreadkdownCalculator(character),
+        ChangeNotifierProxyProvider<CalculatorProvider, BreadkdownCalculator>(          
+          create: (BuildContext context) => BreadkdownCalculator(Provider.of<CalculatorProvider>(context, listen: false)),
+          update: (BuildContext context, CalculatorProvider character, BreadkdownCalculator? damageCalculator) => BreadkdownCalculator(character),
         ),
       ],
       child: const MyApp(),

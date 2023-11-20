@@ -16,9 +16,9 @@ import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/equipment/soul_mod.dart';
 import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
 import 'package:maplestory_builder/modules/equipment/tweak_mod.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
@@ -313,10 +313,10 @@ class Equip {
     // If we are editing an equip then we always want to target the difference character model
     SetEffect? setEffect;
     if (isEquipComparing) {
-      setEffect = context.read<DifferenceCalculatorProvider>().diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet];
+      setEffect = context.read<DifferenceCalculatorProvider>().diffCalculatorProvider.equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet];
     }
     else {
-      setEffect = context.read<CharacterProvider>().equipsProvider.activeEquipSet.setEffectModule.activeSetEffects[equipSet] ?? (equipSet != null ? SetEffect(equipSet: equipSet!) : null);
+      setEffect = context.read<EquipsProvider>().activeEquipSet.setEffectModule.activeSetEffects[equipSet] ?? (equipSet != null ? SetEffect(equipSet: equipSet!) : null);
     }
     return setEffect?.createSetEffectContainer(context, addingEquip: isAdding && isEquipComparing ? this : null, removingEquip: isRemoving && isEquipComparing ? this : null) ?? const SizedBox.shrink();
   }

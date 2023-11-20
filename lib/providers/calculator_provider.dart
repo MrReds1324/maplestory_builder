@@ -8,7 +8,7 @@ import 'dart:math';
 
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 
-class CharacterProvider with ChangeNotifier {
+class CalculatorProvider with ChangeNotifier {
   String characterName = '';
   int characterLevel = 0;
 
@@ -49,7 +49,7 @@ class CharacterProvider with ChangeNotifier {
   HyperStatsProvider hyperStatsProvider;
   EquipsProvider equipsProvider;
 
-  CharacterProvider({
+  CalculatorProvider({
     this.characterLevel = 0,
     required this.apStatsProvider,
     required this.traitStatsProvider, 
@@ -62,7 +62,7 @@ class CharacterProvider with ChangeNotifier {
     }
   }
 
-  CharacterProvider copyWith({
+  CalculatorProvider copyWith({
     int? characterLevel,
     APStatsProvider? apStatsProvider,
     TraitStatsProvider? traitStatsProvider,
@@ -70,7 +70,7 @@ class CharacterProvider with ChangeNotifier {
     EquipsProvider? equipsProvider, 
     bool doCalculation = true
   }){
-    return CharacterProvider(
+    return CalculatorProvider(
       characterLevel: characterLevel ?? this.characterLevel,
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
       traitStatsProvider: traitStatsProvider ?? this.traitStatsProvider.copyWith(),
@@ -84,7 +84,7 @@ class CharacterProvider with ChangeNotifier {
     return pureStats[statType] ?? 0;
   }
 
-  CharacterProvider update(APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider) {
+  CalculatorProvider update(APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider) {
     calculateEverything();
     notifyListeners();
     return this;

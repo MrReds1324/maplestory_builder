@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/calculator_provider.dart';
 
 class BreadkdownCalculator with ChangeNotifier {
 
-  CharacterProvider? mainCharacterModel;
+  CalculatorProvider? mainCharacterModel;
 
 
-  BreadkdownCalculator(CharacterProvider characterModel){
+  BreadkdownCalculator(CalculatorProvider characterModel){
     mainCharacterModel = characterModel;
   }
 }

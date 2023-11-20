@@ -5,7 +5,7 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
 
@@ -18,32 +18,32 @@ enum CalculationType {
 
 class DifferenceCalculatorProvider with ChangeNotifier {
 
-  CharacterProvider mainCharacterModel;
-  CharacterProvider diffCharacterModel;
+  CalculatorProvider mainCalculatorProvider;
+  CalculatorProvider diffCalculatorProvider;
   EquipEditingProvider equipEditingProvider;
   int lastEditingEquipCounter = 0;
   Widget differenceWidget = const SizedBox.shrink();
 
   DifferenceCalculatorProvider({
     required this.equipEditingProvider,
-    required this.mainCharacterModel,
-  }) : diffCharacterModel = mainCharacterModel.copyWith(
-    apStatsProvider: mainCharacterModel.apStatsProvider,
-    traitStatsProvider: mainCharacterModel.traitStatsProvider,
-    hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
-    equipsProvider: mainCharacterModel.equipsProvider,
+    required this.mainCalculatorProvider,
+  }) : diffCalculatorProvider = mainCalculatorProvider.copyWith(
+    apStatsProvider: mainCalculatorProvider.apStatsProvider,
+    traitStatsProvider: mainCalculatorProvider.traitStatsProvider,
+    hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
+    equipsProvider: mainCalculatorProvider.equipsProvider,
   );
 
 
-  DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CharacterProvider characterProvider) {
+  DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CalculatorProvider characterProvider) {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
-      diffCharacterModel = mainCharacterModel.copyWith(
-        apStatsProvider: mainCharacterModel.apStatsProvider,
-        traitStatsProvider: mainCharacterModel.traitStatsProvider,
-        hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
-        equipsProvider: mainCharacterModel.equipsProvider,
+      diffCalculatorProvider = mainCalculatorProvider.copyWith(
+        apStatsProvider: mainCalculatorProvider.apStatsProvider,
+        traitStatsProvider: mainCalculatorProvider.traitStatsProvider,
+        hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
+        equipsProvider: mainCalculatorProvider.equipsProvider,
       );
       // Only trigger an update to redraw if we are actually editing an equip, otherwise its wasted cycles
       if (equipEditingProvider.updateCounter != 0) {
@@ -100,9 +100,9 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
     void compareEquipSets({bool isComparingEquips = false, bool isComparingLuckyItem = false}) {
       // Compare the two Total Set Effects if two different equipment sets are being compared
-      if (mainCharacterModel.equipsProvider.activeSetNumber != diffCharacterModel.equipsProvider.activeSetNumber || isComparingEquips) {
-        var oldEquipSet = mainCharacterModel.equipsProvider.activeEquipSet.setEffectModule.getEquippedSetCounts();
-        var newEquipSet = diffCharacterModel.equipsProvider.activeEquipSet.setEffectModule.getEquippedSetCounts();
+      if (mainCalculatorProvider.equipsProvider.activeSetNumber != diffCalculatorProvider.equipsProvider.activeSetNumber || isComparingEquips) {
+        var oldEquipSet = mainCalculatorProvider.equipsProvider.activeEquipSet.setEffectModule.getEquippedSetCounts();
+        var newEquipSet = diffCalculatorProvider.equipsProvider.activeEquipSet.setEffectModule.getEquippedSetCounts();
 
         var allEquipSetNames = Set.from(oldEquipSet.keys.toList() + newEquipSet.keys.toList());
         for (EquipSet equipSet in allEquipSetNames) {
@@ -167,11 +167,11 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       }
     }
 
-    createText(diffCharacterModel.upperDamageRange, mainCharacterModel.upperDamageRange, rangeType: RangeType.damageRange);
-    createText(diffCharacterModel.upperBossDamangeRange, mainCharacterModel.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
+    createText(diffCalculatorProvider.upperDamageRange, mainCalculatorProvider.upperDamageRange, rangeType: RangeType.damageRange);
+    createText(diffCalculatorProvider.upperBossDamangeRange, mainCalculatorProvider.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
     
     for (StatType statType in comparisonStats) {
-      createText(diffCharacterModel.totalStats[statType]!, mainCharacterModel.totalStats[statType]!, statType: statType);
+      createText(diffCalculatorProvider.totalStats[statType]!, mainCalculatorProvider.totalStats[statType]!, statType: statType);
     }
 
     if (calculationType == CalculationType.compareEquipmentSet) {
@@ -213,14 +213,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }
 
   void compareEquipSets(BuildContext context, int newEquipSetPosition) {
-    var tempEquipProvider = diffCharacterModel.equipsProvider;
-    diffCharacterModel.equipsProvider = tempEquipProvider.copyWith();
-    diffCharacterModel.equipsProvider.changeActiveSet(newEquipSetPosition);
-    diffCharacterModel.calculateEverything(recalculateCache: true);
+    var tempEquipProvider = diffCalculatorProvider.equipsProvider;
+    diffCalculatorProvider.equipsProvider = tempEquipProvider.copyWith();
+    diffCalculatorProvider.equipsProvider.changeActiveSet(newEquipSetPosition);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
     updateDifferenceText(context: context, calculationType: CalculationType.compareEquipmentSet);
 
     // Reset the equips provider for the diff character model
-    diffCharacterModel.equipsProvider = tempEquipProvider;
+    diffCalculatorProvider.equipsProvider = tempEquipProvider;
     notifyListeners();
   }
   
@@ -236,16 +236,16 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       // Used for items that are uniqueEquipped like Superior Gollux Items
       bool isUniqueItem = compareEquip.equipName.isUniqueItem;
       // Save a reference to the equipModule, then replace the target with a copy for destructive calculations
-      var tempEquipProvider = diffCharacterModel.equipsProvider;
-      diffCharacterModel.equipsProvider = tempEquipProvider.copyWith();
-      EquipmentModule activeEquipmentModule = diffCharacterModel.equipsProvider.activeEquipSet;
+      var tempEquipProvider = diffCalculatorProvider.equipsProvider;
+      diffCalculatorProvider.equipsProvider = tempEquipProvider.copyWith();
+      EquipmentModule activeEquipmentModule = diffCalculatorProvider.equipsProvider.activeEquipSet;
       
       // Only need to do this if we are actually editing equips, otherwise we are comparing an already saved item
       if (isEditing) {
         // Need to register/overwrite the callback to our copied equips provider instance so we can appropriately reverse lookup the editing equip
-        activeEquipmentModule.registerEquipCallback(diffCharacterModel.equipsProvider.getEquipCallback);
+        activeEquipmentModule.registerEquipCallback(diffCalculatorProvider.equipsProvider.getEquipCallback);
 
-        diffCharacterModel.equipsProvider.allEquips[compareEquip.equipHash] = compareEquip;
+        diffCalculatorProvider.equipsProvider.allEquips[compareEquip.equipHash] = compareEquip;
       }
 
       var uniqueItemPosition = activeEquipmentModule.getUniqueItemPosition(compareEquip.equipName, compareEquip.equipName.equipType);
@@ -258,10 +258,10 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               if (tempEquip == null) {
                 hasEquipped = true;
               }
-              diffCharacterModel.equipsProvider.equipEquip(compareEquip, EquipType.totem, equipPosition: i, isCalculatingDifference: true);
-              diffCharacterModel.calculateEverything(recalculateCache: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.totem, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.calculateEverything(recalculateCache: true);
               widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCharacterModel.equipsProvider.equipEquip(tempEquip, EquipType.totem, equipPosition: 1);
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.totem, equipPosition: 1);
             }
           }
 
@@ -273,10 +273,10 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               if (tempEquip == null) {
                 hasEquipped = true;
               }
-              diffCharacterModel.equipsProvider.equipEquip(compareEquip, EquipType.ring, equipPosition: i, isCalculatingDifference: true);
-              diffCharacterModel.calculateEverything(recalculateCache: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.ring, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.calculateEverything(recalculateCache: true);
               widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCharacterModel.equipsProvider.equipEquip(tempEquip, EquipType.ring, equipPosition: 1, isCalculatingDifference: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.ring, equipPosition: 1, isCalculatingDifference: true);
             }
           }
 
@@ -288,10 +288,10 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               if (tempEquip == null) {
                 hasEquipped = true;
               }
-              diffCharacterModel.equipsProvider.equipEquip(compareEquip, EquipType.pendant, equipPosition: i, isCalculatingDifference: true);
-              diffCharacterModel.calculateEverything(recalculateCache: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.pendant, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.calculateEverything(recalculateCache: true);
               widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCharacterModel.equipsProvider.equipEquip(tempEquip, EquipType.pendant, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.pendant, equipPosition: i, isCalculatingDifference: true);
             }
           }
 
@@ -303,10 +303,10 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               if (tempEquip == null) {
                 hasEquipped = true;
               }
-              diffCharacterModel.equipsProvider.equipEquip(compareEquip, EquipType.pet, equipPosition: i, isCalculatingDifference: true);
-              diffCharacterModel.calculateEverything(recalculateCache: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.pet, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.calculateEverything(recalculateCache: true);
               widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCharacterModel.equipsProvider.equipEquip(tempEquip, EquipType.pet, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.pet, equipPosition: i, isCalculatingDifference: true);
             }
           }
 
@@ -318,22 +318,22 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               if (tempEquip == null) {
                 hasEquipped = true;
               }
-              diffCharacterModel.equipsProvider.equipEquip(compareEquip, EquipType.petEquip, equipPosition: i, isCalculatingDifference: true);
-              diffCharacterModel.calculateEverything(recalculateCache: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.petEquip, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.calculateEverything(recalculateCache: true);
               widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCharacterModel.equipsProvider.equipEquip(tempEquip, EquipType.petEquip, equipPosition: i, isCalculatingDifference: true);
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.petEquip, equipPosition: i, isCalculatingDifference: true);
             }
           }
 
           widgetReturn = Column(children: widgetChildren);
         default:
           tempEquip = activeEquipmentModule.getSelectedEquip(compareEquip.equipName.equipType);
-          diffCharacterModel.equipsProvider.equipEquip(compareEquip, compareEquip.equipName.equipType, isCalculatingDifference: true);
-          diffCharacterModel.calculateEverything(recalculateCache: true);
+          diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, compareEquip.equipName.equipType, isCalculatingDifference: true);
+          diffCalculatorProvider.calculateEverything(recalculateCache: true);
           widgetReturn = updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense);
       }
 
-      diffCharacterModel.equipsProvider = tempEquipProvider;
+      diffCalculatorProvider.equipsProvider = tempEquipProvider;
     }
 
     if (isEditing) {
@@ -348,62 +348,62 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
   void modifyApToStat(int apAmount, StatType statType, bool isSubtract) {
     // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
-    var tempApStats = diffCharacterModel.apStatsProvider;
-    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
+    var tempApStats = diffCalculatorProvider.apStatsProvider;
+    diffCalculatorProvider.apStatsProvider = tempApStats.copyWith();
     if (isSubtract) {
-      diffCharacterModel.apStatsProvider.subtractApToStat(apAmount, statType);
+      diffCalculatorProvider.apStatsProvider.subtractApToStat(apAmount, statType);
     }
     else {
-      diffCharacterModel.apStatsProvider.addApToStat(apAmount, statType);
+      diffCalculatorProvider.apStatsProvider.addApToStat(apAmount, statType);
     }
-    diffCharacterModel.calculateEverything();
+    diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.apStatsProvider = tempApStats;
+    diffCalculatorProvider.apStatsProvider = tempApStats;
   }
 
   void modifyHyperStats(int possibleLevelsToAddOrRemove, StatType statType, bool isSubtract) {
-    var tempHyperStats = diffCharacterModel.hyperStatsProvider;
-    diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
+    var tempHyperStats = diffCalculatorProvider.hyperStatsProvider;
+    diffCalculatorProvider.hyperStatsProvider = tempHyperStats.copyWith();
     if (isSubtract) {
-      diffCharacterModel.hyperStatsProvider.subtractHyperStats(possibleLevelsToAddOrRemove, statType);
+      diffCalculatorProvider.hyperStatsProvider.subtractHyperStats(possibleLevelsToAddOrRemove, statType);
     }
     else {
-      diffCharacterModel.hyperStatsProvider.addHyperStats(possibleLevelsToAddOrRemove, statType);
+      diffCalculatorProvider.hyperStatsProvider.addHyperStats(possibleLevelsToAddOrRemove, statType);
     }
-    diffCharacterModel.calculateEverything();
+    diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.hyperStatsProvider = tempHyperStats;
+    diffCalculatorProvider.hyperStatsProvider = tempHyperStats;
   }
 
   void compareHyperStats(BuildContext context, int newHyperStatPosition) {
-    var tempHyperStatProvider = diffCharacterModel.hyperStatsProvider;
-    diffCharacterModel.hyperStatsProvider = tempHyperStatProvider.copyWith();
-    diffCharacterModel.hyperStatsProvider.changeActiveSet(newHyperStatPosition);
-    diffCharacterModel.calculateEverything(recalculateCache: true);
+    var tempHyperStatProvider = diffCalculatorProvider.hyperStatsProvider;
+    diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider.copyWith();
+    diffCalculatorProvider.hyperStatsProvider.changeActiveSet(newHyperStatPosition);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
     updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
 
     // Reset the equips provider for the diff character model
-    diffCharacterModel.hyperStatsProvider = tempHyperStatProvider;
+    diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider;
     notifyListeners();
   }  
 
   void modifyTraitLevels(int possibleLevelsToAddOrSubtract, TraitName traitName, bool isSubtract) {
-    var tempTraitStatsProvider = diffCharacterModel.traitStatsProvider;
-    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider.copyWith();
+    var tempTraitStatsProvider = diffCalculatorProvider.traitStatsProvider;
+    diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider.copyWith();
     if (isSubtract) {
       
-      diffCharacterModel.traitStatsProvider.subtractTraitLevels(possibleLevelsToAddOrSubtract, traitName);
+      diffCalculatorProvider.traitStatsProvider.subtractTraitLevels(possibleLevelsToAddOrSubtract, traitName);
     }
     else {
-      diffCharacterModel.traitStatsProvider.addTraitLevels(possibleLevelsToAddOrSubtract, traitName);
+      diffCalculatorProvider.traitStatsProvider.addTraitLevels(possibleLevelsToAddOrSubtract, traitName);
     }
-    diffCharacterModel.calculateEverything();
+    diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider;
+    diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider;
   }
 
   void modifyArcaneLevels(int possibleLevelsToAddOrSubtract, ArcaneSymbol arcaneSymbol, bool isSubtract) {
-    var tempSymbolStatsProvider = diffCharacterModel.traitStatsProvider;
+    var tempSymbolStatsProvider = diffCalculatorProvider.traitStatsProvider;
     // diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider.copyWith();
     // if (isSubtract) {
     //   diffCharacterModel.traitStatsProvider.subtractArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
@@ -411,13 +411,13 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // else {
     //   diffCharacterModel.traitStatsProvider.addArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
     // }
-    diffCharacterModel.calculateEverything();
+    diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider;
+    diffCalculatorProvider.traitStatsProvider = tempSymbolStatsProvider;
   }
 
   void modifySacredLevels(int possibleLevelsToAddOrSubtract, SacredSymbol sacredSymbol, bool isSubtract) {
-    var tempSymbolStatsProvider = diffCharacterModel.traitStatsProvider;
+    var tempSymbolStatsProvider = diffCalculatorProvider.traitStatsProvider;
     // diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider.copyWith();
     // if (isSubtract) {
     //   diffCharacterModel.traitStatsProvider.subtractSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
@@ -425,9 +425,9 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // else {
     //   diffCharacterModel.traitStatsProvider.addSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
     // }
-    diffCharacterModel.calculateEverything();
+    diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider;
+    diffCalculatorProvider.traitStatsProvider = tempSymbolStatsProvider;
   }
 }
 
