@@ -250,9 +250,7 @@ class ArcaneSymbolButton extends StatelessWidget {
   );
 
   void _onHover(BuildContext context){
-    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
-    var func = isSubtract ? differenceCalculator.subtractTraitLevels : differenceCalculator.addTraitLevels;
-    // func(isLarge ? 5 : 1, arcaneSymbol);
+    context.read<DifferenceCalculatorProvider>().modifyArcaneLevels(isLarge ? 5 : 1, arcaneSymbol, isSubtract);
   }
 
   @override
@@ -297,9 +295,7 @@ class SacredSymbolButton extends StatelessWidget {
   );
 
   void _onHover(BuildContext context){
-    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
-    var func = isSubtract ? differenceCalculator.subtractTraitLevels : differenceCalculator.addTraitLevels;
-    // func(isLarge ? 5 : 1, arcaneSymbol);
+    context.read<DifferenceCalculatorProvider>().modifySacredLevels(isLarge ? 5 : 1, sacredSymbol, isSubtract);
   }
 
   @override

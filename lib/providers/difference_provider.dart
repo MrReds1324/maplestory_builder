@@ -208,26 +208,6 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     return const SizedBox.shrink();
   }
 
-  void subtractApToStat(int apAmount, StatType statType) {
-    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
-    var tempApStats = diffCharacterModel.apStatsProvider;
-    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
-    diffCharacterModel.apStatsProvider.subtractApToStat(apAmount, statType);
-    diffCharacterModel.calculateEverything();
-    updateDifferenceText();
-    diffCharacterModel.apStatsProvider = tempApStats;
-  }
-
-  void addApToStat(int apAmount, StatType statType) {
-    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
-    var tempApStats = diffCharacterModel.apStatsProvider;
-    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
-    diffCharacterModel.apStatsProvider.addApToStat(apAmount, statType);
-    diffCharacterModel.calculateEverything();
-    updateDifferenceText();
-    diffCharacterModel.apStatsProvider = tempApStats;
-  }
-
   Widget? compareEditingEquip(BuildContext context) {
     return compareEquip(context, equipEditingProvider.editingEquip, isEditing: true, isDense: false);
   }
@@ -366,19 +346,35 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     }
   }
 
-  void addHyperStats(int possibleLevelsToAdd, StatType statType) {
-    var tempHyperStats = diffCharacterModel.hyperStatsProvider;
-    diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
-    diffCharacterModel.hyperStatsProvider.addHyperStats(possibleLevelsToAdd, statType);
+  void subtractApToStat(int apAmount, StatType statType) {
+    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
+    var tempApStats = diffCharacterModel.apStatsProvider;
+    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
+    diffCharacterModel.apStatsProvider.subtractApToStat(apAmount, statType);
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
-    diffCharacterModel.hyperStatsProvider = tempHyperStats;
+    diffCharacterModel.apStatsProvider = tempApStats;
   }
 
-  void subtractHyperStats(int possibleLevelsToSubtract, StatType statType) {
+  void modifyApToStat(int apAmount, StatType statType) {
+    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
+    var tempApStats = diffCharacterModel.apStatsProvider;
+    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
+    diffCharacterModel.apStatsProvider.addApToStat(apAmount, statType);
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.apStatsProvider = tempApStats;
+  }
+
+  void modifyHyperStats(int possibleLevelsToAddOrRemove, StatType statType, bool isSubtract) {
     var tempHyperStats = diffCharacterModel.hyperStatsProvider;
     diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
-    diffCharacterModel.hyperStatsProvider.subtractHyperStats(possibleLevelsToSubtract, statType);
+    if (isSubtract) {
+      diffCharacterModel.hyperStatsProvider.subtractHyperStats(possibleLevelsToAddOrRemove, statType);
+    }
+    else {
+      diffCharacterModel.hyperStatsProvider.addHyperStats(possibleLevelsToAddOrRemove, statType);
+    }
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.hyperStatsProvider = tempHyperStats;
@@ -396,19 +392,16 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     notifyListeners();
   }  
 
-  void addTraitLevels(int possibleLevelsToAdd, TraitName traitName) {
+  void modifyTraitLevels(int possibleLevelsToAddOrSubtract, TraitName traitName, bool isSubtract) {
     var tempTraitStatsProvider = diffCharacterModel.traitStatsProvider;
     diffCharacterModel.traitStatsProvider = tempTraitStatsProvider.copyWith();
-    diffCharacterModel.traitStatsProvider.addTraitLevels(possibleLevelsToAdd, traitName);
-    diffCharacterModel.calculateEverything();
-    updateDifferenceText();
-    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider;
-  }
-
-  void subtractTraitLevels(int possibleLevelsToSubtract, TraitName traitName) {
-    var tempTraitStatsProvider = diffCharacterModel.traitStatsProvider;
-    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider.copyWith();
-    diffCharacterModel.traitStatsProvider.subtractTraitLevels(possibleLevelsToSubtract, traitName);
+    if (isSubtract) {
+      
+      diffCharacterModel.traitStatsProvider.subtractTraitLevels(possibleLevelsToAddOrSubtract, traitName);
+    }
+    else {
+      diffCharacterModel.traitStatsProvider.addTraitLevels(possibleLevelsToAddOrSubtract, traitName);
+    }
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.traitStatsProvider = tempTraitStatsProvider;

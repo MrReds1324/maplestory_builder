@@ -578,9 +578,7 @@ class APStatButton extends StatelessWidget {
   );
 
   void _onHover(BuildContext context){
-    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
-    var func = isSubtract ? differenceCalculator.subtractApToStat : differenceCalculator.addApToStat;
-    func(isLarge ? 50 : 1, statType);
+    context.read<DifferenceCalculatorProvider>().modifyApToStat(isLarge ? 50 : 1, statType, isSubtract);
   }
 
   @override

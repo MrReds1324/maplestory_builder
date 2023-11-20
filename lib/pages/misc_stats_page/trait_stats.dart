@@ -134,9 +134,7 @@ class TraitStatButton extends StatelessWidget {
   );
 
   void _onHover(BuildContext context){
-    var differenceCalculator = context.read<DifferenceCalculatorProvider>();
-    var func = isSubtract ? differenceCalculator.subtractTraitLevels : differenceCalculator.addTraitLevels;
-    func(isLarge ? 5 : 1, traitName);
+    context.read<DifferenceCalculatorProvider>().modifyTraitLevels(isLarge ? 5 : 1, traitName, isSubtract);
   }
 
   @override
