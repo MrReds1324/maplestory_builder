@@ -15,7 +15,7 @@ class TraitStatsTable extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
         width: 455,
-        height: 781,
+        height: 298,
         padding: const EdgeInsets.all(5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -22,6 +22,7 @@ class MiscStatsPage extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HyperStatTable(),
             TraitStatsTable(),

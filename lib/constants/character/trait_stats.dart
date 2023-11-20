@@ -20,7 +20,7 @@ enum TraitName {
 
 // Declare the bonus stats from traits, they increase either every 5 or 10 levels
 const Map<StatType, (num, int)> ambitionEffects = {
-  StatType.ignoreDefense: (0.05, 5),
+  StatType.ignoreDefense: (0.005, 5),
 };
 
 const Map<StatType, (num, int)> empathyEffects = {
@@ -29,7 +29,7 @@ const Map<StatType, (num, int)> empathyEffects = {
 };
 
 const Map<StatType, (num, int)> insightEffects = {
-  StatType.ignoreElementalDefense: (0.05, 5),
+  StatType.ignoreElementalDefense: (0.005, 10),
 };
 
 const Map<StatType, (num, int)> willpowerEffects = {
