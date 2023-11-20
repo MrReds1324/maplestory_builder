@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
@@ -27,6 +28,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     required this.mainCharacterModel,
   }) : diffCharacterModel = mainCharacterModel.copyWith(
     apStatsProvider: mainCharacterModel.apStatsProvider,
+    traitStatsProvider: mainCharacterModel.traitStatsProvider,
     hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
     equipsProvider: mainCharacterModel.equipsProvider,
   );
@@ -38,6 +40,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
       diffCharacterModel = mainCharacterModel.copyWith(
         apStatsProvider: mainCharacterModel.apStatsProvider,
+        traitStatsProvider: mainCharacterModel.traitStatsProvider,
         hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
         equipsProvider: mainCharacterModel.equipsProvider,
       );
@@ -363,7 +366,6 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }
 
   void addHyperStats(int possibleLevelsToAdd, StatType statType) {
-    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
     var tempHyperStats = diffCharacterModel.hyperStatsProvider;
     diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
     diffCharacterModel.hyperStatsProvider.addHyperStats(possibleLevelsToAdd, statType);
@@ -372,8 +374,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCharacterModel.hyperStatsProvider = tempHyperStats;
   }
 
-  void subtractHyperStats(int possibleLevelsToSubtract, StatType statType) { 
-    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
+  void subtractHyperStats(int possibleLevelsToSubtract, StatType statType) {
     var tempHyperStats = diffCharacterModel.hyperStatsProvider;
     diffCharacterModel.hyperStatsProvider = tempHyperStats.copyWith();
     diffCharacterModel.hyperStatsProvider.subtractHyperStats(possibleLevelsToSubtract, statType);
@@ -394,6 +395,23 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     notifyListeners();
   }  
 
+  void addTraitLevels(int possibleLevelsToAdd, TraitName traitName) {
+    var tempTraitStatsProvider = diffCharacterModel.traitStatsProvider;
+    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider.copyWith();
+    diffCharacterModel.traitStatsProvider.addTraitLevels(possibleLevelsToAdd, traitName);
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider;
+  }
+
+  void subtractTraitLevels(int possibleLevelsToSubtract, TraitName traitName) {
+    var tempTraitStatsProvider = diffCharacterModel.traitStatsProvider;
+    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider.copyWith();
+    diffCharacterModel.traitStatsProvider.subtractTraitLevels(possibleLevelsToSubtract, traitName);
+    diffCharacterModel.calculateEverything();
+    updateDifferenceText();
+    diffCharacterModel.traitStatsProvider = tempTraitStatsProvider;
+  }
 }
 
 const Text noDifferenceEquip = Text(
@@ -451,4 +469,6 @@ const List<StatType> comparisonStats = [
   StatType.hpRecovery,
   StatType.skillCooldown,
   StatType.skillCooldownPercentage,
+  StatType.statusResistance,
+  StatType.buffDuration
 ];

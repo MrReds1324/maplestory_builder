@@ -6,6 +6,8 @@ import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
 import 'dart:math';
 
+import 'package:maplestory_builder/providers/trait_stats_provider.dart';
+
 class CharacterProvider with ChangeNotifier {
   String characterName = '';
   int characterLevel = 0;
@@ -41,13 +43,16 @@ class CharacterProvider with ChangeNotifier {
     StatType.luk: 0,
   };
   
-  HyperStatsProvider hyperStatsProvider;
+  
   APStatsProvider apStatsProvider;
+  TraitStatsProvider traitStatsProvider;
+  HyperStatsProvider hyperStatsProvider;
   EquipsProvider equipsProvider;
 
   CharacterProvider({
     this.characterLevel = 0,
-    required this.apStatsProvider, 
+    required this.apStatsProvider,
+    required this.traitStatsProvider, 
     required this.hyperStatsProvider, 
     required this.equipsProvider, 
     bool doCalculation = true
@@ -59,7 +64,8 @@ class CharacterProvider with ChangeNotifier {
 
   CharacterProvider copyWith({
     int? characterLevel,
-    APStatsProvider? apStatsProvider, 
+    APStatsProvider? apStatsProvider,
+    TraitStatsProvider? traitStatsProvider,
     HyperStatsProvider? hyperStatsProvider, 
     EquipsProvider? equipsProvider, 
     bool doCalculation = true
@@ -67,6 +73,7 @@ class CharacterProvider with ChangeNotifier {
     return CharacterProvider(
       characterLevel: characterLevel ?? this.characterLevel,
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
+      traitStatsProvider: traitStatsProvider ?? this.traitStatsProvider.copyWith(),
       hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
       doCalculation: doCalculation,
@@ -77,7 +84,7 @@ class CharacterProvider with ChangeNotifier {
     return pureStats[statType] ?? 0;
   }
 
-  CharacterProvider update(APStatsProvider apStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider) {
+  CharacterProvider update(APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider) {
     calculateEverything();
     notifyListeners();
     return this;
@@ -138,6 +145,8 @@ class CharacterProvider with ChangeNotifier {
     }
 
     pureStats = apStatsProvider.calculateStats();
+
+    updateTempStats(traitStatsProvider.calculateStats());
 
     for (Map<StatType, num> equipStats in equipsProvider.calculateStats()){
       updateTempStats(equipStats);

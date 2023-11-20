@@ -51,7 +51,7 @@ class HyperStatsProvider with ChangeNotifier {
       switch(statType) {
         case StatType.specialMana:
           var divisor = 1; // TODO - update this to divide by 10 when kinesis class
-          return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels] / divisor;
+          return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels] ~/ divisor;
         default:
           return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels];
       }
@@ -164,14 +164,14 @@ class HyperStatsProvider with ChangeNotifier {
     switch(statType) {
       case StatType.specialMana:
         statDescription = const Text("Zero - Time Force: +10\nDemon Slayer - Demon Fury: +10\nKinesis - Psychic Points: +1\nKanna - Mana: +10\n");
-        currentLevelText = Text("Current Level (${activeHyperStat.assignedHyperStats[statType]}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)} ${statType.formattedName}");
+        currentLevelText = Text("Current Level ($currentLevel):\n~ ${statType.formattedName}: ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)}");
         if (currentLevel != maxLevel) {
-          nextLevelText = Text("Next Level (${activeHyperStat.assignedHyperStats[statType]! + 1}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)} ${statType.formattedName}");
+          nextLevelText = Text("Next Level (${currentLevel + 1}):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)}");
         }
       default:
-        currentLevelText = Text("Current Level (${activeHyperStat.assignedHyperStats[statType]}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)} ${statType.formattedName}");
+        currentLevelText = Text("Current Level ($currentLevel):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)}");
         if (currentLevel != maxLevel) {
-          nextLevelText = Text("Next Level (${activeHyperStat.assignedHyperStats[statType]! + 1}): ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)} ${statType.formattedName}");
+          nextLevelText = Text("Next Level (${currentLevel + 1}):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)}");
         }
     }
 

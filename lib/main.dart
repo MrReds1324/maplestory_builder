@@ -7,6 +7,7 @@ import 'package:maplestory_builder/providers/breakdown_provider.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,17 +18,20 @@ void main() {
         ChangeNotifierProvider<APStatsProvider>(create: (_) => APStatsProvider()),
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
         ChangeNotifierProvider<HyperStatsProvider>(create: (_) => HyperStatsProvider()),
-        ChangeNotifierProxyProvider3<APStatsProvider, HyperStatsProvider, EquipsProvider, CharacterProvider>(
+        ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
+        ChangeNotifierProxyProvider4<APStatsProvider, TraitStatsProvider, HyperStatsProvider, EquipsProvider, CharacterProvider>(
           create: (BuildContext context) => CharacterProvider(
-            apStatsProvider: Provider.of<APStatsProvider>(context, listen: false), 
+            apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
+            traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
-            equipsProvider: Provider.of<EquipsProvider>(context, listen: false)
+            equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
           ), 
-          update: (BuildContext context, APStatsProvider apStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CharacterProvider? characterProvider) 
-            => characterProvider?.update(apStatsProvider, hyperStatsProvider, equipsProvider) 
+          update: (BuildContext context, APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CharacterProvider? characterProvider) 
+            => characterProvider?.update(apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
             ?? 
             CharacterProvider(
               apStatsProvider: apStatsProvider,
+              traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
               equipsProvider: equipsProvider
             ),
