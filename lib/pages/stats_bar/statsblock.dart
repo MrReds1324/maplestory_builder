@@ -189,7 +189,9 @@ class StatCell extends StatelessWidget{
                 bottomRight: Radius.circular(10),
               ),
             ),
-            child: Center(child: _getStatSelector(statType))
+            child: Center(
+              child: _getStatSelector(statType)
+            )
           )
         ],
       ),
@@ -657,11 +659,32 @@ Selector _getStatSelector(StatType statType) {
           return Text("$value%");
         }
       );
+    case StatType.statusResistance:
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
+        builder: (context, statusResistance, child) {
+          return MapleTooltip(
+            label: "$statusResistance",
+            tooltipWidgets: [Text("${doubleRoundPercentFormater.format(calculateStatusResistanceReduction(statusResistance))} reduction of status effects")],
+          );
+        }
+      );
+    case StatType.critDamage:
+    case StatType.finalDamage:
+    case StatType.damage:
+    case StatType.bossDamage:
+    case StatType.ignoreDefense:
+      return Selector<CharacterProvider, num>(
+        selector: (_, character) => character.totalStats[statType]!,
+        builder: (context, value, child) {
+          return Text('${statType.isPercentage ? doublePercentFormater.format(value) : value}');
+        }
+      );
     default:
       return Selector<CharacterProvider, num>(
         selector: (_, character) => character.totalStats[statType]!,
-        builder: (context, totalSacredPower, child) {
-          return Text('$totalSacredPower');
+        builder: (context, value, child) {
+          return Text('${statType.isPercentage ? doubleRoundPercentFormater.format(value) : value}');
         }
       );
   }

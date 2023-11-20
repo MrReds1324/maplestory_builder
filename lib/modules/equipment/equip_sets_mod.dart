@@ -277,9 +277,9 @@ class SetEffect {
           }
           else{
             switch(key) {
-              // TODO: Fix the calculations for these
               case StatType.ignoreDefense:
               case StatType.ignoreElementalDefense:
+                totalSetEffect[key] = calculateIgnoreDefense(totalSetEffect[key]!, value);
               default:
                 totalSetEffect[key] = totalSetEffect[key]! + value;
             }

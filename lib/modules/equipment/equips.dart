@@ -120,6 +120,7 @@ class Equip {
     PotentialModule? potentialModule,
     ScrollModule? scrollModule,
     PitchedBossUpgradeModule? pitchedBossUpgradeModule,
+    SoulModule? soulModule,
     TweakModule? tweakModule,
     int? equipHash,
   }) {
@@ -131,6 +132,7 @@ class Equip {
       potentialModule: potentialModule ?? this.potentialModule?.copyWith(),
       scrollModule: scrollModule ?? this.scrollModule?.copyWith(),
       pitchedBossUpgradeModule: pitchedBossUpgradeModule ?? this.pitchedBossUpgradeModule?.copyWith(),
+      soulModule: soulModule ?? this.soulModule?.copyWith(),
       tweakModule: tweakModule ?? this.tweakModule?.copyWith(),
       equipHash: equipHash ?? this.equipHash,
     );
@@ -154,7 +156,6 @@ class Equip {
           (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + 
           (soulModule?.get(StatType.allStats) ?? 0) + (soulModule?.get(statType) ?? 0) + 
           (tweakModule?.get(statType) ?? 0);
-      // TODO fix these calculation
       case StatType.attack:
       case StatType.mattack:
         return get(statType) + get(StatType.attackMattack) + 
@@ -177,6 +178,7 @@ class Equip {
           (tweakModule?.get(statType) ?? 0);
       case StatType.ignoreDefense:
       case StatType.ignoreElementalDefense:
+        return calculateIgnoreDefenseFromList([get(statType), (starForceModule?.get(statType) ?? 0), (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0), (scrollModule?.get(statType) ?? 0), (pitchedBossUpgradeModule?.get(statType) ?? 0), (soulModule?.get(statType) ?? 0), (tweakModule?.get(statType) ?? 0)]); 
       default:
         return get(statType) + (starForceModule?.get(statType) ?? 0) + (flameModule?.get(statType) ?? 0) + (potentialModule?.get(statType) ?? 0) + (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0) + (soulModule?.get(statType) ?? 0) + (tweakModule?.get(statType) ?? 0);
     }
@@ -380,9 +382,6 @@ class Equip {
         flameStat = flameModule?.get(statType) ?? 0;
         scrollStat = (scrollModule?.get(statType) ?? 0) + (scrollModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(StatType.allStats) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0);
         tweakStat = tweakModule?.get(statType) ?? 0;
-      // TODO: Fix these calculations
-      case StatType.ignoreDefense:
-      case StatType.ignoreElementalDefense:
       default:
         baseStat = get(statType);
         starForceStat = starForceModule?.get(statType) ?? 0;
@@ -390,6 +389,11 @@ class Equip {
         scrollStat = (scrollModule?.get(statType) ?? 0) + (pitchedBossUpgradeModule?.get(statType) ?? 0);
         tweakStat = tweakModule?.get(statType) ?? 0;
     }
+
+    // Only need to figure this out if we can actually modify these stats in a meaningful way...
+    // if (statType == StatType.ignoreDefense || statType == StatType.ignoreElementalDefense) {
+    //   totalStat = calculateIgnoreDefenseFromList([baseStat, starForceStat, flameStat, scrollStat, tweakStat]);
+    // }
     totalStat = baseStat + starForceStat + scrollStat + flameStat + tweakStat;
     
     List<TextSpan> childrenText = <TextSpan>[];

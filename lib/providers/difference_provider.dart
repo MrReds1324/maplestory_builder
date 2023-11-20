@@ -25,14 +25,22 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   DifferenceCalculatorProvider({
     required this.equipEditingProvider,
     required this.mainCharacterModel,
-  }) : diffCharacterModel = mainCharacterModel.copyWith();
+  }) : diffCharacterModel = mainCharacterModel.copyWith(
+    apStatsProvider: mainCharacterModel.apStatsProvider,
+    hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
+    equipsProvider: mainCharacterModel.equipsProvider,
+  );
 
 
   DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CharacterProvider characterProvider) {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
-      diffCharacterModel = mainCharacterModel.copyWith();
+      diffCharacterModel = mainCharacterModel.copyWith(
+        apStatsProvider: mainCharacterModel.apStatsProvider,
+        hyperStatsProvider: mainCharacterModel.hyperStatsProvider,
+        equipsProvider: mainCharacterModel.equipsProvider,
+      );
       // Only trigger an update to redraw if we are actually editing an equip, otherwise its wasted cycles
       if (equipEditingProvider.updateCounter != 0) {
         notifyListeners();
@@ -165,7 +173,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     if (calculationType == CalculationType.compareEquipmentSet) {
       compareEquipSets();
 
-      if (textList.length > 1) {
+      if (textList.isNotEmpty) {
         differenceWidget = Column(children: textList + editingWidgets);
       }
       else {
@@ -173,7 +181,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       }
     }
     else if (calculationType == CalculationType.compareEquipment) {
-      if (textList.length > 1) {
+      if (textList.isNotEmpty) {
         return Column(children: editingWidgets + textList);
       }
       else {
@@ -181,7 +189,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       }
     }
     else if (calculationType == CalculationType.compareStats) {
-      if (textList.length > 1) {
+      if (textList.isNotEmpty) {
         differenceWidget = Column(children: textList);
       }
       else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
@@ -99,18 +100,6 @@ class CharacterProvider with ChangeNotifier {
           case StatType.hpMp:
             tempStats[StatType.hp] = tempStats[StatType.hp]! + entry.value;
             tempStats[StatType.mp] = tempStats[StatType.mp]! + entry.value;
-          case StatType.hp:
-            tempStats[StatType.hp] = tempStats[StatType.hp]! + entry.value;
-          case StatType.mp:
-            tempStats[StatType.mp] = tempStats[StatType.mp]! + entry.value;
-          case StatType.str:
-            tempStats[StatType.str] = tempStats[StatType.str]! + entry.value;
-          case StatType.dex:
-            tempStats[StatType.dex] = tempStats[StatType.dex]! + entry.value;
-          case StatType.int:
-            tempStats[StatType.int] = tempStats[StatType.int]! + entry.value;
-          case StatType.luk:
-            tempStats[StatType.luk] = tempStats[StatType.luk]! + entry.value;
           case StatType.allStats:
             tempStats[StatType.str] = tempStats[StatType.str]! + entry.value;
             tempStats[StatType.dex] = tempStats[StatType.dex]! + entry.value;
@@ -119,14 +108,6 @@ class CharacterProvider with ChangeNotifier {
           case StatType.attackMattack:
             tempStats[StatType.attack] = tempStats[StatType.attack]! + entry.value;
             tempStats[StatType.mattack] = tempStats[StatType.mattack]! + entry.value;
-          case StatType.attack:
-            tempStats[StatType.attack] = tempStats[StatType.attack]! + entry.value;
-          case StatType.mattack:
-            tempStats[StatType.mattack] = tempStats[StatType.mattack]! + entry.value;
-          case StatType.defense:
-            tempStats[StatType.defense] = tempStats[StatType.defense]! + entry.value;
-          case StatType.ignoreDefense:
-            tempStats[StatType.mattack] = tempStats[StatType.mattack]! + entry.value; // TODO Fix this calculation
           case StatType.allStatsPercentage:
             tempStats[StatType.strPercentage] = tempStats[StatType.strPercentage]! + entry.value;
             tempStats[StatType.dexPercentage] = tempStats[StatType.dexPercentage]! + entry.value;
@@ -135,9 +116,18 @@ class CharacterProvider with ChangeNotifier {
           case StatType.hpMpPercentage:
             tempStats[StatType.hpPercentage] = tempStats[StatType.hpPercentage]! + entry.value;
             tempStats[StatType.mpPercentage] = tempStats[StatType.mpPercentage]! + entry.value;
-
-          case StatType.statusResistance:
-            tempStats[StatType.statusResistance] = tempStats[StatType.statusResistance]! + entry.value; // TODO: Fix the calculation of this
+          case StatType.hp:
+          case StatType.mp:
+          case StatType.str:
+          case StatType.dex:
+          case StatType.int:
+          case StatType.luk:
+          case StatType.attack:
+          case StatType.mattack:
+          case StatType.defense:
+            tempStats[entry.key] = tempStats[entry.key]! + entry.value;
+          case StatType.ignoreDefense:
+            totalStats[entry.key] = calculateIgnoreDefense(totalStats[entry.key]!, entry.value);
           case StatType.exp:
             // TODO: figure out exp too...
             totalStats[StatType.exp] = totalStats[StatType.exp]! + entry.value;

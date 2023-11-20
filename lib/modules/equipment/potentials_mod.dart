@@ -82,8 +82,7 @@ class PotentialModule {
 
         switch(potentialLine.statType) {
           case StatType.ignoreDefense:
-            // TODO: fix this calculation
-            moduleStats[potentialLine.statType] = (moduleStats[potentialLine.statType] ?? 0) + statValue;
+            moduleStats[potentialLine.statType] = calculateIgnoreDefense((moduleStats[potentialLine.statType] ?? 0), statValue);
           case StatType.skill:
             // TODO: add skill stuff here
           default:
