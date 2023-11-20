@@ -346,21 +346,16 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     }
   }
 
-  void subtractApToStat(int apAmount, StatType statType) {
+  void modifyApToStat(int apAmount, StatType statType, bool isSubtract) {
     // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
     var tempApStats = diffCharacterModel.apStatsProvider;
     diffCharacterModel.apStatsProvider = tempApStats.copyWith();
-    diffCharacterModel.apStatsProvider.subtractApToStat(apAmount, statType);
-    diffCharacterModel.calculateEverything();
-    updateDifferenceText();
-    diffCharacterModel.apStatsProvider = tempApStats;
-  }
-
-  void modifyApToStat(int apAmount, StatType statType) {
-    // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
-    var tempApStats = diffCharacterModel.apStatsProvider;
-    diffCharacterModel.apStatsProvider = tempApStats.copyWith();
-    diffCharacterModel.apStatsProvider.addApToStat(apAmount, statType);
+    if (isSubtract) {
+      diffCharacterModel.apStatsProvider.subtractApToStat(apAmount, statType);
+    }
+    else {
+      diffCharacterModel.apStatsProvider.addApToStat(apAmount, statType);
+    }
     diffCharacterModel.calculateEverything();
     updateDifferenceText();
     diffCharacterModel.apStatsProvider = tempApStats;

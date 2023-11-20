@@ -585,7 +585,7 @@ class APStatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.name.toUpperCase()}'),
+        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.formattedName}'),
         Consumer<DifferenceCalculatorProvider>(
           builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
         ),
