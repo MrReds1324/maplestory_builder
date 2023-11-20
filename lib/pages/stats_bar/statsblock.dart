@@ -385,8 +385,7 @@ class LevelCell extends StatelessWidget {
                       value: characterLevel,
                       onChanged: (newValue) {
                         if (newValue != null) {
-                          var character = context.read<CalculatorProvider>();
-                          character.updateCharacterLevel(newValue);
+                          context.read<CalculatorProvider>().updateCharacterLevel(newValue);
                         }
                       },
                       items: List<int>.generate(301, (i) => i).map((value) {

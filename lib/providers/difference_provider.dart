@@ -35,7 +35,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   );
 
 
-  DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CalculatorProvider characterProvider) {
+  DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CalculatorProvider calculatorProvider) {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {

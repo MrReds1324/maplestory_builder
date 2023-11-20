@@ -26,8 +26,8 @@ void main() {
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
           ), 
-          update: (BuildContext context, APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CalculatorProvider? characterProvider) 
-            => characterProvider?.update(apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
+          update: (BuildContext context, APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CalculatorProvider? calculatorProvider) 
+            => calculatorProvider?.update(apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
             ?? 
             CalculatorProvider(
               apStatsProvider: apStatsProvider,
@@ -41,12 +41,12 @@ void main() {
             equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), 
             mainCalculatorProvider: Provider.of<CalculatorProvider>(context, listen: false)
           ),
-          update: (BuildContext context, EquipEditingProvider equipEditingProvider, CalculatorProvider characterProvider, DifferenceCalculatorProvider? differenceCalculator) 
-            => differenceCalculator?.update(equipEditingProvider, characterProvider) 
+          update: (BuildContext context, EquipEditingProvider equipEditingProvider, CalculatorProvider calculatorProvider, DifferenceCalculatorProvider? differenceCalculator) 
+            => differenceCalculator?.update(equipEditingProvider, calculatorProvider) 
             ?? 
             DifferenceCalculatorProvider(
               equipEditingProvider: equipEditingProvider, 
-              mainCalculatorProvider: characterProvider
+              mainCalculatorProvider: calculatorProvider
             ),
         ),
         ChangeNotifierProxyProvider<CalculatorProvider, BreadkdownCalculator>(          
