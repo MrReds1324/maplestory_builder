@@ -5,6 +5,7 @@ import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
 import 'dart:math';
 
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
@@ -47,13 +48,15 @@ class CalculatorProvider with ChangeNotifier {
   APStatsProvider apStatsProvider;
   TraitStatsProvider traitStatsProvider;
   HyperStatsProvider hyperStatsProvider;
+  SymbolStatsProvider symbolStatsProvider;
   EquipsProvider equipsProvider;
 
   CalculatorProvider({
     required this.characterProvider,
     required this.apStatsProvider,
     required this.traitStatsProvider, 
-    required this.hyperStatsProvider, 
+    required this.hyperStatsProvider,
+    required this.symbolStatsProvider,
     required this.equipsProvider, 
     bool doCalculation = true
   }){
@@ -67,6 +70,7 @@ class CalculatorProvider with ChangeNotifier {
     APStatsProvider? apStatsProvider,
     TraitStatsProvider? traitStatsProvider,
     HyperStatsProvider? hyperStatsProvider, 
+    SymbolStatsProvider? symbolStatsProvider,
     EquipsProvider? equipsProvider, 
     bool doCalculation = true
   }){
@@ -75,6 +79,7 @@ class CalculatorProvider with ChangeNotifier {
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
       traitStatsProvider: traitStatsProvider ?? this.traitStatsProvider.copyWith(),
       hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
+      symbolStatsProvider: symbolStatsProvider ?? this.symbolStatsProvider.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
       doCalculation: doCalculation,
     );
@@ -89,6 +94,7 @@ class CalculatorProvider with ChangeNotifier {
     APStatsProvider apStatsProvider, 
     TraitStatsProvider traitStatsProvider, 
     HyperStatsProvider hyperStatsProvider, 
+    SymbolStatsProvider symbolStatsProvider,
     EquipsProvider equipsProvider
   ) {
     calculateEverything();

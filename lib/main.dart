@@ -8,6 +8,7 @@ import 'package:maplestory_builder/providers/breakdown_provider.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -47,12 +48,27 @@ void main() {
               characterProvider: characterProvider
             ),
         ),
-        ChangeNotifierProxyProvider5<CharacterProvider, APStatsProvider, TraitStatsProvider, HyperStatsProvider, EquipsProvider, CalculatorProvider>(
+        ChangeNotifierProxyProvider<CharacterProvider, SymbolStatsProvider>(
+          create: (BuildContext context) => SymbolStatsProvider(
+            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
+          ),
+          update: (
+            BuildContext context, 
+            CharacterProvider characterProvider, 
+            SymbolStatsProvider? symbolStatsProvider
+          ) => symbolStatsProvider?.update(characterProvider) 
+            ??
+            SymbolStatsProvider(
+              characterProvider: characterProvider
+            ),
+        ),
+        ChangeNotifierProxyProvider6<CharacterProvider, APStatsProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
             traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
+            symbolStatsProvider: Provider.of<SymbolStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
           ), 
           update: (
@@ -60,16 +76,18 @@ void main() {
             CharacterProvider characterProvider, 
             APStatsProvider apStatsProvider, 
             TraitStatsProvider traitStatsProvider, 
-            HyperStatsProvider hyperStatsProvider, 
+            HyperStatsProvider hyperStatsProvider,
+            SymbolStatsProvider symbolStatsProvider,
             EquipsProvider equipsProvider, 
             CalculatorProvider? calculatorProvider
-          ) => calculatorProvider?.update(characterProvider, apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
+          ) => calculatorProvider?.update(characterProvider, apStatsProvider, traitStatsProvider, hyperStatsProvider, symbolStatsProvider, equipsProvider) 
             ?? 
             CalculatorProvider(
               characterProvider: characterProvider,
               apStatsProvider: apStatsProvider,
               traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
+              symbolStatsProvider: symbolStatsProvider,
               equipsProvider: equipsProvider
             ),
         ),

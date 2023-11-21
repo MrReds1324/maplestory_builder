@@ -28,9 +28,11 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     required this.equipEditingProvider,
     required this.mainCalculatorProvider,
   }) : diffCalculatorProvider = mainCalculatorProvider.copyWith(
+    characterProvider: mainCalculatorProvider.characterProvider,
     apStatsProvider: mainCalculatorProvider.apStatsProvider,
     traitStatsProvider: mainCalculatorProvider.traitStatsProvider,
     hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
+    symbolStatsProvider: mainCalculatorProvider.symbolStatsProvider,
     equipsProvider: mainCalculatorProvider.equipsProvider,
   );
 
@@ -39,12 +41,6 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
     if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
-      diffCalculatorProvider = mainCalculatorProvider.copyWith(
-        apStatsProvider: mainCalculatorProvider.apStatsProvider,
-        traitStatsProvider: mainCalculatorProvider.traitStatsProvider,
-        hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
-        equipsProvider: mainCalculatorProvider.equipsProvider,
-      );
       // Only trigger an update to redraw if we are actually editing an equip, otherwise its wasted cycles
       if (equipEditingProvider.updateCounter != 0) {
         notifyListeners();

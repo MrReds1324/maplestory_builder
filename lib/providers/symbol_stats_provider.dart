@@ -5,9 +5,11 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'dart:math';
 
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
 
 class SymbolStatsProvider with ChangeNotifier{
 
+  CharacterProvider characterProvider;
   Map<ArcaneSymbol, int> arcaneSymbolLevels;
   Map<SacredSymbol, int> sacredSymbolLevels;
   Map<StatType, num>? cacheValue;
@@ -15,6 +17,7 @@ class SymbolStatsProvider with ChangeNotifier{
   Widget hoverTooltip = const SizedBox.shrink();
 
   SymbolStatsProvider({
+    required this.characterProvider,
     Map<ArcaneSymbol, int>? arcaneSymbolLevels,
     Map<SacredSymbol, int>? sacredSymbolLevels,
   }) : 
@@ -37,13 +40,19 @@ class SymbolStatsProvider with ChangeNotifier{
     ;
 
   SymbolStatsProvider copyWith({
+    CharacterProvider? characterProvider,
     Map<ArcaneSymbol, int>? arcaneSymbolLevels,
     Map<SacredSymbol, int>? sacredSymbolLevels,
   }) {
     return SymbolStatsProvider(
+      characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       arcaneSymbolLevels: arcaneSymbolLevels ?? Map<ArcaneSymbol, int>.of(this.arcaneSymbolLevels),
       sacredSymbolLevels: sacredSymbolLevels ?? Map<SacredSymbol, int>.of(this.sacredSymbolLevels),
     );
+  }
+
+  SymbolStatsProvider update(CharacterProvider characterProvider) {
+    return this;
   }
 
   Map<StatType, num> calculateStats() {
