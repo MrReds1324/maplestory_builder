@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
@@ -449,7 +450,10 @@ class _SearchableItemListState extends State<SearchableItemList> {
     setState(() {
       var tempItems = equipList;
 
-      if (selectedClassType.value != ClassType.all) {
+      if (selectedClassType.value == ClassType.xenon) {
+        tempItems = tempItems.where((element) => element.equipName.classType == ClassType.pirate || element.equipName.classType == ClassType.thief).toList();
+      }
+      else if (selectedClassType.value != ClassType.all) {
         tempItems = tempItems.where((element) => element.equipName.classType == ClassType.all || element.equipName.classType == selectedClassType.value).toList();
       }
 

@@ -18,6 +18,22 @@ enum FlameType {
 typedef StaticFlameType = List<num>;
 typedef RangedFlameType = List<List<num>>;
 
+enum FlameTier {
+  tier1(formattedName: "1"),
+  tier2(formattedName: "2"),
+  tier3(formattedName: "3"),
+  tier4(formattedName: "4"),
+  tier5(formattedName: "5"),
+  tier6(formattedName: "6"),
+  tier7(formattedName: "7");
+
+  const FlameTier({
+    required this.formattedName
+  });
+
+  final String formattedName;
+}
+
 enum FlameName {
   str(formattedName: "STR", flameType: FlameType.range, statValue: singleStatFlame),
   dex(formattedName: "DEX", flameType: FlameType.range, statValue: singleStatFlame),

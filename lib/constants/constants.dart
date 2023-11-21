@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
 
 const int jumpCap = 123;
@@ -188,107 +186,14 @@ enum StatType {
   final bool isPositive;
 }
 
-enum FlameTier {
-  tier1(formattedName: "1"),
-  tier2(formattedName: "2"),
-  tier3(formattedName: "3"),
-  tier4(formattedName: "4"),
-  tier5(formattedName: "5"),
-  tier6(formattedName: "6"),
-  tier7(formattedName: "7");
-
-  const FlameTier({
-    required this.formattedName
-  });
-
-  final String formattedName;
+enum StatCategory {
+  primary,
+  secondary
+  ;
 }
 
-enum PotentialTier {
-  rare(formattedName: "Rare", short: "R", color: rarePotentialColor),
-  epic(formattedName: "Epic", short: "E", color: epicPotentialColor),
-  unique(formattedName: "Unique", short: "U", color: uniquePotentialColor),
-  legendary(formattedName: "Legendary", short: "L", color: legendaryPotentialColor);
+// Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Weapon_Multiplier
 
-  const PotentialTier({
-    required this.formattedName,
-    required this.short,
-    required this.color,
-  });
-
-  final String formattedName;
-  final String short;
-  final Color color;
-}
-
-enum ClassType {
-  all(formattedName: "All"),
-  warrior(formattedName: "Warrior"),
-  magician(formattedName: "Magician"),
-  bowman(formattedName: "Bowman"),
-  thief(formattedName: "Thief"),
-  pirate(formattedName: "Pirate");
-
-  const ClassType({
-    required this.formattedName
-  });
-
-  final String formattedName;
-}
-
-enum CharacterClass {
-  none,
-  adele,
-  angelic_buster,
-  aran,
-  ark,
-  battle_mage,
-  beast_tamer,
-  bishop,
-  blaster,
-  blaze_wizard,
-  bowmaster,
-  buccaneer,
-  cadena,
-  canoneer,
-  corsair,
-  dark_knight,
-  dawn_warrior,
-  demon_avenger,
-  demon_slayer,
-  dual_blade,
-  evan,
-  fire_poison_mage,
-  hayato,
-  hero,
-  hoyoung,
-  ice_lightning_mage,
-  illium,
-  kain,
-  kaiser,
-  kanna,
-  khali,
-  kinesis,
-  lara,
-  luminous,
-  marksman,
-  mechanic,
-  mercedes,
-  mihile,
-  nightLord,
-  night_walker,
-  paladin,
-  pathfinder,
-  phantom,
-  pirate,
-  shade,
-  shadower,
-  thunder_breaker,
-  wild_hunter,
-  wind_archer,
-  xenon,
-  zero,
-}
 
 const Color statColor = Color.fromARGB(255, 105, 105, 105);
 const Color apColor = Colors.green;

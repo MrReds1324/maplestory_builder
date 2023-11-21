@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum PotentialCategory {
@@ -21,6 +22,23 @@ typedef StaticPotentialType = num;
 const List<EquipType> noPotentialCategory = <EquipType>[
   EquipType.medal,
 ];
+
+enum PotentialTier {
+  rare(formattedName: "Rare", short: "R", color: rarePotentialColor),
+  epic(formattedName: "Epic", short: "E", color: epicPotentialColor),
+  unique(formattedName: "Unique", short: "U", color: uniquePotentialColor),
+  legendary(formattedName: "Legendary", short: "L", color: legendaryPotentialColor);
+
+  const PotentialTier({
+    required this.formattedName,
+    required this.short,
+    required this.color,
+  });
+
+  final String formattedName;
+  final String short;
+  final Color color;
+}
 
 const INDEX_0 = 0; // 0-10
 const INDEX_11 = 1; // 11-20

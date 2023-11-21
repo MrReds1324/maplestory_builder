@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
@@ -53,6 +54,8 @@ class StarForceModule {
         case ClassType.thief:
           moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + statValue;
           moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + statValue;
+        case ClassType.xenon:
+          throw Exception("Do not create Equips with ClassType 'Xenon'");
       }
     }
 
@@ -88,6 +91,8 @@ class StarForceModule {
           moduleStats[StatType.attack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.attack), star);
         case ClassType.magician:
           moduleStats[StatType.mattack] = attValue + wepAttEarlyStar(targetEquip.get(StatType.mattack), star);
+        case ClassType.xenon:
+          throw Exception("Do not create Equips with ClassType 'Xenon'");
       }
     }
 

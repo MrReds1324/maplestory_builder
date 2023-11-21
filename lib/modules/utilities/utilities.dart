@@ -13,10 +13,6 @@ final doublePercentFormater = NumberFormat('###0.00%');
 final doubleFormater = NumberFormat('#######.00');
 final rangeFormatter = NumberFormat('###,###,###,###,###');
 
-String formatCharacterClassEnumName(CharacterClass characterClass) {
-  return characterClass.name.replaceAll('_', " ").toUpperCase();
-}
-
 double calculteDifferencePercentage(num newValue, num originalValue) {
   return (newValue - originalValue) / originalValue;
 }
