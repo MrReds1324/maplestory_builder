@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
@@ -22,6 +23,7 @@ class StatTable extends StatelessWidget {
         children: [
           APCell(),
           IGNCell(),
+          ClassCell(),
           LevelCell(),
           APStatCell(statType: StatType.hp),
           APStatCell(statType: StatType.mp),
@@ -315,10 +317,10 @@ class IGNCell extends StatelessWidget {
             ),
             child: Expanded(
               child: TextField(
-                onChanged: (value) {
-                  context.read<CharacterProvider>().characterName = value;
-                },
-              ),
+                style: Theme.of(context).textTheme.bodyMedium,
+                controller: context.read<CharacterProvider>().textController,
+                onChanged: (value) => context.read<CharacterProvider>().characterName = value,
+              )
             ),
           ),
         ],
@@ -377,22 +379,106 @@ class LevelCell extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
             ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const LevelButton(
+                    isLarge: true,
+                    isSubtract: true,
+                  ),
+                  const LevelButton(
+                    isSubtract: true,
+                  ),
+                  const Spacer(),
+                  Selector<CharacterProvider, int>(
+                    selector: (_, calculatorProvider) => calculatorProvider.characterLevel,
+                    builder: (context, characterLevel, child) {
+                      return Text('$characterLevel');
+                    }
+                  ),
+                  const Spacer(),
+                  const LevelButton(
+                  ),
+                  const LevelButton(
+                    isLarge: true,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ClassCell extends StatelessWidget {
+  
+  const ClassCell(
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      padding: const EdgeInsets.all(2.5),
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 37,
+            width: 120,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            decoration: BoxDecoration(
+              color: apColor,
+              border: Border.all(
+                color: statColor
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+              ),
+            ),
+            child: const Center(
+              child: Text(
+                'Class',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Container(
+            height: 37,
+            width: 320,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: statColor
+              ),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
             child: Expanded(
-              child: Selector<CharacterProvider, int>(
-                selector: (_, calculatorProvider) => calculatorProvider.characterLevel,
-                builder: (context, characterLevel, child) {
+              child: Selector<CharacterProvider, CharacterClass>(
+                selector: (_, characterProvider) => characterProvider.characterClass,
+                builder: (context, characterClass, child) {
                   return DropdownButtonHideUnderline(
                     child: DropdownButton(
-                      value: characterLevel,
-                      onChanged: (newValue) {
+                      value: characterClass,
+                      onChanged: (CharacterClass? newValue) {
                         if (newValue != null) {
-                          context.read<CharacterProvider>().updateCharacterLevel(newValue);
+                          context.read<CharacterProvider>().updateCharacterClass(newValue);
                         }
                       },
-                      items: List<int>.generate(301, (i) => i).map((value) {
+                      items: CharacterClass.values.map((CharacterClass value) {
                         return DropdownMenuItem(
                           value: value,
-                          child: Text('$value'),
+                          child: Text(value.formattedName),
                         );
                       }).toList(),
                     ),
@@ -596,6 +682,49 @@ class APStatButton extends StatelessWidget {
           var apStatsProvider = context.read<APStatsProvider>();
           var func = isSubtract ? apStatsProvider.subtractApToStat : apStatsProvider.addApToStat;
           func(isLarge ? 50 : 1, statType);
+        },
+        icon: Icon(
+          isSubtract ? 
+          isLarge ? Icons.keyboard_double_arrow_down : Icons.keyboard_arrow_down : 
+          isLarge ? Icons.keyboard_double_arrow_up : Icons.keyboard_arrow_up
+        ),
+      ),
+    );
+  }
+}
+
+class LevelButton extends StatelessWidget {
+  final bool isLarge;
+  final bool isSubtract;
+
+  const LevelButton(
+    {
+      this.isLarge = false,
+      this.isSubtract = false,
+      super.key
+    }
+  );
+
+  void _onHover(BuildContext context){
+    context.read<DifferenceCalculatorProvider>().modifyLevel(isLarge ? 10 : 1, isSubtract);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MapleTooltip(
+      tooltipWidgets: [
+        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 10 : 1} ${StatType.level.formattedName}s'),
+        Consumer<DifferenceCalculatorProvider>(
+          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        ),
+      ],
+      onHoverFunction: _onHover,
+      child: IconButton(
+        iconSize: 12,
+        onPressed: () {
+          var characterProvider = context.read<CharacterProvider>();
+          var func = isSubtract ? characterProvider.subtractLevels : characterProvider.addLevels;
+          func(isLarge ? 10 : 1);
         },
         icon: Icon(
           isSubtract ? 

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 
@@ -6,18 +8,13 @@ class CharacterProvider extends ChangeNotifier {
   int characterLevel;
   CharacterClass characterClass; 
 
+  TextEditingController textController;
+
   CharacterProvider({
     this.characterLevel = 0,
     this.characterName = '',
     this.characterClass = CharacterClass.beginner,
-  });
-
-  void updateCharacterLevel(int selectedLevel) {
-    // apStatsProvider.setAvailableAPFromLevel(selectedLevel);
-    // hyperStatsProvider.setAvailableHyperStatsFromLevel(selectedLevel);
-    characterLevel = selectedLevel;
-    notifyListeners();
-  }
+  }): textController = TextEditingController(text: characterName);
 
   CharacterProvider copyWith({
     int? characterLevel,
@@ -29,5 +26,28 @@ class CharacterProvider extends ChangeNotifier {
       characterName: characterName ?? this.characterName,
       characterClass: characterClass ?? this.characterClass
     );
+  }
+
+  void updateCharacterClass(CharacterClass characterClass) {
+    this.characterClass = characterClass;
+    notifyListeners();
+  }
+
+  void addLevels(int levelsToAdd) {
+    if(characterLevel == 300) {
+      return;
+    }
+
+    characterLevel += min(levelsToAdd, 300 - characterLevel);
+    notifyListeners();
+  }
+
+  void subtractLevels(int levelsToSubtract) {
+    if (characterLevel == 1) {
+      return;
+    }
+
+    characterLevel -= min(levelsToSubtract, characterLevel - 1);
+    notifyListeners();
   }
 }

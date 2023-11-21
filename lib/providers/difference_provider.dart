@@ -399,31 +399,45 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }
 
   void modifyArcaneLevels(int possibleLevelsToAddOrSubtract, ArcaneSymbol arcaneSymbol, bool isSubtract) {
-    var tempSymbolStatsProvider = diffCalculatorProvider.traitStatsProvider;
-    // diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider.copyWith();
-    // if (isSubtract) {
-    //   diffCharacterModel.traitStatsProvider.subtractArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
-    // }
-    // else {
-    //   diffCharacterModel.traitStatsProvider.addArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
-    // }
+    var tempSymbolStatsProvider = diffCalculatorProvider.symbolStatsProvider;
+    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider.copyWith();
+    if (isSubtract) {
+      diffCalculatorProvider.symbolStatsProvider.subtractArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
+    }
+    else {
+      diffCalculatorProvider.symbolStatsProvider.addArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
+    }
     diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCalculatorProvider.traitStatsProvider = tempSymbolStatsProvider;
+    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
   }
 
   void modifySacredLevels(int possibleLevelsToAddOrSubtract, SacredSymbol sacredSymbol, bool isSubtract) {
-    var tempSymbolStatsProvider = diffCalculatorProvider.traitStatsProvider;
-    // diffCharacterModel.traitStatsProvider = tempSymbolStatsProvider.copyWith();
-    // if (isSubtract) {
-    //   diffCharacterModel.traitStatsProvider.subtractSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
-    // }
-    // else {
-    //   diffCharacterModel.traitStatsProvider.addSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
-    // }
+    var tempSymbolStatsProvider = diffCalculatorProvider.symbolStatsProvider;
+    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider.copyWith();
+    if (isSubtract) {
+      diffCalculatorProvider.symbolStatsProvider.subtractSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
+    }
+    else {
+      diffCalculatorProvider.symbolStatsProvider.addSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
+    }
     diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCalculatorProvider.traitStatsProvider = tempSymbolStatsProvider;
+    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
+  }
+
+  void modifyLevel(int levelsToAddOrSubtract, bool isSubtract) {
+    var tempCharacterProvider = diffCalculatorProvider.characterProvider;
+    diffCalculatorProvider.characterProvider = tempCharacterProvider.copyWith();
+    if (isSubtract) {
+      diffCalculatorProvider.characterProvider.subtractLevels(levelsToAddOrSubtract);
+    }
+    else {
+      diffCalculatorProvider.characterProvider.addLevels(levelsToAddOrSubtract);
+    }
+    diffCalculatorProvider.calculateEverything();
+    updateDifferenceText();
+    diffCalculatorProvider.characterProvider = tempCharacterProvider;
   }
 }
 
