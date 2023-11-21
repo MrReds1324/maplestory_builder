@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
 
 class HyperStatsProvider with ChangeNotifier {
+  CharacterProvider characterProvider;
   int totalAvailableHyperStats = 0;
   int activeSetNumber = 1;
   late Map<int, HyperStatContainer> hyperStatsSets; 
@@ -18,6 +20,7 @@ class HyperStatsProvider with ChangeNotifier {
   }
 
   HyperStatsProvider({
+    required this.characterProvider,
     this.totalAvailableHyperStats = 0,
     this.activeSetNumber = 1,
     HyperStatContainer? activeHyperStat,
@@ -34,17 +37,25 @@ class HyperStatsProvider with ChangeNotifier {
   }
 
   HyperStatsProvider copyWith({
+    CharacterProvider? characterProvider,
     int? totalAvailableHyperStats,
     int? activeSetNumber,
     HyperStatContainer? activeHyperStat,
     Map<int, HyperStatContainer>? hyperStatsSets,
   }) {
     return HyperStatsProvider(
+      characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       totalAvailableHyperStats: totalAvailableHyperStats ?? this.totalAvailableHyperStats,
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
       activeHyperStat: activeHyperStat ?? this.activeHyperStat.copyWith(),
       hyperStatsSets: hyperStatsSets ?? Map.of(this.hyperStatsSets),
     );
+  }
+
+  HyperStatsProvider update(CharacterProvider characterProvider) {
+    setAvailableHyperStatsFromLevel(characterProvider.characterLevel);
+    notifyListeners();
+    return this;
   }
 
   num getStatValue(StatType statType, {int additionalLevels = 0}) {

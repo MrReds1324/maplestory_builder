@@ -17,7 +17,7 @@ enum ClassType {
 }
 
 enum CharacterClass {
-  none(
+  beginner(
     formattedName: "Beginner", 
     classCategory: CharacterClassCategory.beginner, 
     calculationStats: {StatType.str: StatCategory.primary}, 

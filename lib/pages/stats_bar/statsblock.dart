@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
 import 'package:provider/provider.dart';
@@ -315,7 +316,7 @@ class IGNCell extends StatelessWidget {
             child: Expanded(
               child: TextField(
                 onChanged: (value) {
-                  context.read<CalculatorProvider>().characterName = value;
+                  context.read<CharacterProvider>().characterName = value;
                 },
               ),
             ),
@@ -377,7 +378,7 @@ class LevelCell extends StatelessWidget {
               ),
             ),
             child: Expanded(
-              child: Selector<CalculatorProvider, int>(
+              child: Selector<CharacterProvider, int>(
                 selector: (_, calculatorProvider) => calculatorProvider.characterLevel,
                 builder: (context, characterLevel, child) {
                   return DropdownButtonHideUnderline(
@@ -385,7 +386,7 @@ class LevelCell extends StatelessWidget {
                       value: characterLevel,
                       onChanged: (newValue) {
                         if (newValue != null) {
-                          context.read<CalculatorProvider>().updateCharacterLevel(newValue);
+                          context.read<CharacterProvider>().updateCharacterLevel(newValue);
                         }
                       },
                       items: List<int>.generate(301, (i) => i).map((value) {

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'dart:math';
 
+import 'package:maplestory_builder/providers/character_provider.dart';
+
 class APStatsProvider with ChangeNotifier{
+  CharacterProvider characterProvider;
   // All relavent to calculating ap stats and ap usage
   int totalAvailableAP = 14; // 14 + 5 * CharacterLevel
   int availableAP = 14;
@@ -15,6 +18,7 @@ class APStatsProvider with ChangeNotifier{
   late Map<StatType, int> apStats;
 
   APStatsProvider({
+    required this.characterProvider,
     this.totalAvailableAP = 14,
     this.availableAP = 14,
     this.assignedAP = 0,
@@ -34,6 +38,7 @@ class APStatsProvider with ChangeNotifier{
   }
 
   APStatsProvider copyWith({
+    CharacterProvider? characterProvider,
     int? totalAvailableAP,
     int? availableAP,
     int? assignedAP,
@@ -42,6 +47,7 @@ class APStatsProvider with ChangeNotifier{
     Map<StatType, int>? apStats,
   }) {
     return APStatsProvider(
+      characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       totalAvailableAP: totalAvailableAP ?? this.totalAvailableAP,
       availableAP: availableAP ?? this.availableAP,
       assignedAP: assignedAP ?? this.assignedAP,
@@ -49,6 +55,12 @@ class APStatsProvider with ChangeNotifier{
       apAssignedMP: apAssignedMP ?? this.apAssignedMP,
       apStats: apStats ?? Map<StatType, int>.of(this.apStats),
     );
+  }
+
+  APStatsProvider update(CharacterProvider characterProvider) {
+    setAvailableAPFromLevel(characterProvider.characterLevel);
+    notifyListeners();
+    return this;
   }
 
   Map<StatType, int> calculateStats() {

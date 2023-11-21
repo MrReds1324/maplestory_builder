@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
 import 'dart:math';
@@ -9,8 +10,7 @@ import 'dart:math';
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 
 class CalculatorProvider with ChangeNotifier {
-  String characterName = '';
-  int characterLevel = 0;
+  
 
   // Lower Critical Damage %: 20 + CriticalDamage%
   // Upper Critical Damage %: 50 + CriticalDamage%
@@ -43,14 +43,14 @@ class CalculatorProvider with ChangeNotifier {
     StatType.luk: 0,
   };
   
-  
+  CharacterProvider characterProvider;
   APStatsProvider apStatsProvider;
   TraitStatsProvider traitStatsProvider;
   HyperStatsProvider hyperStatsProvider;
   EquipsProvider equipsProvider;
 
   CalculatorProvider({
-    this.characterLevel = 0,
+    required this.characterProvider,
     required this.apStatsProvider,
     required this.traitStatsProvider, 
     required this.hyperStatsProvider, 
@@ -63,7 +63,7 @@ class CalculatorProvider with ChangeNotifier {
   }
 
   CalculatorProvider copyWith({
-    int? characterLevel,
+    CharacterProvider? characterProvider,
     APStatsProvider? apStatsProvider,
     TraitStatsProvider? traitStatsProvider,
     HyperStatsProvider? hyperStatsProvider, 
@@ -71,7 +71,7 @@ class CalculatorProvider with ChangeNotifier {
     bool doCalculation = true
   }){
     return CalculatorProvider(
-      characterLevel: characterLevel ?? this.characterLevel,
+      characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
       traitStatsProvider: traitStatsProvider ?? this.traitStatsProvider.copyWith(),
       hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
@@ -84,17 +84,16 @@ class CalculatorProvider with ChangeNotifier {
     return pureStats[statType] ?? 0;
   }
 
-  CalculatorProvider update(APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider) {
+  CalculatorProvider update(
+    CharacterProvider characterProvider,
+    APStatsProvider apStatsProvider, 
+    TraitStatsProvider traitStatsProvider, 
+    HyperStatsProvider hyperStatsProvider, 
+    EquipsProvider equipsProvider
+  ) {
     calculateEverything();
     notifyListeners();
     return this;
-  }
-
-  void updateCharacterLevel(int selectedLevel) {
-    apStatsProvider.setAvailableAPFromLevel(selectedLevel);
-    hyperStatsProvider.setAvailableHyperStatsFromLevel(selectedLevel);
-    characterLevel = selectedLevel;
-    notifyListeners();
   }
 
   void calculateEverything({bool recalculateCache = false}){
@@ -158,8 +157,8 @@ class CalculatorProvider with ChangeNotifier {
     totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
     totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
 
-    tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterLevel * 50);
-    tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterLevel * 50);
+    tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterProvider.characterLevel * 50);
+    tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterProvider.characterLevel * 50);
     
     totalStats[StatType.hp] = (getPureStat(StatType.hp) + tempStats[StatType.hp]!) * (1 + totalStats[StatType.hpPercentage]!) + totalStats[StatType.finalHp]!;
     totalStats[StatType.mp] = (getPureStat(StatType.mp) + tempStats[StatType.mp]!) * (1 + totalStats[StatType.mpPercentage]!) + totalStats[StatType.finalMp]!;

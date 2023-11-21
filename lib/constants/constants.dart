@@ -193,7 +193,7 @@ enum StatCategory {
 }
 
 // Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Weapon_Multiplier
-
+// TODO - implement weapon multiplier
 
 const Color statColor = Color.fromARGB(255, 105, 105, 105);
 const Color apColor = Colors.green;

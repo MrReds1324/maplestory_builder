@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
+import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/pages/homepage.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
@@ -15,21 +16,57 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
-        ChangeNotifierProvider<APStatsProvider>(create: (_) => APStatsProvider()),
-        ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
-        ChangeNotifierProvider<HyperStatsProvider>(create: (_) => HyperStatsProvider()),
+        ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
-        ChangeNotifierProxyProvider4<APStatsProvider, TraitStatsProvider, HyperStatsProvider, EquipsProvider, CalculatorProvider>(
+        ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
+        ChangeNotifierProxyProvider<CharacterProvider, APStatsProvider>(
+          create: (BuildContext context) => APStatsProvider(
+            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
+          ),
+          update: (
+            BuildContext context, 
+            CharacterProvider characterProvider, 
+            APStatsProvider? apStatsProvider
+          ) => apStatsProvider?.update(characterProvider) 
+            ??
+            APStatsProvider(
+              characterProvider: characterProvider
+            ),
+        ),
+        ChangeNotifierProxyProvider<CharacterProvider, HyperStatsProvider>(
+          create: (BuildContext context) => HyperStatsProvider(
+            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
+          ),
+          update: (
+            BuildContext context, 
+            CharacterProvider characterProvider, 
+            HyperStatsProvider? hyperStatsProvider
+          ) => hyperStatsProvider?.update(characterProvider) 
+            ??
+            HyperStatsProvider(
+              characterProvider: characterProvider
+            ),
+        ),
+        ChangeNotifierProxyProvider5<CharacterProvider, APStatsProvider, TraitStatsProvider, HyperStatsProvider, EquipsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
+            characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
             traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
           ), 
-          update: (BuildContext context, APStatsProvider apStatsProvider, TraitStatsProvider traitStatsProvider, HyperStatsProvider hyperStatsProvider, EquipsProvider equipsProvider, CalculatorProvider? calculatorProvider) 
-            => calculatorProvider?.update(apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
+          update: (
+            BuildContext context, 
+            CharacterProvider characterProvider, 
+            APStatsProvider apStatsProvider, 
+            TraitStatsProvider traitStatsProvider, 
+            HyperStatsProvider hyperStatsProvider, 
+            EquipsProvider equipsProvider, 
+            CalculatorProvider? calculatorProvider
+          ) => calculatorProvider?.update(characterProvider, apStatsProvider, traitStatsProvider, hyperStatsProvider, equipsProvider) 
             ?? 
             CalculatorProvider(
+              characterProvider: characterProvider,
               apStatsProvider: apStatsProvider,
               traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
