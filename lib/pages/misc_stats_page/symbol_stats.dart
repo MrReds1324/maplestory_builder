@@ -4,6 +4,7 @@ import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
+import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -266,9 +267,9 @@ class ArcaneSymbolButton extends StatelessWidget {
       child: IconButton(
         iconSize: 12,
         onPressed: () {
-          var traitStatsProvider = context.read<TraitStatsProvider>();
-          var func = isSubtract ? traitStatsProvider.subtractTraitLevels : traitStatsProvider.addTraitLevels;
-          // func(isLarge ? 5 : 1, arcaneSymbol);
+          var traitStatsProvider = context.read<SymbolStatsProvider>();
+          var func = isSubtract ? traitStatsProvider.subtractArcaneLevels : traitStatsProvider.addArcaneLevels;
+          func(isLarge ? 5 : 1, arcaneSymbol);
         },
         icon: Icon(
           isSubtract ? 
@@ -311,9 +312,9 @@ class SacredSymbolButton extends StatelessWidget {
       child: IconButton(
         iconSize: 12,
         onPressed: () {
-          var traitStatsProvider = context.read<TraitStatsProvider>();
-          var func = isSubtract ? traitStatsProvider.subtractTraitLevels : traitStatsProvider.addTraitLevels;
-          // func(isLarge ? 5 : 1, arcaneSymbol);
+          var symbolStatsProvider = context.read<SymbolStatsProvider>();
+          var func = isSubtract ? symbolStatsProvider.subtractSacredLevels : symbolStatsProvider.addSacredLevels;
+          func(isLarge ? 5 : 1, sacredSymbol);
         },
         icon: Icon(
           isSubtract ? 

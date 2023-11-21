@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/character/symbols_stats.dart';
 import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
@@ -52,6 +53,9 @@ class SymbolStatsProvider with ChangeNotifier{
   }
 
   SymbolStatsProvider update(CharacterProvider characterProvider) {
+    cacheValue = null;
+    calculateStats();
+    notifyListeners();
     return this;
   }
 
@@ -60,16 +64,103 @@ class SymbolStatsProvider with ChangeNotifier{
       return cacheValue!;
     }
     else {
-      Map<StatType, num> traitStats = {};
+      Map<StatType, num> symbolStats = {};
 
-      // TODO: Figure out stat returns, its based on the class ()
-      // for (TraitName traitName in arcaneSymbolLevels.keys) {
-      //   traitStats.addAll(getStatValues(traitName));
-      // }
+      for (MapEntry<ArcaneSymbol, int> arcaneSymbolEntry in arcaneSymbolLevels.entries) {
+        if (arcaneSymbolEntry.value == 0) {
+          continue;
+        }
+        var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbolEntry.key);
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, int> statEntry in levelValues[1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
 
-      cacheValue = traitStats;
-      return traitStats;
+        // Do all the level 2-20 stats next
+        for (MapEntry<StatType, int> statEntry in levelValues[2]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolEntry.value - 1));
+        }
+      }
+
+      for (MapEntry<SacredSymbol, int> sacredSymbolEntry in sacredSymbolLevels.entries) {
+        if (sacredSymbolEntry.value == 0) {
+          continue;
+        }
+        var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbolEntry.key);
+
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, int> statEntry in levelValues[1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
+
+        // Do all the level 2-11 stats next
+        for (MapEntry<StatType, int> statEntry in levelValues[2]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolEntry.value - 1));
+        }
+      }
+
+      cacheValue = symbolStats;
+      return symbolStats;
     }
+  }
+
+  Map<int, Map<StatType, int>> _getSymbolStatValues({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol}) {
+    Map<StatType, int> level1Stats = {};
+    Map<StatType, int> levelOtherStats = {};
+
+    Map<int, Map<StatType, int>> returnValue = {
+      1: level1Stats,
+      2: levelOtherStats,
+    };
+
+    Map<CharacterClass, Map<StatType, int>> level1Target;
+    Map<CharacterClass, Map<StatType, int>> levelOtherTarget;
+
+    if (arcaneSymbol != null) {
+      level1Stats[StatType.arcaneForce] = ArcaneSymbol.level1ArcaneForce;
+      levelOtherStats[StatType.arcaneForce] = ArcaneSymbol.levelOtherArcaneForce;
+
+      level1Target = ArcaneSymbol.level1Stats;
+      levelOtherTarget = ArcaneSymbol.levelOtherStats; 
+    }
+    else if (sacredSymbol != null) {
+      level1Stats[StatType.sacredPower] = SacredSymbol.level1SacredPower;
+      levelOtherStats[StatType.sacredPower] = SacredSymbol.levelOtherSacredPower;
+
+      level1Target = SacredSymbol.level1Stats;
+      levelOtherTarget = SacredSymbol.levelOtherStats; 
+    }
+    else {
+      return returnValue;
+    }
+
+    switch(characterProvider.characterClass) {
+      case CharacterClass.xenon:
+      case CharacterClass.demonAvenger:
+        level1Stats.addAll(level1Target[characterProvider.characterClass]!);
+        levelOtherStats.addAll(levelOtherTarget[characterProvider.characterClass]!);
+      default:
+        // Figure out the main stat
+        var mainStat = determinePrimaryStat(characterProvider.characterClass.calculationStats);
+        StatType convertedStatType;
+        switch(mainStat) {
+          case StatType.str:
+            convertedStatType = StatType.finalStr;
+          case StatType.dex:
+            convertedStatType = StatType.finalDex;
+          case StatType.int:
+            convertedStatType = StatType.finalInt;
+          case StatType.luk:
+            convertedStatType = StatType.finalLuk;
+          default:
+            throw Exception("Main Stat is not a valid Stat Type");                
+        }
+
+        level1Stats[convertedStatType] = level1Target[CharacterClass.beginner]![StatType.allStats]!;
+        levelOtherStats[convertedStatType] = levelOtherTarget[CharacterClass.beginner]![StatType.allStats]!;
+    }
+
+    return returnValue;
   }
 
   Map<StatType, num> getStatValues(TraitName traitName, {int additionalLevels = 0}) {

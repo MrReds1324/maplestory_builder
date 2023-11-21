@@ -158,6 +158,7 @@ class CalculatorProvider with ChangeNotifier {
     }
 
     updateTempStats(hyperStatsProvider.calculateModuleStats());
+    updateTempStats(symbolStatsProvider.calculateStats());
 
     // Specific caps on stats from items
     totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);

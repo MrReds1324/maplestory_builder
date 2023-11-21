@@ -17,6 +17,16 @@ double calculteDifferencePercentage(num newValue, num originalValue) {
   return (newValue - originalValue) / originalValue;
 }
 
+StatType? determinePrimaryStat(Map<StatType, StatCategory> statMap) {
+  // Note this does not work with xenons because they have multiple primary stats
+  for (MapEntry<StatType, StatCategory> statEntry in statMap.entries) {
+    if (statEntry.value == StatCategory.primary) {
+      return statEntry.key;
+    }
+  }
+  return null;
+}
+
 double calculateStatusResistanceReduction(num statusResistanceValue) {
   // Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Abnormal_Status_Resistance
   if (statusResistanceValue == 0) {
