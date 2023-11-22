@@ -6,11 +6,11 @@ A project to simulate most of the MapleStory systems that affect the character's
 - [x] Character Stats
 	- [x] Ap Stats
 	- [ ] HP/MP Per Level - Missing data, implemented as 50/50 for now until data is gathered
-	- [ ] Default Range Calculation - Mostly completed, missing handling of class specific calculations (Xenon and Demon Avenger)
-	- [ ] Boss Range Calculation - Mostly completed, missing handling of class specific calculations (Xenon and Demon Avenger)
+	- [x] Default Range Calculation
+	- [x] Boss Range Calculation
 	- [ ] Effective Default Range Calculation - Not started
 	- [ ] Effective Boss Range Calculation - Not started
-	- [ ] Traits - Not Started
+	- [x] Traits
 	- [x] Hyper Stats
 	- [ ] Inner Ability - Not Started
 - [ ] Items
@@ -31,12 +31,12 @@ A project to simulate most of the MapleStory systems that affect the character's
 	- [ ] Class Specific Skills
 	- [ ] 5th Job Skills
 	- [ ] 6th Job Skills
+	- [ ] Guild Bonuses - Not Started
+		- [ ] Guild Buffs
+		- [ ] Guild Stats
+- [ ] Consumable Buffs - Not Started
 - [ ] Options - Not started
 	- [ ] Burst Skill Toggles
 	- [ ] Buff Skill Toggles
 	- [ ] Boss Monster Selection
-	- [ ] Consumable Buff Toggles
-- [ ] Guild Bonuses - Not Started
-	- [ ] Guild Buffs
-	- [ ] Guild Stats
 
