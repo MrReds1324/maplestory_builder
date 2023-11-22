@@ -27,6 +27,26 @@ StatType? determinePrimaryStat(Map<StatType, StatCategory> statMap) {
   return null;
 }
 
+List<StatType> determineAllPrimaryStat(Map<StatType, StatCategory> statMap) {
+  List<StatType> returnValue = [];
+  for (MapEntry<StatType, StatCategory> statEntry in statMap.entries) {
+    if (statEntry.value == StatCategory.primary) {
+      returnValue.add(statEntry.key);
+    }
+  }
+  return returnValue;
+}
+
+List<StatType> determineAllSecondaryStat(Map<StatType, StatCategory> statMap) {
+  List<StatType> returnValue = [];
+  for (MapEntry<StatType, StatCategory> statEntry in statMap.entries) {
+    if (statEntry.value == StatCategory.secondary) {
+      returnValue.add(statEntry.key);
+    }
+  }
+  return returnValue;
+}
+
 double calculateStatusResistanceReduction(num statusResistanceValue) {
   // Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Abnormal_Status_Resistance
   if (statusResistanceValue == 0) {

@@ -360,6 +360,7 @@ const Map<StatType, StatCategory> warriorStats = {
 };
 const Map<StatType, StatCategory> demonAvengerStats = {
   StatType.hp: StatCategory.primary,
+  StatType.str: StatCategory.secondary,
 };
 const Map<StatType, StatCategory> bowmanStats = {
   StatType.dex: StatCategory.primary,

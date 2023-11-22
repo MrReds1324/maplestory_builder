@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
@@ -43,6 +44,10 @@ class CalculatorProvider with ChangeNotifier {
     StatType.int: 0,
     StatType.luk: 0,
   };
+
+  // This is used to calculate the range as every class has different stats
+  List<StatType> primaryStats = [];
+  List<StatType> secondaryStats = [];
   
   CharacterProvider characterProvider;
   APStatsProvider apStatsProvider;
@@ -97,6 +102,8 @@ class CalculatorProvider with ChangeNotifier {
     SymbolStatsProvider symbolStatsProvider,
     EquipsProvider equipsProvider
   ) {
+    primaryStats = determineAllPrimaryStat(characterProvider.characterClass.calculationStats);
+    secondaryStats = determineAllSecondaryStat(characterProvider.characterClass.calculationStats);
     calculateEverything();
     notifyListeners();
     return this;
@@ -184,7 +191,24 @@ class CalculatorProvider with ChangeNotifier {
     totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
     totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
 
-    var statValue = ((4 * totalStats[StatType.dex]!) + totalStats[StatType.str]!);
+    num statValue = 0;
+    switch(characterProvider.characterClass) {
+      case CharacterClass.demonAvenger:
+        // {\displaystyle floor(PureHP/3.5)+0.8\times floor((TotalHP-PureHP)/3.5)+STR} Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Final_Total_Stats
+        statValue = (pureStats[StatType.hp]! / 3.5).floor() + (0.8 * ((totalStats[StatType.hp]! - pureStats[StatType.hp]!) / 3.5).floor()) + totalStats[StatType.str]!;
+      default:
+        num mainStatValue = 0;
+        num secondaryStatValue = 0;
+        for (StatType mainStatType in primaryStats) {
+          mainStatValue += totalStats[mainStatType]!;
+        }
+
+        for (StatType secondaryStatType in secondaryStats) {
+          secondaryStatValue += totalStats[secondaryStatType]!;
+        }
+
+        statValue = (4 * mainStatValue) + secondaryStatValue;
+    }
     var upperRange = weaponMultiplier * statValue * (totalStats[StatType.attack]! / 100) * (1 + totalStats[StatType.finalDamage]!);
 
     upperDamageRange =  upperRange * (1 + totalStats[StatType.damage]!);
