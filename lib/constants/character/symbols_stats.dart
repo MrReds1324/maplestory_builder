@@ -16,6 +16,7 @@ enum ArcaneSymbol {
 
   final String formattedName;
 
+  static const int maxLevel = 20;
   static const level1ArcaneForce = 30;
   static const levelOtherArcaneForce = 10;
   // https://maplestory.fandom.com/wiki/Arcane_Symbol:_Vanishing_Journey
@@ -47,6 +48,7 @@ enum SacredSymbol {
 
   final String formattedName;
 
+  static const int maxLevel = 11;
   static const int level1SacredPower = 10;
   static const int levelOtherSacredPower = 10;
   // https://maplestory.fandom.com/wiki/Sacred_Symbol:_Cernium

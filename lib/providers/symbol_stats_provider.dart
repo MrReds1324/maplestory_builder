@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/character/symbols_stats.dart';
-import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'dart:math';
 
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
+
+// ignore: constant_identifier_names
+const int LEVEL_1 = 1;
+// ignore: constant_identifier_names
+const int LEVEL_OTHER = 2;
 
 class SymbolStatsProvider with ChangeNotifier{
 
@@ -64,43 +68,8 @@ class SymbolStatsProvider with ChangeNotifier{
       return cacheValue!;
     }
     else {
-      Map<StatType, num> symbolStats = {};
-
-      for (MapEntry<ArcaneSymbol, int> arcaneSymbolEntry in arcaneSymbolLevels.entries) {
-        if (arcaneSymbolEntry.value == 0) {
-          continue;
-        }
-        var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbolEntry.key);
-        // Do all the Level 1 stats first
-        for (MapEntry<StatType, int> statEntry in levelValues[1]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
-        }
-
-        // Do all the level 2-20 stats next
-        for (MapEntry<StatType, int> statEntry in levelValues[2]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolEntry.value - 1));
-        }
-      }
-
-      for (MapEntry<SacredSymbol, int> sacredSymbolEntry in sacredSymbolLevels.entries) {
-        if (sacredSymbolEntry.value == 0) {
-          continue;
-        }
-        var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbolEntry.key);
-
-        // Do all the Level 1 stats first
-        for (MapEntry<StatType, int> statEntry in levelValues[1]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
-        }
-
-        // Do all the level 2-11 stats next
-        for (MapEntry<StatType, int> statEntry in levelValues[2]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolEntry.value - 1));
-        }
-      }
-
-      cacheValue = symbolStats;
-      return symbolStats;
+      cacheValue = getAllStatValues();
+      return cacheValue!;
     }
   }
 
@@ -163,24 +132,93 @@ class SymbolStatsProvider with ChangeNotifier{
     return returnValue;
   }
 
-  Map<StatType, num> getStatValues(TraitName traitName, {int additionalLevels = 0}) {
-    Map<StatType, num> traitStats = {};
+  Map<StatType, num> getAllStatValues() {
+    Map<StatType, num> symbolStats = {};
 
-    for(MapEntry<StatType, (num, int)> traitStat in traitName.traitEffect.entries) {
-      traitStats[traitStat.key] = traitStat.value.$1 * ((arcaneSymbolLevels[traitName]! + additionalLevels) / traitStat.value.$2).floor();
-    }
+      for (MapEntry<ArcaneSymbol, int> arcaneSymbolEntry in arcaneSymbolLevels.entries) {
+        if (arcaneSymbolEntry.value == 0) {
+          continue;
+        }
+        var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbolEntry.key);
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
 
-    return traitStats;
+        // Do all the level 2-20 stats next
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolEntry.value - 1));
+        }
+      }
+
+      for (MapEntry<SacredSymbol, int> sacredSymbolEntry in sacredSymbolLevels.entries) {
+        if (sacredSymbolEntry.value == 0) {
+          continue;
+        }
+        var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbolEntry.key);
+
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
+
+        // Do all the level 2-11 stats next
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolEntry.value - 1));
+        }
+      }
+
+      
+      return symbolStats;
+  }
+
+  Map<StatType, num> getSingleSymbolStatValue({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, int additionalLevels = 0}) {
+    Map<StatType, num> symbolStats = {};
+
+      if (arcaneSymbol != null) {
+        if ((arcaneSymbolLevels[arcaneSymbol]! + additionalLevels) == 0) {
+          return symbolStats;
+        }
+        var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbol);
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
+
+        // Do all the level 2-20 stats next
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolLevels[arcaneSymbol]! + additionalLevels - 1));
+        }
+      }
+
+      if (sacredSymbol != null) {
+        if ((sacredSymbolLevels[sacredSymbol]! + additionalLevels) == 0) {
+          return symbolStats;
+        }
+        var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbol);
+
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
+
+        // Do all the level 2-11 stats next
+        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolLevels[sacredSymbol]! + additionalLevels - 1));
+        }
+      }
+
+      return symbolStats;
   }
 
   void addArcaneLevels(int levelAmount, ArcaneSymbol arcaneSymbol) {
     var currentArcaneLevel = arcaneSymbolLevels[arcaneSymbol]!;
     
-    if (currentArcaneLevel == 20) {
+    if (currentArcaneLevel == ArcaneSymbol.maxLevel) {
       return;
     }
 
-    levelAmount = min(100 - currentArcaneLevel, levelAmount);
+    levelAmount = min(ArcaneSymbol.maxLevel - currentArcaneLevel, levelAmount);
     arcaneSymbolLevels[arcaneSymbol] = arcaneSymbolLevels[arcaneSymbol]! + levelAmount;
 
     cacheValue = null;
@@ -204,11 +242,11 @@ class SymbolStatsProvider with ChangeNotifier{
   void addSacredLevels(int levelAmount, SacredSymbol sacredSymbol) {
     var currentSacredLevel = sacredSymbolLevels[sacredSymbol]!;
     
-    if (currentSacredLevel == 11) {
+    if (currentSacredLevel == SacredSymbol.maxLevel) {
       return;
     }
 
-    levelAmount = min(100 - currentSacredLevel, levelAmount);
+    levelAmount = min(SacredSymbol.maxLevel - currentSacredLevel, levelAmount);
     sacredSymbolLevels[sacredSymbol] = sacredSymbolLevels[sacredSymbol]! + levelAmount;
 
     cacheValue = null;
@@ -229,26 +267,35 @@ class SymbolStatsProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  void getHoverTooltipText(TraitName traitName) {
-    // TODO: implement this
+  void getHoverTooltipText({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol}) {
     Widget? statDescription;
     Widget? currentLevelText;
     Widget? nextLevelText;
     
     String buildLevelString({int additionalLevels = 0}) {
       List<String> returnParts = [];
-      var statValue = getStatValues(traitName, additionalLevels: additionalLevels);
-      for (MapEntry<StatType, num> traitValue in statValue.entries) {
-        returnParts.add("~ ${traitValue.key.formattedName}: ${traitValue.key.isPositive ? '+' : ' -'}${traitValue.key.isPercentage ? doublePercentFormater.format(traitValue.value) : traitValue.value}");
+      var statValue = getSingleSymbolStatValue(arcaneSymbol: arcaneSymbol, sacredSymbol: sacredSymbol, additionalLevels: additionalLevels);
+      for (MapEntry<StatType, num> symbolStatValue in statValue.entries) {
+        returnParts.add("~ ${symbolStatValue.key.formattedName}: ${symbolStatValue.key.isPositive ? '+' : ' -'}${symbolStatValue.key.isPercentage ? doublePercentFormater.format(symbolStatValue.value) : symbolStatValue.value}");
       }
 
       return returnParts.join("\n");
     }
 
-    var currentLevel = arcaneSymbolLevels[traitName]!;
+    int currentLevel;
+    int maxLevel;
+    if (arcaneSymbol != null) {
+      maxLevel = ArcaneSymbol.maxLevel;
+      currentLevel = arcaneSymbolLevels[arcaneSymbol]!;
+    }
+    else {
+      maxLevel = SacredSymbol.maxLevel;
+      currentLevel = sacredSymbolLevels[sacredSymbol]!;
+    }
 
     currentLevelText = Text("Current Level ($currentLevel):\n${buildLevelString()}");
-    if (currentLevel != 100) {
+
+    if (currentLevel != maxLevel) {
       nextLevelText = Text("Next Level (${currentLevel + 1}):\n${buildLevelString(additionalLevels: 1)}");
     }
 

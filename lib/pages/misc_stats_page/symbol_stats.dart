@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/symbols_stats.dart';
-import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
-import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
 
 class ArcaneSymbolTable extends StatelessWidget {
@@ -102,8 +100,7 @@ class ArcaneSymbolCell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Text(arcaneSymbol.formattedName)
-              // child: _getStatTooltip(arcaneSymbol)
+              child: _getStatTooltip(arcaneSymbol: arcaneSymbol)
             )
           ),
           Container(
@@ -134,7 +131,12 @@ class ArcaneSymbolCell extends StatelessWidget {
                     isSubtract: true,
                   ),
                   const Spacer(),
-                  // _getStatSelector(arcaneSymbol),
+                  Selector<SymbolStatsProvider, int>(
+                    selector: (_, symbolStatsProvider) => symbolStatsProvider.arcaneSymbolLevels[arcaneSymbol]!,
+                    builder: (context, data, child) {
+                      return Text('$data');
+                    }
+                  ),
                   const Spacer(),
                   ArcaneSymbolButton(
                     arcaneSymbol: arcaneSymbol, 
@@ -185,8 +187,7 @@ class SacredSymbolCell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Text(sacredSymbol.formattedName),
-              // child: _getStatTooltip(sacredSymbol)
+              child: _getStatTooltip(sacredSymbol: sacredSymbol)
             )
           ),
           Container(
@@ -217,7 +218,12 @@ class SacredSymbolCell extends StatelessWidget {
                     isSubtract: true,
                   ),
                   const Spacer(),
-                  // _getStatSelector(sacredSymbol),
+                  Selector<SymbolStatsProvider, int>(
+                    selector: (_, symbolStatsProvider) => symbolStatsProvider.sacredSymbolLevels[sacredSymbol]!,
+                    builder: (context, data, child) {
+                      return Text('$data');
+                    }
+                  ),
                   const Spacer(),
                   SacredSymbolButton(
                     sacredSymbol: sacredSymbol, 
@@ -326,32 +332,23 @@ class SacredSymbolButton extends StatelessWidget {
   }
 }
 
-Selector _getStatSelector(TraitName traitName) {
-  return Selector<TraitStatsProvider, int>(
-    selector: (_, traitStatsProvider) => traitStatsProvider.traitLevels[traitName]!,
-    builder: (context, data, child) {
-      return Text('$data');
-    }
-  );
-}
-
-MapleTooltip _getStatTooltip(TraitName traitName) {
+MapleTooltip _getStatTooltip({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol}) {
 
   void onHover(BuildContext context) {
-    context.read<TraitStatsProvider>().getHoverTooltipText(traitName);
+    context.read<SymbolStatsProvider>().getHoverTooltipText(arcaneSymbol: arcaneSymbol, sacredSymbol: sacredSymbol);
   }
 
   return MapleTooltip(
-    tooltipTitle: traitName.formattedName,
+    tooltipTitle: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName ?? '',
     tooltipWidgets: [
-      Selector<TraitStatsProvider, Widget>(
-        selector: (_, traitStatsProvider) => traitStatsProvider.hoverTooltip,
+      Selector<SymbolStatsProvider, Widget>(
+        selector: (_, symbolStatsProvider) => symbolStatsProvider.hoverTooltip,
         builder: (context, data, child) {
           return data;
         }
       )
     ],
     onHoverFunction: onHover,
-    label: traitName.formattedName,
+    label: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName,
   );
 }

@@ -167,15 +167,15 @@ class CalculatorProvider with ChangeNotifier {
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterProvider.characterLevel * 50);
     tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterProvider.characterLevel * 50);
     
-    totalStats[StatType.hp] = (getPureStat(StatType.hp) + tempStats[StatType.hp]!) * (1 + totalStats[StatType.hpPercentage]!) + totalStats[StatType.finalHp]!;
-    totalStats[StatType.mp] = (getPureStat(StatType.mp) + tempStats[StatType.mp]!) * (1 + totalStats[StatType.mpPercentage]!) + totalStats[StatType.finalMp]!;
-    totalStats[StatType.str] = (getPureStat(StatType.str) + tempStats[StatType.str]!) * (1 + totalStats[StatType.strPercentage]!) + totalStats[StatType.finalStr]!;
-    totalStats[StatType.dex] = (getPureStat(StatType.dex) + tempStats[StatType.dex]!) * (1 + totalStats[StatType.dexPercentage]!) + totalStats[StatType.finalDex]!;
-    totalStats[StatType.int] = (getPureStat(StatType.int) + tempStats[StatType.int]!) * (1 + totalStats[StatType.intPercentage]!) + totalStats[StatType.finalInt]!;
-    totalStats[StatType.luk] = (getPureStat(StatType.luk) + tempStats[StatType.luk]!) * (1 + totalStats[StatType.lukPercentage]!) + totalStats[StatType.finalLuk]!;
+    totalStats[StatType.hp] = ((getPureStat(StatType.hp) + tempStats[StatType.hp]!) * (1 + totalStats[StatType.hpPercentage]!)) + totalStats[StatType.finalHp]!;
+    totalStats[StatType.mp] = ((getPureStat(StatType.mp) + tempStats[StatType.mp]!) * (1 + totalStats[StatType.mpPercentage]!)) + totalStats[StatType.finalMp]!;
+    totalStats[StatType.str] = ((getPureStat(StatType.str) + tempStats[StatType.str]!) * (1 + totalStats[StatType.strPercentage]!)) + totalStats[StatType.finalStr]!;
+    totalStats[StatType.dex] = ((getPureStat(StatType.dex) + tempStats[StatType.dex]!) * (1 + totalStats[StatType.dexPercentage]!)) + totalStats[StatType.finalDex]!;
+    totalStats[StatType.int] = ((getPureStat(StatType.int) + tempStats[StatType.int]!) * (1 + totalStats[StatType.intPercentage]!)) + totalStats[StatType.finalInt]!;
+    totalStats[StatType.luk] = ((getPureStat(StatType.luk) + tempStats[StatType.luk]!) * (1 + totalStats[StatType.lukPercentage]!)) + totalStats[StatType.finalLuk]!;
 
-    totalStats[StatType.attack] = tempStats[StatType.attack]! * (1 + totalStats[StatType.attackPercentage]!) + totalStats[StatType.finalAttack]!;
-    totalStats[StatType.mattack] = tempStats[StatType.mattack]! * (1 + totalStats[StatType.mattackPercentage]!) + totalStats[StatType.finalMAttack]!;
+    totalStats[StatType.attack] = (tempStats[StatType.attack]! * (1 + totalStats[StatType.attackPercentage]!)) + totalStats[StatType.finalAttack]!;
+    totalStats[StatType.mattack] = (tempStats[StatType.mattack]! * (1 + totalStats[StatType.mattackPercentage]!)) + totalStats[StatType.finalMAttack]!;
     totalStats[StatType.defense] = tempStats[StatType.defense]! * (1 + totalStats[StatType.defensePercentage]!);
 
     // Stats with a non-visual upper bound
@@ -185,7 +185,7 @@ class CalculatorProvider with ChangeNotifier {
     totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
 
     var statValue = ((4 * totalStats[StatType.dex]!) + totalStats[StatType.str]!);
-    var upperRange = weaponMultiplier * statValue * (totalStats[StatType.attack]!) * (1 + totalStats[StatType.finalDamage]!);
+    var upperRange = weaponMultiplier * statValue * (totalStats[StatType.attack]! / 100) * (1 + totalStats[StatType.finalDamage]!);
 
     upperDamageRange =  upperRange * (1 + totalStats[StatType.damage]!);
     upperBossDamangeRange =  upperRange * (1 + totalStats[StatType.damage]! + totalStats[StatType.bossDamage]!);
