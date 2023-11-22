@@ -102,8 +102,6 @@ class CalculatorProvider with ChangeNotifier {
     SymbolStatsProvider symbolStatsProvider,
     EquipsProvider equipsProvider
   ) {
-    primaryStats = determineAllPrimaryStat(characterProvider.characterClass.calculationStats);
-    secondaryStats = determineAllSecondaryStat(characterProvider.characterClass.calculationStats);
     calculateEverything();
     notifyListeners();
     return this;
@@ -191,11 +189,20 @@ class CalculatorProvider with ChangeNotifier {
     totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
     totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
 
+    primaryStats = determineAllPrimaryStat(characterProvider.characterClass.calculationStats);
+    secondaryStats = determineAllSecondaryStat(characterProvider.characterClass.calculationStats);
     num statValue = 0;
     switch(characterProvider.characterClass) {
       case CharacterClass.demonAvenger:
         // {\displaystyle floor(PureHP/3.5)+0.8\times floor((TotalHP-PureHP)/3.5)+STR} Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Final_Total_Stats
         statValue = (pureStats[StatType.hp]! / 3.5).floor() + (0.8 * ((totalStats[StatType.hp]! - pureStats[StatType.hp]!) / 3.5).floor()) + totalStats[StatType.str]!;
+      case CharacterClass.xenon:
+        num mainStatValue = 0;
+        for (StatType mainStatType in primaryStats) {
+          mainStatValue += totalStats[mainStatType]!;
+        }
+
+        statValue = (3.5 * mainStatValue);
       default:
         num mainStatValue = 0;
         num secondaryStatValue = 0;
