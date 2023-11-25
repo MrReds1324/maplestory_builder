@@ -6,6 +6,7 @@ import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
+import 'package:maplestory_builder/providers/inner_ability_provider.dart';
 
 final doubleRoundPercentFormater = NumberFormat('#####%');
 final doubleRoundFormater = NumberFormat('#######');
@@ -102,4 +103,14 @@ List<AbstractScroll> deepCopyScrollsList(List<AbstractScroll> list) {
     }
 
     return newList;
+}
+
+Map<int, InnerAbilityLine> deepCopyInnerAbilityMap(Map<int, InnerAbilityLine> innerAbilityLines) {
+  Map<int, InnerAbilityLine> newMap = {};
+  
+  for (MapEntry<int, InnerAbilityLine> mapEntry in innerAbilityLines.entries) {
+    newMap.addAll({mapEntry.key: mapEntry.value.copyWith()});
+  }
+
+  return newMap;
 }
