@@ -8,6 +8,7 @@ import 'package:maplestory_builder/providers/breakdown_provider.dart';
 import 'package:maplestory_builder/providers/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/equips_provider.dart';
 import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/inner_ability_provider.dart';
 import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +63,7 @@ void main() {
               characterProvider: characterProvider
             ),
         ),
+        ChangeNotifierProvider<InnerAbilityProvider>(create: (_) => InnerAbilityProvider()),
         ChangeNotifierProxyProvider6<CharacterProvider, APStatsProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),

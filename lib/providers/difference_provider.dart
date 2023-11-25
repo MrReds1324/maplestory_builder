@@ -381,6 +381,18 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // Reset the equips provider for the diff character model
     diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider;
     notifyListeners();
+  }
+
+  void compareInnerAbility(BuildContext context, int newInnerAbilityPosition) {
+    var tempInnerAbilityProvider = diffCalculatorProvider.hyperStatsProvider;
+    diffCalculatorProvider.hyperStatsProvider = tempInnerAbilityProvider.copyWith();
+    diffCalculatorProvider.hyperStatsProvider.changeActiveSet(newInnerAbilityPosition);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the equips provider for the diff character model
+    diffCalculatorProvider.hyperStatsProvider = tempInnerAbilityProvider;
+    notifyListeners();
   }  
 
   void modifyTraitLevels(int possibleLevelsToAddOrSubtract, TraitName traitName, bool isSubtract) {
