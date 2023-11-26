@@ -68,7 +68,7 @@ class HyperStatsProvider with ChangeNotifier {
       }
     }
 
-  Map<StatType, num> calculateModuleStats() {
+  Map<StatType, num> calculateStats() {
     return {
       StatType.finalStr: getStatValue(StatType.str),
       StatType.finalDex: getStatValue(StatType.dex),

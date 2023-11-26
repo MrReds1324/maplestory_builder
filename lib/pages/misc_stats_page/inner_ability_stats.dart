@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/inner_ability_stats.dart';
-import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/inner_ability_provider.dart';
-import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +16,7 @@ class InnerAbilityStatsTable extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
         width: 455,
-        height: 298,
+        height: 193,
         padding: const EdgeInsets.all(5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -125,37 +123,6 @@ class InnerAbilityCell extends StatelessWidget {
   }
 }
 
-Selector _getStatSelector(TraitName traitName) {
-  return Selector<TraitStatsProvider, int>(
-    selector: (_, traitStatsProvider) => traitStatsProvider.traitLevels[traitName]!,
-    builder: (context, data, child) {
-      return Text('$data');
-    }
-  );
-}
-
-MapleTooltip _getStatTooltip(TraitName traitName) {
-
-  void onHover(BuildContext context) {
-    context.read<TraitStatsProvider>().getHoverTooltipText(traitName);
-  }
-
-  return MapleTooltip(
-    tooltipTitle: traitName.formattedName,
-    tooltipWidgets: [
-      Selector<TraitStatsProvider, Widget>(
-        selector: (_, traitStatsProvider) => traitStatsProvider.hoverTooltip,
-        builder: (context, data, child) {
-          return data;
-        }
-      )
-    ],
-    onHoverFunction: onHover,
-    label: traitName.formattedName,
-  );
-}
-
-
 class _InnerAbilityDropdown extends StatelessWidget {
   final int innerAbilityPosition;
 
@@ -177,7 +144,6 @@ class _InnerAbilityDropdown extends StatelessWidget {
 
     var activeInnerAbility = context.read<InnerAbilityProvider>().activeInnerAbility;
     var assignedInnerAbilities = activeInnerAbility.assignedInnerAbility;
-    var selectedInnerAbilityLine = activeInnerAbility.assignedInnerAbility[innerAbilityPosition];
 
     List<InnerAbility> filteredList = <InnerAbility>[];
     // We can only have one of the unique inner ability type, filter out any ones already used here
@@ -212,21 +178,49 @@ class _InnerAbilityDropdown extends StatelessWidget {
     return dropdownItems;
   }
 
+  void _onHover(BuildContext context) {
+    context.read<InnerAbilityProvider>().getHoverTooltipText(innerAbilityPosition);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 120,
+      width: 200,
       child: Consumer<InnerAbilityProvider>(
         builder: (context, innerAbilityProvider, child) {
-          return DropdownButton(
-            alignment: AlignmentDirectional.center,
-            isDense: true,
-            isExpanded: true,
-            value: innerAbilityProvider.activeInnerAbility.assignedInnerAbility[innerAbilityPosition]?.innerAbility,
-            onChanged: (newValue) {
-              innerAbilityProvider.updateInnerAbility(innerAbilityPosition, newValue);
-            },
-            items: getDropDownInnerAbilityList(context)
+          var selectedInnerAbilityLine = innerAbilityProvider.activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
+          return MapleTooltip(
+            tooltipWidgets: [
+              Selector<InnerAbilityProvider, Widget>(
+                selector: (_, innerAbilityProvider) => innerAbilityProvider.hoverTooltip,
+                builder: (context, data, child) {
+                  return data;
+                }
+              )
+            ],
+            onHoverFunction: _onHover,
+            tooltipTitle: selectedInnerAbilityLine.innerAbility?.formattedName ?? 'None',
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 176,
+                  child: DropdownButton(
+                    alignment: AlignmentDirectional.center,
+                    isDense: true,
+                    isExpanded: true,
+                    value: selectedInnerAbilityLine.innerAbility,
+                    onChanged: (newValue) {
+                      innerAbilityProvider.updateInnerAbility(innerAbilityPosition, newValue);
+                    },
+                    items: getDropDownInnerAbilityList(context)
+                  ),
+                ),
+                Icon(
+                  MdiIcons.creation,
+                  color: selectedInnerAbilityLine.getRankColor(),
+                )
+              ]
+            ),
           );
         }
       ),

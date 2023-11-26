@@ -10,6 +10,8 @@ class InnerAbilityProvider with ChangeNotifier {
   late Map<int, InnerAbilityContainer> innerAbilitySets; 
   late InnerAbilityContainer activeInnerAbility;
 
+  Widget hoverTooltip = const SizedBox.shrink();
+
   InnerAbilityProvider({
     this.activeSetNumber = 1,
     InnerAbilityContainer? activeInnerAbility,
@@ -42,11 +44,32 @@ class InnerAbilityProvider with ChangeNotifier {
     return this;
   }
 
-  Map<StatType, num> calculateStats() {
-    return {};
+  Map<StatType, num> calculateStats({bool isDebuffActive = false}) {
+    Map<StatType, num> returnValue = {};
+
+    for (InnerAbilityLine innerAbilityLine in activeInnerAbility.assignedInnerAbility.values) {
+      var innerAbilityLineStat = innerAbilityLine.calculateStatValue();
+      switch (innerAbilityLine.innerAbility) {
+        case null:
+          continue;
+        case InnerAbility.damageToMobsInflictedWithStatus:
+          if (!isDebuffActive) {
+            continue;
+          }
+          if (innerAbilityLineStat.$1 != null) {
+            returnValue[innerAbilityLineStat.$1!] = innerAbilityLineStat.$2;
+          }
+        default:
+          if (innerAbilityLineStat.$1 != null) {
+            returnValue[innerAbilityLineStat.$1!] = innerAbilityLineStat.$2;
+          }
+      }
+    }
+
+    return returnValue;
   }
 
-  void updateInnerAbility(int innerAbilityPosition, InnerAbility innerAbility) {
+  void updateInnerAbility(int innerAbilityPosition, InnerAbility? innerAbility) {
     var targetInnerAbilityLine = activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
 
     if (targetInnerAbilityLine.innerAbility == innerAbility) {
@@ -70,6 +93,27 @@ class InnerAbilityProvider with ChangeNotifier {
     activeInnerAbility = innerAbilitySets[innerAbilityPosition]!;
 
     notifyListeners();
+  }
+
+  void getHoverTooltipText(int innerAbilityPosition) {
+    Widget? statDescription;
+    Widget? currentLevelText;
+    
+    var selectedInnerAbilityLine = activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
+    var currentLevelValues = selectedInnerAbilityLine.calculateStatValue();
+    var statType = currentLevelValues.$1;
+    var statValue = currentLevelValues.$2;
+
+    statDescription = selectedInnerAbilityLine.innerAbility?.description != null ? Text(selectedInnerAbilityLine.innerAbility!.description) : const SizedBox.shrink();
+    currentLevelText = Text("${statType?.formattedName ?? 'Nothing'}: ${(statType?.isPositive ?? true) ? '+' : ' -'}${(statType?.isPercentage ?? false) ? doublePercentFormater.format(statValue) : statValue}");
+
+    hoverTooltip = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        statDescription,
+        currentLevelText,
+      ],
+    );
   }
 }
 
@@ -114,6 +158,10 @@ class InnerAbilityLine {
     );
   }
 
+  (StatType?, num) calculateStatValue() {
+    return (innerAbility?.targetStat, innerAbility?.statValues[selectedRange] ?? 0);
+  }
+
   Color getRankColor() {
     var abilityStatValue = innerAbility?.statValues[selectedRange];
     if (abilityStatValue != null) {
@@ -138,8 +186,7 @@ class InnerAbilityLine {
 
   String getSliderLabel() {
     if (innerAbility != null) {
-      
-      return "${innerAbility!.targetStat.formattedName}: ${innerAbility!.targetStat.isPositive ? '+' : '-'}${innerAbility!.targetStat.isPercentage ? doublePercentFormater.format(innerAbility!.statValues[selectedRange]) : innerAbility!.statValues[selectedRange]}";
+      return "${innerAbility!.targetStat.formattedName}: ${innerAbility!.targetStat.isPositive ? '+' : '-'}${innerAbility!.targetStat.isPercentage ? doublePercentFormater.format(calculateStatValue().$2) : calculateStatValue().$2}";
       
     }
     else {

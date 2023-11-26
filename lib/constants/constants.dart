@@ -171,7 +171,10 @@ enum StatType {
   skillLevel(formattedName: "Skill Level"),
   skillCooldown(formattedName: "Skill Cooldown", isPositive: false),
   skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true),
-  mastery(formattedName: "Mastery", isPercentage: true);
+  skipCooldownChance(formattedName: "Skip Cooldown Chance", isPercentage: true),
+  attackSkillTargetIncrease(formattedName: "Attack Skill Target Increase"),
+  mastery(formattedName: "Mastery", isPercentage: true),
+  ;
 
   const StatType({
     required this.formattedName,

@@ -30,6 +30,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }) : diffCalculatorProvider = mainCalculatorProvider.copyWith(
     characterProvider: mainCalculatorProvider.characterProvider,
     apStatsProvider: mainCalculatorProvider.apStatsProvider,
+    innerAbilityProvider: mainCalculatorProvider.innerAbilityProvider,
     traitStatsProvider: mainCalculatorProvider.traitStatsProvider,
     hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
     symbolStatsProvider: mainCalculatorProvider.symbolStatsProvider,
@@ -384,14 +385,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }
 
   void compareInnerAbility(BuildContext context, int newInnerAbilityPosition) {
-    var tempInnerAbilityProvider = diffCalculatorProvider.hyperStatsProvider;
-    diffCalculatorProvider.hyperStatsProvider = tempInnerAbilityProvider.copyWith();
-    diffCalculatorProvider.hyperStatsProvider.changeActiveSet(newInnerAbilityPosition);
+    var tempInnerAbilityProvider = diffCalculatorProvider.innerAbilityProvider;
+    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider.copyWith();
+    diffCalculatorProvider.innerAbilityProvider.changeActiveSet(newInnerAbilityPosition);
     diffCalculatorProvider.calculateEverything(recalculateCache: true);
     updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
 
     // Reset the equips provider for the diff character model
-    diffCalculatorProvider.hyperStatsProvider = tempInnerAbilityProvider;
+    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider;
     notifyListeners();
   }  
 

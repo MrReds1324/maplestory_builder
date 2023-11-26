@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
@@ -12,6 +13,7 @@ import 'package:maplestory_builder/providers/inner_ability_provider.dart';
 import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
 import 'package:maplestory_builder/providers/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(
@@ -64,10 +66,11 @@ void main() {
             ),
         ),
         ChangeNotifierProvider<InnerAbilityProvider>(create: (_) => InnerAbilityProvider()),
-        ChangeNotifierProxyProvider6<CharacterProvider, APStatsProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
+        ChangeNotifierProxyProvider7<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
+            innerAbilityProvider: Provider.of<InnerAbilityProvider>(context, listen: false),
             traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
             symbolStatsProvider: Provider.of<SymbolStatsProvider>(context, listen: false),
@@ -77,16 +80,18 @@ void main() {
             BuildContext context, 
             CharacterProvider characterProvider, 
             APStatsProvider apStatsProvider, 
+            InnerAbilityProvider innerAbilityProvider,
             TraitStatsProvider traitStatsProvider, 
             HyperStatsProvider hyperStatsProvider,
             SymbolStatsProvider symbolStatsProvider,
             EquipsProvider equipsProvider, 
             CalculatorProvider? calculatorProvider
-          ) => calculatorProvider?.update(characterProvider, apStatsProvider, traitStatsProvider, hyperStatsProvider, symbolStatsProvider, equipsProvider) 
+          ) => calculatorProvider?.update(characterProvider, apStatsProvider, innerAbilityProvider, traitStatsProvider, hyperStatsProvider, symbolStatsProvider, equipsProvider) 
             ?? 
             CalculatorProvider(
               characterProvider: characterProvider,
               apStatsProvider: apStatsProvider,
+              innerAbilityProvider: innerAbilityProvider,
               traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
               symbolStatsProvider: symbolStatsProvider,
