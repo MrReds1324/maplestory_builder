@@ -3,7 +3,7 @@ import 'package:maplestory_builder/constants/character/symbols_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
 import 'package:provider/provider.dart';
 
 class ArcaneSymbolTable extends StatelessWidget {

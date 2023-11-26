@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/providers/ap_stats_provider.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/pages/homepage.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/providers/breakdown_provider.dart';
-import 'package:maplestory_builder/providers/equip_editing_provider.dart';
-import 'package:maplestory_builder/providers/equips_provider.dart';
-import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
-import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
-import 'package:maplestory_builder/providers/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
+import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
+import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(
@@ -62,10 +65,12 @@ void main() {
               characterProvider: characterProvider
             ),
         ),
-        ChangeNotifierProxyProvider6<CharacterProvider, APStatsProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
+        ChangeNotifierProvider<InnerAbilityProvider>(create: (_) => InnerAbilityProvider()),
+        ChangeNotifierProxyProvider7<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
+            innerAbilityProvider: Provider.of<InnerAbilityProvider>(context, listen: false),
             traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
             symbolStatsProvider: Provider.of<SymbolStatsProvider>(context, listen: false),
@@ -75,16 +80,18 @@ void main() {
             BuildContext context, 
             CharacterProvider characterProvider, 
             APStatsProvider apStatsProvider, 
+            InnerAbilityProvider innerAbilityProvider,
             TraitStatsProvider traitStatsProvider, 
             HyperStatsProvider hyperStatsProvider,
             SymbolStatsProvider symbolStatsProvider,
             EquipsProvider equipsProvider, 
             CalculatorProvider? calculatorProvider
-          ) => calculatorProvider?.update(characterProvider, apStatsProvider, traitStatsProvider, hyperStatsProvider, symbolStatsProvider, equipsProvider) 
+          ) => calculatorProvider?.update(characterProvider, apStatsProvider, innerAbilityProvider, traitStatsProvider, hyperStatsProvider, symbolStatsProvider, equipsProvider) 
             ?? 
             CalculatorProvider(
               characterProvider: characterProvider,
               apStatsProvider: apStatsProvider,
+              innerAbilityProvider: innerAbilityProvider,
               traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
               symbolStatsProvider: symbolStatsProvider,

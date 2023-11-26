@@ -18,7 +18,7 @@ import 'package:maplestory_builder/modules/equipment/starforce_mod.dart';
 import 'package:maplestory_builder/modules/equipment/tweak_mod.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
-import 'package:maplestory_builder/providers/equips_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';

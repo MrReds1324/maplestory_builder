@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
-import 'package:maplestory_builder/providers/ap_stats_provider.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
-import 'package:maplestory_builder/providers/equips_provider.dart';
-import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
-import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
+import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
+import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
 import 'dart:math';
 
-import 'package:maplestory_builder/providers/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 
 class CalculatorProvider with ChangeNotifier {
   
@@ -51,6 +52,7 @@ class CalculatorProvider with ChangeNotifier {
   
   CharacterProvider characterProvider;
   APStatsProvider apStatsProvider;
+  InnerAbilityProvider innerAbilityProvider;
   TraitStatsProvider traitStatsProvider;
   HyperStatsProvider hyperStatsProvider;
   SymbolStatsProvider symbolStatsProvider;
@@ -59,6 +61,7 @@ class CalculatorProvider with ChangeNotifier {
   CalculatorProvider({
     required this.characterProvider,
     required this.apStatsProvider,
+    required this.innerAbilityProvider,
     required this.traitStatsProvider, 
     required this.hyperStatsProvider,
     required this.symbolStatsProvider,
@@ -73,6 +76,7 @@ class CalculatorProvider with ChangeNotifier {
   CalculatorProvider copyWith({
     CharacterProvider? characterProvider,
     APStatsProvider? apStatsProvider,
+    InnerAbilityProvider? innerAbilityProvider,
     TraitStatsProvider? traitStatsProvider,
     HyperStatsProvider? hyperStatsProvider, 
     SymbolStatsProvider? symbolStatsProvider,
@@ -82,6 +86,7 @@ class CalculatorProvider with ChangeNotifier {
     return CalculatorProvider(
       characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       apStatsProvider: apStatsProvider ?? this.apStatsProvider.copyWith(),
+      innerAbilityProvider: innerAbilityProvider ?? this.innerAbilityProvider.copyWith(),
       traitStatsProvider: traitStatsProvider ?? this.traitStatsProvider.copyWith(),
       hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
       symbolStatsProvider: symbolStatsProvider ?? this.symbolStatsProvider.copyWith(),
@@ -96,7 +101,8 @@ class CalculatorProvider with ChangeNotifier {
 
   CalculatorProvider update(
     CharacterProvider characterProvider,
-    APStatsProvider apStatsProvider, 
+    APStatsProvider apStatsProvider,
+    InnerAbilityProvider innerAbilityProvider,
     TraitStatsProvider traitStatsProvider, 
     HyperStatsProvider hyperStatsProvider, 
     SymbolStatsProvider symbolStatsProvider,
@@ -156,18 +162,18 @@ class CalculatorProvider with ChangeNotifier {
 
     pureStats = apStatsProvider.calculateStats();
 
-    updateTempStats(traitStatsProvider.calculateStats());
-
     for (Map<StatType, num> equipStats in equipsProvider.calculateStats()){
       updateTempStats(equipStats);
     }
-
-    updateTempStats(hyperStatsProvider.calculateModuleStats());
     updateTempStats(symbolStatsProvider.calculateStats());
 
     // Specific caps on stats from items
     totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
     totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
+
+    updateTempStats(hyperStatsProvider.calculateStats());
+    updateTempStats(innerAbilityProvider.calculateStats());
+    updateTempStats(traitStatsProvider.calculateStats());
 
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterProvider.characterLevel * 50);
     tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterProvider.characterLevel * 50);

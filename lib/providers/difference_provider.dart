@@ -7,7 +7,7 @@ import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
-import 'package:maplestory_builder/providers/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 
 enum CalculationType {
   compareEquipment,
@@ -30,6 +30,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }) : diffCalculatorProvider = mainCalculatorProvider.copyWith(
     characterProvider: mainCalculatorProvider.characterProvider,
     apStatsProvider: mainCalculatorProvider.apStatsProvider,
+    innerAbilityProvider: mainCalculatorProvider.innerAbilityProvider,
     traitStatsProvider: mainCalculatorProvider.traitStatsProvider,
     hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
     symbolStatsProvider: mainCalculatorProvider.symbolStatsProvider,
@@ -380,6 +381,18 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
     // Reset the equips provider for the diff character model
     diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider;
+    notifyListeners();
+  }
+
+  void compareInnerAbility(BuildContext context, int newInnerAbilityPosition) {
+    var tempInnerAbilityProvider = diffCalculatorProvider.innerAbilityProvider;
+    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider.copyWith();
+    diffCalculatorProvider.innerAbilityProvider.changeActiveSet(newInnerAbilityPosition);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the equips provider for the diff character model
+    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider;
     notifyListeners();
   }  
 

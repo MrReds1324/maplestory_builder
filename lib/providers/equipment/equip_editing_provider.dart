@@ -7,7 +7,7 @@ import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/soul_stats.dart';
 import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
-import 'package:maplestory_builder/providers/equips_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: constant_identifier_names
