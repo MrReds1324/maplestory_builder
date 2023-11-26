@@ -12,7 +12,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 	- [ ] Effective Boss Range Calculation - Not started
 	- [x] Traits
 	- [x] Hyper Stats
-	- [ ] Inner Ability - Not Started
+	- [x] Inner Ability
 - [ ] Items
 	- [x] Star Force
 	- [x] Flames
@@ -20,7 +20,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 		- [ ] Main Potentials - Mostly completed, missing Decent Skills
 		- [x] Bonus Potentials
 	- [ ] Equipment Sets - Framework Implemented
-	- [ ] Scrolling - Mostly completed
+	- [x] Scrolling - Mostly completed except for scrolls I could not find data on
 - [ ] Legion - Not started
 	- [ ] Legion Character Effects
 	- [ ] Legion Board Effects
