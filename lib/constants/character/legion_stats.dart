@@ -262,3 +262,166 @@ enum LegionBlock {
     }
   }
 }
+
+enum LegionBoardRank {
+  namelessLegionR1(
+    formattedName: "Nameless Legion Rank I",
+    totalLevel: 500,
+    legionMembers: 9,
+    outerRegionAmount: 0,
+  ),
+  namelessLegionR2(
+    formattedName: "Nameless Legion Rank II",
+    totalLevel: 1000,
+    legionMembers: 10,
+    outerRegionAmount: 0,
+  ),
+  namelessLegionR3(
+    formattedName: "Nameless Legion Rank III",
+    totalLevel: 1500,
+    legionMembers: 11,
+    outerRegionAmount: 0,
+  ),
+  namelessLegionR4(
+    formattedName: "Nameless Legion Rank IV",
+    totalLevel: 2000,
+    legionMembers: 12,
+    outerRegionAmount: 6,
+  ),
+  namelessLegionR5(
+    formattedName: "Nameless Legion Rank V",
+    totalLevel: 2500,
+    legionMembers: 13,
+    outerRegionAmount: 6,
+  ),
+  renownedLegionR1(
+    formattedName: "Renowned Legion Rank I",
+    totalLevel: 3000,
+    legionMembers: 18,
+    outerRegionAmount: 13,
+  ),
+  renownedLegionR2(
+    formattedName: "Renowned Legion Rank II",
+    totalLevel: 3500,
+    legionMembers: 19,
+    outerRegionAmount: 13,
+  ),
+  renownedLegionR3(
+    formattedName: "Renowned Legion Rank III",
+    totalLevel: 4000,
+    legionMembers: 20,
+    outerRegionAmount: 21,
+  ),
+  renownedLegionR4(
+    formattedName: "Renowned Legion Rank IV",
+    totalLevel: 4500,
+    legionMembers: 21,
+    outerRegionAmount: 21,
+  ),
+  renownedLegionR5(
+    formattedName: "Renowned Legion Rank V",
+    totalLevel: 5000,
+    legionMembers: 22,
+    outerRegionAmount: 30,
+  ),
+  heroicLegionR1(
+    formattedName: "Heroic Legion Rank I",
+    totalLevel: 5500,
+    legionMembers: 27,
+    outerRegionAmount: 30,
+  ),
+  heroicLegionR2(
+    formattedName: "Heroic Legion Rank II",
+    totalLevel: 6000,
+    legionMembers: 28,
+  ),
+  heroicLegionR3(
+    formattedName: "Heroic Legion Rank III",
+    totalLevel: 6500,
+    legionMembers: 29,
+  ),
+  heroicLegionR4(
+    formattedName: "Heroic Legion Rank IV",
+    totalLevel: 7000,
+    legionMembers: 30,
+  ),
+  heroicLegionR5(
+    formattedName: "Heroic Legion Rank V",
+    totalLevel: 7500,
+    legionMembers: 31,
+  ),
+  legendaryLegionR1(
+    formattedName: "Legendary Legion Rank I",
+    totalLevel: 8000,
+    legionMembers: 36,
+  ),
+  legendaryLegionR2(
+    formattedName: "Legendary Legion Rank II",
+    totalLevel: 8500,
+    legionMembers: 37,
+  ),
+  legendaryLegionR3(
+    formattedName: "Legendary Legion Rank III",
+    totalLevel: 9000,
+    legionMembers: 38,
+  ),
+  legendaryLegionR4(
+    formattedName: "Legendary Legion Rank IV",
+    totalLevel: 9500,
+    legionMembers: 39,
+  ),
+  legendaryLegionR5(
+    formattedName: "Legendary Legion Rank V",
+    totalLevel: 10000,
+    legionMembers: 40,
+  ),
+  supremeLegionR1(
+    formattedName: "Supreme Legion Rank I",
+    totalLevel: 10500,
+    legionMembers: 41,
+  ),
+  supremeLegionR2(
+    formattedName: "Supreme Legion Rank II",
+    totalLevel: 11000,
+    legionMembers: 42,
+  ),
+  supremeLegionR3(
+    formattedName: "Supreme Legion Rank III",
+    totalLevel: 11500,
+    legionMembers: 43,
+  ),
+  supremeLegionR4(
+    formattedName: "Supreme Legion Rank IV",
+    totalLevel: 12000,
+    legionMembers: 44,
+  ),
+  supremeLegionR5(
+    formattedName: "Supreme Legion Rank V",
+    totalLevel: 12500,
+    legionMembers: 45,
+  ),
+  ;
+
+  const LegionBoardRank({
+    required this.formattedName,
+    required this.totalLevel,
+    required this.legionMembers,
+    this.outerRegionAmount = 40,
+  });
+
+  final String formattedName;
+  final int totalLevel;
+  final int legionMembers;
+  final int outerRegionAmount;
+  final int innerRegionAmount = 15;
+
+  static LegionBoardRank? getLegionBoardRank(int totalCharacterLevels) {
+    if (totalCharacterLevels < 500) {
+      return null;
+    }
+    else {
+      var levelToRank = (totalCharacterLevels ~/ 500) - 1;
+      return LegionBoardRank.values[levelToRank];
+    }
+  }
+}
