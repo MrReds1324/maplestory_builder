@@ -6,7 +6,7 @@ import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
-import 'package:maplestory_builder/providers/inner_ability_provider.dart';
+import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -140,6 +140,7 @@ class _ChangeNotifierProvider<T extends ChangeNotifier?>
           child: child,
         );
 
+  // ignore: unused_element
   /// Provides an existing [ChangeNotifier].
   _ChangeNotifierProvider.value({
     Key? key,

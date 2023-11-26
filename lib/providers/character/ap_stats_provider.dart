@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'dart:math';
 
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
 
 class APStatsProvider with ChangeNotifier{
   CharacterProvider characterProvider;

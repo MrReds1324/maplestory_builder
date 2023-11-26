@@ -3,7 +3,7 @@ import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 

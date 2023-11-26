@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
-import 'package:maplestory_builder/providers/ap_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/constants/constants.dart';

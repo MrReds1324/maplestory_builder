@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
 
 class HyperStatsProvider with ChangeNotifier {
   CharacterProvider characterProvider;

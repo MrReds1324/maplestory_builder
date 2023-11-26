@@ -7,7 +7,7 @@ import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
-import 'package:maplestory_builder/providers/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 
 enum CalculationType {
   compareEquipment,

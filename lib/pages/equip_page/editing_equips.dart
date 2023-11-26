@@ -11,7 +11,7 @@ import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 import 'package:provider/provider.dart';
 
 class EquipBuilder extends StatelessWidget {

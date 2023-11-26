@@ -3,7 +3,7 @@ import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
 
 class TraitStatsTable extends StatelessWidget {

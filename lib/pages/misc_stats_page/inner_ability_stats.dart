@@ -3,7 +3,7 @@ import 'package:maplestory_builder/constants/character/inner_ability_stats.dart'
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/inner_ability_provider.dart';
+import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 

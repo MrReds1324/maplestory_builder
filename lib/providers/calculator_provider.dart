@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
-import 'package:maplestory_builder/providers/ap_stats_provider.dart';
-import 'package:maplestory_builder/providers/character_provider.dart';
-import 'package:maplestory_builder/providers/equips_provider.dart';
-import 'package:maplestory_builder/providers/hyper_stats_provider.dart';
-import 'package:maplestory_builder/providers/inner_ability_provider.dart';
-import 'package:maplestory_builder/providers/symbol_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
+import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
+import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
 import 'dart:math';
 
-import 'package:maplestory_builder/providers/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 
 class CalculatorProvider with ChangeNotifier {
   
