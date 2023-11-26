@@ -37,6 +37,16 @@ class MyHomePage extends StatelessWidget {
               Tab(icon: Icon(MdiIcons.cog)),
             ],
           ),
+          actions: [
+            IconButton(
+              onPressed: () => (), 
+              icon: Icon(MdiIcons.contentSaveAll)
+            ),
+            IconButton(
+              onPressed: () => (), 
+              icon: Icon(MdiIcons.import)
+            )
+          ],
         ),
         body: const Row(
           children: [
