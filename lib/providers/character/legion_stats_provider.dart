@@ -16,6 +16,7 @@ class LegionStatsProvider with ChangeNotifier{
   // This will be used to track the direct legion members added
   Map<int, LegionCharacter> allLegionCharacters;
   Map<LegionBlock, int?> legionCharacters;
+  int activeSetNumber = 1;
   // 0 is a reserved hash, for the character this whole program is about
   int legionCharacterHash = 1;
 
@@ -108,27 +109,35 @@ class LegionStatsProvider with ChangeNotifier{
   Map<StatType, num> getAllStatValues() {
     Map<StatType, num> legionStats = {};
 
-      for (MapEntry<LegionBlock, int?> legionCharacterEntry in legionCharacters.entries) {
-        if (legionCharacterEntry.value == null) {
-          continue;
-        }
+    for (MapEntry<StatType, int> statEntry in legionBoardStatLevels.entries) {
+      legionStats[statEntry.key] = LegionBoardRank.boardStatPerLevel[statEntry.key]! * statEntry.value;
+    }
 
-        var legionCharacter = allLegionCharacters[legionCharacterEntry.value];
-        if (legionCharacter == null) {
-          continue;
-        }
-
-        var statValue = _getLegionCharacterValue(legionCharacter);
-
-        switch(legionCharacterEntry.key.legionEffect.$1) {
-          case StatType.ignoreDefense:
-            legionStats[statValue.$1] = calculateIgnoreDefense((legionStats[statValue.$1] ?? 0), statValue.$2);
-          default:
-            legionStats[statValue.$1] = (legionStats[statValue.$1] ?? 0) + statValue.$2;
-        }
+    for (MapEntry<LegionBlock, int?> legionCharacterEntry in legionCharacters.entries) {
+      if (legionCharacterEntry.value == null) {
+        continue;
       }
 
-      return legionStats;
+      var legionCharacter = allLegionCharacters[legionCharacterEntry.value];
+      if (legionCharacter == null) {
+        continue;
+      }
+
+      var statValue = _getLegionCharacterValue(legionCharacter);
+
+      switch(legionCharacterEntry.key.legionEffect.$1) {
+        case StatType.ignoreDefense:
+          legionStats[statValue.$1] = calculateIgnoreDefense((legionStats[statValue.$1] ?? 0), statValue.$2);
+        default:
+          legionStats[statValue.$1] = (legionStats[statValue.$1] ?? 0) + statValue.$2;
+      }
+    }
+
+    return legionStats;
+  }
+
+  num _getSingleBoardStatValue(StatType statType) {
+    return LegionBoardRank.boardStatPerLevel[statType]! * (legionBoardStatLevels[statType] ?? 0);
   }
 
   void addLegionStatLevels(int levelsToAdd, StatType statType, {bool isOuterBoard = false}) {
@@ -179,19 +188,14 @@ class LegionStatsProvider with ChangeNotifier{
     Widget? currentLevelText;
     Widget? nextLevelText;
     
-    String buildLevelString({int additionalLevels = 0}) {
-      List<String> returnParts = [];
-      var statValue = null;
-      for (MapEntry<StatType, num> symbolStatValue in statValue.entries) {
-        returnParts.add("~ ${symbolStatValue.key.formattedName}: ${symbolStatValue.key.isPositive ? '+' : ' -'}${symbolStatValue.key.isPercentage ? doublePercentFormater.format(symbolStatValue.value) : symbolStatValue.value}");
-      }
-
-      return returnParts.join("\n");
+    String buildLevelString() {
+      var statValue = _getSingleBoardStatValue(statType);
+      return "~ ${statType.formattedName}: ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(statValue) : statValue}";
     }
 
-    int currentLevel = 1;
+    int currentCoverage = legionBoardStatLevels[statType]!;
 
-    currentLevelText = Text("Current Level ($currentLevel):\n${buildLevelString()}");
+    currentLevelText = Text("Current Board Coverage ($currentCoverage Blocks):\n${buildLevelString()}");
 
     hoverTooltip = Column(
       crossAxisAlignment: CrossAxisAlignment.start,

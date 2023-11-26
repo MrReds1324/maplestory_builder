@@ -146,7 +146,8 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         textTheme: const TextTheme(
           bodyMedium: TextStyle(fontSize: 12),
-          headlineMedium: TextStyle(decoration: TextDecoration.underline)
+          headlineMedium: TextStyle(decoration: TextDecoration.underline),
+          headlineLarge: TextStyle(decoration: TextDecoration.underline),
         ),
         useMaterial3: true,
       ),

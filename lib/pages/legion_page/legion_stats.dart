@@ -20,7 +20,7 @@ class InnerLegionStatsTable extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Inner Legion Stats",
+              "Inner Legion Board Stats",
               style: Theme.of(context).textTheme.headlineMedium
             ),
             const LegionStatCell(statType: StatType.attack),
@@ -53,7 +53,7 @@ class OuterLegionStatsTable extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Outer Legion Stats",
+              "Outer Legion Board Stats",
               style: Theme.of(context).textTheme.headlineMedium
             ),
             const LegionStatCell(statType: StatType.critDamage, isOuterBoard: true),
