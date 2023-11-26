@@ -261,6 +261,16 @@ enum LegionBlock {
       }
     }
   }
+
+  int characterLevelToPieceSize(int characterLevel) {
+    var statIndex = characterLevelToIndex(characterLevel);
+    if (statIndex == null) {
+      return 0;
+    }
+    else {
+      return statIndex + 1;
+    }
+  }
 }
 
 enum LegionBoardRank {
@@ -424,4 +434,23 @@ enum LegionBoardRank {
       return LegionBoardRank.values[levelToRank];
     }
   }
+
+  static Map<StatType, num> boardStatPerLevel = {
+    StatType.attack: 1,
+    StatType.mattack: 1,
+    StatType.str: 5,
+    StatType.dex: 5,
+    StatType.int: 5,
+    StatType.luk: 5,
+    StatType.hp: 250,
+    StatType.mp: 250,
+    StatType.critDamage: 0.005,
+    StatType.bossDamage: 0.01,
+    StatType.ignoreDefense: 0.01,
+    StatType.critRate: 0.01,
+    StatType.buffDuration: 0.01,
+    StatType.damageNormalMobs: 0.01,
+    StatType.statusResistance: 1,
+    StatType.expAdditional: 0.0025,
+  };
 }
