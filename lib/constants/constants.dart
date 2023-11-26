@@ -106,6 +106,8 @@ enum StatType {
   defense(formattedName: "Defense", description: "The higher your Defense, the less damage you take from enemies. Some enemy attacks can pierce through Defense. Determined by adding the total combined defense of your equipment to your base Defense."),
   dex(formattedName: "DEX", description: "DEX increases the attack strength of Bowmen and some Pirates"),
   exp(formattedName: "EXP", isPercentage: true),
+  expAdditional(formattedName: "EXP", isPercentage: true),
+  expMultiplicative(formattedName: "EXP", isPercentage: true),
   finalAttack(formattedName: "Flat Attack Power"),
   finalDamage(
     formattedName: "Final Damage", 
@@ -119,6 +121,13 @@ enum StatType {
   finalMAttack(formattedName: "Flat Magic Attack"),
   finalMp(formattedName: "Flat MP"),
   finalStr(formattedName: "Flat STR"),
+  finalStrDex(formattedName: "Flat STR & DEX"),
+  finalStrInt(formattedName: "Flat STR & INT"),
+  finalStrLuk(formattedName: "Flat STR & LUK"),
+  finalDexInt(formattedName: "Flat DEX & INT"),
+  finalDexLuk(formattedName: "Flat DEX & LUK"),
+  finalIntLuk(formattedName: "Flat INT & LUK"),
+  finalStrDexLuk(formattedName: "Flat STR & DEX & LUK"),
   hp(formattedName: "HP", description: "HP increases the attack strength of Demon Avenger. Max HP cap is 500,000."),
   hpMp(formattedName: "HP & MP"),
   ignoreDefense(
@@ -173,6 +182,7 @@ enum StatType {
   skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true),
   skipCooldownChance(formattedName: "Skip Cooldown Chance", isPercentage: true),
   attackSkillTargetIncrease(formattedName: "Attack Skill Target Increase"),
+  summonDuration(formattedName: "Summon Duration", isPercentage: true),
   mastery(formattedName: "Mastery", isPercentage: true),
   ;
 

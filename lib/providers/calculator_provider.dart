@@ -139,6 +139,28 @@ class CalculatorProvider with ChangeNotifier {
           case StatType.hpMpPercentage:
             tempStats[StatType.hpPercentage] = tempStats[StatType.hpPercentage]! + entry.value;
             tempStats[StatType.mpPercentage] = tempStats[StatType.mpPercentage]! + entry.value;
+          case StatType.finalStrDex:
+            totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
+            totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
+          case StatType.finalStrInt:
+            totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
+            totalStats[StatType.finalInt] = totalStats[StatType.finalInt]! + entry.value;
+          case StatType.finalStrLuk:
+            totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
+            totalStats[StatType.finalLuk] = totalStats[StatType.finalLuk]! + entry.value;
+          case StatType.finalDexInt:
+            totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
+            totalStats[StatType.finalInt] = totalStats[StatType.finalInt]! + entry.value;
+          case StatType.finalDexLuk:
+            totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
+            totalStats[StatType.finalLuk] = totalStats[StatType.finalLuk]! + entry.value;
+          case StatType.finalIntLuk:
+            totalStats[StatType.finalInt] = totalStats[StatType.finalInt]! + entry.value;
+            totalStats[StatType.finalLuk] = totalStats[StatType.finalLuk]! + entry.value;
+          case StatType.finalStrDexLuk:
+            totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
+            totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
+            totalStats[StatType.finalLuk] = totalStats[StatType.finalLuk]! + entry.value;
           case StatType.hp:
           case StatType.mp:
           case StatType.str:
