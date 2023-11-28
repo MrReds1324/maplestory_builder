@@ -3,7 +3,6 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';

@@ -139,7 +139,7 @@ class LegionStatCell extends StatelessWidget {
                   ),
                   const Spacer(),
                   Selector<LegionStatsProvider, int>(
-                    selector: (_, legionStatsProvider) => legionStatsProvider.legionBoardStatLevels[statType]!,
+                    selector: (_, legionStatsProvider) => legionStatsProvider.activeLegionSet.legionBoardStatLevels[statType]!,
                     builder: (context, data, child) {
                       return Text('$data');
                     }
@@ -216,7 +216,7 @@ class LegionStatButton extends StatelessWidget {
 MapleTooltip _getStatTooltip(StatType statType) {
 
   void onHover(BuildContext context) {
-    context.read<LegionStatsProvider>().getHoverStatTooltipText(statType);
+    context.read<LegionStatsProvider>().activeLegionSet.getHoverStatTooltipText(statType);
   }
 
   return MapleTooltip(
