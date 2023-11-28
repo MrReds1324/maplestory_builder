@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
@@ -221,7 +222,7 @@ class CharacterTile extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       iconSize: 19,
                       tooltip: isPlaced ? "Remove Character" : "Place Character",
-                      onPressed: () {
+                      onPressed: legionCharacter.legionCharacterLevel < 60 ? null : () {
                         var legionStatsProvider = context.read<LegionStatsProvider>();
                         isPlaced ? legionStatsProvider.removePlacedLegionCharacter(legionCharacter) : legionStatsProvider.placeLegionCharacter(legionCharacter);
                       }, 
@@ -320,7 +321,7 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
       child: Stack(
         children: <Widget>[
           Container(
-            width: 600,
+            width: 350,
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
@@ -342,23 +343,50 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
                   "Editing Legion Character",
                   style: Theme.of(context).textTheme.headlineMedium
                 ),
-                Consumer<LegionCharacterEditingProvider>(
-                  builder: (context, legionStatsProvider, child) {
-                    return DropdownButton(
-                      value: legionStatsProvider.editingLegionCharacter?.legionBlock,
-                      onChanged: (LegionBlock? newValue) {
-                        if (newValue != null) {
-                          context.read<LegionCharacterEditingProvider>().updatedLegionBlock(newValue);
-                        }
-                      },
-                      items: LegionBlock.values.map((LegionBlock value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value.formattedName),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Legion Block: '),
+                    Consumer<LegionCharacterEditingProvider>(
+                      builder: (context, legionStatsProvider, child) {
+                        return DropdownButton(
+                          value: legionStatsProvider.editingLegionCharacter?.legionBlock,
+                          onChanged: (LegionBlock? newValue) {
+                            if (newValue != null) {
+                              context.read<LegionCharacterEditingProvider>().updatedLegionBlock(newValue);
+                            }
+                          },
+                          items: LegionBlock.values.map((LegionBlock value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text(
+                                value.formattedName,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            );
+                          }).toList(),
                         );
-                      }).toList(),
-                    );
-                  }
+                      }
+                    ),
+                  ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Legion Block Level: '),
+                    SizedBox(
+                      width: 140,
+                      child: TextField(
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        controller: context.read<LegionCharacterEditingProvider>().levelTextController,
+                        onChanged: (value) => context.read<LegionCharacterEditingProvider>().updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d*')),
+                        ],
+                      )
+                    )
+                  ]
                 ),
                 Row(
                   children: [
