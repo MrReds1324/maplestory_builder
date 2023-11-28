@@ -132,6 +132,10 @@ class LegionStatsProvider with ChangeNotifier{
     // Repalce the old version of the character with the new one if we updated one that already exists
     else {
       allLegionCharacters[editingLegionCharacter.legionCharacterHash] = editingLegionCharacter;
+      // Recalculate the board coverage because it may have changed due to going up or down a rank
+      for (LegionModule legionModule in legionSets.values) {
+        legionModule.calculateMaximumBoardCoverage();
+      }
     }
     notifyListeners();
   }

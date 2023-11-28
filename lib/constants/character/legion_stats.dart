@@ -219,69 +219,6 @@ enum LegionBlock {
   final String formattedName;
   final (StatType, List<num>) legionEffect;
   static List<String> legionBlockRanks = ["F", "B", "A", "S", "SS", "SSS"];
-
-  int? characterLevelToIndex(int characterLevel) {
-    if (this == LegionBlock.zero) {
-      if (130 <= characterLevel && characterLevel <= 159) {
-        return 0;
-      }
-      else if (160 <= characterLevel && characterLevel <= 179) {
-        return 1;
-      }
-      else if (180 <= characterLevel && characterLevel <= 199) {
-        return 2;
-      }
-      else if (200 <= characterLevel && characterLevel <= 249) {
-        return 3;
-      }
-      else if (250 <= characterLevel) {
-        return 4;
-      }
-      else {
-        return null;
-      }
-    }
-    else {
-      if (60 <= characterLevel && characterLevel <= 99) {
-        return 0;
-      }
-      else if (100 <= characterLevel && characterLevel <= 139) {
-        return 1;
-      }
-      else if (140 <= characterLevel && characterLevel <= 199) {
-        return 2;
-      }
-      else if (200 <= characterLevel && characterLevel <= 249) {
-        return 3;
-      }
-      else if (250 <= characterLevel) {
-        return 4;
-      }
-      else {
-        return null;
-      }
-    }
-  }
-
-  int characterLevelToPieceSize(int characterLevel) {
-    var statIndex = characterLevelToIndex(characterLevel);
-    if (statIndex == null) {
-      return 0;
-    }
-    else {
-      return statIndex + 1;
-    }
-  }
-
-  String characterLevelToRank(int characterLevel) {
-    var rankIndex = characterLevelToIndex(characterLevel);
-    if (rankIndex == null) {
-      return legionBlockRanks[0];
-    }
-    else {
-      return legionBlockRanks[rankIndex + 1];
-    }
-  }
 }
 
 enum LegionBoardRank {

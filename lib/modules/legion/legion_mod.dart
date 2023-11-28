@@ -7,13 +7,14 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class LegionModule {
   // Used to track the characters placed on the board
-  List<int> placedCharacters;
+  late List<int> placedCharacters;
   // Used to track the highest level character for each block
-  Map<LegionBlock, int?> legionCharacters;
+  late Map<LegionBlock, int?> legionCharacters;
   LegionCharacter? Function(int? legionCharacterHash) getLegionCharacterCallback;
   LegionBoardRank? Function() getLegionBoardRankCallback;
   // This will be used to track the direct stats added via the board
-  Map<StatType, int> legionBoardStatLevels;
+  late Map<StatType, int> legionBoardStatLevels;
+  int maximumBoardCoverage = 0;
 
   Map<StatType, num>? cacheValue;
   Widget hoverTooltip = const SizedBox.shrink();
@@ -24,8 +25,8 @@ class LegionModule {
     Map<StatType, int>? legionBoardStatLevels,
     required this.getLegionCharacterCallback,
     required this.getLegionBoardRankCallback,
-  }) :
-    legionBoardStatLevels = legionBoardStatLevels ?? {
+  }) {
+    this.legionBoardStatLevels = legionBoardStatLevels ?? {
       StatType.attack: 0,
       StatType.mattack: 0,
       StatType.str: 0,
@@ -42,10 +43,11 @@ class LegionModule {
       StatType.damageNormalMobs: 0,
       StatType.statusResistance: 0,
       StatType.expAdditional: 0,
-    },
-    placedCharacters = placedCharacters ?? [],
-    legionCharacters = legionCharacters ?? _buildLegionMapping();
-
+    };
+    this.placedCharacters = placedCharacters ?? [];
+    this.legionCharacters = legionCharacters ?? _buildLegionMapping();
+    calculateMaximumBoardCoverage();
+  }
 
   LegionModule copyWith({
     List<int>? placedCharacters,
@@ -75,7 +77,7 @@ class LegionModule {
   (StatType, num) _getLegionCharacterValue(LegionCharacter legionCharacter) {
 
     var legionBlock = legionCharacter.legionBlock;
-    var indexValue = legionBlock.characterLevelToIndex(legionCharacter.legionCharacterLevel);
+    var indexValue = legionCharacter.characterLevelToIndex();
     if (indexValue != null) {
       return (legionBlock.legionEffect.$1, legionBlock.legionEffect.$2[indexValue]);
     }
@@ -118,6 +120,19 @@ class LegionModule {
     return LegionBoardRank.boardStatPerLevel[statType]! * (legionBoardStatLevels[statType] ?? 0);
   }
 
+  void calculateMaximumBoardCoverage() {
+    maximumBoardCoverage = 0;
+
+    for (int legionCharacterHash in placedCharacters) {
+      var legionCharacter = getLegionCharacterCallback(legionCharacterHash);
+      maximumBoardCoverage += legionCharacter?.characterLevelToPieceSize() ?? 0;
+    }
+  }
+
+  int get currentBoardCoverage {
+    return legionBoardStatLevels.values.fold(0, (previous, current) => previous + current);
+  }
+
   List<LegionCharacter> getPlacedCharacters() {
     List<LegionCharacter> returnValue = [];
 
@@ -133,8 +148,9 @@ class LegionModule {
 
   bool addLegionStatLevels(int levelsToAdd, StatType statType, {bool isOuterBoard = false}) {
     var legionBoardRank = getLegionBoardRankCallback();
+    var currentCoverage = currentBoardCoverage;
 
-    if (legionBoardRank == null) {
+    if (legionBoardRank == null || currentCoverage == maximumBoardCoverage) {
       return false;
     }
 
@@ -145,6 +161,7 @@ class LegionModule {
         return false;
       }
 
+      levelsToAdd = min(maximumBoardCoverage - currentCoverage, levelsToAdd);
       levelsToAdd = min(legionBoardRank.outerRegionAmount - currentStatLevel, levelsToAdd);
     }
     else {
@@ -152,6 +169,7 @@ class LegionModule {
         return false;
       }
 
+      levelsToAdd = min(maximumBoardCoverage - currentCoverage, levelsToAdd);
       levelsToAdd = min(legionBoardRank.innerRegionAmount - currentStatLevel, levelsToAdd);
     }
 
@@ -189,6 +207,8 @@ class LegionModule {
 
     placedCharacters.add(legionCharacter.legionCharacterHash);
 
+    calculateMaximumBoardCoverage();
+
     var currentHighestLevel = getLegionCharacterCallback(legionCharacters[legionCharacter.legionBlock]);
     if (currentHighestLevel == null || currentHighestLevel.legionCharacterLevel < legionCharacter.legionCharacterLevel) {
       legionCharacters[legionCharacter.legionBlock] = legionCharacter.legionCharacterHash;
@@ -221,6 +241,8 @@ class LegionModule {
 
       legionCharacters[removingLegionCharacter.legionBlock] = currentHighestLevel?.legionCharacterHash;
     }
+
+    calculateMaximumBoardCoverage();
 
     return true;
   }
@@ -284,5 +306,68 @@ class LegionCharacter {
 
   Widget createLegionCharacterContainer(BuildContext context) {
     return const SizedBox.shrink();
+  }
+
+  int? characterLevelToIndex() {
+    if (legionBlock == LegionBlock.zero) {
+      if (130 <= legionCharacterLevel && legionCharacterLevel <= 159) {
+        return 0;
+      }
+      else if (160 <= legionCharacterLevel && legionCharacterLevel <= 179) {
+        return 1;
+      }
+      else if (180 <= legionCharacterLevel && legionCharacterLevel <= 199) {
+        return 2;
+      }
+      else if (200 <= legionCharacterLevel && legionCharacterLevel <= 249) {
+        return 3;
+      }
+      else if (250 <= legionCharacterLevel) {
+        return 4;
+      }
+      else {
+        return null;
+      }
+    }
+    else {
+      if (60 <= legionCharacterLevel && legionCharacterLevel <= 99) {
+        return 0;
+      }
+      else if (100 <= legionCharacterLevel && legionCharacterLevel <= 139) {
+        return 1;
+      }
+      else if (140 <= legionCharacterLevel && legionCharacterLevel <= 199) {
+        return 2;
+      }
+      else if (200 <= legionCharacterLevel && legionCharacterLevel <= 249) {
+        return 3;
+      }
+      else if (250 <= legionCharacterLevel) {
+        return 4;
+      }
+      else {
+        return null;
+      }
+    }
+  }
+
+  int characterLevelToPieceSize() {
+    var statIndex = characterLevelToIndex();
+    if (statIndex == null) {
+      return 0;
+    }
+    else {
+      return statIndex + 1;
+    }
+  }
+
+  String characterLevelToRank() {
+    var rankIndex = characterLevelToIndex();
+    if (rankIndex == null) {
+      return LegionBlock.legionBlockRanks[0];
+    }
+    else {
+      return LegionBlock.legionBlockRanks[rankIndex + 1];
+    }
   }
 }

@@ -176,7 +176,7 @@ class CharacterTile extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      legionCharacter.legionBlock.characterLevelToRank(legionCharacter.legionCharacterLevel),
+                      legionCharacter.characterLevelToRank(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 36),
                     ),
                     const Spacer(),

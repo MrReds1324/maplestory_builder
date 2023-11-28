@@ -71,6 +71,28 @@ class OuterLegionStatsTable extends StatelessWidget {
   }
 }
 
+class LegionRankWidget extends StatelessWidget {
+  const LegionRankWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Selector<LegionStatsProvider, (int, int)>(
+      selector: (_, legionStatsProvider) => (
+        legionStatsProvider.activeLegionSet.currentBoardCoverage, 
+        legionStatsProvider.activeLegionSet.maximumBoardCoverage,
+      ),
+      builder: (context, data, child) {
+        return Text(
+          '${data.$1}/${data.$2} Maximum Board Coverage Potential',
+          style: TextStyle(
+            color: data.$1 > data.$2 ?Colors.red: null,
+          ),
+        );
+      }
+    );
+  }
+}
+
 class LegionStatCell extends StatelessWidget {
   final StatType statType;
   final bool isOuterBoard;
