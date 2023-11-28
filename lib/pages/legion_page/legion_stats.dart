@@ -223,7 +223,7 @@ MapleTooltip _getStatTooltip(StatType statType) {
     tooltipTitle: statType.formattedName,
     tooltipWidgets: [
       Selector<LegionStatsProvider, Widget>(
-        selector: (_, legionStatsProvider) => legionStatsProvider.hoverTooltip,
+        selector: (_, legionStatsProvider) => legionStatsProvider.activeLegionSet.hoverTooltip,
         builder: (context, data, child) {
           return data;
         }
