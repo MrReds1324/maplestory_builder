@@ -24,7 +24,7 @@ class LegionCharacterEditingProvider with ChangeNotifier {
 
   void addEditingLegionCharacter({LegionCharacter? legionCharacter}) {
     if (legionCharacter == null) {
-      editingLegionCharacter = LegionCharacter(legionBlock: LegionBlock.adele);
+      editingLegionCharacter = LegionCharacter(legionBlock: LegionBlock.nothing);
     }
     else {
       editingLegionCharacter = legionCharacter.copyWith();

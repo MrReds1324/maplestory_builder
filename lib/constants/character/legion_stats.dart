@@ -218,6 +218,7 @@ enum LegionBlock {
 
   final String formattedName;
   final (StatType, List<num>) legionEffect;
+  static List<String> legionBlockRanks = ["F", "B", "A", "S", "SS", "SSS"];
 
   int? characterLevelToIndex(int characterLevel) {
     if (this == LegionBlock.zero) {
@@ -269,6 +270,16 @@ enum LegionBlock {
     }
     else {
       return statIndex + 1;
+    }
+  }
+
+  String characterLevelToRank(int characterLevel) {
+    var rankIndex = characterLevelToIndex(characterLevel);
+    if (rankIndex == null) {
+      return legionBlockRanks[0];
+    }
+    else {
+      return legionBlockRanks[rankIndex + 1];
     }
   }
 }

@@ -109,6 +109,14 @@ class LegionStatsProvider with ChangeNotifier{
     }
   }
 
+  void removeLegionCharacter(LegionCharacter? legionCharacter) {
+    var didRemove = activeLegionSet.removeLegionCharacter(legionCharacter);
+    
+    if (didRemove) {
+      notifyListeners();
+    }
+  }
+
   void saveEditingLegionCharacter(LegionCharacter? editingLegionCharacter) {
     // Nothing to actually save, return immediately
     if (editingLegionCharacter == null) {
