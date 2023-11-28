@@ -162,7 +162,7 @@ class CharacterTile extends StatelessWidget {
               MdiIcons.accountBox,
               size: 96,
             ),
-            const Text("Placed Character"),
+            const Text("Character"),
           ]
         ),
       ),
