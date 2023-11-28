@@ -195,7 +195,17 @@ class AddCharacterButton extends StatelessWidget {
           const Text("Add Character"),
           const Spacer(),
           IconButton(
-            onPressed: () => (), 
+            onPressed: () {
+              showDialog(context: context,
+                builder: (BuildContext context){
+                return const AddCharacterDialogBox(
+                  title: "Custom Dialog Demo",
+                  descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
+                  text: "Yes",
+                );
+                }
+              );
+            }, 
             icon: Icon(
               MdiIcons.plusBoxOutline,
               size: 96,
@@ -203,6 +213,78 @@ class AddCharacterButton extends StatelessWidget {
           ),
           const Spacer(flex: 2),
         ]
+      ),
+    );
+  }
+}
+
+class AddCharacterDialogBox extends StatefulWidget {
+  final String title, descriptions, text;
+
+  const AddCharacterDialogBox({
+    super.key, 
+    required this.title, 
+    required this.descriptions, 
+    required this.text
+  });
+
+  @override
+  AddCharacterDialogBoxState createState() => AddCharacterDialogBoxState();
+}
+
+class AddCharacterDialogBoxState extends State<AddCharacterDialogBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: 600,
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(top: 5),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black,
+                  offset: Offset(0,10),
+                  blurRadius: 10
+                ),
+              ]
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  widget.title,
+                  style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 15,),
+                Text(
+                  widget.descriptions,style: 
+                  const TextStyle(fontSize: 14),
+                  textAlign: TextAlign.center
+                ),
+                const SizedBox(height: 22,),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(widget.text,style: TextStyle(fontSize: 18),)),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
