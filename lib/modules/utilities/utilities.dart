@@ -140,8 +140,8 @@ class _ChangeNotifierProvider<T extends ChangeNotifier?>
           child: child,
         );
 
-  // ignore: unused_element
   /// Provides an existing [ChangeNotifier].
+  // ignore: unused_element
   _ChangeNotifierProvider.value({
     Key? key,
     required T value,

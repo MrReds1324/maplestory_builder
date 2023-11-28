@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
-import 'package:maplestory_builder/providers/character/legion_stats_provider.dart';
+import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:provider/provider.dart';
 

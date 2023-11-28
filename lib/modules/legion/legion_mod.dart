@@ -163,7 +163,48 @@ class LegionModule {
     return true;
   }
 
-  
+  bool placeLegionCharacter(LegionCharacter? legionCharacter) {
+    // Only place the same character once
+    if (legionCharacter == null || placedCharacters.contains(legionCharacter.legionCharacterHash)) {
+      return false;
+    }
+    // Only place characters up to the maximum allowed by the board rank
+    var legionBoardRank = getLegionBoardRankCallback();
+    if (legionBoardRank == null || legionBoardRank.legionMembers == placedCharacters.length) {
+      return false;
+    }
+
+    placedCharacters.add(legionCharacter.legionCharacterHash);
+
+    var currentHighestLevel = getLegionCharacterCallback(legionCharacters[legionCharacter.legionBlock]);
+    if (currentHighestLevel == null || currentHighestLevel.legionCharacterLevel < legionCharacter.legionCharacterLevel) {
+      legionCharacters[legionCharacter.legionBlock] = legionCharacter.legionCharacterHash;
+    }
+
+    return true;
+  }
+
+  void deleteLegionCharacter(LegionCharacter deletingLegionCharacter) {
+    // Remove the hash from our tracked hashes
+    placedCharacters.remove(deletingLegionCharacter.legionCharacterHash);
+    // Check that the character we are deleting is the highest level character for the legion block,
+    // if it is then we find the next highest level for the legion block we just removed (if any)
+    var activeLegionBlock = legionCharacters[deletingLegionCharacter.legionBlock]!;
+    if (activeLegionBlock == deletingLegionCharacter.legionCharacterHash) {
+      LegionCharacter? currentHighestLevel;
+      for (int placedLegionHash in placedCharacters) {
+        var newLegionCharacter = getLegionCharacterCallback(placedLegionHash);
+        if (newLegionCharacter == null) {
+          continue;
+        }
+        else if ((newLegionCharacter.legionBlock == deletingLegionCharacter.legionBlock) && (newLegionCharacter.legionCharacterLevel >= (currentHighestLevel?.legionCharacterLevel ?? 0))) {
+          currentHighestLevel = newLegionCharacter;
+        }
+      }
+
+      legionCharacters[deletingLegionCharacter.legionBlock] = currentHighestLevel?.legionCharacterHash;
+    }
+  }
 
   void getHoverStatTooltipText(StatType statType) {
     Widget? statDescription;
@@ -202,23 +243,23 @@ class LegionModule {
 class LegionCharacter {
   LegionBlock legionBlock;
   int legionCharacterLevel;
-  int legionHash;
+  int legionCharacterHash;
 
   LegionCharacter({
     required this.legionBlock,
-    required this.legionCharacterLevel,
-    this.legionHash = -1
+    this.legionCharacterLevel = 0,
+    this.legionCharacterHash = -1
   });
 
   LegionCharacter copyWith({
     LegionBlock? legionBlock,
     int? legionCharacterLevel,
-    int? legionHash,
+    int? legionCharacterHash,
   }) {
     return LegionCharacter(
       legionBlock: legionBlock ?? this.legionBlock,
       legionCharacterLevel: legionCharacterLevel ?? this.legionCharacterLevel,
-      legionHash: legionHash ?? this.legionHash,
+      legionCharacterHash: legionCharacterHash ?? this.legionCharacterHash,
     );
   }
 }

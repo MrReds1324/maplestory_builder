@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
+import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
+import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -125,8 +128,8 @@ class AvailableCharacters extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
-                  child: AddCharacterButton()
+                  padding: const EdgeInsets.all(5),
+                  child: const AddCharacterButton()
                 )
               ]
             ),
@@ -195,13 +198,10 @@ class AddCharacterButton extends StatelessWidget {
           const Spacer(),
           IconButton(
             onPressed: () {
+              context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter();
               showDialog(context: context,
                 builder: (BuildContext context){
-                return const AddCharacterDialogBox(
-                  title: "Custom Dialog Demo",
-                  descriptions: "Hii all this is a custom dialog in flutter and  you will be use in your flutter applications",
-                  text: "Yes",
-                );
+                  return const EditCharacterDialogBox();
                 }
               );
             }, 
@@ -217,21 +217,17 @@ class AddCharacterButton extends StatelessWidget {
   }
 }
 
-class AddCharacterDialogBox extends StatefulWidget {
-  final String title, descriptions, text;
+class EditCharacterDialogBox extends StatefulWidget {
 
-  const AddCharacterDialogBox({
+  const EditCharacterDialogBox({
     super.key, 
-    required this.title, 
-    required this.descriptions, 
-    required this.text
   });
 
   @override
-  AddCharacterDialogBoxState createState() => AddCharacterDialogBoxState();
+  EditCharacterDialogBoxState createState() => EditCharacterDialogBoxState();
 }
 
-class AddCharacterDialogBoxState extends State<AddCharacterDialogBox> {
+class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -262,23 +258,43 @@ class AddCharacterDialogBoxState extends State<AddCharacterDialogBox> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  widget.title,
-                  style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w600),
+                  "Editing Legion Character",
+                  style: Theme.of(context).textTheme.headlineMedium
                 ),
-                const SizedBox(height: 15,),
-                Text(
-                  widget.descriptions,style: 
-                  const TextStyle(fontSize: 14),
-                  textAlign: TextAlign.center
+                Consumer<LegionCharacterEditingProvider>(
+                  builder: (context, legionStatsProvider, child) {
+                    return DropdownButton(
+                      value: legionStatsProvider.editingLegionCharacter?.legionBlock,
+                      onChanged: (LegionBlock? newValue) {
+                        if (newValue != null) {
+                          context.read<LegionCharacterEditingProvider>().updatedLegionBlock(newValue);
+                        }
+                      },
+                      items: LegionBlock.values.map((LegionBlock value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: Text(value.formattedName),
+                        );
+                      }).toList(),
+                    );
+                  }
                 ),
-                const SizedBox(height: 22,),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(widget.text,style: TextStyle(fontSize: 18),)),
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Cancel"),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Save"),
+                    ),
+                  ],
                 ),
               ],
             ),

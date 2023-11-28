@@ -85,7 +85,7 @@ class HyperStatsProvider with ChangeNotifier {
       StatType.damageNormalMobs: getStatValue(StatType.damageNormalMobs),
       StatType.statusResistance: getStatValue(StatType.statusResistance),
       StatType.attackMattack: getStatValue(StatType.attackMattack),
-      StatType.exp: getStatValue(StatType.exp),
+      StatType.expAdditional: getStatValue(StatType.exp),
       StatType.arcaneForce: getStatValue(StatType.arcaneForce),
     };
   }

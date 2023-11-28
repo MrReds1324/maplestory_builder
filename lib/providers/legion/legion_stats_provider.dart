@@ -33,7 +33,7 @@ class LegionStatsProvider with ChangeNotifier{
       0: LegionCharacter(
         legionBlock: characterProvider.characterClass.legionBlock,
         legionCharacterLevel: characterProvider.characterLevel,
-        legionHash: 0,
+        legionCharacterHash: 0,
       )
     };
     this.legionSets = legionSets ?? {
@@ -55,7 +55,7 @@ class LegionStatsProvider with ChangeNotifier{
     return LegionStatsProvider(
       characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       legionBoardRank: legionBoardRank ?? this.legionBoardRank,
-      allLegionCharacters: allLegionCharacters ?? this.allLegionCharacters, // TODO: deepcopy
+      allLegionCharacters: allLegionCharacters ?? Map<int, LegionCharacter>.of(this.allLegionCharacters), // TODO: deepcopy?
       legionCharacterHash: legionCharacterHash ?? this.legionCharacterHash,
     );
   }
@@ -99,5 +99,39 @@ class LegionStatsProvider with ChangeNotifier{
       cacheValue = null;
       notifyListeners();
     }
+  }
+
+  void placeLegionCharacter(LegionCharacter? legionCharacter) {
+    var didPlace = activeLegionSet.placeLegionCharacter(legionCharacter);
+    
+    if (didPlace) {
+      notifyListeners();
+    }
+  }
+
+  void saveEditingLegionCharacter(LegionCharacter? editingLegionCharacter) {
+    // Nothing to actually save, return immediately
+    if (editingLegionCharacter == null) {
+      return;
+    }
+    
+    // New equip that cannot be equipped
+    if (editingLegionCharacter.legionCharacterHash == -1) {
+      editingLegionCharacter.legionCharacterHash = legionCharacterHash;
+      allLegionCharacters[editingLegionCharacter.legionCharacterHash] = editingLegionCharacter;
+      legionCharacterHash++;
+    }
+    // Repalce the old version of the item with the new one if we updated one that already exists
+    else {
+      allLegionCharacters[editingLegionCharacter.legionCharacterHash] = editingLegionCharacter;
+    }
+    notifyListeners();
+  }
+
+  void changeActiveSet(int legionSetPosition) {
+    activeSetNumber = legionSetPosition;
+    activeLegionSet = legionSets[legionSetPosition]!;
+
+    notifyListeners();
   }
 }

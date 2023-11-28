@@ -3,7 +3,7 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/legion_page/legion_characters.dart';
 import 'package:maplestory_builder/pages/legion_page/legion_stats.dart';
-import 'package:maplestory_builder/providers/character/legion_stats_provider.dart';
+import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +84,7 @@ class LegionStatSelectButton extends StatelessWidget {
   }
 
   void _onHover(BuildContext context){
-    // context.read<DifferenceCalculatorProvider>().compareHyperStats(context, hyperStatPosition);
+    // context.read<DifferenceCalculatorProvider>().compareLegionStats(context, legionStatPosition);
   }
 
   @override
@@ -100,8 +100,7 @@ class LegionStatSelectButton extends StatelessWidget {
         padding: const EdgeInsets.all(1),
         constraints: const BoxConstraints(),
         iconSize: 19,
-        onPressed: () => (),
-        // onPressed: () => context.read<LegionStatsProvider>().changeActiveSet(hyperStatPosition), 
+        onPressed: () => context.read<LegionStatsProvider>().changeActiveSet(legionStatPosition), 
         icon: Consumer<LegionStatsProvider>(
           builder: (_, legionStatsProvider, __) {
             return Icon(
