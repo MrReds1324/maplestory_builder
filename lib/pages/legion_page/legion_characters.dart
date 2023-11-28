@@ -105,7 +105,7 @@ class AvailableCharacters extends StatelessWidget {
                 Expanded(
                   child: Consumer<LegionStatsProvider>(
                     builder: (context, legionStatsProvider, child) {
-                      var allLegionCharactersList = legionStatsProvider.allLegionCharacters.values.toList();
+                      var allLegionCharactersList = legionStatsProvider.getUnplacedLegionCharacters();
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: allLegionCharactersList.length,
@@ -210,7 +210,9 @@ class CharacterTile extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       iconSize: 19,
                       tooltip: "Delete Character",
-                      onPressed: legionCharacter.legionCharacterHash == 0 ? null : () => (), 
+                      onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
+                        context.read<LegionStatsProvider>().deleteLegionCharacter(legionCharacter);
+                      }, 
                       icon: Icon(MdiIcons.trashCan),
                     ),
                     const Spacer(),
@@ -219,7 +221,10 @@ class CharacterTile extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       iconSize: 19,
                       tooltip: isPlaced ? "Remove Character" : "Place Character",
-                      onPressed: () => isPlaced ? context.read<LegionStatsProvider>().removeLegionCharacter(legionCharacter) : context.read<LegionStatsProvider>().placeLegionCharacter(legionCharacter), 
+                      onPressed: () {
+                        var legionStatsProvider = context.read<LegionStatsProvider>();
+                        isPlaced ? legionStatsProvider.removePlacedLegionCharacter(legionCharacter) : legionStatsProvider.placeLegionCharacter(legionCharacter);
+                      }, 
                       icon: isPlaced ? Icon(MdiIcons.minusThick) : Icon(MdiIcons.plusThick),
                     ),
                     const Spacer(),
@@ -228,7 +233,14 @@ class CharacterTile extends StatelessWidget {
                       constraints: const BoxConstraints(),
                       iconSize: 19,
                       tooltip: "Edit Character",
-                      onPressed: legionCharacter.legionCharacterHash == 0 ? null : () => (), 
+                      onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
+                        context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter(legionCharacter: legionCharacter);
+                        showDialog(context: context,
+                          builder: (BuildContext context){
+                            return const EditCharacterDialogBox();
+                          }
+                        );
+                      },
                       icon: Icon(MdiIcons.accountEdit),
                     ),
                   ]

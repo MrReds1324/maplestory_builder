@@ -18,7 +18,6 @@ class LegionStatsProvider with ChangeNotifier{
   // 0 is a reserved hash, for the character this whole program is about
   int legionCharacterHash = 1;
 
-  Map<StatType, num>? cacheValue;
   Widget hoverTooltip = const SizedBox.shrink();
 
   LegionStatsProvider({
@@ -61,7 +60,6 @@ class LegionStatsProvider with ChangeNotifier{
   }
 
   LegionStatsProvider update(CharacterProvider characterProvider) {
-    cacheValue = null;
     allLegionCharacters[0]!.legionCharacterLevel = characterProvider.characterLevel;
     allLegionCharacters[0]!.legionBlock = characterProvider.characterClass.legionBlock;
     calculateStats();
@@ -78,25 +76,17 @@ class LegionStatsProvider with ChangeNotifier{
   }
 
   Map<StatType, num> calculateStats() {
-    if (cacheValue != null) {
-      return cacheValue!;
-    }
-    else {
-      cacheValue = activeLegionSet.calculateModuleStats();
-      return cacheValue!;
-    }
+    return activeLegionSet.calculateModuleStats();
   }
 
   void addLegionStatLevels(int levelsToAdd, StatType statType, {bool isOuterBoard = false}) {
     if (activeLegionSet.addLegionStatLevels(levelsToAdd, statType, isOuterBoard: isOuterBoard)) {
-      cacheValue = null;
       notifyListeners();
     }
   }
 
   void subtractLegionStatLevels(int levelsToSubtract, StatType statType, {bool isOuterBoard = false}) {
     if (activeLegionSet.subtractLegionStatLevels(levelsToSubtract, statType, isOuterBoard: isOuterBoard)) {
-      cacheValue = null;
       notifyListeners();
     }
   }
@@ -109,12 +99,22 @@ class LegionStatsProvider with ChangeNotifier{
     }
   }
 
-  void removeLegionCharacter(LegionCharacter? legionCharacter) {
+  void removePlacedLegionCharacter(LegionCharacter? legionCharacter) {
     var didRemove = activeLegionSet.removeLegionCharacter(legionCharacter);
     
     if (didRemove) {
       notifyListeners();
     }
+  }
+
+  void deleteLegionCharacter(LegionCharacter legionCharacter) {
+    allLegionCharacters.remove(legionCharacter.legionCharacterHash);
+
+    for (LegionModule legionModule in legionSets.values) {
+      legionModule.removeLegionCharacter(legionCharacter);
+    }
+
+    notifyListeners();
   }
 
   void saveEditingLegionCharacter(LegionCharacter? editingLegionCharacter) {
@@ -123,17 +123,30 @@ class LegionStatsProvider with ChangeNotifier{
       return;
     }
     
-    // New equip that cannot be equipped
+    // New legion Character
     if (editingLegionCharacter.legionCharacterHash == -1) {
       editingLegionCharacter.legionCharacterHash = legionCharacterHash;
       allLegionCharacters[editingLegionCharacter.legionCharacterHash] = editingLegionCharacter;
       legionCharacterHash++;
     }
-    // Repalce the old version of the item with the new one if we updated one that already exists
+    // Repalce the old version of the character with the new one if we updated one that already exists
     else {
       allLegionCharacters[editingLegionCharacter.legionCharacterHash] = editingLegionCharacter;
     }
     notifyListeners();
+  }
+
+  List<LegionCharacter> getUnplacedLegionCharacters() {
+    List<LegionCharacter> returnValue = [];
+
+    var placedLegionCharacters = activeLegionSet.placedCharacters;
+    for (LegionCharacter legionCharacter in allLegionCharacters.values) {
+      if (!placedLegionCharacters.contains(legionCharacter.legionCharacterHash)) {
+        returnValue.add(legionCharacter);
+      }
+    }
+
+    return returnValue;
   }
 
   void changeActiveSet(int legionSetPosition) {

@@ -201,12 +201,12 @@ class LegionModule {
     if (removingLegionCharacter == null) {
       return false;
     }
-    
+
     // Remove the hash from our tracked hashes
     placedCharacters.remove(removingLegionCharacter.legionCharacterHash);
     // Check that the character we are deleting is the highest level character for the legion block,
     // if it is then we find the next highest level for the legion block we just removed (if any)
-    var activeLegionBlock = legionCharacters[removingLegionCharacter.legionBlock]!;
+    var activeLegionBlock = legionCharacters[removingLegionCharacter.legionBlock];
     if (activeLegionBlock == removingLegionCharacter.legionCharacterHash) {
       LegionCharacter? currentHighestLevel;
       for (int placedLegionHash in placedCharacters) {
