@@ -44,6 +44,7 @@ class LegionPage extends StatelessWidget {
             ),
             const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InnerLegionStatsTable(),
                 OuterLegionStatsTable(),

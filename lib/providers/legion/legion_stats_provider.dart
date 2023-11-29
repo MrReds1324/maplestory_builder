@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
@@ -17,12 +19,13 @@ class LegionStatsProvider with ChangeNotifier{
   int activeSetNumber = 1;
   // 0 is a reserved hash, for the character this whole program is about
   int legionCharacterHash = 1;
+  int totalCharacterLevels = 0;
 
   Widget hoverTooltip = const SizedBox.shrink();
 
   LegionStatsProvider({
     required this.characterProvider,
-    this.legionBoardRank = LegionBoardRank.legendaryLegionR2,
+    this.legionBoardRank,
     this.legionCharacterHash = 1,
     Map<int, LegionModule>? legionSets,
     Map<int, LegionCharacter>? allLegionCharacters,
@@ -43,6 +46,7 @@ class LegionStatsProvider with ChangeNotifier{
       5: LegionModule(getLegionBoardRankCallback: getLegionBoardRankCallback, getLegionCharacterCallback: getLegionCharacterCallback),
     };
     this.activeLegionSet = activeLegionSet ?? this.legionSets[activeSetNumber]!;
+    calculateLegionBoardRank();
   }
 
   LegionStatsProvider copyWith({
@@ -62,6 +66,7 @@ class LegionStatsProvider with ChangeNotifier{
   LegionStatsProvider update(CharacterProvider characterProvider) {
     allLegionCharacters[0]!.legionCharacterLevel = characterProvider.characterLevel;
     allLegionCharacters[0]!.legionBlock = characterProvider.characterClass.legionBlock;
+    calculateLegionBoardRank();
     calculateStats();
     notifyListeners();
     return this;
@@ -114,7 +119,16 @@ class LegionStatsProvider with ChangeNotifier{
       legionModule.removeLegionCharacter(legionCharacter);
     }
 
+    calculateLegionBoardRank();
+
     notifyListeners();
+  }
+
+  void calculateLegionBoardRank() {
+    var sortedCharacters = allLegionCharacters.values.toList()..sort(LegionCharacter.comparator);
+    sortedCharacters = sortedCharacters.sublist(0, min(42, sortedCharacters.length));
+    totalCharacterLevels = sortedCharacters.fold(0, (int previous, LegionCharacter current) => previous + current.legionCharacterLevel);
+    legionBoardRank = LegionBoardRank.getLegionBoardRank(totalCharacterLevels);
   }
 
   void saveEditingLegionCharacter(LegionCharacter? editingLegionCharacter) {
@@ -137,6 +151,7 @@ class LegionStatsProvider with ChangeNotifier{
         legionModule.calculateMaximumBoardCoverage();
       }
     }
+    calculateLegionBoardRank();
     notifyListeners();
   }
 

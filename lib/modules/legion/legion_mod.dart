@@ -308,6 +308,18 @@ class LegionCharacter {
     return const SizedBox.shrink();
   }
 
+  static int comparator(LegionCharacter a, LegionCharacter b) {
+    if (a.legionCharacterLevel < b.legionCharacterLevel) {
+      return 1;
+    }
+    else if (a.legionCharacterLevel < b.legionCharacterLevel) {
+      return -1;
+    }
+    else {
+      return 0;
+    }
+  }
+
   int? characterLevelToIndex() {
     if (legionBlock == LegionBlock.zero) {
       if (130 <= legionCharacterLevel && legionCharacterLevel <= 159) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
@@ -76,19 +77,52 @@ class LegionRankWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<LegionStatsProvider, (int, int)>(
-      selector: (_, legionStatsProvider) => (
-        legionStatsProvider.activeLegionSet.currentBoardCoverage, 
-        legionStatsProvider.activeLegionSet.maximumBoardCoverage,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Container(
+        width: 455,
+        height: 382,
+        padding: const EdgeInsets.all(5),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Selector<LegionStatsProvider, (LegionBoardRank?, int)>(
+              selector: (_, legionStatsProvider) => (
+                legionStatsProvider.legionBoardRank,
+                legionStatsProvider.totalCharacterLevels
+              ),
+              builder: (context, data, child) {
+                return Column(
+                  children: [
+                    Text(
+                      data.$1?.formattedName ?? " No Rank",
+                      style: Theme.of(context).textTheme.headlineMedium
+                    ),
+                    Text(
+                      "Total Legion: ${data.$2}",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    )
+                  ]
+                );
+              }
+            ),
+            Selector<LegionStatsProvider, (int, int)>(
+              selector: (_, legionStatsProvider) => (
+                legionStatsProvider.activeLegionSet.currentBoardCoverage, 
+                legionStatsProvider.activeLegionSet.maximumBoardCoverage,
+              ),
+              builder: (context, data, child) {
+                return Text(
+                  '${data.$1}/${data.$2} Maximum Board Coverage Potential',
+                  style: TextStyle(
+                    color: data.$1 > data.$2 ?Colors.red: null,
+                  ),
+                );
+              }
+            ),
+          ],
+        ),
       ),
-      builder: (context, data, child) {
-        return Text(
-          '${data.$1}/${data.$2} Maximum Board Coverage Potential',
-          style: TextStyle(
-            color: data.$1 > data.$2 ?Colors.red: null,
-          ),
-        );
-      }
     );
   }
 }

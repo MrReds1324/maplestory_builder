@@ -16,7 +16,7 @@ class LegionCharacterEditingProvider with ChangeNotifier {
 
   // Used to accurately modify/update the value in the level text controllers when loading an legion character
   // that already has a value in the levels
-  TextEditingController levelTextController = TextEditingController();
+  TextEditingController levelTextController = TextEditingController(text: "0");
 
   LegionCharacterEditingProvider({
     this.editingLegionCharacter
