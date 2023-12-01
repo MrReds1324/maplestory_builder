@@ -61,7 +61,18 @@ class LegionCharacterEditingProvider with ChangeNotifier {
 
   void updatedLegionBlock(LegionBlock legionBlock) {
     if (editingLegionCharacter != null) {
-      editingLegionCharacter!.legionBlock = legionBlock;
+      switch (legionBlock) {
+        case LegionBlock.labServer:
+          editingLegionCharacter!.legionBlock = legionBlock;
+          editingLegionCharacter!.legionCharacterLevel = 200;
+          levelTextController.text = "200";
+        case LegionBlock.enhancedLabServer:
+          editingLegionCharacter!.legionBlock = legionBlock;
+          editingLegionCharacter!.legionCharacterLevel = 250;
+          levelTextController.text = "250";
+        default:
+          editingLegionCharacter!.legionBlock = legionBlock;
+      }
       updateCounter += 1;
       notifyListeners();
     }

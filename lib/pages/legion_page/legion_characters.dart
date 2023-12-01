@@ -376,15 +376,20 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
                     const Text('Legion Block Level: '),
                     SizedBox(
                       width: 140,
-                      child: TextField(
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        controller: context.read<LegionCharacterEditingProvider>().levelTextController,
-                        onChanged: (value) => context.read<LegionCharacterEditingProvider>().updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp(r'^\d*')),
-                        ],
-                      )
+                      child: Consumer<LegionCharacterEditingProvider>(
+                        builder: (_, legionCharacterEditingProvider, __) {
+                          return TextField(
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            enabled: !{LegionBlock.labServer, LegionBlock.enhancedLabServer}.contains(legionCharacterEditingProvider.editingLegionCharacter?.legionBlock),
+                            controller: legionCharacterEditingProvider.levelTextController,
+                            onChanged: (value) => legionCharacterEditingProvider.updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d*')),
+                            ],
+                          );
+                        }
+                      ),
                     )
                   ]
                 ),
