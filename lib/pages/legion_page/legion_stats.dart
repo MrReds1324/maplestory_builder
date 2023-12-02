@@ -108,6 +108,20 @@ class LegionRankWidget extends StatelessWidget {
             ),
             Selector<LegionStatsProvider, (int, int)>(
               selector: (_, legionStatsProvider) => (
+                legionStatsProvider.activeLegionSet.placedCharacters.length,
+                legionStatsProvider.legionBoardRank?.legionMembers ?? 0,
+              ),
+              builder: (context, data, child) {
+                return Text(
+                  '${data.$1}/${data.$2} Placed Characters',
+                  style: TextStyle(
+                    color: data.$1 > data.$2 ?Colors.red: null,
+                  ),
+                );
+              }
+            ),
+            Selector<LegionStatsProvider, (int, int)>(
+              selector: (_, legionStatsProvider) => (
                 legionStatsProvider.activeLegionSet.currentBoardCoverage, 
                 legionStatsProvider.activeLegionSet.maximumBoardCoverage,
               ),

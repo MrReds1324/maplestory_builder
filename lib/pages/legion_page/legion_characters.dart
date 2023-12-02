@@ -376,11 +376,13 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
                     const Text('Legion Block Level: '),
                     SizedBox(
                       width: 140,
-                      child: Consumer<LegionCharacterEditingProvider>(
-                        builder: (_, legionCharacterEditingProvider, __) {
+                      child: Selector<LegionCharacterEditingProvider, LegionBlock?>(
+                        selector: (_, legionCharacterEditingProvider) => legionCharacterEditingProvider.editingLegionCharacter?.legionBlock,
+                        builder: (_, legionBlock, __) {
+                          var legionCharacterEditingProvider = context.read<LegionCharacterEditingProvider>();
                           return TextField(
                             style: Theme.of(context).textTheme.bodyMedium,
-                            enabled: !{LegionBlock.labServer, LegionBlock.enhancedLabServer}.contains(legionCharacterEditingProvider.editingLegionCharacter?.legionBlock),
+                            enabled: !LegionBlock.uneditableBlocks.contains(legionBlock),
                             controller: legionCharacterEditingProvider.levelTextController,
                             onChanged: (value) => legionCharacterEditingProvider.updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
                             keyboardType: TextInputType.number,
