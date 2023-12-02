@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
@@ -133,6 +134,11 @@ class LegionRankWidget extends StatelessWidget {
                   ),
                 );
               }
+            ),
+            Row(
+              children: [
+
+              ],
             ),
           ],
         ),
@@ -278,6 +284,58 @@ class LegionStatButton extends StatelessWidget {
           isLarge ? Icons.keyboard_double_arrow_up : Icons.keyboard_arrow_up
         ),
       ),
+    );
+  }
+}
+
+class LegionStatListView extends StatelessWidget {
+  final CalculationSelector calculationSelector;
+
+  const LegionStatListView(
+    {
+      required this.calculationSelector,
+      super.key
+    }
+  );
+
+  void _onHover(BuildContext context) {
+    // TODO: add this to main/diff calculators
+    // context.read<DifferenceCalculatorProvider>().modifyArcaneLevels(isLarge ? 5 : 1, statType, isSubtract);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Consumer<LegionStatsProvider>(
+      builder: (context, legionStatsProvider, child) {
+        var selectedStats = legionStatsProvider.activeLegionSet.calculateModuleStats(calculationSelector: calculationSelector);
+        return ListView.builder(
+          padding: const EdgeInsets.only(right: 13),
+          itemCount: selectedStats.length,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return MapleTooltip(
+              maxWidth: 300,
+              tooltipWidgets: [legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context, legionStatsProvider.editingEquip?.equipName.itemLevel) ?? const SizedBox.shrink()],
+              child: ListTile(
+                title: Row(
+                  children: [
+                    SizedBox(
+                      width: 112,
+                      child: Text(
+                        legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName.formattedName ?? "UNKNOWN",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: getScrollEditingColor(legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index])),
+                      ),
+                    ),
+                    const Spacer(),
+                    legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index] is SavedScrolledRange ? 
+                  ]
+                ),
+              ),
+            );
+          },
+        );
+      }
     );
   }
 }

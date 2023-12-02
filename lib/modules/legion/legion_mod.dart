@@ -5,6 +5,13 @@ import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
+enum CalculationSelector {
+  all,
+  board,
+  characters,
+  ;
+}
+
 class LegionModule {
   // Used to track the characters placed on the board
   late List<int> placedCharacters;
@@ -86,30 +93,38 @@ class LegionModule {
     }
   }
 
-  Map<StatType, num> calculateModuleStats() {
+  Map<StatType, num> calculateModuleStats({CalculationSelector calculationSelector = CalculationSelector.all}) {
     Map<StatType, num> legionStats = {};
 
-    for (MapEntry<StatType, int> statEntry in legionBoardStatLevels.entries) {
-      legionStats[statEntry.key] = LegionBoardRank.boardStatPerLevel[statEntry.key]! * statEntry.value;
+    if (calculationSelector == CalculationSelector.all && cacheValue != null) {
+      return cacheValue!;
     }
 
-    for (MapEntry<LegionBlock, int?> legionCharacterEntry in legionCharacters.entries) {
-      if (legionCharacterEntry.value == null) {
-        continue;
+    if ({CalculationSelector.all, CalculationSelector.board}.contains(calculationSelector)) {
+      for (MapEntry<StatType, int> statEntry in legionBoardStatLevels.entries) {
+        legionStats[statEntry.key] = LegionBoardRank.boardStatPerLevel[statEntry.key]! * statEntry.value;
       }
+    }
 
-      var legionCharacter = getLegionCharacterCallback(legionCharacterEntry.value);
-      if (legionCharacter == null) {
-        continue;
-      }
+    if ({CalculationSelector.all, CalculationSelector.characters}.contains(calculationSelector)) {
+      for (MapEntry<LegionBlock, int?> legionCharacterEntry in legionCharacters.entries) {
+        if (legionCharacterEntry.value == null) {
+          continue;
+        }
 
-      var statValue = _getLegionCharacterValue(legionCharacter);
+        var legionCharacter = getLegionCharacterCallback(legionCharacterEntry.value);
+        if (legionCharacter == null) {
+          continue;
+        }
 
-      switch(legionCharacterEntry.key.legionEffect.$1) {
-        case StatType.ignoreDefense:
-          legionStats[statValue.$1] = calculateIgnoreDefense((legionStats[statValue.$1] ?? 0), statValue.$2);
-        default:
-          legionStats[statValue.$1] = (legionStats[statValue.$1] ?? 0) + statValue.$2;
+        var statValue = _getLegionCharacterValue(legionCharacter);
+
+        switch(legionCharacterEntry.key.legionEffect.$1) {
+          case StatType.ignoreDefense:
+            legionStats[statValue.$1] = calculateIgnoreDefense((legionStats[statValue.$1] ?? 0), statValue.$2);
+          default:
+            legionStats[statValue.$1] = (legionStats[statValue.$1] ?? 0) + statValue.$2;
+        }
       }
     }
 
