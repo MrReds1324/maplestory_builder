@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
@@ -135,9 +136,11 @@ class LegionRankWidget extends StatelessWidget {
                 );
               }
             ),
-            Row(
+            const Row(
               children: [
-
+                LegionStatListView(calculationSelector: CalculationSelector.characters),
+                Spacer(),
+                LegionStatListView(calculationSelector: CalculationSelector.board)
               ],
             ),
           ],
@@ -181,7 +184,7 @@ class LegionStatCell extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: _getStatTooltip(statType)
+              child: _getStatTooltip(statType, isOuterBoard: isOuterBoard)
             )
           ),
           Container(
@@ -305,46 +308,62 @@ class LegionStatListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Consumer<LegionStatsProvider>(
-      builder: (context, legionStatsProvider, child) {
-        var selectedStats = legionStatsProvider.activeLegionSet.calculateModuleStats(calculationSelector: calculationSelector);
-        return ListView.builder(
-          padding: const EdgeInsets.only(right: 13),
-          itemCount: selectedStats.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return MapleTooltip(
-              maxWidth: 300,
-              tooltipWidgets: [legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index].createScrollContainer(context, legionStatsProvider.editingEquip?.equipName.itemLevel) ?? const SizedBox.shrink()],
-              child: ListTile(
-                title: Row(
-                  children: [
-                    SizedBox(
-                      width: 112,
-                      child: Text(
-                        legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index].scrollName.formattedName ?? "UNKNOWN",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: getScrollEditingColor(legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index])),
-                      ),
+    return Column(
+      children: [
+        Text(
+          calculationSelector == CalculationSelector.board ? 'Board Stats' : 'Character Stats',
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+        ),
+        Container(
+          height: 246,
+          width: 220,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: statColor
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Consumer<LegionStatsProvider>(
+            builder: (context, legionStatsProvider, child) {
+              var selectedStats = legionStatsProvider.activeLegionSet.calculateModuleStats(calculationSelector: calculationSelector).entries.toList();
+              return ListView.builder(
+                padding: const EdgeInsets.only(right: 13),
+                itemCount: selectedStats.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            selectedStats[index].key.formattedName,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          "${selectedStats[index].key.isPositive ? '+' : ' -'}${selectedStats[index].key.isPercentage ? doublePercentFormater.format(selectedStats[index].value) : selectedStats[index].value}",
+                          style: Theme.of(context).textTheme.bodyMedium
+                        ) 
+                      ]
                     ),
-                    const Spacer(),
-                    legionStatsProvider.editingEquip?.scrollModule?.usedScrolls[index] is SavedScrolledRange ? 
-                  ]
-                ),
-              ),
-            );
-          },
-        );
-      }
+                  );
+                },
+              );
+            }
+          ),
+        ),
+      ]
     );
   }
 }
 
 
-MapleTooltip _getStatTooltip(StatType statType) {
+MapleTooltip _getStatTooltip(StatType statType, {bool isOuterBoard = false}) {
 
   void onHover(BuildContext context) {
-    context.read<LegionStatsProvider>().activeLegionSet.getHoverStatTooltipText(statType);
+    context.read<LegionStatsProvider>().activeLegionSet.getHoverStatTooltipText(statType, isOuterBoard: isOuterBoard);
   }
 
   return MapleTooltip(

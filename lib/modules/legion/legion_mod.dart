@@ -81,18 +81,6 @@ class LegionModule {
     getLegionBoardRankCallback = function;
   }
 
-  (StatType, num) _getLegionCharacterValue(LegionCharacter legionCharacter) {
-
-    var legionBlock = legionCharacter.legionBlock;
-    var indexValue = legionCharacter.characterLevelToIndex();
-    if (indexValue != null) {
-      return (legionBlock.legionEffect.$1, legionBlock.legionEffect.$2[indexValue]);
-    }
-    else {
-      return (StatType.allStats, 0);
-    }
-  }
-
   Map<StatType, num> calculateModuleStats({CalculationSelector calculationSelector = CalculationSelector.all}) {
     Map<StatType, num> legionStats = {};
 
@@ -117,9 +105,9 @@ class LegionModule {
           continue;
         }
 
-        var statValue = _getLegionCharacterValue(legionCharacter);
+        var statValue = legionCharacter.getLegionCharacterValue();
 
-        switch(legionCharacterEntry.key.legionEffect.$1) {
+        switch(statValue.$1) {
           case StatType.ignoreDefense:
             legionStats[statValue.$1] = calculateIgnoreDefense((legionStats[statValue.$1] ?? 0), statValue.$2);
           default:
@@ -262,7 +250,7 @@ class LegionModule {
     return true;
   }
 
-  void getHoverStatTooltipText(StatType statType) {
+  void getHoverStatTooltipText(StatType statType, {bool isOuterBoard = false}) {
     Widget? statDescription;
     Widget? currentLevelText;
     Widget? nextLevelText;
@@ -273,8 +261,15 @@ class LegionModule {
     }
 
     int currentCoverage = legionBoardStatLevels[statType]!;
+    int currentBoardRankMaxCoverage = 0;
+    if (isOuterBoard) {
+      currentBoardRankMaxCoverage = getLegionBoardRankCallback()?.outerRegionAmount ?? 0;
+    }
+    else {
+      currentBoardRankMaxCoverage = getLegionBoardRankCallback()?.innerRegionAmount ?? 0;
+    }
 
-    currentLevelText = Text("Current Board Coverage ($currentCoverage Blocks):\n${buildLevelString()}");
+    currentLevelText = Text("Current Board Coverage ($currentCoverage/$currentBoardRankMaxCoverage Blocks):\n${buildLevelString()}");
 
     hoverTooltip = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,8 +314,30 @@ class LegionCharacter {
     );
   }
 
+  (StatType, num) getLegionCharacterValue() {
+    var indexValue = characterLevelToIndex();
+    if (indexValue != null) {
+      return (legionBlock.legionEffect.$1, legionBlock.legionEffect.$2[indexValue]);
+    }
+    else {
+      return (legionBlock.legionEffect.$1, 0);
+    }
+  }
+
   Widget createLegionCharacterContainer(BuildContext context) {
-    return const SizedBox.shrink();
+    var statValue = getLegionCharacterValue();
+    return Column(
+      children: [
+        Text(
+          legionBlock.formattedName,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        Text(
+          "${statValue.$1.isPositive ? '+' : ' -'}${statValue.$1.isPercentage ? doublePercentFormater.format(statValue.$2) : statValue.$2} ${statValue.$1.formattedName}",
+          style: Theme.of(context).textTheme.bodyMedium
+        )
+      ],
+    );
   }
 
   static int comparator(LegionCharacter a, LegionCharacter b) {

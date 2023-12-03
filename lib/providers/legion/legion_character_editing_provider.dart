@@ -28,6 +28,7 @@ class LegionCharacterEditingProvider with ChangeNotifier {
     }
     else {
       editingLegionCharacter = legionCharacter.copyWith();
+      levelTextController.text = "${legionCharacter.legionCharacterLevel}";
     }
     _setEditingState();
 
