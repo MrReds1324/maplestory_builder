@@ -538,5 +538,6 @@ const List<StatType> comparisonStats = [
   StatType.skillCooldown,
   StatType.skillCooldownPercentage,
   StatType.statusResistance,
-  StatType.buffDuration
+  StatType.buffDuration,
+  StatType.summonDuration
 ];

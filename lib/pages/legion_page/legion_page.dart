@@ -86,7 +86,7 @@ class LegionStatSelectButton extends StatelessWidget {
   }
 
   void _onHover(BuildContext context){
-    // context.read<DifferenceCalculatorProvider>().compareLegionStats(context, legionStatPosition);
+    context.read<DifferenceCalculatorProvider>().compareLegionSets(context, legionStatPosition);
   }
 
   @override
