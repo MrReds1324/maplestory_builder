@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 
@@ -52,13 +53,15 @@ class LegionStatsProvider with ChangeNotifier{
   LegionStatsProvider copyWith({
     CharacterProvider? characterProvider,
     LegionBoardRank? legionBoardRank,
+    Map<int, LegionModule>? legionSets,
     Map<int, LegionCharacter>? allLegionCharacters,
     int? legionCharacterHash,
   }) {
     return LegionStatsProvider(
       characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       legionBoardRank: legionBoardRank ?? this.legionBoardRank,
-      allLegionCharacters: allLegionCharacters ?? Map<int, LegionCharacter>.of(this.allLegionCharacters), // TODO: deepcopy?
+      legionSets: legionSets ?? mapDeepCopy(this.legionSets),
+      allLegionCharacters: allLegionCharacters ?? Map<int, LegionCharacter>.of(this.allLegionCharacters),
       legionCharacterHash: legionCharacterHash ?? this.legionCharacterHash,
     );
   }

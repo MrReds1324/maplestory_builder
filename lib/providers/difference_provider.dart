@@ -22,6 +22,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   CalculatorProvider diffCalculatorProvider;
   EquipEditingProvider equipEditingProvider;
   int lastEditingEquipCounter = 0;
+  int lastLegionEditingEquipCounter = 0;
   Widget differenceWidget = const SizedBox.shrink();
 
   DifferenceCalculatorProvider({
@@ -35,6 +36,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
     symbolStatsProvider: mainCalculatorProvider.symbolStatsProvider,
     equipsProvider: mainCalculatorProvider.equipsProvider,
+    legionStatsProvider: mainCalculatorProvider.legionStatsProvider
   );
 
 
@@ -379,7 +381,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCalculatorProvider.calculateEverything(recalculateCache: true);
     updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
 
-    // Reset the equips provider for the diff character model
+    // Reset the hyper stats provider for the diff character model
     diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider;
     notifyListeners();
   }
@@ -391,8 +393,20 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCalculatorProvider.calculateEverything(recalculateCache: true);
     updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
 
-    // Reset the equips provider for the diff character model
+    // Reset the inner ability provider for the diff character model
     diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider;
+    notifyListeners();
+  }
+
+  void compareLegionSets(BuildContext context, int newLegionSetPosition) {
+    var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
+    diffCalculatorProvider.legionStatsProvider.changeActiveSet(newLegionSetPosition);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the legion provider for the diff character model
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
     notifyListeners();
   }  
 
@@ -437,6 +451,20 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
     diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
+  }
+
+  void modifyLegionBoardStatLevels(int possibleLevelsToAddOrSubtract, StatType statType, bool isSubtract) {
+    var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
+    if (isSubtract) {
+      diffCalculatorProvider.legionStatsProvider.subtractLegionStatLevels(possibleLevelsToAddOrSubtract, statType);
+    }
+    else {
+      diffCalculatorProvider.legionStatsProvider.addLegionStatLevels(possibleLevelsToAddOrSubtract, statType);
+    }
+    diffCalculatorProvider.calculateEverything();
+    updateDifferenceText();
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
   }
 
   void modifyLevel(int levelsToAddOrSubtract, bool isSubtract) {

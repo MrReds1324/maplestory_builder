@@ -11,6 +11,7 @@ import 'package:maplestory_builder/providers/character/symbol_stats_provider.dar
 import 'dart:math';
 
 import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 
 class CalculatorProvider with ChangeNotifier {
   
@@ -57,6 +58,7 @@ class CalculatorProvider with ChangeNotifier {
   HyperStatsProvider hyperStatsProvider;
   SymbolStatsProvider symbolStatsProvider;
   EquipsProvider equipsProvider;
+  LegionStatsProvider legionStatsProvider;
 
   CalculatorProvider({
     required this.characterProvider,
@@ -65,7 +67,8 @@ class CalculatorProvider with ChangeNotifier {
     required this.traitStatsProvider, 
     required this.hyperStatsProvider,
     required this.symbolStatsProvider,
-    required this.equipsProvider, 
+    required this.equipsProvider,
+    required this.legionStatsProvider,
     bool doCalculation = true
   }){
     if (doCalculation) {
@@ -81,6 +84,7 @@ class CalculatorProvider with ChangeNotifier {
     HyperStatsProvider? hyperStatsProvider, 
     SymbolStatsProvider? symbolStatsProvider,
     EquipsProvider? equipsProvider, 
+    LegionStatsProvider? legionStatsProvider,
     bool doCalculation = true
   }){
     return CalculatorProvider(
@@ -91,6 +95,7 @@ class CalculatorProvider with ChangeNotifier {
       hyperStatsProvider: hyperStatsProvider ?? this.hyperStatsProvider.copyWith(),
       symbolStatsProvider: symbolStatsProvider ?? this.symbolStatsProvider.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
+      legionStatsProvider: legionStatsProvider ?? this.legionStatsProvider.copyWith(),
       doCalculation: doCalculation,
     );
   }
@@ -106,7 +111,8 @@ class CalculatorProvider with ChangeNotifier {
     TraitStatsProvider traitStatsProvider, 
     HyperStatsProvider hyperStatsProvider, 
     SymbolStatsProvider symbolStatsProvider,
-    EquipsProvider equipsProvider
+    EquipsProvider equipsProvider,
+    LegionStatsProvider legionStatsProvider,
   ) {
     calculateEverything();
     notifyListeners();
@@ -196,6 +202,7 @@ class CalculatorProvider with ChangeNotifier {
     updateTempStats(hyperStatsProvider.calculateStats());
     updateTempStats(innerAbilityProvider.calculateStats());
     updateTempStats(traitStatsProvider.calculateStats());
+    updateTempStats(legionStatsProvider.calculateStats());
 
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterProvider.characterLevel * 50);
     tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterProvider.characterLevel * 50);

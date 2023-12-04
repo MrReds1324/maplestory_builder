@@ -82,6 +82,50 @@ Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
     return newMap;
 }
 
+Map<K, V> mapDeepCopy<K,V>(Map map){
+  Map<K,V> newMap = <K,V>{};
+
+  map.forEach((key, value){
+    newMap[key] =
+      value is Map ? mapDeepCopy(value) :
+      value is List ? listDeepCopy(value) :
+      value is Set ? setDeepCopy(value) :
+      value?.copyWith();
+  });
+
+  return newMap;
+}
+
+List<T> listDeepCopy<T>(List list){
+  List<T> newList = <T>[];
+
+  list.forEach((value) {
+    newList.add(
+      value is Map ? mapDeepCopy(value) :
+      value is List ? listDeepCopy(value) :
+      value is Set ? setDeepCopy(value) :
+      value.copyWith()
+    );
+  });
+
+  return newList;
+}
+
+Set<T> setDeepCopy<T>(Set s){
+  Set<T> newSet = Set<T>();
+
+  s.forEach((value) {
+    newSet.add(
+      value is Map ? mapDeepCopy(value) :
+      value is List ? listDeepCopy(value) :
+      value is Set ? setDeepCopy(value) :
+      value.copyWith()
+    );
+  });
+
+  return newSet;
+}
+
 Map<EquipType, Set<EquipName>> deepCopyEquippedEquips(Map<EquipType, Set<EquipName>> map) {
   Map<EquipType, Set<EquipName>> newMap = {};
 
@@ -160,7 +204,7 @@ class _ChangeNotifierProvider<T extends ChangeNotifier?>
 }
 
 // ignore: public_member_api_docs
-typedef ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, R> = R Function(
+typedef ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> = R Function(
   BuildContext context,
   T value,
   T2 value2,
@@ -169,17 +213,18 @@ typedef ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, R> = R Function(
   T5 value5,
   T6 value6,
   T7 value7,
+  T8 value8,
   R? previous,
 );
 
 /// {@macro provider.listenableproxyprovider}
-class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, R extends Listenable?>
+class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, T8, R extends Listenable?>
     extends ListenableProxyProvider0<R> {
   /// Initializes [key] for subclasses.
   _ListenableProxyProvider7({
     Key? key,
     Create<R>? create,
-    required ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, R> update,
+    required ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> update,
     Dispose<R>? dispose,
     bool? lazy,
     TransitionBuilder? builder,
@@ -198,6 +243,7 @@ class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, R extends Listenable?
             Provider.of(context),
             Provider.of(context),
             Provider.of(context),
+            Provider.of(context),
             previous,
           ),
           dispose: dispose,
@@ -206,13 +252,13 @@ class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, R extends Listenable?
 }
 
 /// {@macro provider.changenotifierproxyprovider}
-class ChangeNotifierProxyProvider7<T, T2, T3, T4, T5, T6, T7, R extends ChangeNotifier?>
-    extends _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, R> {
+class ChangeNotifierProxyProvider8<T, T2, T3, T4, T5, T6, T7, T8, R extends ChangeNotifier?>
+    extends _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, T8, R> {
   /// Initializes [key] for subclasses.
-  ChangeNotifierProxyProvider7({
+  ChangeNotifierProxyProvider8({
     Key? key,
     required Create<R> create,
-    required ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, R> update,
+    required ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> update,
     bool? lazy,
     TransitionBuilder? builder,
     Widget? child,

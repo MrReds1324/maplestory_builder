@@ -260,8 +260,7 @@ class LegionStatButton extends StatelessWidget {
   );
 
   void _onHover(BuildContext context) {
-    // TODO: add this to main/diff calculators
-    // context.read<DifferenceCalculatorProvider>().modifyArcaneLevels(isLarge ? 5 : 1, statType, isSubtract);
+    context.read<DifferenceCalculatorProvider>().modifyLegionBoardStatLevels(isLarge ? 5 : 1, statType, isSubtract);
   }
 
   @override
@@ -300,11 +299,6 @@ class LegionStatListView extends StatelessWidget {
       super.key
     }
   );
-
-  void _onHover(BuildContext context) {
-    // TODO: add this to main/diff calculators
-    // context.read<DifferenceCalculatorProvider>().modifyArcaneLevels(isLarge ? 5 : 1, statType, isSubtract);
-  }
 
   @override
   Widget build(BuildContext context) {

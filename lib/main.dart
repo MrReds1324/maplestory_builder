@@ -85,7 +85,8 @@ void main() {
               characterProvider: characterProvider
             ),
         ),
-        ChangeNotifierProxyProvider7<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, HyperStatsProvider, SymbolStatsProvider, EquipsProvider, CalculatorProvider>(
+        ChangeNotifierProxyProvider8<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
+        HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
@@ -94,6 +95,7 @@ void main() {
             hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
             symbolStatsProvider: Provider.of<SymbolStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
+            legionStatsProvider: Provider.of<LegionStatsProvider>(context, listen: false),
           ), 
           update: (
             BuildContext context, 
@@ -103,9 +105,19 @@ void main() {
             TraitStatsProvider traitStatsProvider, 
             HyperStatsProvider hyperStatsProvider,
             SymbolStatsProvider symbolStatsProvider,
-            EquipsProvider equipsProvider, 
+            EquipsProvider equipsProvider,
+            LegionStatsProvider legionStatsProvider,
             CalculatorProvider? calculatorProvider
-          ) => calculatorProvider?.update(characterProvider, apStatsProvider, innerAbilityProvider, traitStatsProvider, hyperStatsProvider, symbolStatsProvider, equipsProvider) 
+          ) => calculatorProvider?.update(
+              characterProvider, 
+              apStatsProvider, 
+              innerAbilityProvider, 
+              traitStatsProvider, 
+              hyperStatsProvider, 
+              symbolStatsProvider, 
+              equipsProvider,
+              legionStatsProvider
+            ) 
             ?? 
             CalculatorProvider(
               characterProvider: characterProvider,
@@ -114,7 +126,8 @@ void main() {
               traitStatsProvider: traitStatsProvider,
               hyperStatsProvider: hyperStatsProvider,
               symbolStatsProvider: symbolStatsProvider,
-              equipsProvider: equipsProvider
+              equipsProvider: equipsProvider,
+              legionStatsProvider: legionStatsProvider
             ),
         ),
         ChangeNotifierProxyProvider2<EquipEditingProvider, CalculatorProvider, DifferenceCalculatorProvider>(            

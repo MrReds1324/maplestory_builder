@@ -36,7 +36,7 @@ class InnerAbilityProvider with ChangeNotifier {
     return InnerAbilityProvider(
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
       activeInnerAbility: activeInnerAbility ?? this.activeInnerAbility,
-      innerAbilitySets: innerAbilitySets ?? Map.of(this.innerAbilitySets),
+      innerAbilitySets: innerAbilitySets ?? mapDeepCopy(this.innerAbilitySets),
     );
   }
 

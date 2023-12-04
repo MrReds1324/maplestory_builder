@@ -48,7 +48,7 @@ class HyperStatsProvider with ChangeNotifier {
       totalAvailableHyperStats: totalAvailableHyperStats ?? this.totalAvailableHyperStats,
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
       activeHyperStat: activeHyperStat ?? this.activeHyperStat.copyWith(),
-      hyperStatsSets: hyperStatsSets ?? Map.of(this.hyperStatsSets),
+      hyperStatsSets: hyperStatsSets ?? mapDeepCopy(this.hyperStatsSets),
     );
   }
 

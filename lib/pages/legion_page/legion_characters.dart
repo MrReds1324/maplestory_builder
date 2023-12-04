@@ -395,6 +395,11 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
                     )
                   ]
                 ),
+                Consumer<LegionCharacterEditingProvider>(
+                  builder: (_, legionCharacterEditingProvider, __) {
+                    return legionCharacterEditingProvider.editingLegionCharacter?.createLegionCharacterContainer(context) ?? const SizedBox.shrink();
+                  }
+                ),
                 Row(
                   children: [
                     TextButton(
