@@ -967,6 +967,7 @@ class _SoulSelector extends StatelessWidget {
     return ExpansionTile(
       iconColor: equipStarColor,
       title: const Text("Soul Weapon"),
+      childrenPadding: const EdgeInsets.only(bottom: 5),
       children: [
         Column(
           children: [
@@ -1077,6 +1078,9 @@ class _StatsTweakInput extends StatelessWidget {
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
             ],
+            decoration: const InputDecoration(
+              isDense: true
+            ),
           )
         )
       ]

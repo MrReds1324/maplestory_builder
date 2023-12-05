@@ -224,7 +224,7 @@ enum LegionBlock {
   final int? staticLegionLevel;
 
   static List<String> legionBlockRanks = ["F", "B", "A", "S", "SS", "SSS"];
-  static Set<LegionBlock> uneditableBlocks = {LegionBlock.labServer, LegionBlock.enhancedLabServer};
+  static Set<LegionBlock> specialBlocks = {LegionBlock.labServer, LegionBlock.enhancedLabServer};
 }
 
 enum LegionBoardRank {

@@ -187,21 +187,36 @@ class EquipEditingProvider with ChangeNotifier {
     if (editingEquip!.equipName.starForceCategory == StarForceCategory.player) {
       canStar = true;
     }
+    else {
+      canStar = false;
+    }
 
     if (editingEquip!.equipName.flameCategory != FlameCategory.none) {
       canFlame = true;
+    }
+    else {
+      canFlame = false;
     }
 
     if (editingEquip!.equipName.potentialCategory == PotentialCategory.player) {
       canPotential = true;
     }
+    else {
+      canPotential = false;
+    }
 
     if (editingEquip!.equipName.maxScrollsSlots != 0) {
       canScroll = true;
     }
+    else {
+      canScroll = false;
+    }
 
     if (editingEquip!.equipName.equipType == EquipType.weapon && editingEquip!.equipName.itemLevel >= 75) {
       canSoul = true;
+    }
+    else {
+      canSoul = false;
     }
 
     canPitchedBossUpgrade = isEquipPitchBossUpgradeable(editingEquip!.equipName);   

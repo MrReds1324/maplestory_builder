@@ -6,7 +6,6 @@ import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
-import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -49,12 +48,10 @@ class PlacedCharacters extends StatelessWidget {
                         padding: const EdgeInsets.all(5),
                         itemBuilder: (context, index) {
                           return MapleTooltip(
+                            tooltipTitle: allPlacedCharacters[index].legionBlock.formattedName,
                             onHoverFunction: _curriedOnHover(allPlacedCharacters[index]),
                             tooltipWidgets: [
                               allPlacedCharacters[index].createLegionCharacterContainer(context),
-                              Consumer<DifferenceCalculatorProvider>(
-                                builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
-                              ),
                             ],
                             child: CharacterTile(
                               legionCharacter: allPlacedCharacters[index],
@@ -114,12 +111,10 @@ class AvailableCharacters extends StatelessWidget {
                         padding: const EdgeInsets.all(5),
                         itemBuilder: (context, index) {
                           return MapleTooltip(
+                            tooltipTitle: allLegionCharactersList[index].legionBlock.formattedName,
                             onHoverFunction: _curriedOnHover(allLegionCharactersList[index]),
                             tooltipWidgets: [
                               allLegionCharactersList[index].createLegionCharacterContainer(context),
-                              Consumer<DifferenceCalculatorProvider>(
-                                builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
-                              ),
                             ],
                             child: CharacterTile(
                               legionCharacter: allLegionCharactersList[index],
@@ -157,9 +152,10 @@ class CharacterTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(right: 2.5),
-        child: Container(
-          padding: const EdgeInsets.all(5),
+      child: Container(
+        padding: const EdgeInsets.all(5),
         width: 125,
+        height: 178,
         decoration: BoxDecoration(
           color: statColor,
           border: Border.all(
@@ -206,43 +202,55 @@ class CharacterTile extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      padding: const EdgeInsets.all(1),
-                      constraints: const BoxConstraints(),
-                      iconSize: 19,
-                      tooltip: "Delete Character",
-                      onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
-                        context.read<LegionStatsProvider>().deleteLegionCharacter(legionCharacter);
-                      }, 
-                      icon: Icon(MdiIcons.trashCan),
+                    MapleTooltip(
+                      tooltipWidgets: const [
+                        Text("Delete Character"),
+                      ],
+                      child: IconButton(
+                        padding: const EdgeInsets.all(1),
+                        constraints: const BoxConstraints(),
+                        iconSize: 19,
+                        onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
+                          context.read<LegionStatsProvider>().deleteLegionCharacter(legionCharacter);
+                        }, 
+                        icon: Icon(MdiIcons.trashCan),
+                      ),
                     ),
                     const Spacer(),
-                    IconButton(
-                      padding: const EdgeInsets.all(1),
-                      constraints: const BoxConstraints(),
-                      iconSize: 19,
-                      tooltip: isPlaced ? "Remove Character" : "Place Character",
-                      onPressed: legionCharacter.legionCharacterLevel < 60 ? null : () {
-                        var legionStatsProvider = context.read<LegionStatsProvider>();
-                        isPlaced ? legionStatsProvider.removePlacedLegionCharacter(legionCharacter) : legionStatsProvider.placeLegionCharacter(legionCharacter);
-                      }, 
-                      icon: isPlaced ? Icon(MdiIcons.minusThick) : Icon(MdiIcons.plusThick),
+                    MapleTooltip(
+                      tooltipWidgets: [
+                        Text(isPlaced ? "Remove Character" : "Place Character"),
+                      ],
+                      child: IconButton(
+                        padding: const EdgeInsets.all(1),
+                        constraints: const BoxConstraints(),
+                        iconSize: 19,
+                        onPressed: legionCharacter.legionCharacterLevel < 60 ? null : () {
+                          var legionStatsProvider = context.read<LegionStatsProvider>();
+                          isPlaced ? legionStatsProvider.removePlacedLegionCharacter(legionCharacter) : legionStatsProvider.placeLegionCharacter(legionCharacter);
+                        }, 
+                        icon: isPlaced ? Icon(MdiIcons.minusThick) : Icon(MdiIcons.plusThick),
+                      ),
                     ),
                     const Spacer(),
-                    IconButton(
-                      padding: const EdgeInsets.all(1),
-                      constraints: const BoxConstraints(),
-                      iconSize: 19,
-                      tooltip: "Edit Character",
-                      onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
-                        context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter(legionCharacter: legionCharacter);
-                        showDialog(context: context,
-                          builder: (BuildContext context){
-                            return const EditCharacterDialogBox();
-                          }
-                        );
-                      },
-                      icon: Icon(MdiIcons.accountEdit),
+                    MapleTooltip(
+                      tooltipWidgets: const [
+                        Text("Edit Character"),
+                      ],
+                      child: IconButton(
+                        padding: const EdgeInsets.all(1),
+                        constraints: const BoxConstraints(),
+                        iconSize: 19,
+                        onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
+                          context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter(legionCharacter: legionCharacter);
+                          showDialog(context: context,
+                            builder: (BuildContext context){
+                              return const EditCharacterDialogBox();
+                            }
+                          );
+                        },
+                        icon: Icon(MdiIcons.accountEdit),
+                      ),
                     ),
                   ]
                 ),
@@ -299,17 +307,47 @@ class AddCharacterButton extends StatelessWidget {
   }
 }
 
-class EditCharacterDialogBox extends StatefulWidget {
+class EditCharacterDialogBox extends StatelessWidget {
 
   const EditCharacterDialogBox({
     super.key, 
   });
 
-  @override
-  EditCharacterDialogBoxState createState() => EditCharacterDialogBoxState();
-}
+  List<DropdownMenuItem<LegionBlock>> getDropdownLegionBlockList(BuildContext context, LegionCharacter? editingLegionCharacter) {
+    List<DropdownMenuItem<LegionBlock>> dropdownItems = [];
 
-class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
+    Set<LegionBlock> createdSpecialBlocks = {};
+    for (LegionCharacter legionCharacter in context.read<LegionStatsProvider>().allLegionCharacters.values) {
+      if (LegionBlock.specialBlocks.contains(legionCharacter.legionBlock)) {
+        createdSpecialBlocks.add(legionCharacter.legionBlock);
+      }
+    }
+
+
+    List<LegionBlock> filteredList = <LegionBlock>[];
+    // We can only have one of the flame types per equip, filter out any ones already used here
+    for(LegionBlock legionBlock in LegionBlock.values) { 
+      // Stops us from being able to select multiple of a special block
+      if (!createdSpecialBlocks.contains(legionBlock) || editingLegionCharacter?.legionBlock == legionBlock) {
+        filteredList.add(legionBlock);
+      }
+    }
+
+    dropdownItems.addAll(
+      filteredList.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium
+          ),
+        );
+      }).toList()
+    );
+
+    return dropdownItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -348,23 +386,15 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
                   children: [
                     const Text('Legion Block: '),
                     Consumer<LegionCharacterEditingProvider>(
-                      builder: (context, legionStatsProvider, child) {
+                      builder: (context, legionEditingCharacterProvider, child) {
                         return DropdownButton(
-                          value: legionStatsProvider.editingLegionCharacter?.legionBlock,
+                          value: legionEditingCharacterProvider.editingLegionCharacter?.legionBlock,
                           onChanged: (LegionBlock? newValue) {
                             if (newValue != null) {
                               context.read<LegionCharacterEditingProvider>().updatedLegionBlock(newValue);
                             }
                           },
-                          items: LegionBlock.values.map((LegionBlock value) {
-                            return DropdownMenuItem(
-                              value: value,
-                              child: Text(
-                                value.formattedName,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            );
-                          }).toList(),
+                          items: getDropdownLegionBlockList(context, legionEditingCharacterProvider.editingLegionCharacter),
                         );
                       }
                     ),
@@ -382,23 +412,35 @@ class EditCharacterDialogBoxState extends State<EditCharacterDialogBox> {
                           var legionCharacterEditingProvider = context.read<LegionCharacterEditingProvider>();
                           return TextField(
                             style: Theme.of(context).textTheme.bodyMedium,
-                            enabled: !LegionBlock.uneditableBlocks.contains(legionBlock),
+                            enabled: !LegionBlock.specialBlocks.contains(legionBlock),
                             controller: legionCharacterEditingProvider.levelTextController,
                             onChanged: (value) => legionCharacterEditingProvider.updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(RegExp(r'^\d*')),
                             ],
+                            decoration: const InputDecoration(
+                              isDense: true
+                            ),
                           );
                         }
                       ),
                     )
                   ]
                 ),
-                Consumer<LegionCharacterEditingProvider>(
-                  builder: (_, legionCharacterEditingProvider, __) {
-                    return legionCharacterEditingProvider.editingLegionCharacter?.createLegionCharacterContainer(context) ?? const SizedBox.shrink();
-                  }
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Character Effect: "),
+                    Consumer<LegionCharacterEditingProvider>(
+                      builder: (_, legionCharacterEditingProvider, __) {
+                        return legionCharacterEditingProvider.editingLegionCharacter?.createLegionCharacterContainer(context) ?? const SizedBox.shrink();
+                      }
+                    ),
+                  ]
                 ),
                 Row(
                   children: [

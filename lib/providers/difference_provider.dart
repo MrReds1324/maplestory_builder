@@ -453,14 +453,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
   }
 
-  void modifyLegionBoardStatLevels(int possibleLevelsToAddOrSubtract, StatType statType, bool isSubtract) {
+  void modifyLegionBoardStatLevels(int possibleLevelsToAddOrSubtract, StatType statType, bool isSubtract, bool isOuterBoard) {
     var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
     diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
     if (isSubtract) {
-      diffCalculatorProvider.legionStatsProvider.subtractLegionStatLevels(possibleLevelsToAddOrSubtract, statType);
+      diffCalculatorProvider.legionStatsProvider.subtractLegionStatLevels(possibleLevelsToAddOrSubtract, statType, isOuterBoard: isOuterBoard);
     }
     else {
-      diffCalculatorProvider.legionStatsProvider.addLegionStatLevels(possibleLevelsToAddOrSubtract, statType);
+      diffCalculatorProvider.legionStatsProvider.addLegionStatLevels(possibleLevelsToAddOrSubtract, statType, isOuterBoard: isOuterBoard);
     }
     diffCalculatorProvider.calculateEverything();
     updateDifferenceText();

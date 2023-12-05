@@ -260,7 +260,7 @@ class LegionStatButton extends StatelessWidget {
   );
 
   void _onHover(BuildContext context) {
-    context.read<DifferenceCalculatorProvider>().modifyLegionBoardStatLevels(isLarge ? 5 : 1, statType, isSubtract);
+    context.read<DifferenceCalculatorProvider>().modifyLegionBoardStatLevels(isLarge ? 5 : 1, statType, isSubtract, isOuterBoard);
   }
 
   @override

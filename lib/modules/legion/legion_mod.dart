@@ -15,6 +15,9 @@ enum CalculationSelector {
 class LegionModule {
   // Used to track the characters placed on the board
   late List<int> placedCharacters;
+  // Used to track the number of special blocks, only allowed a maximum of two
+  int placedSpecialLegionBlockCount;
+  static int maximumSpecialLegionBlock = 2;
   // Used to track the highest level character for each block
   late Map<LegionBlock, int?> legionCharacters;
   LegionCharacter? Function(int? legionCharacterHash) getLegionCharacterCallback;
@@ -22,6 +25,7 @@ class LegionModule {
   // This will be used to track the direct stats added via the board
   late Map<StatType, int> legionBoardStatLevels;
   int maximumBoardCoverage = 0;
+  
 
   Map<StatType, num>? cacheValue;
   Widget hoverTooltip = const SizedBox.shrink();
@@ -32,6 +36,7 @@ class LegionModule {
     Map<StatType, int>? legionBoardStatLevels,
     required this.getLegionCharacterCallback,
     required this.getLegionBoardRankCallback,
+    this.placedSpecialLegionBlockCount = 0,
   }) {
     this.legionBoardStatLevels = legionBoardStatLevels ?? {
       StatType.attack: 0,
@@ -62,13 +67,15 @@ class LegionModule {
     Map<StatType, int>? legionBoardStatLevels,
     LegionCharacter? Function(int?)? getLegionCharacterCallback,
     LegionBoardRank? Function()? getLegionBoardRankCallback,
+    int? placedSpecialLegionBlockCount,
   }) {
     return LegionModule(
       placedCharacters: placedCharacters ?? List<int>.of(this.placedCharacters),
       legionCharacters: legionCharacters ?? Map<LegionBlock, int?>.of(this.legionCharacters),
       legionBoardStatLevels: legionBoardStatLevels ?? Map<StatType, int>.of(this.legionBoardStatLevels),
       getLegionCharacterCallback: getLegionCharacterCallback ?? this.getLegionCharacterCallback,
-      getLegionBoardRankCallback: getLegionBoardRankCallback ?? this.getLegionBoardRankCallback
+      getLegionBoardRankCallback: getLegionBoardRankCallback ?? this.getLegionBoardRankCallback,
+      placedSpecialLegionBlockCount: placedSpecialLegionBlockCount ?? this.placedSpecialLegionBlockCount,
     );
   }
 
@@ -202,10 +209,22 @@ class LegionModule {
     if (legionCharacter == null || placedCharacters.contains(legionCharacter.legionCharacterHash)) {
       return false;
     }
+
+    var isSpecialBlock = LegionBlock.specialBlocks.contains(legionCharacter.legionBlock);
     // Only place characters up to the maximum allowed by the board rank
     var legionBoardRank = getLegionBoardRankCallback();
-    if (legionBoardRank == null || legionBoardRank.legionMembers == placedCharacters.length) {
+    if (legionBoardRank == null) {
       return false;
+    }
+    else if (isSpecialBlock && placedSpecialLegionBlockCount == maximumSpecialLegionBlock) {
+      return false;
+    }
+    else if (!isSpecialBlock && legionBoardRank.legionMembers == (placedCharacters.length - placedSpecialLegionBlockCount)) {
+      return false;
+    }
+
+    if (isSpecialBlock) {
+      placedSpecialLegionBlockCount += 1;
     }
 
     placedCharacters.add(legionCharacter.legionCharacterHash);
@@ -223,6 +242,10 @@ class LegionModule {
   bool removeLegionCharacter(LegionCharacter? removingLegionCharacter) {
     if (removingLegionCharacter == null) {
       return false;
+    }
+
+    if (LegionBlock.specialBlocks.contains(removingLegionCharacter.legionBlock) && placedCharacters.contains(removingLegionCharacter.legionCharacterHash)) {
+      placedSpecialLegionBlockCount -= 1;
     }
 
     // Remove the hash from our tracked hashes
@@ -326,17 +349,9 @@ class LegionCharacter {
 
   Widget createLegionCharacterContainer(BuildContext context) {
     var statValue = getLegionCharacterValue();
-    return Column(
-      children: [
-        Text(
-          legionBlock.formattedName,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        Text(
-          "${statValue.$1.isPositive ? '+' : ' -'}${statValue.$1.isPercentage ? doublePercentFormater.format(statValue.$2) : statValue.$2} ${statValue.$1.formattedName}",
-          style: Theme.of(context).textTheme.bodyMedium
-        )
-      ],
+    return Text(
+      "${statValue.$1.isPositive ? '+' : ' -'}${statValue.$1.isPercentage ? doublePercentFormater.format(statValue.$2) : statValue.$2} ${statValue.$1.formattedName}",
+      style: Theme.of(context).textTheme.bodyMedium
     );
   }
 

@@ -320,6 +320,9 @@ class IGNCell extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
                 controller: context.read<CharacterProvider>().textController,
                 onChanged: (value) => context.read<CharacterProvider>().characterName = value,
+                decoration: const InputDecoration(
+                  isDense: true
+                ),
               )
             ),
           ),
