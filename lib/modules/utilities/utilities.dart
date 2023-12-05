@@ -2,11 +2,8 @@ import 'dart:math';
 
 import 'package:intl/intl.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
-import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
-import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -125,42 +122,6 @@ Set<T> setDeepCopy<T>(Set s){
 
   return newSet;
 }
-
-Map<EquipType, Set<EquipName>> deepCopyEquippedEquips(Map<EquipType, Set<EquipName>> map) {
-  Map<EquipType, Set<EquipName>> newMap = {};
-
-    map.forEach((key, value) {
-      newMap[key] = Set.of(value);
-    });
-
-    return newMap;
-}
-
-List<AbstractScroll> deepCopyScrollsList(List<AbstractScroll> list) {
-    List<AbstractScroll> newList = [];
-
-    for (AbstractScroll baseScroll in list) {
-      if (baseScroll is SavedScroll) {
-        newList.add(baseScroll.copyWith());
-      }
-      else if (baseScroll is SavedScrolledRange) {
-        newList.add(baseScroll.copyWith());
-      }
-    }
-
-    return newList;
-}
-
-Map<int, InnerAbilityLine> deepCopyInnerAbilityMap(Map<int, InnerAbilityLine> innerAbilityLines) {
-  Map<int, InnerAbilityLine> newMap = {};
-  
-  for (MapEntry<int, InnerAbilityLine> mapEntry in innerAbilityLines.entries) {
-    newMap.addAll({mapEntry.key: mapEntry.value.copyWith()});
-  }
-
-  return newMap;
-}
-
 
 // All of this is so that we can create our own extended change notifier proxies that include more values than just 6... Who knows if this is a good idea
 class _ChangeNotifierProvider<T extends ChangeNotifier?>

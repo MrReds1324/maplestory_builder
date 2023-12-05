@@ -34,7 +34,7 @@ class ScrollModule {
       totalScrollSlots: totalScrollSlots ?? this.totalScrollSlots,
       scrollOffset: scrollOffset ?? this.scrollOffset,
       usedScrollSlots: usedScrollSlots ?? this.usedScrollSlots,
-      usedScrolls: usedScrolls ?? deepCopyScrollsList(this.usedScrolls),
+      usedScrolls: usedScrolls ?? listDeepCopy(this.usedScrolls),
       moduleStats: moduleStats ?? Map<StatType, int>.from(this.moduleStats),
     );
   }

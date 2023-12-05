@@ -164,7 +164,7 @@ class SetEffect {
   }) {
     return SetEffect(
       equipSet: equipSet, 
-      equippedEquips: equippedEquips ?? deepCopyEquippedEquips(this.equippedEquips),
+      equippedEquips: equippedEquips ?? mapDeepCopy(this.equippedEquips),
       activeLuckyItem: activeLuckyItem ?? this.activeLuckyItem,
       isLuckyItemActive: isLuckyItemActive ?? _isLuckyItemActive,
       totalSetItems: totalSetItems ?? this.totalSetItems,
