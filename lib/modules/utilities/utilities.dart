@@ -99,29 +99,29 @@ Map<K, V> mapDeepCopy<K,V>(Map map){
 List<T> listDeepCopy<T>(List list){
   List<T> newList = <T>[];
 
-  list.forEach((value) {
+  for (var value in list) {
     newList.add(
       value is Map ? mapDeepCopy(value) :
       value is List ? listDeepCopy(value) :
       value is Set ? setDeepCopy(value) :
       value.copyWith()
     );
-  });
+  }
 
   return newList;
 }
 
 Set<T> setDeepCopy<T>(Set s){
-  Set<T> newSet = Set<T>();
+  Set<T> newSet = <T>{};
 
-  s.forEach((value) {
+  for (var value in s) {
     newSet.add(
       value is Map ? mapDeepCopy(value) :
       value is List ? listDeepCopy(value) :
       value is Set ? setDeepCopy(value) :
       value.copyWith()
     );
-  });
+  }
 
   return newSet;
 }
