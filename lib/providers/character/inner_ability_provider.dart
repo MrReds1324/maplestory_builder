@@ -134,7 +134,7 @@ class InnerAbilityContainer {
     Map<int, InnerAbilityLine>? assignedInnerAbility,
   }) {
     return InnerAbilityContainer(
-      assignedInnerAbility: assignedInnerAbility ?? deepCopyInnerAbilityMap(this.assignedInnerAbility)
+      assignedInnerAbility: assignedInnerAbility ?? mapDeepCopy(this.assignedInnerAbility)
     );
   }
 }

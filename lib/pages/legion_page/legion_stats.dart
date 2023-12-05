@@ -110,7 +110,7 @@ class LegionRankWidget extends StatelessWidget {
             ),
             Selector<LegionStatsProvider, (int, int)>(
               selector: (_, legionStatsProvider) => (
-                legionStatsProvider.activeLegionSet.placedCharacters.length,
+                legionStatsProvider.activeLegionSet.placedCharacters.length - legionStatsProvider.activeLegionSet.placedSpecialLegionBlockCount,
                 legionStatsProvider.legionBoardRank?.legionMembers ?? 0,
               ),
               builder: (context, data, child) {
