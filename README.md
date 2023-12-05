@@ -21,9 +21,9 @@ A project to simulate most of the MapleStory systems that affect the character's
 		- [x] Bonus Potentials
 	- [ ] Equipment Sets - Framework Implemented
 	- [x] Scrolling - Mostly completed except for scrolls I could not find data on
-- [ ] Legion - Not started
-	- [ ] Legion Character Effects
-	- [ ] Legion Board Effects
+- [x] Legion
+	- [x] Legion Character Effects
+	- [x] Legion Board Effects
 - [ ] Familiars - Not started
 	- [ ] Badge Effects
 	- [ ] Familiar Effects
@@ -36,6 +36,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 		- [ ] Guild Stats
 - [ ] Consumable Buffs - Not Started
 - [ ] Options - Not started
+	- [ ] Conditional Toggles (WH Legion Effect, Debuffs/Status Effects)
 	- [ ] Burst Skill Toggles
 	- [ ] Buff Skill Toggles
 	- [ ] Boss Monster Selection
