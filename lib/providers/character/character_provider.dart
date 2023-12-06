@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
+import 'package:maplestory_builder/modules/base.dart';
 
-class CharacterProvider extends ChangeNotifier {
+class CharacterProvider extends ChangeNotifier implements Copyable {
   String characterName;
   int characterLevel;
   CharacterClass characterClass; 
@@ -16,6 +17,7 @@ class CharacterProvider extends ChangeNotifier {
     this.characterClass = CharacterClass.beginner,
   }): textController = TextEditingController(text: characterName);
 
+  @override
   CharacterProvider copyWith({
     int? characterLevel,
     String? characterName,

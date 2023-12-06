@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 
-class EquipsProvider with ChangeNotifier{
+class EquipsProvider with ChangeNotifier implements Copyable {
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
   int equipHash = 1;
@@ -31,6 +32,7 @@ class EquipsProvider with ChangeNotifier{
     this.activeEquipSet = activeEquipSet ?? this.equipSets[activeSetNumber]!;
   }
 
+  @override
   EquipsProvider copyWith({
     Map<int, Equip>? allEquips,
     Map<int, EquipmentModule>? equipSets,

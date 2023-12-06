@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/inner_ability_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
-class InnerAbilityProvider with ChangeNotifier {
+class InnerAbilityProvider with ChangeNotifier implements Copyable {
 
   // TODO - requires skills to know if "debuff" is applied for conditional boss damage
   int activeSetNumber = 1;
@@ -27,8 +28,8 @@ class InnerAbilityProvider with ChangeNotifier {
     this.activeInnerAbility = activeInnerAbility ?? this.innerAbilitySets[activeSetNumber]!;
   }
 
+  @override
   InnerAbilityProvider copyWith({
-    
     int? activeSetNumber,
     InnerAbilityContainer? activeInnerAbility,
     Map<int, InnerAbilityContainer>? innerAbilitySets,
@@ -117,7 +118,7 @@ class InnerAbilityProvider with ChangeNotifier {
   }
 }
 
-class InnerAbilityContainer {
+class InnerAbilityContainer implements Copyable {
   late Map<int, InnerAbilityLine> assignedInnerAbility;
 
   InnerAbilityContainer({
@@ -130,6 +131,7 @@ class InnerAbilityContainer {
     };
   }
 
+  @override
   InnerAbilityContainer copyWith({
     Map<int, InnerAbilityLine>? assignedInnerAbility,
   }) {
@@ -139,7 +141,7 @@ class InnerAbilityContainer {
   }
 }
 
-class InnerAbilityLine {
+class InnerAbilityLine implements Copyable {
   InnerAbility? innerAbility;
   int selectedRange = 0;
 
@@ -148,6 +150,7 @@ class InnerAbilityLine {
     this.selectedRange = 0,
   });
 
+  @override
   InnerAbilityLine copyWith({
     InnerAbility? innerAbility,
     int? selectedRange,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
@@ -13,7 +14,7 @@ import 'dart:math';
 import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 
-class CalculatorProvider with ChangeNotifier {
+class CalculatorProvider with ChangeNotifier implements Copyable {
   
 
   // Lower Critical Damage %: 20 + CriticalDamage%
@@ -76,6 +77,7 @@ class CalculatorProvider with ChangeNotifier {
     }
   }
 
+  @override
   CalculatorProvider copyWith({
     CharacterProvider? characterProvider,
     APStatsProvider? apStatsProvider,

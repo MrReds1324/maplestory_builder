@@ -3,10 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 
-class HyperStatsProvider with ChangeNotifier {
+class HyperStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
   int totalAvailableHyperStats = 0;
   int activeSetNumber = 1;
@@ -36,6 +37,7 @@ class HyperStatsProvider with ChangeNotifier {
     this.activeHyperStat = activeHyperStat ?? this.hyperStatsSets[activeSetNumber]!;
   }
 
+  @override
   HyperStatsProvider copyWith({
     CharacterProvider? characterProvider,
     int? totalAvailableHyperStats,
@@ -198,7 +200,7 @@ class HyperStatsProvider with ChangeNotifier {
 }
 
 
-class HyperStatContainer {
+class HyperStatContainer implements Copyable {
   int totalAssignedHyperStats = 0;
   late Map<StatType, int> assignedHyperStats;
 
@@ -227,6 +229,7 @@ class HyperStatContainer {
     };
   }
 
+  @override
   HyperStatContainer copyWith({
     int? totalAssignedHyperStats,
     Map<StatType, int>? assignedHyperStats,

@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:intl/intl.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -79,48 +81,52 @@ Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
     return newMap;
 }
 
-Map<K, V> mapDeepCopy<K,V>(Map map){
+Map<K, V> mapDeepCopy<K,V>(Map<K, V> map, {V? Function}){
   Map<K,V> newMap = <K,V>{};
 
   map.forEach((key, value){
     newMap[key] =
-      value is Map ? mapDeepCopy(value) :
-      value is List ? listDeepCopy(value) :
-      value is Set ? setDeepCopy(value) :
-      value?.copyWith();
+      value is Copyable ? value.copyWith() :
+      value;
   });
 
   return newMap;
 }
 
-List<T> listDeepCopy<T>(List list){
+List<T> listDeepCopy<T>(List<T> list){
   List<T> newList = <T>[];
 
   for (var value in list) {
     newList.add(
-      value is Map ? mapDeepCopy(value) :
-      value is List ? listDeepCopy(value) :
-      value is Set ? setDeepCopy(value) :
-      value.copyWith()
+      value is Copyable ? value.copyWith() :
+      value
     );
   }
 
   return newList;
 }
 
-Set<T> setDeepCopy<T>(Set s){
+Set<T> setDeepCopy<T>(Set<T> s){
   Set<T> newSet = <T>{};
 
   for (var value in s) {
     newSet.add(
-      value is Map ? mapDeepCopy(value) :
-      value is List ? listDeepCopy(value) :
-      value is Set ? setDeepCopy(value) :
-      value.copyWith()
+      value is Copyable ? value.copyWith() :
+      value
     );
   }
 
   return newSet;
+}
+
+Map<EquipType, Set<EquipName>> deepCopyEquippedEquips(Map<EquipType, Set<EquipName>> map) {
+  Map<EquipType, Set<EquipName>> newMap = {};
+
+    map.forEach((key, value) {
+      newMap[key] = Set.of(value);
+    });
+
+    return newMap;
 }
 
 // All of this is so that we can create our own extended change notifier proxies that include more values than just 6... Who knows if this is a good idea

@@ -2,9 +2,10 @@
 
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 
-class FlameModule {
+class FlameModule implements Copyable {
   FlameLine? flameLine1;
   FlameLine? flameLine2;
   FlameLine? flameLine3;
@@ -25,6 +26,7 @@ class FlameModule {
     flameLine4 = flameLine4 ?? FlameLine();
   }
 
+  @override
   FlameModule copyWith({
     FlameLine? flameLine1,
     FlameLine? flameLine2,
@@ -178,7 +180,7 @@ int getFlameOffset(num itemLevel) {
   return (itemLevel / 10).floor();
 }
 
-class FlameLine {
+class FlameLine implements Copyable {
   FlameName? flameName;
   FlameTier? flameTier;
 
@@ -187,6 +189,7 @@ class FlameLine {
     this.flameTier,
   });
 
+  @override
   FlameLine copyWith({
     FlameName? flameName,
     FlameTier? flameTier,

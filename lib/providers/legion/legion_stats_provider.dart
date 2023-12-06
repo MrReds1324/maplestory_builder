@@ -3,12 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 
-class LegionStatsProvider with ChangeNotifier{
+class LegionStatsProvider with ChangeNotifier implements Copyable {
 
   CharacterProvider characterProvider;
   
@@ -50,6 +51,7 @@ class LegionStatsProvider with ChangeNotifier{
     calculateLegionBoardRank();
   }
 
+  @override
   LegionStatsProvider copyWith({
     CharacterProvider? characterProvider,
     LegionBoardRank? legionBoardRank,
