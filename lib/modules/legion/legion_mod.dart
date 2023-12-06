@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 enum CalculationSelector {
@@ -12,7 +13,7 @@ enum CalculationSelector {
   ;
 }
 
-class LegionModule {
+class LegionModule implements Copyable {
   // Used to track the characters placed on the board
   late List<int> placedCharacters;
   // Used to track the number of special blocks, only allowed a maximum of two
@@ -61,6 +62,7 @@ class LegionModule {
     calculateMaximumBoardCoverage();
   }
 
+  @override
   LegionModule copyWith({
     List<int>? placedCharacters,
     Map<LegionBlock, int?>? legionCharacters,
@@ -314,7 +316,7 @@ class LegionModule {
   }
 }
 
-class LegionCharacter {
+class LegionCharacter implements Copyable {
   LegionBlock legionBlock;
   int legionCharacterLevel;
   int legionCharacterHash;
@@ -325,6 +327,7 @@ class LegionCharacter {
     this.legionCharacterHash = -1
   });
 
+  @override
   LegionCharacter copyWith({
     LegionBlock? legionBlock,
     int? legionCharacterLevel,

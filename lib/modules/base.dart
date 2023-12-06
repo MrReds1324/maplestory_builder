@@ -22,3 +22,8 @@ class Base {
     Map<StatType, num>? baseStats,
   }): baseStats = baseStats ?? {};
 }
+
+abstract class Copyable {
+
+  dynamic copyWith();
+}

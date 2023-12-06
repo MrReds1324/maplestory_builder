@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/starforce_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 
-class StarForceModule {
+class StarForceModule implements Copyable {
   int possibleStars = 0;
   int currentStars = 0;
 
@@ -16,6 +17,7 @@ class StarForceModule {
     Map<StatType, num>? moduleStats
   }) : moduleStats = moduleStats ?? {};
 
+  @override
   StarForceModule copyWith({
     int? possibleStars,
     int? currentStars,

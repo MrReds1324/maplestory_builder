@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
-class ScrollModule {
+class ScrollModule implements Copyable {
   final int totalScrollSlots;
   final int scrollOffset;
   int usedScrollSlots;
@@ -23,6 +24,7 @@ class ScrollModule {
   usedScrolls = usedScrolls ?? [], 
   moduleStats = moduleStats ?? {};
 
+  @override
   ScrollModule copyWith({
     int? totalScrollSlots,
     int? scrollOffset,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/pitched_boss_upgrades.dart';
+import 'package:maplestory_builder/modules/base.dart';
 
-class PitchedBossUpgradeModule {
+class PitchedBossUpgradeModule implements Copyable {
   final PitchedBossUpgrade pitchedBossUpgrade;
   bool isActive;
 
@@ -11,6 +12,7 @@ class PitchedBossUpgradeModule {
     this.isActive = false,
   });
 
+  @override
   PitchedBossUpgradeModule copyWith({
     PitchedBossUpgrade? pitchedBossUpgrade,
     bool? isActive,

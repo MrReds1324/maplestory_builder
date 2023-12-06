@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 
 enum ScrollName {
@@ -1162,7 +1163,7 @@ class ScrollWithRange extends AbstractScroll {
   }
 }
 
-class SavedScrolledRange extends AbstractScroll {
+class SavedScrolledRange extends AbstractScroll implements Copyable {
   Map<StatType, int> scrollStats;
   bool isEditing = false;
 
@@ -1172,6 +1173,7 @@ class SavedScrolledRange extends AbstractScroll {
     super.slotCost = 1,
   }) : scrollStats = scrollStats ?? {};
 
+  @override
   SavedScrolledRange copyWith({
     ScrollName? scrollName,
     Map<StatType, int>? scrollStats,
@@ -1214,13 +1216,14 @@ class SavedScrolledRange extends AbstractScroll {
   }
 }
 
-class SavedScroll extends AbstractScroll {
+class SavedScroll extends AbstractScroll implements Copyable {
 
   SavedScroll({
     required super.scrollName,
     super.slotCost = 1,
   });
 
+  @override
   SavedScroll copyWith({
     ScrollName? scrollName,
     int? slotCost,

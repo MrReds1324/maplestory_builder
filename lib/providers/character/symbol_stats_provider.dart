@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/character/symbols_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'dart:math';
 
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
@@ -12,7 +13,7 @@ const int LEVEL_1 = 1;
 // ignore: constant_identifier_names
 const int LEVEL_OTHER = 2;
 
-class SymbolStatsProvider with ChangeNotifier{
+class SymbolStatsProvider with ChangeNotifier implements Copyable {
 
   CharacterProvider characterProvider;
   Map<ArcaneSymbol, int> arcaneSymbolLevels;
@@ -44,6 +45,7 @@ class SymbolStatsProvider with ChangeNotifier{
     }
     ;
 
+  @override
   SymbolStatsProvider copyWith({
     CharacterProvider? characterProvider,
     Map<ArcaneSymbol, int>? arcaneSymbolLevels,

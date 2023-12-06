@@ -1,7 +1,8 @@
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/soul_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 
-class SoulModule {
+class SoulModule implements Copyable {
   SoulName? soulName;
   (StatType, num)? selectedSoulStat;
 
@@ -10,6 +11,7 @@ class SoulModule {
     this.selectedSoulStat
   });
 
+  @override
   SoulModule copyWith({
     SoulName? soulName,
     (StatType, num)? selectedSoulStat,

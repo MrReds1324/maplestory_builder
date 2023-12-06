@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'dart:math';
 
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
-class TraitStatsProvider with ChangeNotifier{
+class TraitStatsProvider with ChangeNotifier implements Copyable {
 
   Map<TraitName, int> traitLevels;
   Map<StatType, num>? cacheValue;
@@ -24,6 +25,7 @@ class TraitStatsProvider with ChangeNotifier{
       TraitName.willpower: 0,
     };
 
+  @override
   TraitStatsProvider copyWith({
     Map<TraitName, int>? traitLevels,
   }) {

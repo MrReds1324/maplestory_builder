@@ -8,6 +8,7 @@ import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/pitched_boss_upgrade_mod.dart';
@@ -23,7 +24,7 @@ import 'dart:math';
 
 import 'package:provider/provider.dart';
 
-class Equip {
+class Equip implements Copyable {
   final EquipName equipName;
   final EquipSet? equipSet;
   StarForceModule? starForceModule;
@@ -112,6 +113,7 @@ class Equip {
     tweakModule = tweakModule ?? TweakModule();
   }
 
+  @override
   Equip copyWith({
     EquipName? equipName,
     EquipSet? equipSet,

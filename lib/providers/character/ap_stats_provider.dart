@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'dart:math';
 
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 
-class APStatsProvider with ChangeNotifier{
+class APStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
   // All relavent to calculating ap stats and ap usage
   int totalAvailableAP = 14; // 14 + 5 * CharacterLevel
@@ -37,6 +38,7 @@ class APStatsProvider with ChangeNotifier{
     };
   }
 
+  @override
   APStatsProvider copyWith({
     CharacterProvider? characterProvider,
     int? totalAvailableAP,

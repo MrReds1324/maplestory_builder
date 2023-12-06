@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
-class SetEffectModule {
+class SetEffectModule implements Copyable {
   Map<EquipSet, SetEffect> activeSetEffects;
   Map<int, LuckyItem> trackedLuckyItems;
   LuckyItem? activeLuckyItem;
@@ -19,6 +20,7 @@ class SetEffectModule {
   activeSetEffects = activeSetEffects ?? {},
   trackedLuckyItems = trackedLuckyItems ?? {};
 
+  @override
   SetEffectModule copyWith({
     Map<EquipSet, SetEffect>? activeSetEffects,
     LuckyItem? activeLuckyItem,
@@ -136,7 +138,7 @@ class SetEffectModule {
   }
 }
 
-class SetEffect {
+class SetEffect implements Copyable {
   final EquipSet equipSet;
   Map<EquipType, Set<EquipName>> equippedEquips;
   LuckyItem? activeLuckyItem;
@@ -156,6 +158,7 @@ class SetEffect {
   equippedEquips = equippedEquips ?? {}, 
   _isLuckyItemActive = isLuckyItemActive;
 
+  @override
   SetEffect copyWith({
     Map<EquipType, Set<EquipName>>? equippedEquips,
     LuckyItem? activeLuckyItem,
@@ -164,7 +167,7 @@ class SetEffect {
   }) {
     return SetEffect(
       equipSet: equipSet, 
-      equippedEquips: equippedEquips ?? mapDeepCopy(this.equippedEquips),
+      equippedEquips: equippedEquips ?? deepCopyEquippedEquips(this.equippedEquips),
       activeLuckyItem: activeLuckyItem ?? this.activeLuckyItem,
       isLuckyItemActive: isLuckyItemActive ?? _isLuckyItemActive,
       totalSetItems: totalSetItems ?? this.totalSetItems,

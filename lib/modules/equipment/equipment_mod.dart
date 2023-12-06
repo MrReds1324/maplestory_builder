@@ -1,10 +1,11 @@
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
+import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equip_sets_mod.dart';
 
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 
-class EquipmentModule {
+class EquipmentModule implements Copyable {
   late Map<String, int?> equippedEquips;
   late List<EquipName> equippedEquipNames;
   Equip? Function(int? equipHash) getEquipCallback;
@@ -21,6 +22,7 @@ class EquipmentModule {
     this.setEffectModule = setEffectModule ?? SetEffectModule();
   }
 
+  @override
   EquipmentModule copyWith({
     Map<String, int?>? equippedEquips,
     List<EquipName>? equippedEquipNames,
