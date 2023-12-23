@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/legion/legion_artifat_stats.dart';
+import 'package:maplestory_builder/modules/legion/legion_artifact_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:provider/provider.dart';
 
-class ArtifactCrystal extends StatelessWidget {
+class ArtifactCrystalWidget extends StatelessWidget {
   final int artifactCrystalPosition;
 
-  const ArtifactCrystal(
+  const ArtifactCrystalWidget(
     {
       required this.artifactCrystalPosition,
       super.key
@@ -19,7 +21,7 @@ class ArtifactCrystal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 300,
-      height: 280,
+      height: 283,
       padding: const EdgeInsets.all(2.5),
       child: Consumer<LegionArtifactProvider>(
         builder: (context, legionArtifactProvider, child) {
@@ -31,10 +33,21 @@ class ArtifactCrystal extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ArtifactCrystalLevelCell(artifactCrystalPosition: artifactCrystalPosition),
-                Text(
-                  "$artifactCrystalPosition"
+                ArtifactCrystalStatDropdown(
+                  artifactCrystalPosition: artifactCrystalPosition,
+                  statPosition: 1,
+                ),
+                ArtifactCrystalStatDropdown(
+                  artifactCrystalPosition: artifactCrystalPosition,
+                  statPosition: 2,
+                ),
+                ArtifactCrystalStatDropdown(
+                  artifactCrystalPosition: artifactCrystalPosition,
+                  statPosition: 3,
                 ),
               ]
             )
@@ -60,6 +73,7 @@ class ArtifactCrystalLevelCell extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(2.5),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
             height: 37,
@@ -164,6 +178,92 @@ class ArtifactCrystallevelButton extends StatelessWidget {
           isSubtract ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up
         ),
       ),
+    );
+  }
+}
+
+class ArtifactCrystalStatDropdown extends StatelessWidget {
+  final int artifactCrystalPosition;
+  final int statPosition;
+
+  const ArtifactCrystalStatDropdown({
+    required this.artifactCrystalPosition,
+    required this.statPosition,
+    super.key
+  });
+
+  List<DropdownMenuItem> getDropdownStatsList(BuildContext context, ArtifactCrystal artifactCrystal) {
+    List<DropdownMenuItem<StatType>> dropdownItems = [
+      // Always add a default null selector to the list
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    List<StatType> filteredList = <StatType>[];
+    // We can only have one of the flame types per equip, filter out any ones already used here
+    statFilterLoop:
+    for(StatType statType in artifactStatIncreases.keys) { 
+      // Stops us from being able to select multiple of a single stat
+      for (MapEntry<int, StatType?> editingStats in artifactCrystal.artifactCrystalStats.entries) {
+        if (editingStats.key == statPosition) {
+          continue;
+        }
+        else if (statType == editingStats.value) {
+          continue statFilterLoop;
+        }
+      }
+      
+      filteredList.add(statType);
+    }
+
+    dropdownItems.addAll(
+      filteredList.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium
+          ),
+        );
+      }).toList()
+    );
+
+    return dropdownItems;
+  }
+
+  StatType? getSelectedStat(ArtifactCrystal artifactCrystal) {
+    return artifactCrystal.artifactCrystalStats[statPosition];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Stat $statPosition: "),
+        SizedBox(
+          width: 120,
+          child: Consumer<LegionArtifactProvider>(
+            builder: (context, legionArtifactProvider, child) {
+              return DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedStat(legionArtifactProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition)),
+                onChanged: (newValue) {
+                  legionArtifactProvider.updateArtifactStat(artifactCrystalPosition, statPosition, newValue);
+                },
+                items: getDropdownStatsList(context, legionArtifactProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition))
+              );
+            }
+          ),
+        ),
+      ]
     );
   }
 }

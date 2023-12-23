@@ -53,7 +53,7 @@ class Equip implements Copyable {
       starForceModule!.updateStarforce(this, starForceModule!.currentStars);
     }
     else if (equipName.starForceCategory == StarForceCategory.player) {
-      starForceModule = StarForceModule(possibleStars: getStarforceLimit(equipName.itemLevel).toInt());
+      starForceModule = StarForceModule(possibleStars: StarForceModule.getStarforceLimit(equipName.itemLevel).toInt());
     }
     else {
       starForceModule = null;

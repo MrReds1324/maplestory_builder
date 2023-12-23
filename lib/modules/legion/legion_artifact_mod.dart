@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/legion/legion_artifat_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
@@ -56,41 +57,41 @@ class LegionArtifactCrystalsModule implements Copyable {
 
     // Then calculate the actual stat value based on max level of 10
     for (MapEntry<StatType, int> artifactStatLevelsEntry in artifactStatLevels.entries) {
-      artifactStats[artifactStatLevelsEntry.key] = artifactStatIncreases[artifactStatLevelsEntry.key]! * max(artifactStatLevelsEntry.value, maxArtifactStatlevel);
+      artifactStats[artifactStatLevelsEntry.key] = artifactStatIncreases[artifactStatLevelsEntry.key]! * min(artifactStatLevelsEntry.value, maxArtifactStatlevel);
     }
 
     return artifactStats;
   }
 
 
-  ArtifactCrystal getArtifactCrystal(int artifacCrystaltPosition) {
-    return artifactCrystals[artifacCrystaltPosition]!;
+  ArtifactCrystal getArtifactCrystal(int artifactCrystalPosition) {
+    return artifactCrystals[artifactCrystalPosition]!;
   }
 
-  bool addArtifactLevel(int artifacCrystaltPosition) {
-    if (artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel == maxArtifactCrystalLevel) {
+  bool addArtifactLevel(int artifactCrystalPosition) {
+    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == maxArtifactCrystalLevel) {
       return false;
     }
 
-    artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel += 1;
+    artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel += 1;
 
     cacheValue = null;
     return true;
   }
 
-  bool subtractArtifactLevel(int artifacCrystaltPosition) {
-    if (artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel == 0) {
+  bool subtractArtifactLevel(int artifactCrystalPosition) {
+    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == 0) {
       return false;
     }
 
-    artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel -= 1;
+    artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel -= 1;
 
     cacheValue = null;
     return true;
   }
 
-  void updateArtifactStat(int artifacCrystaltPosition, int statPosition, StatType? statType) {
-    artifactCrystals[artifacCrystaltPosition]!.artifactCrystalStats[statPosition] = statType;
+  void updateArtifactStat(int artifactCrystalPosition, int statPosition, StatType? statType) {
+    artifactCrystals[artifactCrystalPosition]!.artifactCrystalStats[statPosition] = statType;
     cacheValue = null;
   }
 }
@@ -116,6 +117,24 @@ class ArtifactCrystal implements Copyable {
     return ArtifactCrystal(
       artifactCrystalLevel: artifactCrystalLevel ?? this.artifactCrystalLevel,
       artifactStats: artifactCrystalStats ?? Map.of(this.artifactCrystalStats),
+    );
+  }
+
+  Widget getLevelWidget(BuildContext context) { 
+    var unfilled = maxArtifactCrystalLevel - artifactCrystalLevel;
+    var starGroup = <Icon>[];
+
+    for (var i = 0; i < artifactCrystalLevel; i++){
+      starGroup.add(filledStar);
+    }
+
+    for (var i = 0; i < unfilled; i++){
+      starGroup.add(emptyStar);
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: starGroup
     );
   }
 }

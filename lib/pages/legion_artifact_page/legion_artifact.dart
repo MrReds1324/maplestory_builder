@@ -15,7 +15,6 @@ class LegionArtifactLevelWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
         width: 455,
-        height: 382,
         padding: const EdgeInsets.all(5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -174,8 +173,8 @@ class ArtifactCrystalStatsListView extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
         ),
         Container(
-          height: 246,
-          width: 440,
+          height: 757,
+          width: 250,
           decoration: BoxDecoration(
             border: Border.all(
               color: statColor
@@ -232,23 +231,23 @@ class ArtifactCrystalGrid extends StatelessWidget {
       children: [
         Row(
           children: [
-            ArtifactCrystal(artifactCrystalPosition: 1),
-            ArtifactCrystal(artifactCrystalPosition: 2),
-            ArtifactCrystal(artifactCrystalPosition: 3),
+            ArtifactCrystalWidget(artifactCrystalPosition: 1),
+            ArtifactCrystalWidget(artifactCrystalPosition: 2),
+            ArtifactCrystalWidget(artifactCrystalPosition: 3),
           ],
         ),
         Row(
           children: [
-            ArtifactCrystal(artifactCrystalPosition: 4),
-            ArtifactCrystal(artifactCrystalPosition: 5),
-            ArtifactCrystal(artifactCrystalPosition: 6),
+            ArtifactCrystalWidget(artifactCrystalPosition: 4),
+            ArtifactCrystalWidget(artifactCrystalPosition: 5),
+            ArtifactCrystalWidget(artifactCrystalPosition: 6),
           ],
         ),
         Row(
           children: [
-            ArtifactCrystal(artifactCrystalPosition: 7),
-            ArtifactCrystal(artifactCrystalPosition: 8),
-            ArtifactCrystal(artifactCrystalPosition: 9),
+            ArtifactCrystalWidget(artifactCrystalPosition: 7),
+            ArtifactCrystalWidget(artifactCrystalPosition: 8),
+            ArtifactCrystalWidget(artifactCrystalPosition: 9),
           ],
         ),
       ]

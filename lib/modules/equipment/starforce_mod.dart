@@ -511,45 +511,45 @@ class StarForceModule implements Copyable {
       }
     }
 
-    var firstColumn = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: firstColumnChildren
-    );
-
-    var secondColumn = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: secondColumnChildren
-    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-        children: [firstColumn, secondColumn],
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: firstColumnChildren
+          ), 
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: secondColumnChildren
+          )
+        ],
     );
   }
-}
 
-// 0~94	5
-// 95~107	8
-// 108~117	10
-// 118~127	15
-// 128~137	20
-// 138 and above	25
-double getStarforceLimit(num itemLevel) {
-  if (itemLevel <= 94) {
-    return 5;
-  }
-  else if (itemLevel <= 107) {
-    return 8;
-  }
-  else if (itemLevel <= 117) {
-    return 10;
-  }
-  else if (itemLevel <= 127) {
-    return 15;
-  }
-  else if (itemLevel <= 137) {
-    return 20;
-  }
-  else {
-    return 25;
+  // 0~94	5
+  // 95~107	8
+  // 108~117	10
+  // 118~127	15
+  // 128~137	20
+  // 138 and above	25
+  static double getStarforceLimit(num itemLevel) {
+    if (itemLevel <= 94) {
+      return 5;
+    }
+    else if (itemLevel <= 107) {
+      return 8;
+    }
+    else if (itemLevel <= 117) {
+      return 10;
+    }
+    else if (itemLevel <= 127) {
+      return 15;
+    }
+    else if (itemLevel <= 137) {
+      return 20;
+    }
+    else {
+      return 25;
+    }
   }
 }
