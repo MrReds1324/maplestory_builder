@@ -12,6 +12,7 @@ import 'package:maplestory_builder/providers/character/symbol_stats_provider.dar
 import 'dart:math';
 
 import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 
 class CalculatorProvider with ChangeNotifier implements Copyable {
@@ -60,6 +61,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
   SymbolStatsProvider symbolStatsProvider;
   EquipsProvider equipsProvider;
   LegionStatsProvider legionStatsProvider;
+  LegionArtifactProvider legionArtifactProvider;
 
   CalculatorProvider({
     required this.characterProvider,
@@ -70,6 +72,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     required this.symbolStatsProvider,
     required this.equipsProvider,
     required this.legionStatsProvider,
+    required this.legionArtifactProvider,
     bool doCalculation = true
   }){
     if (doCalculation) {
@@ -87,6 +90,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     SymbolStatsProvider? symbolStatsProvider,
     EquipsProvider? equipsProvider, 
     LegionStatsProvider? legionStatsProvider,
+    LegionArtifactProvider? legionArtifactProvider,
     bool doCalculation = true
   }){
     return CalculatorProvider(
@@ -98,6 +102,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
       symbolStatsProvider: symbolStatsProvider ?? this.symbolStatsProvider.copyWith(),
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
       legionStatsProvider: legionStatsProvider ?? this.legionStatsProvider.copyWith(),
+      legionArtifactProvider: legionArtifactProvider ?? this.legionArtifactProvider.copyWith(),
       doCalculation: doCalculation,
     );
   }
@@ -115,6 +120,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     SymbolStatsProvider symbolStatsProvider,
     EquipsProvider equipsProvider,
     LegionStatsProvider legionStatsProvider,
+    LegionArtifactProvider legionArtifactProvider,
   ) {
     calculateEverything();
     notifyListeners();
@@ -205,6 +211,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     updateTempStats(innerAbilityProvider.calculateStats());
     updateTempStats(traitStatsProvider.calculateStats());
     updateTempStats(legionStatsProvider.calculateStats());
+    updateTempStats(legionArtifactProvider.calculateStats());
 
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterProvider.characterLevel * 50);
     tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterProvider.characterLevel * 50);

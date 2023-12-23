@@ -36,7 +36,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     hyperStatsProvider: mainCalculatorProvider.hyperStatsProvider,
     symbolStatsProvider: mainCalculatorProvider.symbolStatsProvider,
     equipsProvider: mainCalculatorProvider.equipsProvider,
-    legionStatsProvider: mainCalculatorProvider.legionStatsProvider
+    legionStatsProvider: mainCalculatorProvider.legionStatsProvider,
+    legionArtifactProvider: mainCalculatorProvider.legionArtifactProvider,
   );
 
 
@@ -411,32 +412,29 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }
 
   void compareLegionArtifactSets(BuildContext context, int newLegionSetPosition) {
-    // TODO FIX THIS TO USE ARTIFACT PROVIDER ONCE ADDED TO CALCULATOR PROVIDER
-    var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
-    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
-    diffCalculatorProvider.legionStatsProvider.changeActiveSet(newLegionSetPosition);
+    var tempLegionArtifactProvider = diffCalculatorProvider.legionArtifactProvider;
+    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider.copyWith();
+    diffCalculatorProvider.legionArtifactProvider.changeActiveSet(newLegionSetPosition);
     diffCalculatorProvider.calculateEverything(recalculateCache: true);
     updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
 
     // Reset the legion provider for the diff character model
-    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
+    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider;
     notifyListeners();
   }  
 
   void modifyArtifactCrsytalLevel(int artifactCrystalPosition, bool isSubtract) {
-    // TODO Implement this once legion artifacts have been added to calculator provider
-    var tempTraitStatsProvider = diffCalculatorProvider.traitStatsProvider;
-    diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider.copyWith();
-    // if (isSubtract) {
-      
-    //   diffCalculatorProvider.traitStatsProvider.subtractTraitLevels(possibleLevelsToAddOrSubtract, traitName);
-    // }
-    // else {
-    //   diffCalculatorProvider.traitStatsProvider.addTraitLevels(possibleLevelsToAddOrSubtract, traitName);
-    // }
+    var tempLegionArtifactProvider = diffCalculatorProvider.legionArtifactProvider;
+    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider.copyWith();
+    if (isSubtract) {
+      diffCalculatorProvider.legionArtifactProvider.subtractArtifactLevel(artifactCrystalPosition);
+    }
+    else {
+      diffCalculatorProvider.legionArtifactProvider.addArtifactLevel(artifactCrystalPosition);
+    }
     diffCalculatorProvider.calculateEverything();
     updateDifferenceText();
-    diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider;
+    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider;
   }
 
   void modifyTraitLevels(int possibleLevelsToAddOrSubtract, TraitName traitName, bool isSubtract) {

@@ -171,7 +171,7 @@ class _ChangeNotifierProvider<T extends ChangeNotifier?>
 }
 
 // ignore: public_member_api_docs
-typedef ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> = R Function(
+typedef ProxyProviderBuilder9<T, T2, T3, T4, T5, T6, T7, T8, T9, R> = R Function(
   BuildContext context,
   T value,
   T2 value2,
@@ -181,17 +181,18 @@ typedef ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> = R Function(
   T6 value6,
   T7 value7,
   T8 value8,
+  T9 value9,
   R? previous,
 );
 
 /// {@macro provider.listenableproxyprovider}
-class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, T8, R extends Listenable?>
+class _ListenableProxyProvider9<T, T2, T3, T4, T5, T6, T7, T8, T9, R extends Listenable?>
     extends ListenableProxyProvider0<R> {
   /// Initializes [key] for subclasses.
-  _ListenableProxyProvider7({
+  _ListenableProxyProvider9({
     Key? key,
     Create<R>? create,
-    required ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> update,
+    required ProxyProviderBuilder9<T, T2, T3, T4, T5, T6, T7, T8, T9, R> update,
     Dispose<R>? dispose,
     bool? lazy,
     TransitionBuilder? builder,
@@ -211,6 +212,7 @@ class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, T8, R extends Listena
             Provider.of(context),
             Provider.of(context),
             Provider.of(context),
+            Provider.of(context),
             previous,
           ),
           dispose: dispose,
@@ -219,13 +221,13 @@ class _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, T8, R extends Listena
 }
 
 /// {@macro provider.changenotifierproxyprovider}
-class ChangeNotifierProxyProvider8<T, T2, T3, T4, T5, T6, T7, T8, R extends ChangeNotifier?>
-    extends _ListenableProxyProvider7<T, T2, T3, T4, T5, T6, T7, T8, R> {
+class ChangeNotifierProxyProvider9<T, T2, T3, T4, T5, T6, T7, T8, T9, R extends ChangeNotifier?>
+    extends _ListenableProxyProvider9<T, T2, T3, T4, T5, T6, T7, T8, T9, R> {
   /// Initializes [key] for subclasses.
-  ChangeNotifierProxyProvider8({
+  ChangeNotifierProxyProvider9({
     Key? key,
     required Create<R> create,
-    required ProxyProviderBuilder7<T, T2, T3, T4, T5, T6, T7, T8, R> update,
+    required ProxyProviderBuilder9<T, T2, T3, T4, T5, T6, T7, T8, T9, R> update,
     bool? lazy,
     TransitionBuilder? builder,
     Widget? child,
