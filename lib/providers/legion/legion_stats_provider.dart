@@ -27,6 +27,7 @@ class LegionStatsProvider with ChangeNotifier implements Copyable {
 
   LegionStatsProvider({
     required this.characterProvider,
+    this.activeSetNumber = 1,
     this.legionBoardRank,
     this.legionCharacterHash = 1,
     Map<int, LegionModule>? legionSets,
@@ -54,13 +55,17 @@ class LegionStatsProvider with ChangeNotifier implements Copyable {
   @override
   LegionStatsProvider copyWith({
     CharacterProvider? characterProvider,
+    int? activeSetNumber,
     LegionBoardRank? legionBoardRank,
+    int? legionCharacterHash,
     Map<int, LegionModule>? legionSets,
     Map<int, LegionCharacter>? allLegionCharacters,
-    int? legionCharacterHash,
+    LegionModule? activeLegionSet
   }) {
     return LegionStatsProvider(
       characterProvider: characterProvider ?? this.characterProvider.copyWith(),
+      activeSetNumber: activeSetNumber ?? this.activeSetNumber,
+      activeLegionSet: activeLegionSet ?? this.activeLegionSet.copyWith(),
       legionBoardRank: legionBoardRank ?? this.legionBoardRank,
       legionSets: legionSets ?? mapDeepCopy(this.legionSets),
       allLegionCharacters: allLegionCharacters ?? Map<int, LegionCharacter>.of(this.allLegionCharacters),

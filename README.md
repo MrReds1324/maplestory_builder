@@ -24,6 +24,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 - [x] Legion
 	- [x] Legion Character Effects
 	- [x] Legion Board Effects
+- [ ] Legion Artifacts
 - [ ] Familiars - Not started
 	- [ ] Badge Effects
 	- [ ] Familiar Effects

@@ -184,6 +184,7 @@ enum StatType {
   attackSkillTargetIncrease(formattedName: "Attack Skill Target Increase"),
   summonDuration(formattedName: "Summon Duration", isPercentage: true),
   mastery(formattedName: "Mastery", isPercentage: true),
+  finalAttackSkillDamage(formattedName: "Final Attack-Type Skill Damage", isPercentage: true),
   ;
 
   const StatType({

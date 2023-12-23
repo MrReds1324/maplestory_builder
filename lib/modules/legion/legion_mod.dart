@@ -65,7 +65,7 @@ class LegionModule implements Copyable {
   @override
   LegionModule copyWith({
     List<int>? placedCharacters,
-    Map<LegionBlock, int?>? legionCharacters,
+    Map<LegionBlock, int?>? legionArtifacts,
     Map<StatType, int>? legionBoardStatLevels,
     LegionCharacter? Function(int?)? getLegionCharacterCallback,
     LegionBoardRank? Function()? getLegionBoardRankCallback,
@@ -73,7 +73,7 @@ class LegionModule implements Copyable {
   }) {
     return LegionModule(
       placedCharacters: placedCharacters ?? List<int>.of(this.placedCharacters),
-      legionCharacters: legionCharacters ?? Map<LegionBlock, int?>.of(this.legionCharacters),
+      legionCharacters: legionArtifacts ?? Map<LegionBlock, int?>.of(this.legionCharacters),
       legionBoardStatLevels: legionBoardStatLevels ?? Map<StatType, int>.of(this.legionBoardStatLevels),
       getLegionCharacterCallback: getLegionCharacterCallback ?? this.getLegionCharacterCallback,
       getLegionBoardRankCallback: getLegionBoardRankCallback ?? this.getLegionBoardRankCallback,
