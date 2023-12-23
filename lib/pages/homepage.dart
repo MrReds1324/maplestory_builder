@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/pages/familiars_page/familiar_page.dart';
+import 'package:maplestory_builder/pages/legion_artifact_page/legion_artifact_page.dart';
 import 'package:maplestory_builder/pages/legion_page/legion_page.dart';
 import 'package:maplestory_builder/pages/misc_stats_page/misc_stats_page.dart';
 import 'package:maplestory_builder/pages/settings_page/settings_page.dart';
@@ -22,7 +23,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 7,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -32,6 +33,7 @@ class MyHomePage extends StatelessWidget {
               Tab(icon: Icon(MdiIcons.shieldEdit)),
               Tab(icon: Icon(MdiIcons.accountEdit)),
               Tab(icon: Icon(MdiIcons.puzzleEdit)),
+              Tab(icon: Icon(MdiIcons.puzzleEditOutline)),
               Tab(icon: Icon(MdiIcons.bookEdit)),
               Tab(icon: Icon(MdiIcons.vectorPolylineEdit)),
               Tab(icon: Icon(MdiIcons.cog)),
@@ -57,6 +59,7 @@ class MyHomePage extends StatelessWidget {
                   EquipPage(),
                   MiscStatsPage(),
                   LegionPage(),
+                  LegionArtifactPage(),
                   FamiliarPage(),
                   SkillsPage(),
                   SettingsPage(),

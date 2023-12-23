@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:maplestory_builder/constants/character/legion_stats.dart';
+import 'package:maplestory_builder/constants/legion/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
@@ -412,7 +412,6 @@ class EditCharacterDialogBox extends StatelessWidget {
                           var legionCharacterEditingProvider = context.read<LegionCharacterEditingProvider>();
                           return TextField(
                             style: Theme.of(context).textTheme.bodyMedium,
-                            enabled: !LegionBlock.specialBlocks.contains(legionBlock),
                             controller: legionCharacterEditingProvider.levelTextController,
                             onChanged: (value) => legionCharacterEditingProvider.updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
                             keyboardType: TextInputType.number,

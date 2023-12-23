@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/constants/character/legion_stats.dart';
+import 'package:maplestory_builder/constants/legion/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';

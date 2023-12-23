@@ -204,27 +204,27 @@ enum LegionBlock {
   labServer(
     formattedName: "Lab Server",
     legionEffect: (StatType.attackMattack, [5, 10, 15, 20, 25]),
-    staticLegionLevel: 200,
   ),
   enhancedLabServer(
     formattedName: "Enhanced Lab Server",
     legionEffect: (StatType.attackMattack, [7, 14, 21, 28, 35]),
-    staticLegionLevel: 250,
+  ),
+  abyssalExpeditionMF(
+    formattedName: "Abyssal Expedition (Minar Forest)",
+    legionEffect: (StatType.attackMattack, [7, 14, 21, 28, 35]),
   ),
   ;
 
   const LegionBlock({
     required this.formattedName,
     required this.legionEffect,
-    this.staticLegionLevel,
   });
 
   final String formattedName;
   final (StatType, List<num>) legionEffect;
-  final int? staticLegionLevel;
 
   static List<String> legionBlockRanks = ["F", "B", "A", "S", "SS", "SSS"];
-  static Set<LegionBlock> specialBlocks = {LegionBlock.labServer, LegionBlock.enhancedLabServer};
+  static Set<LegionBlock> specialBlocks = {LegionBlock.labServer, LegionBlock.enhancedLabServer, LegionBlock.abyssalExpeditionMF};
 }
 
 enum LegionBoardRank {

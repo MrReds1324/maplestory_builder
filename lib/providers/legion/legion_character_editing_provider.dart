@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/constants/character/legion_stats.dart';
+import 'package:maplestory_builder/constants/legion/legion_stats.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:provider/provider.dart';
@@ -63,11 +63,6 @@ class LegionCharacterEditingProvider with ChangeNotifier {
   void updatedLegionBlock(LegionBlock legionBlock) {
     if (editingLegionCharacter != null) {
       editingLegionCharacter!.legionBlock = legionBlock;
-
-      if (legionBlock.staticLegionLevel != null) {
-        editingLegionCharacter!.legionCharacterLevel = legionBlock.staticLegionLevel!;
-        levelTextController.text = "${editingLegionCharacter!.legionCharacterLevel}";
-      }
     
       updateCounter += 1;
       notifyListeners();
