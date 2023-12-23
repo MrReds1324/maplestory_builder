@@ -72,70 +72,28 @@ class ArtifactCrystalLevelCell extends StatelessWidget {
   Widget build(BuildContext context){
     return Container(
       padding: const EdgeInsets.all(2.5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: 37,
-            width: 150,
-            clipBehavior: Clip.hardEdge,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              color: statColor,
-              border: Border.all(
-                color: statColor
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
+      child: SizedBox(
+        width: 160,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ArtifactCrystallevelButton(
+              artifactCrystalPosition: artifactCrystalPosition,
+              isSubtract: true,
             ),
-            child: const Center(
-              child: Text(
-                "Artifact Crystal Level",
-              ),
-            )
-          ),
-          Container(
-            height: 37,
-            width: 110,
-            clipBehavior: Clip.hardEdge,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: statColor
-              ),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
+            const Spacer(),
+            Selector<LegionArtifactProvider, int>(
+              selector: (_, legionArtifactsProvider) => legionArtifactsProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition).artifactCrystalLevel,
+              builder: (context, data, child) {
+                return context.read<LegionArtifactProvider>().activeCrystalSet.getArtifactCrystal(artifactCrystalPosition).buildLevelWidget(context);
+              }
             ),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ArtifactCrystallevelButton(
-                    artifactCrystalPosition: artifactCrystalPosition,
-                    isSubtract: true,
-                  ),
-                  const Spacer(),
-                  Selector<LegionArtifactProvider, int>(
-                    selector: (_, legionArtifactsProvider) => legionArtifactsProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition).artifactCrystalLevel,
-                    builder: (context, data, child) {
-                      return Text(
-                        "$data",
-                      );
-                    }
-                  ),
-                  const Spacer(),
-                  ArtifactCrystallevelButton(
-                    artifactCrystalPosition: artifactCrystalPosition
-                  ),
-                ],
-              ),
+            const Spacer(),
+            ArtifactCrystallevelButton(
+              artifactCrystalPosition: artifactCrystalPosition
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -247,7 +205,7 @@ class ArtifactCrystalStatDropdown extends StatelessWidget {
       children: [
         Text("Stat $statPosition: "),
         SizedBox(
-          width: 120,
+          width: 200,
           child: Consumer<LegionArtifactProvider>(
             builder: (context, legionArtifactProvider, child) {
               return DropdownButton(

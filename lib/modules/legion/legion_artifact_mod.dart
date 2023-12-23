@@ -40,17 +40,26 @@ class LegionArtifactCrystalsModule implements Copyable {
       return cacheValue!;
     }
 
+    if (activeArtifactCount == 0) {
+      cacheValue = {};
+      return {};
+    }
+
     Map<StatType, int> artifactStatLevels = {};
     Map<StatType, num> artifactStats = {};
 
     // Begin by calculating all the levels of each stat
-    for (ArtifactCrystal legionArtifact in artifactCrystals.values) {
-      for (StatType? statType in legionArtifact.artifactCrystalStats.values) {
+    for (MapEntry<int, ArtifactCrystal> artifactCrystalEntry in artifactCrystals.entries) {
+      if (artifactCrystalEntry.key > activeArtifactCount) {
+        continue;
+      }
+
+      for (StatType? statType in artifactCrystalEntry.value.artifactCrystalStats.values) {
         if (statType == null) {
           continue;
         }
         else {
-          artifactStatLevels[statType] = (artifactStatLevels[statType] ?? 0) + legionArtifact.artifactCrystalLevel;
+          artifactStatLevels[statType] = (artifactStatLevels[statType] ?? 0) + artifactCrystalEntry.value.artifactCrystalLevel;
         }
       }
     }
@@ -120,7 +129,7 @@ class ArtifactCrystal implements Copyable {
     );
   }
 
-  Widget getLevelWidget(BuildContext context) { 
+  Widget buildLevelWidget(BuildContext context) { 
     var unfilled = maxArtifactCrystalLevel - artifactCrystalLevel;
     var starGroup = <Icon>[];
 
