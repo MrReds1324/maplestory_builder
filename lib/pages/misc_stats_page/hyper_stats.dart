@@ -165,7 +165,7 @@ class HyperStatButton extends StatelessWidget {
     }
   );
 
-  void _onHover(BuildContext context){
+  void _onHover(BuildContext context) {
     context.read<DifferenceCalculatorProvider>().modifyHyperStats(isLarge ? 5 : 1, statType, isSubtract);
   }
 

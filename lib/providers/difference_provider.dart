@@ -408,7 +408,36 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     // Reset the legion provider for the diff character model
     diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
     notifyListeners();
+  }
+
+  void compareLegionArtifactSets(BuildContext context, int newLegionSetPosition) {
+    // TODO FIX THIS TO USE ARTIFACT PROVIDER ONCE ADDED TO CALCULATOR PROVIDER
+    var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
+    diffCalculatorProvider.legionStatsProvider.changeActiveSet(newLegionSetPosition);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the legion provider for the diff character model
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
+    notifyListeners();
   }  
+
+  void modifyArtifactCrsytalLevel(int artifactCrystalPosition, bool isSubtract) {
+    // TODO Implement this once legion artifacts have been added to calculator provider
+    var tempTraitStatsProvider = diffCalculatorProvider.traitStatsProvider;
+    diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider.copyWith();
+    // if (isSubtract) {
+      
+    //   diffCalculatorProvider.traitStatsProvider.subtractTraitLevels(possibleLevelsToAddOrSubtract, traitName);
+    // }
+    // else {
+    //   diffCalculatorProvider.traitStatsProvider.addTraitLevels(possibleLevelsToAddOrSubtract, traitName);
+    // }
+    diffCalculatorProvider.calculateEverything();
+    updateDifferenceText();
+    diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider;
+  }
 
   void modifyTraitLevels(int possibleLevelsToAddOrSubtract, TraitName traitName, bool isSubtract) {
     var tempTraitStatsProvider = diffCalculatorProvider.traitStatsProvider;

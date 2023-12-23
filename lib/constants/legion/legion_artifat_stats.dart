@@ -2,7 +2,9 @@ import 'package:maplestory_builder/constants/constants.dart';
 
 const int maxArtifactStatlevel = 10;
 
-const int maxArtifactlevel = 5;
+const int maxArtifactCrystalLevel = 5;
+
+const int maxLegionArtifactLevel = 60;
 
 const Map<StatType, num> artifactStatIncreases = {
   StatType.allStats: 15,

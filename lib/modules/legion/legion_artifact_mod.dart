@@ -5,36 +5,36 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
-class LegionArtifactModule implements Copyable {
-  Map<int, LegionArtifact> legionArtifacts;
+class LegionArtifactCrystalsModule implements Copyable {
+  Map<int, ArtifactCrystal> artifactCrystals;
 
   Map<StatType, num>? cacheValue;
 
-  LegionArtifactModule({
-    Map<int, LegionArtifact>? legionArtifacts,
-  }) : legionArtifacts = legionArtifacts ?? {
-    1: LegionArtifact(),
-    2: LegionArtifact(),
-    3: LegionArtifact(),
-    4: LegionArtifact(),
-    5: LegionArtifact(),
-    6: LegionArtifact(),
-    7: LegionArtifact(),
-    8: LegionArtifact(),
-    9: LegionArtifact(),
+  LegionArtifactCrystalsModule({
+    Map<int, ArtifactCrystal>? legionArtifacts,
+  }) : artifactCrystals = legionArtifacts ?? {
+    1: ArtifactCrystal(),
+    2: ArtifactCrystal(),
+    3: ArtifactCrystal(),
+    4: ArtifactCrystal(),
+    5: ArtifactCrystal(),
+    6: ArtifactCrystal(),
+    7: ArtifactCrystal(),
+    8: ArtifactCrystal(),
+    9: ArtifactCrystal(),
 
   };
 
   @override
-  LegionArtifactModule copyWith({
-    Map<int, LegionArtifact>? legionArtifacts,
+  LegionArtifactCrystalsModule copyWith({
+    Map<int, ArtifactCrystal>? artifactCrystals,
   }) {
-    return LegionArtifactModule(
-      legionArtifacts: legionArtifacts ?? mapDeepCopy(this.legionArtifacts),
+    return LegionArtifactCrystalsModule(
+      legionArtifacts: artifactCrystals ?? mapDeepCopy(this.artifactCrystals),
     );
   }
 
-  Map<StatType, num> calculateModuleStats() {
+  Map<StatType, num> calculateModuleStats(int activeArtifactCount) {
     if (cacheValue != null) {
       return cacheValue!;
     }
@@ -43,13 +43,13 @@ class LegionArtifactModule implements Copyable {
     Map<StatType, num> artifactStats = {};
 
     // Begin by calculating all the levels of each stat
-    for (LegionArtifact legionArtifact in legionArtifacts.values) {
-      for (StatType? statType in legionArtifact.artifactStats.values) {
+    for (ArtifactCrystal legionArtifact in artifactCrystals.values) {
+      for (StatType? statType in legionArtifact.artifactCrystalStats.values) {
         if (statType == null) {
           continue;
         }
         else {
-          artifactStatLevels[statType] = (artifactStatLevels[statType] ?? 0) + legionArtifact.artifactLevel;
+          artifactStatLevels[statType] = (artifactStatLevels[statType] ?? 0) + legionArtifact.artifactCrystalLevel;
         }
       }
     }
@@ -63,59 +63,59 @@ class LegionArtifactModule implements Copyable {
   }
 
 
-  LegionArtifact getArtifact(int artifactPosition) {
-    return legionArtifacts[artifactPosition]!;
+  ArtifactCrystal getArtifactCrystal(int artifacCrystaltPosition) {
+    return artifactCrystals[artifacCrystaltPosition]!;
   }
 
-  bool addArtifactLevel(int artifactPosition) {
-    if (legionArtifacts[artifactPosition]!.artifactLevel == maxArtifactlevel) {
+  bool addArtifactLevel(int artifacCrystaltPosition) {
+    if (artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel == maxArtifactCrystalLevel) {
       return false;
     }
 
-    legionArtifacts[artifactPosition]!.artifactLevel += 1;
+    artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel += 1;
 
     cacheValue = null;
     return true;
   }
 
-  bool subtractArtifactLevel(int artifactPosition) {
-    if (legionArtifacts[artifactPosition]!.artifactLevel == 0) {
+  bool subtractArtifactLevel(int artifacCrystaltPosition) {
+    if (artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel == 0) {
       return false;
     }
 
-    legionArtifacts[artifactPosition]!.artifactLevel -= 1;
+    artifactCrystals[artifacCrystaltPosition]!.artifactCrystalLevel -= 1;
 
     cacheValue = null;
     return true;
   }
 
-  void updateArtifactStat(int artifactPosition, int statPosition, StatType? statType) {
-    legionArtifacts[artifactPosition]!.artifactStats[statPosition] = statType;
+  void updateArtifactStat(int artifacCrystaltPosition, int statPosition, StatType? statType) {
+    artifactCrystals[artifacCrystaltPosition]!.artifactCrystalStats[statPosition] = statType;
     cacheValue = null;
   }
 }
 
-class LegionArtifact implements Copyable {
-  int artifactLevel;
-  Map<int, StatType?> artifactStats;
+class ArtifactCrystal implements Copyable {
+  int artifactCrystalLevel;
+  Map<int, StatType?> artifactCrystalStats;
 
-  LegionArtifact({
-    this.artifactLevel = 0,
+  ArtifactCrystal({
+    this.artifactCrystalLevel = 0,
     Map<int, StatType?>? artifactStats
-  }) : artifactStats =  artifactStats ?? {
+  }) : artifactCrystalStats =  artifactStats ?? {
     1: null,
     2: null,
     3: null,
   };
 
   @override
-  LegionArtifact copyWith({
-    int? artifactLevel,
-    Map<int, StatType?>? artifactStats
+  ArtifactCrystal copyWith({
+    int? artifactCrystalLevel,
+    Map<int, StatType?>? artifactCrystalStats
   }) {
-    return LegionArtifact(
-      artifactLevel: artifactLevel ?? this.artifactLevel,
-      artifactStats: artifactStats ?? Map.of(this.artifactStats),
+    return ArtifactCrystal(
+      artifactCrystalLevel: artifactCrystalLevel ?? this.artifactCrystalLevel,
+      artifactStats: artifactCrystalStats ?? Map.of(this.artifactCrystalStats),
     );
   }
 }

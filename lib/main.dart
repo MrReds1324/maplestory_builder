@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
@@ -85,6 +86,7 @@ void main() {
               characterProvider: characterProvider
             ),
         ),
+        ChangeNotifierProvider<LegionArtifactProvider>(create: (_) => LegionArtifactProvider()),
         ChangeNotifierProxyProvider8<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
         HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
