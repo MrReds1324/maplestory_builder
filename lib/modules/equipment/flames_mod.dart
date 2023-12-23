@@ -4,41 +4,31 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/flame_stats.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class FlameModule implements Copyable {
-  FlameLine? flameLine1;
-  FlameLine? flameLine2;
-  FlameLine? flameLine3;
-  FlameLine? flameLine4;
+  Map<int, FlameLine> flames;
 
   Map<StatType, num> moduleStats;
 
   FlameModule({
-    this.flameLine1,
-    this.flameLine2,
-    this.flameLine3,
-    this.flameLine4,
+    Map<int, FlameLine>? flames,
     Map<StatType, num>? moduleStats,
-  }) : moduleStats = moduleStats ?? {} {
-    flameLine1 = flameLine1 ?? FlameLine();
-    flameLine2 = flameLine2 ?? FlameLine();
-    flameLine3 = flameLine3 ?? FlameLine();
-    flameLine4 = flameLine4 ?? FlameLine();
-  }
+  }) : moduleStats = moduleStats ?? {},
+      flames = flames ?? {
+        1: FlameLine(),
+        2: FlameLine(),
+        3: FlameLine(),
+        4: FlameLine(),
+      };
 
   @override
   FlameModule copyWith({
-    FlameLine? flameLine1,
-    FlameLine? flameLine2,
-    FlameLine? flameLine3,
-    FlameLine? flameLine4,
+    Map<int, FlameLine>? flames,
     Map<StatType, num>? moduleStats,
   }) {
     return FlameModule(
-      flameLine1: flameLine1 ?? this.flameLine1?.copyWith(),
-      flameLine2: flameLine2 ?? this.flameLine2?.copyWith(),
-      flameLine3: flameLine3 ?? this.flameLine3?.copyWith(),
-      flameLine4: flameLine4 ?? this.flameLine4?.copyWith(),
+      flames: flames ?? mapDeepCopy(this.flames),
       moduleStats: moduleStats ?? this.moduleStats,
     );
   }
@@ -131,35 +121,11 @@ class FlameModule implements Copyable {
   }
 
   void updateFlame(Equip targetEquip, num flamePosition, {FlameName? flameName, FlameTier? flameTier, isUpdatingTier=false}) {
-    moduleStats = {};
-    
     if (isUpdatingTier) {
-      if (flamePosition == 1) {
-        flameLine1?.flameTier = flameTier;
-      }
-      else if (flamePosition == 2) {
-        flameLine2?.flameTier = flameTier;
-      }
-      else if (flamePosition == 3) {
-        flameLine3?.flameTier = flameTier;
-      }
-      else {
-        flameLine4?.flameTier = flameTier;
-      }
+      flames[flamePosition]!.flameTier = flameTier;
     }
     else {
-      if (flamePosition == 1) {
-        flameLine1?.flameName = flameName;
-      }
-      else if (flamePosition == 2) {
-        flameLine2?.flameName = flameName;
-      }
-      else if (flamePosition == 3) {
-        flameLine3?.flameName = flameName;
-      }
-      else {
-        flameLine4?.flameName = flameName;
-      }
+      flames[flamePosition]!.flameName = flameName;
     }
     calculateModuleStats(targetEquip);
   }
@@ -167,10 +133,13 @@ class FlameModule implements Copyable {
   void calculateModuleStats(Equip targetEquip) {
     moduleStats = {};
 
-    _calculateFlame(targetEquip, flameLine1);
-    _calculateFlame(targetEquip, flameLine2);
-    _calculateFlame(targetEquip, flameLine3);
-    _calculateFlame(targetEquip, flameLine4);
+    for (FlameLine flameLine in flames.values) {
+      _calculateFlame(targetEquip, flameLine);
+    }
+  }
+
+  FlameLine getFlameLine(int flamePosition) {
+    return flames[flamePosition]!;
   }
 }
 

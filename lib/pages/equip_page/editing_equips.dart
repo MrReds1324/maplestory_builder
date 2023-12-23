@@ -6,6 +6,7 @@ import 'package:maplestory_builder/constants/equipment/potential_stats.dart';
 import 'package:maplestory_builder/constants/equipment/scroll_stats.dart';
 import 'package:maplestory_builder/constants/equipment/soul_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
+import 'package:maplestory_builder/modules/equipment/flames_mod.dart';
 import 'package:maplestory_builder/modules/equipment/potentials_mod.dart';
 import 'package:maplestory_builder/modules/equipment/scroll_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
@@ -261,6 +262,7 @@ class _FlameDropdowns extends StatelessWidget {
 
       List<FlameName> filteredList = <FlameName>[];
       // We can only have one of the flame types per equip, filter out any ones already used here
+      flameFilterloop:
       for(FlameName flameName in FlameName.values) { 
         // Can only get level reduction if there is at one level to reduce
         if (flameName == FlameName.levelReduction && editingEquip.equipName.itemLevel == 0) {
@@ -284,21 +286,16 @@ class _FlameDropdowns extends StatelessWidget {
         }
 
         // Stops us from being able to select multiple of a single flame
-        if (flamePosition != 1 && flameName == editingEquip.flameModule?.flameLine1?.flameName) {
-          continue;
+        for (MapEntry<int, FlameLine> editingFlames in (editingEquip.flameModule?.flames.entries ?? {})) {
+          if (editingFlames.key == flamePosition) {
+            continue;
+          }
+          else if (flameName == editingFlames.value.flameName) {
+            continue flameFilterloop;
+          }
         }
-        else if (flamePosition != 2 && flameName == editingEquip.flameModule?.flameLine2?.flameName) {
-          continue;
-        }
-        else if (flamePosition != 3 && flameName == editingEquip.flameModule?.flameLine3?.flameName) {
-          continue;
-        }
-        else if (flamePosition != 4 && flameName == editingEquip.flameModule?.flameLine4?.flameName) {
-          continue;
-        }
-        else {
-          filteredList.add(flameName);
-        }
+        
+        filteredList.add(flameName);
       }
 
       dropdownItems.addAll(
@@ -362,33 +359,11 @@ class _FlameDropdowns extends StatelessWidget {
   }
 
   FlameName? getSelectedFlameName(Equip? editingEquip, int flamePosition){
-    if (flamePosition == 1) {
-      return editingEquip?.flameModule?.flameLine1?.flameName;
-    }
-    if (flamePosition == 2) {
-      return editingEquip?.flameModule?.flameLine2?.flameName;
-    }
-    if (flamePosition == 3) {
-      return editingEquip?.flameModule?.flameLine3?.flameName;
-    }
-    else {
-      return editingEquip?.flameModule?.flameLine4?.flameName;
-    }
+    return editingEquip?.flameModule?.getFlameLine(flamePosition).flameName;
   }
 
   FlameTier? getSelectedFlameTier(Equip? editingEquip, int flamePosition){
-    if (flamePosition == 1) {
-      return editingEquip?.flameModule?.flameLine1?.flameTier;
-    }
-    if (flamePosition == 2) {
-      return editingEquip?.flameModule?.flameLine2?.flameTier;
-    }
-    if (flamePosition == 3) {
-      return editingEquip?.flameModule?.flameLine3?.flameTier;
-    }
-    else {
-      return editingEquip?.flameModule?.flameLine4?.flameTier;
-    }
+    return editingEquip?.flameModule?.getFlameLine(flamePosition).flameTier;
   }
 
   @override
@@ -611,26 +586,10 @@ class _PotentialDropdowns extends StatelessWidget {
 
   PotentialLine? getSelectedPotentialLine(Equip? editingEquip, int potentialPosition) {
     if (isBonus) {
-      if (potentialPosition == 1) {
-        return editingEquip?.potentialModule?.bonusPotentialLine1;
-      }
-      else if (potentialPosition == 2) {
-        return editingEquip?.potentialModule?.bonusPotentialLine2;
-      }
-      else {
-        return editingEquip?.potentialModule?.bonusPotentialLine3;
-      }
+      return editingEquip?.potentialModule?.bonusPotentials[potentialPosition];
     }
     else {
-      if (potentialPosition == 1) {
-        return editingEquip?.potentialModule?.mainPotentialLine1;
-      }
-      else if (potentialPosition == 2) {
-        return editingEquip?.potentialModule?.mainPotentialLine2;
-      }
-      else {
-        return editingEquip?.potentialModule?.mainPotentialLine3;
-      }
+      return editingEquip?.potentialModule?.mainPotentials[potentialPosition];
     }
   }
 

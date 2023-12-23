@@ -8,53 +8,39 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 class PotentialModule implements Copyable {
 
   PotentialTier? mainPotential;
-  PotentialLine? mainPotentialLine1;
-  PotentialLine? mainPotentialLine2;
-  PotentialLine? mainPotentialLine3;
+  Map<int, PotentialLine?> mainPotentials;
 
   PotentialTier? bonusPotential;
-  PotentialLine? bonusPotentialLine1;
-  PotentialLine? bonusPotentialLine2;
-  PotentialLine? bonusPotentialLine3;
+  Map<int, PotentialLine?> bonusPotentials;
 
   Map<StatType, num> moduleStats;
   int potentialOffset;
 
   PotentialModule({
     this.mainPotential,
-    this.mainPotentialLine1,
-    this.mainPotentialLine2,
-    this.mainPotentialLine3,
+    Map<int, PotentialLine?>? mainPotentials,
     this.bonusPotential,
-    this.bonusPotentialLine1,
-    this.bonusPotentialLine2,
-    this.bonusPotentialLine3,
+    Map<int, PotentialLine?>? bonusPotentials,
     required this.potentialOffset,
     Map<StatType, num>? moduleStats,
-  }): moduleStats = moduleStats ?? {};
+  }): moduleStats = moduleStats ?? {},
+      mainPotentials = mainPotentials ?? {},
+      bonusPotentials = bonusPotentials ?? {};
 
   @override
   PotentialModule copyWith({
     PotentialTier? mainPotential,
-    PotentialLine? mainPotentialLine1,
-    PotentialLine? mainPotentialLine2,
-    PotentialLine? mainPotentialLine3,
+    Map<int, PotentialLine>? mainPotentials,
     PotentialTier? bonusPotential,
-    PotentialLine? bonusPotentialLine1,
-    PotentialLine? bonusPotentialLine2,
-    PotentialLine? bonusPotentialLine3,
+    Map<int, PotentialLine>? bonusPotentials,
     int? potentialOffset,
     Map<StatType, num>? moduleStats,
   }) {
     return PotentialModule(
       mainPotential: mainPotential ?? this.mainPotential,
-      mainPotentialLine1: mainPotentialLine1 ?? this.mainPotentialLine1,
-      mainPotentialLine2: mainPotentialLine2 ?? this.mainPotentialLine2,
-      mainPotentialLine3: mainPotentialLine3 ?? this.mainPotentialLine3,
+      mainPotentials: mainPotentials ?? mapDeepCopy(this.mainPotentials),
       bonusPotential: bonusPotential ?? this.bonusPotential,
-      bonusPotentialLine1: bonusPotentialLine1 ?? this.bonusPotentialLine1,
-      bonusPotentialLine2: bonusPotentialLine2 ?? this.bonusPotentialLine2,
-      bonusPotentialLine3: bonusPotentialLine3 ?? this.bonusPotentialLine3,
+      bonusPotentials: bonusPotentials ?? mapDeepCopy(this.bonusPotentials),
       potentialOffset: potentialOffset ?? this.potentialOffset,
       moduleStats: moduleStats ?? Map<StatType, num>.from(this.moduleStats)
     );
@@ -96,17 +82,13 @@ class PotentialModule implements Copyable {
   void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
     if (isBonus) {
       if (bonusPotential != potentialTier) {
-        bonusPotentialLine1 = null;
-        bonusPotentialLine2 = null;
-        bonusPotentialLine3 = null;
+        bonusPotentials = {};
         bonusPotential = potentialTier;
       }
     }
     else {
       if (mainPotential != potentialTier) {
-        mainPotentialLine1 = null;
-        mainPotentialLine2 = null;
-        mainPotentialLine3 = null;
+        mainPotentials = {};
         mainPotential = potentialTier;
       }
     }
@@ -114,28 +96,12 @@ class PotentialModule implements Copyable {
     calculateModuleStats();
   }
 
-  void updatePotential(num potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+  void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
     if (isBonus) {
-      if (potentialPosition == 1) {
-        bonusPotentialLine1 = potentialLine;
-      }
-      else if (potentialPosition == 2) {
-        bonusPotentialLine2 = potentialLine;
-      }
-      else {
-        bonusPotentialLine3 = potentialLine;
-      }
+      bonusPotentials[potentialPosition] = potentialLine;
     }
     else {
-      if (potentialPosition == 1) {
-        mainPotentialLine1 = potentialLine;
-      }
-      else if (potentialPosition == 2) {
-        mainPotentialLine2 = potentialLine;
-      }
-      else {
-        mainPotentialLine3 = potentialLine;
-      }
+      mainPotentials[potentialPosition] = potentialLine;
     }
 
     calculateModuleStats();
@@ -143,12 +109,13 @@ class PotentialModule implements Copyable {
 
   void calculateModuleStats() {
     moduleStats = {};
-    _updateStatFromPotential(mainPotentialLine1);
-    _updateStatFromPotential(mainPotentialLine2);
-    _updateStatFromPotential(mainPotentialLine3);
-    _updateStatFromPotential(bonusPotentialLine1);
-    _updateStatFromPotential(bonusPotentialLine2);
-    _updateStatFromPotential(bonusPotentialLine3);
+    for (PotentialLine? potentialLine in mainPotentials.values) {
+      _updateStatFromPotential(potentialLine);
+    }
+
+    for (PotentialLine? potentialLine in bonusPotentials.values) {
+      _updateStatFromPotential(potentialLine);
+    }
   }
 
   Widget buildPotentialWidget(BuildContext context, Equip editingEquip) {
@@ -204,9 +171,9 @@ class PotentialModule implements Copyable {
           )
         )
       );
-      addPotentialLine(mainPotentialLine1);
-      addPotentialLine(mainPotentialLine2);
-      addPotentialLine(mainPotentialLine3);
+      for (PotentialLine? mainPotentialLine in mainPotentials.values) {
+        addPotentialLine(mainPotentialLine);
+      }
     }
 
     if (bonusPotential != null) {
@@ -222,9 +189,9 @@ class PotentialModule implements Copyable {
           )
         )
       );
-      addPotentialLine(bonusPotentialLine1);
-      addPotentialLine(bonusPotentialLine2);
-      addPotentialLine(bonusPotentialLine3);
+      for (PotentialLine? bonusPotentialLine in bonusPotentials.values) {
+        addPotentialLine(bonusPotentialLine);
+      }
     }
 
     return Container(

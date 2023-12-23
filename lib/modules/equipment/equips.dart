@@ -520,7 +520,7 @@ final List<Equip> equipList = [
   // Arcane Weapons
   Equip(equipName: EquipName.arcaneUmbraCrossbow, equipSet: EquipSet.arcaneSetBowman),
   // Pitched Boss Set Items
-  Equip(equipName: EquipName.blackHeart, equipSet: EquipSet.pitchedBoss, potentialModule: PotentialModule(potentialOffset: 0, mainPotential: PotentialTier.epic, mainPotentialLine1: const PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.uniquePrimeBossDamage), mainPotentialLine2: const PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.uniquePrimeIgnoreDefense))),
+  Equip(equipName: EquipName.blackHeart, equipSet: EquipSet.pitchedBoss, potentialModule: PotentialModule(potentialOffset: 0, mainPotential: PotentialTier.epic, mainPotentials: const {1: PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.uniquePrimeBossDamage), 2: PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.uniquePrimeIgnoreDefense)})),
   Equip(equipName: EquipName.berserked, equipSet: EquipSet.pitchedBoss, pitchedBossUpgradeModule: PitchedBossUpgradeModule(pitchedBossUpgrade: PitchedBossUpgrade.gravityModule)),
   Equip(equipName: EquipName.magicEyepatch, equipSet: EquipSet.pitchedBoss),
   Equip(equipName: EquipName.sourceOfSuffering, equipSet: EquipSet.pitchedBoss),

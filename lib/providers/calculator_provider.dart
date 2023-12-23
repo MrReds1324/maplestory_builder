@@ -139,14 +139,24 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
           case StatType.attackMattack:
             tempStats[StatType.attack] = tempStats[StatType.attack]! + entry.value;
             tempStats[StatType.mattack] = tempStats[StatType.mattack]! + entry.value;
+          case StatType.hp:
+          case StatType.mp:
+          case StatType.str:
+          case StatType.dex:
+          case StatType.int:
+          case StatType.luk:
+          case StatType.attack:
+          case StatType.mattack:
+          case StatType.defense:
+            tempStats[entry.key] = tempStats[entry.key]! + entry.value;
           case StatType.allStatsPercentage:
-            tempStats[StatType.strPercentage] = tempStats[StatType.strPercentage]! + entry.value;
-            tempStats[StatType.dexPercentage] = tempStats[StatType.dexPercentage]! + entry.value;
-            tempStats[StatType.intPercentage] = tempStats[StatType.intPercentage]! + entry.value;
-            tempStats[StatType.lukPercentage] = tempStats[StatType.lukPercentage]! + entry.value;
+            totalStats[StatType.strPercentage] = totalStats[StatType.strPercentage]! + entry.value;
+            totalStats[StatType.dexPercentage] = totalStats[StatType.dexPercentage]! + entry.value;
+            totalStats[StatType.intPercentage] = totalStats[StatType.intPercentage]! + entry.value;
+            totalStats[StatType.lukPercentage] = totalStats[StatType.lukPercentage]! + entry.value;
           case StatType.hpMpPercentage:
-            tempStats[StatType.hpPercentage] = tempStats[StatType.hpPercentage]! + entry.value;
-            tempStats[StatType.mpPercentage] = tempStats[StatType.mpPercentage]! + entry.value;
+            totalStats[StatType.hpPercentage] = totalStats[StatType.hpPercentage]! + entry.value;
+            totalStats[StatType.mpPercentage] = totalStats[StatType.mpPercentage]! + entry.value;
           case StatType.finalStrDex:
             totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
             totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
@@ -169,16 +179,6 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
             totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
             totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
             totalStats[StatType.finalLuk] = totalStats[StatType.finalLuk]! + entry.value;
-          case StatType.hp:
-          case StatType.mp:
-          case StatType.str:
-          case StatType.dex:
-          case StatType.int:
-          case StatType.luk:
-          case StatType.attack:
-          case StatType.mattack:
-          case StatType.defense:
-            tempStats[entry.key] = tempStats[entry.key]! + entry.value;
           case StatType.ignoreDefense:
             totalStats[entry.key] = calculateIgnoreDefense(totalStats[entry.key]!, entry.value);
           case StatType.exp:
