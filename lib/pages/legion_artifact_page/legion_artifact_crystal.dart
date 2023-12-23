@@ -5,6 +5,7 @@ import 'package:maplestory_builder/modules/legion/legion_artifact_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ArtifactCrystalWidget extends StatelessWidget {
@@ -33,10 +34,14 @@ class ArtifactCrystalWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ArtifactCrystalLevelCell(artifactCrystalPosition: artifactCrystalPosition),
+                Icon(
+                  MdiIcons.accountBox,
+                  size: 145,
+                ),
                 ArtifactCrystalStatDropdown(
                   artifactCrystalPosition: artifactCrystalPosition,
                   statPosition: 1,
