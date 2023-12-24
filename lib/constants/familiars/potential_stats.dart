@@ -1141,6 +1141,106 @@ enum FamiliarPotential {
     statType: StatType.skillLevel,
     statValue: [1, 2, 3]
   ),
+  legendaryIgnoreDefense(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.ignoreDefense,
+    statValue: [0.45, 0.5]
+  ),
+  legendaryAttackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.attackPercentage,
+    statValue: [0.09]
+  ),
+  legendaryMattackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.mattackPercentage,
+    statValue: [0.09]
+  ),
+  legendaryCritDamage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.critDamage,
+    statValue: [0.06]
+  ),
+  legendaryCritRate(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.critRate,
+    statValue: [0.09]
+  ),
+  legendaryDamage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.damage,
+    statValue: [0.09,]
+  ),
+  legendaryBossDamage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.bossDamage,
+    statValue: [0.4, 0.45, 0.5]
+  ),
+  legendaryAllStatsPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.allStatsPercentage,
+    statValue: [0.05]
+  ),
+  legendaryStrPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.strPercentage,
+    statValue: [0.09]
+  ),
+  legendaryDexPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.dexPercentage,
+    statValue: [0.09]
+  ),
+  legendaryIntPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.intPercentage,
+    statValue: [0.09]
+  ),
+  legendaryLukPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.lukPercentage,
+    statValue: [0.09]
+  ),
+  legendaryHpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.hpPercentage,
+    statValue: [0.09]
+  ),
+  legendaryMpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.mpPercentage,
+    statValue: [0.09]
+  ),
+  legendaryDefensePercentage(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.defensePercentage,
+    statValue: [0.09]
+  ),
+  legendaryItemAquisition(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.itemDropRate,
+    statValue: [0.12]
+  ),
+  legendaryMesosObtained(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.mesosObtained,
+    statValue: [0.12]
+  ),
+  legendaryAbnormalStatusResistance(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.statusResistance,
+    statValue: [7]
+  ),
+  legendaryAutoStealChance(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.autoStealChance,
+    statValue: [0.04, 0.06, 0.08]
+  ),
+  legendarySkillLevels(
+    familiarPotentialTier: FamiliarPotentialTier.legendary,
+    statType: StatType.skillLevel,
+    statValue: [3, 4]
+  ),
   ;
 
   const FamiliarPotential({
