@@ -213,8 +213,9 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     updateTempStats(legionStatsProvider.calculateStats());
     updateTempStats(legionArtifactProvider.calculateStats());
 
-    tempStats[StatType.hp] = tempStats[StatType.hp]! + (characterProvider.characterLevel * 50);
-    tempStats[StatType.mp] = tempStats[StatType.mp]! + (characterProvider.characterLevel * 50);
+    var calculatedCharacterLevel = max(characterProvider.characterLevel - 10, 0);
+    tempStats[StatType.hp] = tempStats[StatType.hp]! + (calculatedCharacterLevel * 50);
+    tempStats[StatType.mp] = tempStats[StatType.mp]! + (calculatedCharacterLevel * 50);
     
     totalStats[StatType.hp] = ((getPureStat(StatType.hp) + tempStats[StatType.hp]!) * (1 + totalStats[StatType.hpPercentage]!)) + totalStats[StatType.finalHp]!;
     totalStats[StatType.mp] = ((getPureStat(StatType.mp) + tempStats[StatType.mp]!) * (1 + totalStats[StatType.mpPercentage]!)) + totalStats[StatType.finalMp]!;
@@ -271,6 +272,8 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
 
     for(StatType statType in StatType.values) {
       switch(statType) {
+        case StatType.critRate:
+          defaultStats[statType] = 0.05;
         case StatType.mastery:
           defaultStats[statType] = 0.5;
         case StatType.jump:

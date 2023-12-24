@@ -315,15 +315,13 @@ class IGNCell extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
             ),
-            child: Expanded(
-              child: TextField(
-                style: Theme.of(context).textTheme.bodyMedium,
-                controller: context.read<CharacterProvider>().textController,
-                onChanged: (value) => context.read<CharacterProvider>().characterName = value,
-                decoration: const InputDecoration(
-                  isDense: true
-                ),
-              )
+            child: TextField(
+              style: Theme.of(context).textTheme.bodyMedium,
+              controller: context.read<CharacterProvider>().textController,
+              onChanged: (value) => context.read<CharacterProvider>().characterName = value,
+              decoration: const InputDecoration(
+                isDense: true
+              ),
             ),
           ),
         ],
@@ -466,28 +464,26 @@ class ClassCell extends StatelessWidget {
                 bottomRight: Radius.circular(10),
               ),
             ),
-            child: Expanded(
-              child: Selector<CharacterProvider, CharacterClass>(
-                selector: (_, characterProvider) => characterProvider.characterClass,
-                builder: (context, characterClass, child) {
-                  return DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      value: characterClass,
-                      onChanged: (CharacterClass? newValue) {
-                        if (newValue != null) {
-                          context.read<CharacterProvider>().updateCharacterClass(newValue);
-                        }
-                      },
-                      items: CharacterClass.values.map((CharacterClass value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value.formattedName),
-                        );
-                      }).toList(),
-                    ),
-                  );
-                }
-              ),
+            child: Selector<CharacterProvider, CharacterClass>(
+              selector: (_, characterProvider) => characterProvider.characterClass,
+              builder: (context, characterClass, child) {
+                return DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    value: characterClass,
+                    onChanged: (CharacterClass? newValue) {
+                      if (newValue != null) {
+                        context.read<CharacterProvider>().updateCharacterClass(newValue);
+                      }
+                    },
+                    items: CharacterClass.values.map((CharacterClass value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: Text(value.formattedName),
+                      );
+                    }).toList(),
+                  ),
+                );
+              }
             ),
           ),
         ],

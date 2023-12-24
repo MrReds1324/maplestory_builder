@@ -29,7 +29,7 @@ class APStatsProvider with ChangeNotifier implements Copyable {
   }) {
     this.apStats = apStats ?? {
       StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
-      StatType.mp: 395,
+      StatType.mp: 213,
       // Each ap into Stats increase by 1
       StatType.str: 4,
       StatType.dex: 4,

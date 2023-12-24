@@ -28,6 +28,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 - [ ] Familiars - Not started
 	- [ ] Badge Effects
 	- [ ] Familiar Effects
+- [ ] Hexa Stats
 - [ ] Skills - Not started
 	- [ ] Class Specific Skills
 	- [ ] 5th Job Skills

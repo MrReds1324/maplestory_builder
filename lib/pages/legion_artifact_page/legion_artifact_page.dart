@@ -18,40 +18,38 @@ class LegionArtifactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: statColor
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: statColor
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        children: [
+          Text(
+            "Legion Artifact",
+            style: Theme.of(context).textTheme.headlineLarge
           ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          children: [
-            Text(
-              "Legion Artifact",
-              style: Theme.of(context).textTheme.headlineLarge
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LegionArtifactsSelectButton(legionArtifactPosition: 1),
-                LegionArtifactsSelectButton(legionArtifactPosition: 2),
-                LegionArtifactsSelectButton(legionArtifactPosition: 3),
-                LegionArtifactsSelectButton(legionArtifactPosition: 4),
-                LegionArtifactsSelectButton(legionArtifactPosition: 5),
-              ]
-            ),
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ArtifactCrystalGrid(),
-                LegionArtifactLevelWidget(),
-              ],
-            ),
-          ]
-        ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LegionArtifactsSelectButton(legionArtifactPosition: 1),
+              LegionArtifactsSelectButton(legionArtifactPosition: 2),
+              LegionArtifactsSelectButton(legionArtifactPosition: 3),
+              LegionArtifactsSelectButton(legionArtifactPosition: 4),
+              LegionArtifactsSelectButton(legionArtifactPosition: 5),
+            ]
+          ),
+          const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ArtifactCrystalGrid(),
+              LegionArtifactLevelWidget(),
+            ],
+          ),
+        ]
       ),
     );
   }

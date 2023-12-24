@@ -15,33 +15,31 @@ class MiscStatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: statColor
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: statColor
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: const Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          HyperStatTable(),
+          Column(
+            children: [
+              InnerAbilityStatsTable(),
+              TraitStatsTable(),
+            ],
           ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: const Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            HyperStatTable(),
-            Column(
-              children: [
-                InnerAbilityStatsTable(),
-                TraitStatsTable(),
-              ],
-            ),
-            Column(
-              children: [
-                ArcaneSymbolTable(),
-                SacredSymbolTable()
-              ],
-            )
-          ],
-        ),
+          Column(
+            children: [
+              ArcaneSymbolTable(),
+              SacredSymbolTable()
+            ],
+          )
+        ],
       ),
     );
   }

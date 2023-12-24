@@ -33,25 +33,23 @@ class EquipBuilder extends StatelessWidget {
           border: Border.all(color: statColor),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Expanded( 
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () => context.read<EquipEditingProvider>().cancelEquipEditing(),
-                    child: const Text("Cancel")
-                  ),
-                  TextButton(
-                    onPressed: () => context.read<EquipEditingProvider>().saveEditingEquip(context), 
-                    child: const Text("Save")
-                  ),
-                ],
-              ),
-              const EquipBuilderContent()
-            ]
-          )
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () => context.read<EquipEditingProvider>().cancelEquipEditing(),
+                  child: const Text("Cancel")
+                ),
+                TextButton(
+                  onPressed: () => context.read<EquipEditingProvider>().saveEditingEquip(context), 
+                  child: const Text("Save")
+                ),
+              ],
+            ),
+            const EquipBuilderContent()
+          ]
         ),
       ),
     );

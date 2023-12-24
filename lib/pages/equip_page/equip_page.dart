@@ -20,25 +20,23 @@ class EquipPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: statColor
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: statColor
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: const Row(
+        children: [
+          EquippedItems(),
+          SizedBox(width: 10),
+          InventoryAndItemListColumn(),
+          SizedBox(width: 10),
+          Expanded(
+            child: EquipBuilder(),
           ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: const Row(
-          children: [
-            EquippedItems(),
-            SizedBox(width: 10),
-            InventoryAndItemListColumn(),
-            SizedBox(width: 10),
-            Expanded(
-              child: EquipBuilder(),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -54,23 +52,27 @@ class EquippedItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Equipped Items",
-          style: Theme.of(context).textTheme.headlineMedium
-        ),
-        const Row(
-          children: [
-            EquipSetSelectButton(equipSetPosition: 1),
-            EquipSetSelectButton(equipSetPosition: 2),
-            EquipSetSelectButton(equipSetPosition: 3),
-            EquipSetSelectButton(equipSetPosition: 4),
-            EquipSetSelectButton(equipSetPosition: 5),
-          ]
-        ),
-        const Expanded(
-          child: Column(
+    return SizedBox(
+      width: 300,
+      height: 897,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "Equipped Items",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              EquipSetSelectButton(equipSetPosition: 1),
+              EquipSetSelectButton(equipSetPosition: 2),
+              EquipSetSelectButton(equipSetPosition: 3),
+              EquipSetSelectButton(equipSetPosition: 4),
+              EquipSetSelectButton(equipSetPosition: 5),
+            ]
+          ),
+          const Column(
             children: [
               // Totems
               EquippedItemSelector(
@@ -218,8 +220,8 @@ class EquippedItems extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

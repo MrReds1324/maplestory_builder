@@ -18,43 +18,41 @@ class LegionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: statColor
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: statColor
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        children: [
+          Text(
+            "Legion Board & Characters",
+            style: Theme.of(context).textTheme.headlineLarge
           ),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          children: [
-            Text(
-              "Legion Board & Characters",
-              style: Theme.of(context).textTheme.headlineLarge
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LegionStatSelectButton(legionStatPosition: 1),
-                LegionStatSelectButton(legionStatPosition: 2),
-                LegionStatSelectButton(legionStatPosition: 3),
-                LegionStatSelectButton(legionStatPosition: 4),
-                LegionStatSelectButton(legionStatPosition: 5),
-              ]
-            ),
-            const Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InnerLegionStatsTable(),
-                OuterLegionStatsTable(),
-                LegionRankWidget(),
-              ],
-            ),
-            const PlacedCharacters(),
-            const AvailableCharacters(),
-          ]
-        ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LegionStatSelectButton(legionStatPosition: 1),
+              LegionStatSelectButton(legionStatPosition: 2),
+              LegionStatSelectButton(legionStatPosition: 3),
+              LegionStatSelectButton(legionStatPosition: 4),
+              LegionStatSelectButton(legionStatPosition: 5),
+            ]
+          ),
+          const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InnerLegionStatsTable(),
+              OuterLegionStatsTable(),
+              LegionRankWidget(),
+            ],
+          ),
+          const PlacedCharacters(),
+          const AvailableCharacters(),
+        ]
       ),
     );
   }
