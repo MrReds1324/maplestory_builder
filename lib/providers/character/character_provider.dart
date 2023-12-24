@@ -12,7 +12,7 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
   TextEditingController textController;
 
   CharacterProvider({
-    this.characterLevel = 0,
+    this.characterLevel = 1,
     this.characterName = '',
     this.characterClass = CharacterClass.beginner,
   }): textController = TextEditingController(text: characterName);
