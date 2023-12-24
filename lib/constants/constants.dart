@@ -191,6 +191,7 @@ enum StatType {
   summonDuration(formattedName: "Summon Duration", isPercentage: true),
   mastery(formattedName: "Mastery", isPercentage: true),
   finalAttackSkillDamage(formattedName: "Final Attack-Type Skill Damage", isPercentage: true),
+  autoStealChance(formattedName: "Chance to Auto Steal", isPercentage: true)
   ;
 
   const StatType({

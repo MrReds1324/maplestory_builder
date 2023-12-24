@@ -505,6 +505,368 @@ enum FamiliarPotential {
     statType: StatType.jump,
     statValue: [8]
   ),
+  epicStr(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.str,
+    statValue: [5, 6]
+  ),
+  epicDex(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.dex,
+    statValue: [5, 6]
+  ),
+  epicInt(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.int,
+    statValue: [5, 6]
+  ),
+  epicLuk(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.luk,
+    statValue: [5, 6]
+  ),
+  epicHp(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.hp,
+    statValue: [18, 20]
+  ),
+  epicMp(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.mp,
+    statValue: [18, 20]
+  ),
+  epicDefense(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [18, 20]
+  ),
+  epicSpeed(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speed,
+    statValue: [5, 6]
+  ),
+  epicJump(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.jump,
+    statValue: [5, 6]
+  ),
+  epicAttack(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.attack,
+    statValue: [5, 6]
+  ),
+  epicMattack(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.mattack,
+    statValue: [5, 6]
+  ),
+  epicIgnoreDefense(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.ignoreDefense,
+    statValue: [0.2, 0.3]
+  ),
+  epicAttackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.attackPercentage,
+    statValue: [0.03]
+  ),
+  epicMattackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.mattackPercentage,
+    statValue: [0.03]
+  ),
+  epicCritRate(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.critRate,
+    statValue: [0.03]
+  ),
+  epicDamage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.damage,
+    statValue: [0.03]
+  ),
+  epicBossDamage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.bossDamage,
+    statValue: [0.2, 0.3]
+  ),
+  epicIncreaseDefenselarge(
+    formattedName: "Increases Defense by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [40]
+  ),
+  epicIncreaseDefense(
+    formattedName: "Increases Defense",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [30]
+  ),
+  epicIncreaseDefenseAllies(
+    formattedName: "Increases the Defense of nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [30]
+  ),
+  epicIncreaseDefenseSmallAllies(
+    formattedName: "Increases the Defense of nearby allies by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [25]
+  ),
+  epicIncreaseDefenseParty(
+    formattedName: "Increases party members' Defense",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [30]
+  ),
+  epicIncreaseDefenseSmallParty(
+    formattedName: "Increases party members' Defense by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defense,
+    statValue: [25]
+  ),
+  epicAllStatsPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.allStatsPercentage,
+    statValue: [0.02]
+  ),
+  epicStrPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.strPercentage,
+    statValue: [0.03]
+  ),
+  epicDexPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.dexPercentage,
+    statValue: [0.03]
+  ),
+  epicIntPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.intPercentage,
+    statValue: [0.03]
+  ),
+  epicLukPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.lukPercentage,
+    statValue: [0.03]
+  ),
+  epicHpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.hpPercentage,
+    statValue: [0.03]
+  ),
+  epicMpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.mpPercentage,
+    statValue: [0.03]
+  ),
+  epicDefensePercentage(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.defensePercentage,
+    statValue: [0.03]
+  ),
+  epicHpRestoreLarge(
+    formattedName: "Continually restores a large amount of HP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHPPercentage,
+    statValue: [0.15]
+  ),
+  epicMpRestoreLarge(
+    formattedName: "Continually restores a large amount of MP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healMPPercentage,
+    statValue: [0.15]
+  ),
+  epicHpMpRestore(
+    formattedName: "Continually restores HP and MP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.07, 0.1]
+  ),
+  epicHpRestore(
+    formattedName: "Continually restores HP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHPPercentage,
+    statValue: [0.12]
+  ),
+  epicMpRestore(
+    formattedName: "Continually restores MP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healMPPercentage,
+    statValue: [0.12]
+  ),
+  epicHpMpRestoreAllies(
+    formattedName: "Continually restores HP and MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.1]
+  ),
+  epicHpRestoreAllies(
+    formattedName: "Continually restores HP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHPPercentage,
+    statValue: [0.1]
+  ),
+  epicMpRestoreAllies(
+    formattedName: "Continually restores MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healMPPercentage,
+    statValue: [0.1]
+  ),
+  epicHpMpRestoreSmallAllies(
+    formattedName: "Continually restores a small amount of HP and MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.07]
+  ),
+  epicHpRestoreSmallAllies(
+    formattedName: "Continually restores a small amount of HP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHPPercentage,
+    statValue: [0.07]
+  ),
+  epicMpRestoreSmallAllies(
+    formattedName: "Continually restores a small amount of MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healMPPercentage,
+    statValue: [0.07]
+  ),
+  epicHpMpRestoreParty(
+    formattedName: "Continually restores the party's HP & MP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.1]
+  ),
+  epicHpRestoreParty(
+    formattedName: "Continually restores the party's HP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHPPercentage,
+    statValue: [0.1]
+  ),
+  epicMpRestoreParty(
+    formattedName: "Continually restores the party's MP",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healMPPercentage,
+    statValue: [0.1]
+  ),
+  epicHpMpRestoreSmallParty(
+    formattedName: "Continually restores the party's HP & MP by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.07]
+  ),
+  epicHpRestoreSmallParty(
+    formattedName: "Continually restores the party's HP by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healHPPercentage,
+    statValue: [0.07]
+  ),
+  epicMpRestoreSmallParty(
+    formattedName: "Continually restores the party's MP by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.healMPPercentage,
+    statValue: [0.07]
+  ),
+  epicHpRecovery(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.hpRecovery,
+    statValue: [0.1]
+  ),
+  epicIncreaseMesoDrop(
+    formattedName: "Increases Item and Meso Drop Rate",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.itemDropRate,
+    statValue: [0.4]
+  ),
+  epicIncreaseMesoDropSmall(
+    formattedName: "Increases Item and Meso Drop Rate by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.itemDropRate,
+    statValue: [0.25]
+  ),
+  epicIncreaseDropLarge(
+    formattedName: "Increases Item Drop Rate by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.itemDropRate,
+    statValue: [1]
+  ),
+  epicIncreaseDrop(
+    formattedName: "Increases Item Drop Rate",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.itemDropRate,
+    statValue: [0.6]
+  ),
+  epicIncreaseSpeedJumpLarge(
+    formattedName: "Increases Speed and Jump by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speedJump,
+    statValue: [10]
+  ),
+  epicIncreaseSpeedJump(
+    formattedName: "Increases Speed and Jump",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speedJump,
+    statValue: [9]
+  ),
+  epicIncreaseSpeedAllies(
+    formattedName: "Increases the Speed of nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speed,
+    statValue: [10]
+  ),
+  epicIncreaseSpeedSmallAllies(
+    formattedName: "Increases the Speed of nearby allies by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speed,
+    statValue: [9]
+  ),
+  epicIncreaseJumpAllies(
+    formattedName: "Increases the Jump of nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.jump,
+    statValue: [10]
+  ),
+  epicIncreaseJumpSmallAllies(
+    formattedName: "Increases the Jump of nearby allies by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.jump,
+    statValue: [9]
+  ),
+  epicIncreaseSpeedParty(
+    formattedName: "Increases party members' Speed",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speed,
+    statValue: [10]
+  ),
+  epicIncreaseSpeedSmallParty(
+    formattedName: "Increases party members' Speed by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.speed,
+    statValue: [9]
+  ),
+  epicIncreaseJumpParty(
+    formattedName: "Increases party members' Jump",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.jump,
+    statValue: [10]
+  ),
+  epicIncreaseJumpSmallParty(
+    formattedName: "Increases party members' Jump by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.jump,
+    statValue: [9]
+  ),
+  epicAutoStealChance(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.autoStealChance,
+    statValue: [0.01, 0.02]
+  ),
+  epicSkillLevels(
+    familiarPotentialTier: FamiliarPotentialTier.epic,
+    statType: StatType.skillLevel,
+    statValue: [1, 2]
+  )
   ;
 
   const FamiliarPotential({
