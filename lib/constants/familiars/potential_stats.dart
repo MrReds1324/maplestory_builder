@@ -866,7 +866,281 @@ enum FamiliarPotential {
     familiarPotentialTier: FamiliarPotentialTier.epic,
     statType: StatType.skillLevel,
     statValue: [1, 2]
-  )
+  ),
+  uniqueStr(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.str,
+    statValue: [7, 8]
+  ),
+  uniqueDex(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.dex,
+    statValue: [7, 8]
+  ),
+  uniqueInt(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.int,
+    statValue: [7, 8]
+  ),
+  uniqueLuk(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.luk,
+    statValue: [7, 8]
+  ),
+  uniqueHp(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.hp,
+    statValue: [22, 25]
+  ),
+  uniqueMp(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.mp,
+    statValue: [22, 25]
+  ),
+  uniqueDefense(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.defense,
+    statValue: [22, 25]
+  ),
+  uniqueSpeed(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.speed,
+    statValue: [7, 8]
+  ),
+  uniqueJump(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.jump,
+    statValue: [7, 8]
+  ),
+  uniqueAttack(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.attack,
+    statValue: [7, 8]
+  ),
+  uniqueMattack(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.mattack,
+    statValue: [7, 8]
+  ),
+  uniqueIgnoreDefense(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.ignoreDefense,
+    statValue: [0.3, 0.35, 0.4]
+  ),
+  uniqueAttackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.attackPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueMattackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.mattackPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueCritDamage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.critDamage,
+    statValue: [0.02, 0.03]
+  ),
+  uniqueCritRate(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.critRate,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueDamage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.damage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueBossDamage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.bossDamage,
+    statValue: [0.3, 0.35, 0.4]
+  ),
+  uniqueIncreaseDefenseLargeAllies(
+    formattedName: "Increases the Defense of nearby allies by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.defense,
+    statValue: [40, 50]
+  ),
+  uniqueIncreaseDefenseLargeParty(
+    formattedName: "Increases party members' Defense by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.defense,
+    statValue: [40, 50]
+  ),
+  uniqueIncreaseDefenseParty(
+    formattedName: "Increases party members' Defense",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.defense,
+    statValue: [40, 50]
+  ),
+  uniqueAllStatsPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.allStatsPercentage,
+    statValue: [0.02, 0.03, 0.04]
+  ),
+  uniqueStrPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.strPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueDexPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.dexPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueIntPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.intPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueLukPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.lukPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueHpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.hpPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueMpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.mpPercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueDefensePercentage(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.defensePercentage,
+    statValue: [0.05, 0.06]
+  ),
+  uniqueHpMpRestoreLarge(
+    formattedName: "Continually restores a large amount HP and MP",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueHpMpRestoreLargeAllies(
+    formattedName: "Continually restores a large amount of HP and MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueHpRestoreLargeAllies(
+    formattedName: "Continually restores a large amount of HP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healHPPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueMpRestoreLargeAllies(
+    formattedName: "Continually restores a large amount of MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healMPPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueHpMpRestoreLargeParty(
+    formattedName: "Continually restores a large amount of HP & MP to party members",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueHpRestoreLargeParty(
+    formattedName: "Continually restores a large amount of HP to party members",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healHPPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueMpRestoreLargeParty(
+    formattedName: "Continually restores a large amount of MP to party members",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.healMPPercentage,
+    statValue: [0.12, 0.15]
+  ),
+  uniqueItemAquisition(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.itemDropRate,
+    statValue: [0.1]
+  ),
+  uniqueMesosObtained(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.mesosObtained,
+    statValue: [0.1]
+  ),
+  uniqueIncreasesAllStatsMap(
+    formattedName: "Increases STR, INT, DEX, and LUK of players on the same map",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.allStats,
+    statValue: [2]
+  ),
+  uniqueIncreasesAllStatsParty(
+    formattedName: "Increases your party's STR, INT, DEX, and LUK",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.allStats,
+    statValue: [1, 3]
+  ),
+  uniqueAbnormalStatusResistance(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.statusResistance,
+    statValue: [5]
+  ),
+  uniqueHpRecovery(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.hpRecovery,
+    statValue: [0.15, 0.2]
+  ),
+  uniqueIncreaseMesoDropLarge(
+    formattedName: "Increases Item and Meso Drop Rate by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.itemDropRate,
+    statValue: [0.5, 0.6]
+  ),
+  uniqueIncreaseSpeedJumpLargeAllies(
+    formattedName: "Increases the Speed of nearby allies by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.speedJump,
+    statValue: [11, 12]
+  ),
+  uniqueIncreaseSpeedJumpParty(
+    formattedName: "Increases your party's Speed and Jump",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.speedJump,
+    statValue: [11, 12]
+  ),
+  uniqueIncreaseSpeedLargeAllies(
+    formattedName: "Increases the Speed of nearby allies by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.speed,
+    statValue: [11, 12]
+  ),
+  uniqueIncreaseJumpLargeAllies(
+    formattedName: "Increases the Jump of nearby allies by a large amount",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.jump,
+    statValue: [11, 12]
+  ),
+  uniqueIncreaseSpeedParty(
+    formattedName: "Increases party members' Speed",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.speed,
+    statValue: [11, 12]
+  ),
+  uniqueIncreaseJumpParty(
+    formattedName: "Increases party members' Jump",
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.jump,
+    statValue: [11, 12]
+  ),
+  uniqueAutoStealChance(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.autoStealChance,
+    statValue: [0.03, 0.04, 0.05, 0.06, 0.07]
+  ),
+  uniqueSkillLevels(
+    familiarPotentialTier: FamiliarPotentialTier.unique,
+    statType: StatType.skillLevel,
+    statValue: [1, 2, 3]
+  ),
   ;
 
   const FamiliarPotential({
