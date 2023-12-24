@@ -12,58 +12,55 @@ class HyperStatTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 781,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Hyper Stats",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const HyperStatSelectButton(hyperStatPosition: 1),
-                const HyperStatSelectButton(hyperStatPosition: 2),
-                const HyperStatSelectButton(hyperStatPosition: 3),
-                const HyperStatSelectButton(hyperStatPosition: 4),
-                const HyperStatSelectButton(hyperStatPosition: 5),
-                SizedBox.fromSize(size: const Size(50, 0)),
-                Selector<HyperStatsProvider, (int, int)>(
-                  selector: (_, hyperStatsProvider) => (hyperStatsProvider.activeHyperStat.totalAssignedHyperStats, hyperStatsProvider.totalAvailableHyperStats),
-                  builder: (context, data, child) {
-                    return Text(
-                      '${data.$1}/${data.$2} Hyper Stats Used',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: data.$1 > data.$2 ?Colors.red: null)
-                    );
-                  }
-                ),
-              ]
-            ),
-            const HyperStatCell(statType: StatType.str),
-            const HyperStatCell(statType: StatType.dex),
-            const HyperStatCell(statType: StatType.int),
-            const HyperStatCell(statType: StatType.luk),
-            const HyperStatCell(statType: StatType.hp),
-            const HyperStatCell(statType: StatType.mp),          
-            const HyperStatCell(statType: StatType.specialMana),          
-            const HyperStatCell(statType: StatType.critRate),          
-            const HyperStatCell(statType: StatType.critDamage),
-            const HyperStatCell(statType: StatType.ignoreDefense),
-            const HyperStatCell(statType: StatType.damage),
-            const HyperStatCell(statType: StatType.bossDamage),          
-            const HyperStatCell(statType: StatType.damageNormalMobs),
-            const HyperStatCell(statType: StatType.statusResistance),
-            const HyperStatCell(statType: StatType.attackMattack),
-            const HyperStatCell(statType: StatType.exp),
-            const HyperStatCell(statType: StatType.arcaneForce),
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 781,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Hyper Stats",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const HyperStatSelectButton(hyperStatPosition: 1),
+              const HyperStatSelectButton(hyperStatPosition: 2),
+              const HyperStatSelectButton(hyperStatPosition: 3),
+              const HyperStatSelectButton(hyperStatPosition: 4),
+              const HyperStatSelectButton(hyperStatPosition: 5),
+              SizedBox.fromSize(size: const Size(50, 0)),
+              Selector<HyperStatsProvider, (int, int)>(
+                selector: (_, hyperStatsProvider) => (hyperStatsProvider.activeHyperStat.totalAssignedHyperStats, hyperStatsProvider.totalAvailableHyperStats),
+                builder: (context, data, child) {
+                  return Text(
+                    '${data.$1}/${data.$2} Hyper Stats Used',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: data.$1 > data.$2 ?Colors.red: null)
+                  );
+                }
+              ),
+            ]
+          ),
+          const HyperStatCell(statType: StatType.str),
+          const HyperStatCell(statType: StatType.dex),
+          const HyperStatCell(statType: StatType.int),
+          const HyperStatCell(statType: StatType.luk),
+          const HyperStatCell(statType: StatType.hp),
+          const HyperStatCell(statType: StatType.mp),          
+          const HyperStatCell(statType: StatType.specialMana),          
+          const HyperStatCell(statType: StatType.critRate),          
+          const HyperStatCell(statType: StatType.critDamage),
+          const HyperStatCell(statType: StatType.ignoreDefense),
+          const HyperStatCell(statType: StatType.damage),
+          const HyperStatCell(statType: StatType.bossDamage),          
+          const HyperStatCell(statType: StatType.damageNormalMobs),
+          const HyperStatCell(statType: StatType.statusResistance),
+          const HyperStatCell(statType: StatType.attackMattack),
+          const HyperStatCell(statType: StatType.exp),
+          const HyperStatCell(statType: StatType.arcaneForce),
+        ]
       ),
     );
   }

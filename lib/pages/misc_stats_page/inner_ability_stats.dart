@@ -12,34 +12,31 @@ class InnerAbilityStatsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 193,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Inner Ability",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InnerAbilitySelectButton(innerAbilityPosition: 1),
-                InnerAbilitySelectButton(innerAbilityPosition: 2),
-                InnerAbilitySelectButton(innerAbilityPosition: 3),
-                InnerAbilitySelectButton(innerAbilityPosition: 4),
-                InnerAbilitySelectButton(innerAbilityPosition: 5),
-              ]
-            ),
-            const InnerAbilityCell(innerAbilityPosition: 1),
-            const InnerAbilityCell(innerAbilityPosition: 2),
-            const InnerAbilityCell(innerAbilityPosition: 3),         
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 193,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Inner Ability",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InnerAbilitySelectButton(innerAbilityPosition: 1),
+              InnerAbilitySelectButton(innerAbilityPosition: 2),
+              InnerAbilitySelectButton(innerAbilityPosition: 3),
+              InnerAbilitySelectButton(innerAbilityPosition: 4),
+              InnerAbilitySelectButton(innerAbilityPosition: 5),
+            ]
+          ),
+          const InnerAbilityCell(innerAbilityPosition: 1),
+          const InnerAbilityCell(innerAbilityPosition: 2),
+          const InnerAbilityCell(innerAbilityPosition: 3),         
+        ]
       ),
     );
   }

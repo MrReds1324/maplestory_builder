@@ -11,27 +11,24 @@ class ArcaneSymbolTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 298,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Arcane Symbols",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.vanishingJourney),
-            const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.chuchuIsland),
-            const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.lachelein),
-            const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.arcana),
-            const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.morass),
-            const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.esfera),          
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 298,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Arcane Symbols",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.vanishingJourney),
+          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.chuchuIsland),
+          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.lachelein),
+          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.arcana),
+          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.morass),
+          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.esfera),          
+        ]
       ),
     );
   }
@@ -42,27 +39,24 @@ class SacredSymbolTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 298,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Sacred Symbols",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const SacredSymbolCell(sacredSymbol: SacredSymbol.cernium),
-            const SacredSymbolCell(sacredSymbol: SacredSymbol.arcus),
-            const SacredSymbolCell(sacredSymbol: SacredSymbol.odium),
-            const SacredSymbolCell(sacredSymbol: SacredSymbol.shangrila),
-            const SacredSymbolCell(sacredSymbol: SacredSymbol.arteria),
-            const SacredSymbolCell(sacredSymbol: SacredSymbol.carcion),          
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 298,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Sacred Symbols",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const SacredSymbolCell(sacredSymbol: SacredSymbol.cernium),
+          const SacredSymbolCell(sacredSymbol: SacredSymbol.arcus),
+          const SacredSymbolCell(sacredSymbol: SacredSymbol.odium),
+          const SacredSymbolCell(sacredSymbol: SacredSymbol.shangrila),
+          const SacredSymbolCell(sacredSymbol: SacredSymbol.arteria),
+          const SacredSymbolCell(sacredSymbol: SacredSymbol.carcion),          
+        ]
       ),
     );
   }

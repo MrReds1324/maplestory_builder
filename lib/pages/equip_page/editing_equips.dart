@@ -154,6 +154,7 @@ class EquipBuilderContent extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.only(bottom: 5),
                     child: Container(
+                      width: 320,
                       decoration: BoxDecoration(
                         border: Border.all(color: statColor),
                         borderRadius: const BorderRadius.all(Radius.circular(10))
@@ -168,6 +169,7 @@ class EquipBuilderContent extends StatelessWidget {
                             const Text(
                               "NOT CURRENTLY EDITING AN EQUIP",
                               style: TextStyle(color: Colors.red),
+                              textAlign: TextAlign.center,
                             );
                           }
                         ),

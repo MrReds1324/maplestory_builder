@@ -11,26 +11,23 @@ class LegionArtifactLevelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const ArtifactLevelCell(),
-            Selector<LegionArtifactProvider, int>(
-              selector: (_, legionArtifactProvider) => legionArtifactProvider.activeArtifactCount,
-              builder: (context, data, child) {
-                return Text(
-                  '$data Active Artifact Crystals',
-                );
-              }
-            ),
-            const ArtifactCrystalStatsListView(),
-          ],
-        ),
+    return Container(
+      width: 463,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const ArtifactLevelCell(),
+          Selector<LegionArtifactProvider, int>(
+            selector: (_, legionArtifactProvider) => legionArtifactProvider.activeArtifactCount,
+            builder: (context, data, child) {
+              return Text(
+                '$data Active Artifact Crystals',
+              );
+            }
+          ),
+          const ArtifactCrystalStatsListView(),
+        ],
       ),
     );
   }

@@ -11,27 +11,24 @@ class TraitStatsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 298,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Traits",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const TraitStatCell(traitName: TraitName.ambition),
-            const TraitStatCell(traitName: TraitName.empathy),
-            const TraitStatCell(traitName: TraitName.insight),
-            const TraitStatCell(traitName: TraitName.willpower),
-            const TraitStatCell(traitName: TraitName.diligence),
-            const TraitStatCell(traitName: TraitName.charm),          
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 298,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Traits",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const TraitStatCell(traitName: TraitName.ambition),
+          const TraitStatCell(traitName: TraitName.empathy),
+          const TraitStatCell(traitName: TraitName.insight),
+          const TraitStatCell(traitName: TraitName.willpower),
+          const TraitStatCell(traitName: TraitName.diligence),
+          const TraitStatCell(traitName: TraitName.charm),          
+        ]
       ),
     );
   }

@@ -13,29 +13,26 @@ class InnerLegionStatsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 382,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Inner Legion Board Stats",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const LegionStatCell(statType: StatType.attack),
-            const LegionStatCell(statType: StatType.mattack),
-            const LegionStatCell(statType: StatType.str),
-            const LegionStatCell(statType: StatType.dex),
-            const LegionStatCell(statType: StatType.int),
-            const LegionStatCell(statType: StatType.luk),
-            const LegionStatCell(statType: StatType.hp),
-            const LegionStatCell(statType: StatType.mp),        
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 382,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Inner Legion Board Stats",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const LegionStatCell(statType: StatType.attack),
+          const LegionStatCell(statType: StatType.mattack),
+          const LegionStatCell(statType: StatType.str),
+          const LegionStatCell(statType: StatType.dex),
+          const LegionStatCell(statType: StatType.int),
+          const LegionStatCell(statType: StatType.luk),
+          const LegionStatCell(statType: StatType.hp),
+          const LegionStatCell(statType: StatType.mp),        
+        ]
       ),
     );
   }
@@ -46,29 +43,26 @@ class OuterLegionStatsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 382,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Outer Legion Board Stats",
-              style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const LegionStatCell(statType: StatType.critDamage, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.bossDamage, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.ignoreDefense, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.critRate, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.buffDuration, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.damageNormalMobs, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.statusResistance, isOuterBoard: true),
-            const LegionStatCell(statType: StatType.expAdditional, isOuterBoard: true),           
-          ]
-        ),
+    return Container(
+      width: 463,
+      height: 382,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Outer Legion Board Stats",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          const LegionStatCell(statType: StatType.critDamage, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.bossDamage, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.ignoreDefense, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.critRate, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.buffDuration, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.damageNormalMobs, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.statusResistance, isOuterBoard: true),
+          const LegionStatCell(statType: StatType.expAdditional, isOuterBoard: true),           
+        ]
       ),
     );
   }
@@ -79,72 +73,69 @@ class LegionRankWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Container(
-        width: 455,
-        height: 382,
-        padding: const EdgeInsets.all(5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Selector<LegionStatsProvider, (LegionBoardRank?, int)>(
-              selector: (_, legionStatsProvider) => (
-                legionStatsProvider.legionBoardRank,
-                legionStatsProvider.totalCharacterLevels
-              ),
-              builder: (context, data, child) {
-                return Column(
-                  children: [
-                    Text(
-                      data.$1?.formattedName ?? " No Rank",
-                      style: Theme.of(context).textTheme.headlineMedium
-                    ),
-                    Text(
-                      "Total Legion: ${data.$2}",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    )
-                  ]
-                );
-              }
+    return Container(
+      width: 463,
+      height: 382,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Selector<LegionStatsProvider, (LegionBoardRank?, int)>(
+            selector: (_, legionStatsProvider) => (
+              legionStatsProvider.legionBoardRank,
+              legionStatsProvider.totalCharacterLevels
             ),
-            Selector<LegionStatsProvider, (int, int)>(
-              selector: (_, legionStatsProvider) => (
-                legionStatsProvider.activeLegionSet.placedCharacters.length - legionStatsProvider.activeLegionSet.placedSpecialLegionBlockCount,
-                legionStatsProvider.legionBoardRank?.legionMembers ?? 0,
-              ),
-              builder: (context, data, child) {
-                return Text(
-                  '${data.$1}/${data.$2} Placed Characters',
-                  style: TextStyle(
-                    color: data.$1 > data.$2 ?Colors.red: null,
+            builder: (context, data, child) {
+              return Column(
+                children: [
+                  Text(
+                    data.$1?.formattedName ?? " No Rank",
+                    style: Theme.of(context).textTheme.headlineMedium
                   ),
-                );
-              }
+                  Text(
+                    "Total Legion: ${data.$2}",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  )
+                ]
+              );
+            }
+          ),
+          Selector<LegionStatsProvider, (int, int)>(
+            selector: (_, legionStatsProvider) => (
+              legionStatsProvider.activeLegionSet.placedCharacters.length - legionStatsProvider.activeLegionSet.placedSpecialLegionBlockCount,
+              legionStatsProvider.legionBoardRank?.legionMembers ?? 0,
             ),
-            Selector<LegionStatsProvider, (int, int)>(
-              selector: (_, legionStatsProvider) => (
-                legionStatsProvider.activeLegionSet.currentBoardCoverage, 
-                legionStatsProvider.activeLegionSet.maximumBoardCoverage,
-              ),
-              builder: (context, data, child) {
-                return Text(
-                  '${data.$1}/${data.$2} Maximum Board Coverage Potential',
-                  style: TextStyle(
-                    color: data.$1 > data.$2 ?Colors.red: null,
-                  ),
-                );
-              }
+            builder: (context, data, child) {
+              return Text(
+                '${data.$1}/${data.$2} Placed Characters',
+                style: TextStyle(
+                  color: data.$1 > data.$2 ?Colors.red: null,
+                ),
+              );
+            }
+          ),
+          Selector<LegionStatsProvider, (int, int)>(
+            selector: (_, legionStatsProvider) => (
+              legionStatsProvider.activeLegionSet.currentBoardCoverage, 
+              legionStatsProvider.activeLegionSet.maximumBoardCoverage,
             ),
-            const Row(
-              children: [
-                LegionStatListView(calculationSelector: CalculationSelector.characters),
-                Spacer(),
-                LegionStatListView(calculationSelector: CalculationSelector.board)
-              ],
-            ),
-          ],
-        ),
+            builder: (context, data, child) {
+              return Text(
+                '${data.$1}/${data.$2} Maximum Board Coverage Potential',
+                style: TextStyle(
+                  color: data.$1 > data.$2 ?Colors.red: null,
+                ),
+              );
+            }
+          ),
+          const Row(
+            children: [
+              LegionStatListView(calculationSelector: CalculationSelector.characters),
+              Spacer(),
+              LegionStatListView(calculationSelector: CalculationSelector.board)
+            ],
+          ),
+        ],
       ),
     );
   }
