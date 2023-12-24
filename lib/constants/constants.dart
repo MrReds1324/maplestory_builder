@@ -106,6 +106,7 @@ enum StatType {
   healDamagePercentage(formattedName: "Heal % of Damage", isPercentage: true),
   healHPPercentage(formattedName: "Heal % of HP", isPercentage: true),
   healMPPercentage(formattedName: "Heal % of MP", isPercentage: true),
+  healHpMpPercentage(formattedName: "Heal % of HP/MP", isPercentage: true),
   damageNormalMobs(formattedName: "Damage to Normal Monsters", isPercentage: true),
   defense(formattedName: "Defense", description: "The higher your Defense, the less damage you take from enemies. Some enemy attacks can pierce through Defense. Determined by adding the total combined defense of your equipment to your base Defense."),
   dex(formattedName: "DEX", description: "DEX increases the attack strength of Bowmen and some Pirates"),

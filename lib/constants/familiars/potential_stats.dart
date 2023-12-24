@@ -177,6 +177,7 @@ enum FamiliarPotential {
     statValue: [0.01]
   ),
   commonIncreaseDefense(
+    formattedName: "Increases Defense",
     familiarPotentialTier: FamiliarPotentialTier.common,
     statType: StatType.defense,
     statValue: [15]
@@ -240,7 +241,270 @@ enum FamiliarPotential {
     statType: StatType.speedJump,
     statValue: [6]
   ),
-  
+  rareStr(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.str,
+    statValue: [3, 4]
+  ),
+  rareDex(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.dex,
+    statValue: [3, 4]
+  ),
+  rareInt(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.int,
+    statValue: [3, 4]
+  ),
+  rareLuk(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.luk,
+    statValue: [3, 4]
+  ),
+  rareHp(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.hp,
+    statValue: [12, 15]
+  ),
+  rareMp(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.mp,
+    statValue: [12, 15]
+  ),
+  rareDefense(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.defense,
+    statValue: [12, 15]
+  ),
+  rareSpeed(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.speed,
+    statValue: [3, 4]
+  ),
+  rareJump(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.jump,
+    statValue: [3, 4]
+  ),
+  rareAttack(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.attack,
+    statValue: [3, 4]
+  ),
+  rareMattack(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.mattack,
+    statValue: [3, 4]
+  ),
+  rareIgnoreDefense(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.ignoreDefense,
+    statValue: [0.15]
+  ),
+  rareAttackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.attackPercentage,
+    statValue: [0.02]
+  ),
+  rareMattackPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.mattackPercentage,
+    statValue: [0.02]
+  ),
+  rareCritRate(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.critRate,
+    statValue: [0.05, 0.06, 0.07, 0.08]
+  ),
+  rareDamage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.damage,
+    statValue: [0.02]
+  ),
+  rareIncreaseDefense(
+    formattedName: "Increases Defense",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.defense,
+    statValue: [20]
+  ),
+  rareIncreaseDefenseSmall(
+    formattedName: "Increases Defense by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.defense,
+    statValue: [20]
+  ),
+  rareIncreaseDefenseSmallAllies(
+    formattedName: "Increases the Defense of nearby allies by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.defense,
+    statValue: [20]
+  ),
+  rareIncreaseDefenseSmallParty(
+    formattedName: "Increases party members' Defense by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.defense,
+    statValue: [20]
+  ),
+  rareAllStatsPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.allStatsPercentage,
+    statValue: [0.01]
+  ),
+  rareStrPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.strPercentage,
+    statValue: [0.02]
+  ),
+  rareDexPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.dexPercentage,
+    statValue: [0.02]
+  ),
+  rareIntPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.intPercentage,
+    statValue: [0.02]
+  ),
+  rareLukPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.lukPercentage,
+    statValue: [0.02]
+  ),
+  rareHpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.hpPercentage,
+    statValue: [0.02]
+  ),
+  rareMpPercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.mpPercentage,
+    statValue: [0.02]
+  ),
+  rareDefensePercentage(
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.defensePercentage,
+    statValue: [0.02]
+  ),
+  rareHpMpRestore(
+    formattedName: "Continually restores HP and MP",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.05]
+  ),
+  rareHpRestore(
+    formattedName: "Continually restores HP",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHPPercentage,
+    statValue: [0.1]
+  ),
+  rareMpRestore(
+    formattedName: "Continually restores MP",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healMPPercentage,
+    statValue: [0.1]
+  ),
+  rareHpRestoreSmall(
+    formattedName: "Continually restores a small amount of HP",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHPPercentage,
+    statValue: [0.05]
+  ),
+  rareMpRestoreSmall(
+    formattedName: "Continually restores a small amount of MP",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healMPPercentage,
+    statValue: [0.05]
+  ),
+  rareHpMpRestoreSmallAllies(
+    formattedName: "Continually restores a small amount of HP and MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.05]
+  ),
+  rareHpRestoreSmallAllies(
+    formattedName: "Continually restores a small amount of HP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHPPercentage,
+    statValue: [0.05]
+  ),
+  rareMpRestoreSmallAllies(
+    formattedName: "Continually restores a small amount of MP to nearby allies",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healMPPercentage,
+    statValue: [0.05]
+  ),
+  rareHpMpRestoreSmallParty(
+    formattedName: "Continually restores the party's HP & MP by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHpMpPercentage,
+    statValue: [0.05]
+  ),
+  rareHpRestoreSmallParty(
+    formattedName: "Continually restores the party's HP by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healHPPercentage,
+    statValue: [0.05]
+  ),
+  rareMpRestoreSmallParty(
+    formattedName: "Continually restores the party's MP by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.healMPPercentage,
+    statValue: [0.05]
+  ),
+  rareIncreaseMesoDropSmall(
+    formattedName: "Increases Item and Meso Drop Rate by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.itemDropRate,
+    statValue: [0.2]
+  ),
+  rareIncreaseDrop(
+    formattedName: "Increases Item Drop Rate",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.itemDropRate,
+    statValue: [0.5]
+  ),
+  rareIncreaseDropSmall(
+    formattedName: "Increases Item Drop Rate by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.itemDropRate,
+    statValue: [0.3]
+  ),
+  rareIncreaseSpeedJump(
+    formattedName: "Increases Speed and Jump",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.speedJump,
+    statValue: [8]
+  ),
+  rareIncreaseSpeedJumpSmall(
+    formattedName: "Increases Speed and Jump Slightly",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.speedJump,
+    statValue: [6]
+  ),
+  rareIncreaseSpeedSmallAllies(
+    formattedName: "Increases the Speed of nearby allies by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.speed,
+    statValue: [8]
+  ),
+  rareIncreaseJumpSmallAllies(
+    formattedName: "Increases the Jump of nearby allies by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.jump,
+    statValue: [8]
+  ),
+  rareIncreaseSpeedSmallParty(
+    formattedName: "Increases party members' Speed by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.speed,
+    statValue: [8]
+  ),
+  rareIncreaseJumpSmallParty(
+    formattedName: "Increases party members' Jump by a small amount",
+    familiarPotentialTier: FamiliarPotentialTier.rare,
+    statType: StatType.jump,
+    statValue: [8]
+  ),
   ;
 
   const FamiliarPotential({
