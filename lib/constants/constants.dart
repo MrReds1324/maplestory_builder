@@ -102,6 +102,10 @@ enum StatType {
     description: "The Damage multiplier used to calculate your Damage Range. Determined by the total combined Damage of your skills and equipment. Values that only apply to specific skills are not included in this calculation.",
     isPercentage: true
   ),
+  heal(formattedName: "Heal"),
+  healDamagePercentage(formattedName: "Heal % of Damage", isPercentage: true),
+  healHPPercentage(formattedName: "Heal % of HP", isPercentage: true),
+  healMPPercentage(formattedName: "Heal % of MP", isPercentage: true),
   damageNormalMobs(formattedName: "Damage to Normal Monsters", isPercentage: true),
   defense(formattedName: "Defense", description: "The higher your Defense, the less damage you take from enemies. Some enemy attacks can pierce through Defense. Determined by adding the total combined defense of your equipment to your base Defense."),
   dex(formattedName: "DEX", description: "DEX increases the attack strength of Bowmen and some Pirates"),
@@ -159,6 +163,7 @@ enum StatType {
   ),
   sacredPower(formattedName: "Sacred Power", description: "In Grandis areas, if you have less Sacred Power than the monsters do, you'll deal less damage to them. When you have more Sacred Power than a monster, you can attack through that monster's shield. Can be increased by obtaining and enhancing Sacred Symbols."),
   speed(formattedName: "Speed", description: "Your movement speed. Can be increased to a max of 140% normally. Skills and equipment can boost this even further. Can be increased to 190% while riding a mount."),
+  speedJump(formattedName: "Speed & Jump"),
   starForce(formattedName: "Star Force", description: "In Star Force areas, if you have less Star Force than the monsters do, you'll deal less damage to them. When you have more Star Force than a monster, you can attack through that monster's shield. Can be increased by equipping items with Star Force enhancement. Doubled for Overall equipment."),
   statusResistance(formattedName: "Status Resistance", description: "Your Abnormal Status Resistance determines the amout of Abnormal Statuses affect you. Higher values result in shorter durations. You can increase this value with skills or items."),
   str(formattedName: "STR", description: "STR increases the attack strength of Warriors and some Pirates"),

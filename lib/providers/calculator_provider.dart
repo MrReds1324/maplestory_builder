@@ -155,6 +155,9 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
           case StatType.mattack:
           case StatType.defense:
             tempStats[entry.key] = tempStats[entry.key]! + entry.value;
+          case StatType.speedJump:
+            totalStats[StatType.jump] = totalStats[StatType.jump]! + entry.value;
+            totalStats[StatType.speed] = totalStats[StatType.speed]! + entry.value;
           case StatType.allStatsPercentage:
             totalStats[StatType.strPercentage] = totalStats[StatType.strPercentage]! + entry.value;
             totalStats[StatType.dexPercentage] = totalStats[StatType.dexPercentage]! + entry.value;
