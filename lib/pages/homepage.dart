@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/pages/consumables_page/consumables_page.dart';
 import 'package:maplestory_builder/pages/familiars_page/familiar_page.dart';
+import 'package:maplestory_builder/pages/hexa_stats_page/hexa_stats_page.dart';
 import 'package:maplestory_builder/pages/legion_artifact_page/legion_artifact_page.dart';
 import 'package:maplestory_builder/pages/legion_page/legion_page.dart';
 import 'package:maplestory_builder/pages/misc_stats_page/misc_stats_page.dart';
@@ -23,7 +25,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 7,
+      length: 9,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -36,6 +38,8 @@ class MyHomePage extends StatelessWidget {
               Tab(icon: Icon(MdiIcons.puzzleEditOutline)),
               Tab(icon: Icon(MdiIcons.bookEdit)),
               Tab(icon: Icon(MdiIcons.vectorPolylineEdit)),
+              Tab(icon: hexagonEdit),
+              Tab(icon: Icon(MdiIcons.bottleTonicPlus)),
               Tab(icon: Icon(MdiIcons.cog)),
             ],
           ),
@@ -62,6 +66,8 @@ class MyHomePage extends StatelessWidget {
                   LegionArtifactPage(),
                   FamiliarPage(),
                   SkillsPage(),
+                  HexaStatsPage(),
+                  ConsumablesPage(),
                   SettingsPage(),
                 ],
               ),
@@ -72,3 +78,14 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+Widget hexagonEdit = Stack(
+  children: [
+    Icon(MdiIcons.hexagonOutline),
+    Positioned(
+      top: 10,
+      left: 1,
+      child: Icon(MdiIcons.pencil, size: 15)
+    )
+  ],
+);
