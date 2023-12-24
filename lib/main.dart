@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -18,9 +19,38 @@ import 'package:maplestory_builder/providers/character/inner_ability_provider.da
 import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:window_manager/window_manager.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    WidgetsFlutterBinding.ensureInitialized();
+    // Must add this line.
+    windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = const WindowOptions(
+      size: Size(1936, 1056),
+      minimumSize: Size(1936, 1056),
+      maximumSize: Size(1936, 1056),
+      center: true,
+      backgroundColor: Colors.transparent,
+      skipTaskbar: false,
+      title: "BuildStory",
+      titleBarStyle: TitleBarStyle.normal,
+    );
+
+    if (Platform.isWindows) {
+      // TODO leaving this here for future me to maybe add an app icon besides the default flutter icon
+      // windowManager.setIcon();
+    }
+
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
   runApp(
     MultiProvider(
       providers: [
