@@ -25,13 +25,13 @@ class FamiliarEditingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void cancelEquipEditing() {
+  void cancelEquipFamiliar() {
     _clearEditingState();
 
     notifyListeners();
   }
 
-  void saveEditingEquip(BuildContext context) {
+  void saveEditingFamiliar(BuildContext context) {
     context.read<FamiliarsProvider>().saveEditingFamiliar(editingFamiliar);
     _clearEditingState();
 
@@ -44,8 +44,15 @@ class FamiliarEditingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePotential(int potentialPosition, FamiliarPotential? familiarPotential) {
-    editingFamiliar?.updatePotential(potentialPosition, familiarPotential);
+  void updatePotentialSelection(int potentialPosition, (FamiliarPotential, bool)? familiarPotentialSelection) {
+    if (editingFamiliar?.updatePotentialSelection(potentialPosition, familiarPotentialSelection) ?? false) {
+      updateCounter += 1;
+      notifyListeners();
+    }
+  }
+
+  void updatePotential(int potentialPosition, int familiarPotentialOffset) {
+    editingFamiliar?.updatePotential(potentialPosition, familiarPotentialOffset);
     updateCounter += 1;
     notifyListeners();
   }

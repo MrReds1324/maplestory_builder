@@ -33,6 +33,23 @@ enum FamiliarPotentialTier {
   final String formattedName;
   final String short;
   final Color color;
+
+  FamiliarPotentialTier getPreviousTier() {
+    switch(this) {
+      case FamiliarPotentialTier.legendary:
+        return FamiliarPotentialTier.unique;
+      case FamiliarPotentialTier.unique:
+        return FamiliarPotentialTier.epic;
+      case FamiliarPotentialTier.epic:
+        return FamiliarPotentialTier.rare;
+      case FamiliarPotentialTier.rare:
+        return FamiliarPotentialTier.common;
+      default:
+        return FamiliarPotentialTier.normal;
+    }
+  }
+
+  static List<FamiliarPotentialTier> filteredList = [FamiliarPotentialTier.common, FamiliarPotentialTier.rare, FamiliarPotentialTier.epic, FamiliarPotentialTier.unique, FamiliarPotentialTier.legendary];
 }
 
 enum FamiliarPotential {

@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 enum BadgeName {
   apocalypseBadge(
@@ -295,4 +297,35 @@ enum BadgeName {
 
   final String formattedName;
   final Map<StatType, num> badgeStats;
+
+  Widget createBadgeContainer(BuildContext context) {
+    List<Widget> statWidgets = [];
+    for (MapEntry<StatType, num> statEntry in badgeStats.entries) {
+      statWidgets.add(
+        SizedBox(
+          width: 150,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 100,
+                child: Text(
+                  statEntry.key.formattedName,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+              const Spacer(),
+              Text(
+                "${statEntry.key.isPositive ? '+' : ' -'}${statEntry.key.isPercentage ? doublePercentFormater.format(statEntry.value) : statEntry.value}",
+                style: Theme.of(context).textTheme.bodyMedium
+              ) 
+            ]
+          )
+        )
+      );
+    }
+
+    return Column(
+      children: statWidgets,
+    );
+  }
 }

@@ -114,6 +114,10 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     notifyListeners();
   }
 
+  void equipBadge(BadgeName? badgeName, int badgePosition) {
+    activeBadgeSet.equipBadge(badgeName, badgePosition);
+  }
+
   void changeActiveBadgeSet(int familiarSetNumber) {
     activeFamiliarSetNumber = familiarSetNumber;
     activeFamiliarSet = familiarSets[familiarSetNumber]!;
@@ -130,18 +134,27 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
 }
 
 class BadgeContainer implements Copyable {
-  Set<BadgeName> activebadges;
+  // There will be 8 active badges
+  Map<int, BadgeName?> activebadges;
 
   BadgeContainer({
-    Set<BadgeName>? activebadges
+    Map<int, BadgeName?>? activebadges
   }) : activebadges = activebadges ?? {};
 
   @override
   BadgeContainer copyWith({
-    Set<BadgeName>? activebadges
+    Map<int, BadgeName?>? activebadges
   }) {
     return BadgeContainer(
-      activebadges: activebadges ?? Set.of(this.activebadges)
+      activebadges: activebadges ?? Map.of(this.activebadges)
     );
+  }
+
+  void equipBadge(BadgeName? badgeName, int badgePosition) {
+    activebadges[badgePosition] = badgeName;
+  }
+
+  BadgeName? getSelectedBadge(int badgePosition) {
+    return activebadges[badgePosition];
   }
 }
