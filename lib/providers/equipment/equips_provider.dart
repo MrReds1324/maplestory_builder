@@ -8,8 +8,8 @@ import 'package:maplestory_builder/modules/equipment/equips.dart';
 class EquipsProvider with ChangeNotifier implements Copyable {
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
-  int equipHash = 1;
-  int activeSetNumber = 1;
+  int equipHash;
+  int activeSetNumber;
   late Map<int, Equip> allEquips;
   late Map<int, EquipmentModule> equipSets; 
   late EquipmentModule activeEquipSet;

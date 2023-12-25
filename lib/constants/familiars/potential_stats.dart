@@ -1255,15 +1255,3 @@ enum FamiliarPotential {
   final StatType statType;
   final List<num> statValue;
 }
-
-class FamiliarPotentialLine {
-  final StatType statType;
-  final bool isPrime;
-  final FamiliarPotential familiarPotentialName;
-
-  const FamiliarPotentialLine({
-    required this.statType,
-    required this.familiarPotentialName,
-    this.isPrime = false,
-  });
-}

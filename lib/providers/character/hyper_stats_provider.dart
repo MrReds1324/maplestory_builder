@@ -202,13 +202,12 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
 
 class HyperStatContainer implements Copyable {
   int totalAssignedHyperStats = 0;
-  late Map<StatType, int> assignedHyperStats;
+  Map<StatType, int> assignedHyperStats;
 
   HyperStatContainer({
     this.totalAssignedHyperStats = 0,
     Map<StatType, int>? assignedHyperStats,
-  }) {
-  this.assignedHyperStats = assignedHyperStats ?? {
+  }) : assignedHyperStats = assignedHyperStats ?? {
       StatType.str: 0,
       StatType.dex: 0,
       StatType.int: 0,
@@ -227,7 +226,6 @@ class HyperStatContainer implements Copyable {
       StatType.exp: 0,
       StatType.arcaneForce: 0,
     };
-  }
 
   @override
   HyperStatContainer copyWith({
