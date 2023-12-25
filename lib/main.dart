@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
+import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
@@ -54,11 +56,13 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider<FamiliarEditingProvider>(create: (_) => FamiliarEditingProvider()),
         ChangeNotifierProvider<LegionCharacterEditingProvider>(create: (_) => LegionCharacterEditingProvider()),
         ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
         ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
+        ChangeNotifierProvider<FamiliarsProvider>(create: (_) => FamiliarsProvider()),
         ChangeNotifierProxyProvider<CharacterProvider, APStatsProvider>(
           create: (BuildContext context) => APStatsProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false)
@@ -117,6 +121,7 @@ void main() {
             ),
         ),
         ChangeNotifierProvider<LegionArtifactProvider>(create: (_) => LegionArtifactProvider()),
+        // The main character/calculator provider
         ChangeNotifierProxyProvider9<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
         HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
@@ -166,6 +171,7 @@ void main() {
               legionArtifactProvider: legionArtifactProvider,
             ),
         ),
+        // Difference calculator provider, used to show increases & decreses in stats & range
         ChangeNotifierProxyProvider2<EquipEditingProvider, CalculatorProvider, DifferenceCalculatorProvider>(            
           create: (BuildContext context) => DifferenceCalculatorProvider(
             equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), 

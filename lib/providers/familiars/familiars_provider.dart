@@ -6,7 +6,7 @@ import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
-class FamiliarProvider with ChangeNotifier implements Copyable {
+class FamiliarsProvider with ChangeNotifier implements Copyable {
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
   int familiarHash;
@@ -21,7 +21,7 @@ class FamiliarProvider with ChangeNotifier implements Copyable {
 
   Widget hoverTooltip = const SizedBox.shrink();
 
-  FamiliarProvider({
+  FamiliarsProvider({
     this.familiarHash = 1,
     this.activeBadgeSetNumber = 1,
     this.activeFamiliarSetNumber = 1,
@@ -52,7 +52,7 @@ class FamiliarProvider with ChangeNotifier implements Copyable {
   }
 
   @override
-  FamiliarProvider copyWith({
+  FamiliarsProvider copyWith({
     int? familiarHash,
     Map<int, Familiar>? allEquips,
     int? activeFamiliarSetNumber,
@@ -62,7 +62,7 @@ class FamiliarProvider with ChangeNotifier implements Copyable {
     Map<int, FamiliarModule>? familiarSets,
     FamiliarModule? activeFamiliarSet,
   }) {
-    return FamiliarProvider(
+    return FamiliarsProvider(
       familiarHash: familiarHash ?? this.familiarHash,
       activeBadgeSetNumber: activeBadgeSetNumber ?? this.activeBadgeSetNumber,
       activeFamiliarSetNumber: activeFamiliarSetNumber ?? this.activeFamiliarSetNumber,
