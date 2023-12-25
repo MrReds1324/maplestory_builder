@@ -258,8 +258,11 @@ class InnerAbilitySelectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
         ),
       ],
       onHoverFunction: _onHover,

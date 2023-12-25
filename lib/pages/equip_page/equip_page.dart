@@ -377,8 +377,11 @@ class InventoryItems extends StatelessWidget {
                         onHoverFunction: _curriedOnHover(allEquipsList[index]),
                         tooltipWidgets: [
                           allEquipsList[index].createEquipContainer(context),
-                          Consumer<DifferenceCalculatorProvider>(
-                            builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+                          Selector<DifferenceCalculatorProvider, Widget>(
+                            selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+                            builder: (context, widget, child) {
+                              return widget;
+                            }
                           ),
                         ],
                         child: ListTile(
@@ -646,8 +649,11 @@ class EquipSetSelectButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
         ),
       ],
       onHoverFunction: _onHover,

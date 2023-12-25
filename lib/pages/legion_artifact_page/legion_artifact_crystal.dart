@@ -125,8 +125,11 @@ class ArtifactCrystallevelButton extends StatelessWidget {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} 1 Artifact Crystal Level'),
-        Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
         ),
       ],
       onHoverFunction: _onHover,

@@ -670,8 +670,11 @@ class APStatButton extends StatelessWidget {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 50 : 1} Ability Points ${isSubtract ? "from" : "to"} ${statType.formattedName}'),
-        Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
         ),
       ],
       onHoverFunction: _onHover,
@@ -713,8 +716,11 @@ class LevelButton extends StatelessWidget {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 10 : 1} ${StatType.level.formattedName}s'),
-        Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
         ),
       ],
       onHoverFunction: _onHover,

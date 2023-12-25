@@ -259,8 +259,11 @@ class LegionStatButton extends StatelessWidget {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} levels ${isSubtract ? "from" : "to"} ${statType.formattedName}'),
-        Consumer<DifferenceCalculatorProvider>(
-          builder: (context, differenceCalculator, child) => differenceCalculator.differenceWidget
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
         ),
       ],
       onHoverFunction: _onHover,
