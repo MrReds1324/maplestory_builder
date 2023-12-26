@@ -13,10 +13,13 @@ class FamiliarEditingProvider with ChangeNotifier {
 
   Familiar? editingFamiliar;
   int updateCounter = NO_EDITING_FAMILIAR;
+  bool isEditing = false;
+
+  TextEditingController textController;
 
   FamiliarEditingProvider({
     this.editingFamiliar
-  });
+  }): textController = TextEditingController(text: "");
 
   void addEditingFamiliar({Familiar? familiar}) {
     editingFamiliar = familiar?.copyWith() ?? Familiar();
@@ -57,12 +60,22 @@ class FamiliarEditingProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateFamiliarName(String familiarName) {
+    editingFamiliar?.familiarName = familiarName;
+    updateCounter += 1;
+    notifyListeners();
+  }
+
   void _setEditingState() {
-    updateCounter = START_EDITING_FAMILIAR;  
+    updateCounter = START_EDITING_FAMILIAR;
+    textController.text = editingFamiliar?.familiarName ?? "";
+    isEditing = true;
   }
 
   void _clearEditingState() {
     editingFamiliar = null;
     updateCounter = NO_EDITING_FAMILIAR;
+    textController.text = "";
+    isEditing = false;
   }
 } 

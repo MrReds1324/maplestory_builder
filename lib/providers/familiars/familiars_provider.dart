@@ -96,6 +96,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     // New familiar that cannot be equipped
     if (editingFamiliar.familiarHash == -1) {
       editingFamiliar.familiarHash = familiarHash;
+      editingFamiliar.familiarName = editingFamiliar.familiarName.isEmpty ? "Familiar $familiarHash" : editingFamiliar.familiarName;
       allFamiliars[editingFamiliar.familiarHash] = editingFamiliar;
       familiarHash++;
     }

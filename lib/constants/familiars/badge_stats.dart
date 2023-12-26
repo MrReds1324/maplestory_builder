@@ -306,16 +306,15 @@ enum BadgeName {
           width: 150,
           child: Row(
             children: [
-              SizedBox(
-                width: 100,
+              Container(
+                constraints: const BoxConstraints(maxWidth: 120),
                 child: Text(
                   statEntry.key.formattedName,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
-              const Spacer(),
               Text(
-                "${statEntry.key.isPositive ? '+' : ' -'}${statEntry.key.isPercentage ? doublePercentFormater.format(statEntry.value) : statEntry.value}",
+                "${statEntry.key.isPositive ? '+' : ' -'}${statEntry.key.isPercentage ? doubleRoundPercentFormater.format(statEntry.value) : statEntry.value}",
                 style: Theme.of(context).textTheme.bodyMedium
               ) 
             ]

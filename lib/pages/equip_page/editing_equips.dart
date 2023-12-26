@@ -162,7 +162,7 @@ class EquipBuilderContent extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 13),
                         child: Consumer2<EquipEditingProvider, DifferenceCalculatorProvider>(
                           builder: (_, equipEditingProvider, differenceCalculatorProvider, __) {
-                            return differenceCalculatorProvider.compareEditingEquip(context) 
+                            return differenceCalculatorProvider.compareEditingFamiliar(context) 
                             ?? 
                             const Text(
                               "NOT CURRENTLY EDITING AN EQUIP",

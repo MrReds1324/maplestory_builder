@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/familiars/potential_stats.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class FamiliarBuilder extends StatelessWidget {
@@ -80,14 +80,22 @@ class FamiliarBuilderContent extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
+                      Consumer<FamiliarEditingProvider>(
+                        builder: (_, familiarEditingProvider, __) {
+                          return familiarEditingProvider.editingFamiliar?.createFamiliarContainer(context, isFamiliarEditing: true) 
+                          ?? Icon(
+                            MdiIcons.cardAccountDetailsStar,
+                            size: 100,
+                            color: Colors.redAccent,
+                          );
+                        }
+                      ),
                       Expanded(
                         child: ListView(
                           padding: const EdgeInsets.only(right: 13, bottom: 5),
                           children: const [
-                            _PotenialTierDropdown(),
-                            _PotentialDropdowns(potentialPosition: 1),
-                            _PotentialDropdowns(potentialPosition: 2),
-                            _StatsTweak(),
+                            FamiliarNameInput(),
+                            PotentialInput(),
                           ],
                         ),
                       ),
@@ -121,7 +129,7 @@ class FamiliarBuilderContent extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 13),
                         child: Consumer2<EquipEditingProvider, DifferenceCalculatorProvider>(
                           builder: (_, equipEditingProvider, differenceCalculatorProvider, __) {
-                            return differenceCalculatorProvider.compareEditingEquip(context) 
+                            return differenceCalculatorProvider.compareEditingFamiliar(context) 
                             ?? 
                             const Text(
                               "NOT CURRENTLY EDITING A FAMILIAR",
@@ -143,11 +151,44 @@ class FamiliarBuilderContent extends StatelessWidget {
   }
 }
 
+class PotentialInput extends StatelessWidget {
+
+  const PotentialInput({
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          "Potentials",
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline)
+        ),
+        Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            border: Border.all(color: statColor),
+            borderRadius: const BorderRadius.all(Radius.circular(10))
+          ),
+          child: const Column(
+            children: [
+              _PotenialTierDropdown(),
+              _PotentialDropdowns(potentialPosition: 1),
+              _PotentialDropdowns(potentialPosition: 2),
+            ]
+          ),
+        ),
+      ]
+    );
+  }
+}
+
 class _PotenialTierDropdown extends StatelessWidget {
 
   const _PotenialTierDropdown();
 
-  List<DropdownMenuItem> getDropdownPotentialsTierList(BuildContext context) {
+  List<DropdownMenuItem<FamiliarPotentialTier>> getDropdownPotentialsTierList(BuildContext context) {
     List<DropdownMenuItem<FamiliarPotentialTier>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
@@ -185,7 +226,7 @@ class _PotenialTierDropdown extends StatelessWidget {
         Consumer<FamiliarEditingProvider>(
           builder: (context, familiarEditingProvider, child) {
             return Text(
-              "Potential: ",
+              "Tier: ",
               style: TextStyle(
                 color: getSelectedPotentialTier(familiarEditingProvider.editingFamiliar)?.color
               ),
@@ -193,7 +234,7 @@ class _PotenialTierDropdown extends StatelessWidget {
           }
         ),
         SizedBox(
-          width: 213,
+          width: 260,
           child: Consumer<FamiliarEditingProvider>(
             builder: (context, familiarEditingProvider, child) {
               return DropdownButton(
@@ -201,9 +242,9 @@ class _PotenialTierDropdown extends StatelessWidget {
                 isDense: true,
                 isExpanded: true,
                 value: getSelectedPotentialTier(familiarEditingProvider.editingFamiliar),
-                onChanged: (newValue) {
+                onChanged: familiarEditingProvider.isEditing ? (FamiliarPotentialTier? newValue) {
                   familiarEditingProvider.updatePotentialTier(newValue);
-                },
+                } : null,
                 items: getDropdownPotentialsTierList(context)
               );
             }
@@ -221,7 +262,7 @@ class _PotentialDropdowns extends StatelessWidget {
     required this.potentialPosition
   });
 
-  List<DropdownMenuItem> getDropdownPotentialsList(BuildContext context, Familiar? editingFamiliar) {
+  List<DropdownMenuItem<(FamiliarPotential, bool)>> getDropdownPotentialsList(BuildContext context, Familiar? editingFamiliar) {
     List<DropdownMenuItem<(FamiliarPotential, bool)>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
@@ -234,7 +275,6 @@ class _PotentialDropdowns extends StatelessWidget {
     ];
 
     if (editingFamiliar != null) {
-
       List<(FamiliarPotential, bool)> filteredList = editingFamiliar.getPotentialsList(potentialPosition);
 
       dropdownItems.addAll(
@@ -245,7 +285,7 @@ class _PotentialDropdowns extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: value.$1.formattedName.isNotEmpty ? value.$1.formattedName : value.$1.statType.formattedName,
+                    text: value.$1.formattedName ?? value.$1.statType.formattedName,
                     style: Theme.of(context).textTheme.bodyMedium
                   ),
                   TextSpan(
@@ -279,9 +319,9 @@ class _PotentialDropdowns extends StatelessWidget {
             isDense: true,
             isExpanded: true,
             value: getSelectedPotentialLine(familiarEditingProvider.editingFamiliar, potentialPosition),
-            onChanged: (newValue) {
-              familiarEditingProvider.updatePotentialSelection(potentialPosition, newValue,);
-            },
+            onChanged: familiarEditingProvider.isEditing ? ((FamiliarPotential, bool)? newValue) {
+              familiarEditingProvider.updatePotentialSelection(potentialPosition, newValue);
+            } : null,
             items: getDropdownPotentialsList(context, familiarEditingProvider.editingFamiliar)
           );
         }
@@ -290,66 +330,36 @@ class _PotentialDropdowns extends StatelessWidget {
   }
 }
 
-class _StatsTweak extends StatelessWidget {
-  const _StatsTweak();
+class FamiliarNameInput extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      iconColor: equipStarColor,
-      title: const Text("Stat Tweaks"),
-      children: [
-        SizedBox(
-          height: 450,
-          child: ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(right: 13, bottom: 5),
-            children: const <Widget>[
-              _StatsTweakInput(statType: StatType.str),
-              _StatsTweakInput(statType: StatType.dex),
-              _StatsTweakInput(statType: StatType.int),
-              _StatsTweakInput(statType: StatType.luk),
-              _StatsTweakInput(statType: StatType.attack),
-              _StatsTweakInput(statType: StatType.mattack),
-              _StatsTweakInput(statType: StatType.mp),
-              _StatsTweakInput(statType: StatType.hp),
-              _StatsTweakInput(statType: StatType.defense),
-              _StatsTweakInput(statType: StatType.speed),
-              _StatsTweakInput(statType: StatType.jump),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _StatsTweakInput extends StatelessWidget {
-  final StatType statType;
-
-  const _StatsTweakInput({required this.statType});
+  const FamiliarNameInput({
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(statType.formattedName),
+        const Text("Familiar Name:"),
         const Spacer(),
         SizedBox(
           width: 200,
-          child: TextField(
-            style: Theme.of(context).textTheme.bodyMedium,
-            controller: context.read<EquipEditingProvider>().getTweakTextController(statType),
-            onChanged: (value) => context.read<EquipEditingProvider>().updateTweakStat(statType, value.isNotEmpty && value != "-" ? int.parse(value) : 0),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'^-?\d*')),
-            ],
-            decoration: const InputDecoration(
-              isDense: true
-            ),
-          )
+          child: 
+          Selector<FamiliarEditingProvider, bool>(
+            selector: (_, familiarEditingProvider) => familiarEditingProvider.isEditing,
+            builder: (context, isEnabled, child) {
+              return TextField(
+                style: Theme.of(context).textTheme.bodyMedium,
+                enabled: isEnabled,
+                controller: context.read<FamiliarEditingProvider>().textController,
+                onChanged: (value) => context.read<FamiliarEditingProvider>().updateFamiliarName(value.isNotEmpty ? value : ""),
+                decoration: const InputDecoration(
+                  isDense: true
+                ),
+              );
+            }
+          ),
         )
       ]
     );

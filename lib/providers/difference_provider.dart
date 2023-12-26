@@ -208,7 +208,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     return const SizedBox.shrink();
   }
 
-  Widget? compareEditingEquip(BuildContext context) {
+  Widget? compareEditingFamiliar(BuildContext context) {
     return compareEquip(context, equipEditingProvider.editingEquip, isEditing: true, isDense: false);
   }
 
@@ -340,10 +340,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       return widgetReturn;
     }
     else {
-      differenceWidget = widgetReturn!;
+      differenceWidget = widgetReturn ?? const SizedBox.shrink();
       notifyListeners();
       return null;
     }
+  }
+
+  Widget? compareEditingEquip(BuildContext context) {
+    return compareEquip(context, equipEditingProvider.editingEquip, isEditing: true, isDense: false);
   }
 
   void modifyApToStat(int apAmount, StatType statType, bool isSubtract) {

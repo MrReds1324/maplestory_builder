@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/familiars/badge_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
+import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/familiars_page/editing_familiars.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -231,9 +233,9 @@ class FamiliarInventory extends StatelessWidget {
     }
   );
 
- Function _curriedOnHover(Equip equip) {
+ Function _curriedOnHover(Familiar familiar) {
     return (BuildContext context) {
-      return context.read<DifferenceCalculatorProvider>().compareEquip(context, equip);
+      return context.read<DifferenceCalculatorProvider>().compareEquip(context, null);
     };
   }
 
@@ -258,18 +260,17 @@ class FamiliarInventory extends StatelessWidget {
                 border: Border.all(color: statColor),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
-              child: Consumer<EquipsProvider>(
-                builder: (context, equipsProvider, child) {
-                  var allEquipsList = equipsProvider.allEquips.values.toList();
+              child: Consumer<FamiliarsProvider>(
+                builder: (context, familiarsProvider, child) {
+                  var allFamiliarsList = familiarsProvider.allFamiliars.values.toList();
                   return ListView.builder(
-                    itemCount: equipsProvider.allEquips.length,
+                    itemCount: familiarsProvider.allFamiliars.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return MapleTooltip(
-                        maxWidth: allEquipsList[index].getTooltipWidth(),
-                        onHoverFunction: _curriedOnHover(allEquipsList[index]),
+                        onHoverFunction: _curriedOnHover(allFamiliarsList[index]),
                         tooltipWidgets: [
-                          allEquipsList[index].createEquipContainer(context),
+                          allFamiliarsList[index].createFamiliarContainer(context),
                           Selector<DifferenceCalculatorProvider, Widget>(
                             selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
                             builder: (context, widget, child) {
@@ -280,14 +281,14 @@ class FamiliarInventory extends StatelessWidget {
                         child: ListTile(
                           title: Row(
                             children: [
-                              Text(allEquipsList[index].equipName.formattedName),
+                              Text(allFamiliarsList[index].familiarName),
                               const Spacer(),
                               TextButton(
-                                onPressed: () => equipsProvider.deleteEquip(allEquipsList[index]), 
+                                onPressed: () => familiarsProvider.deleteFamiliar(allFamiliarsList[index]), 
                                 child: const Text("Delete")
                               ),
                               TextButton(
-                                onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(allEquipsList[index]), 
+                                onPressed: () => context.read<FamiliarEditingProvider>().addEditingFamiliar(familiar: allFamiliarsList[index]), 
                                 child: const Text("Edit")
                               ),
                             ]

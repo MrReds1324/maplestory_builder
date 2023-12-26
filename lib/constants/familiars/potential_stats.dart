@@ -1264,10 +1264,10 @@ enum FamiliarPotential {
     required this.familiarPotentialTier,
     required this.statType,
     required this.statValue,
-    this.formattedName = "",
+    this.formattedName,
   });
 
-  final String formattedName;
+  final String? formattedName;
   final FamiliarPotentialTier familiarPotentialTier;
   final StatType statType;
   final List<num> statValue;

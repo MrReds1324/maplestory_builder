@@ -238,7 +238,7 @@ class Equip implements Copyable {
     return equipSet != null ? 610 : 310;
   }
 
-  Row createEquipContainer(BuildContext context, {bool isEquipEditing=false}) {
+  Row createEquipContainer(BuildContext context, {bool isEquipEditing = false}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
