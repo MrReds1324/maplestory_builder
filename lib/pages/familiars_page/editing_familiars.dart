@@ -162,7 +162,7 @@ class PotentialInput extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "Potentials",
+          "Familiar Lines",
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline)
         ),
         Container(
@@ -226,7 +226,7 @@ class _PotenialTierDropdown extends StatelessWidget {
         Consumer<FamiliarEditingProvider>(
           builder: (context, familiarEditingProvider, child) {
             return Text(
-              "Tier: ",
+              "Rank: ",
               style: TextStyle(
                 color: getSelectedPotentialTier(familiarEditingProvider.editingFamiliar)?.color
               ),
@@ -234,7 +234,7 @@ class _PotenialTierDropdown extends StatelessWidget {
           }
         ),
         SizedBox(
-          width: 260,
+          width: 254,
           child: Consumer<FamiliarEditingProvider>(
             builder: (context, familiarEditingProvider, child) {
               return DropdownButton(

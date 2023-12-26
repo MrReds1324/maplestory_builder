@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/familiars/badge_stats.dart';
-import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/familiars_page/editing_familiars.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -57,6 +56,33 @@ class EquippedItems extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
+          "Active Familiars",
+          style: Theme.of(context).textTheme.headlineMedium
+        ),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BadgeSetSelectButton(badgeSetPosition: 1),
+            BadgeSetSelectButton(badgeSetPosition: 2),
+            BadgeSetSelectButton(badgeSetPosition: 3),
+            BadgeSetSelectButton(badgeSetPosition: 4),
+            BadgeSetSelectButton(badgeSetPosition: 5),
+          ]
+        ),
+        const Column(
+          children: [
+            FamiliarSelector(
+              familiarPosition: 1,
+            ),
+            FamiliarSelector(
+              familiarPosition: 2,
+            ),
+            FamiliarSelector(
+              familiarPosition: 3,
+            ),
+          ],
+        ),
+        Text(
           "Equipped Badges",
           style: Theme.of(context).textTheme.headlineMedium
         ),
@@ -96,40 +122,13 @@ class EquippedItems extends StatelessWidget {
             BadgeSelector(
               badgePosition: 8,
             ),
-          ],
-        ),
-        Text(
-          "Active Familiars",
-          style: Theme.of(context).textTheme.headlineMedium
-        ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BadgeSetSelectButton(badgeSetPosition: 1),
-            BadgeSetSelectButton(badgeSetPosition: 2),
-            BadgeSetSelectButton(badgeSetPosition: 3),
-            BadgeSetSelectButton(badgeSetPosition: 4),
-            BadgeSetSelectButton(badgeSetPosition: 5),
-          ]
-        ),
-        const Column(
-          children: [
-            BadgeSelector(
-              badgePosition: 1,
-            ),
-            BadgeSelector(
-              badgePosition: 2,
-            ),
-            BadgeSelector(
-              badgePosition: 3,
-            ),
+            BadgeStatListView(),
           ],
         ),
       ],
     );
   }
 }
-
 
 class BadgeSelector extends StatelessWidget {
   final int badgePosition;
@@ -199,11 +198,11 @@ class BadgeSelector extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SizedBox(
-          width: 75,
+          width: 60,
           child: Text("Badge $badgePosition"),
         ),
         SizedBox(
-          width: 225,
+          width: 240,
           child: Consumer<FamiliarsProvider>(
             builder: (context, familiarsProvider, child) {
               return DropdownButton(
@@ -224,6 +223,97 @@ class BadgeSelector extends StatelessWidget {
   }
 }
 
+class FamiliarSelector extends StatelessWidget {
+  final int familiarPosition;
+
+  const FamiliarSelector(
+    {
+      required this.familiarPosition,
+      super.key
+    }
+  );
+
+  List<DropdownMenuItem> getDropdownItemList(BuildContext context, FamiliarsProvider familiarsProvider) {
+    // Always add a default null selector to the list
+    List<DropdownMenuItem<Familiar>> dropdownItems = [
+      DropdownMenuItem(
+        value: null,
+        child: Text(
+          'None',
+          style: Theme.of(context).textTheme.bodyMedium
+        ),
+      )
+    ];
+
+    List<Familiar> filteredList = <Familiar>[];
+    // We can only have one of badge of each, filter out already used ones here
+    badgeFilterloop:
+    for(Familiar familiar in familiarsProvider.allFamiliars.values) { 
+      // Stops us from being able to select multiple of a single badge
+      for (MapEntry<int, int?> equippedFamiliar in familiarsProvider.activeFamiliarSet.equippedFamiliars.entries) {
+        if (equippedFamiliar.key == familiarPosition) {
+          continue;
+        }
+        else if (familiar.familiarHash == equippedFamiliar.value) {
+          continue badgeFilterloop;
+        }
+      }
+      
+      filteredList.add(familiar);
+    }
+
+    dropdownItems.addAll(
+      filteredList.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: MapleTooltip(
+            tooltipWidgets: [value.createFamiliarContainer(context)],
+            child: Text(
+              value.familiarName,
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+          ),
+        );
+      }).toList()
+    );
+
+    return dropdownItems;
+  }
+
+  Familiar? getSelectedFamiliar(FamiliarsProvider familiarsProvider) {
+    return familiarsProvider.activeFamiliarSet.getSelectedFamiliar(familiarPosition);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        SizedBox(
+          width: 60,
+          child: Text("Familiar $familiarPosition"),
+        ),
+        SizedBox(
+          width: 240,
+          child: Consumer<FamiliarsProvider>(
+            builder: (context, familiarsProvider, child) {
+              return DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedFamiliar(familiarsProvider),
+                onChanged: (newValue) {
+                  familiarsProvider.equipFamiliar(newValue, familiarPosition);
+                },
+                items: getDropdownItemList(context, familiarsProvider)
+              );
+            }
+          ),
+        ),
+      ],
+    );
+  }
+}
 
 class FamiliarInventory extends StatelessWidget {
 
@@ -299,6 +389,66 @@ class FamiliarInventory extends StatelessWidget {
                   );
                 }
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BadgeStatListView extends StatelessWidget {
+
+  const BadgeStatListView({
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Badge Stats",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          Container(
+            height: 492,
+            width: 300,
+            decoration: BoxDecoration(
+              border: Border.all(color: statColor),
+              borderRadius: const BorderRadius.all(Radius.circular(10))
+            ),
+            child: Consumer<FamiliarsProvider>(
+              builder: (context, familiarsProvider, child) {
+                var selectedStats = familiarsProvider.activeBadgeSet.moduleStats.entries.toList();
+                return ListView.builder(
+                  padding: const EdgeInsets.only(right: 13),
+                  itemCount: selectedStats.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: Text(
+                              selectedStats[index].key.formattedName,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            "${selectedStats[index].key.isPositive ? '+' : ' -'}${selectedStats[index].key.isPercentage ? doublePercentFormater.format(selectedStats[index].value) : selectedStats[index].value}",
+                            style: Theme.of(context).textTheme.bodyMedium
+                          ) 
+                        ]
+                      ),
+                    );
+                  },
+                );
+              }
             ),
           ),
         ],

@@ -40,6 +40,10 @@ class FamiliarModule implements Copyable {
     });
   }
 
+  Familiar? getSelectedFamiliar(int familiarPosition) {
+    return getFamiliarCallback(equippedFamiliars[familiarPosition]);
+  }
+
   List<Map<StatType, num>> calculateStats() {
     List<Map<StatType, num>> familiarStats = <Map<StatType, num>>[];
 

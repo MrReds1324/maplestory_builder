@@ -51,33 +51,33 @@ class PotentialModule implements Copyable {
   }
 
   void _updateStatFromPotential(PotentialLine? potentialLine) {
-      if (potentialLine == null) {
-        return;
+    if (potentialLine == null) {
+      return;
+    }
+    else {
+      num statValue = 0;
+      if (potentialLine.potentialName.potentialType == PotentialType.static) {
+        assert(potentialLine.potentialName.statValue is num, "Static potential lines must be of type num");
+        statValue = potentialLine.potentialName.statValue;
+      }
+      else if (potentialLine.potentialName.potentialType == PotentialType.range) {
+        assert(potentialLine.potentialName.statValue is List, "Range potential lines must be of type num");
+        statValue = potentialLine.potentialName.statValue[potentialOffset];
       }
       else {
-        num statValue = 0;
-        if (potentialLine.potentialName.potentialType == PotentialType.static) {
-          assert(potentialLine.potentialName.statValue is num, "Static potential lines must be of type num");
-          statValue = potentialLine.potentialName.statValue;
-        }
-        else if (potentialLine.potentialName.potentialType == PotentialType.range) {
-          assert(potentialLine.potentialName.statValue is List, "Range potential lines must be of type num");
-          statValue = potentialLine.potentialName.statValue[potentialOffset];
-        }
-        else {
-          // TODO: add skill stuff here
-        }
+        // TODO: add skill stuff here
+      }
 
-        switch(potentialLine.statType) {
-          case StatType.ignoreDefense:
-            moduleStats[potentialLine.statType] = calculateIgnoreDefense((moduleStats[potentialLine.statType] ?? 0), statValue);
-          case StatType.skill:
-            // TODO: add skill stuff here
-          default:
-            moduleStats[potentialLine.statType] = (moduleStats[potentialLine.statType] ?? 0) + statValue;
-        }
+      switch(potentialLine.statType) {
+        case StatType.ignoreDefense:
+          moduleStats[potentialLine.statType] = calculateIgnoreDefense((moduleStats[potentialLine.statType] ?? 0), statValue);
+        case StatType.skill:
+          // TODO: add skill stuff here
+        default:
+          moduleStats[potentialLine.statType] = (moduleStats[potentialLine.statType] ?? 0) + statValue;
       }
     }
+  }
 
   void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
     if (isBonus) {

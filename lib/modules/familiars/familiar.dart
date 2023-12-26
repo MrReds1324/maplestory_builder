@@ -109,13 +109,13 @@ class Familiar implements Copyable {
               color: potentialTier?.color ?? Colors.redAccent,
             ),
           ),
-          isFamiliarEditing ? const SizedBox.shrink() : _buildPotentialWidget(context),
+          isFamiliarEditing ? const SizedBox.shrink() : _buildRankWidget(context),
         ],
       ),
     );
   }
 
-  Widget _buildPotentialWidget(BuildContext context) {
+  Widget _buildRankWidget(BuildContext context) {
     List<Widget> childrenWidgets = [];
 
     void addPotentialLine(FamiliarPotentialLine familiarPotentialLine) {
@@ -148,7 +148,7 @@ class Familiar implements Copyable {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "Potential (${potentialTier!.formattedName})",
+                text: "Rank (${potentialTier!.formattedName})",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: potentialTier!.color)
               )
             ]

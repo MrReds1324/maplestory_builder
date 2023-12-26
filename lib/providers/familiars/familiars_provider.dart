@@ -117,6 +117,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
 
   void equipBadge(BadgeName? badgeName, int badgePosition) {
     activeBadgeSet.equipBadge(badgeName, badgePosition);
+
+    notifyListeners();
   }
 
   void changeActiveBadgeSet(int familiarSetNumber) {
@@ -137,22 +139,53 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
 class BadgeContainer implements Copyable {
   // There will be 8 active badges
   Map<int, BadgeName?> activebadges;
+  Map<StatType, num> moduleStats;
 
   BadgeContainer({
-    Map<int, BadgeName?>? activebadges
-  }) : activebadges = activebadges ?? {};
+    Map<int, BadgeName?>? activebadges,
+    Map<StatType, num>? moduleStats,
+  }) : activebadges = activebadges ?? {},
+      moduleStats = moduleStats ?? {};
 
   @override
   BadgeContainer copyWith({
-    Map<int, BadgeName?>? activebadges
+    Map<int, BadgeName?>? activebadges,
+    Map<StatType, num>? moduleStats,
   }) {
     return BadgeContainer(
-      activebadges: activebadges ?? Map.of(this.activebadges)
+      activebadges: activebadges ?? Map.of(this.activebadges),
+      moduleStats: moduleStats ?? Map.of(this.moduleStats),
     );
+  }
+
+  void _updateStatFromBadge(BadgeName? badgeName) {
+    if (badgeName == null) {
+      return;
+    }
+    else {
+      for (MapEntry<StatType, num> badgeStat in badgeName.badgeStats.entries) {
+        switch(badgeStat.key) {
+          case StatType.ignoreDefense:
+            moduleStats[badgeStat.key] = calculateIgnoreDefense((moduleStats[badgeStat.key] ?? 0), badgeStat.value);
+          default:
+            moduleStats[badgeStat.key] = (moduleStats[badgeStat.key] ?? 0) + badgeStat.value;
+        }
+      }
+    }
+  }
+
+  void calculateModuleStats() {
+    moduleStats = {};
+
+    for (BadgeName? badgeName in activebadges.values) {
+      _updateStatFromBadge(badgeName);
+    }
   }
 
   void equipBadge(BadgeName? badgeName, int badgePosition) {
     activebadges[badgePosition] = badgeName;
+
+    calculateModuleStats();
   }
 
   BadgeName? getSelectedBadge(int badgePosition) {
