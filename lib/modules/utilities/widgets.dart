@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/hover_tooltip.dart';
+import 'package:maplestory_builder/providers/difference_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 class MapleTooltip extends StatelessWidget{
   final String tooltipTitle;
@@ -75,6 +78,127 @@ class HorizontalLine extends StatelessWidget {
           color: statColor,
         ),
       ),
+    );
+  }
+}
+
+class SetSelectButtonRow<P> extends StatelessWidget {
+  
+  final void Function(BuildContext, int) onHoverFunction;
+  final void Function(int) onPressed;
+  final int Function(BuildContext, P) selectorFunction;
+  
+  const SetSelectButtonRow({
+    required this.onHoverFunction,
+    required this.onPressed,
+    required this.selectorFunction,
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SetSelectButton<P>(
+          setPosition: 1,
+          onHoverFunction: onHoverFunction,
+          onPressed: onPressed,
+          selectorFunction: selectorFunction,
+        ),
+        SetSelectButton<P>(
+          setPosition: 2,
+          onHoverFunction: onHoverFunction,
+          onPressed: onPressed,
+          selectorFunction: selectorFunction,
+        ),
+        SetSelectButton<P>(
+          setPosition: 3,
+          onHoverFunction: onHoverFunction,
+          onPressed: onPressed,
+          selectorFunction: selectorFunction,
+        ),
+        SetSelectButton<P>(
+          setPosition: 4,
+          onHoverFunction: onHoverFunction,
+          onPressed: onPressed,
+          selectorFunction: selectorFunction,
+        ),
+        SetSelectButton<P>(
+          setPosition: 5,
+          onHoverFunction: onHoverFunction,
+          onPressed: onPressed,
+          selectorFunction: selectorFunction,
+        ),
+      ]
+    );
+  }
+}
+
+class SetSelectButton<P> extends StatelessWidget {
+  final int setPosition;
+  final void Function(BuildContext, int) onHoverFunction;
+  final void Function(int) onPressed;
+  final int Function(BuildContext, P) selectorFunction;
+
+  const SetSelectButton({
+    required this.setPosition,
+    required this.onHoverFunction,
+    required this.onPressed,
+    required this.selectorFunction,
+    super.key, 
+  });
+
+  Function _curriedOnHover(int setPosition) {
+    return (BuildContext context) {
+      return onHoverFunction(context, setPosition);
+    };
+  }
+
+  IconData _getIconData() {
+    switch(setPosition) {
+      case 1:
+        return MdiIcons.numeric1CircleOutline;
+      case 2:
+        return MdiIcons.numeric2CircleOutline;
+      case 3:
+        return MdiIcons.numeric3CircleOutline;
+      case 4:
+        return MdiIcons.numeric4CircleOutline;
+      case 5:
+        return MdiIcons.numeric5CircleOutline;
+      default:
+        return MdiIcons.exclamation;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MapleTooltip(
+      tooltipWidgets: [
+        Selector<DifferenceCalculatorProvider, Widget>(
+          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+          builder: (context, widget, child) {
+            return widget;
+          }
+        ),
+      ],
+      onHoverFunction: _curriedOnHover(setPosition),
+      child: IconButton(
+        padding: const EdgeInsets.all(1),
+        constraints: const BoxConstraints(),
+        iconSize: 19,
+        onPressed: () => onPressed(setPosition), 
+        icon: Selector<P, int>(
+          selector: selectorFunction,
+          builder: (context, selectedSetNumber, child) {
+            return Icon(
+              _getIconData(),
+              color: setPosition == selectedSetNumber ? starColor : null,
+            );
+          }
+        ),
+      )
     );
   }
 }

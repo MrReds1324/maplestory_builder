@@ -23,15 +23,10 @@ class InnerAbilityStatsTable extends StatelessWidget {
             "Inner Ability",
             style: Theme.of(context).textTheme.headlineMedium
           ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InnerAbilitySelectButton(innerAbilityPosition: 1),
-              InnerAbilitySelectButton(innerAbilityPosition: 2),
-              InnerAbilitySelectButton(innerAbilityPosition: 3),
-              InnerAbilitySelectButton(innerAbilityPosition: 4),
-              InnerAbilitySelectButton(innerAbilityPosition: 5),
-            ]
+          SetSelectButtonRow<InnerAbilityProvider>(
+            onHoverFunction: context.read<DifferenceCalculatorProvider>().compareInnerAbility,
+            onPressed: (int setPosition) => context.read<InnerAbilityProvider>().changeActiveSet(setPosition),
+            selectorFunction: (BuildContext context, InnerAbilityProvider innerAbilityProvider) => innerAbilityProvider.activeSetNumber,
           ),
           const InnerAbilityCell(innerAbilityPosition: 1),
           const InnerAbilityCell(innerAbilityPosition: 2),
@@ -221,65 +216,6 @@ class _InnerAbilityDropdown extends StatelessWidget {
           );
         }
       ),
-    );
-  }
-}
-
-class InnerAbilitySelectButton extends StatelessWidget {
-  final int innerAbilityPosition;
-
-  const InnerAbilitySelectButton({
-    super.key, 
-    required this.innerAbilityPosition
-  });
-
-  IconData _getIconData() {
-    switch(innerAbilityPosition) {
-      case 1:
-        return MdiIcons.numeric1CircleOutline;
-      case 2:
-        return MdiIcons.numeric2CircleOutline;
-      case 3:
-        return MdiIcons.numeric3CircleOutline;
-      case 4:
-        return MdiIcons.numeric4CircleOutline;
-      case 5:
-        return MdiIcons.numeric5CircleOutline;
-      default:
-        return MdiIcons.exclamation;
-    }
-  }
-
-  void _onHover(BuildContext context){
-    context.read<DifferenceCalculatorProvider>().compareInnerAbility(context, innerAbilityPosition);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MapleTooltip(
-      tooltipWidgets: [
-        Selector<DifferenceCalculatorProvider, Widget>(
-          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-          builder: (context, widget, child) {
-            return widget;
-          }
-        ),
-      ],
-      onHoverFunction: _onHover,
-      child: IconButton(
-        padding: const EdgeInsets.all(1),
-        constraints: const BoxConstraints(),
-        iconSize: 19,
-        onPressed: () => context.read<InnerAbilityProvider>().changeActiveSet(innerAbilityPosition), 
-        icon: Consumer<InnerAbilityProvider>(
-          builder: (_, innerAbilityProvider, __) {
-            return Icon(
-              _getIconData(),
-              color: innerAbilityPosition == innerAbilityProvider.activeSetNumber ? starColor : null,
-            );
-          }
-        )
-      )
     );
   }
 }

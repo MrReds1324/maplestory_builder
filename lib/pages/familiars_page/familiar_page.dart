@@ -6,10 +6,8 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/familiars_page/editing_familiars.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class FamiliarPage extends StatelessWidget {
@@ -59,15 +57,10 @@ class EquippedItems extends StatelessWidget {
           "Active Familiars",
           style: Theme.of(context).textTheme.headlineMedium
         ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BadgeSetSelectButton(badgeSetPosition: 1),
-            BadgeSetSelectButton(badgeSetPosition: 2),
-            BadgeSetSelectButton(badgeSetPosition: 3),
-            BadgeSetSelectButton(badgeSetPosition: 4),
-            BadgeSetSelectButton(badgeSetPosition: 5),
-          ]
+        SetSelectButtonRow<FamiliarsProvider>(
+          onHoverFunction: (BuildContext context, int _) => {},
+          onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveFamiliarSet(setPosition),
+          selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeFamiliarSetNumber,
         ),
         const Column(
           children: [
@@ -86,15 +79,10 @@ class EquippedItems extends StatelessWidget {
           "Equipped Badges",
           style: Theme.of(context).textTheme.headlineMedium
         ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BadgeSetSelectButton(badgeSetPosition: 1),
-            BadgeSetSelectButton(badgeSetPosition: 2),
-            BadgeSetSelectButton(badgeSetPosition: 3),
-            BadgeSetSelectButton(badgeSetPosition: 4),
-            BadgeSetSelectButton(badgeSetPosition: 5),
-          ]
+        SetSelectButtonRow<FamiliarsProvider>(
+          onHoverFunction: (BuildContext context, int _) => {},
+          onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveBadgeSet(setPosition),
+          selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeBadgeSetNumber,
         ),
         const Column(
           children: [
@@ -453,65 +441,6 @@ class BadgeStatListView extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class BadgeSetSelectButton extends StatelessWidget {
-  final int badgeSetPosition;
-
-  const BadgeSetSelectButton({
-    super.key, 
-    required this.badgeSetPosition
-  });
-
-  IconData _getIconData() {
-    switch(badgeSetPosition) {
-      case 1:
-        return MdiIcons.numeric1CircleOutline;
-      case 2:
-        return MdiIcons.numeric2CircleOutline;
-      case 3:
-        return MdiIcons.numeric3CircleOutline;
-      case 4:
-        return MdiIcons.numeric4CircleOutline;
-      case 5:
-        return MdiIcons.numeric5CircleOutline;
-      default:
-        return MdiIcons.exclamation;
-    }
-  }
-
-  void _onHover(BuildContext context){
-    context.read<DifferenceCalculatorProvider>().compareEquipSets(context, badgeSetPosition);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MapleTooltip(
-      tooltipWidgets: [
-        Selector<DifferenceCalculatorProvider, Widget>(
-          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-          builder: (context, widget, child) {
-            return widget;
-          }
-        ),
-      ],
-      onHoverFunction: _onHover,
-      child: IconButton(
-        padding: const EdgeInsets.all(1),
-        constraints: const BoxConstraints(),
-        iconSize: 19,
-        onPressed: () => context.read<EquipsProvider>().changeActiveSet(badgeSetPosition), 
-        icon: Consumer<EquipsProvider>(
-          builder: (_, equipsProvider, __) {
-            return Icon(
-              _getIconData(),
-              color: badgeSetPosition == equipsProvider.activeSetNumber ? starColor : null,
-            );
-          }
-        ),
-      )
     );
   }
 }

@@ -121,16 +121,16 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     notifyListeners();
   }
 
-  void changeActiveBadgeSet(int familiarSetNumber) {
-    activeFamiliarSetNumber = familiarSetNumber;
-    activeFamiliarSet = familiarSets[familiarSetNumber]!;
+  void changeActiveBadgeSet(int badgeSetNumber) {
+    activeBadgeSetNumber = badgeSetNumber;
+    activeBadgeSet = badgeSets[badgeSetNumber]!;
 
     notifyListeners();
   }
 
-  void changeActiveFamiliarSet(int badgeSetNumber) {
-    activeBadgeSetNumber = badgeSetNumber;
-    activeBadgeSet = badgeSets[badgeSetNumber]!;
+  void changeActiveFamiliarSet(int familiarSetNumber) {
+    activeFamiliarSetNumber = familiarSetNumber;
+    activeFamiliarSet = familiarSets[familiarSetNumber]!;
 
     notifyListeners();
   }

@@ -7,7 +7,6 @@ import 'package:maplestory_builder/pages/equip_page/editing_equips.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EquipPage extends StatelessWidget {
@@ -59,15 +58,10 @@ class EquippedItems extends StatelessWidget {
           "Equipped Items",
           style: Theme.of(context).textTheme.headlineMedium
         ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            EquipSetSelectButton(equipSetPosition: 1),
-            EquipSetSelectButton(equipSetPosition: 2),
-            EquipSetSelectButton(equipSetPosition: 3),
-            EquipSetSelectButton(equipSetPosition: 4),
-            EquipSetSelectButton(equipSetPosition: 5),
-          ]
+        SetSelectButtonRow<EquipsProvider>(
+          onHoverFunction: context.read<DifferenceCalculatorProvider>().compareEquipSets,
+          onPressed: (int setPosition) => context.read<EquipsProvider>().changeActiveSet(setPosition),
+          selectorFunction: (BuildContext context, EquipsProvider equipsProvider) => equipsProvider.activeSetNumber,
         ),
         const Column(
           children: [
@@ -612,65 +606,6 @@ class DropDownSelector extends StatelessWidget {
           items: menuItems,
         );
       }
-    );
-  }
-}
-
-class EquipSetSelectButton extends StatelessWidget {
-  final int equipSetPosition;
-
-  const EquipSetSelectButton({
-    super.key, 
-    required this.equipSetPosition
-  });
-
-  IconData _getIconData() {
-    switch(equipSetPosition) {
-      case 1:
-        return MdiIcons.numeric1CircleOutline;
-      case 2:
-        return MdiIcons.numeric2CircleOutline;
-      case 3:
-        return MdiIcons.numeric3CircleOutline;
-      case 4:
-        return MdiIcons.numeric4CircleOutline;
-      case 5:
-        return MdiIcons.numeric5CircleOutline;
-      default:
-        return MdiIcons.exclamation;
-    }
-  }
-
-  void _onHover(BuildContext context){
-    context.read<DifferenceCalculatorProvider>().compareEquipSets(context, equipSetPosition);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MapleTooltip(
-      tooltipWidgets: [
-        Selector<DifferenceCalculatorProvider, Widget>(
-          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-          builder: (context, widget, child) {
-            return widget;
-          }
-        ),
-      ],
-      onHoverFunction: _onHover,
-      child: IconButton(
-        padding: const EdgeInsets.all(1),
-        constraints: const BoxConstraints(),
-        iconSize: 19,
-        onPressed: () => context.read<EquipsProvider>().changeActiveSet(equipSetPosition), 
-        icon: Consumer<EquipsProvider>(
-          builder: (_, equipsProvider, __) {
-            return Icon(
-              _getIconData(),
-              color: equipSetPosition == equipsProvider.activeSetNumber ? starColor : null,
-            );
-          }
-        ),
-      )
     );
   }
 }
