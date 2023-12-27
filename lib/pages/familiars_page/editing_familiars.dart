@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/familiars/potential_stats.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -81,7 +84,7 @@ class FamiliarBuilderContent extends StatelessWidget {
                     children: [
                       Consumer<FamiliarEditingProvider>(
                         builder: (_, familiarEditingProvider, __) {
-                          return familiarEditingProvider.editingFamiliar?.createFamiliarContainer(context, isFamiliarEditing: true) 
+                          return familiarEditingProvider.editingFamiliar?.createFamiliarContainer(context) 
                           ?? Container(
                             width: 300,
                             padding: const EdgeInsets.all(2.5),
@@ -106,63 +109,66 @@ class FamiliarBuilderContent extends StatelessWidget {
                           );
                         }
                       ),
-                      Expanded(
-                        child: ListView(
-                          padding: const EdgeInsets.only(right: 13, bottom: 5),
-                          children: const [
-                            FamiliarNameInput(),
-                            PotentialInput(),
-                          ],
-                        ),
-                      ),
+                      const _FamiliarNameInput(),
+                      const _FamiliarRankDropdown(),
+                      const PotentialInput(),  
                     ],
                   ),
                 ),
               ],
             ),
           ),
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    "Difference",
-                    style: Theme.of(context).textTheme.headlineMedium
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: 5),
-                    child: Container(
-                      width: 320,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: statColor),
-                        borderRadius: const BorderRadius.all(Radius.circular(10))
-                      ),
-                      padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.only(right: 13),
-                        child: Consumer2<FamiliarEditingProvider, DifferenceCalculatorProvider>(
-                          builder: (_, familiarEditingProvider, differenceCalculatorProvider, __) {
-                            return differenceCalculatorProvider.compareEditingFamiliar(context) 
-                            ?? 
-                            const Text(
-                              "NOT CURRENTLY EDITING A FAMILIAR",
-                              style: TextStyle(color: Colors.red),
-                              textAlign: TextAlign.center,
-                            );
-                          }
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          const Expanded(
+            child: _FamiliarComparisonWidget()
           ),
         ]
       ),
+    );
+  }
+}
+
+class _FamiliarComparisonWidget extends StatelessWidget {
+  const _FamiliarComparisonWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Text(
+            "Difference",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+        ),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Container(
+              width: 320,
+              decoration: BoxDecoration(
+                border: Border.all(color: statColor),
+                borderRadius: const BorderRadius.all(Radius.circular(10))
+              ),
+              padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(right: 13),
+                child: Consumer2<FamiliarEditingProvider, DifferenceCalculatorProvider>(
+                  builder: (_, familiarEditingProvider, differenceCalculatorProvider, __) {
+                    return differenceCalculatorProvider.compareEditingFamiliar(context) 
+                    ?? 
+                    const Text(
+                      "NOT CURRENTLY EDITING A FAMILIAR",
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.center,
+                    );
+                  }
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -189,9 +195,10 @@ class PotentialInput extends StatelessWidget {
           ),
           child: const Column(
             children: [
-              _PotenialTierDropdown(),
               _PotentialDropdowns(potentialPosition: 1),
+              _PotentialSlider(potentialPosition: 1),
               _PotentialDropdowns(potentialPosition: 2),
+              _PotentialSlider(potentialPosition: 2),
             ]
           ),
         ),
@@ -200,9 +207,9 @@ class PotentialInput extends StatelessWidget {
   }
 }
 
-class _PotenialTierDropdown extends StatelessWidget {
+class _FamiliarRankDropdown extends StatelessWidget {
 
-  const _PotenialTierDropdown();
+  const _FamiliarRankDropdown();
 
   List<DropdownMenuItem<FamiliarPotentialTier>> getDropdownPotentialsTierList(BuildContext context) {
     List<DropdownMenuItem<FamiliarPotentialTier>> dropdownItems = [
@@ -250,7 +257,7 @@ class _PotenialTierDropdown extends StatelessWidget {
           }
         ),
         SizedBox(
-          width: 254,
+          width: 277,
           child: Consumer<FamiliarEditingProvider>(
             builder: (context, familiarEditingProvider, child) {
               return DropdownButton(
@@ -326,31 +333,83 @@ class _PotentialDropdowns extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
-      width: 300,
-      child: Consumer<FamiliarEditingProvider>(
-        builder: (context, familiarEditingProvider, child) {
-          return DropdownButton(
-            alignment: AlignmentDirectional.center,
-            isDense: true,
-            isExpanded: true,
-            value: getSelectedPotentialLine(familiarEditingProvider.editingFamiliar, potentialPosition),
-            onChanged: familiarEditingProvider.isEditing ? ((FamiliarPotential, bool)? newValue) {
-              familiarEditingProvider.updatePotentialSelection(potentialPosition, newValue);
-            } : null,
-            items: getDropdownPotentialsList(context, familiarEditingProvider.editingFamiliar)
-          );
-        }
-      ),
+    return  Row(
+      children: [
+        Text("Line$potentialPosition: "),
+        const Spacer(),
+        SizedBox(
+          width: 265,
+          child: Consumer<FamiliarEditingProvider>(
+            builder: (context, familiarEditingProvider, child) {
+              return DropdownButton(
+                alignment: AlignmentDirectional.center,
+                isDense: true,
+                isExpanded: true,
+                value: getSelectedPotentialLine(familiarEditingProvider.editingFamiliar, potentialPosition),
+                onChanged: familiarEditingProvider.isEditing ? ((FamiliarPotential, bool)? newValue) {
+                  familiarEditingProvider.updatePotentialSelection(potentialPosition, newValue);
+                } : null,
+                items: getDropdownPotentialsList(context, familiarEditingProvider.editingFamiliar)
+              );
+            }
+          ),
+        ),
+      ]
     );
   }
 }
 
-class FamiliarNameInput extends StatelessWidget {
+class _PotentialSlider extends StatelessWidget {
+  final int potentialPosition;
 
-  const FamiliarNameInput({
-    super.key
-  });
+   const _PotentialSlider({
+    required this.potentialPosition
+   });
+
+  String _getLabel(FamiliarEditingProvider familiarEditingProvider) {
+    var targetPotentialLine = familiarEditingProvider.editingFamiliar?.potentials[potentialPosition];
+    var statType = targetPotentialLine?.familiarPotential?.statType;
+    var statValue = targetPotentialLine?.familiarPotential?.statValue[targetPotentialLine.familiarPotentialOffset] ?? 0;
+    return "${statType?.formattedName ?? 'Unknown'}: ${statType?.isPositive ?? false ? '+' : ' -'}${statType?.isPercentage ?? false ? doubleRoundPercentFormater.format(statValue) : statValue}";
+  }
+
+  int _getDivisions(FamiliarPotentialLine? targetPotentialLine) {
+    return max((targetPotentialLine?.familiarPotential?.statValue.length ?? 1) - 1, 1);
+  }
+
+  double _getMax(FamiliarPotentialLine? targetPotentialLine) {
+    return max((targetPotentialLine?.familiarPotential?.statValue.length ?? 0) - 1, 0).toDouble();
+  }
+
+   @override
+   Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text("Line$potentialPosition Value:"),
+        Expanded(
+          child: Consumer<FamiliarEditingProvider>(
+            builder: (_, familiarEditingProvider, __) {
+              var targetPotentialLine = familiarEditingProvider.editingFamiliar?.potentials[potentialPosition];
+              return Slider(
+                value: targetPotentialLine?.familiarPotentialOffset.toDouble() ?? 0,
+                max: _getMax(targetPotentialLine),
+                divisions: _getDivisions(targetPotentialLine),
+                label: _getLabel(familiarEditingProvider),
+                onChanged: (double newValue) {
+                  familiarEditingProvider.updatePotential(potentialPosition, newValue.toInt());
+                },
+              );
+            }
+          ),
+        ),
+      ],
+    );
+   }
+}
+
+class _FamiliarNameInput extends StatelessWidget {
+
+  const _FamiliarNameInput();
 
   @override
   Widget build(BuildContext context) {
@@ -360,7 +419,7 @@ class FamiliarNameInput extends StatelessWidget {
         const Text("Familiar Name:"),
         const Spacer(),
         SizedBox(
-          width: 200,
+          width: 225,
           child: 
           Selector<FamiliarEditingProvider, bool>(
             selector: (_, familiarEditingProvider) => familiarEditingProvider.isEditing,

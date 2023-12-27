@@ -111,7 +111,7 @@ class Familiar implements Copyable {
     return possibleSelection;
   }
 
-  Widget createFamiliarContainer(BuildContext context, {bool isFamiliarEditing = false}) {
+  Widget createFamiliarContainer(BuildContext context) {
     return Container(
       width: 300,
       padding: const EdgeInsets.all(2.5),
@@ -131,7 +131,7 @@ class Familiar implements Copyable {
               color: potentialTier?.color ?? Colors.redAccent,
             ),
           ),
-          isFamiliarEditing ? const SizedBox.shrink() : _buildRankWidget(context),
+          _buildRankWidget(context),
         ],
       ),
     );
