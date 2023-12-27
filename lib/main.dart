@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:maplestory_builder/modules/utilities/provider_utilities.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
@@ -122,8 +122,8 @@ void main() {
         ),
         ChangeNotifierProvider<LegionArtifactProvider>(create: (_) => LegionArtifactProvider()),
         // The main character/calculator provider
-        ChangeNotifierProxyProvider9<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
-        HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, CalculatorProvider>(
+        ChangeNotifierProxyProvider10<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
+        HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, FamiliarsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
@@ -133,7 +133,8 @@ void main() {
             symbolStatsProvider: Provider.of<SymbolStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
             legionStatsProvider: Provider.of<LegionStatsProvider>(context, listen: false),
-            legionArtifactProvider: Provider.of<LegionArtifactProvider>(context, listen: false)
+            legionArtifactProvider: Provider.of<LegionArtifactProvider>(context, listen: false),
+            familiarsProvider: Provider.of<FamiliarsProvider>(context, listen: false),
           ), 
           update: (
             BuildContext context, 
@@ -146,6 +147,7 @@ void main() {
             EquipsProvider equipsProvider,
             LegionStatsProvider legionStatsProvider,
             LegionArtifactProvider legionArtifactProvider,
+            FamiliarsProvider familiarsProvider,
             CalculatorProvider? calculatorProvider
           ) => calculatorProvider?.update(
               characterProvider, 
@@ -157,6 +159,7 @@ void main() {
               equipsProvider,
               legionStatsProvider,
               legionArtifactProvider,
+              familiarsProvider
             ) 
             ?? 
             CalculatorProvider(
@@ -169,20 +172,28 @@ void main() {
               equipsProvider: equipsProvider,
               legionStatsProvider: legionStatsProvider,
               legionArtifactProvider: legionArtifactProvider,
+              familiarsProvider: familiarsProvider
             ),
         ),
         // Difference calculator provider, used to show increases & decreses in stats & range
-        ChangeNotifierProxyProvider2<EquipEditingProvider, CalculatorProvider, DifferenceCalculatorProvider>(            
+        ChangeNotifierProxyProvider3<CalculatorProvider, EquipEditingProvider, FamiliarEditingProvider, DifferenceCalculatorProvider>(            
           create: (BuildContext context) => DifferenceCalculatorProvider(
+            mainCalculatorProvider: Provider.of<CalculatorProvider>(context, listen: false),
             equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), 
-            mainCalculatorProvider: Provider.of<CalculatorProvider>(context, listen: false)
+            familiarEditingProvider: Provider.of<FamiliarEditingProvider>(context, listen: false), 
           ),
-          update: (BuildContext context, EquipEditingProvider equipEditingProvider, CalculatorProvider calculatorProvider, DifferenceCalculatorProvider? differenceCalculator) 
-            => differenceCalculator?.update(equipEditingProvider, calculatorProvider) 
+          update: (
+            BuildContext context, 
+            CalculatorProvider calculatorProvider, 
+            EquipEditingProvider equipEditingProvider, 
+            FamiliarEditingProvider familiarEditingProvider, 
+            DifferenceCalculatorProvider? differenceCalculator
+          ) => differenceCalculator?.update(calculatorProvider, equipEditingProvider, familiarEditingProvider) 
             ?? 
             DifferenceCalculatorProvider(
-              equipEditingProvider: equipEditingProvider, 
-              mainCalculatorProvider: calculatorProvider
+              mainCalculatorProvider: calculatorProvider,
+              equipEditingProvider: equipEditingProvider,
+              familiarEditingProvider: familiarEditingProvider,
             ),
         ),
         ChangeNotifierProxyProvider<CalculatorProvider, BreadkdownCalculator>(          

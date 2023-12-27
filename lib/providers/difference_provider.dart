@@ -8,6 +8,7 @@ import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 
 enum CalculationType {
   compareEquipment,
@@ -21,13 +22,15 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   CalculatorProvider mainCalculatorProvider;
   CalculatorProvider diffCalculatorProvider;
   EquipEditingProvider equipEditingProvider;
+  FamiliarEditingProvider familiarEditingProvider;
   int lastEditingEquipCounter = 0;
-  int lastLegionEditingEquipCounter = 0;
+  int lastEditingFamiliarCounter = 0;
   Widget differenceWidget = const SizedBox.shrink();
 
   DifferenceCalculatorProvider({
-    required this.equipEditingProvider,
     required this.mainCalculatorProvider,
+    required this.equipEditingProvider,
+    required this.familiarEditingProvider,
   }) : diffCalculatorProvider = mainCalculatorProvider.copyWith(
     characterProvider: mainCalculatorProvider.characterProvider,
     apStatsProvider: mainCalculatorProvider.apStatsProvider,
@@ -38,20 +41,22 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     equipsProvider: mainCalculatorProvider.equipsProvider,
     legionStatsProvider: mainCalculatorProvider.legionStatsProvider,
     legionArtifactProvider: mainCalculatorProvider.legionArtifactProvider,
+    familiarsProvider: mainCalculatorProvider.familiarsProvider,
   );
 
 
-  DifferenceCalculatorProvider update(EquipEditingProvider equipEditingProvider, CalculatorProvider calculatorProvider) {
+  DifferenceCalculatorProvider update(CalculatorProvider calculatorProvider, EquipEditingProvider equipEditingProvider, FamiliarEditingProvider familiarEditingProvider) {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
-    if (equipEditingProvider.updateCounter == lastEditingEquipCounter) {
-      // Only trigger an update to redraw if we are actually editing an equip, otherwise its wasted cycles
-      if (equipEditingProvider.updateCounter != 0) {
+    if (equipEditingProvider.updateCounter == lastEditingEquipCounter && familiarEditingProvider.updateCounter == lastEditingFamiliarCounter) {
+      // Only trigger an update to redraw if we are actually editing an equip or familiar, otherwise its wasted cycles
+      if (equipEditingProvider.updateCounter != 0 || familiarEditingProvider.updateCounter != 0) {
         notifyListeners();
       }
     }
     else {
       lastEditingEquipCounter = equipEditingProvider.updateCounter;
+      lastEditingFamiliarCounter = familiarEditingProvider.updateCounter;
     }
 
     return this;

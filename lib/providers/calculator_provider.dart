@@ -12,6 +12,7 @@ import 'package:maplestory_builder/providers/character/symbol_stats_provider.dar
 import 'dart:math';
 
 import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
+import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 
@@ -62,6 +63,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
   EquipsProvider equipsProvider;
   LegionStatsProvider legionStatsProvider;
   LegionArtifactProvider legionArtifactProvider;
+  FamiliarsProvider familiarsProvider;
 
   CalculatorProvider({
     required this.characterProvider,
@@ -73,6 +75,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     required this.equipsProvider,
     required this.legionStatsProvider,
     required this.legionArtifactProvider,
+    required this.familiarsProvider,
     bool doCalculation = true
   }){
     if (doCalculation) {
@@ -91,6 +94,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     EquipsProvider? equipsProvider, 
     LegionStatsProvider? legionStatsProvider,
     LegionArtifactProvider? legionArtifactProvider,
+    FamiliarsProvider? familiarsProvider,
     bool doCalculation = true
   }){
     return CalculatorProvider(
@@ -103,6 +107,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
       equipsProvider: equipsProvider ?? this.equipsProvider.copyWith(),
       legionStatsProvider: legionStatsProvider ?? this.legionStatsProvider.copyWith(),
       legionArtifactProvider: legionArtifactProvider ?? this.legionArtifactProvider.copyWith(),
+      familiarsProvider: familiarsProvider ?? this.familiarsProvider.copyWith(),
       doCalculation: doCalculation,
     );
   }
@@ -121,6 +126,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     EquipsProvider equipsProvider,
     LegionStatsProvider legionStatsProvider,
     LegionArtifactProvider legionArtifactProvider,
+    FamiliarsProvider familiarsProvider,
   ) {
     calculateEverything();
     notifyListeners();
@@ -215,6 +221,10 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     updateTempStats(traitStatsProvider.calculateStats());
     updateTempStats(legionStatsProvider.calculateStats());
     updateTempStats(legionArtifactProvider.calculateStats());
+
+    for (Map<StatType, num> familiarStats in familiarsProvider.calculateStats()){
+      updateTempStats(familiarStats);
+    }
 
     var calculatedCharacterLevel = max(characterProvider.characterLevel - 10, 0);
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (calculatedCharacterLevel * 50);
