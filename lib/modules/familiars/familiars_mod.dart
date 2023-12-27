@@ -13,56 +13,24 @@ class FamiliarModule implements Copyable {
   Map<int, int?> equippedFamiliars;
   Familiar? Function(int? equipHash) getFamiliarCallback;
 
-  Map<StatType, num> moduleStats;
+  Map<StatType, num>? cacheValue;
 
   FamiliarModule({
     Map<int, int?>? equippedFamiliars,
-    required this.getFamiliarCallback,
-    Map<StatType, num>? moduleStats,
+    required this.getFamiliarCallback
   }) :
-    equippedFamiliars = equippedFamiliars ?? {},
-    moduleStats = moduleStats ?? {};
+    equippedFamiliars = equippedFamiliars ?? {};
 
   @override
   FamiliarModule copyWith({
     Map<int, int?>? equippedFamiliars,
     Familiar? Function(int?)? getFamiliarCallback,
-    Map<StatType, num>? moduleStats
   }) {
     return FamiliarModule(
       equippedFamiliars: equippedFamiliars ?? Map.from(this.equippedFamiliars),
       getFamiliarCallback: getFamiliarCallback ?? this.getFamiliarCallback,
-      moduleStats: moduleStats ?? Map.of(this.moduleStats),
     );
   }
-
-  void _updateStatFromFamiliar(Familiar? familiar) {
-    if (familiar == null) {
-      return;
-    }
-    else {
-      for (MapEntry<StatType, num> familiarStat in familiar.calculateStats().entries) {
-        switch(familiarStat.key) {
-          case StatType.bossDamage:
-            
-            moduleStats[familiarStat.key] = min((moduleStats[familiarStat.key] ?? 0) + familiarStat.value, MAX_FAMILIAR_BOSS_DAMAGE);
-          case StatType.ignoreDefense:
-            moduleStats[familiarStat.key] = calculateIgnoreDefense((moduleStats[familiarStat.key] ?? 0), familiarStat.value);
-          default:
-            moduleStats[familiarStat.key] = (moduleStats[familiarStat.key] ?? 0) + familiarStat.value;
-        }
-      }
-    }
-  }
-
-  void calculateModuleStats() {
-    moduleStats = {};
-
-    for (int? familiarHash in equippedFamiliars.values) {
-      _updateStatFromFamiliar(getFamiliarCallback(familiarHash));
-    }
-  }
-
 
   void registerFamiliarCallback(Familiar? Function(int?) function) {
     getFamiliarCallback = function;
@@ -71,7 +39,7 @@ class FamiliarModule implements Copyable {
   void equipFamiliar(Familiar? familiar, int familiarPosition) {
     equippedFamiliars[familiarPosition] = familiar?.familiarHash;
 
-    calculateModuleStats();
+    cacheValue = null;
   }
 
   void deleteFamiliar(Familiar deletingFamiliar) {
@@ -80,22 +48,45 @@ class FamiliarModule implements Copyable {
         equippedFamiliars[key] = null;
       }
     });
+
+    cacheValue = null;
   }
 
   Familiar? getSelectedFamiliar(int familiarPosition) {
     return getFamiliarCallback(equippedFamiliars[familiarPosition]);
   }
 
-  List<Map<StatType, num>> calculateStats() {
-    List<Map<StatType, num>> familiarStats = <Map<StatType, num>>[];
+  Map<StatType, num> calculateStats() {
+    if (cacheValue != null) {
+      return cacheValue!;
+    }
 
-    for (int? familiarHash in equippedFamiliars.values) {
-      var mapValue = getFamiliarCallback(familiarHash)?.calculateStats();
-      if (mapValue != null) {
-        familiarStats.add(mapValue);
+    Map<StatType, num> familiarStats = {};
+
+    void updateStatFromFamiliar(Familiar? familiar) {
+      if (familiar == null) {
+        return;
+      }
+      else {
+        for (MapEntry<StatType, num> familiarStat in familiar.calculateStats().entries) {
+          switch(familiarStat.key) {
+            case StatType.bossDamage:
+              
+              familiarStats[familiarStat.key] = min((familiarStats[familiarStat.key] ?? 0) + familiarStat.value, MAX_FAMILIAR_BOSS_DAMAGE);
+            case StatType.ignoreDefense:
+              familiarStats[familiarStat.key] = calculateIgnoreDefense((familiarStats[familiarStat.key] ?? 0), familiarStat.value);
+            default:
+              familiarStats[familiarStat.key] = (familiarStats[familiarStat.key] ?? 0) + familiarStat.value;
+          }
+        }
       }
     }
 
+    for (int? familiarHash in equippedFamiliars.values) {
+      updateStatFromFamiliar(getFamiliarCallback(familiarHash));
+    }
+
+    cacheValue = familiarStats;
     return familiarStats;
   }
 }

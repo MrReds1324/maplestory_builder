@@ -308,7 +308,7 @@ class _PotentialDropdowns extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: value.$1.formattedName ?? value.$1.statType.formattedName,
+                    text: value.$1.formattedName ?? "${value.$1.statType.formattedName} ${value.$1.statType.isPercentage ? '%' : ''}",
                     style: Theme.of(context).textTheme.bodyMedium
                   ),
                   TextSpan(

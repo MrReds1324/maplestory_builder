@@ -403,7 +403,7 @@ class FamiliarStatListView extends StatelessWidget {
             ),
             child: Consumer<FamiliarsProvider>(
               builder: (context, familiarsProvider, child) {
-                var selectedStats = familiarsProvider.activeFamiliarSet.moduleStats.entries.toList();
+                var selectedStats = familiarsProvider.activeFamiliarSet.calculateStats().entries.toList();
                 return ListView.builder(
                   padding: const EdgeInsets.only(right: 8),
                   itemCount: selectedStats.length,

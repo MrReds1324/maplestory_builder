@@ -78,9 +78,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     return allFamiliars[familiarHash];
   }
 
-  Map<StatType, num> calculateStats() {
-    return {
-    };
+  List<Map<StatType, num>> calculateStats() {
+    return [activeBadgeSet.moduleStats, activeFamiliarSet.calculateStats()];
   }
 
   void equipFamiliar(Familiar? familiar, int familiarPosition) {
@@ -105,6 +104,11 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     else {
       allFamiliars[editingFamiliar.familiarHash] = editingFamiliar;
     }
+
+    for (FamiliarModule familiarModule in familiarSets.values) {
+      familiarModule.cacheValue = null;
+    }
+
     notifyListeners();
   }
 
