@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/familiars/badge_stats.dart';
 import 'package:maplestory_builder/modules/base.dart';
+import 'package:maplestory_builder/modules/familiars/badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
@@ -12,8 +13,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   int familiarHash;
   late Map<int, Familiar> allFamiliars;
   int activeBadgeSetNumber;
-  late Map<int, BadgeContainer> badgeSets; 
-  late BadgeContainer activeBadgeSet;
+  late Map<int, BadgeModule> badgeSets; 
+  late BadgeModule activeBadgeSet;
 
   int activeFamiliarSetNumber;
   late Map<int, FamiliarModule> familiarSets; 
@@ -26,18 +27,18 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     this.activeBadgeSetNumber = 1,
     this.activeFamiliarSetNumber = 1,
     Map<int, Familiar>? allFamiliars,
-    Map<int, BadgeContainer>? badgeSets,
-    BadgeContainer? activeBadgeSet,
+    Map<int, BadgeModule>? badgeSets,
+    BadgeModule? activeBadgeSet,
     Map<int, FamiliarModule>? familiarSets,
     FamiliarModule? activeFamiliarSet,
   }) {
     this.allFamiliars = allFamiliars ?? {};
     this.badgeSets = badgeSets ?? {
-      1: BadgeContainer(),
-      2: BadgeContainer(),
-      3: BadgeContainer(),
-      4: BadgeContainer(),
-      5: BadgeContainer(),
+      1: BadgeModule(),
+      2: BadgeModule(),
+      3: BadgeModule(),
+      4: BadgeModule(),
+      5: BadgeModule(),
     };
     this.activeBadgeSet = activeBadgeSet ?? this.badgeSets[activeBadgeSetNumber]!;
 
@@ -57,8 +58,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     Map<int, Familiar>? allEquips,
     int? activeFamiliarSetNumber,
     int? activeBadgeSetNumber,
-    Map<int, BadgeContainer>? badgeSets,
-    BadgeContainer? activeBadgeSet,
+    Map<int, BadgeModule>? badgeSets,
+    BadgeModule? activeBadgeSet,
     Map<int, FamiliarModule>? familiarSets,
     FamiliarModule? activeFamiliarSet,
   }) {
@@ -133,62 +134,5 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     activeFamiliarSet = familiarSets[familiarSetNumber]!;
 
     notifyListeners();
-  }
-}
-
-class BadgeContainer implements Copyable {
-  // There will be 8 active badges
-  Map<int, BadgeName?> activebadges;
-  Map<StatType, num> moduleStats;
-
-  BadgeContainer({
-    Map<int, BadgeName?>? activebadges,
-    Map<StatType, num>? moduleStats,
-  }) : activebadges = activebadges ?? {},
-      moduleStats = moduleStats ?? {};
-
-  @override
-  BadgeContainer copyWith({
-    Map<int, BadgeName?>? activebadges,
-    Map<StatType, num>? moduleStats,
-  }) {
-    return BadgeContainer(
-      activebadges: activebadges ?? Map.of(this.activebadges),
-      moduleStats: moduleStats ?? Map.of(this.moduleStats),
-    );
-  }
-
-  void _updateStatFromBadge(BadgeName? badgeName) {
-    if (badgeName == null) {
-      return;
-    }
-    else {
-      for (MapEntry<StatType, num> badgeStat in badgeName.badgeStats.entries) {
-        switch(badgeStat.key) {
-          case StatType.ignoreDefense:
-            moduleStats[badgeStat.key] = calculateIgnoreDefense((moduleStats[badgeStat.key] ?? 0), badgeStat.value);
-          default:
-            moduleStats[badgeStat.key] = (moduleStats[badgeStat.key] ?? 0) + badgeStat.value;
-        }
-      }
-    }
-  }
-
-  void calculateModuleStats() {
-    moduleStats = {};
-
-    for (BadgeName? badgeName in activebadges.values) {
-      _updateStatFromBadge(badgeName);
-    }
-  }
-
-  void equipBadge(BadgeName? badgeName, int badgePosition) {
-    activebadges[badgePosition] = badgeName;
-
-    calculateModuleStats();
-  }
-
-  BadgeName? getSelectedBadge(int badgePosition) {
-    return activebadges[badgePosition];
   }
 }

@@ -61,20 +61,17 @@ class EquippedItems extends StatelessWidget {
           onHoverFunction: (BuildContext context, int _) => {},
           onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveFamiliarSet(setPosition),
           selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeFamiliarSetNumber,
+        ),      
+        const FamiliarSelector(
+          familiarPosition: 1,
         ),
-        const Column(
-          children: [
-            FamiliarSelector(
-              familiarPosition: 1,
-            ),
-            FamiliarSelector(
-              familiarPosition: 2,
-            ),
-            FamiliarSelector(
-              familiarPosition: 3,
-            ),
-          ],
+        const FamiliarSelector(
+          familiarPosition: 2,
         ),
+        const FamiliarSelector(
+          familiarPosition: 3,
+        ),
+        const FamiliarStatListView(),
         Text(
           "Equipped Badges",
           style: Theme.of(context).textTheme.headlineMedium
@@ -84,35 +81,31 @@ class EquippedItems extends StatelessWidget {
           onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveBadgeSet(setPosition),
           selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeBadgeSetNumber,
         ),
-        const Column(
-          children: [
-            BadgeSelector(
-              badgePosition: 1,
-            ),
-            BadgeSelector(
-              badgePosition: 2,
-            ),
-            BadgeSelector(
-              badgePosition: 3,
-            ),
-            BadgeSelector(
-              badgePosition: 4,
-            ),
-            BadgeSelector(
-              badgePosition: 5,
-            ),
-            BadgeSelector(
-              badgePosition: 6,
-            ),
-            BadgeSelector(
-              badgePosition: 7,
-            ),
-            BadgeSelector(
-              badgePosition: 8,
-            ),
-            BadgeStatListView(),
-          ],
+        const BadgeSelector(
+          badgePosition: 1,
         ),
+        const BadgeSelector(
+          badgePosition: 2,
+        ),
+        const BadgeSelector(
+          badgePosition: 3,
+        ),
+        const BadgeSelector(
+          badgePosition: 4,
+        ),
+        const BadgeSelector(
+          badgePosition: 5,
+        ),
+        const BadgeSelector(
+          badgePosition: 6,
+        ),
+        const BadgeSelector(
+          badgePosition: 7,
+        ),
+        const BadgeSelector(
+          badgePosition: 8,
+        ),
+        const BadgeStatListView(),
       ],
     );
   }
@@ -385,6 +378,66 @@ class FamiliarInventory extends StatelessWidget {
   }
 }
 
+class FamiliarStatListView extends StatelessWidget {
+
+  const FamiliarStatListView({
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Familiar Stats",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+          Container(
+            height: 225,
+            width: 300,
+            decoration: BoxDecoration(
+              border: Border.all(color: statColor),
+              borderRadius: const BorderRadius.all(Radius.circular(10))
+            ),
+            child: Consumer<FamiliarsProvider>(
+              builder: (context, familiarsProvider, child) {
+                var selectedStats = familiarsProvider.activeFamiliarSet.moduleStats.entries.toList();
+                return ListView.builder(
+                  padding: const EdgeInsets.only(right: 8),
+                  itemCount: selectedStats.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Row(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: Text(
+                              selectedStats[index].key.formattedName,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            "${selectedStats[index].key.isPositive ? '+' : ' -'}${selectedStats[index].key.isPercentage ? doublePercentFormater.format(selectedStats[index].value) : selectedStats[index].value}",
+                            style: Theme.of(context).textTheme.bodyMedium
+                          ) 
+                        ]
+                      ),
+                    );
+                  },
+                );
+              }
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class BadgeStatListView extends StatelessWidget {
 
   const BadgeStatListView({
@@ -402,7 +455,7 @@ class BadgeStatListView extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium
           ),
           Container(
-            height: 492,
+            height: 225,
             width: 300,
             decoration: BoxDecoration(
               border: Border.all(color: statColor),
@@ -412,7 +465,7 @@ class BadgeStatListView extends StatelessWidget {
               builder: (context, familiarsProvider, child) {
                 var selectedStats = familiarsProvider.activeBadgeSet.moduleStats.entries.toList();
                 return ListView.builder(
-                  padding: const EdgeInsets.only(right: 13),
+                  padding: const EdgeInsets.only(right: 8),
                   itemCount: selectedStats.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {

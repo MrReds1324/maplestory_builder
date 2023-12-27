@@ -12,6 +12,8 @@ class Familiar implements Copyable {
   String familiarName;
   int familiarHash;
 
+  Map<StatType, num>? cacheValue;
+
   Familiar({
     this.potentialTier,
     Map<int, FamiliarPotentialLine>? potentials,
@@ -39,7 +41,27 @@ class Familiar implements Copyable {
   }
 
   Map<StatType, num> calculateStats() {
-    return {};
+    if (cacheValue != null) {
+      return cacheValue!;
+    }
+
+    Map<StatType, num> familiarStats = {};
+
+    for (FamiliarPotentialLine familiarPotentialLine in potentials.values) {
+      var statKey = familiarPotentialLine.familiarPotential?.statType;
+      var familiarLineStat = familiarPotentialLine.familiarPotential?.statValue[familiarPotentialLine.familiarPotentialOffset] ?? 0;
+      switch(statKey) {
+        case null:
+          continue;
+        case StatType.ignoreDefense:
+          familiarStats[statKey] = calculateIgnoreDefense((familiarStats[statKey] ?? 0), familiarLineStat);
+        default:
+          familiarStats[statKey] = (familiarStats[statKey] ?? 0) + familiarLineStat;
+      }
+    }
+
+    cacheValue = familiarStats;
+    return familiarStats;
   }
 
   void updatePotentialTier(FamiliarPotentialTier? familiarPotentialTier) {
@@ -50,7 +72,7 @@ class Familiar implements Copyable {
       potentialTier = familiarPotentialTier;
     }
 
-    calculateStats();
+    cacheValue = null;
   }
 
   bool updatePotentialSelection(int potentialPosition, (FamiliarPotential, bool)? familiarPotentialSelection) {
@@ -63,14 +85,14 @@ class Familiar implements Copyable {
     targetPotentialLine.isPrime = familiarPotentialSelection?.$2 ?? false;
     targetPotentialLine.familiarPotentialOffset = 0;
 
-    calculateStats();
+    cacheValue = null;
     return true;
   }
 
   void updatePotential(int potentialPosition, int familiarPotentialOffset) {
     potentials[potentialPosition]!.familiarPotentialOffset = familiarPotentialOffset;
 
-    calculateStats();
+    cacheValue = null;
   }
 
   List<(FamiliarPotential, bool)> getPotentialsList(int potentialPosition) {

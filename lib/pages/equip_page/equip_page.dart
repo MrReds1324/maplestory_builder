@@ -63,153 +63,149 @@ class EquippedItems extends StatelessWidget {
           onPressed: (int setPosition) => context.read<EquipsProvider>().changeActiveSet(setPosition),
           selectorFunction: (BuildContext context, EquipsProvider equipsProvider) => equipsProvider.activeSetNumber,
         ),
-        const Column(
-          children: [
-            // Totems
-            EquippedItemSelector(
-              equipType: EquipType.totem,
-              equipPosition: 1,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.totem,
-              equipPosition: 2,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.totem,
-              equipPosition: 3,
-            ),
-            // Rings
-            EquippedItemSelector(
-              equipType: EquipType.ring,
-              equipPosition: 1,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.ring,
-              equipPosition: 2,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.ring,
-              equipPosition: 3,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.ring,
-              equipPosition: 4,
-            ),
-            // Pocket
-            EquippedItemSelector(
-              equipType: EquipType.pocket,
-            ),
-            // Pendant
-            EquippedItemSelector(
-              equipType: EquipType.pendant,
-              equipPosition: 1,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.pendant,
-              equipPosition: 2,
-            ),
-            // Weapon
-            EquippedItemSelector(
-              equipType: EquipType.weapon,
-            ),
-            // Belt
-            EquippedItemSelector(
-              equipType: EquipType.belt,
-            ),
-            // Hat
-            EquippedItemSelector(
-              equipType: EquipType.hat,
-            ),
-            // Face
-            EquippedItemSelector(
-              equipType: EquipType.face,
-            ),
-            // Eye
-            EquippedItemSelector(
-              equipType: EquipType.eye,
-            ),
-            // Overall
-            EquippedItemSelector(
-              equipType: EquipType.overall,
-            ),
-            // Top
-            EquippedItemSelector(
-              equipType: EquipType.top,
-            ),
-            // Bottom
-            EquippedItemSelector(
-              equipType: EquipType.bottom,
-            ),
-            // Shoes
-            EquippedItemSelector(
-              equipType: EquipType.shoes,
-            ),
-            // Earrings
-            EquippedItemSelector(
-              equipType: EquipType.earrings,
-            ),
-            // Shoulder
-            EquippedItemSelector(
-              equipType: EquipType.shoulder,
-            ),
-            // Gloves
-            EquippedItemSelector(
-              equipType: EquipType.gloves,
-            ),
-            // Emblem
-            EquippedItemSelector(
-              equipType: EquipType.emblem,
-            ),
-            // Badge
-            EquippedItemSelector(
-              equipType: EquipType.badge,
-            ),
-            // Medal
-            EquippedItemSelector(
-              equipType: EquipType.medal,
-            ),
-            // Secondary
-            EquippedItemSelector(
-              equipType: EquipType.secondary,
-            ),
-            // Cape
-            EquippedItemSelector(
-              equipType: EquipType.cape,
-            ),
-            // Heart
-            EquippedItemSelector(
-              equipType: EquipType.heart,
-            ),
-            // Title
-            EquippedItemSelector(
-              equipType: EquipType.title,
-            ),
-            // Pets and Pet Equips
-            EquippedItemSelector(
-              equipType: EquipType.pet,
-              equipPosition: 1,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.pet,
-              equipPosition: 2,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.pet,
-              equipPosition: 3,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.petEquip,
-              equipPosition: 1,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.petEquip,
-              equipPosition: 2,
-            ),
-            EquippedItemSelector(
-              equipType: EquipType.petEquip,
-              equipPosition: 3,
-            ),
-          ],
+        // Totems
+        const EquippedItemSelector(
+          equipType: EquipType.totem,
+          equipPosition: 1,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.totem,
+          equipPosition: 2,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.totem,
+          equipPosition: 3,
+        ),
+        // Rings
+        const EquippedItemSelector(
+          equipType: EquipType.ring,
+          equipPosition: 1,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.ring,
+          equipPosition: 2,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.ring,
+          equipPosition: 3,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.ring,
+          equipPosition: 4,
+        ),
+        // Pocket
+        const EquippedItemSelector(
+          equipType: EquipType.pocket,
+        ),
+        // Pendant
+        const EquippedItemSelector(
+          equipType: EquipType.pendant,
+          equipPosition: 1,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.pendant,
+          equipPosition: 2,
+        ),
+        // Weapon
+        const EquippedItemSelector(
+          equipType: EquipType.weapon,
+        ),
+        // Belt
+        const EquippedItemSelector(
+          equipType: EquipType.belt,
+        ),
+        // Hat
+        const EquippedItemSelector(
+          equipType: EquipType.hat,
+        ),
+        // Face
+        const EquippedItemSelector(
+          equipType: EquipType.face,
+        ),
+        // Eye
+        const EquippedItemSelector(
+          equipType: EquipType.eye,
+        ),
+        // Overall
+        const EquippedItemSelector(
+          equipType: EquipType.overall,
+        ),
+        // Top
+        const EquippedItemSelector(
+          equipType: EquipType.top,
+        ),
+        // Bottom
+        const EquippedItemSelector(
+          equipType: EquipType.bottom,
+        ),
+        // Shoes
+        const EquippedItemSelector(
+          equipType: EquipType.shoes,
+        ),
+        // Earrings
+        const EquippedItemSelector(
+          equipType: EquipType.earrings,
+        ),
+        // Shoulder
+        const EquippedItemSelector(
+          equipType: EquipType.shoulder,
+        ),
+        // Gloves
+        const EquippedItemSelector(
+          equipType: EquipType.gloves,
+        ),
+        // Emblem
+        const EquippedItemSelector(
+          equipType: EquipType.emblem,
+        ),
+        // Badge
+        const EquippedItemSelector(
+          equipType: EquipType.badge,
+        ),
+        // Medal
+        const EquippedItemSelector(
+          equipType: EquipType.medal,
+        ),
+        // Secondary
+        const EquippedItemSelector(
+          equipType: EquipType.secondary,
+        ),
+        // Cape
+        const EquippedItemSelector(
+          equipType: EquipType.cape,
+        ),
+        // Heart
+        const EquippedItemSelector(
+          equipType: EquipType.heart,
+        ),
+        // Title
+        const EquippedItemSelector(
+          equipType: EquipType.title,
+        ),
+        // Pets and Pet Equips
+        const EquippedItemSelector(
+          equipType: EquipType.pet,
+          equipPosition: 1,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.pet,
+          equipPosition: 2,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.pet,
+          equipPosition: 3,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.petEquip,
+          equipPosition: 1,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.petEquip,
+          equipPosition: 2,
+        ),
+        const EquippedItemSelector(
+          equipType: EquipType.petEquip,
+          equipPosition: 3,
         ),
       ],
     );

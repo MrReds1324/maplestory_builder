@@ -3,7 +3,6 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/familiars/potential_stats.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -83,10 +82,27 @@ class FamiliarBuilderContent extends StatelessWidget {
                       Consumer<FamiliarEditingProvider>(
                         builder: (_, familiarEditingProvider, __) {
                           return familiarEditingProvider.editingFamiliar?.createFamiliarContainer(context, isFamiliarEditing: true) 
-                          ?? Icon(
-                            MdiIcons.cardAccountDetailsStar,
-                            size: 100,
-                            color: Colors.redAccent,
+                          ?? Container(
+                            width: 300,
+                            padding: const EdgeInsets.all(2.5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    "-No Familiar-", 
+                                    style: Theme.of(context).textTheme.headlineSmall,
+                                  )
+                                ),
+                                Center(
+                                  child: Icon(
+                                    MdiIcons.cardAccountDetailsStar,
+                                    size: 100,
+                                    color: missingColor,
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         }
                       ),
@@ -127,8 +143,8 @@ class FamiliarBuilderContent extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
                       child: SingleChildScrollView(
                         padding: const EdgeInsets.only(right: 13),
-                        child: Consumer2<EquipEditingProvider, DifferenceCalculatorProvider>(
-                          builder: (_, equipEditingProvider, differenceCalculatorProvider, __) {
+                        child: Consumer2<FamiliarEditingProvider, DifferenceCalculatorProvider>(
+                          builder: (_, familiarEditingProvider, differenceCalculatorProvider, __) {
                             return differenceCalculatorProvider.compareEditingFamiliar(context) 
                             ?? 
                             const Text(
