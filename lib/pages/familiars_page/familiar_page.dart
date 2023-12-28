@@ -306,7 +306,7 @@ class FamiliarInventory extends StatelessWidget {
 
  Function _curriedOnHover(Familiar familiar) {
     return (BuildContext context) {
-      return context.read<DifferenceCalculatorProvider>().compareEquip(context, null);
+      return context.read<DifferenceCalculatorProvider>().compareFamiliar(context, familiar);
     };
   }
 
