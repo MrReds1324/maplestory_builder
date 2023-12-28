@@ -25,9 +25,13 @@ A project to simulate most of the MapleStory systems that affect the character's
 	- [x] Legion Character Effects
 	- [x] Legion Board Effects
 - [x] Legion Artifacts
-- [ ] Familiars - Not started
-	- [ ] Badge Effects
-	- [ ] Familiar Effects
+- [x] Familiars
+	- [x] Badge Effects
+	- [x] Familiar Effects
+	- missing the following effects
+		Increases Speed, Jump, DEX, and Defense by a small amount [4/4/1/10/10]
+		Increases Speed, Jump, DEX, and Defense by a small amount [8/8/1/20/20]
+
 - [ ] Hexa Stats
 - [ ] Skills - Not started
 	- [ ] Class Specific Skills
