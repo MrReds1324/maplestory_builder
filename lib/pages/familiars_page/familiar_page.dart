@@ -58,7 +58,7 @@ class EquippedItems extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineMedium
         ),
         SetSelectButtonRow<FamiliarsProvider>(
-          onHoverFunction: (BuildContext context, int _) => {},
+          onHoverFunction: context.read<DifferenceCalculatorProvider>().compareFamiliarSets,
           onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveFamiliarSet(setPosition),
           selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeFamiliarSetNumber,
         ),      
@@ -77,7 +77,7 @@ class EquippedItems extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineMedium
         ),
         SetSelectButtonRow<FamiliarsProvider>(
-          onHoverFunction: (BuildContext context, int _) => {},
+          onHoverFunction: context.read<DifferenceCalculatorProvider>().compareBadgeSets,
           onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveBadgeSet(setPosition),
           selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeBadgeSetNumber,
         ),

@@ -26,7 +26,7 @@ class HyperStatTable extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SetSelectButtonRow<HyperStatsProvider>(
-                onHoverFunction: context.read<DifferenceCalculatorProvider>().compareHyperStats,
+                onHoverFunction: context.read<DifferenceCalculatorProvider>().compareHyperStatsSets,
                 onPressed: (int setPosition) => context.read<HyperStatsProvider>().changeActiveSet(setPosition),
                 selectorFunction: (BuildContext context, HyperStatsProvider hyperStatsprovider) => hyperStatsprovider.activeSetNumber,
               ),

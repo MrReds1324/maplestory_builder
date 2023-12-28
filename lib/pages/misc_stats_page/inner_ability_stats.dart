@@ -24,7 +24,7 @@ class InnerAbilityStatsTable extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineMedium
           ),
           SetSelectButtonRow<InnerAbilityProvider>(
-            onHoverFunction: context.read<DifferenceCalculatorProvider>().compareInnerAbility,
+            onHoverFunction: context.read<DifferenceCalculatorProvider>().compareInnerAbilitySets,
             onPressed: (int setPosition) => context.read<InnerAbilityProvider>().changeActiveSet(setPosition),
             selectorFunction: (BuildContext context, InnerAbilityProvider innerAbilityProvider) => innerAbilityProvider.activeSetNumber,
           ),

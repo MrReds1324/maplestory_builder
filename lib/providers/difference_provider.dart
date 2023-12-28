@@ -5,6 +5,8 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';
 import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
+import 'package:maplestory_builder/modules/familiars/familiar.dart';
+import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
@@ -13,8 +15,9 @@ import 'package:maplestory_builder/providers/familiars/familiar_editing_provider
 enum CalculationType {
   compareEquipment,
   compareEquipmentSet,
-  stats,
+  compareFamiliar,
   compareStats,
+  stats,
 }
 
 class DifferenceCalculatorProvider with ChangeNotifier {
@@ -64,8 +67,10 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
   Widget updateDifferenceText({
     BuildContext? context, 
-    Equip? replacing, 
-    Equip? comparingEquip, 
+    Equip? replacingEquip, 
+    Equip? comparingEquip,
+    Familiar? replacingFamiliar, 
+    Familiar? comparingFamiliar, 
     CalculationType calculationType = CalculationType.stats, 
     bool isDense = false
   }) {
@@ -111,7 +116,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
         var allEquipSetNames = Set.from(oldEquipSet.keys.toList() + newEquipSet.keys.toList());
         for (EquipSet equipSet in allEquipSetNames) {
-          if (isComparingLuckyItem && (comparingEquip?.equipSet == equipSet || replacing?.equipSet == equipSet)) {
+          if (isComparingLuckyItem && (comparingEquip?.equipSet == equipSet || replacingEquip?.equipSet == equipSet)) {
             continue;
           }
 
@@ -134,7 +139,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     }
 
     if (calculationType == CalculationType.compareEquipment) {
-      if (replacing == null) {
+      if (replacingEquip == null) {
         editingWidgets.add(
           const Text(
             "Equipping: ",
@@ -150,19 +155,19 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       else{
         editingWidgets.add(
           Text(
-            "Replacing ${replacing.equipName.formattedName}: "
+            "Replacing ${replacingEquip.equipName.formattedName}: "
           )
         );
         if (!isDense) {
-          if (replacing.equipName != comparingEquip?.equipName) {
+          if (replacingEquip.equipName != comparingEquip?.equipName) {
             editingWidgets.add(comparingEquip?.createSetEffectContainer(context!, isEquipComparing: true, isAdding: true) ?? const SizedBox.shrink());
-            editingWidgets.add(replacing.createSetEffectContainer(context!, isEquipComparing: true, isRemoving: true));
+            editingWidgets.add(replacingEquip.createSetEffectContainer(context!, isEquipComparing: true, isRemoving: true));
           }
           else {
             editingWidgets.add(comparingEquip?.createSetEffectContainer(context!, isEquipComparing: true, isAdding: true) ?? const SizedBox.shrink());
           }
 
-          if ((comparingEquip?.equipName.isLuckyItem ?? false) || (replacing.equipName.isLuckyItem)) {
+          if ((comparingEquip?.equipName.isLuckyItem ?? false) || (replacingEquip.equipName.isLuckyItem)) {
             compareEquipSets(isComparingEquips: true, isComparingLuckyItem: true);
           }
         }
@@ -171,6 +176,23 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         }
       }
     }
+    else if (calculationType == CalculationType.compareFamiliar) {
+      if (replacingFamiliar == null) {
+        editingWidgets.add(
+          const Text(
+            "Activating: ",
+          )
+        );
+      }
+      else{
+        editingWidgets.add(
+          Text(
+            "Replacing ${replacingFamiliar.familiarName}: "
+          )
+        );
+      }
+    }
+    
 
     createText(diffCalculatorProvider.upperDamageRange, mainCalculatorProvider.upperDamageRange, rangeType: RangeType.damageRange);
     createText(diffCalculatorProvider.upperBossDamangeRange, mainCalculatorProvider.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
@@ -186,7 +208,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         differenceWidget = Column(children: textList + editingWidgets);
       }
       else {
-        differenceWidget = Column(children: <Widget>[noDifferenceEquip] + editingWidgets);
+        differenceWidget = Column(children: <Widget>[noDifferenceFamiliar] + editingWidgets);
       }
     }
     else if (calculationType == CalculationType.compareEquipment) {
@@ -195,6 +217,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       }
       else {
         return Column(children: editingWidgets + [noDifferenceEquip]);
+      }
+    }
+    else if (calculationType == CalculationType.compareFamiliar) {
+      if (textList.isNotEmpty) {
+        return Column(children: editingWidgets + textList);
+      }
+      else {
+        return Column(children: editingWidgets + [noDifferenceFamiliar]);
       }
     }
     else if (calculationType == CalculationType.compareStats) {
@@ -212,24 +242,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     notifyListeners();
     return const SizedBox.shrink();
   }
-
-  Widget? compareEditingFamiliar(BuildContext context) {
-    return compareEquip(context, equipEditingProvider.editingEquip, isEditing: true, isDense: false);
-  }
-
-  void compareEquipSets(BuildContext context, int newEquipSetPosition) {
-    var tempEquipProvider = diffCalculatorProvider.equipsProvider;
-    diffCalculatorProvider.equipsProvider = tempEquipProvider.copyWith();
-    diffCalculatorProvider.equipsProvider.changeActiveSet(newEquipSetPosition);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareEquipmentSet);
-
-    // Reset the equips provider for the diff character model
-    diffCalculatorProvider.equipsProvider = tempEquipProvider;
-    notifyListeners();
-  }
   
-  Widget? compareEquip(BuildContext context, Equip? compareEquip, {bool isEditing = false, bool isDense = true}){
+  Widget? compareEquip(BuildContext context, Equip? compareEquip, {bool isEditing = false, bool isDense = true}) {
     Equip? tempEquip;
     Widget? widgetReturn;
 
@@ -265,8 +279,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               }
               diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.totem, equipPosition: i, isCalculatingDifference: true);
               diffCalculatorProvider.calculateEverything(recalculateCache: true);
-              widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.totem, equipPosition: 1);
+              widgetChildren.add(updateDifferenceText(context: context, replacingEquip: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.totem, equipPosition: i);
             }
           }
 
@@ -280,8 +294,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               }
               diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.ring, equipPosition: i, isCalculatingDifference: true);
               diffCalculatorProvider.calculateEverything(recalculateCache: true);
-              widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
-              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.ring, equipPosition: 1, isCalculatingDifference: true);
+              widgetChildren.add(updateDifferenceText(context: context, replacingEquip: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
+              diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.ring, equipPosition: i, isCalculatingDifference: true);
             }
           }
 
@@ -295,7 +309,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               }
               diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.pendant, equipPosition: i, isCalculatingDifference: true);
               diffCalculatorProvider.calculateEverything(recalculateCache: true);
-              widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
+              widgetChildren.add(updateDifferenceText(context: context, replacingEquip: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
               diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.pendant, equipPosition: i, isCalculatingDifference: true);
             }
           }
@@ -310,7 +324,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               }
               diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.pet, equipPosition: i, isCalculatingDifference: true);
               diffCalculatorProvider.calculateEverything(recalculateCache: true);
-              widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
+              widgetChildren.add(updateDifferenceText(context: context, replacingEquip: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
               diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.pet, equipPosition: i, isCalculatingDifference: true);
             }
           }
@@ -325,7 +339,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
               }
               diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, EquipType.petEquip, equipPosition: i, isCalculatingDifference: true);
               diffCalculatorProvider.calculateEverything(recalculateCache: true);
-              widgetChildren.add(updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
+              widgetChildren.add(updateDifferenceText(context: context, replacingEquip: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense));
               diffCalculatorProvider.equipsProvider.equipEquip(tempEquip, EquipType.petEquip, equipPosition: i, isCalculatingDifference: true);
             }
           }
@@ -335,7 +349,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
           tempEquip = activeEquipmentModule.getSelectedEquip(compareEquip.equipName.equipType);
           diffCalculatorProvider.equipsProvider.equipEquip(compareEquip, compareEquip.equipName.equipType, isCalculatingDifference: true);
           diffCalculatorProvider.calculateEverything(recalculateCache: true);
-          widgetReturn = updateDifferenceText(context: context, replacing: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense);
+          widgetReturn = updateDifferenceText(context: context, replacingEquip: tempEquip, comparingEquip: compareEquip, calculationType: CalculationType.compareEquipment, isDense: isDense);
       }
 
       diffCalculatorProvider.equipsProvider = tempEquipProvider;
@@ -354,6 +368,148 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   Widget? compareEditingEquip(BuildContext context) {
     return compareEquip(context, equipEditingProvider.editingEquip, isEditing: true, isDense: false);
   }
+
+  Widget? compareFamiliar(BuildContext context, Familiar? compareFamiliar, {bool isEditing = false, bool isDense = true}) {
+    Widget? widgetReturn;
+
+    List<Widget> widgetChildren = <Widget>[];
+    bool hasEquipped = false;
+    
+    if (compareFamiliar != null) {
+      // Save a reference to the equipModule, then replace the target with a copy for destructive calculations
+      var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
+      diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
+      FamiliarModule activeFamiliarModule = diffCalculatorProvider.familiarsProvider.activeFamiliarSet;
+      
+      // Only need to do this if we are actually editing familiars, otherwise we are comparing an already saved familiar
+      if (isEditing) {
+        // Need to register/overwrite the callback to our copied equips provider instance so we can appropriately reverse lookup the editing equip
+        activeFamiliarModule.registerFamiliarCallback(diffCalculatorProvider.familiarsProvider.getFamiliarCallback);
+
+        diffCalculatorProvider.familiarsProvider.allFamiliars[compareFamiliar.familiarHash] = compareFamiliar;
+      }
+
+      for (int i = 1; i <=3; i++) {
+        var tempFamiliar = activeFamiliarModule.getSelectedFamiliar(i);
+        if (!hasEquipped || tempFamiliar != null) {
+          if (tempFamiliar == null) {
+            hasEquipped = true;
+          }
+          diffCalculatorProvider.familiarsProvider.equipFamiliar(compareFamiliar, i);
+          diffCalculatorProvider.calculateEverything(recalculateCache: true);
+          widgetChildren.add(updateDifferenceText(context: context, replacingFamiliar: tempFamiliar, comparingFamiliar: compareFamiliar, calculationType: CalculationType.compareFamiliar, isDense: isDense));
+          diffCalculatorProvider.familiarsProvider.equipFamiliar(tempFamiliar, i);
+        }
+      }
+
+      widgetReturn = Column(children: widgetChildren);
+      diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
+    }
+
+    if (isEditing) {
+      return widgetReturn;
+    }
+    else {
+      differenceWidget = widgetReturn ?? const SizedBox.shrink();
+      notifyListeners();
+      return null;
+    }
+  }
+
+  Widget? compareEditingFamiliar(BuildContext context) {
+    var test = compareFamiliar(context, familiarEditingProvider.editingFamiliar, isEditing: true, isDense: false);
+    return test;
+  }
+
+  // SET COMPARISON FUNCTIONS
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  void compareEquipSets(BuildContext context, int newEquipSetNumber) {
+    var tempEquipProvider = diffCalculatorProvider.equipsProvider;
+    diffCalculatorProvider.equipsProvider = tempEquipProvider.copyWith();
+    diffCalculatorProvider.equipsProvider.changeActiveSet(newEquipSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareEquipmentSet);
+
+    // Reset the equips provider for the diff character model
+    diffCalculatorProvider.equipsProvider = tempEquipProvider;
+    notifyListeners();
+  }
+
+  void compareHyperStatsSets(BuildContext context, int newHyperStatSetNumber) {
+    var tempHyperStatProvider = diffCalculatorProvider.hyperStatsProvider;
+    diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider.copyWith();
+    diffCalculatorProvider.hyperStatsProvider.changeActiveSet(newHyperStatSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the hyper stats provider for the diff character model
+    diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider;
+    notifyListeners();
+  }
+
+  void compareFamiliarSets(BuildContext context, int newFamiliarSetNumber) {
+    var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
+    diffCalculatorProvider.familiarsProvider.changeActiveFamiliarSet(newFamiliarSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the hyper stats provider for the diff character model
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
+    notifyListeners();
+  }
+
+  void compareBadgeSets(BuildContext context, int newBadgeSetNumber) {
+    var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
+    diffCalculatorProvider.familiarsProvider.changeActiveBadgeSet(newBadgeSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the hyper stats provider for the diff character model
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
+    notifyListeners();
+  }
+
+  void compareInnerAbilitySets(BuildContext context, int newInnerAbilitySetNumber) {
+    var tempInnerAbilityProvider = diffCalculatorProvider.innerAbilityProvider;
+    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider.copyWith();
+    diffCalculatorProvider.innerAbilityProvider.changeActiveSet(newInnerAbilitySetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the inner ability provider for the diff character model
+    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider;
+    notifyListeners();
+  }
+
+  void compareLegionSets(BuildContext context, int newLegionSetNumber) {
+    var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
+    diffCalculatorProvider.legionStatsProvider.changeActiveSet(newLegionSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the legion provider for the diff character model
+    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
+    notifyListeners();
+  }
+
+  void compareLegionArtifactSets(BuildContext context, int newLegionSetNumber) {
+    var tempLegionArtifactProvider = diffCalculatorProvider.legionArtifactProvider;
+    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider.copyWith();
+    diffCalculatorProvider.legionArtifactProvider.changeActiveSet(newLegionSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the legion provider for the diff character model
+    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider;
+    notifyListeners();
+  }
+
+  // ---------------------------------------------------------------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------------------------------------------------------------
 
   void modifyApToStat(int apAmount, StatType statType, bool isSubtract) {
     // Save a reference to the apStatsModule, then replace the target with a copy for destructive calculations
@@ -383,54 +539,6 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     updateDifferenceText();
     diffCalculatorProvider.hyperStatsProvider = tempHyperStats;
   }
-
-  void compareHyperStats(BuildContext context, int newHyperStatPosition) {
-    var tempHyperStatProvider = diffCalculatorProvider.hyperStatsProvider;
-    diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider.copyWith();
-    diffCalculatorProvider.hyperStatsProvider.changeActiveSet(newHyperStatPosition);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
-
-    // Reset the hyper stats provider for the diff character model
-    diffCalculatorProvider.hyperStatsProvider = tempHyperStatProvider;
-    notifyListeners();
-  }
-
-  void compareInnerAbility(BuildContext context, int newInnerAbilityPosition) {
-    var tempInnerAbilityProvider = diffCalculatorProvider.innerAbilityProvider;
-    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider.copyWith();
-    diffCalculatorProvider.innerAbilityProvider.changeActiveSet(newInnerAbilityPosition);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
-
-    // Reset the inner ability provider for the diff character model
-    diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider;
-    notifyListeners();
-  }
-
-  void compareLegionSets(BuildContext context, int newLegionSetPosition) {
-    var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
-    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
-    diffCalculatorProvider.legionStatsProvider.changeActiveSet(newLegionSetPosition);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
-
-    // Reset the legion provider for the diff character model
-    diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider;
-    notifyListeners();
-  }
-
-  void compareLegionArtifactSets(BuildContext context, int newLegionSetPosition) {
-    var tempLegionArtifactProvider = diffCalculatorProvider.legionArtifactProvider;
-    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider.copyWith();
-    diffCalculatorProvider.legionArtifactProvider.changeActiveSet(newLegionSetPosition);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
-
-    // Reset the legion provider for the diff character model
-    diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider;
-    notifyListeners();
-  }  
 
   void modifyArtifactCrsytalLevel(int artifactCrystalPosition, bool isSubtract) {
     var tempLegionArtifactProvider = diffCalculatorProvider.legionArtifactProvider;
@@ -520,6 +628,11 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
 const Text noDifferenceEquip = Text(
   "NO DIFFERENCE IN EQUIPMENT",
+  style: TextStyle(color: Colors.greenAccent),
+);
+
+const Text noDifferenceFamiliar = Text(
+  "NO DIFFERENCE IN FAMILIAR",
   style: TextStyle(color: Colors.greenAccent),
 );
 

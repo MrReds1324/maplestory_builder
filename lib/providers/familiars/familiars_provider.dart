@@ -55,7 +55,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   @override
   FamiliarsProvider copyWith({
     int? familiarHash,
-    Map<int, Familiar>? allEquips,
+    Map<int, Familiar>? allFamiliars,
     int? activeFamiliarSetNumber,
     int? activeBadgeSetNumber,
     Map<int, BadgeModule>? badgeSets,
@@ -65,6 +65,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   }) {
     return FamiliarsProvider(
       familiarHash: familiarHash ?? this.familiarHash,
+      allFamiliars: allFamiliars ?? Map.of(this.allFamiliars),
       activeBadgeSetNumber: activeBadgeSetNumber ?? this.activeBadgeSetNumber,
       activeFamiliarSetNumber: activeFamiliarSetNumber ?? this.activeFamiliarSetNumber,
       badgeSets: badgeSets ?? mapDeepCopy(this.badgeSets),

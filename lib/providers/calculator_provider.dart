@@ -216,15 +216,15 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
     totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
 
+    for (Map<StatType, num> familiarStats in familiarsProvider.calculateStats()){
+      updateTempStats(familiarStats);
+    }
+
     updateTempStats(hyperStatsProvider.calculateStats());
     updateTempStats(innerAbilityProvider.calculateStats());
     updateTempStats(traitStatsProvider.calculateStats());
     updateTempStats(legionStatsProvider.calculateStats());
     updateTempStats(legionArtifactProvider.calculateStats());
-
-    for (Map<StatType, num> familiarStats in familiarsProvider.calculateStats()){
-      updateTempStats(familiarStats);
-    }
 
     var calculatedCharacterLevel = max(characterProvider.characterLevel - 10, 0);
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (calculatedCharacterLevel * 50);
