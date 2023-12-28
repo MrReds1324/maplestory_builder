@@ -389,9 +389,11 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         diffCalculatorProvider.familiarsProvider.allFamiliars[compareFamiliar.familiarHash] = compareFamiliar;
       }
 
+      var equippedFamiliarPosition = activeFamiliarModule.getFamiliarPosition(compareFamiliar.familiarHash);
+
       for (int i = 1; i <=3; i++) {
         var tempFamiliar = activeFamiliarModule.getSelectedFamiliar(i);
-        if (!hasEquipped || tempFamiliar != null) {
+        if ((equippedFamiliarPosition == i) || (equippedFamiliarPosition == null && (!hasEquipped || tempFamiliar != null))) {
           if (tempFamiliar == null) {
             hasEquipped = true;
           }

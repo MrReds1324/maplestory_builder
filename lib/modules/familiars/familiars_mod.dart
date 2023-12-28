@@ -56,6 +56,15 @@ class FamiliarModule implements Copyable {
     return getFamiliarCallback(equippedFamiliars[familiarPosition]);
   }
 
+  int? getFamiliarPosition(int familiarHash) {
+    for (MapEntry<int, int?> equippedFamiliar in equippedFamiliars.entries) {
+      if (equippedFamiliar.value == familiarHash) {
+        return equippedFamiliar.key;
+      }
+    }
+    return null;
+  }
+
   Map<StatType, num> calculateStats() {
     if (cacheValue != null) {
       return cacheValue!;
