@@ -11,7 +11,7 @@ const int NO_EDITING_FAMILIAR = 0;
 
 class FamiliarEditingProvider with ChangeNotifier {
 
-  HexaStat? editingFamiliar;
+  Familiar? editingFamiliar;
   int updateCounter = NO_EDITING_FAMILIAR;
   bool isEditing = false;
 
@@ -21,8 +21,8 @@ class FamiliarEditingProvider with ChangeNotifier {
     this.editingFamiliar
   }): textController = TextEditingController(text: "");
 
-  void addEditingFamiliar({HexaStat? familiar}) {
-    editingFamiliar = familiar?.copyWith() ?? HexaStat();
+  void addEditingFamiliar({Familiar? familiar}) {
+    editingFamiliar = familiar?.copyWith() ?? Familiar();
     _setEditingState();
 
     notifyListeners();
