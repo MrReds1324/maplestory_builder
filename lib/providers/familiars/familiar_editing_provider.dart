@@ -28,7 +28,7 @@ class FamiliarEditingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void cancelEquipFamiliar() {
+  void cancelEditingFamiliar() {
     _clearEditingState();
 
     notifyListeners();

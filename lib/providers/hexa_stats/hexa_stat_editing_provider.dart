@@ -29,7 +29,7 @@ class HexaStatEditingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void cancelEquipFamiliar() {
+  void cancelEditingHexaStat() {
     _clearEditingState();
 
     notifyListeners();

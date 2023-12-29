@@ -228,15 +228,15 @@ class FamiliarSelector extends StatelessWidget {
 
     List<Familiar> filteredList = <Familiar>[];
     // We can only have one of badge of each, filter out already used ones here
-    badgeFilterloop:
+    familiarFilterloop:
     for(Familiar familiar in familiarsProvider.allFamiliars.values) { 
-      // Stops us from being able to select multiple of a single badge
+      // Stops us from being able to select multiple of a single familiar
       for (MapEntry<int, int?> equippedFamiliar in familiarsProvider.activeFamiliarSet.equippedFamiliars.entries) {
         if (equippedFamiliar.key == familiarPosition) {
           continue;
         }
         else if (familiar.familiarId == equippedFamiliar.value) {
-          continue badgeFilterloop;
+          continue familiarFilterloop;
         }
       }
       

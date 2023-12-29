@@ -7,6 +7,8 @@ import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
+import 'package:maplestory_builder/providers/hexa_stats/hexa_stat_editing_provider.dart';
+import 'package:maplestory_builder/providers/hexa_stats/hexa_stats_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
@@ -56,13 +58,17 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<FamiliarEditingProvider>(create: (_) => FamiliarEditingProvider()),
-        ChangeNotifierProvider<LegionCharacterEditingProvider>(create: (_) => LegionCharacterEditingProvider()),
+        // Editing providers
         ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
+        ChangeNotifierProvider<LegionCharacterEditingProvider>(create: (_) => LegionCharacterEditingProvider()),
+        ChangeNotifierProvider<FamiliarEditingProvider>(create: (_) => FamiliarEditingProvider()),
+        ChangeNotifierProvider<HexaStatEditingProvider>(create: (_) => HexaStatEditingProvider()),
+        // Stat giving providers
         ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
         ChangeNotifierProvider<FamiliarsProvider>(create: (_) => FamiliarsProvider()),
+        ChangeNotifierProvider<HexaStatsProvider>(create: (_) => HexaStatsProvider()),
         ChangeNotifierProxyProvider<CharacterProvider, APStatsProvider>(
           create: (BuildContext context) => APStatsProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false)

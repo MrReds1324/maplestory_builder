@@ -28,24 +28,21 @@ class InnerAbilityStatsTable extends StatelessWidget {
             onPressed: (int setPosition) => context.read<InnerAbilityProvider>().changeActiveSet(setPosition),
             selectorFunction: (BuildContext context, InnerAbilityProvider innerAbilityProvider) => innerAbilityProvider.activeSetNumber,
           ),
-          const InnerAbilityCell(innerAbilityPosition: 1),
-          const InnerAbilityCell(innerAbilityPosition: 2),
-          const InnerAbilityCell(innerAbilityPosition: 3),         
+          const _InnerAbilityCell(innerAbilityPosition: 1),
+          const _InnerAbilityCell(innerAbilityPosition: 2),
+          const _InnerAbilityCell(innerAbilityPosition: 3),         
         ]
       ),
     );
   }
 }
 
-class InnerAbilityCell extends StatelessWidget {
+class _InnerAbilityCell extends StatelessWidget {
   final int innerAbilityPosition;
 
-  const InnerAbilityCell(
-    {
-      required this.innerAbilityPosition,
-      super.key
-    }
-  );
+  const _InnerAbilityCell({
+    required this.innerAbilityPosition,
+  });
 
   @override
   Widget build(BuildContext context){

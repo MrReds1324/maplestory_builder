@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/familiars/potential_stats.dart';
 import 'package:maplestory_builder/constants/hexa_stats/hexa_stats.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
@@ -138,22 +137,29 @@ class HexaStat implements Copyable {
       padding: const EdgeInsets.all(2.5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            hexaStatName, 
-            style: Theme.of(context).textTheme.headlineSmall,
+          Center(
+            child: Text(
+              hexaStatName, 
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
-          Text(
-            "Hexa Stat: (${hexaStatType!.formattedName})",
-            style: Theme.of(context).textTheme.bodyMedium
+          Center(
+            child: Text(
+              hexaStatType?.formattedName ?? "None",
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
           ),
-          Icon(
-            MdiIcons.hexagonSlice6,
-            size: 100,
-            color: hexaStatType != null ? Colors.lightBlueAccent : Colors.redAccent,
+          Center(
+            child: Icon(
+              MdiIcons.hexagonSlice6,
+              size: 100,
+              color: hexaStatType != null ? Colors.lightBlueAccent : Colors.redAccent,
+            ),
           ),
-          _buildStatkWidget(context),
+          Center(
+            child: _buildStatkWidget(context),
+          ),
         ],
       ),
     );
@@ -186,36 +192,5 @@ class HexaStat implements Copyable {
         children: childrenWidgets
       ),
     );
-  }
-}
-
-class FamiliarPotentialLine implements Copyable {
-  FamiliarPotential? familiarPotential;
-  int familiarPotentialOffset;
-  bool isPrime;
-
-  FamiliarPotentialLine({
-    this.familiarPotential,
-    this.familiarPotentialOffset = 0,
-    this.isPrime = false
-  });
-
-  @override
-  FamiliarPotentialLine copyWith({
-    FamiliarPotential? familiarPotential,
-    int? familiarPotentialOffset,
-    bool? isPrime,
-  }) {
-    return FamiliarPotentialLine(
-      familiarPotential: familiarPotential ?? this.familiarPotential,
-      familiarPotentialOffset: familiarPotentialOffset ?? this.familiarPotentialOffset,
-      isPrime: isPrime ?? this.isPrime,
-    );
-  }
-
-  void reset() {
-    familiarPotential = null;
-    isPrime = false;
-    familiarPotentialOffset = 0;
   }
 }

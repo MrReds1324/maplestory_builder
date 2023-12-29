@@ -34,7 +34,7 @@ class FamiliarBuilder extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: () => context.read<FamiliarEditingProvider>().cancelEquipFamiliar(),
+                  onPressed: () => context.read<FamiliarEditingProvider>().cancelEditingFamiliar(),
                   child: const Text("Cancel")
                 ),
                 TextButton(
