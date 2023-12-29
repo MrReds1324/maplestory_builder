@@ -264,7 +264,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         // Need to register/overwrite the callback to our copied equips provider instance so we can appropriately reverse lookup the editing equip
         activeEquipmentModule.registerEquipCallback(diffCalculatorProvider.equipsProvider.getEquipCallback);
 
-        diffCalculatorProvider.equipsProvider.allEquips[compareEquip.equipHash] = compareEquip;
+        diffCalculatorProvider.equipsProvider.allEquips[compareEquip.equipId] = compareEquip;
       }
 
       var uniqueItemPosition = activeEquipmentModule.getUniqueItemPosition(compareEquip.equipName, compareEquip.equipName.equipType);
@@ -386,10 +386,10 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         // Need to register/overwrite the callback to our copied equips provider instance so we can appropriately reverse lookup the editing equip
         activeFamiliarModule.registerFamiliarCallback(diffCalculatorProvider.familiarsProvider.getFamiliarCallback);
 
-        diffCalculatorProvider.familiarsProvider.allFamiliars[compareFamiliar.familiarHash] = compareFamiliar;
+        diffCalculatorProvider.familiarsProvider.allFamiliars[compareFamiliar.familiarId] = compareFamiliar;
       }
 
-      var equippedFamiliarPosition = activeFamiliarModule.getFamiliarPosition(compareFamiliar.familiarHash);
+      var equippedFamiliarPosition = activeFamiliarModule.getFamiliarPosition(compareFamiliar.familiarId);
 
       for (int i = 1; i <=3; i++) {
         var tempFamiliar = activeFamiliarModule.getSelectedFamiliar(i);

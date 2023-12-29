@@ -238,7 +238,7 @@ class _FamiliarRankDropdown extends StatelessWidget {
     return dropdownItems;
   }
 
-  FamiliarPotentialTier? getSelectedPotentialTier(Familiar? editingFamiliar) {
+  FamiliarPotentialTier? getSelectedPotentialTier(HexaStat? editingFamiliar) {
     return editingFamiliar?.potentialTier;
   }
 
@@ -285,7 +285,7 @@ class _PotentialDropdowns extends StatelessWidget {
     required this.potentialPosition
   });
 
-  List<DropdownMenuItem<(FamiliarPotential, bool)>> getDropdownPotentialsList(BuildContext context, Familiar? editingFamiliar) {
+  List<DropdownMenuItem<(FamiliarPotential, bool)>> getDropdownPotentialsList(BuildContext context, HexaStat? editingFamiliar) {
     List<DropdownMenuItem<(FamiliarPotential, bool)>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
@@ -326,7 +326,7 @@ class _PotentialDropdowns extends StatelessWidget {
     return dropdownItems;
   }
 
-  (FamiliarPotential, bool)? getSelectedPotentialLine(Familiar? editingFamiliar, int potentialPosition) {
+  (FamiliarPotential, bool)? getSelectedPotentialLine(HexaStat? editingFamiliar, int potentialPosition) {
     var targetPotentialLine = editingFamiliar?.potentials[potentialPosition];
     return targetPotentialLine?.familiarPotential != null ? (targetPotentialLine!.familiarPotential!, targetPotentialLine.isPrime) : null;
   }

@@ -8,7 +8,7 @@ import 'package:maplestory_builder/modules/equipment/equips.dart';
 class EquipsProvider with ChangeNotifier implements Copyable {
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
-  int equipHash;
+  int equipId;
   int activeSetNumber;
   late Map<int, Equip> allEquips;
   late Map<int, EquipmentModule> equipSets; 
@@ -18,7 +18,7 @@ class EquipsProvider with ChangeNotifier implements Copyable {
     Map<int, Equip>? allEquips,
     Map<int, EquipmentModule>? equipSets,
     EquipmentModule? activeEquipSet,
-    this.equipHash = 1,
+    this.equipId = 1,
     this.activeSetNumber = 1,
   }) {
     this.allEquips = allEquips ?? {};
@@ -37,20 +37,20 @@ class EquipsProvider with ChangeNotifier implements Copyable {
     Map<int, Equip>? allEquips,
     Map<int, EquipmentModule>? equipSets,
     EquipmentModule? activeEquipSet,
-    int? equipHash,
+    int? equipId,
     int? activeSetNumber,
   }) {
     return EquipsProvider(
       allEquips: allEquips ?? Map.of(this.allEquips),
       equipSets: equipSets ?? Map.of(this.equipSets),
       activeEquipSet: activeEquipSet ?? this.activeEquipSet.copyWith(),
-      equipHash: equipHash ?? this.equipHash,
+      equipId: equipId ?? this.equipId,
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
     );
   }
 
-  Equip? getEquipCallback(int? equipHash) {
-    return allEquips[equipHash];
+  Equip? getEquipCallback(int? equipId) {
+    return allEquips[equipId];
   }
 
   void equipEquip(Equip? equip, EquipType equipType, {int equipPosition = 0, bool isCalculatingDifference = false}) {
@@ -68,20 +68,20 @@ class EquipsProvider with ChangeNotifier implements Copyable {
     }
     
     // New equip that cannot be equipped
-    if (editingEquip.equipHash == -1) {
-      editingEquip.equipHash = equipHash;
-      allEquips[editingEquip.equipHash] = editingEquip;
-      equipHash++;
+    if (editingEquip.equipId == -1) {
+      editingEquip.equipId = equipId;
+      allEquips[editingEquip.equipId] = editingEquip;
+      equipId++;
     }
     // Repalce the old version of the item with the new one if we updated one that already exists
     else {
-      allEquips[editingEquip.equipHash] = editingEquip;
+      allEquips[editingEquip.equipId] = editingEquip;
     }
     notifyListeners();
   }
 
   void deleteEquip(Equip deletingEquip) {
-    allEquips.remove(deletingEquip.equipHash);
+    allEquips.remove(deletingEquip.equipId);
     for (EquipmentModule equipmentModule in equipSets.values) {
       equipmentModule.deleteEquip(deletingEquip);
     }

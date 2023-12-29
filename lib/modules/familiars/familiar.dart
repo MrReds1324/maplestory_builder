@@ -10,16 +10,15 @@ class Familiar implements Copyable {
   FamiliarPotentialTier? potentialTier;
   Map<int, FamiliarPotentialLine> potentials;
   String familiarName;
-  int familiarHash;
+  int familiarId;
 
   Map<StatType, num>? cacheValue;
 
   Familiar({
     this.potentialTier,
     Map<int, FamiliarPotentialLine>? potentials,
-    Map<StatType, num>? moduleStats,
     this.familiarName = "",
-    this.familiarHash = -1
+    this.familiarId = -1
   }): potentials = potentials ?? {
     1: FamiliarPotentialLine(),
     2: FamiliarPotentialLine()
@@ -30,13 +29,13 @@ class Familiar implements Copyable {
     FamiliarPotentialTier? potentialTier,
     Map<int, FamiliarPotentialLine>? potentials,
     String? familiarName,
-    int? familiarHash,
+    int? familiarId,
   }) {
     return Familiar(
       potentialTier: potentialTier ?? this.potentialTier,
       potentials: potentials ?? mapDeepCopy(this.potentials),
       familiarName: familiarName ?? this.familiarName,
-      familiarHash: familiarHash ?? this.familiarHash
+      familiarId: familiarId ?? this.familiarId
     );
   }
 

@@ -11,7 +11,7 @@ double MAX_FAMILIAR_BOSS_DAMAGE = 1.2;
 class FamiliarModule implements Copyable {
 
   Map<int, int?> equippedFamiliars;
-  Familiar? Function(int? equipHash) getFamiliarCallback;
+  Familiar? Function(int? familiarId) getFamiliarCallback;
 
   Map<StatType, num>? cacheValue;
 
@@ -23,11 +23,11 @@ class FamiliarModule implements Copyable {
 
   @override
   FamiliarModule copyWith({
-    Map<int, int?>? equippedFamiliars,
+    Map<int, int?>? equippedHexaStat,
     Familiar? Function(int?)? getFamiliarCallback,
   }) {
     return FamiliarModule(
-      equippedFamiliars: equippedFamiliars ?? Map.from(this.equippedFamiliars),
+      equippedFamiliars: equippedHexaStat ?? Map.from(this.equippedFamiliars),
       getFamiliarCallback: getFamiliarCallback ?? this.getFamiliarCallback,
     );
   }
@@ -37,14 +37,14 @@ class FamiliarModule implements Copyable {
   }
 
   void equipFamiliar(Familiar? familiar, int familiarPosition) {
-    equippedFamiliars[familiarPosition] = familiar?.familiarHash;
+    equippedFamiliars[familiarPosition] = familiar?.familiarId;
 
     cacheValue = null;
   }
 
   void deleteFamiliar(Familiar deletingFamiliar) {
     equippedFamiliars.forEach((key, value) {
-      if (value == deletingFamiliar.familiarHash) {
+      if (value == deletingFamiliar.familiarId) {
         equippedFamiliars[key] = null;
       }
     });
@@ -56,9 +56,9 @@ class FamiliarModule implements Copyable {
     return getFamiliarCallback(equippedFamiliars[familiarPosition]);
   }
 
-  int? getFamiliarPosition(int familiarHash) {
+  int? getFamiliarPosition(int familiarId) {
     for (MapEntry<int, int?> equippedFamiliar in equippedFamiliars.entries) {
-      if (equippedFamiliar.value == familiarHash) {
+      if (equippedFamiliar.value == familiarId) {
         return equippedFamiliar.key;
       }
     }
@@ -91,8 +91,8 @@ class FamiliarModule implements Copyable {
       }
     }
 
-    for (int? familiarHash in equippedFamiliars.values) {
-      updateStatFromFamiliar(getFamiliarCallback(familiarHash));
+    for (int? familiarId in equippedFamiliars.values) {
+      updateStatFromFamiliar(getFamiliarCallback(familiarId));
     }
 
     cacheValue = familiarStats;

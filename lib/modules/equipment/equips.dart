@@ -34,7 +34,7 @@ class Equip implements Copyable {
   PitchedBossUpgradeModule? pitchedBossUpgradeModule;
   SoulModule? soulModule;
   TweakModule? tweakModule;
-  int equipHash = -1;
+  int equipId = -1;
 
   Equip({
     required this.equipName,
@@ -46,7 +46,7 @@ class Equip implements Copyable {
     this.pitchedBossUpgradeModule,
     this.soulModule,
     this.tweakModule,
-    this.equipHash = -1,
+    this.equipId = -1,
   }) {
     if (starForceModule != null) {
       starForceModule = starForceModule;
@@ -124,7 +124,7 @@ class Equip implements Copyable {
     PitchedBossUpgradeModule? pitchedBossUpgradeModule,
     SoulModule? soulModule,
     TweakModule? tweakModule,
-    int? equipHash,
+    int? equipId,
   }) {
     return Equip(
       equipName: equipName ?? this.equipName,
@@ -136,7 +136,7 @@ class Equip implements Copyable {
       pitchedBossUpgradeModule: pitchedBossUpgradeModule ?? this.pitchedBossUpgradeModule?.copyWith(),
       soulModule: soulModule ?? this.soulModule?.copyWith(),
       tweakModule: tweakModule ?? this.tweakModule?.copyWith(),
-      equipHash: equipHash ?? this.equipHash,
+      equipId: equipId ?? this.equipId,
     );
   }
 
@@ -473,18 +473,18 @@ class Equip implements Copyable {
         return true;
       }
       // If they are both non-editted items then compare their itemId
-      else if (equipHash == -1 && other.equipHash == -1) {
+      else if (equipId == -1 && other.equipId == -1) {
         return equipName == other.equipName;
       }
       else {
-        return equipHash == other.equipHash;
+        return equipId == other.equipId;
       }
     }
     return false;
   }
 
   @override
-  int get hashCode => equipHash == -1 ? super.hashCode : equipHash.toInt();
+  int get hashCode => equipId == -1 ? super.hashCode : equipId.toInt();
 }
 
 

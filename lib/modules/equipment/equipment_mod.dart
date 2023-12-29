@@ -7,7 +7,7 @@ import 'package:maplestory_builder/modules/equipment/equips.dart';
 class EquipmentModule implements Copyable {
   Map<String, int?> equippedEquips;
   List<EquipName> equippedEquipNames;
-  Equip? Function(int? equipHash) getEquipCallback;
+  Equip? Function(int? equipId) getEquipCallback;
   SetEffectModule setEffectModule;
 
   EquipmentModule({
@@ -84,7 +84,7 @@ class EquipmentModule implements Copyable {
     switch(equipType) {
       case EquipType.overall:
         replacedItemHash = equippedEquips[EquipType.overall.formattedName];
-        equippedEquips[EquipType.overall.formattedName] = equip?.equipHash;
+        equippedEquips[EquipType.overall.formattedName] = equip?.equipId;
 
         setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.top.formattedName]), isCalculatingDifference: isCalculatingDifference);
         equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.top.formattedName])?.equipName);
@@ -95,14 +95,14 @@ class EquipmentModule implements Copyable {
         equippedEquips[EquipType.bottom.formattedName] = null;
       case EquipType.top:
         replacedItemHash = equippedEquips[EquipType.top.formattedName];
-        equippedEquips[EquipType.top.formattedName] = equip?.equipHash;
+        equippedEquips[EquipType.top.formattedName] = equip?.equipId;
 
         setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.overall.formattedName]), isCalculatingDifference: isCalculatingDifference);
         equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.overall.formattedName])?.equipName);
         equippedEquips[EquipType.overall.formattedName] = null;
       case EquipType.bottom:
         replacedItemHash = equippedEquips[EquipType.bottom.formattedName];
-        equippedEquips[EquipType.bottom.formattedName] = equip?.equipHash;
+        equippedEquips[EquipType.bottom.formattedName] = equip?.equipId;
 
         setEffectModule.removeEquip(getEquipCallback(equippedEquips[EquipType.overall.formattedName]), isCalculatingDifference: isCalculatingDifference);
         equippedEquipNames.remove(getEquipCallback(equippedEquips[EquipType.secondary.formattedName])?.equipName);
@@ -111,7 +111,7 @@ class EquipmentModule implements Copyable {
       case EquipType.shield:
       case EquipType.katara:
         replacedItemHash = equippedEquips[EquipType.secondary.formattedName];
-        equippedEquips[EquipType.secondary.formattedName] = equip?.equipHash;
+        equippedEquips[EquipType.secondary.formattedName] = equip?.equipId;
       default:
         String equipKey;
         if (equipPosition > 0) {
@@ -121,7 +121,7 @@ class EquipmentModule implements Copyable {
           equipKey = equipType.formattedName;
         }
         replacedItemHash = equippedEquips[equipKey];
-        equippedEquips[equipKey] = equip?.equipHash;
+        equippedEquips[equipKey] = equip?.equipId;
     }
 
     // Only need to update set effects if the replaced item differs from the item we are equipping
@@ -138,7 +138,7 @@ class EquipmentModule implements Copyable {
 
   void deleteEquip(Equip deletingEquip) {
     equippedEquips.forEach((key, value) {
-      if (value == deletingEquip.equipHash) {
+      if (value == deletingEquip.equipId) {
         equippedEquipNames.remove(deletingEquip.equipName);
         equippedEquips[key] = null;
         setEffectModule.removeEquip(deletingEquip);
@@ -149,8 +149,8 @@ class EquipmentModule implements Copyable {
   List<Map<StatType, num>> calculateStats() {
     List<Map<StatType, num>> equipStats = <Map<StatType, num>>[];
 
-    for (int? equipHash in equippedEquips.values) {
-      var mapValue = getEquipCallback(equipHash)?.calculateStats();
+    for (int? equipId in equippedEquips.values) {
+      var mapValue = getEquipCallback(equipId)?.calculateStats();
       if (mapValue != null) {
         equipStats.add(mapValue);
       }

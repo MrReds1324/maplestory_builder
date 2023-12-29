@@ -10,7 +10,7 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 class FamiliarsProvider with ChangeNotifier implements Copyable {
   // This is what we are going to use to set the equips hash value once it is saved here so that when 
   // rebuilding from json we can ensure the items stay "linked"
-  int familiarHash;
+  int familiarId;
   late Map<int, Familiar> allFamiliars;
   int activeBadgeSetNumber;
   late Map<int, BadgeModule> badgeSets; 
@@ -23,7 +23,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   Widget hoverTooltip = const SizedBox.shrink();
 
   FamiliarsProvider({
-    this.familiarHash = 1,
+    this.familiarId = 1,
     this.activeBadgeSetNumber = 1,
     this.activeFamiliarSetNumber = 1,
     Map<int, Familiar>? allFamiliars,
@@ -54,7 +54,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
 
   @override
   FamiliarsProvider copyWith({
-    int? familiarHash,
+    int? familiarId,
     Map<int, Familiar>? allFamiliars,
     int? activeFamiliarSetNumber,
     int? activeBadgeSetNumber,
@@ -64,7 +64,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     FamiliarModule? activeFamiliarSet,
   }) {
     return FamiliarsProvider(
-      familiarHash: familiarHash ?? this.familiarHash,
+      familiarId: familiarId ?? this.familiarId,
       allFamiliars: allFamiliars ?? Map.of(this.allFamiliars),
       activeBadgeSetNumber: activeBadgeSetNumber ?? this.activeBadgeSetNumber,
       activeFamiliarSetNumber: activeFamiliarSetNumber ?? this.activeFamiliarSetNumber,
@@ -75,8 +75,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     );
   }
 
-  Familiar? getFamiliarCallback(int? familiarHash) {
-    return allFamiliars[familiarHash];
+  Familiar? getFamiliarCallback(int? familiarId) {
+    return allFamiliars[familiarId];
   }
 
   List<Map<StatType, num>> calculateStats() {
@@ -95,15 +95,15 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     }
     
     // New familiar that cannot be equipped
-    if (editingFamiliar.familiarHash == -1) {
-      editingFamiliar.familiarHash = familiarHash;
-      editingFamiliar.familiarName = editingFamiliar.familiarName.isEmpty ? "Familiar $familiarHash" : editingFamiliar.familiarName;
-      allFamiliars[editingFamiliar.familiarHash] = editingFamiliar;
-      familiarHash++;
+    if (editingFamiliar.familiarId == -1) {
+      editingFamiliar.familiarId = familiarId;
+      editingFamiliar.familiarName = editingFamiliar.familiarName.isEmpty ? "Familiar $familiarId" : editingFamiliar.familiarName;
+      allFamiliars[editingFamiliar.familiarId] = editingFamiliar;
+      familiarId++;
     }
     // Repalce the old version of the familiar with the new one if we updated one that already exists
     else {
-      allFamiliars[editingFamiliar.familiarHash] = editingFamiliar;
+      allFamiliars[editingFamiliar.familiarId] = editingFamiliar;
     }
 
     for (FamiliarModule familiarModule in familiarSets.values) {
@@ -114,7 +114,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   }
 
   void deleteFamiliar(Familiar deletingFamiliar) {
-    allFamiliars.remove(deletingFamiliar.familiarHash);
+    allFamiliars.remove(deletingFamiliar.familiarId);
     for (FamiliarModule familiarModule in familiarSets.values) {
       familiarModule.deleteFamiliar(deletingFamiliar);
     }

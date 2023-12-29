@@ -235,7 +235,7 @@ class FamiliarSelector extends StatelessWidget {
         if (equippedFamiliar.key == familiarPosition) {
           continue;
         }
-        else if (familiar.familiarHash == equippedFamiliar.value) {
+        else if (familiar.familiarId == equippedFamiliar.value) {
           continue badgeFilterloop;
         }
       }
