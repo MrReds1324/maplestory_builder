@@ -32,7 +32,7 @@ A project to simulate most of the MapleStory systems that affect the character's
 		Increases Speed, Jump, DEX, and Defense by a small amount [4/4/1/10/10]
 		Increases Speed, Jump, DEX, and Defense by a small amount [8/8/1/20/20]
 
-- [ ] Hexa Stats
+- [x] Hexa Stats
 - [ ] Skills - Not started
 	- [ ] Class Specific Skills
 	- [ ] 5th Job Skills
