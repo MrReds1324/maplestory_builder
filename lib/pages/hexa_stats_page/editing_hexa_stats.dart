@@ -5,7 +5,6 @@ import 'package:maplestory_builder/constants/hexa_stats/hexa_stats.dart';
 import 'package:maplestory_builder/modules/hexa_stats.dart/hexa_stat.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/hexa_stats/hexa_stat_editing_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -339,24 +338,12 @@ class _StatLevelButton extends StatelessWidget {
     this.isSubtract = false,
   });
 
-  _onHover(BuildContext context) {
-    // TODO
-    context.read<DifferenceCalculatorProvider>().modifyArtifactCrsytalLevel(statPosition, isSubtract);
-  }
-
   @override
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
         Text('${isSubtract ? "Removes": "Adds"} 1 Hexa Stat Level'),
-        Selector<DifferenceCalculatorProvider, Widget>(
-          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-          builder: (context, widget, child) {
-            return widget;
-          }
-        ),
       ],
-      onHoverFunction: _onHover,
       child: IconButton(
         iconSize: 12,
         onPressed: () {

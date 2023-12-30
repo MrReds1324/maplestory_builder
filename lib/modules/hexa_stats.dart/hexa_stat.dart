@@ -20,8 +20,6 @@ class HexaStat implements Copyable {
   String hexaStatName;
   int hexaStatId;
 
-  Map<StatType, num>? cacheValue;
-
   HexaStat({
     Map<int, StatType?>? selectedStats,
     Map<int, int>? statLevels,
@@ -58,10 +56,6 @@ class HexaStat implements Copyable {
   }
 
   Map<StatType, num> calculateStats(CharacterClass characterClass) {
-    if (cacheValue != null) {
-      return cacheValue!;
-    }
-
     Map<StatType, num> hexaStatStats = {};
 
     for (MapEntry<int, StatType?> selectedStat in selectedStats.entries) {
@@ -71,7 +65,6 @@ class HexaStat implements Copyable {
       }
     }
 
-    cacheValue = hexaStatStats;
     return hexaStatStats;
   }
 
@@ -132,7 +125,6 @@ class HexaStat implements Copyable {
 
     selectedStats[statPosition] = statType;
 
-    cacheValue = null;
     return true;
   }
 
@@ -143,7 +135,6 @@ class HexaStat implements Copyable {
 
     statLevels[statPosition] = (statLevels[statPosition] ?? 0) + 1;
 
-    cacheValue = null;
     return true;
   }
 
@@ -154,7 +145,6 @@ class HexaStat implements Copyable {
 
     statLevels[statPosition] = (statLevels[statPosition] ?? 1) - 1;
 
-    cacheValue = null;
     return true;
   }
 
@@ -163,30 +153,22 @@ class HexaStat implements Copyable {
       width: 300,
       padding: const EdgeInsets.all(2.5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              hexaStatName, 
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+          Text(
+            hexaStatName, 
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
-          Center(
-            child: Text(
-              selectedStats[1]?.formattedName ?? "None",
-              style: Theme.of(context).textTheme.bodyMedium
-            ),
+          Text(
+            selectedStats[1]?.formattedName ?? "None",
+            style: Theme.of(context).textTheme.bodyMedium
           ),
-          Center(
-            child: Icon(
-              MdiIcons.hexagonSlice6,
-              size: 100,
-              color: selectedStats[1] != null ? Colors.lightBlueAccent : Colors.redAccent,
-            ),
+          Icon(
+            MdiIcons.hexagonSlice6,
+            size: 100,
+            color: selectedStats[1] != null ? Colors.lightBlueAccent : Colors.redAccent,
           ),
-          Center(
-            child: _buildStatkWidget(context),
-          ),
+          _buildStatkWidget(context),
         ],
       ),
     );
@@ -199,9 +181,17 @@ class HexaStat implements Copyable {
       (StatType?, num) valueToDisplay = hexaStatLine.value != null ? _calculateStatLine(hexaStatLine.key, hexaStatLine.value!, context.read<CharacterProvider>().characterClass) : (null, 0);
 
       childrenWidgets.add(
-        Text(
-          "${hexaStatLine.key == 1 ? 'Main' : 'Additional'} Stat (${valueToDisplay.$1?.formattedName ?? 'Nothing'} - lvl ${statLevels[hexaStatLine.key]}/10): +${valueToDisplay.$1?.isPercentage ?? false ? doublePercentFormater.format(valueToDisplay.$2) : valueToDisplay.$2}",
-          style: Theme.of(context).textTheme.bodyMedium
+        Column(
+          children: [
+            Text(
+              "${hexaStatLine.key == 1 ? 'Main' : 'Additional'} Stat - lvl ${statLevels[hexaStatLine.key]}/10",
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+            Text(
+              "${valueToDisplay.$1?.formattedName ?? 'Nothing'}: +${valueToDisplay.$1?.isPercentage ?? false ? doublePercentFormater.format(valueToDisplay.$2) : valueToDisplay.$2}",
+              style: Theme.of(context).textTheme.bodyMedium
+            ),
+          ]
         ),
       );
     }
@@ -213,7 +203,7 @@ class HexaStat implements Copyable {
     return Container(
       padding: const EdgeInsets.only(top: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: childrenWidgets
       ),
     );

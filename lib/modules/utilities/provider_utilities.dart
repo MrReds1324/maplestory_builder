@@ -43,7 +43,7 @@ class _ChangeNotifierProvider<T extends ChangeNotifier?>
 }
 
 // ignore: public_member_api_docs
-typedef ProxyProviderBuilder10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> = R Function(
+typedef ProxyProviderBuilder11<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R> = R Function(
   BuildContext context,
   T value,
   T2 value2,
@@ -55,17 +55,18 @@ typedef ProxyProviderBuilder10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> = R Fu
   T8 value8,
   T9 value9,
   T10 value10,
+  T11 value11,
   R? previous,
 );
 
 /// {@macro provider.listenableproxyprovider}
-class _ListenableProxyProvider10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R extends Listenable?>
+class _ListenableProxyProvider11<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R extends Listenable?>
     extends ListenableProxyProvider0<R> {
   /// Initializes [key] for subclasses.
-  _ListenableProxyProvider10({
+  _ListenableProxyProvider11({
     Key? key,
     Create<R>? create,
-    required ProxyProviderBuilder10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> update,
+    required ProxyProviderBuilder11<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R> update,
     Dispose<R>? dispose,
     bool? lazy,
     TransitionBuilder? builder,
@@ -87,6 +88,7 @@ class _ListenableProxyProvider10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R exten
             Provider.of(context),
             Provider.of(context),
             Provider.of(context),
+            Provider.of(context),
             previous,
           ),
           dispose: dispose,
@@ -95,13 +97,13 @@ class _ListenableProxyProvider10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R exten
 }
 
 /// {@macro provider.changenotifierproxyprovider}
-class ChangeNotifierProxyProvider10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R extends ChangeNotifier?>
-    extends _ListenableProxyProvider10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> {
+class ChangeNotifierProxyProvider11<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R extends ChangeNotifier?>
+    extends _ListenableProxyProvider11<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R> {
   /// Initializes [key] for subclasses.
-  ChangeNotifierProxyProvider10({
+  ChangeNotifierProxyProvider11({
     Key? key,
     required Create<R> create,
-    required ProxyProviderBuilder10<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> update,
+    required ProxyProviderBuilder11<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R> update,
     bool? lazy,
     TransitionBuilder? builder,
     Widget? child,

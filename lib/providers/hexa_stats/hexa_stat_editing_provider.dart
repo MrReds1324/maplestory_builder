@@ -27,9 +27,8 @@ class HexaStatEditingProvider with ChangeNotifier {
 
   HexaStatEditingProvider update(CharacterProvider characterProvider) {
     if (previousCharacterClass != characterProvider.characterClass) {
-      editingHexaStat?.cacheValue = null;
-
       previousCharacterClass = characterProvider.characterClass;
+      
       notifyListeners();
     }
 

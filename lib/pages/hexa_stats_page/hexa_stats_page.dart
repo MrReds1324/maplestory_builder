@@ -135,7 +135,7 @@ class _HexaStatSelector extends StatelessWidget {
           child: MapleTooltip(
             tooltipWidgets: [value.createHexaStatContainer(context)],
             child: Text(
-              value.hexaStatName,
+              "${value.hexaStatName} (${value.selectedStats[1]?.formattedName ?? 'None'})",
               style: Theme.of(context).textTheme.bodyMedium
             ),
           ),

@@ -11,6 +11,7 @@ import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
+import 'package:maplestory_builder/providers/hexa_stats/hexa_stat_editing_provider.dart';
 
 enum CalculationType {
   compareEquipment,
@@ -26,14 +27,17 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   CalculatorProvider diffCalculatorProvider;
   EquipEditingProvider equipEditingProvider;
   FamiliarEditingProvider familiarEditingProvider;
+  HexaStatEditingProvider hexaStatEditingProvider;
   int lastEditingEquipCounter = 0;
   int lastEditingFamiliarCounter = 0;
+  int lastEditingHexaStatCounter = 0;
   Widget differenceWidget = const SizedBox.shrink();
 
   DifferenceCalculatorProvider({
     required this.mainCalculatorProvider,
     required this.equipEditingProvider,
     required this.familiarEditingProvider,
+    required this.hexaStatEditingProvider,
   }) : diffCalculatorProvider = mainCalculatorProvider.copyWith(
     characterProvider: mainCalculatorProvider.characterProvider,
     apStatsProvider: mainCalculatorProvider.apStatsProvider,
@@ -45,21 +49,28 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     legionStatsProvider: mainCalculatorProvider.legionStatsProvider,
     legionArtifactProvider: mainCalculatorProvider.legionArtifactProvider,
     familiarsProvider: mainCalculatorProvider.familiarsProvider,
+    hexaStatsProvider: mainCalculatorProvider.hexaStatsProvider,
   );
 
 
-  DifferenceCalculatorProvider update(CalculatorProvider calculatorProvider, EquipEditingProvider equipEditingProvider, FamiliarEditingProvider familiarEditingProvider) {
+  DifferenceCalculatorProvider update(
+    CalculatorProvider calculatorProvider, 
+    EquipEditingProvider equipEditingProvider, 
+    FamiliarEditingProvider familiarEditingProvider,
+    HexaStatEditingProvider hexaStatEditingProvider,
+  ) {
     // last editing equip counter matches the update counter then means the character provider has updated, trigger an update
     // mainly used for editing equip update
-    if (equipEditingProvider.updateCounter == lastEditingEquipCounter && familiarEditingProvider.updateCounter == lastEditingFamiliarCounter) {
+    if (equipEditingProvider.updateCounter == lastEditingEquipCounter && familiarEditingProvider.updateCounter == lastEditingFamiliarCounter && hexaStatEditingProvider.updateCounter == lastEditingHexaStatCounter) {
       // Only trigger an update to redraw if we are actually editing an equip or familiar, otherwise its wasted cycles
-      if (equipEditingProvider.updateCounter != 0 || familiarEditingProvider.updateCounter != 0) {
+      if (equipEditingProvider.updateCounter != 0 || familiarEditingProvider.updateCounter != 0 || hexaStatEditingProvider.updateCounter != 0) {
         notifyListeners();
       }
     }
     else {
       lastEditingEquipCounter = equipEditingProvider.updateCounter;
       lastEditingFamiliarCounter = familiarEditingProvider.updateCounter;
+      lastEditingHexaStatCounter = hexaStatEditingProvider.updateCounter;
     }
 
     return this;

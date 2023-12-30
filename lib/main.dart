@@ -154,8 +154,8 @@ void main() {
             ),
         ),
         // The main character/calculator provider
-        ChangeNotifierProxyProvider10<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
-        HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, FamiliarsProvider, CalculatorProvider>(
+        ChangeNotifierProxyProvider11<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
+        HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, FamiliarsProvider, HexaStatsProvider, CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
@@ -167,6 +167,7 @@ void main() {
             legionStatsProvider: Provider.of<LegionStatsProvider>(context, listen: false),
             legionArtifactProvider: Provider.of<LegionArtifactProvider>(context, listen: false),
             familiarsProvider: Provider.of<FamiliarsProvider>(context, listen: false),
+            hexaStatsProvider: Provider.of<HexaStatsProvider>(context, listen: false)
           ), 
           update: (
             BuildContext context, 
@@ -180,6 +181,7 @@ void main() {
             LegionStatsProvider legionStatsProvider,
             LegionArtifactProvider legionArtifactProvider,
             FamiliarsProvider familiarsProvider,
+            HexaStatsProvider hexaStatsProvider,
             CalculatorProvider? calculatorProvider
           ) => calculatorProvider?.update(
               characterProvider, 
@@ -191,7 +193,8 @@ void main() {
               equipsProvider,
               legionStatsProvider,
               legionArtifactProvider,
-              familiarsProvider
+              familiarsProvider,
+              hexaStatsProvider,
             ) 
             ?? 
             CalculatorProvider(
@@ -204,28 +207,32 @@ void main() {
               equipsProvider: equipsProvider,
               legionStatsProvider: legionStatsProvider,
               legionArtifactProvider: legionArtifactProvider,
-              familiarsProvider: familiarsProvider
+              familiarsProvider: familiarsProvider,
+              hexaStatsProvider: hexaStatsProvider,
             ),
         ),
         // Difference calculator provider, used to show increases & decreses in stats & range
-        ChangeNotifierProxyProvider3<CalculatorProvider, EquipEditingProvider, FamiliarEditingProvider, DifferenceCalculatorProvider>(            
+        ChangeNotifierProxyProvider4<CalculatorProvider, EquipEditingProvider, FamiliarEditingProvider, HexaStatEditingProvider, DifferenceCalculatorProvider>(            
           create: (BuildContext context) => DifferenceCalculatorProvider(
             mainCalculatorProvider: Provider.of<CalculatorProvider>(context, listen: false),
             equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), 
             familiarEditingProvider: Provider.of<FamiliarEditingProvider>(context, listen: false), 
+            hexaStatEditingProvider: Provider.of<HexaStatEditingProvider>(context, listen: false), 
           ),
           update: (
             BuildContext context, 
             CalculatorProvider calculatorProvider, 
             EquipEditingProvider equipEditingProvider, 
             FamiliarEditingProvider familiarEditingProvider, 
-            DifferenceCalculatorProvider? differenceCalculator
-          ) => differenceCalculator?.update(calculatorProvider, equipEditingProvider, familiarEditingProvider) 
+            HexaStatEditingProvider hexaStatEditingProvider,
+            DifferenceCalculatorProvider? differenceCalculator,
+          ) => differenceCalculator?.update(calculatorProvider, equipEditingProvider, familiarEditingProvider, hexaStatEditingProvider) 
             ?? 
             DifferenceCalculatorProvider(
               mainCalculatorProvider: calculatorProvider,
               equipEditingProvider: equipEditingProvider,
               familiarEditingProvider: familiarEditingProvider,
+              hexaStatEditingProvider: hexaStatEditingProvider,
             ),
         ),
         ChangeNotifierProxyProvider<CalculatorProvider, BreadkdownCalculator>(          

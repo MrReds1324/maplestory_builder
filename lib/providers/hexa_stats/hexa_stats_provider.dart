@@ -65,6 +65,7 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
       }
 
       previousCharacterClass = characterProvider.characterClass;
+      notifyListeners();
     }
 
     return this;
