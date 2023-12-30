@@ -72,7 +72,7 @@ class _HexaStatBuilderContent extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Text(
-                    "Editing Familiar",
+                    "Editing Hexa Stat",
                     style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
