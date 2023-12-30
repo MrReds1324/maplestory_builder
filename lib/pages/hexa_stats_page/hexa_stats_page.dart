@@ -135,7 +135,7 @@ class _HexaStatSelector extends StatelessWidget {
           child: MapleTooltip(
             tooltipWidgets: [value.createHexaStatContainer(context)],
             child: Text(
-              "${value.hexaStatName} (${value.selectedStats[1]?.formattedName ?? 'None'})",
+              "${value.hexaStatName} (${value.selectedStats[1]?.formattedName ?? 'None'} lvl ${value.totalStatLevel}/20)",
               style: Theme.of(context).textTheme.bodyMedium
             ),
           ),
@@ -233,7 +233,10 @@ class _HexaStatInventory extends StatelessWidget {
                         child: ListTile(
                           title: Row(
                             children: [
-                              Text("${allHexaStatList[index].hexaStatName} (${allHexaStatList[index].selectedStats[1]?.formattedName ?? 'None'})"),
+                              Container(
+                                constraints: const BoxConstraints(maxWidth: 260),
+                                child: Text("${allHexaStatList[index].hexaStatName} (${allHexaStatList[index].selectedStats[1]?.formattedName ?? 'None'} lvl ${allHexaStatList[index].totalStatLevel}/20)"),
+                              ),
                               const Spacer(),
                               TextButton(
                                 onPressed: () => hexaStatsprovider.deleteHexaStat(allHexaStatList[index]), 

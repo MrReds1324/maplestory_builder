@@ -91,4 +91,14 @@ class HexaStatsModule implements Copyable {
     cacheValue = hexaStats;
     return hexaStats;
   }
+
+  int? getHexaStatMainStatPosition(HexaStat compareHexaStat) {
+    for (MapEntry<int, int?> equippedHexa in equippedHexaStat.entries) {
+      if (equippedHexa.value != compareHexaStat.hexaStatId && getHexaStatCallback(equippedHexa.value)?.selectedStats[1] == compareHexaStat.selectedStats[1]) {
+        return equippedHexa.key;
+      }
+    }
+
+    return null;
+  }
 }

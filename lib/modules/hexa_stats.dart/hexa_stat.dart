@@ -160,7 +160,7 @@ class HexaStat implements Copyable {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           Text(
-            selectedStats[1]?.formattedName ?? "None",
+            "${selectedStats[1]?.formattedName ?? 'None'} (lvl $totalStatLevel/20)",
             style: Theme.of(context).textTheme.bodyMedium
           ),
           Icon(

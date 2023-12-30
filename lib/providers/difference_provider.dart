@@ -7,6 +7,8 @@ import 'package:maplestory_builder/modules/equipment/equipment_mod.dart';
 import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
+import 'package:maplestory_builder/modules/hexa_stats.dart/hexa_stat.dart';
+import 'package:maplestory_builder/modules/hexa_stats.dart/hexa_stats_mod.dart';
 import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
@@ -17,6 +19,7 @@ enum CalculationType {
   compareEquipment,
   compareEquipmentSet,
   compareFamiliar,
+  compareHexaStat,
   compareStats,
   stats,
 }
@@ -82,6 +85,8 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     Equip? comparingEquip,
     Familiar? replacingFamiliar, 
     Familiar? comparingFamiliar, 
+    HexaStat? replacingHexaStat,
+    HexaStat? comparingHexaStat,
     CalculationType calculationType = CalculationType.stats, 
     bool isDense = false
   }) {
@@ -203,7 +208,22 @@ class DifferenceCalculatorProvider with ChangeNotifier {
         );
       }
     }
-    
+    else if (calculationType == CalculationType.compareHexaStat) {
+      if (replacingHexaStat == null) {
+        editingWidgets.add(
+          const Text(
+            "Equipping: ",
+          )
+        );
+      }
+      else{
+        editingWidgets.add(
+          Text(
+            "Replacing ${replacingHexaStat.hexaStatName}: "
+          )
+        );
+      }
+    }
 
     createText(diffCalculatorProvider.upperDamageRange, mainCalculatorProvider.upperDamageRange, rangeType: RangeType.damageRange);
     createText(diffCalculatorProvider.upperBossDamangeRange, mainCalculatorProvider.upperBossDamangeRange, rangeType: RangeType.bossDamageRange);
@@ -236,6 +256,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
       }
       else {
         return Column(children: editingWidgets + [noDifferenceFamiliar]);
+      }
+    }
+    else if (calculationType == CalculationType.compareHexaStat) {
+      if (textList.isNotEmpty) {
+        return Column(children: editingWidgets + textList);
+      }
+      else {
+        return Column(children: editingWidgets + [noDifferenceHexaStat]);
       }
     }
     else if (calculationType == CalculationType.compareStats) {
@@ -387,14 +415,14 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     bool hasEquipped = false;
     
     if (compareFamiliar != null) {
-      // Save a reference to the equipModule, then replace the target with a copy for destructive calculations
+      // Save a reference to the familiar provider, then replace the target with a copy for destructive calculations
       var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
       diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
       FamiliarModule activeFamiliarModule = diffCalculatorProvider.familiarsProvider.activeFamiliarSet;
       
       // Only need to do this if we are actually editing familiars, otherwise we are comparing an already saved familiar
       if (isEditing) {
-        // Need to register/overwrite the callback to our copied equips provider instance so we can appropriately reverse lookup the editing equip
+        // Need to register/overwrite the callback to our copied familiars provider instance so we can appropriately reverse lookup the editing fammiliar
         activeFamiliarModule.registerFamiliarCallback(diffCalculatorProvider.familiarsProvider.getFamiliarCallback);
 
         diffCalculatorProvider.familiarsProvider.allFamiliars[compareFamiliar.familiarId] = compareFamiliar;
@@ -430,9 +458,67 @@ class DifferenceCalculatorProvider with ChangeNotifier {
   }
 
   Widget? compareEditingFamiliar(BuildContext context) {
-    var test = compareFamiliar(context, familiarEditingProvider.editingFamiliar, isEditing: true, isDense: false);
-    return test;
+    return compareFamiliar(context, familiarEditingProvider.editingFamiliar, isEditing: true, isDense: false);
   }
+
+  Widget? compareHexaStat(BuildContext context, HexaStat? compareHexaStat, {bool isEditing = false, bool isDense = true}) {
+    Widget? widgetReturn;
+
+    List<Widget> widgetChildren = <Widget>[];
+    bool hasEquipped = false;
+    
+    if (compareHexaStat != null) {
+      // Save a reference to the hexa stat provider, then replace the target with a copy for destructive calculations
+      var tempHexaStatsProvider = diffCalculatorProvider.hexaStatsProvider;
+      diffCalculatorProvider.hexaStatsProvider = tempHexaStatsProvider.copyWith();
+      HexaStatsModule activeHexaStatsModule = diffCalculatorProvider.hexaStatsProvider.activeHexaStatsSet;
+      
+      // Only need to do this if we are actually editing familiars, otherwise we are comparing an already saved familiar
+      if (isEditing) {
+        // Need to register/overwrite the callback to our copied hexa stats provider instance so we can appropriately reverse lookup the editing hexa stat
+        activeHexaStatsModule.registerHexaStatCallback(diffCalculatorProvider.hexaStatsProvider.getHexaStatsCallback);
+
+        diffCalculatorProvider.hexaStatsProvider.allHexaStats[compareHexaStat.hexaStatId] = compareHexaStat;
+      }
+
+      var equippedHexaStatPosition = activeHexaStatsModule.getHexaStatPosition(compareHexaStat.hexaStatId);
+      var duplicateMainStatPosition = activeHexaStatsModule.getHexaStatMainStatPosition(compareHexaStat);
+
+      // If we have duplicated main stats then we have to unequip the one we are editing
+      if (duplicateMainStatPosition != null && equippedHexaStatPosition != null) {
+        activeHexaStatsModule.equippedHexaStat[equippedHexaStatPosition] = null;
+      }
+
+      for (int i = 1; i <=6; i++) {
+        var tempHexaStat = activeHexaStatsModule.getSelectedHexaStat(i);
+        if ((equippedHexaStatPosition == i || duplicateMainStatPosition == i) || (equippedHexaStatPosition == null && duplicateMainStatPosition == null && (!hasEquipped || tempHexaStat != null))) {
+          if (tempHexaStat == null) {
+            hasEquipped = true;
+          }
+          diffCalculatorProvider.hexaStatsProvider.equipHexaStat(compareHexaStat, i);
+          diffCalculatorProvider.calculateEverything(recalculateCache: true);
+          widgetChildren.add(updateDifferenceText(context: context, replacingHexaStat: tempHexaStat, comparingHexaStat: compareHexaStat, calculationType: CalculationType.compareHexaStat, isDense: isDense));
+          diffCalculatorProvider.hexaStatsProvider.equipHexaStat(tempHexaStat, i);
+        }
+      }
+
+      widgetReturn = Column(children: widgetChildren);
+      diffCalculatorProvider.hexaStatsProvider = tempHexaStatsProvider;
+    }
+
+    if (isEditing) {
+      return widgetReturn;
+    }
+    else {
+      differenceWidget = widgetReturn ?? const SizedBox.shrink();
+      notifyListeners();
+      return null;
+    }
+  }
+
+  Widget? compareEditingHexaStat(BuildContext context) {
+    return compareHexaStat(context, hexaStatEditingProvider.editingHexaStat, isEditing: true, isDense: false);
+  } 
 
   // SET COMPARISON FUNCTIONS
   // ---------------------------------------------------------------------------------------------------------------------------------
@@ -646,6 +732,11 @@ const Text noDifferenceEquip = Text(
 
 const Text noDifferenceFamiliar = Text(
   "NO DIFFERENCE IN FAMILIAR",
+  style: TextStyle(color: Colors.greenAccent),
+);
+
+const Text noDifferenceHexaStat= Text(
+  "NO DIFFERENCE IN HEXA STAT",
   style: TextStyle(color: Colors.greenAccent),
 );
 

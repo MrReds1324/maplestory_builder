@@ -145,7 +145,7 @@ class _HexaStatComparisonWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 13),
                 child: Consumer2<HexaStatEditingProvider, DifferenceCalculatorProvider>(
                   builder: (_, hexaStatEditingProvider, differenceCalculatorProvider, __) {
-                    return differenceCalculatorProvider.compareEditingFamiliar(context) 
+                    return differenceCalculatorProvider.compareEditingHexaStat(context) 
                     ?? 
                     const Text(
                       "NOT CURRENTLY EDITING HEXA STAT",

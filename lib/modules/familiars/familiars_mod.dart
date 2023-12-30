@@ -23,11 +23,11 @@ class FamiliarModule implements Copyable {
 
   @override
   FamiliarModule copyWith({
-    Map<int, int?>? equippedHexaStat,
+    Map<int, int?>? equippedFamiliars,
     Familiar? Function(int?)? getFamiliarCallback,
   }) {
     return FamiliarModule(
-      equippedFamiliars: equippedHexaStat ?? Map.from(this.equippedFamiliars),
+      equippedFamiliars: equippedFamiliars ?? Map.from(this.equippedFamiliars),
       getFamiliarCallback: getFamiliarCallback ?? this.getFamiliarCallback,
     );
   }
