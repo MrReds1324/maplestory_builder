@@ -58,17 +58,25 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        // Editing providers
-        ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
-        ChangeNotifierProvider<LegionCharacterEditingProvider>(create: (_) => LegionCharacterEditingProvider()),
-        ChangeNotifierProvider<FamiliarEditingProvider>(create: (_) => FamiliarEditingProvider()),
-        ChangeNotifierProvider<HexaStatEditingProvider>(create: (_) => HexaStatEditingProvider()),
         // Stat giving providers
         ChangeNotifierProvider(create: (_) => CharacterProvider()),
         ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
         ChangeNotifierProvider<FamiliarsProvider>(create: (_) => FamiliarsProvider()),
-        ChangeNotifierProvider<HexaStatsProvider>(create: (_) => HexaStatsProvider()),
+        ChangeNotifierProxyProvider<CharacterProvider, HexaStatsProvider>(
+          create: (BuildContext context) => HexaStatsProvider(
+            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
+          ),
+          update: (
+            BuildContext context, 
+            CharacterProvider characterProvider, 
+            HexaStatsProvider? hexaStatsProvider
+          ) => hexaStatsProvider?.update(characterProvider) 
+            ??
+            HexaStatsProvider(
+              characterProvider: characterProvider
+            ),
+        ),
         ChangeNotifierProxyProvider<CharacterProvider, APStatsProvider>(
           create: (BuildContext context) => APStatsProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false)
@@ -127,6 +135,24 @@ void main() {
             ),
         ),
         ChangeNotifierProvider<LegionArtifactProvider>(create: (_) => LegionArtifactProvider()),
+        // Editing providers
+        ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
+        ChangeNotifierProvider<LegionCharacterEditingProvider>(create: (_) => LegionCharacterEditingProvider()),
+        ChangeNotifierProvider<FamiliarEditingProvider>(create: (_) => FamiliarEditingProvider()),
+        ChangeNotifierProxyProvider<CharacterProvider, HexaStatEditingProvider>(
+          create: (BuildContext context) => HexaStatEditingProvider(
+            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
+          ),
+          update: (
+            BuildContext context, 
+            CharacterProvider characterProvider, 
+            HexaStatEditingProvider? hexaStatEditingProvider
+          ) => hexaStatEditingProvider?.update(characterProvider) 
+            ??
+            HexaStatEditingProvider(
+              characterProvider: characterProvider
+            ),
+        ),
         // The main character/calculator provider
         ChangeNotifierProxyProvider10<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
         HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, FamiliarsProvider, CalculatorProvider>(

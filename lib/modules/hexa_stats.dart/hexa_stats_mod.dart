@@ -1,3 +1,4 @@
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/hexa_stats.dart/hexa_stat.dart';
@@ -60,7 +61,7 @@ class HexaStatsModule implements Copyable {
     return null;
   }
 
-  Map<StatType, num> calculateStats() {
+  Map<StatType, num> calculateStats(CharacterClass characterClass) {
     if (cacheValue != null) {
       return cacheValue!;
     }
@@ -72,7 +73,7 @@ class HexaStatsModule implements Copyable {
         return;
       }
       else {
-        for (MapEntry<StatType, num> hexaStatStats in hexaStat.calculateStats().entries) {
+        for (MapEntry<StatType, num> hexaStatStats in hexaStat.calculateStats(characterClass).entries) {
           switch(hexaStatStats.key) {
             case StatType.ignoreDefense:
               hexaStats[hexaStatStats.key] = calculateIgnoreDefense((hexaStats[hexaStatStats.key] ?? 0), hexaStatStats.value);

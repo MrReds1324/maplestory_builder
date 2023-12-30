@@ -191,7 +191,9 @@ enum StatType {
   summonDuration(formattedName: "Summon Duration", isPercentage: true),
   mastery(formattedName: "Mastery", isPercentage: true),
   finalAttackSkillDamage(formattedName: "Final Attack-Type Skill Damage", isPercentage: true),
-  autoStealChance(formattedName: "Chance to Auto Steal", isPercentage: true)
+  autoStealChance(formattedName: "Chance to Auto Steal", isPercentage: true),
+  mainStat(formattedName: "Main Stat"), // This will be replaced, mainly for ease of use in things like hexa matrix and skills
+  mainAttack(formattedName: "Main Attack"), // Same as main stat
   ;
 
   const StatType({

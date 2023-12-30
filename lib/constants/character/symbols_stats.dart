@@ -21,13 +21,13 @@ enum ArcaneSymbol {
   static const levelOtherArcaneForce = 10;
   // https://maplestory.fandom.com/wiki/Arcane_Symbol:_Vanishing_Journey
   static const Map<CharacterClass, Map<StatType, int>> level1Stats = {
-    CharacterClass.beginner: {StatType.allStats: 300}, // Note that this is not real - maps all other classes to their main stat value
-    CharacterClass.xenon: {StatType.finalStr: 144, StatType.finalDex: 144, StatType.finalLuk: 144},
+    CharacterClass.beginner: {StatType.mainStat: 300}, // Note that this is not real - maps all other classes to their main stat value
+    CharacterClass.xenon: {StatType.finalStrDexLuk: 144},
     CharacterClass.demonAvenger: {StatType.finalHp: 6300},
   };
   static const Map<CharacterClass, Map<StatType, int>> levelOtherStats = {
-    CharacterClass.beginner: {StatType.allStats: 100}, // Note that this is not real - maps all other classes to their main stat value
-    CharacterClass.xenon: {StatType.finalStr: 48, StatType.finalDex: 48, StatType.finalLuk: 48},
+    CharacterClass.beginner: {StatType.mainStat: 100}, // Note that this is not real - maps all other classes to their main stat value
+    CharacterClass.xenon: {StatType.finalStrDexLuk: 48},
     CharacterClass.demonAvenger: {StatType.finalHp: 2100},
   };
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/hexa_stats/hexa_stats.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:maplestory_builder/providers/character/character_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 // ignore: constant_identifier_names
 const int MAX_HEXA_STAT_LEVEL = 20;
@@ -12,7 +15,6 @@ const int MAX_SINGLE_HEXA_STAT_LEVEL = 10;
 
 class HexaStat implements Copyable {
   
-  HexaStatType? hexaStatType;
   Map<int, StatType?> selectedStats;
   Map<int, int> statLevels;
   String hexaStatName;
@@ -21,7 +23,6 @@ class HexaStat implements Copyable {
   Map<StatType, num>? cacheValue;
 
   HexaStat({
-    this.hexaStatType,
     Map<int, StatType?>? selectedStats,
     Map<int, int>? statLevels,
     this.hexaStatName = "",
@@ -43,14 +44,12 @@ class HexaStat implements Copyable {
 
   @override
   HexaStat copyWith({
-    HexaStatType? hexaStatType,
     Map<int, StatType?>? selectedStats,
     Map<int, int>? statLevels,
     String? hexaStatName,
     int? hexaStatId,
   }) {
     return HexaStat(
-      hexaStatType: hexaStatType ?? this.hexaStatType,
       selectedStats: selectedStats ?? Map.of(this.selectedStats),
       statLevels: statLevels ?? Map.of(this.statLevels),
       hexaStatName: hexaStatName ?? this.hexaStatName,
@@ -58,7 +57,7 @@ class HexaStat implements Copyable {
     );
   }
 
-  Map<StatType, num> calculateStats() {
+  Map<StatType, num> calculateStats(CharacterClass characterClass) {
     if (cacheValue != null) {
       return cacheValue!;
     }
@@ -67,7 +66,8 @@ class HexaStat implements Copyable {
 
     for (MapEntry<int, StatType?> selectedStat in selectedStats.entries) {
       if (selectedStat.value != null) {
-        hexaStatStats[selectedStat.value!] = _calculateStatLine(selectedStat.key, selectedStat.value!);
+        var statToAdd = _calculateStatLine(selectedStat.key, selectedStat.value!, characterClass);
+        hexaStatStats[statToAdd.$1] = statToAdd.$2;
       }
     }
 
@@ -75,27 +75,54 @@ class HexaStat implements Copyable {
     return hexaStatStats;
   }
 
-  num _calculateStatLine(int statPosition, StatType statType) {
-    var statValue = (hexaStatType?.statIncrement[statType]! ?? 0) * (statLevels[statPosition] ?? 0);
-    if (statPosition == 1) {
-      return statValue * 2;
-    }
-    else {
-      return statValue;
-    } 
-  }
+  (StatType, num) _calculateStatLine(int statPosition, StatType statType, CharacterClass characterClass) {
+    StatType convertedStatType;
+    num statIncrement;
 
-  void updateHexaStatType(HexaStatType? newHexaStatType) {
-    if (hexaStatType != newHexaStatType) {
-      statLevels = {
-        1: 0,
-        2: 0,
-        3: 0,
-      };
-      hexaStatType = newHexaStatType;
+    switch(statType) {  
+      case StatType.mainStat:
+        switch(characterClass) {
+          case CharacterClass.demonAvenger:
+            convertedStatType = StatType.finalHp;
+            statIncrement = HEXA_STAT_INCREMENTS[convertedStatType]!;
+          case CharacterClass.xenon:
+            convertedStatType = StatType.finalStrDexLuk;
+            statIncrement = HEXA_STAT_INCREMENTS[convertedStatType]!;
+          default:
+            // Figure out the main stat
+            var mainStat = determinePrimaryStat(characterClass.calculationStats);
+            
+            switch(mainStat) {
+              case StatType.str:
+                convertedStatType = StatType.finalStr;
+              case StatType.dex:
+                convertedStatType = StatType.finalDex;
+              case StatType.int:
+                convertedStatType = StatType.finalInt;
+              case StatType.luk:
+                convertedStatType = StatType.finalLuk;
+              default:
+                throw Exception("Main Stat is not a valid Stat Type");                
+            }
+            statIncrement = HEXA_STAT_INCREMENTS[statType]!;
+        }
+      case StatType.mainAttack:
+        switch(characterClass.classType) {
+          case ClassType.bowman:
+          case ClassType.pirate:
+          case ClassType.warrior:
+          case ClassType.xenon:
+            convertedStatType = StatType.attack;
+          default:
+            convertedStatType = StatType.mattack;
+        }
+        statIncrement = HEXA_STAT_INCREMENTS[statType]!;
+      default:
+        convertedStatType = statType;
+        statIncrement = HEXA_STAT_INCREMENTS[convertedStatType]!;
     }
-
-    cacheValue = null;
+    
+    return (convertedStatType, statIncrement * (statLevels[statPosition] ?? 0) * (statPosition == 1 ? 2 : 1));
   }
 
   bool updateStatSelection(int statPosition, StatType? statType) {
@@ -146,7 +173,7 @@ class HexaStat implements Copyable {
           ),
           Center(
             child: Text(
-              hexaStatType?.formattedName ?? "None",
+              selectedStats[1]?.formattedName ?? "None",
               style: Theme.of(context).textTheme.bodyMedium
             ),
           ),
@@ -154,7 +181,7 @@ class HexaStat implements Copyable {
             child: Icon(
               MdiIcons.hexagonSlice6,
               size: 100,
-              color: hexaStatType != null ? Colors.lightBlueAccent : Colors.redAccent,
+              color: selectedStats[1] != null ? Colors.lightBlueAccent : Colors.redAccent,
             ),
           ),
           Center(
@@ -169,20 +196,18 @@ class HexaStat implements Copyable {
     List<Widget> childrenWidgets = [];
 
     void addHexaStatLine(MapEntry<int, StatType?> hexaStatLine) {
-      var valueToDisplay = hexaStatLine.value != null ? _calculateStatLine(hexaStatLine.key, hexaStatLine.value!) : 0;
+      (StatType?, num) valueToDisplay = hexaStatLine.value != null ? _calculateStatLine(hexaStatLine.key, hexaStatLine.value!, context.read<CharacterProvider>().characterClass) : (null, 0);
 
       childrenWidgets.add(
         Text(
-          "${hexaStatLine.key == 1 ? 'Primary' : 'Secondary'} (${hexaStatLine.value?.formattedName ?? 'Nothing'} - Level ${statLevels[hexaStatLine.key]}/10): +${hexaStatLine.value?.isPercentage ?? false ? doublePercentFormater.format(valueToDisplay) : valueToDisplay}",
+          "${hexaStatLine.key == 1 ? 'Main' : 'Additional'} Stat (${valueToDisplay.$1?.formattedName ?? 'Nothing'} - lvl ${statLevels[hexaStatLine.key]}/10): +${valueToDisplay.$1?.isPercentage ?? false ? doublePercentFormater.format(valueToDisplay.$2) : valueToDisplay.$2}",
           style: Theme.of(context).textTheme.bodyMedium
         ),
       );
     }
 
-    if (hexaStatType != null) {
-      for (MapEntry<int, StatType?> hexaStatLine in selectedStats.entries) {
-        addHexaStatLine(hexaStatLine);
-      }
+    for (MapEntry<int, StatType?> hexaStatLine in selectedStats.entries) {
+      addHexaStatLine(hexaStatLine);
     }
 
     return Container(

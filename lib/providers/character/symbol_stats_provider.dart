@@ -127,8 +127,8 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
             throw Exception("Main Stat is not a valid Stat Type");                
         }
 
-        level1Stats[convertedStatType] = level1Target[CharacterClass.beginner]![StatType.allStats]!;
-        levelOtherStats[convertedStatType] = levelOtherTarget[CharacterClass.beginner]![StatType.allStats]!;
+        level1Stats[convertedStatType] = level1Target[CharacterClass.beginner]![StatType.mainStat]!;
+        levelOtherStats[convertedStatType] = levelOtherTarget[CharacterClass.beginner]![StatType.mainStat]!;
     }
 
     return returnValue;

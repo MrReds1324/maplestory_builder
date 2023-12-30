@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/hexa_stats/hexa_stats.dart';
 import 'package:maplestory_builder/modules/hexa_stats.dart/hexa_stat.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
@@ -97,15 +96,6 @@ class _HexaStatSelector extends StatelessWidget {
     required this.hexaStatPosition,
   });
 
-  HexaStatType? _getHexaStatType() {
-    switch(hexaStatPosition) {
-      case 1:
-        return HexaStatType.hexaStat1;
-      default:
-        return null;
-    }
-  }
-
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, HexaStatsProvider hexaStatsProvider) {
     // Always add a default null selector to the list
     List<DropdownMenuItem<HexaStat>> dropdownItems = [
@@ -118,29 +108,24 @@ class _HexaStatSelector extends StatelessWidget {
       )
     ];
 
-    var hexaStatType = _getHexaStatType();
-
     List<HexaStat> filteredList = <HexaStat>[];
-    if (hexaStatType != null) {
-      // We can only have one of badge of each, filter out already used ones here
-      hexaStatFilterloop:
-      for(HexaStat hexaStat in hexaStatsProvider.allHexaStats.values) { 
-        // Stops us from being able to select hexa stat cores that are not for this position
-        if (hexaStat.hexaStatType != hexaStatType) {
+    // We can only have one hexa stat of each main type, filter out already used ones here
+    hexaStatFilterloop:
+    for(HexaStat hexaStat in hexaStatsProvider.allHexaStats.values) { 
+      // Stops us from being able to select multiple of a single hexa stat
+      for (MapEntry<int, int?> equippedHexaStat in hexaStatsProvider.activeHexaStatsSet.equippedHexaStat.entries) {
+        if (equippedHexaStat.key == hexaStatPosition) {
+          continue;
+        }
+        else if (hexaStat.hexaStatId == equippedHexaStat.value) {
           continue hexaStatFilterloop;
         }
-        // Stops us from being able to select multiple of a single hexa stat
-        for (MapEntry<int, int?> equippedHexaStat in hexaStatsProvider.activeHexaStatsSet.equippedHexaStat.entries) {
-          if (equippedHexaStat.key == hexaStatPosition) {
-            continue;
-          }
-          else if (hexaStat.hexaStatId == equippedHexaStat.value) {
-            continue hexaStatFilterloop;
-          }
+        else if (hexaStat.selectedStats[1] == hexaStatsProvider.allHexaStats[equippedHexaStat.value]?.selectedStats[1]) {
+          continue hexaStatFilterloop;
         }
-        
-        filteredList.add(hexaStat);
       }
+      
+      filteredList.add(hexaStat);
     }
 
     dropdownItems.addAll(
@@ -248,7 +233,7 @@ class _HexaStatInventory extends StatelessWidget {
                         child: ListTile(
                           title: Row(
                             children: [
-                              Text("${allHexaStatList[index].hexaStatName} (${allHexaStatList[index].hexaStatType?.formattedName ?? 'None'})"),
+                              Text("${allHexaStatList[index].hexaStatName} (${allHexaStatList[index].selectedStats[1]?.formattedName ?? 'None'})"),
                               const Spacer(),
                               TextButton(
                                 onPressed: () => hexaStatsprovider.deleteHexaStat(allHexaStatList[index]), 
@@ -297,7 +282,7 @@ class _HexaStatStatsListView extends StatelessWidget {
             ),
             child: Consumer<HexaStatsProvider>(
               builder: (context, hexaStatsProvider, child) {
-                var selectedStats = hexaStatsProvider.activeHexaStatsSet.calculateStats().entries.toList();
+                var selectedStats = hexaStatsProvider.calculateStats().entries.toList();
                 return ListView.builder(
                   padding: const EdgeInsets.only(right: 8),
                   itemCount: selectedStats.length,

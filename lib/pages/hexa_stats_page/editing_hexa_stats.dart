@@ -45,7 +45,7 @@ class HexaStatBuilder extends StatelessWidget {
                 ),
               ],
             ),
-            const _FamiliarBuilderContent()
+            const _HexaStatBuilderContent()
           ]
         ),
       ),
@@ -53,9 +53,9 @@ class HexaStatBuilder extends StatelessWidget {
   }
 }
 
-class _FamiliarBuilderContent extends StatelessWidget {
+class _HexaStatBuilderContent extends StatelessWidget {
 
-  const _FamiliarBuilderContent();
+  const _HexaStatBuilderContent();
 
   @override
   Widget build(BuildContext context) {
@@ -77,42 +77,35 @@ class _FamiliarBuilderContent extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Consumer<HexaStatEditingProvider>(
-                        builder: (_, hexaStatEditingProvider, __) {
-                          return hexaStatEditingProvider.editingHexaStat?.createHexaStatContainer(context) 
-                          ?? Container(
-                            width: 300,
-                            padding: const EdgeInsets.all(2.5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    "-No Hexa Stat-", 
-                                    style: Theme.of(context).textTheme.headlineSmall,
-                                  )
-                                ),
-                                Center(
-                                  child: Icon(
-                                    MdiIcons.hexagonSlice6,
-                                    size: 100,
-                                    color: missingColor,
-                                  ),
-                                ),
-                              ],
+                Consumer<HexaStatEditingProvider>(
+                  builder: (_, hexaStatEditingProvider, __) {
+                    return hexaStatEditingProvider.editingHexaStat?.createHexaStatContainer(context) 
+                    ?? Container(
+                      width: 300,
+                      padding: const EdgeInsets.all(2.5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Text(
+                              "-No Hexa Stat-", 
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            )
+                          ),
+                          Center(
+                            child: Icon(
+                              MdiIcons.hexagonSlice6,
+                              size: 100,
+                              color: missingColor,
                             ),
-                          );
-                        }
+                          ),
+                        ],
                       ),
-                      const _HexaStatNameInput(),
-                      const _HexaStatTypeDropdown(),
-                      const _PotentialInput(),  
-                    ],
-                  ),
+                    );
+                  }
                 ),
+                const _HexaStatNameInput(),
+                const _HexaStatInput(),  
               ],
             ),
           ),
@@ -171,9 +164,9 @@ class _HexaStatComparisonWidget extends StatelessWidget {
   }
 }
 
-class _PotentialInput extends StatelessWidget {
+class _HexaStatInput extends StatelessWidget {
 
-  const _PotentialInput();
+  const _HexaStatInput();
 
   @override
   Widget build(BuildContext context) {
@@ -191,70 +184,6 @@ class _PotentialInput extends StatelessWidget {
             SizedBox(height: 5),
             _HexaStatStatCell(statPosition: 3)
           ]
-        ),
-      ]
-    );
-  }
-}
-
-class _HexaStatTypeDropdown extends StatelessWidget {
-
-  const _HexaStatTypeDropdown();
-
-  List<DropdownMenuItem<HexaStatType>> getDropdownHexaStatTypeList(BuildContext context) {
-    List<DropdownMenuItem<HexaStatType>> dropdownItems = [
-      // Always add a default null selector to the list
-      DropdownMenuItem(
-        value: null,
-        child: Text(
-          'None',
-          style: Theme.of(context).textTheme.bodyMedium
-        ),
-      )
-    ];
-
-    dropdownItems.addAll(
-      HexaStatType.values.map((value) {
-        return DropdownMenuItem(
-          value: value,
-          child: Text(
-            value.formattedName,
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-        );
-      }).toList()
-    );
-
-    return dropdownItems;
-  }
-
-  HexaStatType? getSelectedHexaStatType(HexaStat? editingHexaStat) {
-    return editingHexaStat?.hexaStatType;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return  Row(
-      children: [
-        const Text(
-          "Type: "
-        ),
-        SizedBox(
-          width: 277,
-          child: Consumer<HexaStatEditingProvider>(
-            builder: (context, hexaStatEditingProvider, child) {
-              return DropdownButton(
-                alignment: AlignmentDirectional.center,
-                isDense: true,
-                isExpanded: true,
-                value: getSelectedHexaStatType(hexaStatEditingProvider.editingHexaStat),
-                onChanged: hexaStatEditingProvider.isEditing ? (HexaStatType? newValue) {
-                  hexaStatEditingProvider.updateHexaStatType(newValue);
-                } : null,
-                items: getDropdownHexaStatTypeList(context)
-              );
-            }
-          ),
         ),
       ]
     );
@@ -281,7 +210,7 @@ class _HexaStatStatCell extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(
-            "${statPosition == 1 ? 'Primary' : 'Secondary'} Stat"
+            "${statPosition == 1 ? 'Main' : 'Additional'} Stat"
           ),
           Container(
             height: 37,
@@ -343,37 +272,34 @@ class _StatTypeDropdown extends StatelessWidget {
       )
     ];
 
-    if (editingHexaStat?.hexaStatType != null) {
-
-      List<StatType> filteredList = [];
-      // We can only have one of the stat types per hexa stat, filter out any ones already used here
-      flameFilterloop:
-      for(StatType statType in (editingHexaStat?.hexaStatType?.statIncrement.keys ?? [])) { 
-        // Stops us from being able to select multiple of a single stat type
-        for (MapEntry<int, StatType?> editingStatType in (editingHexaStat?.selectedStats.entries ?? {})) {
-          if (editingStatType.key == statPosition) {
-            continue;
-          }
-          else if (statType == editingStatType.value) {
-            continue flameFilterloop;
-          }
+    List<StatType> filteredList = [];
+    // We can only have one of the stat types per hexa stat, filter out any ones already used here
+    flameFilterloop:
+    for(StatType statType in AVAILABLE_HEXA_STAT_STATS) { 
+      // Stops us from being able to select multiple of a single stat type
+      for (MapEntry<int, StatType?> editingStatType in (editingHexaStat?.selectedStats.entries ?? {})) {
+        if (editingStatType.key == statPosition) {
+          continue;
         }
-        
-        filteredList.add(statType);
+        else if (statType == editingStatType.value) {
+          continue flameFilterloop;
+        }
       }
-
-      dropdownItems.addAll(
-        filteredList.map((value) {
-          return DropdownMenuItem(
-            value: value,
-            child: Text(
-              value.formattedName,
-              style: Theme.of(context).textTheme.bodyMedium
-            ),
-          );
-        }).toList()
-      );
+      
+      filteredList.add(statType);
     }
+
+    dropdownItems.addAll(
+      filteredList.map((value) {
+        return DropdownMenuItem(
+          value: value,
+          child: Text(
+            value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium
+          ),
+        );
+      }).toList()
+    );
 
     return dropdownItems;
   }
@@ -460,14 +386,14 @@ class _HexaStatNameInput extends StatelessWidget {
         SizedBox(
           width: 215,
           child: 
-          Selector<FamiliarEditingProvider, bool>(
-            selector: (_, familiarEditingProvider) => familiarEditingProvider.isEditing,
+          Selector<HexaStatEditingProvider, bool>(
+            selector: (_, hexaStatEditingProvider) => hexaStatEditingProvider.isEditing,
             builder: (context, isEnabled, child) {
               return TextField(
                 style: Theme.of(context).textTheme.bodyMedium,
                 enabled: isEnabled,
-                controller: context.read<FamiliarEditingProvider>().textController,
-                onChanged: (value) => context.read<FamiliarEditingProvider>().updateFamiliarName(value.isNotEmpty ? value : ""),
+                controller: context.read<HexaStatEditingProvider>().textController,
+                onChanged: (value) => context.read<HexaStatEditingProvider>().updateHexaStatName(value.isNotEmpty ? value : ""),
                 decoration: const InputDecoration(
                   isDense: true
                 ),
