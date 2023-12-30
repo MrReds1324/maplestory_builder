@@ -573,30 +573,6 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void compareFamiliarSets(BuildContext context, int newFamiliarSetNumber) {
-    var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
-    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
-    diffCalculatorProvider.familiarsProvider.changeActiveFamiliarSet(newFamiliarSetNumber);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
-
-    // Reset the hyper stats provider for the diff character model
-    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
-    notifyListeners();
-  }
-
-  void compareBadgeSets(BuildContext context, int newBadgeSetNumber) {
-    var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
-    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
-    diffCalculatorProvider.familiarsProvider.changeActiveBadgeSet(newBadgeSetNumber);
-    diffCalculatorProvider.calculateEverything(recalculateCache: true);
-    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
-
-    // Reset the hyper stats provider for the diff character model
-    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
-    notifyListeners();
-  }
-
   void compareInnerAbilitySets(BuildContext context, int newInnerAbilitySetNumber) {
     var tempInnerAbilityProvider = diffCalculatorProvider.innerAbilityProvider;
     diffCalculatorProvider.innerAbilityProvider = tempInnerAbilityProvider.copyWith();
@@ -630,6 +606,42 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
     // Reset the legion provider for the diff character model
     diffCalculatorProvider.legionArtifactProvider = tempLegionArtifactProvider;
+    notifyListeners();
+  }
+
+void compareBadgeSets(BuildContext context, int newBadgeSetNumber) {
+    var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
+    diffCalculatorProvider.familiarsProvider.changeActiveBadgeSet(newBadgeSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the familiar stats provider for the diff character model
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
+    notifyListeners();
+  }
+
+  void compareFamiliarSets(BuildContext context, int newFamiliarSetNumber) {
+    var tempFamiliarsProvider = diffCalculatorProvider.familiarsProvider;
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider.copyWith();
+    diffCalculatorProvider.familiarsProvider.changeActiveFamiliarSet(newFamiliarSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the familiar stats provider for the diff character model
+    diffCalculatorProvider.familiarsProvider = tempFamiliarsProvider;
+    notifyListeners();
+  }
+
+  void compareHexaStatSets(BuildContext context, int newHexaStatSetNumber) {
+    var tempHexaStatsProvider = diffCalculatorProvider.hexaStatsProvider;
+    diffCalculatorProvider.hexaStatsProvider = tempHexaStatsProvider.copyWith();
+    diffCalculatorProvider.hexaStatsProvider.changeActiveSet(newHexaStatSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the hexa stats provider for the diff character model
+    diffCalculatorProvider.hexaStatsProvider = tempHexaStatsProvider;
     notifyListeners();
   }
 

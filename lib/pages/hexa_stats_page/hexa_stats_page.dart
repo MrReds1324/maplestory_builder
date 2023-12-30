@@ -5,7 +5,6 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/hexa_stats_page/editing_hexa_stats.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:maplestory_builder/providers/hexa_stats/hexa_stat_editing_provider.dart';
 import 'package:maplestory_builder/providers/hexa_stats/hexa_stats_provider.dart';
 import 'package:provider/provider.dart';
@@ -59,10 +58,10 @@ class EquippedHexaStats extends StatelessWidget {
           "Equipped Hexa Stats",
           style: Theme.of(context).textTheme.headlineMedium
         ),
-        SetSelectButtonRow<FamiliarsProvider>(
-          onHoverFunction: context.read<DifferenceCalculatorProvider>().compareFamiliarSets,
-          onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveFamiliarSet(setPosition),
-          selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeFamiliarSetNumber,
+        SetSelectButtonRow<HexaStatsProvider>(
+          onHoverFunction: context.read<DifferenceCalculatorProvider>().compareHexaStatSets,
+          onPressed: (int setPosition) => context.read<HexaStatsProvider>().changeActiveSet(setPosition),
+          selectorFunction: (BuildContext context, HexaStatsProvider hexaStatsProvider) => hexaStatsProvider.activeHexaStatsSetNumber,
         ),      
         const _HexaStatSelector(
           hexaStatPosition: 1,
