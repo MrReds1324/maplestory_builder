@@ -9,6 +9,33 @@ class HexaStatsModule implements Copyable {
   Map<int, int?> equippedHexaStat;
   HexaStat? Function(int? hexaStatId) getHexaStatCallback;
 
+  Map<StatType, (int, Set<int?>)> get additionalStatCount {
+    Map<StatType, (int, Set<int?>)> additionalStatCount = {};
+
+    (int, Set<int?>) buildContainer(StatType selectedStatType, int? hexaStatPosition) {
+      var target = additionalStatCount[selectedStatType];
+      if (target != null) {
+        return (target.$1 + 1, target.$2..add(hexaStatPosition));
+      }
+      else {
+        return (1, {hexaStatPosition});
+      }
+    }
+
+    for (MapEntry<int, int?> equippedHexa in equippedHexaStat.entries) {
+      var hexaStat = getHexaStatCallback(equippedHexa.value);
+      if (hexaStat != null) {
+        for (StatType? selectedStat in [hexaStat.selectedStats[2], hexaStat.selectedStats[3]]) {
+          if (selectedStat != null) {
+            additionalStatCount[selectedStat] = buildContainer(selectedStat, equippedHexa.key);
+          }
+        }
+      }
+    }
+
+    return additionalStatCount;
+  }
+
   Map<StatType, num>? cacheValue;
 
   HexaStatsModule({

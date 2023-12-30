@@ -109,6 +109,7 @@ class _HexaStatSelector extends StatelessWidget {
     ];
 
     List<HexaStat> filteredList = <HexaStat>[];
+    var additionalStatCount = hexaStatsProvider.activeHexaStatsSet.additionalStatCount;
     // We can only have one hexa stat of each main type, filter out already used ones here
     hexaStatFilterloop:
     for(HexaStat hexaStat in hexaStatsProvider.allHexaStats.values) { 
@@ -121,6 +122,11 @@ class _HexaStatSelector extends StatelessWidget {
           continue hexaStatFilterloop;
         }
         else if (hexaStat.selectedStats[1] == hexaStatsProvider.allHexaStats[equippedHexaStat.value]?.selectedStats[1]) {
+          continue hexaStatFilterloop;
+        }
+        else if ((additionalStatCount[hexaStat.selectedStats[2]]?.$1 == 2 && !(additionalStatCount[hexaStat.selectedStats[2]]?.$2.contains(hexaStatPosition) ?? true)) 
+          || (additionalStatCount[hexaStat.selectedStats[3]]?.$1 == 2 && !(additionalStatCount[hexaStat.selectedStats[3]]?.$2.contains(hexaStatPosition) ?? true))
+          ) {
           continue hexaStatFilterloop;
         }
       }
@@ -187,7 +193,7 @@ class _HexaStatInventory extends StatelessWidget {
 
  Function _curriedOnHover(HexaStat hexaStat) {
     return (BuildContext context) {
-      // return context.read<DifferenceCalculatorProvider>().compareFamiliar(context, hexaStat);
+      return context.read<DifferenceCalculatorProvider>().compareHexaStat(context, hexaStat);
     };
   }
 
@@ -294,8 +300,8 @@ class _HexaStatStatsListView extends StatelessWidget {
                     return ListTile(
                       title: Row(
                         children: [
-                          SizedBox(
-                            width: 100,
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 150),
                             child: Text(
                               selectedStats[index].key.formattedName,
                               style: Theme.of(context).textTheme.bodyMedium,

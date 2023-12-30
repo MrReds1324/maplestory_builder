@@ -109,12 +109,25 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
 
         int editingHexaStatPosition = 0;
         bool doesNeedRemoving = false;
+        // Check the main stat first
         for (MapEntry<int, int?> equippedHexaStat in hexaStatsModule.equippedHexaStat.entries) {
           if (equippedHexaStat.value == editingHexaStat.hexaStatId) {
             editingHexaStatPosition = equippedHexaStat.key;
           }
           else if (allHexaStats[equippedHexaStat.value]?.selectedStats[1] == editingHexaStat.selectedStats[1]) {
             doesNeedRemoving = true;
+            break;
+          }
+        }
+        
+        // If we do not violate the main stat, check the secondary stat
+        if (!doesNeedRemoving) {
+          var additionalStatCount = hexaStatsModule.additionalStatCount;
+          for (StatType? selectedAdditionalStat in [editingHexaStat.selectedStats[2], editingHexaStat.selectedStats[3]]) {
+            if (additionalStatCount[selectedAdditionalStat] != null && additionalStatCount[selectedAdditionalStat]!.$1 > 2 && additionalStatCount[selectedAdditionalStat]!.$2.contains(editingHexaStatPosition)) {
+              doesNeedRemoving = true;
+              break;
+            }
           }
         }
 

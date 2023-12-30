@@ -191,6 +191,7 @@ class HexaStat implements Copyable {
               "${valueToDisplay.$1?.formattedName ?? 'Nothing'}: +${valueToDisplay.$1?.isPercentage ?? false ? doublePercentFormater.format(valueToDisplay.$2) : valueToDisplay.$2}",
               style: Theme.of(context).textTheme.bodyMedium
             ),
+            const SizedBox(height: 5)
           ]
         ),
       );

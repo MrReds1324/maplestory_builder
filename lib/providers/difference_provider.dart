@@ -483,26 +483,52 @@ class DifferenceCalculatorProvider with ChangeNotifier {
 
       var equippedHexaStatPosition = activeHexaStatsModule.getHexaStatPosition(compareHexaStat.hexaStatId);
       var duplicateMainStatPosition = activeHexaStatsModule.getHexaStatMainStatPosition(compareHexaStat);
+      
+      Set<int?> additionalStatReplacementPositions = {};
+      bool doesNeedRemoving = false;
+      bool canEquip = true;
 
-      // If we have duplicated main stats then we have to unequip the one we are editing
-      if (duplicateMainStatPosition != null && equippedHexaStatPosition != null) {
+      // Check the additional stats for going over the 2 limit max
+      var additionalStatCount = activeHexaStatsModule.additionalStatCount;
+      for (StatType? selectedAdditionalStat in [compareHexaStat.selectedStats[2], compareHexaStat.selectedStats[3]]) {
+        if (additionalStatCount[selectedAdditionalStat] != null && additionalStatCount[selectedAdditionalStat]!.$1 >= 2) {
+          if (additionalStatCount[selectedAdditionalStat]!.$1 > 2 && additionalStatCount[selectedAdditionalStat]!.$2.contains(equippedHexaStatPosition)) {
+            doesNeedRemoving = true;
+          }
+          canEquip = false;
+          additionalStatReplacementPositions.addAll(additionalStatCount[selectedAdditionalStat]!.$2);
+        }
+      }
+      additionalStatReplacementPositions.remove(equippedHexaStatPosition);
+
+      // If we have duplicated main stats  or gone over the additional stat limit then we have to unequip the one we are editing
+      if ((duplicateMainStatPosition != null  || doesNeedRemoving) && equippedHexaStatPosition != null) {
         activeHexaStatsModule.equippedHexaStat[equippedHexaStatPosition] = null;
+      }
+
+      void swapAndCompare(HexaStat? tempHexaStat, int hexaStatPosition) {
+        if (tempHexaStat == null) {
+            hasEquipped = true;
+          }
+          diffCalculatorProvider.hexaStatsProvider.equipHexaStat(compareHexaStat, hexaStatPosition);
+          diffCalculatorProvider.calculateEverything(recalculateCache: true);
+          widgetChildren.add(updateDifferenceText(context: context, replacingHexaStat: tempHexaStat, comparingHexaStat: compareHexaStat, calculationType: CalculationType.compareHexaStat, isDense: isDense));
+          diffCalculatorProvider.hexaStatsProvider.equipHexaStat(tempHexaStat, hexaStatPosition);
       }
 
       for (int i = 1; i <=6; i++) {
         var tempHexaStat = activeHexaStatsModule.getSelectedHexaStat(i);
-        if ((equippedHexaStatPosition == i || duplicateMainStatPosition == i) || (equippedHexaStatPosition == null && duplicateMainStatPosition == null && (!hasEquipped || tempHexaStat != null))) {
-          if (tempHexaStat == null) {
-            hasEquipped = true;
-          }
-          diffCalculatorProvider.hexaStatsProvider.equipHexaStat(compareHexaStat, i);
-          diffCalculatorProvider.calculateEverything(recalculateCache: true);
-          widgetChildren.add(updateDifferenceText(context: context, replacingHexaStat: tempHexaStat, comparingHexaStat: compareHexaStat, calculationType: CalculationType.compareHexaStat, isDense: isDense));
-          diffCalculatorProvider.hexaStatsProvider.equipHexaStat(tempHexaStat, i);
+        if (equippedHexaStatPosition == i || (duplicateMainStatPosition == i && additionalStatReplacementPositions.contains(duplicateMainStatPosition)) || (duplicateMainStatPosition == i && canEquip)) {
+          swapAndCompare(tempHexaStat, i);
+        }
+        else if (equippedHexaStatPosition == null && duplicateMainStatPosition == null && canEquip && (!hasEquipped || tempHexaStat != null)) {
+          swapAndCompare(tempHexaStat, i);
         }
       }
 
-      widgetReturn = Column(children: widgetChildren);
+      widgetReturn = Column(
+        children: widgetChildren.isEmpty ? [unableToEquipHexaStat] : widgetChildren
+      );
       diffCalculatorProvider.hexaStatsProvider = tempHexaStatsProvider;
     }
 
@@ -738,6 +764,11 @@ const Text noDifferenceFamiliar = Text(
 const Text noDifferenceHexaStat= Text(
   "NO DIFFERENCE IN HEXA STAT",
   style: TextStyle(color: Colors.greenAccent),
+);
+
+const Text unableToEquipHexaStat = Text(
+  "CANNOT CURRENTLY EQUIP THIS HEXA STAT",
+  style: TextStyle(color: Colors.redAccent),
 );
 
 const Text noDifferenceStat = Text(
