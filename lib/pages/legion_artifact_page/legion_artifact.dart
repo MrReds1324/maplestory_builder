@@ -17,7 +17,7 @@ class LegionArtifactLevelWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const ArtifactLevelCell(),
+          const _ArtifactLevelCell(),
           Selector<LegionArtifactProvider, int>(
             selector: (_, legionArtifactProvider) => legionArtifactProvider.activeArtifactCount,
             builder: (context, data, child) {
@@ -26,19 +26,16 @@ class LegionArtifactLevelWidget extends StatelessWidget {
               );
             }
           ),
-          const ArtifactCrystalStatsListView(),
+          const _ArtifactCrystalStatsListView(),
         ],
       ),
     );
   }
 }
 
-class ArtifactLevelCell extends StatelessWidget {
-  const ArtifactLevelCell(
-    {
-      super.key
-    }
-  );
+class _ArtifactLevelCell extends StatelessWidget {
+
+  const _ArtifactLevelCell();
 
   @override
   Widget build(BuildContext context){
@@ -86,11 +83,11 @@ class ArtifactLevelCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const ArtifactlevelButton(
+                  const _ArtifactlevelButton(
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  const ArtifactlevelButton(
+                  const _ArtifactlevelButton(
                     isSubtract: true,
                   ),
                   const Spacer(),
@@ -104,8 +101,8 @@ class ArtifactLevelCell extends StatelessWidget {
                     }
                   ),
                   const Spacer(),
-                  const ArtifactlevelButton(),
-                  const ArtifactlevelButton(
+                  const _ArtifactlevelButton(),
+                  const _ArtifactlevelButton(
                     isLarge: true,
                   ),
                 ],
@@ -118,17 +115,14 @@ class ArtifactLevelCell extends StatelessWidget {
   }
 }
 
-class ArtifactlevelButton extends StatelessWidget {
+class _ArtifactlevelButton extends StatelessWidget {
   final bool isLarge;
   final bool isSubtract;
 
-  const ArtifactlevelButton(
-    {
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _ArtifactlevelButton({
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -153,13 +147,9 @@ class ArtifactlevelButton extends StatelessWidget {
   }
 }
 
-class ArtifactCrystalStatsListView extends StatelessWidget {
+class _ArtifactCrystalStatsListView extends StatelessWidget {
 
-  const ArtifactCrystalStatsListView(
-    {
-      super.key
-    }
-  );
+  const _ArtifactCrystalStatsListView();
 
   @override
   Widget build(BuildContext context) {

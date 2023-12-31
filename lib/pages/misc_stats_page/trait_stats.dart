@@ -22,27 +22,24 @@ class TraitStatsTable extends StatelessWidget {
             "Traits",
             style: Theme.of(context).textTheme.headlineMedium
           ),
-          const TraitStatCell(traitName: TraitName.ambition),
-          const TraitStatCell(traitName: TraitName.empathy),
-          const TraitStatCell(traitName: TraitName.insight),
-          const TraitStatCell(traitName: TraitName.willpower),
-          const TraitStatCell(traitName: TraitName.diligence),
-          const TraitStatCell(traitName: TraitName.charm),          
+          const _TraitStatCell(traitName: TraitName.ambition),
+          const _TraitStatCell(traitName: TraitName.empathy),
+          const _TraitStatCell(traitName: TraitName.insight),
+          const _TraitStatCell(traitName: TraitName.willpower),
+          const _TraitStatCell(traitName: TraitName.diligence),
+          const _TraitStatCell(traitName: TraitName.charm),          
         ]
       ),
     );
   }
 }
 
-class TraitStatCell extends StatelessWidget {
+class _TraitStatCell extends StatelessWidget {
   final TraitName traitName;
 
-  const TraitStatCell(
-    {
-      required this.traitName,
-      super.key
-    }
-  );
+  const _TraitStatCell({
+    required this.traitName,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -87,22 +84,22 @@ class TraitStatCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TraitStatButton(
+                  _TraitStatButton(
                     traitName: traitName, 
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  TraitStatButton(
+                  _TraitStatButton(
                     traitName: traitName, 
                     isSubtract: true,
                   ),
                   const Spacer(),
                   _getStatSelector(traitName),
                   const Spacer(),
-                  TraitStatButton(
+                  _TraitStatButton(
                     traitName: traitName, 
                   ),
-                  TraitStatButton(
+                  _TraitStatButton(
                     traitName: traitName, 
                     isLarge: true,
                   ),
@@ -116,19 +113,16 @@ class TraitStatCell extends StatelessWidget {
   }
 }
 
-class TraitStatButton extends StatelessWidget {
+class _TraitStatButton extends StatelessWidget {
   final TraitName traitName;
   final bool isLarge;
   final bool isSubtract;
 
-  const TraitStatButton(
-    {
-      required this.traitName,
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _TraitStatButton({
+    required this.traitName,
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   void _onHover(BuildContext context){
     context.read<DifferenceCalculatorProvider>().modifyTraitLevels(isLarge ? 5 : 1, traitName, isSubtract);

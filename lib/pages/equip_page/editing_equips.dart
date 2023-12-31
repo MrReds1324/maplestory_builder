@@ -48,7 +48,7 @@ class EquipBuilder extends StatelessWidget {
                 ),
               ],
             ),
-            const EquipBuilderContent()
+            const _EquipBuilderContent()
           ]
         ),
       ),
@@ -56,9 +56,9 @@ class EquipBuilder extends StatelessWidget {
   }
 }
 
-class EquipBuilderContent extends StatelessWidget {
+class _EquipBuilderContent extends StatelessWidget {
 
-  const EquipBuilderContent({super.key});
+  const _EquipBuilderContent();
 
   @override
   Widget build(BuildContext context) {
@@ -138,48 +138,57 @@ class EquipBuilderContent extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    "Difference",
-                    style: Theme.of(context).textTheme.headlineMedium
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: 5),
-                    child: Container(
-                      width: 320,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: statColor),
-                        borderRadius: const BorderRadius.all(Radius.circular(10))
-                      ),
-                      padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.only(right: 13),
-                        child: Consumer2<EquipEditingProvider, DifferenceCalculatorProvider>(
-                          builder: (_, equipEditingProvider, differenceCalculatorProvider, __) {
-                            return differenceCalculatorProvider.compareEditingEquip(context) 
-                            ?? 
-                            const Text(
-                              "NOT CURRENTLY EDITING AN EQUIP",
-                              style: TextStyle(color: Colors.red),
-                              textAlign: TextAlign.center,
-                            );
-                          }
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          const Expanded(
+            child: _EquipComparisonWidget()
           ),
         ]
       ),
+    );
+  }
+}
+
+class _EquipComparisonWidget extends StatelessWidget {
+  const _EquipComparisonWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Text(
+            "Difference",
+            style: Theme.of(context).textTheme.headlineMedium
+          ),
+        ),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Container(
+              width: 320,
+              decoration: BoxDecoration(
+                border: Border.all(color: statColor),
+                borderRadius: const BorderRadius.all(Radius.circular(10))
+              ),
+              padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(right: 13),
+                child: Consumer2<EquipEditingProvider, DifferenceCalculatorProvider>(
+                  builder: (_, equipEditingProvider, differenceCalculatorProvider, __) {
+                    return differenceCalculatorProvider.compareEditingEquip(context) 
+                    ?? 
+                    const Text(
+                      "NOT CURRENTLY EDITING AN EQUIP",
+                      style: TextStyle(color: Colors.red),
+                      textAlign: TextAlign.center,
+                    );
+                  }
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

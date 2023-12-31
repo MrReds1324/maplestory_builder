@@ -9,11 +9,9 @@ import 'package:provider/provider.dart';
 
 class LegionPage extends StatelessWidget {
 
-  const LegionPage(
-    {
-      super.key
-    }
-  );
+  const LegionPage({
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {

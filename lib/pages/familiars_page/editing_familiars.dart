@@ -12,11 +12,9 @@ import 'package:provider/provider.dart';
 
 class FamiliarBuilder extends StatelessWidget {
 
-  const FamiliarBuilder(
-    {
-      super.key
-    }
-  );
+  const FamiliarBuilder({
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class FamiliarBuilder extends StatelessWidget {
                 ),
               ],
             ),
-            const FamiliarBuilderContent()
+            const _FamiliarBuilderContent()
           ]
         ),
       ),
@@ -55,9 +53,9 @@ class FamiliarBuilder extends StatelessWidget {
   }
 }
 
-class FamiliarBuilderContent extends StatelessWidget {
+class _FamiliarBuilderContent extends StatelessWidget {
 
-  const FamiliarBuilderContent({super.key});
+  const _FamiliarBuilderContent();
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +109,7 @@ class FamiliarBuilderContent extends StatelessWidget {
                       ),
                       const _FamiliarNameInput(),
                       const _FamiliarRankDropdown(),
-                      const PotentialInput(),  
+                      const _PotentialInput(),  
                     ],
                   ),
                 ),
@@ -173,11 +171,9 @@ class _FamiliarComparisonWidget extends StatelessWidget {
   }
 }
 
-class PotentialInput extends StatelessWidget {
+class _PotentialInput extends StatelessWidget {
 
-  const PotentialInput({
-    super.key
-  });
+  const _PotentialInput();
 
   @override
   Widget build(BuildContext context) {

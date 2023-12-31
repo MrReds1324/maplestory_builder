@@ -7,7 +7,10 @@ import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart
 import 'package:provider/provider.dart';
 
 class HyperStatTable extends StatelessWidget {
-  const HyperStatTable({super.key});
+  
+  const HyperStatTable({
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,38 +45,35 @@ class HyperStatTable extends StatelessWidget {
               ),
             ]
           ),
-          const HyperStatCell(statType: StatType.str),
-          const HyperStatCell(statType: StatType.dex),
-          const HyperStatCell(statType: StatType.int),
-          const HyperStatCell(statType: StatType.luk),
-          const HyperStatCell(statType: StatType.hp),
-          const HyperStatCell(statType: StatType.mp),          
-          const HyperStatCell(statType: StatType.specialMana),          
-          const HyperStatCell(statType: StatType.critRate),          
-          const HyperStatCell(statType: StatType.critDamage),
-          const HyperStatCell(statType: StatType.ignoreDefense),
-          const HyperStatCell(statType: StatType.damage),
-          const HyperStatCell(statType: StatType.bossDamage),          
-          const HyperStatCell(statType: StatType.damageNormalMobs),
-          const HyperStatCell(statType: StatType.statusResistance),
-          const HyperStatCell(statType: StatType.attackMattack),
-          const HyperStatCell(statType: StatType.exp),
-          const HyperStatCell(statType: StatType.arcaneForce),
+          const _HyperStatCell(statType: StatType.str),
+          const _HyperStatCell(statType: StatType.dex),
+          const _HyperStatCell(statType: StatType.int),
+          const _HyperStatCell(statType: StatType.luk),
+          const _HyperStatCell(statType: StatType.hp),
+          const _HyperStatCell(statType: StatType.mp),          
+          const _HyperStatCell(statType: StatType.specialMana),          
+          const _HyperStatCell(statType: StatType.critRate),          
+          const _HyperStatCell(statType: StatType.critDamage),
+          const _HyperStatCell(statType: StatType.ignoreDefense),
+          const _HyperStatCell(statType: StatType.damage),
+          const _HyperStatCell(statType: StatType.bossDamage),          
+          const _HyperStatCell(statType: StatType.damageNormalMobs),
+          const _HyperStatCell(statType: StatType.statusResistance),
+          const _HyperStatCell(statType: StatType.attackMattack),
+          const _HyperStatCell(statType: StatType.exp),
+          const _HyperStatCell(statType: StatType.arcaneForce),
         ]
       ),
     );
   }
 }
 
-class HyperStatCell extends StatelessWidget {
+class _HyperStatCell extends StatelessWidget {
   final StatType statType;
 
-  const HyperStatCell(
-    {
-      required this.statType,
-      super.key
-    }
-  );
+  const _HyperStatCell({
+    required this.statType,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -118,22 +118,22 @@ class HyperStatCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  HyperStatButton(
+                  _HyperStatButton(
                     statType: statType, 
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  HyperStatButton(
+                  _HyperStatButton(
                     statType: statType, 
                     isSubtract: true,
                   ),
                   const Spacer(),
                   _getStatSelector(statType),
                   const Spacer(),
-                  HyperStatButton(
+                  _HyperStatButton(
                     statType: statType, 
                   ),
-                  HyperStatButton(
+                  _HyperStatButton(
                     statType: statType, 
                     isLarge: true,
                   ),
@@ -147,19 +147,16 @@ class HyperStatCell extends StatelessWidget {
   }
 }
 
-class HyperStatButton extends StatelessWidget {
+class _HyperStatButton extends StatelessWidget {
   final StatType statType;
   final bool isLarge;
   final bool isSubtract;
 
-  const HyperStatButton(
-    {
-      required this.statType,
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _HyperStatButton({
+    required this.statType,
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   void _onHover(BuildContext context) {
     context.read<DifferenceCalculatorProvider>().modifyHyperStats(isLarge ? 5 : 1, statType, isSubtract);

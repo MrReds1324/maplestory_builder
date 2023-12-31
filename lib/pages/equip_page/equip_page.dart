@@ -28,9 +28,9 @@ class EquipPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: const Row(
         children: [
-          EquippedItems(),
+          _EquippedItems(),
           SizedBox(width: 10),
-          InventoryAndItemListColumn(),
+          _InventoryAndItemListColumn(),
           SizedBox(width: 10),
           Expanded(
             child: EquipBuilder(),
@@ -41,13 +41,9 @@ class EquipPage extends StatelessWidget {
   }
 }
 
-class EquippedItems extends StatelessWidget {
+class _EquippedItems extends StatelessWidget {
 
-  const EquippedItems(
-    {
-      super.key
-    }
-  );
+  const _EquippedItems();
 
   @override
   Widget build(BuildContext context) {
@@ -64,146 +60,146 @@ class EquippedItems extends StatelessWidget {
           selectorFunction: (BuildContext context, EquipsProvider equipsProvider) => equipsProvider.activeSetNumber,
         ),
         // Totems
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.totem,
           equipPosition: 1,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.totem,
           equipPosition: 2,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.totem,
           equipPosition: 3,
         ),
         // Rings
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.ring,
           equipPosition: 1,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.ring,
           equipPosition: 2,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.ring,
           equipPosition: 3,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.ring,
           equipPosition: 4,
         ),
         // Pocket
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.pocket,
         ),
         // Pendant
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.pendant,
           equipPosition: 1,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.pendant,
           equipPosition: 2,
         ),
         // Weapon
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.weapon,
         ),
         // Belt
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.belt,
         ),
         // Hat
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.hat,
         ),
         // Face
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.face,
         ),
         // Eye
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.eye,
         ),
         // Overall
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.overall,
         ),
         // Top
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.top,
         ),
         // Bottom
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.bottom,
         ),
         // Shoes
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.shoes,
         ),
         // Earrings
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.earrings,
         ),
         // Shoulder
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.shoulder,
         ),
         // Gloves
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.gloves,
         ),
         // Emblem
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.emblem,
         ),
         // Badge
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.badge,
         ),
         // Medal
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.medal,
         ),
         // Secondary
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.secondary,
         ),
         // Cape
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.cape,
         ),
         // Heart
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.heart,
         ),
         // Title
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.title,
         ),
         // Pets and Pet Equips
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.pet,
           equipPosition: 1,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.pet,
           equipPosition: 2,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.pet,
           equipPosition: 3,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.petEquip,
           equipPosition: 1,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.petEquip,
           equipPosition: 2,
         ),
-        const EquippedItemSelector(
+        const _EquippedItemSelector(
           equipType: EquipType.petEquip,
           equipPosition: 3,
         ),
@@ -213,17 +209,14 @@ class EquippedItems extends StatelessWidget {
 }
 
 
-class EquippedItemSelector extends StatelessWidget {
+class _EquippedItemSelector extends StatelessWidget {
   final EquipType equipType;
   final int equipPosition;
 
-  const EquippedItemSelector(
-    {
-      required this.equipType,
-      this.equipPosition = 0,
-      super.key
-    }
-  );
+  const _EquippedItemSelector({
+    required this.equipType,
+    this.equipPosition = 0,
+  });
 
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipsProvider equipsProvider, EquipType equipType) {
     var filteredList = equipsProvider.allEquips.values.where((element) {
@@ -304,28 +297,24 @@ class EquippedItemSelector extends StatelessWidget {
 }
 
 
-class InventoryAndItemListColumn extends StatelessWidget {
+class _InventoryAndItemListColumn extends StatelessWidget {
 
-  const InventoryAndItemListColumn(
-    {
-      super.key
-    }
-  );
+  const _InventoryAndItemListColumn();
 
   @override
   Widget build(BuildContext context){
     return const Column(
       children: [
-        InventoryItems(),
-        SearchableItemList(),
+        _InventoryItems(),
+        _SearchableItemList(),
       ],
     );
   }
 }
 
-class InventoryItems extends StatelessWidget {
+class _InventoryItems extends StatelessWidget {
 
-  const InventoryItems({
+  const _InventoryItems({
     super.key
   });
 
@@ -403,19 +392,15 @@ class InventoryItems extends StatelessWidget {
   }
 }
 
-class SearchableItemList extends StatefulWidget {
+class _SearchableItemList extends StatefulWidget {
   
-  const SearchableItemList(
-    {
-      super.key
-    }
-  );
+  const _SearchableItemList();
 
   @override
-  State<SearchableItemList> createState() => _SearchableItemListState();
+  State<_SearchableItemList> createState() => _SearchableItemListState();
 }
 
-class _SearchableItemListState extends State<SearchableItemList> {
+class _SearchableItemListState extends State<_SearchableItemList> {
   TextEditingController editingController = TextEditingController();
   var items = <Equip>[];
   var stringQuery = '';
@@ -492,7 +477,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                     "Equip Type:",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  DropDownSelector(
+                  _ListenableDropDownSelector(
                     selectedValue: selectedEquipType,
                     menuItems: EquipType.values.map((equipType) {
                       return DropdownMenuItem(
@@ -505,7 +490,7 @@ class _SearchableItemListState extends State<SearchableItemList> {
                     "Class:",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  DropDownSelector(
+                  _ListenableDropDownSelector(
                     selectedValue: selectedClassType,
                     menuItems: ClassType.values.map((classType) {
                       return DropdownMenuItem(
@@ -577,12 +562,11 @@ class _SearchableItemListState extends State<SearchableItemList> {
   }
 }
 
-class DropDownSelector extends StatelessWidget {
+class _ListenableDropDownSelector extends StatelessWidget {
   final ValueNotifier selectedValue;
   final List<DropdownMenuItem> menuItems;
 
-  const DropDownSelector({
-    super.key, 
+  const _ListenableDropDownSelector({ 
     required this.selectedValue,
     required this.menuItems
   });

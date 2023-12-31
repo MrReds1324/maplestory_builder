@@ -24,14 +24,14 @@ class InnerLegionStatsTable extends StatelessWidget {
             "Inner Legion Board Stats",
             style: Theme.of(context).textTheme.headlineMedium
           ),
-          const LegionStatCell(statType: StatType.attack),
-          const LegionStatCell(statType: StatType.mattack),
-          const LegionStatCell(statType: StatType.str),
-          const LegionStatCell(statType: StatType.dex),
-          const LegionStatCell(statType: StatType.int),
-          const LegionStatCell(statType: StatType.luk),
-          const LegionStatCell(statType: StatType.hp),
-          const LegionStatCell(statType: StatType.mp),        
+          const _LegionStatCell(statType: StatType.attack),
+          const _LegionStatCell(statType: StatType.mattack),
+          const _LegionStatCell(statType: StatType.str),
+          const _LegionStatCell(statType: StatType.dex),
+          const _LegionStatCell(statType: StatType.int),
+          const _LegionStatCell(statType: StatType.luk),
+          const _LegionStatCell(statType: StatType.hp),
+          const _LegionStatCell(statType: StatType.mp),        
         ]
       ),
     );
@@ -54,14 +54,14 @@ class OuterLegionStatsTable extends StatelessWidget {
             "Outer Legion Board Stats",
             style: Theme.of(context).textTheme.headlineMedium
           ),
-          const LegionStatCell(statType: StatType.critDamage, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.bossDamage, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.ignoreDefense, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.critRate, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.buffDuration, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.damageNormalMobs, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.statusResistance, isOuterBoard: true),
-          const LegionStatCell(statType: StatType.expAdditional, isOuterBoard: true),           
+          const _LegionStatCell(statType: StatType.critDamage, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.bossDamage, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.ignoreDefense, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.critRate, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.buffDuration, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.damageNormalMobs, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.statusResistance, isOuterBoard: true),
+          const _LegionStatCell(statType: StatType.expAdditional, isOuterBoard: true),           
         ]
       ),
     );
@@ -130,9 +130,9 @@ class LegionRankWidget extends StatelessWidget {
           ),
           const Row(
             children: [
-              LegionStatListView(calculationSelector: CalculationSelector.characters),
+              _LegionStatListView(calculationSelector: CalculationSelector.characters),
               Spacer(),
-              LegionStatListView(calculationSelector: CalculationSelector.board)
+              _LegionStatListView(calculationSelector: CalculationSelector.board)
             ],
           ),
         ],
@@ -141,17 +141,14 @@ class LegionRankWidget extends StatelessWidget {
   }
 }
 
-class LegionStatCell extends StatelessWidget {
+class _LegionStatCell extends StatelessWidget {
   final StatType statType;
   final bool isOuterBoard;
 
-  const LegionStatCell(
-    {
-      required this.statType,
-      this.isOuterBoard = false,
-      super.key
-    }
-  );
+  const _LegionStatCell({
+    required this.statType,
+    this.isOuterBoard = false,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -196,13 +193,13 @@ class LegionStatCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  LegionStatButton(
+                  _LegionStatButton(
                     statType: statType, 
                     isLarge: true,
                     isSubtract: true,
                     isOuterBoard: isOuterBoard,
                   ),
-                  LegionStatButton(
+                  _LegionStatButton(
                     statType: statType, 
                     isSubtract: true,
                     isOuterBoard: isOuterBoard,
@@ -215,11 +212,11 @@ class LegionStatCell extends StatelessWidget {
                     }
                   ),
                   const Spacer(),
-                  LegionStatButton(
+                  _LegionStatButton(
                     statType: statType, 
                     isOuterBoard: isOuterBoard,
                   ),
-                  LegionStatButton(
+                  _LegionStatButton(
                     statType: statType, 
                     isLarge: true,
                     isOuterBoard: isOuterBoard,
@@ -234,21 +231,18 @@ class LegionStatCell extends StatelessWidget {
   }
 }
 
-class LegionStatButton extends StatelessWidget {
+class _LegionStatButton extends StatelessWidget {
   final StatType statType;
   final bool isLarge;
   final bool isSubtract;
   final bool isOuterBoard;
 
-  const LegionStatButton(
-    {
-      required this.statType,
-      this.isLarge = false,
-      this.isSubtract = false,
-      this.isOuterBoard = false,
-      super.key
-    }
-  );
+  const _LegionStatButton({
+    required this.statType,
+    this.isLarge = false,
+    this.isSubtract = false,
+    this.isOuterBoard = false,
+  });
 
   void _onHover(BuildContext context) {
     context.read<DifferenceCalculatorProvider>().modifyLegionBoardStatLevels(isLarge ? 5 : 1, statType, isSubtract, isOuterBoard);
@@ -284,15 +278,12 @@ class LegionStatButton extends StatelessWidget {
   }
 }
 
-class LegionStatListView extends StatelessWidget {
+class _LegionStatListView extends StatelessWidget {
   final CalculationSelector calculationSelector;
 
-  const LegionStatListView(
-    {
-      required this.calculationSelector,
-      super.key
-    }
-  );
+  const _LegionStatListView({
+    required this.calculationSelector,
+  });
 
   @override
   Widget build(BuildContext context) {

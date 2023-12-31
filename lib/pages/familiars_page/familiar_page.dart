@@ -27,9 +27,9 @@ class FamiliarPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: const Row(
         children: [
-          EquippedItems(),
+          _EquippedFamiliarsBadges(),
           SizedBox(width: 10),
-          FamiliarInventory(),
+          _FamiliarInventory(),
           SizedBox(width: 10),
           Expanded(
             child: FamiliarBuilder(),
@@ -40,13 +40,9 @@ class FamiliarPage extends StatelessWidget {
   }
 }
 
-class EquippedItems extends StatelessWidget {
+class _EquippedFamiliarsBadges extends StatelessWidget {
 
-  const EquippedItems(
-    {
-      super.key
-    }
-  );
+  const _EquippedFamiliarsBadges();
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +58,16 @@ class EquippedItems extends StatelessWidget {
           onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveFamiliarSet(setPosition),
           selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeFamiliarSetNumber,
         ),      
-        const FamiliarSelector(
+        const _FamiliarSelector(
           familiarPosition: 1,
         ),
-        const FamiliarSelector(
+        const _FamiliarSelector(
           familiarPosition: 2,
         ),
-        const FamiliarSelector(
+        const _FamiliarSelector(
           familiarPosition: 3,
         ),
-        const FamiliarStatListView(),
+        const _FamiliarStatListView(),
         Text(
           "Equipped Badges",
           style: Theme.of(context).textTheme.headlineMedium
@@ -81,45 +77,42 @@ class EquippedItems extends StatelessWidget {
           onPressed: (int setPosition) => context.read<FamiliarsProvider>().changeActiveBadgeSet(setPosition),
           selectorFunction: (BuildContext context, FamiliarsProvider familiarsProvider) => familiarsProvider.activeBadgeSetNumber,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 1,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 2,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 3,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 4,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 5,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 6,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 7,
         ),
-        const BadgeSelector(
+        const _BadgeSelector(
           badgePosition: 8,
         ),
-        const BadgeStatListView(),
+        const _BadgeStatListView(),
       ],
     );
   }
 }
 
-class BadgeSelector extends StatelessWidget {
+class _BadgeSelector extends StatelessWidget {
   final int badgePosition;
 
-  const BadgeSelector(
-    {
-      required this.badgePosition,
-      super.key
-    }
-  );
+  const _BadgeSelector({
+    required this.badgePosition,
+  });
 
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, FamiliarsProvider familiarsProvider) {
     // Always add a default null selector to the list
@@ -204,15 +197,12 @@ class BadgeSelector extends StatelessWidget {
   }
 }
 
-class FamiliarSelector extends StatelessWidget {
+class _FamiliarSelector extends StatelessWidget {
   final int familiarPosition;
 
-  const FamiliarSelector(
-    {
-      required this.familiarPosition,
-      super.key
-    }
-  );
+  const _FamiliarSelector({
+    required this.familiarPosition,
+  });
 
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, FamiliarsProvider familiarsProvider) {
     // Always add a default null selector to the list
@@ -296,13 +286,9 @@ class FamiliarSelector extends StatelessWidget {
   }
 }
 
-class FamiliarInventory extends StatelessWidget {
+class _FamiliarInventory extends StatelessWidget {
 
-  const FamiliarInventory(
-    {
-      super.key
-    }
-  );
+  const _FamiliarInventory();
 
  Function _curriedOnHover(Familiar familiar) {
     return (BuildContext context) {
@@ -378,11 +364,9 @@ class FamiliarInventory extends StatelessWidget {
   }
 }
 
-class FamiliarStatListView extends StatelessWidget {
+class _FamiliarStatListView extends StatelessWidget {
 
-  const FamiliarStatListView({
-    super.key
-  });
+  const _FamiliarStatListView();
 
   @override
   Widget build(BuildContext context) {
@@ -438,11 +422,9 @@ class FamiliarStatListView extends StatelessWidget {
   }
 }
 
-class BadgeStatListView extends StatelessWidget {
+class _BadgeStatListView extends StatelessWidget {
 
-  const BadgeStatListView({
-    super.key
-  });
+  const _BadgeStatListView();
 
   @override
   Widget build(BuildContext context) {

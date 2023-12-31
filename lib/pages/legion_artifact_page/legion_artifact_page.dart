@@ -8,12 +8,9 @@ import 'package:provider/provider.dart';
 
 class LegionArtifactPage extends StatelessWidget {
 
-  const LegionArtifactPage(
-    
-    {
-      super.key
-    }
-  );
+  const LegionArtifactPage({
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {

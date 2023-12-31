@@ -22,12 +22,12 @@ class ArcaneSymbolTable extends StatelessWidget {
             "Arcane Symbols",
             style: Theme.of(context).textTheme.headlineMedium
           ),
-          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.vanishingJourney),
-          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.chuchuIsland),
-          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.lachelein),
-          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.arcana),
-          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.morass),
-          const ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.esfera),          
+          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.vanishingJourney),
+          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.chuchuIsland),
+          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.lachelein),
+          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.arcana),
+          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.morass),
+          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.esfera),          
         ]
       ),
     );
@@ -50,27 +50,24 @@ class SacredSymbolTable extends StatelessWidget {
             "Sacred Symbols",
             style: Theme.of(context).textTheme.headlineMedium
           ),
-          const SacredSymbolCell(sacredSymbol: SacredSymbol.cernium),
-          const SacredSymbolCell(sacredSymbol: SacredSymbol.arcus),
-          const SacredSymbolCell(sacredSymbol: SacredSymbol.odium),
-          const SacredSymbolCell(sacredSymbol: SacredSymbol.shangrila),
-          const SacredSymbolCell(sacredSymbol: SacredSymbol.arteria),
-          const SacredSymbolCell(sacredSymbol: SacredSymbol.carcion),          
+          const _SacredSymbolCell(sacredSymbol: SacredSymbol.cernium),
+          const _SacredSymbolCell(sacredSymbol: SacredSymbol.arcus),
+          const _SacredSymbolCell(sacredSymbol: SacredSymbol.odium),
+          const _SacredSymbolCell(sacredSymbol: SacredSymbol.shangrila),
+          const _SacredSymbolCell(sacredSymbol: SacredSymbol.arteria),
+          const _SacredSymbolCell(sacredSymbol: SacredSymbol.carcion),          
         ]
       ),
     );
   }
 }
 
-class ArcaneSymbolCell extends StatelessWidget {
+class _ArcaneSymbolCell extends StatelessWidget {
   final ArcaneSymbol arcaneSymbol;
 
-  const ArcaneSymbolCell(
-    {
-      required this.arcaneSymbol,
-      super.key
-    }
-  );
+  const _ArcaneSymbolCell({
+    required this.arcaneSymbol,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -115,12 +112,12 @@ class ArcaneSymbolCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ArcaneSymbolButton(
+                  _ArcaneSymbolButton(
                     arcaneSymbol: arcaneSymbol, 
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  ArcaneSymbolButton(
+                  _ArcaneSymbolButton(
                     arcaneSymbol: arcaneSymbol, 
                     isSubtract: true,
                   ),
@@ -132,10 +129,10 @@ class ArcaneSymbolCell extends StatelessWidget {
                     }
                   ),
                   const Spacer(),
-                  ArcaneSymbolButton(
+                  _ArcaneSymbolButton(
                     arcaneSymbol: arcaneSymbol, 
                   ),
-                  ArcaneSymbolButton(
+                  _ArcaneSymbolButton(
                     arcaneSymbol: arcaneSymbol, 
                     isLarge: true,
                   ),
@@ -149,15 +146,12 @@ class ArcaneSymbolCell extends StatelessWidget {
   }
 }
 
-class SacredSymbolCell extends StatelessWidget {
+class _SacredSymbolCell extends StatelessWidget {
   final SacredSymbol sacredSymbol;
 
-  const SacredSymbolCell(
-    {
-      required this.sacredSymbol,
-      super.key
-    }
-  );
+  const _SacredSymbolCell({
+    required this.sacredSymbol,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -202,12 +196,12 @@ class SacredSymbolCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SacredSymbolButton(
+                  _SacredSymbolButton(
                     sacredSymbol: sacredSymbol, 
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  SacredSymbolButton(
+                  _SacredSymbolButton(
                     sacredSymbol: sacredSymbol, 
                     isSubtract: true,
                   ),
@@ -219,10 +213,10 @@ class SacredSymbolCell extends StatelessWidget {
                     }
                   ),
                   const Spacer(),
-                  SacredSymbolButton(
+                  _SacredSymbolButton(
                     sacredSymbol: sacredSymbol, 
                   ),
-                  SacredSymbolButton(
+                  _SacredSymbolButton(
                     sacredSymbol: sacredSymbol, 
                     isLarge: true,
                   ),
@@ -236,19 +230,16 @@ class SacredSymbolCell extends StatelessWidget {
   }
 }
 
-class ArcaneSymbolButton extends StatelessWidget {
+class _ArcaneSymbolButton extends StatelessWidget {
   final ArcaneSymbol arcaneSymbol;
   final bool isLarge;
   final bool isSubtract;
 
-  const ArcaneSymbolButton(
-    {
-      required this.arcaneSymbol,
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _ArcaneSymbolButton({
+    required this.arcaneSymbol,
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   void _onHover(BuildContext context){
     context.read<DifferenceCalculatorProvider>().modifyArcaneLevels(isLarge ? 5 : 1, arcaneSymbol, isSubtract);
@@ -284,19 +275,16 @@ class ArcaneSymbolButton extends StatelessWidget {
   }
 }
 
-class SacredSymbolButton extends StatelessWidget {
+class _SacredSymbolButton extends StatelessWidget {
   final SacredSymbol sacredSymbol;
   final bool isLarge;
   final bool isSubtract;
 
-  const SacredSymbolButton(
-    {
-      required this.sacredSymbol,
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _SacredSymbolButton({
+    required this.sacredSymbol,
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   void _onHover(BuildContext context){
     context.read<DifferenceCalculatorProvider>().modifySacredLevels(isLarge ? 5 : 1, sacredSymbol, isSubtract);

@@ -37,20 +37,20 @@ class ArtifactCrystalWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ArtifactCrystalLevelCell(artifactCrystalPosition: artifactCrystalPosition),
+                _ArtifactCrystalLevelCell(artifactCrystalPosition: artifactCrystalPosition),
                 Icon(
                   MdiIcons.accountBox,
                   size: 145,
                 ),
-                ArtifactCrystalStatDropdown(
+                _ArtifactCrystalStatDropdown(
                   artifactCrystalPosition: artifactCrystalPosition,
                   statPosition: 1,
                 ),
-                ArtifactCrystalStatDropdown(
+                _ArtifactCrystalStatDropdown(
                   artifactCrystalPosition: artifactCrystalPosition,
                   statPosition: 2,
                 ),
-                ArtifactCrystalStatDropdown(
+                _ArtifactCrystalStatDropdown(
                   artifactCrystalPosition: artifactCrystalPosition,
                   statPosition: 3,
                 ),
@@ -63,15 +63,12 @@ class ArtifactCrystalWidget extends StatelessWidget {
   }
 }
 
-class ArtifactCrystalLevelCell extends StatelessWidget {
+class _ArtifactCrystalLevelCell extends StatelessWidget {
   final int artifactCrystalPosition;
   
-  const ArtifactCrystalLevelCell(
-    {
-      required this.artifactCrystalPosition,
-      super.key
-    }
-  );
+  const _ArtifactCrystalLevelCell({
+    required this.artifactCrystalPosition,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -82,7 +79,7 @@ class ArtifactCrystalLevelCell extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ArtifactCrystallevelButton(
+            _ArtifactCrystallevelButton(
               artifactCrystalPosition: artifactCrystalPosition,
               isSubtract: true,
             ),
@@ -94,7 +91,7 @@ class ArtifactCrystalLevelCell extends StatelessWidget {
               }
             ),
             const Spacer(),
-            ArtifactCrystallevelButton(
+            _ArtifactCrystallevelButton(
               artifactCrystalPosition: artifactCrystalPosition
             ),
           ],
@@ -104,17 +101,14 @@ class ArtifactCrystalLevelCell extends StatelessWidget {
   }
 }
 
-class ArtifactCrystallevelButton extends StatelessWidget {
+class _ArtifactCrystallevelButton extends StatelessWidget {
   final int artifactCrystalPosition;
   final bool isSubtract;
 
-  const ArtifactCrystallevelButton(
-    {
-      required this.artifactCrystalPosition,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _ArtifactCrystallevelButton({
+    required this.artifactCrystalPosition,
+    this.isSubtract = false,
+  });
 
   _onHover(BuildContext context) {
     context.read<DifferenceCalculatorProvider>().modifyArtifactCrsytalLevel(artifactCrystalPosition, isSubtract);
@@ -148,14 +142,13 @@ class ArtifactCrystallevelButton extends StatelessWidget {
   }
 }
 
-class ArtifactCrystalStatDropdown extends StatelessWidget {
+class _ArtifactCrystalStatDropdown extends StatelessWidget {
   final int artifactCrystalPosition;
   final int statPosition;
 
-  const ArtifactCrystalStatDropdown({
+  const _ArtifactCrystalStatDropdown({
     required this.artifactCrystalPosition,
     required this.statPosition,
-    super.key
   });
 
   List<DropdownMenuItem> getDropdownStatsList(BuildContext context, ArtifactCrystal artifactCrystal) {

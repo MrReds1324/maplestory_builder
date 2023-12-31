@@ -58,8 +58,7 @@ class _HexaStatBuilderContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Expanded(
+    return Expanded(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,

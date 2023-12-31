@@ -28,7 +28,7 @@ class HexaStatsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: const Row(
         children: [
-          EquippedHexaStats(),
+          _EquippedHexaStats(),
           SizedBox(width: 10),
           _HexaStatInventory(),
           SizedBox(width: 10),
@@ -41,13 +41,9 @@ class HexaStatsPage extends StatelessWidget {
   }
 }
 
-class EquippedHexaStats extends StatelessWidget {
+class _EquippedHexaStats extends StatelessWidget {
 
-  const EquippedHexaStats(
-    {
-      super.key
-    }
-  );
+  const _EquippedHexaStats();
 
   @override
   Widget build(BuildContext context) {

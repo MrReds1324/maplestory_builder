@@ -21,118 +21,118 @@ class StatTable extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          APCell(),
-          IGNCell(),
-          ClassCell(),
-          LevelCell(),
-          APStatCell(statType: StatType.hp),
-          APStatCell(statType: StatType.mp),
-          APStatCell(statType: StatType.str),
-          APStatCell(statType: StatType.dex),
-          APStatCell(statType: StatType.int),
-          APStatCell(statType: StatType.luk),
-          RangeStatCell(
+          _APCell(),
+          _IGNCell(),
+          _ClassCell(),
+          _LevelCell(),
+          _APStatCell(statType: StatType.hp),
+          _APStatCell(statType: StatType.mp),
+          _APStatCell(statType: StatType.str),
+          _APStatCell(statType: StatType.dex),
+          _APStatCell(statType: StatType.int),
+          _APStatCell(statType: StatType.luk),
+          _RangeStatCell(
             rangeType: RangeType.damageRange,
           ),
-          RangeStatCell(
+          _RangeStatCell(
             rangeType: RangeType.bossDamageRange,
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.damage,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.bossDamage,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.finalDamage,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.buffDuration,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.ignoreDefense,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.itemDropRate,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.critRate,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.mesosObtained,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.critDamage,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.attackSpeed,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.attack,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.mattack,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.statusResistance,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.knockbackResistance,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.defense,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.starForce,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.speed,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.arcaneForce,
               ),
             ]
           ),
           Row(
             children: [
-              StatCell(
+              _StatCell(
                 statType: StatType.jump,
               ),
-              StatCell(
+              _StatCell(
                 statType: StatType.sacredPower,
               ),
             ]
@@ -143,15 +143,12 @@ class StatTable extends StatelessWidget {
   }
 }
 
-class StatCell extends StatelessWidget{
+class _StatCell extends StatelessWidget{
   final StatType statType;
 
-  const StatCell(
-    {
-      required this.statType,
-      super.key
-    }
-  );
+  const _StatCell({
+    required this.statType,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -202,15 +199,12 @@ class StatCell extends StatelessWidget{
   }
 }
 
-class RangeStatCell extends StatelessWidget{
+class _RangeStatCell extends StatelessWidget{
   final RangeType rangeType;
 
-  const RangeStatCell(
-    {
-      required this.rangeType,
-      super.key
-    }
-  );
+  const _RangeStatCell({
+    required this.rangeType,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -265,13 +259,9 @@ class RangeStatCell extends StatelessWidget{
   }
 }
 
-class IGNCell extends StatelessWidget {
+class _IGNCell extends StatelessWidget {
   
-  const IGNCell(
-    {
-      super.key
-    }
-  );
+  const _IGNCell();
 
   @override
   Widget build(BuildContext context){
@@ -330,13 +320,9 @@ class IGNCell extends StatelessWidget {
   }
 }
 
-class LevelCell extends StatelessWidget {
+class _LevelCell extends StatelessWidget {
   
-  const LevelCell(
-    {
-      super.key
-    }
-  );
+  const _LevelCell();
 
   @override
   Widget build(BuildContext context){
@@ -384,11 +370,11 @@ class LevelCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const LevelButton(
+                  const _LevelButton(
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  const LevelButton(
+                  const _LevelButton(
                     isSubtract: true,
                   ),
                   const Spacer(),
@@ -399,9 +385,9 @@ class LevelCell extends StatelessWidget {
                     }
                   ),
                   const Spacer(),
-                  const LevelButton(
+                  const _LevelButton(
                   ),
-                  const LevelButton(
+                  const _LevelButton(
                     isLarge: true,
                   ),
                 ],
@@ -414,13 +400,9 @@ class LevelCell extends StatelessWidget {
   }
 }
 
-class ClassCell extends StatelessWidget {
+class _ClassCell extends StatelessWidget {
   
-  const ClassCell(
-    {
-      super.key
-    }
-  );
+  const _ClassCell();
 
   @override
   Widget build(BuildContext context){
@@ -492,13 +474,9 @@ class ClassCell extends StatelessWidget {
   }
 }
 
-class APCell extends StatelessWidget {
+class _APCell extends StatelessWidget {
 
-  const APCell(
-    {
-      super.key
-    }
-  );
+  const _APCell();
 
   @override
   Widget build(BuildContext context){
@@ -565,15 +543,12 @@ class APCell extends StatelessWidget {
   }
 }
 
-class APStatCell extends StatelessWidget {
+class _APStatCell extends StatelessWidget {
   final StatType statType;
 
-  const APStatCell(
-    {
-      required this.statType,
-      super.key
-    }
-  );
+const _APStatCell({
+    required this.statType,
+  });
 
   @override
   Widget build(BuildContext context){
@@ -618,22 +593,22 @@ class APStatCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  APStatButton(
+                  _APStatButton(
                     statType: statType, 
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  APStatButton(
+                  _APStatButton(
                     statType: statType, 
                     isSubtract: true,
                   ),
                   const Spacer(),
                   _getStatSelector(statType),
                   const Spacer(),
-                  APStatButton(
+                  _APStatButton(
                     statType: statType, 
                   ),
-                  APStatButton(
+                  _APStatButton(
                     statType: statType, 
                     isLarge: true,
                   ),
@@ -647,19 +622,16 @@ class APStatCell extends StatelessWidget {
   }
 }
 
-class APStatButton extends StatelessWidget {
+class _APStatButton extends StatelessWidget {
   final StatType statType;
   final bool isLarge;
   final bool isSubtract;
 
-  const APStatButton(
-    {
-      required this.statType,
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _APStatButton({
+    required this.statType,
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   void _onHover(BuildContext context){
     context.read<DifferenceCalculatorProvider>().modifyApToStat(isLarge ? 50 : 1, statType, isSubtract);
@@ -695,17 +667,14 @@ class APStatButton extends StatelessWidget {
   }
 }
 
-class LevelButton extends StatelessWidget {
+class _LevelButton extends StatelessWidget {
   final bool isLarge;
   final bool isSubtract;
 
-  const LevelButton(
-    {
-      this.isLarge = false,
-      this.isSubtract = false,
-      super.key
-    }
-  );
+  const _LevelButton({
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
 
   void _onHover(BuildContext context){
     context.read<DifferenceCalculatorProvider>().modifyLevel(isLarge ? 10 : 1, isSubtract);

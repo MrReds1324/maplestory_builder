@@ -53,7 +53,7 @@ class PlacedCharacters extends StatelessWidget {
                             tooltipWidgets: [
                               allPlacedCharacters[index].createLegionCharacterContainer(context),
                             ],
-                            child: CharacterTile(
+                            child: _CharacterTile(
                               legionCharacter: allPlacedCharacters[index],
                               isPlaced: true,
                             ),
@@ -116,7 +116,7 @@ class AvailableCharacters extends StatelessWidget {
                             tooltipWidgets: [
                               allLegionCharactersList[index].createLegionCharacterContainer(context),
                             ],
-                            child: CharacterTile(
+                            child: _CharacterTile(
                               legionCharacter: allLegionCharactersList[index],
                             ),
                           );
@@ -127,7 +127,7 @@ class AvailableCharacters extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.all(5),
-                  child: const AddCharacterButton()
+                  child: const _AddCharacterButton()
                 )
               ]
             ),
@@ -138,14 +138,13 @@ class AvailableCharacters extends StatelessWidget {
   }
 }
 
-class CharacterTile extends StatelessWidget {
+class _CharacterTile extends StatelessWidget {
   final LegionCharacter legionCharacter;
   final bool isPlaced;
 
-  const CharacterTile({
+  const _CharacterTile({
     required this.legionCharacter,
     this.isPlaced = false,
-    super.key
   });
 
   @override
@@ -245,7 +244,7 @@ class CharacterTile extends StatelessWidget {
                           context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter(legionCharacter: legionCharacter);
                           showDialog(context: context,
                             builder: (BuildContext context){
-                              return const EditCharacterDialogBox();
+                              return const _EditCharacterDialogBox();
                             }
                           );
                         },
@@ -263,10 +262,9 @@ class CharacterTile extends StatelessWidget {
   }
 }
 
-class AddCharacterButton extends StatelessWidget {
-  const AddCharacterButton({
-    super.key
-  });
+class _AddCharacterButton extends StatelessWidget {
+  
+  const _AddCharacterButton();
 
   @override
   Widget build(BuildContext context) {
@@ -291,7 +289,7 @@ class AddCharacterButton extends StatelessWidget {
               context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter();
               showDialog(context: context,
                 builder: (BuildContext context){
-                  return const EditCharacterDialogBox();
+                  return const _EditCharacterDialogBox();
                 }
               );
             }, 
@@ -307,11 +305,9 @@ class AddCharacterButton extends StatelessWidget {
   }
 }
 
-class EditCharacterDialogBox extends StatelessWidget {
+class _EditCharacterDialogBox extends StatelessWidget {
 
-  const EditCharacterDialogBox({
-    super.key, 
-  });
+  const _EditCharacterDialogBox();
 
   List<DropdownMenuItem<LegionBlock>> getDropdownLegionBlockList(BuildContext context, LegionCharacter? editingLegionCharacter) {
     List<DropdownMenuItem<LegionBlock>> dropdownItems = [];
