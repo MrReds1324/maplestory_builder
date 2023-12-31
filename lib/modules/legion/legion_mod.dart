@@ -27,7 +27,6 @@ class LegionModule implements Copyable {
   late Map<StatType, int> legionBoardStatLevels;
   int maximumBoardCoverage = 0;
   
-
   Map<StatType, num>? cacheValue;
   Widget hoverTooltip = const SizedBox.shrink();
 
@@ -99,7 +98,7 @@ class LegionModule implements Copyable {
 
     if ({CalculationSelector.all, CalculationSelector.board}.contains(calculationSelector)) {
       for (MapEntry<StatType, int> statEntry in legionBoardStatLevels.entries) {
-        legionStats[statEntry.key] = LegionBoardRank.boardStatPerLevel[statEntry.key]! * statEntry.value;
+        legionStats[statEntry.key] = LegionBoardRank.BOARD_STAT_PER_LEVEL[statEntry.key]! * statEntry.value;
       }
     }
 
@@ -129,7 +128,7 @@ class LegionModule implements Copyable {
   }
 
   num _getSingleBoardStatValue(StatType statType) {
-    return LegionBoardRank.boardStatPerLevel[statType]! * (legionBoardStatLevels[statType] ?? 0);
+    return LegionBoardRank.BOARD_STAT_PER_LEVEL[statType]! * (legionBoardStatLevels[statType] ?? 0);
   }
 
   void calculateMaximumBoardCoverage() {
@@ -212,7 +211,7 @@ class LegionModule implements Copyable {
       return false;
     }
 
-    var isSpecialBlock = LegionBlock.specialBlocks.contains(legionCharacter.legionBlock);
+    var isSpecialBlock = LegionBlock.SPECIAL_BLOCKS.contains(legionCharacter.legionBlock);
     // Only place characters up to the maximum allowed by the board rank
     var legionBoardRank = getLegionBoardRankCallback();
     if (legionBoardRank == null) {
@@ -246,7 +245,7 @@ class LegionModule implements Copyable {
       return false;
     }
 
-    if (LegionBlock.specialBlocks.contains(removingLegionCharacter.legionBlock) && placedCharacters.contains(removingLegionCharacter.legionCharacterHash)) {
+    if (LegionBlock.SPECIAL_BLOCKS.contains(removingLegionCharacter.legionBlock) && placedCharacters.contains(removingLegionCharacter.legionCharacterHash)) {
       placedSpecialLegionBlockCount -= 1;
     }
 
@@ -426,10 +425,10 @@ class LegionCharacter implements Copyable {
   String characterLevelToRank() {
     var rankIndex = characterLevelToIndex();
     if (rankIndex == null) {
-      return LegionBlock.legionBlockRanks[0];
+      return LegionBlock.LEGION_BLOCK_RANKS[0];
     }
     else {
-      return LegionBlock.legionBlockRanks[rankIndex + 1];
+      return LegionBlock.LEGION_BLOCK_RANKS[rankIndex + 1];
     }
   }
 }

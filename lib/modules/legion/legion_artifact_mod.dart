@@ -66,7 +66,7 @@ class LegionArtifactCrystalsModule implements Copyable {
 
     // Then calculate the actual stat value based on max level of 10
     for (MapEntry<StatType, int> artifactStatLevelsEntry in artifactStatLevels.entries) {
-      artifactStats[artifactStatLevelsEntry.key] = artifactStatIncreases[artifactStatLevelsEntry.key]! * min(artifactStatLevelsEntry.value, maxArtifactStatlevel);
+      artifactStats[artifactStatLevelsEntry.key] = ARTIFACT_STAT_INCREMENTS[artifactStatLevelsEntry.key]! * min(artifactStatLevelsEntry.value, MAX_ARTIFACT_STAT_LEVEL);
     }
 
     return artifactStats;
@@ -78,7 +78,7 @@ class LegionArtifactCrystalsModule implements Copyable {
   }
 
   bool addArtifactLevel(int artifactCrystalPosition) {
-    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == maxArtifactCrystalLevel) {
+    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == MAX_ARTIFACT_CRYSTAL_LEVEL) {
       return false;
     }
 
@@ -130,15 +130,15 @@ class ArtifactCrystal implements Copyable {
   }
 
   Widget buildLevelWidget(BuildContext context) { 
-    var unfilled = maxArtifactCrystalLevel - artifactCrystalLevel;
+    var unfilled = MAX_ARTIFACT_CRYSTAL_LEVEL - artifactCrystalLevel;
     var starGroup = <Icon>[];
 
     for (var i = 0; i < artifactCrystalLevel; i++){
-      starGroup.add(filledStar);
+      starGroup.add(FILLED_STAR);
     }
 
     for (var i = 0; i < unfilled; i++){
-      starGroup.add(emptyStar);
+      starGroup.add(EMPTY_STAR);
     }
 
     return Row(

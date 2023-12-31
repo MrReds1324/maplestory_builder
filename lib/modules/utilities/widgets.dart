@@ -75,7 +75,7 @@ class HorizontalLine extends StatelessWidget {
         padding: padding ?? const EdgeInsets.only(left: 10),
           child: Container(
           height: 2,
-          color: statColor,
+          color: DEFAULT_COLOR,
         ),
       ),
     );
@@ -194,7 +194,7 @@ class SetSelectButton<P> extends StatelessWidget {
           builder: (context, selectedSetNumber, child) {
             return Icon(
               _getIconData(),
-              color: setPosition == selectedSetNumber ? starColor : null,
+              color: setPosition == selectedSetNumber ? STAR_COLOR : null,
             );
           }
         ),

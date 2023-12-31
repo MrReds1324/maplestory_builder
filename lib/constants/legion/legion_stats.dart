@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum LegionBlock {
@@ -223,8 +225,8 @@ enum LegionBlock {
   final String formattedName;
   final (StatType, List<num>) legionEffect;
 
-  static List<String> legionBlockRanks = ["F", "B", "A", "S", "SS", "SSS"];
-  static Set<LegionBlock> specialBlocks = {LegionBlock.labServer, LegionBlock.enhancedLabServer, LegionBlock.abyssalExpeditionMF};
+  static const List<String> LEGION_BLOCK_RANKS = ["F", "B", "A", "S", "SS", "SSS"];
+  static const Set<LegionBlock> SPECIAL_BLOCKS = {LegionBlock.labServer, LegionBlock.enhancedLabServer, LegionBlock.abyssalExpeditionMF};
 }
 
 enum LegionBoardRank {
@@ -389,7 +391,7 @@ enum LegionBoardRank {
     }
   }
 
-  static Map<StatType, num> boardStatPerLevel = {
+  static const Map<StatType, num> BOARD_STAT_PER_LEVEL = {
     StatType.attack: 1,
     StatType.mattack: 1,
     StatType.str: 5,

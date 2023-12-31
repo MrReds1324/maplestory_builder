@@ -29,7 +29,7 @@ class ArtifactCrystalWidget extends StatelessWidget {
           return Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: artifactCrystalPosition <= legionArtifactProvider.activeArtifactCount ? statColor : Colors.redAccent
+                color: artifactCrystalPosition <= legionArtifactProvider.activeArtifactCount ? DEFAULT_COLOR : Colors.redAccent
               ),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
@@ -166,7 +166,7 @@ class _ArtifactCrystalStatDropdown extends StatelessWidget {
     List<StatType> filteredList = <StatType>[];
     // We can only have one of the flame types per equip, filter out any ones already used here
     statFilterLoop:
-    for(StatType statType in artifactStatIncreases.keys) { 
+    for(StatType statType in ARTIFACT_STAT_INCREMENTS.keys) { 
       // Stops us from being able to select multiple of a single stat
       for (MapEntry<int, StatType?> editingStats in artifactCrystal.artifactCrystalStats.entries) {
         if (editingStats.key == statPosition) {

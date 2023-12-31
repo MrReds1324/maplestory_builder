@@ -19,15 +19,15 @@ typedef RangedPotentialType = List<num>;
 typedef StaticPotentialType = num;
 // typedef SkillPotentialType = Skill;
 
-const List<EquipType> noPotentialCategory = <EquipType>[
+const List<EquipType> NO_POTENTIAL_CATEGORY = <EquipType>[
   EquipType.medal,
 ];
 
 enum PotentialTier {
-  rare(formattedName: "Rare", short: "R", color: rarePotentialColor),
-  epic(formattedName: "Epic", short: "E", color: epicPotentialColor),
-  unique(formattedName: "Unique", short: "U", color: uniquePotentialColor),
-  legendary(formattedName: "Legendary", short: "L", color: legendaryPotentialColor);
+  rare(formattedName: "Rare", short: "R", color: RARE_COLOR),
+  epic(formattedName: "Epic", short: "E", color: EPIC_COLOR),
+  unique(formattedName: "Unique", short: "U", color: UNIQUE_COLOR),
+  legendary(formattedName: "Legendary", short: "L", color: LEGENDARY_COLOR);
 
   const PotentialTier({
     required this.formattedName,
@@ -59,71 +59,71 @@ enum PotentialName {
   // Main Potentials
   // ---------------------------------------------------------------------- //
   // Rare Non Prime
-  rareNonPrimeStat(potentialType: PotentialType.range, statValue: rareNonPrimeStatAttValues),
-  rareNonPrimeAtt(potentialType: PotentialType.range, statValue: rareNonPrimeStatAttValues),
-  rareNonPrimeDefense(potentialType: PotentialType.range, statValue: rareNonPrimeDefenseHpMpValues),
-  rareNonPrimeHp(potentialType: PotentialType.range, statValue: rareNonPrimeDefenseHpMpValues),
-  rareNonPrimeMp(potentialType: PotentialType.range, statValue: rareNonPrimeDefenseHpMpValues),
+  rareNonPrimeStat(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_STAT_ATT_VALUES),
+  rareNonPrimeAtt(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_STAT_ATT_VALUES),
+  rareNonPrimeDefense(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
+  rareNonPrimeHp(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
+  rareNonPrimeMp(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
   // Rare Prime & Epic Non Prime
-  rarePrimeStat(potentialType: PotentialType.range, statValue: rarePrimeStatAttValues),
-  rarePrimeAtt(potentialType: PotentialType.range, statValue: rarePrimeStatAttValues),
-  rarePrimeAllStat(potentialType: PotentialType.range, statValue: rarePrimeAllStatValues),
-  rarePrimeDefense(potentialType: PotentialType.range, statValue: rarePrimeDefenseHpMpValues),
-  rarePrimeHp(potentialType: PotentialType.range, statValue: rarePrimeDefenseHpMpValues),
-  rarePrimeMp(potentialType: PotentialType.range, statValue: rarePrimeDefenseHpMpValues),
-  rarePrimeStatPercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
-  rarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
-  rarePrimeHpPercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
-  rarePrimeMpPercentage(potentialType: PotentialType.range, statValue: rarePrimeStatDefenseHpMpPercentageValues),
-  rarePrimeCriticalRate(potentialType: PotentialType.static, statValue: rarePrimeCriticalRateValue),
+  rarePrimeStat(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_ATT_VALUES),
+  rarePrimeAtt(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_ATT_VALUES),
+  rarePrimeAllStat(potentialType: PotentialType.range, statValue: RARE_PRIME_ALL_STAT_VALUES),
+  rarePrimeDefense(potentialType: PotentialType.range, statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  rarePrimeHp(potentialType: PotentialType.range, statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  rarePrimeMp(potentialType: PotentialType.range, statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  rarePrimeStatPercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeHpPercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeMpPercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeCriticalRate(potentialType: PotentialType.static, statValue: RARE_PRIME_CRIT_RATE_VALUE),
   // Epic Prime & Unique Non Prime
-  epicPrimeStatPercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
-  epicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
-  epicPrimeDamage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
-  epicPrimeDefensePercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
-  epicPrimeHpPercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
-  epicPrimeMpPercentage(potentialType: PotentialType.range, statValue: epicPrimeStatAttackDamageDefenseHpMpPercentageValues),
-  epicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: epicPrimeAllStatPercentageValues),
-  epicPrimeCriticalRate(potentialType: PotentialType.static, statValue: epicPrimeCriticalRateValue),
-  epicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: epicPrimeIgnoreDefenseValue),
+  epicPrimeStatPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeDamage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeDefensePercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeHpPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeMpPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  epicPrimeCriticalRate(potentialType: PotentialType.static, statValue: EPIC_PRIME_CRIT_RATE_VALUE),
+  epicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: EPIC_PRIME_IGNORE_DEFENSE_VALUE),
   // Unique Prime & Legendary Non Prime
-  uniquePrimeStatPercentage(potentialType: PotentialType.range, statValue: uniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  uniquePrimeAttackPercentage(potentialType: PotentialType.range, statValue: uniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  uniquePrimeDamage(potentialType: PotentialType.range, statValue: uniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  uniquePrimeCriticalRate(potentialType: PotentialType.range, statValue: uniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  uniquePrimeDefensePercentage(potentialType: PotentialType.range, statValue: uniquePrimeDefenseHpMpPercentageValues),
-  uniquePrimeHpPercentage(potentialType: PotentialType.range, statValue: uniquePrimeDefenseHpMpPercentageValues),
-  uniquePrimeMpPercentage(potentialType: PotentialType.range, statValue: uniquePrimeDefenseHpMpPercentageValues),
-  uniquePrimeAllStatPercentage(potentialType: PotentialType.range, statValue: uniquePrimeAllStatPercentageValues),
-  uniquePrimeHpRecovery(potentialType: PotentialType.range, statValue: uniquePrimeHpRecoveryValues),
-  uniquePrimeStat(potentialType: PotentialType.range, statValue: uniquePrimeStatAttValues),
-  uniquePrimeAtt(potentialType: PotentialType.range, statValue: uniquePrimeStatAttValues),
-  uniquePrimeBossDamage(potentialType: PotentialType.static, statValue: uniquePrimeBossDamageValue),
-  uniquePrimeIgnoreDefense(potentialType: PotentialType.static, statValue: uniquePrimeIgnoreDefenseValue),
+  uniquePrimeStatPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeAttackPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeDamage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeCriticalRate(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeDefensePercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  uniquePrimeHpPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  uniquePrimeMpPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  uniquePrimeAllStatPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  uniquePrimeHpRecovery(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_HP_RECOVERY_VALUES),
+  uniquePrimeStat(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_VALUES),
+  uniquePrimeAtt(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_VALUES),
+  uniquePrimeBossDamage(potentialType: PotentialType.static, statValue: UNIQUE_PRIME_BOSS_DAMAGE_VALUE),
+  uniquePrimeIgnoreDefense(potentialType: PotentialType.static, statValue: UNIQUE_PRIME_IGNORE_DEFENSE_VALUE),
   // uniquePrimeDecentMysticDoor(potentialType: PotentialType.skill, statValue: ,)
   // uniquePrimeDecentHyperBody(potentialType: PotentialType.skill, statValue: ,)
   // unqiuePrimeDecentSharpEyes(potentialType: PotentialType.skill, statValue: ,)
   // uniquePrimeDecentHaste(potentialType: PotentialType.skill, statValue: ,)
   // Legendary Prime
-  legendaryPrimeStat(potentialType: PotentialType.range, statValue: legendaryPrimeStatAttValues),
-  legendaryPrimeAtt(potentialType: PotentialType.range, statValue: legendaryPrimeStatAttValues),
-  legendaryPrimeStatPercentage(potentialType: PotentialType.range, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  legendaryPrimeAttackPercentage(potentialType: PotentialType.range, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  legendaryPrimeDamagePercentage(potentialType: PotentialType.range, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  legendaryPrimeCriticalRatePercentage(potentialType: PotentialType.range, statValue: legendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  legendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: legendaryPrimeHpMpPercentageValues),
-  legendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: legendaryPrimeHpMpPercentageValues),
-  legendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: legendaryPrimeAllStatPercentageValues),
-  legendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: legendaryPrimeHpRecoveryValues),
-  legendaryPrimeSkillCooldown1(potentialType: PotentialType.static, statValue: legendaryPrimeSkillCooldown1Value),
-  legendaryPrimeSkillCooldown2(potentialType: PotentialType.static, statValue: legendaryPrimeSkillCooldown2Value),
-  legendaryPrimeCriticalDamage(potentialType: PotentialType.range, statValue: legendaryPrimeCriticalDamageValues),
-  legendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: legendaryPrimeMesosObtainedItemDropRateValues),
-  legendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: legendaryPrimeMesosObtainedItemDropRateValues),
-  legendaryPrimeBossDamage35(potentialType: PotentialType.static, statValue: legendaryPrimeBossDamage35Value),
-  legendaryPrimeBossDamage40(potentialType: PotentialType.static, statValue: legendaryPrimeBossDamage40Value),
-  legendaryPrimeIgnoreDefense35(potentialType: PotentialType.static, statValue: legendaryPrimeIgnoreDefense35Value),
-  legendaryPrimeIgnoreDefense40(potentialType: PotentialType.static, statValue: legendaryPrimeIgnoreDefense40Value),
+  legendaryPrimeStat(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_VALUES),
+  legendaryPrimeAtt(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_VALUES),
+  legendaryPrimeStatPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeAttackPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeDamagePercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeCriticalRatePercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  legendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  legendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  legendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_HP_RECOVERY_VALUES),
+  legendaryPrimeSkillCooldown1(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_SKILL_COOLDOWN_1_VALUE),
+  legendaryPrimeSkillCooldown2(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_SKILL_COOLDOWN_2_VALUE),
+  legendaryPrimeCriticalDamage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_CRIT_DAMAGE_VALUES),
+  legendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  legendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  legendaryPrimeBossDamage35(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_BOSS_DAMAGE_35_VALUE),
+  legendaryPrimeBossDamage40(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_BOSS_DAMAGE_40_VALUE),
+  legendaryPrimeIgnoreDefense35(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_IGNORE_DEFENSE_35_VALUE),
+  legendaryPrimeIgnoreDefense40(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_IGNORE_DEFENSE_40_VALUE),
   // legendaryPrimeDecentAdvancedBlessing(potentialType: , statValue: ,)
   // legendaryPrimeDecentSpeedInfusion(potentialType: , statValue: ,)
   // legendaryPrimeDecentCombatOrders(potentialType: , statValue: ,)
@@ -131,83 +131,83 @@ enum PotentialName {
   // Bonus Potentials
   // ---------------------------------------------------------------------- //
   // Rare Non Prime
-  bonusRareNonPrimeStat(potentialType: PotentialType.range, statValue: bonusRareNonPrimeStatValues),
-  bonusRareNonPrimeAtt(potentialType: PotentialType.range, statValue: bonusRareNonPrimeAttValues),
-  bonusRareNonPrimeDefense(potentialType: PotentialType.range, statValue: bonusRareNonPrimeHpMpDefenseValues),
-  bonusRareNonPrimeHp(potentialType: PotentialType.range, statValue: bonusRareNonPrimeHpMpDefenseValues),
-  bonusRareNonPrimeMp(potentialType: PotentialType.range, statValue: bonusRareNonPrimeHpMpDefenseValues),
-  bonusRareNonPrimeSpeed(potentialType: PotentialType.range, statValue: bonusRareNonPrimeSpeedJumpValues),
-  bonusRareNonPrimeJump(potentialType: PotentialType.range, statValue: bonusRareNonPrimeSpeedJumpValues),
+  bonusRareNonPrimeStat(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_STAT_VALUES),
+  bonusRareNonPrimeAtt(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_ATT_VALUES),
+  bonusRareNonPrimeDefense(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
+  bonusRareNonPrimeHp(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
+  bonusRareNonPrimeMp(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
+  bonusRareNonPrimeSpeed(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES),
+  bonusRareNonPrimeJump(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES),
   // Rare Prime & Epic Non Prime
-  bonusRarePrimeStat(potentialType: PotentialType.range, statValue: bonusRarePrimeStatValues),
-  bonusRarePrimeAtt(potentialType: PotentialType.range, statValue: bonusRarePrimeAttValues),
-  bonusRarePrimeAllStat(potentialType: PotentialType.range, statValue: bonusRarePrimeAllStatValues),
-  bonusRarePrimeDefense(potentialType: PotentialType.range, statValue: bonusRarePrimeDefenseHpMpValues),
-  bonusRarePrimeHp(potentialType: PotentialType.range, statValue: bonusRarePrimeDefenseHpMpValues),
-  bonusRarePrimeMp(potentialType: PotentialType.range, statValue: bonusRarePrimeDefenseHpMpValues),
-  bonusRarePrimeStatPercentage(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeHpPercentage(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeMpPercentage(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeAttackPercentage(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeDamage(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeCriticalRate(potentialType: PotentialType.range, statValue: bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues),
-  bonusRarePrimeSpeed(potentialType: PotentialType.range, statValue: bonusRarePrimeSpeedJumpValues),
-  bonusRarePrimeJump(potentialType: PotentialType.range, statValue: bonusRarePrimeSpeedJumpValues),
+  bonusRarePrimeStat(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_VALUES),
+  bonusRarePrimeAtt(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_ATT_VALUES),
+  bonusRarePrimeAllStat(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_ALL_STAT_VALUES),
+  bonusRarePrimeDefense(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  bonusRarePrimeHp(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  bonusRarePrimeMp(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  bonusRarePrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeDamage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeSpeed(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_SPEED_JUMP_VALUES),
+  bonusRarePrimeJump(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_SPEED_JUMP_VALUES),
   // Epic Prime & Unique Non Prime
-  bonusEpicPrimeStat(potentialType: PotentialType.range, statValue: bonusEpicPrimeStatValues),
-  bonusEpicPrimeAtt(potentialType: PotentialType.range, statValue: bonusEpicPrimeAttValues),
-  bonusEpicPrimeHp(potentialType: PotentialType.range, statValue: bonusEpicPrimeHpMpValues),
-  bonusEpicPrimeMp(potentialType: PotentialType.range, statValue: bonusEpicPrimeHpMpValues),
-  bonusEpicPrimeDefense(potentialType: PotentialType.range, statValue: bonusEpicPrimeDefenseValues),
-  bonusEpicPrimeSpeed(potentialType: PotentialType.range, statValue: bonusEpicPrimeSpeedJumpValues),
-  bonusEpicPrimeJump(potentialType: PotentialType.range, statValue: bonusEpicPrimeSpeedJumpValues),
-  bonusEpicPrimeStatPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValues),
-  bonusEpicPrimeDefensePercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValues),
-  bonusEpicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValues),
-  bonusEpicPrimeDamage(potentialType: PotentialType.range, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValues),
-  bonusEpicPrimeCriticalRate(potentialType: PotentialType.range, statValue: bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValues),
-  bonusEpicPrimeHpPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeHpMpPercentageValues),
-  bonusEpicPrimeMpPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeHpMpPercentageValues),
-  bonusEpicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: bonusEpicPrimeAllStatPercentageValues),
-  bonusEpicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: bonusEpicPrimeIgnoreDefenseValue),
+  bonusEpicPrimeStat(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_VALUES),
+  bonusEpicPrimeAtt(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_ATT_VALUES),
+  bonusEpicPrimeHp(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_VALUES),
+  bonusEpicPrimeMp(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_VALUES),
+  bonusEpicPrimeDefense(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_DEFENSE_VALUES),
+  bonusEpicPrimeSpeed(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_SPEED_JUMP_VALUES),
+  bonusEpicPrimeJump(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_SPEED_JUMP_VALUES),
+  bonusEpicPrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeDefensePercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeDamage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusEpicPrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusEpicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  bonusEpicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: BONUS_EPIC_PRIME_IGNORE_DEFENSE_VALUE),
   // Unique Prime & Legendary Non Prime
-  bonusUniquePrimeStat(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatValues),
-  bonusUniquePrimeStatPerLevel(potentialType: PotentialType.static, statValue: bonusUniquePrimeStatPerLevelValue),
-  bonusUniquePrimeAtt(potentialType: PotentialType.range, statValue: bonusUniquePrimeAttValues),
-  bonusUniquePrimeHp(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpMpValues),
-  bonusUniquePrimeMp(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpMpValues),
-  bonusUniquePrimeStatPercentage(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusUniquePrimeAttackPercentage(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusUniquePrimeDamage(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusUniquePrimeCriticalRate(potentialType: PotentialType.range, statValue: bonusUniquePrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusUniquePrimeHpPercentage(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpMpPercentageValues),
-  bonusUniquePrimeMpPercentage(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpMpPercentageValues),
-  bonusUniquePrimeAllStatPercentage(potentialType: PotentialType.range, statValue: bonusUniquePrimeAllStatPercentageValues),
-  bonusUniquePrimeHpRecovery(potentialType: PotentialType.range, statValue: bonusUniquePrimeHpRecoveryValues),
-  bonusUniquePrimeBossDamage(potentialType: PotentialType.static, statValue: bonusUniquePrimeBossDamageValue),
-  bonusUniquePrimeIgnoreDefense(potentialType: PotentialType.static, statValue: bonusUniquePrimeIgnoreDefenseValue),
+  bonusUniquePrimeStat(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_VALUES),
+  bonusUniquePrimeStatPerLevel(potentialType: PotentialType.static, statValue: BONUS_UNIQUE_PRIME_STAT_PER_LEVEL_VALUE),
+  bonusUniquePrimeAtt(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_ATT_VALUES),
+  bonusUniquePrimeHp(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_VALUES),
+  bonusUniquePrimeMp(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_VALUES),
+  bonusUniquePrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeDamage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusUniquePrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusUniquePrimeAllStatPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  bonusUniquePrimeHpRecovery(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_RECOVERY_VALUES),
+  bonusUniquePrimeBossDamage(potentialType: PotentialType.static, statValue: BONUS_UNIQUE_PRIME_BOSS_DAMAGE_VALUE),
+  bonusUniquePrimeIgnoreDefense(potentialType: PotentialType.static, statValue: BONUS_UNIQUE_PRIME_IGNORE_DEFENSE_VALUE),
   // Legendary Prime
-  bonusLegendaryPrimeStat(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeStatValues),
-  bonusLegendaryPrimeAtt(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeAttValues),
-  bonusLegendaryPrimeHp(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpMpValues),
-  bonusLegendaryPrimeMp(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpMpValues),
-  bonusLegendaryPrimeStatPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusLegendaryPrimeAttackPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusLegendaryPrimeDamage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusLegendaryPrimeCriticalRate(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeStatAttackDamageCriticalRatePercentageValues),
-  bonusLegendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpMpPercentageValues),
-  bonusLegendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpMpPercentageValues),
-  bonusLegendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeAllStatPercentageValues),
-  bonusLegendaryPrimeStatPerLevel(potentialType: PotentialType.static, statValue: bonusLegendaryPrimeStatPerLevelValue),
-  bonusLegendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeHpRecoveryValues),
-  bonusLegendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeMesosObtainedItemDropRateValues),
-  bonusLegendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeMesosObtainedItemDropRateValues),
-  bonusLegendaryPrimeSkillCooldown1(potentialType: PotentialType.static, statValue: bonusLegendaryPrimeSkillCooldown1Value),
-  bonusLegendaryPrimeCriticalDamageStatic(potentialType: PotentialType.static, statValue: bonusLegendaryPrimeCriticalDamageStaticValue),
-  bonusLegendaryPrimeCriticalDamage(potentialType: PotentialType.range, statValue: bonusLegendaryPrimeCriticalDamageValues),
-  bonusLegendaryPrimeBossDamage(potentialType: PotentialType.static, statValue: bonusLegendaryPrimeBossDamageValue),
-  bonusLegendaryPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: bonusLegendaryPrimeIgnoreDefenseValue);
+  bonusLegendaryPrimeStat(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_VALUES),
+  bonusLegendaryPrimeAtt(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_ATT_VALUES),
+  bonusLegendaryPrimeHp(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_HP_MP_VALUES),
+  bonusLegendaryPrimeMp(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_HP_MP_VALUES),
+  bonusLegendaryPrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeDamage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeStatPerLevel(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_STAT_PER_LEVEL_VALUE),
+  bonusLegendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: BONUS_LEGENARY_PRIME_HP_RECOVERY_VALUES),
+  bonusLegendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  bonusLegendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  bonusLegendaryPrimeSkillCooldown1(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_SKILL_COOLDOWN_VALUE),
+  bonusLegendaryPrimeCriticalDamageStatic(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUE),
+  bonusLegendaryPrimeCriticalDamage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUES),
+  bonusLegendaryPrimeBossDamage(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_BOSS_DAMAGE_VALUE),
+  bonusLegendaryPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: BONUS_LEGENARY_PRIME_IGNORE_DEFENSE_VALUE);
 
   const PotentialName({
     required this.potentialType,
@@ -246,7 +246,7 @@ class PotentialLine {
 }
 
 //Main Potential
-const List<num> rareNonPrimeStatAttValues = [
+const List<int> RARE_NON_PRIME_STAT_ATT_VALUES = [
   1, // 0-10
   1, // 11-20
   2, // 21-30
@@ -261,7 +261,7 @@ const List<num> rareNonPrimeStatAttValues = [
   6, // 111-150
   6, // 151+
 ];
-const List<num> rareNonPrimeDefenseHpMpValues = [
+const List<int> RARE_NON_PRIME_DEFENSE_HP_MP_VALUES = [
   5, // 0-10
   10, // 11-20
   15, // 21-30
@@ -276,7 +276,7 @@ const List<num> rareNonPrimeDefenseHpMpValues = [
   60, // 111-150
   60, // 151+
 ];
-const List<num> rarePrimeStatAttValues = [
+const List<int> RARE_PRIME_STAT_ATT_VALUES = [
   2, // 0-10
   2, // 11-20
   4, // 21-30
@@ -291,7 +291,7 @@ const List<num> rarePrimeStatAttValues = [
   12, // 111-150
   13, // 151+
 ];
-const List<num> rarePrimeAllStatValues = [
+const List<int> RARE_PRIME_ALL_STAT_VALUES = [
   1, // 0-10
   1, // 11-20
   2, // 21-30
@@ -306,7 +306,7 @@ const List<num> rarePrimeAllStatValues = [
   5, // 111-150
   6, // 151+
 ];
-const List<num> rarePrimeDefenseHpMpValues = [
+const List<int> RARE_PRIME_DEFENSE_HP_MP_VALUES = [
   10, // 0-10
   20, // 11-20
   30, // 21-30
@@ -321,7 +321,7 @@ const List<num> rarePrimeDefenseHpMpValues = [
   120, // 111-150
   125, // 151+
 ];
-const List<num> rarePrimeStatDefenseHpMpPercentageValues = [
+const List<double> RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.01, // 21-30
@@ -336,9 +336,9 @@ const List<num> rarePrimeStatDefenseHpMpPercentageValues = [
   0.03, // 111-150
   0.04, // 151+
 ];
-const num rarePrimeCriticalRateValue = 0.04; // 0+
+const double RARE_PRIME_CRIT_RATE_VALUE = 0.04; // 0+
 
-const List<num> epicPrimeStatAttackDamageDefenseHpMpPercentageValues = [
+const List<double> EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.02, // 21-30
@@ -353,7 +353,7 @@ const List<num> epicPrimeStatAttackDamageDefenseHpMpPercentageValues = [
   0.06, // 111-150
   0.07, // 151+
 ];
-const List<num> epicPrimeAllStatPercentageValues = [
+const List<double> EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.01, // 21-30
@@ -368,10 +368,10 @@ const List<num> epicPrimeAllStatPercentageValues = [
   0.03, // 111-150
   0.04, // 151+
 ];
-const num epicPrimeCriticalRateValue = 0.08; // 50+
-const num epicPrimeIgnoreDefenseValue = 0.15; // 50+
+const double EPIC_PRIME_CRIT_RATE_VALUE = 0.08; // 50+
+const double EPIC_PRIME_IGNORE_DEFENSE_VALUE = 0.15; // 50+
 
-const List<num> uniquePrimeStatAttackDamageCriticalRatePercentageValues = [
+const List<double> UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.03, // 0-10
   0.03, // 11-20
   0.03, // 21-30
@@ -386,7 +386,7 @@ const List<num> uniquePrimeStatAttackDamageCriticalRatePercentageValues = [
   0.09, // 111-150
   0.10, // 151+
 ];
-const List<num> uniquePrimeDefenseHpMpPercentageValues = [
+const List<double> UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES = [
   0.03, // 0-10
   0.03, // 11-20
   0.03, // 21-30
@@ -401,7 +401,7 @@ const List<num> uniquePrimeDefenseHpMpPercentageValues = [
   0.09, // 111-150
   0.09, // 151+
 ];
-const List<num> uniquePrimeAllStatPercentageValues = [
+const List<double> UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.02, // 21-30
@@ -416,7 +416,7 @@ const List<num> uniquePrimeAllStatPercentageValues = [
   0.06, // 111-150
   0.07, // 151+
 ];
-const List<num> uniquePrimeHpRecoveryValues = [
+const List<double> UNIQUE_PRIME_HP_RECOVERY_VALUES = [
   0.1, // 0-10
   0.1, // 11-20
   0.1, // 21-30
@@ -431,7 +431,7 @@ const List<num> uniquePrimeHpRecoveryValues = [
   0.3, // 111-150
   0.3, // 151+
 ];
-const List<num> uniquePrimeStatAttValues = [
+const List<int> UNIQUE_PRIME_STAT_ATT_VALUES = [
   0, // 0-10
   0, // 11-20
   0, // 21-30
@@ -446,11 +446,11 @@ const List<num> uniquePrimeStatAttValues = [
   32, // 111-150
   32, // 151+
 ];
-const num uniquePrimeBossDamageValue = 0.3; // 100+
-const num uniquePrimeIgnoreDefenseValue = 0.3; // 100+
+const double UNIQUE_PRIME_BOSS_DAMAGE_VALUE = 0.3; // 100+
+const double UNIQUE_PRIME_IGNORE_DEFENSE_VALUE = 0.3; // 100+
 
-const List<num> legendaryPrimeStatAttValues = uniquePrimeStatAttValues;
-const List<num> legendaryPrimeStatAttackDamageCriticalRatePercentageValues = [
+const List<int> LEGENDARY_PRIME_STAT_ATT_VALUES = UNIQUE_PRIME_STAT_ATT_VALUES;
+const List<double> LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.06, // 0-10
   0.06, // 11-20
   0.06, // 21-30
@@ -465,7 +465,7 @@ const List<num> legendaryPrimeStatAttackDamageCriticalRatePercentageValues = [
   0.12, // 111-150
   0.13, // 151+
 ];
-const List<num> legendaryPrimeHpMpPercentageValues = [
+const List<double> LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES = [
   0.06, // 0-10
   0.06, // 11-20
   0.06, // 21-30
@@ -480,7 +480,7 @@ const List<num> legendaryPrimeHpMpPercentageValues = [
   0.12, // 111-150
   0.12, // 151+
 ];
-const List<num> legendaryPrimeAllStatPercentageValues = [
+const List<double> LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.03, // 0-10
   0.03, // 11-20
   0.03, // 21-30
@@ -495,10 +495,10 @@ const List<num> legendaryPrimeAllStatPercentageValues = [
   0.09, // 111-150
   0.10, // 151+
 ];
-const List<num> legendaryPrimeHpRecoveryValues = uniquePrimeHpRecoveryValues;
-const num legendaryPrimeSkillCooldown1Value = 1; // Requires 70+ equipment
-const num legendaryPrimeSkillCooldown2Value = 2; // Requires 120+ equipment
-const List<num> legendaryPrimeCriticalDamageValues = [
+const List<double> LEGENDARY_PRIME_HP_RECOVERY_VALUES = UNIQUE_PRIME_HP_RECOVERY_VALUES;
+const int LEGENDARY_PRIME_SKILL_COOLDOWN_1_VALUE = 1; // Requires 70+ equipment
+const int LEGENDARY_PRIME_SKILL_COOLDOWN_2_VALUE = 2; // Requires 120+ equipment
+const List<double> LEGENDARY_PRIME_CRIT_DAMAGE_VALUES = [
   0, // 0-10
   0, // 11-20
   0, // 21-30
@@ -513,7 +513,7 @@ const List<num> legendaryPrimeCriticalDamageValues = [
   0.08, // 111-150
   0.08, // 151+
 ];
-const List<num> legendaryPrimeMesosObtainedItemDropRateValues = [
+const List<double> LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES = [
   0.1, // 0-10
   0.1, // 11-20
   0.1, // 21-30
@@ -528,13 +528,13 @@ const List<num> legendaryPrimeMesosObtainedItemDropRateValues = [
   0.2, // 111-150
   0.2, // 151+
 ];
-const num legendaryPrimeBossDamage35Value = 0.35; // 100+
-const num legendaryPrimeBossDamage40Value = 0.4; // 100+
-const num legendaryPrimeIgnoreDefense35Value = 0.35; // 100+
-const num legendaryPrimeIgnoreDefense40Value = 0.4; // 100+
+const double LEGENDARY_PRIME_BOSS_DAMAGE_35_VALUE = 0.35; // 100+
+const double LEGENDARY_PRIME_BOSS_DAMAGE_40_VALUE = 0.4; // 100+
+const double LEGENDARY_PRIME_IGNORE_DEFENSE_35_VALUE = 0.35; // 100+
+const double LEGENDARY_PRIME_IGNORE_DEFENSE_40_VALUE = 0.4; // 100+
 
 // Default that is shared between all equips
-const Map<PotentialTier, List<PotentialLine>> defaultPotentials = {
+const Map<PotentialTier, List<PotentialLine>> DEFAULT_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
@@ -628,7 +628,7 @@ const Map<PotentialTier, List<PotentialLine>> defaultPotentials = {
 };
 
 // Hat
-const Map<PotentialTier, List<PotentialLine>> hatPotentials = {
+const Map<PotentialTier, List<PotentialLine>> HAT_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -647,7 +647,7 @@ const Map<PotentialTier, List<PotentialLine>> hatPotentials = {
 };
 
 //Top, Overall
-const Map<PotentialTier, List<PotentialLine>> topAndOverallPotentials = {
+const Map<PotentialTier, List<PotentialLine>> TOP_OVERALL_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -661,7 +661,7 @@ const Map<PotentialTier, List<PotentialLine>> topAndOverallPotentials = {
 };
 
 //Bottom
-const Map<PotentialTier, List<PotentialLine>> bottomPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BOTTOM_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -678,7 +678,7 @@ const Map<PotentialTier, List<PotentialLine>> bottomPotentials = {
 };
 
 //Gloves
-const Map<PotentialTier, List<PotentialLine>> glovesPotentials = {
+const Map<PotentialTier, List<PotentialLine>> GLOVES_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -708,7 +708,7 @@ const Map<PotentialTier, List<PotentialLine>> glovesPotentials = {
 };
 
 //Shoes
-const Map<PotentialTier, List<PotentialLine>> shoesPotentials = {
+const Map<PotentialTier, List<PotentialLine>> SHOES_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -725,7 +725,7 @@ const Map<PotentialTier, List<PotentialLine>> shoesPotentials = {
 };
 
 //Cape, Belt, Shoulder
-const Map<PotentialTier, List<PotentialLine>> capeBeltShoulderPotentials = {
+const Map<PotentialTier, List<PotentialLine>> CAPE_BELT_SHOULDER_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -739,7 +739,7 @@ const Map<PotentialTier, List<PotentialLine>> capeBeltShoulderPotentials = {
 };
 
 //Face, Eye, Ring, Pendant, Earring
-const Map<PotentialTier, List<PotentialLine>> faceEyeRingPendantEarringPotentials = {
+const Map<PotentialTier, List<PotentialLine>> FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -755,7 +755,7 @@ const Map<PotentialTier, List<PotentialLine>> faceEyeRingPendantEarringPotential
 };
 
 //Weapon, Secondary
-const Map<PotentialTier, List<PotentialLine>> weaponSecondaryPotentials = {
+const Map<PotentialTier, List<PotentialLine>> WEAPON_SECONDARY_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.rarePrimeCriticalRate),
@@ -815,7 +815,7 @@ const Map<PotentialTier, List<PotentialLine>> weaponSecondaryPotentials = {
 };
 
 //Emblem
-const Map<PotentialTier, List<PotentialLine>> emblemPotentials = {
+const Map<PotentialTier, List<PotentialLine>> EMBLEM_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.rarePrimeCriticalRate),
@@ -871,7 +871,7 @@ const Map<PotentialTier, List<PotentialLine>> emblemPotentials = {
 };
 
 //Heart, Badge
-const Map<PotentialTier, List<PotentialLine>> heartAndBadgePotentials = {
+const Map<PotentialTier, List<PotentialLine>> HEART_BADGE_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
@@ -886,7 +886,7 @@ const Map<PotentialTier, List<PotentialLine>> heartAndBadgePotentials = {
 
 
 //Bonus Potential
-const List<num> bonusRareNonPrimeStatValues = [
+const List<int> BONUS_RARE_NON_PRIME_STAT_VALUES = [
   1, // 0-10
   1, // 11-20
   2, // 21-30
@@ -901,7 +901,7 @@ const List<num> bonusRareNonPrimeStatValues = [
   6, // 111-150
   6, // 151+
 ];
-const List<num> bonusRareNonPrimeAttValues = [
+const List<int> BONUS_RARE_NON_PRIME_ATT_VALUES = [
   1, // 0-10
   1, // 11-20
   1, // 21-30
@@ -916,7 +916,7 @@ const List<num> bonusRareNonPrimeAttValues = [
   3, // 111-150
   3, // 151+
 ];
-const List<num> bonusRareNonPrimeHpMpDefenseValues = [
+const List<int> BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES = [
   5, // 0-10
   10, // 11-20
   15, // 21-30
@@ -931,7 +931,7 @@ const List<num> bonusRareNonPrimeHpMpDefenseValues = [
   60, // 111-150
   60, // 151+
 ];
-const List<num> bonusRareNonPrimeSpeedJumpValues = [
+const List<int> BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES = [
   1, // 0-10
   1, // 11-20
   1, // 21-30
@@ -946,7 +946,7 @@ const List<num> bonusRareNonPrimeSpeedJumpValues = [
   4, // 111-150
   4, // 151+
 ];
-const List<num> bonusRarePrimeStatValues = [
+const List<int> BONUS_RARE_PRIME_STAT_VALUES = [
   2, // 0-10
   2, // 11-20
   4, // 21-30
@@ -961,7 +961,7 @@ const List<num> bonusRarePrimeStatValues = [
   12, // 111-150
   13, // 151+
 ];
-const List<num> bonusRarePrimeAttValues = [
+const List<int> BONUS_RARE_PRIME_ATT_VALUES = [
   1, // 0-10
   1, // 11-20
   2, // 21-30
@@ -976,7 +976,7 @@ const List<num> bonusRarePrimeAttValues = [
   10, // 111-150
   11, // 151+
 ];
-const List<num> bonusRarePrimeAllStatValues = [
+const List<int> BONUS_RARE_PRIME_ALL_STAT_VALUES = [
   1, // 0-10
   1, // 11-20
   2, // 21-30
@@ -991,7 +991,7 @@ const List<num> bonusRarePrimeAllStatValues = [
   5, // 111-150
   6, // 151+
 ];
-const List<num> bonusRarePrimeDefenseHpMpValues = [
+const List<int> BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES = [
   10, // 0-10
   20, // 11-20
   30, // 21-30
@@ -1006,7 +1006,7 @@ const List<num> bonusRarePrimeDefenseHpMpValues = [
   120, // 111-150
   125, // 151+
 ];
-const List<num> bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageValues = [
+const List<double> BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.01, // 21-30
@@ -1021,7 +1021,7 @@ const List<num> bonusRarePrimeStatHpMpDefenseAttackDamageCriticalRatePercentageV
   0.03, // 111-150
   0.04, // 151+
 ];
-const List<num> bonusRarePrimeSpeedJumpValues = [
+const List<int> BONUS_RARE_PRIME_SPEED_JUMP_VALUES = [
   2, // 0-10
   2, // 11-20
   3, // 21-30
@@ -1037,7 +1037,7 @@ const List<num> bonusRarePrimeSpeedJumpValues = [
   6, // 151+
 ];
 
-const List<num> bonusEpicPrimeStatValues = [
+const List<int> BONUS_EPIC_PRIME_STAT_VALUES = [
   4, // 0-10
   4, // 11-20
   6, // 21-30
@@ -1052,7 +1052,7 @@ const List<num> bonusEpicPrimeStatValues = [
   14, // 111-150
   15, // 151+
 ];
-const List<num> bonusEpicPrimeAttValues = [
+const List<int> BONUS_EPIC_PRIME_ATT_VALUES = [
   4, // 0-10
   4, // 11-20
   6, // 21-30
@@ -1067,7 +1067,7 @@ const List<num> bonusEpicPrimeAttValues = [
   11, // 111-150
   12, // 151+
 ];
-const List<num> bonusEpicPrimeHpMpValues = [
+const List<int> BONUS_EPIC_PRIME_HP_MP_VALUES = [
   15, // 0-10
   30, // 11-20
   45, // 21-30
@@ -1082,7 +1082,7 @@ const List<num> bonusEpicPrimeHpMpValues = [
   180, // 111-150
   185, // 151+
 ];
-const List<num> bonusEpicPrimeDefenseValues = [
+const List<int> BONUS_EPIC_PRIME_DEFENSE_VALUES = [
   15, // 0-10
   15, // 11-20
   20, // 21-30
@@ -1097,7 +1097,7 @@ const List<num> bonusEpicPrimeDefenseValues = [
   120, // 111-150
   150, // 151+
 ];
-const List<num> bonusEpicPrimeSpeedJumpValues = [
+const List<int> BONUS_EPIC_PRIME_SPEED_JUMP_VALUES = [
   4, // 0-10
   4, // 11-20
   4, // 21-30
@@ -1112,7 +1112,7 @@ const List<num> bonusEpicPrimeSpeedJumpValues = [
   8, // 111-150
   8, // 151+
 ];
-const List<num> bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValues = [
+const List<double> BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.02, // 21-30
@@ -1127,7 +1127,7 @@ const List<num> bonusEpicPrimeStatDefenseAttackDamageCriticalRatePercentageValue
   0.04, // 111-150
   0.05, // 151+
 ];
-const List<num> bonusEpicPrimeHpMpPercentageValues = [
+const List<double> BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.02, // 21-30
@@ -1142,7 +1142,7 @@ const List<num> bonusEpicPrimeHpMpPercentageValues = [
   0.05, // 111-150
   0.06, // 151+
 ];
-const List<num> bonusEpicPrimeAllStatPercentageValues = [
+const List<double> BONUS_EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.01, // 21-30
@@ -1157,9 +1157,9 @@ const List<num> bonusEpicPrimeAllStatPercentageValues = [
   0.02, // 111-150
   0.03, // 151+
 ];
-const num bonusEpicPrimeIgnoreDefenseValue = 0.03;
+const double BONUS_EPIC_PRIME_IGNORE_DEFENSE_VALUE = 0.03;
 
-const List<num> bonusUniquePrimeStatValues = [
+const List<int> BONUS_UNIQUE_PRIME_STAT_VALUES = [
   8, // 0-10
   8, // 11-20
   10, // 21-30
@@ -1174,8 +1174,8 @@ const List<num> bonusUniquePrimeStatValues = [
   16, // 111-150
   17, // 151+
 ];
-const num bonusUniquePrimeStatPerLevelValue = 32;
-const List<num> bonusUniquePrimeAttValues = [
+const int BONUS_UNIQUE_PRIME_STAT_PER_LEVEL_VALUE = 32;
+const List<int> BONUS_UNIQUE_PRIME_ATT_VALUES = [
   6, // 0-10
   6, // 11-20
   8, // 21-30
@@ -1190,7 +1190,7 @@ const List<num> bonusUniquePrimeAttValues = [
   12, // 111-150
   13, // 151+
 ];
-const List<num> bonusUniquePrimeHpMpValues = [
+const List<int> BONUS_UNIQUE_PRIME_HP_MP_VALUES = [
   20, // 0-10
   20, // 11-20
   45, // 21-30
@@ -1205,7 +1205,7 @@ const List<num> bonusUniquePrimeHpMpValues = [
   180, // 111-150
   185, // 151+
 ];
-const List<num> bonusUniquePrimeStatAttackDamageCriticalRatePercentageValues = [
+const List<double> BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.03, // 21-30
@@ -1220,7 +1220,7 @@ const List<num> bonusUniquePrimeStatAttackDamageCriticalRatePercentageValues = [
   0.05, // 111-150
   0.10, // 151+
 ];
-const List<num> bonusUniquePrimeHpMpPercentageValues = [
+const List<double> BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.03, // 21-30
@@ -1235,7 +1235,7 @@ const List<num> bonusUniquePrimeHpMpPercentageValues = [
   0.07, // 111-150
   0.08, // 151+
 ];
-const List<num> bonusUniquePrimeAllStatPercentageValues = [
+const List<double> BONUS_UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.02, // 21-30
@@ -1250,7 +1250,7 @@ const List<num> bonusUniquePrimeAllStatPercentageValues = [
   0.04, // 111-150
   0.05, // 151+
 ];
-const List<num> bonusUniquePrimeHpRecoveryValues = [
+const List<double> BONUS_UNIQUE_PRIME_HP_RECOVERY_VALUES = [
   0.05, // 0-10
   0.05, // 11-20
   0.1, // 21-30
@@ -1265,10 +1265,10 @@ const List<num> bonusUniquePrimeHpRecoveryValues = [
   0.2, // 111-150
   0.2, // 151+
 ];
-const num bonusUniquePrimeBossDamageValue = 0.12;
-const num bonusUniquePrimeIgnoreDefenseValue = 0.04;
+const double BONUS_UNIQUE_PRIME_BOSS_DAMAGE_VALUE = 0.12;
+const double BONUS_UNIQUE_PRIME_IGNORE_DEFENSE_VALUE = 0.04;
 
-const List<num> bonusLegendaryPrimeStatValues = [
+const List<int> BONUS_LEGENDARY_PRIME_STAT_VALUES = [
   8, // 0-10
   8, // 11-20
   10, // 21-30
@@ -1283,7 +1283,7 @@ const List<num> bonusLegendaryPrimeStatValues = [
   18, // 111-150
   19, // 151+
 ];
-const List<num> bonusLegendaryPrimeAttValues = [
+const List<int> BONUS_LEGENDARY_PRIME_ATT_VALUES = [
   8, // 0-10
   8, // 11-20
   10, // 21-30
@@ -1298,7 +1298,7 @@ const List<num> bonusLegendaryPrimeAttValues = [
   14, // 111-150
   15, // 151+
 ];
-const List<num> bonusLegendaryPrimeHpMpValues = [
+const List<int> BONUS_LEGENDARY_PRIME_HP_MP_VALUES = [
   25, // 0-10
   50, // 11-20
   75, // 21-30
@@ -1313,7 +1313,7 @@ const List<num> bonusLegendaryPrimeHpMpValues = [
   300, // 111-150
   310, // 151+
 ];
-const List<num> bonusLegendaryPrimeStatAttackDamageCriticalRatePercentageValues = [
+const List<double> BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.03, // 0-10
   0.03, // 11-20
   0.04, // 21-30
@@ -1328,7 +1328,7 @@ const List<num> bonusLegendaryPrimeStatAttackDamageCriticalRatePercentageValues 
   0.07, // 111-150
   0.08, // 151+
 ];
-const List<num> bonusLegendaryPrimeHpMpPercentageValues = [
+const List<double> BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES = [
   0.1, // 0-10
   0.1, // 11-20
   0.1, // 21-30
@@ -1343,7 +1343,7 @@ const List<num> bonusLegendaryPrimeHpMpPercentageValues = [
   0.3, // 111-150
   0.3, // 151+
 ];
-const List<num> bonusLegendaryPrimeAllStatPercentageValues = [
+const List<double> BONUS_LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.03, // 21-30
@@ -1358,8 +1358,8 @@ const List<num> bonusLegendaryPrimeAllStatPercentageValues = [
   0.05, // 111-150
   0.06, // 151+
 ];
-const num bonusLegendaryPrimeStatPerLevelValue = 32;
-const List<num> bonusLegendaryPrimeHpRecoveryValues = [
+const int BONUS_LEGENDARY_PRIME_STAT_PER_LEVEL_VALUE = 32;
+const List<double> BONUS_LEGENARY_PRIME_HP_RECOVERY_VALUES = [
   0.1, // 0-10
   0.1, // 11-20
   0.15, // 21-30
@@ -1374,7 +1374,7 @@ const List<num> bonusLegendaryPrimeHpRecoveryValues = [
   0.3, // 111-150
   0.3, // 151+
 ];
-const List<num> bonusLegendaryPrimeMesosObtainedItemDropRateValues = [
+const List<double> BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.03, // 21-30
@@ -1389,9 +1389,9 @@ const List<num> bonusLegendaryPrimeMesosObtainedItemDropRateValues = [
   0.05, // 111-150
   0.05, // 151+
 ];
-const num bonusLegendaryPrimeSkillCooldown1Value = 1;
-const num bonusLegendaryPrimeCriticalDamageStaticValue = 0.01;
-const List<num> bonusLegendaryPrimeCriticalDamageValues = [
+const int BONUS_LEGENDARY_PRIME_SKILL_COOLDOWN_VALUE = 1;
+const double BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUE = 0.01;
+const List<double> BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.02, // 21-30
@@ -1406,10 +1406,10 @@ const List<num> bonusLegendaryPrimeCriticalDamageValues = [
   0.03, // 111-150
   0.03, // 151+
 ];
-const num bonusLegendaryPrimeBossDamageValue = 0.18;
-const num bonusLegendaryPrimeIgnoreDefenseValue = 0.05;
+const double BONUS_LEGENDARY_PRIME_BOSS_DAMAGE_VALUE = 0.18;
+const double BONUS_LEGENARY_PRIME_IGNORE_DEFENSE_VALUE = 0.05;
 
-const Map<PotentialTier, List<PotentialLine>> bonusDefaultPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_DEFAULT_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
@@ -1573,7 +1573,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusDefaultPotentials = {
 };
 
 // Hat
-const Map<PotentialTier, List<PotentialLine>> bonusHatPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_HAT_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
@@ -1591,7 +1591,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusHatPotentials = {
 };
 
 //Top, Overall, Bottom, Shoes, Cape, Belt, Shoulder
-const Map<PotentialTier, List<PotentialLine>> bonusTopOverallBottomShoesCapeBeltShoulderPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_TOP_OVERALL_BOTTOM_SHOES_CAPE_BELT_SHOULDER_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
@@ -1608,7 +1608,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusTopOverallBottomShoesCapeBelt
 };
 
 //Gloves
-const Map<PotentialTier, List<PotentialLine>> bonusGlovesPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_GLOVES_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
@@ -1626,7 +1626,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusGlovesPotentials = {
 };
 
 //Face, Eye, Ring, Pendant, Earring
-const Map<PotentialTier, List<PotentialLine>> bonusFaceEyeRingPendantEarringPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
@@ -1643,7 +1643,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusFaceEyeRingPendantEarringPote
 };
 
 //Weapon
-const Map<PotentialTier, List<PotentialLine>> bonusWeaponPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_WEAPON_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
@@ -1698,7 +1698,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusWeaponPotentials = {
 };
 
 //Secondary
-const Map<PotentialTier, List<PotentialLine>> bonusSecondaryPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_SECONDARY_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
@@ -1754,7 +1754,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusSecondaryPotentials = {
 };
 
 //Emblem
-const Map<PotentialTier, List<PotentialLine>> bonusEmblemPotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_EMBLEM_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
     PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
@@ -1806,7 +1806,7 @@ const Map<PotentialTier, List<PotentialLine>> bonusEmblemPotentials = {
 };
 
 //Heart, Badge
-const Map<PotentialTier, List<PotentialLine>> bonusHeartBadgePotentials = {
+const Map<PotentialTier, List<PotentialLine>> BONUS_HEART_BADGE_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
     PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),

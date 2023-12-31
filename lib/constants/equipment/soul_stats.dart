@@ -1,14 +1,16 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum SoulName {
-  ssTier(formattedName: "SS Tier", soulStats: ssTierEffects),
-  sTier(formattedName: "S Tier", soulStats: sTierEffects),
-  aTier(formattedName: "A Tier", soulStats: aTierEffects),
-  bTier(formattedName: "B Tier", soulStats: bTierEffects),
-  cTier(formattedName: "C Tier", soulStats: cTierEffects),
-  dTier(formattedName: "D Tier", soulStats: dTierEffects,),
-  muGongLevel1(formattedName: "Mu Gong (Level 1)", soulStats: eTierEffects, chargeAtt: 15), // 30% att/matt for 10s
-  muGongLevel2(formattedName: "Mu Gong (Level 2)", soulStats: eTierEffects, chargeAtt: 15), // 30% att/matt for 20s
+  ssTier(formattedName: "SS Tier", soulStats: SS_TIER_EFFECTS),
+  sTier(formattedName: "S Tier", soulStats: S_TIER_EFFECTS),
+  aTier(formattedName: "A Tier", soulStats: A_TIER_EFFECTS),
+  bTier(formattedName: "B Tier", soulStats: B_TIER_EFFECTS),
+  cTier(formattedName: "C Tier", soulStats: C_TIER_EFFECTS),
+  dTier(formattedName: "D Tier", soulStats: D_TIER_EFFECTS,),
+  muGongLevel1(formattedName: "Mu Gong (Level 1)", soulStats: E_TIER_EFFECTS, chargeAtt: 15), // 30% att/matt for 10s
+  muGongLevel2(formattedName: "Mu Gong (Level 2)", soulStats: E_TIER_EFFECTS, chargeAtt: 15), // 30% att/matt for 20s
   ;
 
   const SoulName({
@@ -23,7 +25,7 @@ enum SoulName {
   // final Skill skill
 }
 
-const List<(StatType, num)> ssTierEffects = [
+const List<(StatType, num)> SS_TIER_EFFECTS = [
   // Magnificent Stats
   (StatType.attackPercentage, 0.03),
   (StatType.mattackPercentage, 0.03),
@@ -44,7 +46,7 @@ const List<(StatType, num)> ssTierEffects = [
   (StatType.hp, 960),
 ];
 
-const List<(StatType, num)> sTierEffects = [
+const List<(StatType, num)> S_TIER_EFFECTS = [
   // Magnificent Stats
   (StatType.attack, 10),
   (StatType.mattack, 10),
@@ -65,7 +67,7 @@ const List<(StatType, num)> sTierEffects = [
   (StatType.hp, 800),
 ];
 
-const List<(StatType, num)> aTierEffects = [
+const List<(StatType, num)> A_TIER_EFFECTS = [
   // Magnificent Stats
   (StatType.attack, 8),
   (StatType.mattack, 8),
@@ -86,7 +88,7 @@ const List<(StatType, num)> aTierEffects = [
   (StatType.hp, 700),
 ];
 
-const List<(StatType, num)> bTierEffects = [
+const List<(StatType, num)> B_TIER_EFFECTS = [
   // Magnificent Stats
   (StatType.attack, 8),
   (StatType.mattack, 8),
@@ -107,7 +109,7 @@ const List<(StatType, num)> bTierEffects = [
   (StatType.hp, 600),
 ];
 
-const List<(StatType, num)> cTierEffects = [
+const List<(StatType, num)> C_TIER_EFFECTS = [
   // Magnificent Stats
   (StatType.attack, 6),
   (StatType.mattack, 6),
@@ -128,7 +130,7 @@ const List<(StatType, num)> cTierEffects = [
   (StatType.hp, 500),
 ];
 
-const List<(StatType, num)> dTierEffects = [
+const List<(StatType, num)> D_TIER_EFFECTS = [
   // Magnificent Stats
   (StatType.attack, 5),
   (StatType.mattack, 5),
@@ -151,7 +153,7 @@ const List<(StatType, num)> dTierEffects = [
 
 // These all seem to actually have different stats, just going to implement
 // the sats for mugong...
-const List<(StatType, num)> eTierEffects = [
+const List<(StatType, num)> E_TIER_EFFECTS = [
   // Non Magnificent Stats
   (StatType.str, 7),
   (StatType.dex, 7),

@@ -8,11 +8,6 @@ import 'package:maplestory_builder/providers/character/character_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
-// ignore: constant_identifier_names
-const int MAX_HEXA_STAT_LEVEL = 20;
-// ignore: constant_identifier_names
-const int MAX_SINGLE_HEXA_STAT_LEVEL = 10;
-
 class HexaStat implements Copyable {
   
   Map<int, StatType?> selectedStats;

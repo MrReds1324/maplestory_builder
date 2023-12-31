@@ -22,7 +22,7 @@ class HexaStatsPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: statColor
+          color: DEFAULT_COLOR
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -210,7 +210,7 @@ class _HexaStatInventory extends StatelessWidget {
               height: 700,
               width: 425,
               decoration: BoxDecoration(
-                border: Border.all(color: statColor),
+                border: Border.all(color: DEFAULT_COLOR),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               child: Consumer<HexaStatsProvider>(
@@ -281,7 +281,7 @@ class _HexaStatStatsListView extends StatelessWidget {
             height: 669,
             width: 300,
             decoration: BoxDecoration(
-              border: Border.all(color: statColor),
+              border: Border.all(color: DEFAULT_COLOR),
               borderRadius: const BorderRadius.all(Radius.circular(10))
             ),
             child: Consumer<HexaStatsProvider>(

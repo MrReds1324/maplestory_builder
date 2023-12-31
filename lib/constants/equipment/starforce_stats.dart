@@ -18,7 +18,7 @@ const INDEX_200 = 4; // 200-249
 const INDEX_250 = 5; // 250+
 
 // This tracks the per level bonus stats for starforce over 15 stars, this will be added to the bonus 40 stats from 15 stars
-const starForceStats = {
+const STAR_FORCE_STATS = {
   16: [7, 9, 11, 13, 15, 17],
   17: [14, 18, 22, 26, 30, 34],
   18: [21, 27, 33, 39, 45, 51],
@@ -31,7 +31,7 @@ const starForceStats = {
   25: [35, 63, 77, 91, 105, 119],
 };
 // This tracks the per star bonus att and magic att for starforce over 15 stars for non weapon equips
-const starForceNonWepAtt = {
+const STAR_FORCE_NON_WEAPON_ATTACK_MATTACK = {
   16: [7, 8, 9, 10, 12, 14],
   17: [15, 17, 19, 21, 25, 29],
   18: [24, 27, 30, 33, 39, 45],
@@ -44,7 +44,7 @@ const starForceNonWepAtt = {
   25: [45, 135, 145, 155, 175, 195],
 };
 // This tracks the per star bonus att and magic att for starforce over 15 stars for weapon equips
-const starForceWepAtt = {
+const STAR_FORCE_WEAPON_ATTACK_MATTACK = {
   16: [6, 7, 8, 9, 13, 0],
   17: [13, 15, 17, 18, 26, 0],
   18: [20, 23, 26, 28, 40, 0],
@@ -70,7 +70,7 @@ const starForceWepAtt = {
 // Shield
 // Weapon (including Kataras)
 
-const hpCategory = <EquipType>[
+const HP_CATEGORY = <EquipType>[
   EquipType.hat, EquipType.top, EquipType.bottom, EquipType.overall, EquipType.cape, EquipType.ring, EquipType.pendant, 
   EquipType.belt, EquipType.shoulder, EquipType.shield, EquipType.weapon, EquipType.katara,
 ];

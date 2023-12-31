@@ -22,7 +22,7 @@ class EquipPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: statColor
+          color: DEFAULT_COLOR
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -221,7 +221,7 @@ class _EquippedItemSelector extends StatelessWidget {
   List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipsProvider equipsProvider, EquipType equipType) {
     var filteredList = equipsProvider.allEquips.values.where((element) {
       if (equipType == EquipType.secondary) {
-        return secondaryTypes.contains(element.equipName.equipType);
+        return SECONDARY_TYPES.contains(element.equipName.equipType);
       }
       else if (equipType == EquipType.ring) {
         return element.equipName.equipType == equipType || element.equipName.equipType == EquipType.ozRing;
@@ -341,7 +341,7 @@ class _InventoryItems extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: statColor),
+                border: Border.all(color: DEFAULT_COLOR),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               child: Consumer<EquipsProvider>(
@@ -523,7 +523,7 @@ class _SearchableItemListState extends State<_SearchableItemList> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: statColor),
+                border: Border.all(color: DEFAULT_COLOR),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               child: ListView.builder(

@@ -63,7 +63,7 @@ class Equip implements Copyable {
       flameModule = flameModule;
       flameModule!.calculateModuleStats(this);
     }
-    else if (noFlameCategory.contains(equipName.equipType)){
+    else if (NO_FLAME_CATEGORY.contains(equipName.equipType)){
       flameModule = null;
     }
     else if (equipName.flameCategory != FlameCategory.none) {
@@ -77,7 +77,7 @@ class Equip implements Copyable {
       potentialModule = potentialModule;
       potentialModule!.calculateModuleStats();
     }
-    else if (noPotentialCategory.contains(equipName.equipType)){
+    else if (NO_POTENTIAL_CATEGORY.contains(equipName.equipType)){
       potentialModule = null;
     }
     else if (equipName.potentialCategory == PotentialCategory.player) {
@@ -254,7 +254,7 @@ class Equip implements Copyable {
                   "${equipName.formattedName}${(scrollModule?.usedScrolls.length ?? 0) > 0 ? ' +${scrollModule?.usedScrolls.length}' : ''}", style: Theme.of(context).textTheme.headlineSmall
                 )
               ),
-              equipName.isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: equipUniqueColor))) : const SizedBox.shrink(),
+              equipName.isUniqueItem ? const Center(child: Text("Unique Equipped Item", style: TextStyle(color: EQUIP_UNIQUE_COLOR))) : const SizedBox.shrink(),
               __createTextLine(context, StatType.level),
               __createTextLine(context, StatType.attackSpeed),
               __createTextLine(context, StatType.str),
@@ -341,7 +341,7 @@ class Equip implements Copyable {
           levelText.add(
             TextSpan(
               text: "Required Level: ${max(equipName.itemLevel - (flameModule?.get(StatType.level) ?? 0), 0).toInt()}",
-              style: const TextStyle(color: starColor)
+              style: const TextStyle(color: STAR_COLOR)
             )
           );
           levelText.add(
@@ -352,7 +352,7 @@ class Equip implements Copyable {
           levelText.add(
             TextSpan(
               text: "-${flameModule?.get(StatType.level).toInt() ?? 0}",
-              style: const TextStyle(color: starColor)
+              style: const TextStyle(color: STAR_COLOR)
             )
           );
           levelText.add(
@@ -365,7 +365,7 @@ class Equip implements Copyable {
           levelText.add(
             TextSpan(
               text: "Required Level: ${equipName.itemLevel}",
-              style: const TextStyle(color: starColor)
+              style: const TextStyle(color: STAR_COLOR)
             )
           );
         }
@@ -404,7 +404,7 @@ class Equip implements Copyable {
       childrenText.add(
         TextSpan(
           text: "${statType.formattedName}: ${totalStat > 0 ? "+" : ""}${isPercentage ? doubleRoundPercentFormater.format(totalStat) : totalStat} ",
-          style: const TextStyle(color: equipEnhancedColor)
+          style: const TextStyle(color: EQUIP_ENHANCED_COLOR)
         )
       );
       childrenText.add(TextSpan(text: "(${isPercentage ? doubleRoundPercentFormater.format(baseStat) : baseStat}",));
@@ -412,7 +412,7 @@ class Equip implements Copyable {
         childrenText.add(
           TextSpan(
             text: " +${isPercentage ? doubleRoundPercentFormater.format(flameStat) : flameStat}",
-            style: const TextStyle(color: equipFlameColor)
+            style: const TextStyle(color: EQUIP_FLAME_COLOR)
           )
         );
       }
@@ -421,7 +421,7 @@ class Equip implements Copyable {
           TextSpan(
             text: " ${scrollStat > 0 ? '+' : ''}${isPercentage ? doubleRoundPercentFormater.format(scrollStat) : scrollStat}",
             style: const TextStyle(
-              color: equipScrollColor
+              color: EQUIP_SCROLL_COLOR
             )
           )
         );
@@ -430,7 +430,7 @@ class Equip implements Copyable {
         childrenText.add(
           TextSpan(
             text: " ${tweakStat > 0 ? '+' : ''}${isPercentage ? doubleRoundPercentFormater.format(tweakStat) : tweakStat}",
-            style: TextStyle(color: tweakStat > 0 ? equipEnhancedColor : equipReductionColor)
+            style: TextStyle(color: tweakStat > 0 ? EQUIP_ENHANCED_COLOR : EQUIP_REDUCTION_COLOR)
           )
         );
       }
@@ -438,7 +438,7 @@ class Equip implements Copyable {
         childrenText.add(
           TextSpan(
             text: " +${isPercentage ? doubleRoundPercentFormater.format(starForceStat) : starForceStat}",
-            style: const TextStyle(color: equipStarColor)
+            style: const TextStyle(color: EQUIP_STAR_COLOR)
           )
         );
       }

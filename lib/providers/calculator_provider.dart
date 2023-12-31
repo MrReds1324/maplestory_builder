@@ -219,8 +219,8 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     updateTempStats(symbolStatsProvider.calculateStats());
 
     // Specific caps on stats from items
-    totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
-    totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
+    totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, DROP_RATE_ITEM_CAP);
+    totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, MESOS_OBTAINED_ITEM_CAP);
 
     for (Map<StatType, num> familiarStats in familiarsProvider.calculateStats()){
       updateTempStats(familiarStats);
@@ -249,10 +249,10 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     totalStats[StatType.defense] = tempStats[StatType.defense]! * (1 + totalStats[StatType.defensePercentage]!);
 
     // Stats with a non-visual upper bound
-    totalStats[StatType.jump] = min(totalStats[StatType.jump]!, jumpCap);
-    totalStats[StatType.speed] = min(totalStats[StatType.speed]!, speedCap);
-    totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, dropRateItemCap);
-    totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, mesoObtainedItemCap);
+    totalStats[StatType.jump] = min(totalStats[StatType.jump]!, JUMP_CAP);
+    totalStats[StatType.speed] = min(totalStats[StatType.speed]!, SPEED_CAP);
+    totalStats[StatType.itemDropRate] = min(totalStats[StatType.itemDropRate]!, DROP_RATE_ITEM_CAP);
+    totalStats[StatType.mesosObtained] = min(totalStats[StatType.mesosObtained]!, MESOS_OBTAINED_ITEM_CAP);
 
     primaryStats = determineAllPrimaryStat(characterProvider.characterClass.calculationStats);
     secondaryStats = determineAllSecondaryStat(characterProvider.characterClass.calculationStats);

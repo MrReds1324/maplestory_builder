@@ -171,19 +171,19 @@ class InnerAbilityLine implements Copyable {
       var abilityRank = innerAbility?.determineInnerAbilityRank(abilityStatValue);
       switch(abilityRank) {
         case InnerAbilityRank.legendary:
-          return legendaryPotentialColor;
+          return LEGENDARY_COLOR;
         case InnerAbilityRank.unique:
-          return uniquePotentialColor;
+          return UNIQUE_COLOR;
         case InnerAbilityRank.epic:
-          return epicPotentialColor;
+          return EPIC_COLOR;
         case InnerAbilityRank.rare:
-          return rarePotentialColor;
+          return RARE_COLOR;
         default:
-          return statColor;
+          return DEFAULT_COLOR;
       }
     }
     else {
-      return statColor;
+      return DEFAULT_COLOR;
     }
   }
 

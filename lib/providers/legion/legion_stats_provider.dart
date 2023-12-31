@@ -136,7 +136,7 @@ class LegionStatsProvider with ChangeNotifier implements Copyable {
 
   void calculateLegionBoardRank() {
     var sortedCharacters = allLegionCharacters.values.toList()..sort(LegionCharacter.comparator);
-    sortedCharacters = sortedCharacters.where((element) => !LegionBlock.specialBlocks.contains(element.legionBlock)).toList();
+    sortedCharacters = sortedCharacters.where((element) => !LegionBlock.SPECIAL_BLOCKS.contains(element.legionBlock)).toList();
     sortedCharacters = sortedCharacters.sublist(0, min(42, sortedCharacters.length));
     totalCharacterLevels = sortedCharacters.fold(0, (int previous, LegionCharacter current) => previous + current.legionCharacterLevel);
     legionBoardRank = LegionBoardRank.getLegionBoardRank(totalCharacterLevels);

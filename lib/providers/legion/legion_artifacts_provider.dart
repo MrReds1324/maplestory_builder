@@ -80,7 +80,7 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
       return;
     }
 
-    legionArtifactLevel += min(levelsToAdd, maxLegionArtifactLevel - legionArtifactLevel);
+    legionArtifactLevel += min(levelsToAdd, MAX_LEGION_ARTIFACT_LEVEL - legionArtifactLevel);
 
     // Invalidate the cahces in case we go over the boundary of increasing the active crystal count
     for (LegionArtifactCrystalsModule legionArtifactModule in artifactSets.values) {

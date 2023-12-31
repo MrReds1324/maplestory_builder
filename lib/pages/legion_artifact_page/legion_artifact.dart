@@ -49,9 +49,9 @@ class _ArtifactLevelCell extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: statColor,
+              color: DEFAULT_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -72,7 +72,7 @@ class _ArtifactLevelCell extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -164,7 +164,7 @@ class _ArtifactCrystalStatsListView extends StatelessWidget {
           width: 250,
           decoration: BoxDecoration(
             border: Border.all(
-              color: statColor
+              color: DEFAULT_COLOR
             ),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),

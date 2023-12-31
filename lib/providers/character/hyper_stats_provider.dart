@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/character/hyper_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
@@ -9,8 +10,8 @@ import 'package:maplestory_builder/providers/character/character_provider.dart';
 
 class HyperStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
-  int totalAvailableHyperStats = 0;
-  int activeSetNumber = 1;
+  int totalAvailableHyperStats;
+  int activeSetNumber;
   late Map<int, HyperStatContainer> hyperStatsSets; 
   late HyperStatContainer activeHyperStat;
 
@@ -61,14 +62,14 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
   }
 
   num getStatValue(StatType statType, {int additionalLevels = 0}) {
-      switch(statType) {
-        case StatType.specialMana:
-          var divisor = 1; // TODO - update this to divide by 10 when kinesis class
-          return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels] ~/ divisor;
-        default:
-          return hyperStatsValues[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels];
-      }
+    switch(statType) {
+      case StatType.specialMana:
+        var divisor = characterProvider.characterClass == CharacterClass.kinesis ? 10 : 1;
+        return HYPER_STATS_VALUES[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels] ~/ divisor;
+      default:
+        return HYPER_STATS_VALUES[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels];
     }
+  }
 
   Map<StatType, num> calculateStats() {
     return {
@@ -87,19 +88,19 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
       StatType.damageNormalMobs: getStatValue(StatType.damageNormalMobs),
       StatType.statusResistance: getStatValue(StatType.statusResistance),
       StatType.attackMattack: getStatValue(StatType.attackMattack),
-      StatType.expAdditional: getStatValue(StatType.exp),
+      StatType.expAdditional: getStatValue(StatType.expAdditional),
       StatType.arcaneForce: getStatValue(StatType.arcaneForce),
     };
   }
 
   void setAvailableHyperStatsFromLevel(int characterLevel) {
-    totalAvailableHyperStats = levelToTotalHyperStatPoints[characterLevel] ?? 0;
+    totalAvailableHyperStats = LEVEL_TO_TOTAL_HYPER_STAT_POINTS[characterLevel] ?? 0;
     notifyListeners();
   }
 
   void addHyperStats(int possibleLevelsToAdd, StatType statType) {
     var currentLevel = activeHyperStat.assignedHyperStats[statType]!;
-    var maxLevel = hyperStatsValues[statType]!.length - 1;
+    var maxLevel = HYPER_STATS_VALUES[statType]!.length - 1;
 
     // Check that we are not at the max level yet
     if (currentLevel == maxLevel) {
@@ -114,7 +115,7 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     var possibleLevelsToAddByPoints = 0;
 
     for (possibleLevelsToAddByPoints; possibleLevelsToAddByPoints < possibleLevelsToAdd; possibleLevelsToAddByPoints++) {
-      var costOfLevel = hyperStatsLevelToPoints[currentLevel + possibleLevelsToAddByPoints + 1]!;
+      var costOfLevel = HYPER_STATS_LEVEL_TO_POINTS[currentLevel + possibleLevelsToAddByPoints + 1]!;
       if (costOfLevel <= (availableHyperStats - costToUpgrade)) {
         costToUpgrade += costOfLevel;
       }
@@ -148,7 +149,7 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     var downgradeCost = 0;
 
     for (int i = 0; i < possibleLevelsToSubtract; i++) {
-      var costOfLevel = hyperStatsLevelToPoints[currentLevel - i]!;
+      var costOfLevel = HYPER_STATS_LEVEL_TO_POINTS[currentLevel - i]!;
       downgradeCost += costOfLevel;
     }
 
@@ -171,7 +172,7 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     Widget? currentLevelText;
     Widget? nextLevelText;
     
-    var maxLevel = hyperStatsValues[statType]!.length - 1;
+    var maxLevel = HYPER_STATS_VALUES[statType]!.length - 1;
     var currentLevel = activeHyperStat.assignedHyperStats[statType]!;
 
     switch(statType) {
@@ -223,7 +224,7 @@ class HyperStatContainer implements Copyable {
       StatType.damageNormalMobs: 0,
       StatType.statusResistance: 0,
       StatType.attackMattack: 0,
-      StatType.exp: 0,
+      StatType.expAdditional: 0,
       StatType.arcaneForce: 0,
     };
 

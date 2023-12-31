@@ -78,11 +78,11 @@ class FlameModule implements Copyable {
         moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + flameStat;
         moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + flameStat;
       case FlameName.hp:
-        moduleStats[StatType.hp] = (moduleStats[StatType.hp] ?? 0) + hpAndMpFlame[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.hp] = (moduleStats[StatType.hp] ?? 0) + HP_MP_FLAME[flameLevelOffset][flameLine.flameTier!.index];
       case FlameName.mp:
-        moduleStats[StatType.mp] = (moduleStats[StatType.mp] ?? 0) + hpAndMpFlame[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.mp] = (moduleStats[StatType.mp] ?? 0) + HP_MP_FLAME[flameLevelOffset][flameLine.flameTier!.index];
       case FlameName.defense:
-        moduleStats[StatType.defense] = (moduleStats[StatType.defense] ?? 0) + defenseFlame[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.defense] = (moduleStats[StatType.defense] ?? 0) + DEFENSE_FLAME[flameLevelOffset][flameLine.flameTier!.index];
       case FlameName.attack:
         moduleStats[StatType.attack] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.mattack:

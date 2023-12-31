@@ -18,7 +18,7 @@ class LegionPage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: statColor
+          color: DEFAULT_COLOR
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),

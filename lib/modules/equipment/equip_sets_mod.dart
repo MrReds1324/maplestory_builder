@@ -179,7 +179,7 @@ class SetEffect implements Copyable {
       List<Widget> rawEffectChildren = [
         Text(
           "$setEffectCount Set Items Equipped",
-          style: const TextStyle(color: equipFlameColor),
+          style: const TextStyle(color: EQUIP_FLAME_COLOR),
         )
       ];
 
@@ -194,7 +194,7 @@ class SetEffect implements Copyable {
         rawEffectColor = Colors.greenAccent;
       }
       else {
-        rawEffectColor = setEffectCount <= totalSetItems ? null : missingColor;
+        rawEffectColor = setEffectCount <= totalSetItems ? null : MISSING_COLOR;
       }
       
       rawEffect.forEach((key, value) {
@@ -218,7 +218,7 @@ class SetEffect implements Copyable {
           padding: const EdgeInsets.only(bottom: 5),
           child: Text(
             equipSet.formattedName,
-            style: const TextStyle(color: equipFlameColor),
+            style: const TextStyle(color: EQUIP_FLAME_COLOR),
           )
         )
       )
@@ -232,7 +232,7 @@ class SetEffect implements Copyable {
       const Divider(
         height: 15,
         thickness: 1,
-        color: statColor,
+        color: DEFAULT_COLOR,
       )
     );
 
@@ -242,7 +242,7 @@ class SetEffect implements Copyable {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: statColor),
+        border: Border.all(color: DEFAULT_COLOR),
         borderRadius: const BorderRadius.all(Radius.circular(10))
       ),
       padding: const EdgeInsets.all(5),
@@ -442,7 +442,7 @@ class SetEffectSlot extends AbstractSetEffectSlot {
     List<Widget> returnWidgets = [];
 
     if (setEffect.activeLuckyItem != null && setEffect.activeLuckyItem!.equipName.equipType == equipType) {
-      var luckyColor = starColor;
+      var luckyColor = STAR_COLOR;
       if (addingEquip != null && setEffect.totalSetItems == 4 && setEffect._isLuckyItemActive) {
         luckyColor = Colors.greenAccent;
       }
@@ -476,7 +476,7 @@ class SetEffectSlot extends AbstractSetEffectSlot {
         textColor = Colors.greenAccent;
       }
       else {
-        textColor = (setEffect.equippedEquips[equipType] ?? {}).contains(equipName) ? null : missingColor;
+        textColor = (setEffect.equippedEquips[equipType] ?? {}).contains(equipName) ? null : MISSING_COLOR;
       }
 
       returnWidgets.add(
@@ -520,7 +520,7 @@ class SetEffectSlotSelectOne extends AbstractSetEffectSlot {
   List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip}) {
     Color? textColor;
     if (setEffect.activeLuckyItem != null && setEffect.activeLuckyItem!.equipName.equipType == equipType) {
-      textColor = starColor;
+      textColor = STAR_COLOR;
       if (addingEquip != null && setEffect.totalSetItems == 4 && setEffect._isLuckyItemActive) {
         textColor = Colors.greenAccent;
       }
@@ -535,7 +535,7 @@ class SetEffectSlotSelectOne extends AbstractSetEffectSlot {
       textColor = Colors.greenAccent;
     }
     else {
-      textColor = missingColor;
+      textColor = MISSING_COLOR;
       for (EquipName equipName in (setEffect.equippedEquips[equipType] ?? {})) {
         if (selectOne.contains(equipName)) {
           textColor = null;

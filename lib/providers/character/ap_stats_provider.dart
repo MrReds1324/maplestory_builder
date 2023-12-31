@@ -8,20 +8,20 @@ import 'package:maplestory_builder/providers/character/character_provider.dart';
 class APStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
   // All relavent to calculating ap stats and ap usage
-  int totalAvailableAP = 14; // 14 + 5 * CharacterLevel
-  int availableAP = 14;
-  int assignedAP = 0;
+  int totalAvailableAP; // 14 + 5 * CharacterLevel
+  int availableAP;
+  int assignedAP;
 
   // Each ap into HP/MP increases by 15
-  int apAssignedHP = 0;
-  int apAssignedMP = 0;
+  int apAssignedHP;
+  int apAssignedMP;
 
   late Map<StatType, int> apStats;
 
   APStatsProvider({
     required this.characterProvider,
-    this.totalAvailableAP = 14,
-    this.availableAP = 14,
+    this.totalAvailableAP = STARTING_AP_AMOUNT,
+    this.availableAP = STARTING_AP_AMOUNT,
     this.assignedAP = 0,
     this.apAssignedHP = 0,
     this.apAssignedMP = 0,
@@ -31,10 +31,10 @@ class APStatsProvider with ChangeNotifier implements Copyable {
       StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
       StatType.mp: 213,
       // Each ap into Stats increase by 1
-      StatType.str: 4,
-      StatType.dex: 4,
-      StatType.int: 4,
-      StatType.luk: 4,
+      StatType.str: MINIMUM_AP_AMOUNT,
+      StatType.dex: MINIMUM_AP_AMOUNT,
+      StatType.int: MINIMUM_AP_AMOUNT,
+      StatType.luk: MINIMUM_AP_AMOUNT,
     };
   }
 
@@ -70,7 +70,7 @@ class APStatsProvider with ChangeNotifier implements Copyable {
   }
 
   void setAvailableAPFromLevel(int characterLevel) {
-    totalAvailableAP = 14 + characterLevel * 5;
+    totalAvailableAP = STARTING_AP_AMOUNT + characterLevel * AP_PER_LEVEL;
     availableAP = totalAvailableAP - assignedAP;
   }
 
@@ -109,10 +109,10 @@ class APStatsProvider with ChangeNotifier implements Copyable {
       // Cannot go below 4 points in these stats
       default:
         var currentApAmount = apStats[statType]!;
-        if (currentApAmount == 4) {
+        if (currentApAmount == MINIMUM_AP_AMOUNT) {
           return;
         }
-        apAmount = min(currentApAmount - 4, apAmount);
+        apAmount = min(currentApAmount - MINIMUM_AP_AMOUNT, apAmount);
         apStats[statType] = apStats[statType]! - apAmount;
     }
     availableAP += apAmount;

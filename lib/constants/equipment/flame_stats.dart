@@ -1,6 +1,5 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: constant_identifier_names
 
-// Gives us the row index into the bonus stats tables
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum FlameCategory {
@@ -18,6 +17,7 @@ enum FlameType {
 typedef StaticFlameType = List<num>;
 typedef RangedFlameType = List<List<num>>;
 
+// Gives us the row index into the bonus stats tables
 enum FlameTier {
   tier1(formattedName: "1"),
   tier2(formattedName: "2"),
@@ -35,31 +35,31 @@ enum FlameTier {
 }
 
 enum FlameName {
-  str(formattedName: "STR", flameType: FlameType.range, statValue: singleStatFlame),
-  dex(formattedName: "DEX", flameType: FlameType.range, statValue: singleStatFlame),
-  int(formattedName: "INT", flameType: FlameType.range, statValue: singleStatFlame),
-  luk(formattedName: "LUK", flameType: FlameType.range, statValue: singleStatFlame),
-  strDex(formattedName: "STR & DEX", flameType: FlameType.range, statValue: doubleStatFlame),
-  strInt(formattedName: "STR & INT", flameType: FlameType.range, statValue: doubleStatFlame),
-  strLuk(formattedName: "STR & LUK", flameType: FlameType.range, statValue: doubleStatFlame),
-  dexInt(formattedName: "DEX & INT", flameType: FlameType.range, statValue: doubleStatFlame),
-  dexLuk(formattedName: "DEX & LUK", flameType: FlameType.range, statValue: doubleStatFlame),
-  intLuk(formattedName: "INT & LUK", flameType: FlameType.range, statValue: doubleStatFlame),
-  attack(formattedName: "Attack Power", flameType: FlameType.static, statValue: nonWepAttFlame),
-  mattack(formattedName: "Magic Attack", flameType: FlameType.static, statValue: nonWepAttFlame),
-  wepAttackFlameAdvantaged(formattedName: "Attack Power", flameType: FlameType.range, statValue: wepAttAdvantagedFlame),
-  wepMattackFlameAdvantaged(formattedName: "Magic Attack", flameType: FlameType.range, statValue: wepAttAdvantagedFlame),
-  wepAttackFlameNonAdvantaged(formattedName: "Attack Power", flameType: FlameType.range, statValue: wepAttFlame),
-  wepMattackFlameNonAdvantaged(formattedName: "Magic Attack", flameType: FlameType.range, statValue: wepAttFlame),
-  defense(formattedName: "Defense", flameType: FlameType.range, statValue: defenseFlame),
-  hp(formattedName: "HP", flameType: FlameType.range, statValue: hpAndMpFlame),
-  mp(formattedName: "MP", flameType: FlameType.range, statValue: hpAndMpFlame),
-  speed(formattedName: "Speed", flameType: FlameType.static, statValue: speedAndJumpFlame),
-  jump(formattedName: "Jump", flameType: FlameType.static, statValue: speedAndJumpFlame),
-  allStats(formattedName: "All Stats", flameType: FlameType.static, statValue: allStatsPercentageFlame),
-  bossDamage(formattedName: "Boss Damage", flameType: FlameType.static, statValue: bossDamageFlame),
-  damage(formattedName: "Damage", flameType: FlameType.static, statValue: damageFlame),
-  levelReduction(formattedName: "Level Reduction", flameType: FlameType.static, statValue: levelReductionFlame);
+  str(formattedName: "STR", flameType: FlameType.range, statValue: SINGLE_STAT_FLAME),
+  dex(formattedName: "DEX", flameType: FlameType.range, statValue: SINGLE_STAT_FLAME),
+  int(formattedName: "INT", flameType: FlameType.range, statValue: SINGLE_STAT_FLAME),
+  luk(formattedName: "LUK", flameType: FlameType.range, statValue: SINGLE_STAT_FLAME),
+  strDex(formattedName: "STR & DEX", flameType: FlameType.range, statValue: DOUBLE_STAT_FLAME),
+  strInt(formattedName: "STR & INT", flameType: FlameType.range, statValue: DOUBLE_STAT_FLAME),
+  strLuk(formattedName: "STR & LUK", flameType: FlameType.range, statValue: DOUBLE_STAT_FLAME),
+  dexInt(formattedName: "DEX & INT", flameType: FlameType.range, statValue: DOUBLE_STAT_FLAME),
+  dexLuk(formattedName: "DEX & LUK", flameType: FlameType.range, statValue: DOUBLE_STAT_FLAME),
+  intLuk(formattedName: "INT & LUK", flameType: FlameType.range, statValue: DOUBLE_STAT_FLAME),
+  attack(formattedName: "Attack Power", flameType: FlameType.static, statValue: NON_WEAPON_ATTACK_MATTACK_FLAME),
+  mattack(formattedName: "Magic Attack", flameType: FlameType.static, statValue: NON_WEAPON_ATTACK_MATTACK_FLAME),
+  wepAttackFlameAdvantaged(formattedName: "Attack Power", flameType: FlameType.range, statValue: WEAPON_ATTACK_MATTACK_ADVANTAGED_FLAME),
+  wepMattackFlameAdvantaged(formattedName: "Magic Attack", flameType: FlameType.range, statValue: WEAPON_ATTACK_MATTACK_ADVANTAGED_FLAME),
+  wepAttackFlameNonAdvantaged(formattedName: "Attack Power", flameType: FlameType.range, statValue: WEPEAN_ATTACK_MATTACK_FLAME),
+  wepMattackFlameNonAdvantaged(formattedName: "Magic Attack", flameType: FlameType.range, statValue: WEPEAN_ATTACK_MATTACK_FLAME),
+  defense(formattedName: "Defense", flameType: FlameType.range, statValue: DEFENSE_FLAME),
+  hp(formattedName: "HP", flameType: FlameType.range, statValue: HP_MP_FLAME),
+  mp(formattedName: "MP", flameType: FlameType.range, statValue: HP_MP_FLAME),
+  speed(formattedName: "Speed", flameType: FlameType.static, statValue: SPEED_JUMP_FLAME),
+  jump(formattedName: "Jump", flameType: FlameType.static, statValue: SPEED_JUMP_FLAME),
+  allStats(formattedName: "All Stats", flameType: FlameType.static, statValue: ALL_STATS_PERCENTAGE_FLAME),
+  bossDamage(formattedName: "Boss Damage", flameType: FlameType.static, statValue: BOSS_DAMAGE_FLAME),
+  damage(formattedName: "Damage", flameType: FlameType.static, statValue: DAMAGE_FLAME),
+  levelReduction(formattedName: "Level Reduction", flameType: FlameType.static, statValue: LEVEL_REDUCTION_FLAME);
 
   const FlameName({
     required this.formattedName,
@@ -85,7 +85,7 @@ enum FlameName {
   }
 }
 
-const List<List<int>> singleStatFlame = [
+const List<List<int>> SINGLE_STAT_FLAME = [
   [1, 2, 3, 4, 5, 6, 7],         // 0-9
   [1, 2, 3, 4, 5, 6, 7],         // 10-19
   [2, 4, 6, 8, 10, 12, 14],      // 20-29
@@ -113,7 +113,7 @@ const List<List<int>> singleStatFlame = [
   [12, 24, 36, 48, 60, 72, 84],  // 250+
 ];
 
-const List<List<int>> doubleStatFlame = [
+const List<List<int>> DOUBLE_STAT_FLAME = [
   [1, 2, 3, 4, 5, 6, 7],       // 0-9
   [1, 2, 3, 4, 5, 6, 7],       // 10-19
   [1, 2, 3, 4, 5, 6, 7],       // 20-29
@@ -142,7 +142,7 @@ const List<List<int>> doubleStatFlame = [
   [7,	14,	21,	28,	35,	42,	49], // 250+                           
 ];
 
-const List<List<int>> hpAndMpFlame = [
+const List<List<int>> HP_MP_FLAME = [
   [3, 6, 9, 12, 15, 18, 21],                 // 0-9
   [30, 60, 90, 120, 150, 180, 210],          // 10-19
   [60, 120, 180, 240, 300, 360, 420],        // 20-29
@@ -171,7 +171,7 @@ const List<List<int>> hpAndMpFlame = [
   [700, 1400, 2100, 2800, 3500, 4200, 4900], // 250+                        
 ];
 
-const List<List<int>> defenseFlame = [
+const List<List<int>> DEFENSE_FLAME = [
   [1, 2, 3,	4, 5,	6, 7],        // 0-9
   [1,	2, 3,	4, 5,	6, 7],        // 10-19
   [2,	4, 6,	8, 10, 12, 14],     // 20-29
@@ -200,7 +200,7 @@ const List<List<int>> defenseFlame = [
   [12, 24, 36, 48, 60, 72, 84], // 250+                        
 ];
 
-const List<List<double>> wepAttFlame = [
+const List<List<double>> WEPEAN_ATTACK_MATTACK_FLAME = [
   [.01,	0.022, 0.0363,	0.05324, 0.073205, 0.087846, 0.102487],  // 0-9
   [.01,	0.022, 0.0363,	0.05324, 0.073205, 0.087846, 0.102487],  // 10-19
   [.01,	0.022, 0.0363,	0.05324, 0.073205, 0.087846, 0.102487],  // 20-29
@@ -230,7 +230,7 @@ const List<List<double>> wepAttFlame = [
 ];
 
 // This starts at tier 3 because flame advantaged stuff can only get 3-7
-const List<List<double>> wepAttAdvantagedFlame = [
+const List<List<double>> WEAPON_ATTACK_MATTACK_ADVANTAGED_FLAME = [
   [0, 0, 0.03, 0.044, 0.0605, 0.07986, 0.102487],// 0-9
   [0, 0, 0.03, 0.044, 0.0605, 0.07986, 0.102487],// 10-19
   [0, 0, 0.03, 0.044, 0.0605, 0.07986, 0.102487],// 20-29
@@ -260,40 +260,40 @@ const List<List<double>> wepAttAdvantagedFlame = [
 ];
 
 // Stats that do not change per level
-const List<int> nonWepAttFlame = [
+const List<int> NON_WEAPON_ATTACK_MATTACK_FLAME = [
   1, 2, 3, 4, 5, 6, 7                     
 ];
 
-const List<int> speedAndJumpFlame = [
+const List<int> SPEED_JUMP_FLAME = [
   1, 2, 3, 4, 5, 6, 7 
 ];
 
-const List<double> allStatsPercentageFlame = [
+const List<double> ALL_STATS_PERCENTAGE_FLAME = [
   .01, .02, .03, .04, .05, .06, .07                     
 ];
 
-const List<double> bossDamageFlame = [
+const List<double> BOSS_DAMAGE_FLAME = [
   .02, .04, .06, .08, .10, .12, .14                     
 ];
 
-const List<double> damageFlame = [
+const List<double> DAMAGE_FLAME = [
   .01, .02, .03, .04, .05, .06, .07                     
 ];
 
-const List<double> levelReductionFlame = [
+const List<double> LEVEL_REDUCTION_FLAME = [
   5, 10, 15, 20, 25, 30, 35                    
 ];
 
-const Set<EquipType> noFlameCategory = <EquipType>{
+const Set<EquipType> NO_FLAME_CATEGORY = <EquipType>{
   EquipType.ring, EquipType.shoulder, EquipType.badge, EquipType.secondary, EquipType.shield, 
   EquipType.katara, EquipType.emblem, EquipType.medal, EquipType.heart
 };
 
-const Set<FlameName> weaponOnlyFlames = <FlameName>{
+const Set<FlameName> WEAPON_ONLY_FLAMES = <FlameName>{
   FlameName.bossDamage, FlameName.damage, FlameName.wepAttackFlameAdvantaged, FlameName.wepAttackFlameNonAdvantaged, 
   FlameName.wepMattackFlameAdvantaged, FlameName.wepMattackFlameNonAdvantaged,
 };
 
-const Set<FlameName> weaponExcludedFlames = <FlameName>{
+const Set<FlameName> WEAPON_EXCLUDED_FLAMES = <FlameName>{
   FlameName.speed, FlameName.jump, FlameName.attack, FlameName.mattack,
 };

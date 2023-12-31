@@ -30,7 +30,7 @@ class EquipBuilder extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          border: Border.all(color: statColor),
+          border: Border.all(color: DEFAULT_COLOR),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -167,7 +167,7 @@ class _EquipComparisonWidget extends StatelessWidget {
             child: Container(
               width: 320,
               decoration: BoxDecoration(
-                border: Border.all(color: statColor),
+                border: Border.all(color: DEFAULT_COLOR),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
@@ -200,7 +200,7 @@ class _StarForceSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: const Text("Star Force"),
       children: [
         Row(
@@ -235,7 +235,7 @@ class _FlameSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       childrenPadding: EdgeInsets.only(bottom: 5),
       title: Text("Flames"),
       children: [
@@ -278,11 +278,11 @@ class _FlameDropdowns extends StatelessWidget {
           continue;
         }
         // Weapons do not roll speed, jump, or regular attack flames
-        else if (weaponExcludedFlames.contains(flameName) && editingEquip.equipName.equipType == EquipType.weapon) {
+        else if (WEAPON_EXCLUDED_FLAMES.contains(flameName) && editingEquip.equipName.equipType == EquipType.weapon) {
           continue;
         }
         // Only weapons can roll damage, boss damage, and weapon flames
-        else if (weaponOnlyFlames.contains(flameName)) {
+        else if (WEAPON_ONLY_FLAMES.contains(flameName)) {
           if (editingEquip.equipName.equipType != EquipType.weapon) {
             continue;
           }
@@ -428,7 +428,7 @@ class _PotentialSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       childrenPadding: EdgeInsets.only(bottom: 5),
       title: Text("Potentials"),
       children: [
@@ -439,7 +439,7 @@ class _PotentialSelector extends StatelessWidget {
         Divider(
           height: 15,
           thickness: 1,
-          color: statColor,
+          color: DEFAULT_COLOR,
         ),
         _PotenialTierDropdown(isBonus: true),
         _PotentialDropdowns(potentialPosition: 1, isBonus: true),
@@ -580,7 +580,7 @@ class _PotentialDropdowns extends StatelessWidget {
                   ),
                   TextSpan(
                     text: value.isPrime ? "  (Prime)" : "",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: starColor)
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: STAR_COLOR)
                   ),
                 ]
               )
@@ -632,7 +632,7 @@ class _ScrollSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       childrenPadding: const EdgeInsets.only(bottom: 5),
       title: Consumer<EquipEditingProvider>(
         builder: (context, equipEditingProvider, child) {
@@ -663,7 +663,7 @@ class _UsedScrolls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: const Text("Used Scrolls"),
       children: [
         Consumer<EquipEditingProvider>(
@@ -725,7 +725,7 @@ class _EditingScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -792,7 +792,7 @@ class _AvailableScrolls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: const Text("Available Scrolls"),
       children: [
         Consumer<EquipEditingProvider>(
@@ -843,7 +843,7 @@ class _PitchedBossUpgrades extends StatelessWidget {
    @override
    Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: const Text("Pitched Boss Upgrade"),
       children: [
         Consumer<EquipEditingProvider>(
@@ -933,7 +933,7 @@ class _SoulSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: const Text("Soul Weapon"),
       childrenPadding: const EdgeInsets.only(bottom: 5),
       children: [
@@ -996,7 +996,7 @@ class _StatsTweak extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      iconColor: equipStarColor,
+      iconColor: EQUIP_STAR_COLOR,
       title: const Text("Stat Tweaks"),
       children: [
         SizedBox(

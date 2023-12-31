@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/character/classes.dart';
+import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
 
 class CharacterProvider extends ChangeNotifier implements Copyable {
@@ -12,7 +13,7 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
   TextEditingController textController;
 
   CharacterProvider({
-    this.characterLevel = 1,
+    this.characterLevel = MINIMUM_CHARACTER_LEVEL,
     this.characterName = '',
     this.characterClass = CharacterClass.beginner,
   }) : textController = TextEditingController(text: characterName);
@@ -36,11 +37,11 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
   }
 
   void addLevels(int levelsToAdd) {
-    if(characterLevel == 300) {
+    if(characterLevel == MAX_CHARACTER_LEVEL) {
       return;
     }
 
-    characterLevel += min(levelsToAdd, 300 - characterLevel);
+    characterLevel += min(levelsToAdd, MAX_CHARACTER_LEVEL - characterLevel);
     notifyListeners();
   }
 
@@ -49,7 +50,7 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
       return;
     }
 
-    characterLevel -= min(levelsToSubtract, characterLevel - 1);
+    characterLevel -= min(levelsToSubtract, characterLevel - MINIMUM_CHARACTER_LEVEL);
     notifyListeners();
   }
 }

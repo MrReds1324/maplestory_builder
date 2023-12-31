@@ -162,9 +162,9 @@ class _StatCell extends StatelessWidget{
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: statColor,
+              color: DEFAULT_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -182,7 +182,7 @@ class _StatCell extends StatelessWidget{
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -218,9 +218,9 @@ class _RangeStatCell extends StatelessWidget{
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: statColor,
+              color: DEFAULT_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -238,7 +238,7 @@ class _RangeStatCell extends StatelessWidget{
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -275,9 +275,9 @@ class _IGNCell extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: apColor,
+              color: AP_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -298,7 +298,7 @@ class _IGNCell extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -336,9 +336,9 @@ class _LevelCell extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: apColor,
+              color: AP_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -359,7 +359,7 @@ class _LevelCell extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -416,9 +416,9 @@ class _ClassCell extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: apColor,
+              color: AP_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -439,7 +439,7 @@ class _ClassCell extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -489,7 +489,7 @@ class _APCell extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
           border: Border.all(
-            color: statColor
+            color: DEFAULT_COLOR
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(10),
@@ -562,9 +562,9 @@ const _APStatCell({
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: apColor,
+              color: AP_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -582,7 +582,7 @@ const _APStatCell({
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),

@@ -60,7 +60,7 @@ class HyperStatTable extends StatelessWidget {
           const _HyperStatCell(statType: StatType.damageNormalMobs),
           const _HyperStatCell(statType: StatType.statusResistance),
           const _HyperStatCell(statType: StatType.attackMattack),
-          const _HyperStatCell(statType: StatType.exp),
+          const _HyperStatCell(statType: StatType.expAdditional),
           const _HyperStatCell(statType: StatType.arcaneForce),
         ]
       ),
@@ -87,9 +87,9 @@ class _HyperStatCell extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: statColor,
+              color: DEFAULT_COLOR,
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10),
@@ -107,7 +107,7 @@ class _HyperStatCell extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
               border: Border.all(
-                color: statColor
+                color: DEFAULT_COLOR
               ),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
@@ -208,7 +208,7 @@ MapleTooltip _getStatTooltip(StatType statType) {
   }
 
   return MapleTooltip(
-    tooltipTitle: "${statType.formattedName} (Max Level: ${hyperStatsValues[statType]!.length - 1})",
+    tooltipTitle: "${statType.formattedName} (Max Level: ${HYPER_STATS_VALUES[statType]!.length - 1})",
     tooltipWidgets: [
       Selector<HyperStatsProvider, Widget>(
         selector: (_, hyperStatsProvider) => hyperStatsProvider.hoverTooltip,

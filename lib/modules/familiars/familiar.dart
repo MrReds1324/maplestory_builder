@@ -154,7 +154,7 @@ class Familiar implements Copyable {
                 ),
                 TextSpan(
                   text: familiarPotentialLine.isPrime ? "  (Prime)" : "",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: starColor),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: STAR_COLOR),
                 ),
               ]
             )

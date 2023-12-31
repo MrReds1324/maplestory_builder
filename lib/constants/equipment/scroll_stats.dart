@@ -1253,7 +1253,7 @@ class ScrollRange {
 }
 
 // Pet Equipment Scrolls
-const List<ScrollName> petScrolls = [
+const List<ScrollName> PET_SCROLLS = [
   ScrollName.premiumPetAtt100,
   ScrollName.premiumPetMatt100,
   ScrollName.petAtt100,
@@ -1269,7 +1269,7 @@ const List<ScrollName> petScrolls = [
 ];
 
 // Chaos Scrolls
-const List<ScrollName> chaosScrolls = [
+const List<ScrollName> CHAOS_SCROLLS = [
   ScrollName.incredibleChaosScrollOfGoodness,
   ScrollName.chaosScrollOfGoodness,
   ScrollName.miraculousChaosScroll,
@@ -1277,7 +1277,7 @@ const List<ScrollName> chaosScrolls = [
 ];
 
 // Armor
-const List<ScrollName> armorOnlyScrolls = [
+const List<ScrollName> ARMOR_ONLY_SCROLLS = [
   ScrollName.miracleArmorAtt50,
   ScrollName.miracleArmorMatt50,
   ScrollName.armorAtt70,
@@ -1285,7 +1285,7 @@ const List<ScrollName> armorOnlyScrolls = [
 ];
 
 // Armor + Shoulder
-const List<ScrollName> armorAndShoulderScrolls = [
+const List<ScrollName> ARMOR_SHOULDER_SCROLLS = [
   ScrollName.armorAndShoulderStr100,
   ScrollName.armorAndShoulderStr70,
   ScrollName.armorAndShoulderStr30,
@@ -1311,7 +1311,7 @@ const List<ScrollName> armorAndShoulderScrolls = [
 ];
 
 // Gloves
-const List<ScrollName> gloveScrolls = [
+const List<ScrollName> GLOVES_SCROLLS = [
   ScrollName.glovesAtt100,
   ScrollName.glovesAtt70,
   ScrollName.glovesAtt30,
@@ -1324,10 +1324,10 @@ const List<ScrollName> gloveScrolls = [
 
 // Accessories
 // Earring only
-const List<ScrollName> earringOnly = [
+const List<ScrollName> EARRINGS_ONLY = [
   ScrollName.earringInt10,
 ];
-const List<ScrollName> accessoryScrolls = [
+const List<ScrollName> ACCESSORY_SCROLLS = [
   ScrollName.accessoryStr100,
   ScrollName.accessoryStr70,
   ScrollName.accessoryStr30,
@@ -1357,7 +1357,7 @@ const List<ScrollName> accessoryScrolls = [
 ];
 
 // Hearts
-const List<ScrollName> heartScrolls = [
+const List<ScrollName> HEART_SCROLLS = [
   ScrollName.heartAtt100,
   ScrollName.heartAtt70,
   ScrollName.heartAtt30,
@@ -1367,7 +1367,7 @@ const List<ScrollName> heartScrolls = [
 ];
 
 // Weapons
-const List<ScrollName> weaponScrolls = [
+const List<ScrollName> WEAPON_SCROLLS = [
   ScrollName.weaponAttStr100,
   ScrollName.weaponAttStr70,
   ScrollName.weaponAttStr30,

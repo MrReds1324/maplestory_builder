@@ -1,6 +1,11 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:maplestory_builder/constants/constants.dart';
 
-// ignore: constant_identifier_names
+const int MAX_HEXA_STAT_LEVEL = 20;
+
+const int MAX_SINGLE_HEXA_STAT_LEVEL = 10;
+
 const List<StatType> AVAILABLE_HEXA_STAT_STATS = [
   StatType.critDamage,
   StatType.bossDamage,
@@ -10,7 +15,6 @@ const List<StatType> AVAILABLE_HEXA_STAT_STATS = [
   StatType.mainStat,
 ];
 
-// ignore: constant_identifier_names
 const Map<StatType, num> HEXA_STAT_INCREMENTS = {
   StatType.mainAttack: 5,
   StatType.mainStat: 100,

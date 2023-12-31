@@ -179,26 +179,26 @@ List<ScrollName> getScrollsListForEquip(Equip? editingEquip) {
     case EquipType.shoes:
     case EquipType.cape:
     case EquipType.badge:
-      filteredList = chaosScrolls + armorOnlyScrolls + armorAndShoulderScrolls;
+      filteredList = CHAOS_SCROLLS + ARMOR_ONLY_SCROLLS + ARMOR_SHOULDER_SCROLLS;
     case EquipType.gloves:
-      filteredList = chaosScrolls + gloveScrolls + armorOnlyScrolls + armorAndShoulderScrolls;
+      filteredList = CHAOS_SCROLLS + GLOVES_SCROLLS + ARMOR_ONLY_SCROLLS + ARMOR_SHOULDER_SCROLLS;
     case EquipType.shoulder:
-      filteredList = chaosScrolls + armorAndShoulderScrolls;
+      filteredList = CHAOS_SCROLLS + ARMOR_SHOULDER_SCROLLS;
     case EquipType.face:
     case EquipType.eye:
     case EquipType.ring:
     case EquipType.pendant:
     case EquipType.belt:
-      filteredList = chaosScrolls + accessoryScrolls;
+      filteredList = CHAOS_SCROLLS + ACCESSORY_SCROLLS;
     case EquipType.earrings:
-      filteredList = chaosScrolls + accessoryScrolls + earringOnly;
+      filteredList = CHAOS_SCROLLS + ACCESSORY_SCROLLS + EARRINGS_ONLY;
     case EquipType.weapon:
     case EquipType.secondary:
     case EquipType.shield:
     case EquipType.katara:
-      filteredList = chaosScrolls + weaponScrolls;
+      filteredList = CHAOS_SCROLLS + WEAPON_SCROLLS;
     case EquipType.heart:
-      filteredList = chaosScrolls + heartScrolls;
+      filteredList = CHAOS_SCROLLS + HEART_SCROLLS;
     default:
       return [];
   }

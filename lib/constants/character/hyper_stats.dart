@@ -1,7 +1,9 @@
-// The required hyper stats points to hit each level, 0->1 is 1 point and 14->15 is 110 points
+// ignore_for_file: constant_identifier_names
+
 import 'package:maplestory_builder/constants/constants.dart';
 
-Map<int, int> hyperStatsLevelToPoints = {
+// The required hyper stats points to hit each level, 0->1 is 1 point and 14->15 is 110 points
+const Map<int, int> HYPER_STATS_LEVEL_TO_POINTS = {
   0: 0,
   1: 1,
   2: 2,
@@ -21,7 +23,7 @@ Map<int, int> hyperStatsLevelToPoints = {
 };
 
 // Level to Total available Hyper Stat Points at that level
-Map<int, int> levelToTotalHyperStatPoints = {
+const Map<int, int> LEVEL_TO_TOTAL_HYPER_STAT_POINTS = {
   140: 3,
   141: 6,
   142: 9,
@@ -72,7 +74,7 @@ Map<int, int> levelToTotalHyperStatPoints = {
   187: 236,
   188: 243,
   189: 250,
-  190: 25,
+  190: 258,
   191: 266,
   192: 274,
   193: 282,
@@ -185,7 +187,7 @@ Map<int, int> levelToTotalHyperStatPoints = {
   300: 1699,
 };
 
-List<int> statValues = [
+const List<int> HYPER_STAT_STAT_VALUES = [
   0,  // 0
   30, // 1
   60, // 2
@@ -204,7 +206,7 @@ List<int> statValues = [
   450,// 15
 ];
 
-List<num> hpMpValues = [
+const List<num> HYPER_STAT_HP_MP_VALUES = [
   0,   // 0
   0.02,// 1
   0.04,// 2
@@ -223,7 +225,7 @@ List<num> hpMpValues = [
   0.30,// 15
 ];
 
-List<int> specialManaValues = [
+const List<int> HYPER_STAT_SPECIAL_MANA_VALUES = [
   0,  // 0
   10, // 1
   20, // 2
@@ -237,7 +239,7 @@ List<int> specialManaValues = [
   100,// 10
 ];
 
-List<num> critRateValues = [
+const List<num> HYPER_STAT_CRIT_RATE_VALUES = [
   0,   // 0
   0.01,// 1
   0.02,// 2
@@ -256,7 +258,7 @@ List<num> critRateValues = [
   0.25,// 15
 ];
 
-List<num> critDamageValues = [
+const List<num> HYPER_STAT_CRIT_DAMAGE_VALUES = [
   0,   // 0
   0.01,// 1
   0.02,// 2
@@ -275,7 +277,7 @@ List<num> critDamageValues = [
   0.15,// 15
 ];
 
-List<num> ignoreDefenseDamageValues = [
+const List<num> HYPER_STAT_IGNORE_DEFENSE_DAMAGE_VALUES = [
   0,   // 0
   0.03,// 1
   0.06,// 2
@@ -294,7 +296,7 @@ List<num> ignoreDefenseDamageValues = [
   0.45,// 15
 ];
 
-List<num> bossDamangeDamageNormalMobsValues = [
+const List<num> HYPER_STAT_BOSS_DAMAGE_DAMAGE_NORMAL_MOBS_VALUES = [
   0,   // 0
   0.03,// 1
   0.06,// 2
@@ -313,7 +315,7 @@ List<num> bossDamangeDamageNormalMobsValues = [
   0.55,// 15
 ];
 
-List<int> abnormalStatusValues = [
+const List<int> HYPER_STAT_ABNORMAL_STATUS_VALUES = [
   0, // 0
   1, // 1
   2, // 2
@@ -332,7 +334,7 @@ List<int> abnormalStatusValues = [
   25,// 15
 ];
 
-List<num> knockbackResistanceValues = [
+const List<num> HYPER_STAT_KNOCKBACK_RESISTANCE_VALUES = [
   0,   // 0
   0.02,// 1
   0.04,// 2
@@ -346,7 +348,7 @@ List<num> knockbackResistanceValues = [
   0.20,// 10
 ];
 
-List<int> attackMattackValues = [
+const List<int> HYPER_STAT_ATTACK_MATTACK_VALUES = [
   0, // 0
   3, // 1
   6, // 2
@@ -365,7 +367,7 @@ List<int> attackMattackValues = [
   45,// 15
 ];
 
-List<num> expValues = [
+const List<num> HYPER_STAT_EXP_VALUES = [
   0,    // 0
   0.005,// 1
   0.01, // 2
@@ -384,7 +386,7 @@ List<num> expValues = [
   0.10, // 15
 ];
 
-List<int> arcaneForceValues = [
+const List<int> HYPER_STAT_ARCANE_FORCE_VALUES = [
   0,  // 0
   5,  // 1
   10, // 2
@@ -403,22 +405,22 @@ List<int> arcaneForceValues = [
   100,// 15
 ];
 
-Map<StatType, List<num>> hyperStatsValues = {
-  StatType.str: statValues,
-  StatType.dex: statValues,
-  StatType.int: statValues,
-  StatType.luk: statValues,
-  StatType.hp: hpMpValues,
-  StatType.mp: hpMpValues,
-  StatType.specialMana: specialManaValues,
-  StatType.critRate: critRateValues,
-  StatType.critDamage: critDamageValues,
-  StatType.ignoreDefense: ignoreDefenseDamageValues,
-  StatType.damage: ignoreDefenseDamageValues,
-  StatType.bossDamage: bossDamangeDamageNormalMobsValues,
-  StatType.damageNormalMobs: bossDamangeDamageNormalMobsValues,
-  StatType.statusResistance: abnormalStatusValues,
-  StatType.attackMattack: attackMattackValues,
-  StatType.exp: expValues,
-  StatType.arcaneForce: arcaneForceValues,
+const Map<StatType, List<num>> HYPER_STATS_VALUES = {
+  StatType.str: HYPER_STAT_STAT_VALUES,
+  StatType.dex: HYPER_STAT_STAT_VALUES,
+  StatType.int: HYPER_STAT_STAT_VALUES,
+  StatType.luk: HYPER_STAT_STAT_VALUES,
+  StatType.hp: HYPER_STAT_HP_MP_VALUES,
+  StatType.mp: HYPER_STAT_HP_MP_VALUES,
+  StatType.specialMana: HYPER_STAT_SPECIAL_MANA_VALUES,
+  StatType.critRate: HYPER_STAT_CRIT_RATE_VALUES,
+  StatType.critDamage: HYPER_STAT_CRIT_DAMAGE_VALUES,
+  StatType.ignoreDefense: HYPER_STAT_IGNORE_DEFENSE_DAMAGE_VALUES,
+  StatType.damage: HYPER_STAT_IGNORE_DEFENSE_DAMAGE_VALUES,
+  StatType.bossDamage: HYPER_STAT_BOSS_DAMAGE_DAMAGE_NORMAL_MOBS_VALUES,
+  StatType.damageNormalMobs: HYPER_STAT_BOSS_DAMAGE_DAMAGE_NORMAL_MOBS_VALUES,
+  StatType.statusResistance: HYPER_STAT_ABNORMAL_STATUS_VALUES,
+  StatType.attackMattack: HYPER_STAT_ATTACK_MATTACK_VALUES,
+  StatType.expAdditional: HYPER_STAT_EXP_VALUES,
+  StatType.arcaneForce: HYPER_STAT_ARCANE_FORCE_VALUES,
 };

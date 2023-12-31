@@ -23,7 +23,7 @@ class FamiliarBuilder extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          border: Border.all(color: statColor),
+          border: Border.all(color: DEFAULT_COLOR),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -99,7 +99,7 @@ class _FamiliarBuilderContent extends StatelessWidget {
                                   child: Icon(
                                     MdiIcons.cardAccountDetailsStar,
                                     size: 100,
-                                    color: missingColor,
+                                    color: MISSING_COLOR,
                                   ),
                                 ),
                               ],
@@ -145,7 +145,7 @@ class _FamiliarComparisonWidget extends StatelessWidget {
             child: Container(
               width: 320,
               decoration: BoxDecoration(
-                border: Border.all(color: statColor),
+                border: Border.all(color: DEFAULT_COLOR),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
@@ -186,7 +186,7 @@ class _PotentialInput extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            border: Border.all(color: statColor),
+            border: Border.all(color: DEFAULT_COLOR),
             borderRadius: const BorderRadius.all(Radius.circular(10))
           ),
           child: const Column(
@@ -309,7 +309,7 @@ class _PotentialDropdowns extends StatelessWidget {
                   ),
                   TextSpan(
                     text: value.$2 ? "  (Prime)" : "",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: starColor)
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: STAR_COLOR)
                   ),
                 ]
               )

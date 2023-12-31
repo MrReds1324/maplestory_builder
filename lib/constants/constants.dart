@@ -1,15 +1,17 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
-const int jumpCap = 123;
-const int speedCap = 140;
+const int JUMP_CAP = 123;
+const int SPEED_CAP = 140;
 // Maximum meso obtained is 300%, 100% from items and 100% from buffs (not including WAP)
-const double mesoObtainedItemCap = 1.00;
-const double mesoObtainedUseCap = 1.00;
-const double mesoObtainedCap = 3.00;
+const double MESOS_OBTAINED_ITEM_CAP = 1.00;
+const double MESOS_OBTAINED_USE_CAP = 1.00;
+const double MESOS_OBTAINED_CAP = 3.00;
 // Maximum Drop Rate is 400%, 200% from items and 100% from buffs (not including WAP)
-const double dropRateItemCap = 2.00;
-const double dropRateUseCap = 1.00;
-const double dropRateCap = 4.00;
+const double DROP_RATE_ITEM_CAP = 2.00;
+const double DROP_RATE_USE_CAP = 1.00;
+const double DROP_RATE_CAP = 4.00;
 
 enum EquipType {
   all(formattedName: "All"), // # Only Used for filtering the equip selection, should not be used anywhere else
@@ -49,10 +51,10 @@ enum EquipType {
   final String formattedName;
 }
 
-const List<EquipType> secondaryTypes = [
+const List<EquipType> SECONDARY_TYPES = [
   EquipType.secondary, EquipType.shield, EquipType.katara
 ];
-const List<EquipType> accessoryTypes = [
+const List<EquipType> ACCESSORY_TYPES = [
   EquipType.earrings, EquipType.eye, EquipType.face, EquipType.pendant, EquipType.belt, EquipType.medal,
   EquipType.ring, EquipType.shoulder, EquipType.pocket, EquipType.ozRing
 ];
@@ -218,24 +220,38 @@ enum StatCategory {
 // Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Weapon_Multiplier
 // TODO - implement weapon multiplier
 
-const Color statColor = Color.fromARGB(255, 105, 105, 105);
-const Color apColor = Colors.green;
-const Color missingColor = Color.fromARGB(255, 150, 150, 150);
+const Color DEFAULT_COLOR = Color.fromARGB(255, 105, 105, 105);
+const Color AP_COLOR = Colors.green;
+const Color MISSING_COLOR = Color.fromARGB(255, 150, 150, 150);
 
-const Color equipEnhancedColor = Color.fromARGB(255, 102, 255, 255);
-const Color equipFlameColor = Color.fromARGB(255, 204, 255, 0);
-const Color equipStarColor = Color.fromARGB(255, 255, 204, 0);
-const Color equipScrollColor = Color.fromARGB(255, 170, 170, 255);
-const Color equipReductionColor = Color.fromARGB(255, 255, 0, 102);
-const Color equipUniqueColor = Colors.deepOrangeAccent;
+const Color EQUIP_ENHANCED_COLOR = Color.fromARGB(255, 102, 255, 255);
+const Color EQUIP_FLAME_COLOR = Color.fromARGB(255, 204, 255, 0);
+const Color EQUIP_STAR_COLOR = Color.fromARGB(255, 255, 204, 0);
+const Color EQUIP_SCROLL_COLOR = Color.fromARGB(255, 170, 170, 255);
+const Color EQUIP_REDUCTION_COLOR = Color.fromARGB(255, 255, 0, 102);
+const Color EQUIP_UNIQUE_COLOR = Colors.deepOrangeAccent;
 
-const Color starColor = Color.fromARGB(255, 255, 212, 1);
-const Color rarePotentialColor = Color.fromARGB(255, 102, 255, 255);
-const Color epicPotentialColor = Color.fromARGB(255, 173, 109, 236);
-const Color uniquePotentialColor = Color.fromARGB(255, 255, 231, 16);
-const Color legendaryPotentialColor = Color.fromARGB(255, 119, 238, 0);
+const Color STAR_COLOR = Color.fromARGB(255, 255, 212, 1);
+const Color RARE_COLOR = Color.fromARGB(255, 102, 255, 255);
+const Color EPIC_COLOR = Color.fromARGB(255, 173, 109, 236);
+const Color UNIQUE_COLOR = Color.fromARGB(255, 255, 231, 16);
+const Color LEGENDARY_COLOR = Color.fromARGB(255, 119, 238, 0);
 
-const Icon emptyStar = Icon(Icons.star_border, size: 16);
-const Icon filledStar = Icon(Icons.star, size: 16, color: starColor);
+const Icon EMPTY_STAR = Icon(Icons.star_border, size: 16);
+const Icon FILLED_STAR = Icon(Icons.star, size: 16, color: STAR_COLOR);
 
-const int attackSpeedNormal6 = 6;
+// Taken from https://grandislibrary.com/content/attack-speed
+const int ATTACK_SPEED_SLOWER_1 = 1;
+const int ATTACK_SPEED_SLOW_2 = 2;
+const int ATTACK_SPEED_SLOW_3 = 3;
+const int ATTACK_SPEED_AVERAGE_4 = 4;
+const int ATTACK_SPEED_FAST_5 = 5;
+const int ATTACK_SPEED_FAST_6 = 6;
+const int ATTACK_SPEED_FASTER_7 = 7;
+
+const int MAX_CHARACTER_LEVEL = 300;
+const int MINIMUM_CHARACTER_LEVEL = 1;
+
+const int MINIMUM_AP_AMOUNT = 4;
+const int AP_PER_LEVEL = 5;
+const int STARTING_AP_AMOUNT = 14;

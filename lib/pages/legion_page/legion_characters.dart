@@ -32,7 +32,7 @@ class PlacedCharacters extends StatelessWidget {
           Container(
             height: 188,
             decoration: BoxDecoration(
-              border: Border.all(color: statColor),
+              border: Border.all(color: DEFAULT_COLOR),
               borderRadius: const BorderRadius.all(Radius.circular(10))
             ),
             child: Row(
@@ -95,7 +95,7 @@ class AvailableCharacters extends StatelessWidget {
           Container(
             height: 188,
             decoration: BoxDecoration(
-              border: Border.all(color: statColor),
+              border: Border.all(color: DEFAULT_COLOR),
               borderRadius: const BorderRadius.all(Radius.circular(10))
             ),
             child: Row(
@@ -156,9 +156,9 @@ class _CharacterTile extends StatelessWidget {
         width: 125,
         height: 178,
         decoration: BoxDecoration(
-          color: statColor,
+          color: DEFAULT_COLOR,
           border: Border.all(
-            color: statColor
+            color: DEFAULT_COLOR
           ),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
@@ -272,9 +272,9 @@ class _AddCharacterButton extends StatelessWidget {
       width: 125,
       height: 178,
       decoration: BoxDecoration(
-        color: statColor,
+        color: DEFAULT_COLOR,
         border: Border.all(
-          color: statColor
+          color: DEFAULT_COLOR
         ),
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
@@ -314,7 +314,7 @@ class _EditCharacterDialogBox extends StatelessWidget {
 
     Set<LegionBlock> createdSpecialBlocks = {};
     for (LegionCharacter legionCharacter in context.read<LegionStatsProvider>().allLegionCharacters.values) {
-      if (LegionBlock.specialBlocks.contains(legionCharacter.legionBlock)) {
+      if (LegionBlock.SPECIAL_BLOCKS.contains(legionCharacter.legionBlock)) {
         createdSpecialBlocks.add(legionCharacter.legionBlock);
       }
     }

@@ -1,12 +1,14 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:maplestory_builder/constants/constants.dart';
 
-const int maxArtifactStatlevel = 10;
+const int MAX_ARTIFACT_STAT_LEVEL = 10;
 
-const int maxArtifactCrystalLevel = 5;
+const int MAX_ARTIFACT_CRYSTAL_LEVEL = 5;
 
-const int maxLegionArtifactLevel = 60;
+const int MAX_LEGION_ARTIFACT_LEVEL = 60;
 
-const Map<StatType, num> artifactStatIncreases = {
+const Map<StatType, num> ARTIFACT_STAT_INCREMENTS = {
   StatType.allStats: 15,
   StatType.hpMp: 750,
   StatType.attackMattack: 3,

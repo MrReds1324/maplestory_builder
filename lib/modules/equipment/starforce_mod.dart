@@ -123,12 +123,12 @@ class StarForceModule implements Copyable {
       else {
         idx = INDEX_250;
       }
-      updateStatValue(40 + starForceStats[star]![idx]);
+      updateStatValue(40 + STAR_FORCE_STATS[star]![idx]);
       if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara) {
-        updateWepAttValue(starForceWepAtt[star]![idx], star);
+        updateWepAttValue(STAR_FORCE_WEAPON_ATTACK_MATTACK[star]![idx], star);
       }
       else if (targetEquip.equipName.equipType != EquipType.badge) {
-        updateAttValue(gloveAtt + starForceNonWepAtt[star]![idx]);
+        updateAttValue(gloveAtt + STAR_FORCE_NON_WEAPON_ATTACK_MATTACK[star]![idx]);
       }
     }
 
@@ -137,7 +137,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 1) {
       updateStatValue(2);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 5;
       }
 
@@ -151,7 +151,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 2) {
       updateStatValue(4);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 10;
       }
 
@@ -165,7 +165,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 3) {
       updateStatValue(6);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 15;
       }
 
@@ -183,7 +183,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 4) {
       updateStatValue(8);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 25;
       }
 
@@ -205,7 +205,7 @@ class StarForceModule implements Copyable {
     else if (currentStars == 5) {
       updateStatValue(10);
 
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 35;
       }
 
@@ -226,7 +226,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 6) {
       updateStatValue(13);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 50;
       }
       
@@ -247,7 +247,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 7) {
       updateStatValue(16);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 65;
       }
 
@@ -268,7 +268,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 8) {
       updateStatValue(29);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 85;
       }
       
@@ -289,7 +289,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 9) {
       updateStatValue(22);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 105;
       }
 
@@ -310,7 +310,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 10) {
       updateStatValue(25);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 130;
       }
 
@@ -331,7 +331,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 11) {
       updateStatValue(28);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 155;
       }
 
@@ -352,7 +352,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 12) {
       updateStatValue(31);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 180;
       }
 
@@ -373,7 +373,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 13) {
       updateStatValue(34);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 205;
       }
 
@@ -394,7 +394,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 14) {
       updateStatValue(37);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 230;
       }
 
@@ -415,7 +415,7 @@ class StarForceModule implements Copyable {
     }
     else if (currentStars == 15) {
       updateStatValue(40);
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 255;
       }
 
@@ -438,7 +438,7 @@ class StarForceModule implements Copyable {
       }
     }
     else {
-      if (hpCategory.contains(targetEquip.equipName.equipType)) {
+      if (HP_CATEGORY.contains(targetEquip.equipName.equipType)) {
         moduleStats[StatType.hp] = 255;
       }
       if (targetEquip.equipName.equipType == EquipType.weapon || targetEquip.equipName.equipType == EquipType.katara){
@@ -475,7 +475,7 @@ class StarForceModule implements Copyable {
     var secondColumnChildren = <Row>[];
 
     for (var i = 0; i < currentStars.toInt(); i++){
-      currentStarGroup.add(filledStar);
+      currentStarGroup.add(FILLED_STAR);
 
       if (currentStarGroup.length == 5) {
         if (firstColumnChildren.length < 3){
@@ -489,7 +489,7 @@ class StarForceModule implements Copyable {
     }
 
     for (var i = 0; i < unstarred; i++){
-      currentStarGroup.add(emptyStar);
+      currentStarGroup.add(EMPTY_STAR);
 
       if (currentStarGroup.length == 5) {
         if (firstColumnChildren.length < 3){

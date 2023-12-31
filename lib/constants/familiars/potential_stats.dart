@@ -17,12 +17,12 @@ const List<EquipType> noPotentialCategory = <EquipType>[
 ];
 
 enum FamiliarPotentialTier {
-  normal(formattedName: "Normal", short: "N", color: statColor), // Will filter this out in the UI, mainly here to make potentials sensible
-  common(formattedName: "Common", short: "C", color: statColor),
-  rare(formattedName: "Rare", short: "R", color: rarePotentialColor),
-  epic(formattedName: "Epic", short: "E", color: epicPotentialColor),
-  unique(formattedName: "Unique", short: "U", color: uniquePotentialColor),
-  legendary(formattedName: "Legendary", short: "L", color: legendaryPotentialColor);
+  normal(formattedName: "Normal", short: "N", color: DEFAULT_COLOR), // Will filter this out in the UI, mainly here to make potentials sensible
+  common(formattedName: "Common", short: "C", color: DEFAULT_COLOR),
+  rare(formattedName: "Rare", short: "R", color: RARE_COLOR),
+  epic(formattedName: "Epic", short: "E", color: EPIC_COLOR),
+  unique(formattedName: "Unique", short: "U", color: UNIQUE_COLOR),
+  legendary(formattedName: "Legendary", short: "L", color: LEGENDARY_COLOR);
 
   const FamiliarPotentialTier({
     required this.formattedName,

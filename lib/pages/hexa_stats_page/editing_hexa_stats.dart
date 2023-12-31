@@ -22,7 +22,7 @@ class HexaStatBuilder extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          border: Border.all(color: statColor),
+          border: Border.all(color: DEFAULT_COLOR),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -94,7 +94,7 @@ class _HexaStatBuilderContent extends StatelessWidget {
                             child: Icon(
                               MdiIcons.hexagonSlice6,
                               size: 100,
-                              color: missingColor,
+                              color: MISSING_COLOR,
                             ),
                           ),
                         ],
@@ -136,7 +136,7 @@ class _HexaStatComparisonWidget extends StatelessWidget {
             child: Container(
               width: 320,
               decoration: BoxDecoration(
-                border: Border.all(color: statColor),
+                border: Border.all(color: DEFAULT_COLOR),
                 borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
               padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
@@ -201,7 +201,7 @@ class _HexaStatStatCell extends StatelessWidget {
       padding: const EdgeInsets.all(2.5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: statColor
+          color: DEFAULT_COLOR
         ),
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),

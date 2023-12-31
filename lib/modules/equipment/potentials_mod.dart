@@ -149,7 +149,7 @@ class PotentialModule implements Copyable {
                 ),
                 TextSpan(
                   text: potentialLine.isPrime ? "  (Prime)" : "",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: starColor),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: STAR_COLOR),
                 ),
               ]
             )
@@ -251,7 +251,7 @@ List<PotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=
   if (isBonus) {
     switch(editingEquip.equipName.equipType) {
       case EquipType.hat:
-        filteredList = bonusHatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_HAT_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.overall:
       case EquipType.top:
       case EquipType.bottom:
@@ -259,26 +259,26 @@ List<PotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=
       case EquipType.cape:
       case EquipType.belt:
       case EquipType.shoulder:
-        filteredList = bonusTopOverallBottomShoesCapeBeltShoulderPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_TOP_OVERALL_BOTTOM_SHOES_CAPE_BELT_SHOULDER_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.gloves:
-        filteredList = bonusGlovesPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_GLOVES_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.face:
       case EquipType.eye:
       case EquipType.ring:
       case EquipType.pendant:
       case EquipType.earrings:
-        filteredList = bonusFaceEyeRingPendantEarringPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.weapon:
-        filteredList = bonusWeaponPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_WEAPON_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.secondary:
       case EquipType.shield:
       case EquipType.katara:
-        filteredList = bonusSecondaryPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_SECONDARY_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.emblem:
-        filteredList = bonusEmblemPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_EMBLEM_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.heart:
       case EquipType.badge:
-        filteredList = bonusHeartBadgePotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BONUS_HEART_BADGE_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       default:
         return [];
     }
@@ -286,43 +286,43 @@ List<PotentialLine> getPotentialsListForEquip(Equip editingEquip, {bool isBonus=
   else {
     switch(editingEquip.equipName.equipType) {
       case EquipType.hat:
-        filteredList = hatPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = HAT_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.overall:
       case EquipType.top:
-        filteredList = topAndOverallPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = TOP_OVERALL_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.bottom:
-        filteredList = bottomPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = BOTTOM_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.gloves:
-        filteredList = glovesPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = GLOVES_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.shoes:
-        filteredList = shoesPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = SHOES_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.cape:
       case EquipType.belt:
       case EquipType.shoulder:
-        filteredList = capeBeltShoulderPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = CAPE_BELT_SHOULDER_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.face:
       case EquipType.eye:
       case EquipType.ring:
       case EquipType.pendant:
       case EquipType.earrings:
-        filteredList = faceEyeRingPendantEarringPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.weapon:
       case EquipType.shield:
       case EquipType.katara:
       case EquipType.secondary:
-        filteredList = weaponSecondaryPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = WEAPON_SECONDARY_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.emblem:
-        filteredList = emblemPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = EMBLEM_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       case EquipType.heart:
       case EquipType.badge:
-        filteredList = heartAndBadgePotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+        filteredList = HEART_BADGE_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
       default:
         return [];
     }
   }
   
 
-  filteredList += isBonus ? bonusDefaultPotentials[editingEquip.potentialModule?.bonusPotential] ?? [] : defaultPotentials[editingEquip.potentialModule?.mainPotential] ?? [];
+  filteredList += isBonus ? BONUS_DEFAULT_POTENTIALS[editingEquip.potentialModule?.bonusPotential] ?? [] : DEFAULT_POTENTIALS[editingEquip.potentialModule?.mainPotential] ?? [];
 
   return filteredList;
 }

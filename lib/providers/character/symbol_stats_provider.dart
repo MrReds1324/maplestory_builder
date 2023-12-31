@@ -88,18 +88,18 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     Map<CharacterClass, Map<StatType, int>> levelOtherTarget;
 
     if (arcaneSymbol != null) {
-      level1Stats[StatType.arcaneForce] = ArcaneSymbol.level1ArcaneForce;
-      levelOtherStats[StatType.arcaneForce] = ArcaneSymbol.levelOtherArcaneForce;
+      level1Stats[StatType.arcaneForce] = ArcaneSymbol.LEVEL_1_ARCANE_FORCE;
+      levelOtherStats[StatType.arcaneForce] = ArcaneSymbol.LEVEL_OTHER_ARCANE_FORCE;
 
-      level1Target = ArcaneSymbol.level1Stats;
-      levelOtherTarget = ArcaneSymbol.levelOtherStats; 
+      level1Target = ArcaneSymbol.LEVEL_1_STATS;
+      levelOtherTarget = ArcaneSymbol.LEVEL_OTHER_STATS; 
     }
     else if (sacredSymbol != null) {
-      level1Stats[StatType.sacredPower] = SacredSymbol.level1SacredPower;
-      levelOtherStats[StatType.sacredPower] = SacredSymbol.levelOtherSacredPower;
+      level1Stats[StatType.sacredPower] = SacredSymbol.LEVEL_1_SACRED_POWER;
+      levelOtherStats[StatType.sacredPower] = SacredSymbol.LEVEL_OTHER_SACRED_POWER;
 
-      level1Target = SacredSymbol.level1Stats;
-      levelOtherTarget = SacredSymbol.levelOtherStats; 
+      level1Target = SacredSymbol.LEVEL_1_STATS;
+      levelOtherTarget = SacredSymbol.LEVEL_OTHER_STATS; 
     }
     else {
       return returnValue;
@@ -216,11 +216,11 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
   void addArcaneLevels(int levelAmount, ArcaneSymbol arcaneSymbol) {
     var currentArcaneLevel = arcaneSymbolLevels[arcaneSymbol]!;
     
-    if (currentArcaneLevel == ArcaneSymbol.maxLevel) {
+    if (currentArcaneLevel == ArcaneSymbol.MAX_LEVEL) {
       return;
     }
 
-    levelAmount = min(ArcaneSymbol.maxLevel - currentArcaneLevel, levelAmount);
+    levelAmount = min(ArcaneSymbol.MAX_LEVEL - currentArcaneLevel, levelAmount);
     arcaneSymbolLevels[arcaneSymbol] = arcaneSymbolLevels[arcaneSymbol]! + levelAmount;
 
     cacheValue = null;
@@ -244,11 +244,11 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
   void addSacredLevels(int levelAmount, SacredSymbol sacredSymbol) {
     var currentSacredLevel = sacredSymbolLevels[sacredSymbol]!;
     
-    if (currentSacredLevel == SacredSymbol.maxLevel) {
+    if (currentSacredLevel == SacredSymbol.MAX_LEVEL) {
       return;
     }
 
-    levelAmount = min(SacredSymbol.maxLevel - currentSacredLevel, levelAmount);
+    levelAmount = min(SacredSymbol.MAX_LEVEL - currentSacredLevel, levelAmount);
     sacredSymbolLevels[sacredSymbol] = sacredSymbolLevels[sacredSymbol]! + levelAmount;
 
     cacheValue = null;
@@ -287,11 +287,11 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     int currentLevel;
     int maxLevel;
     if (arcaneSymbol != null) {
-      maxLevel = ArcaneSymbol.maxLevel;
+      maxLevel = ArcaneSymbol.MAX_LEVEL;
       currentLevel = arcaneSymbolLevels[arcaneSymbol]!;
     }
     else {
-      maxLevel = SacredSymbol.maxLevel;
+      maxLevel = SacredSymbol.MAX_LEVEL;
       currentLevel = sacredSymbolLevels[sacredSymbol]!;
     }
 
