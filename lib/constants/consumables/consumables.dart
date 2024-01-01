@@ -1,9 +1,26 @@
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum ConsumableCategory {
-  food(formattedName: "Food"),
-  potion(formattedName: "Potion"),
-  alchemyPotion(formattedName: "Alchemy Potion"),
+  allStatsBoost(formattedName: "All Stats Boost"),
+  strBoost(formattedName: "STR Boost"),
+  dexBoost(formattedName: "DEX Boost"),
+  intBoost(formattedName: "INT Boost"),
+  lukBoost(formattedName: "LUK Boost"),
+  hpBoost(formattedName: "HP Boost"),
+  mpBoost(formattedName: "MP Boost"),
+  defenseBoost(formattedName: "DEF Boost"),
+  attackBoost(formattedName: "Attack Power Boost"),
+  mattackBoost(formattedName: "Magic Attack Boost"),
+  sppedBoost(formattedName: "Speed Boost"),
+  jumpBoost(formattedName: "Jump Boost"),
+  attackSpeedBoost(formattedName: "Attack Speed Boost"),
+  bossDamageBoost(formattedName: "Boss Damage Boost"),
+  critRateBoost(formattedName: "Critical Rate Boost"),
+  damageBoost(formattedName: "Damage Boost"),
+  ignoreDefenseBoost(formattedName: "Ignore Enemy Defense Boost"),
+  mesosObtainedBoost(formattedName: "Mesos Obtained Boost"),
+  itemDropRateBoost(formattedName: "Item Drop Rate Boost"),
+  expBoost(formattedName: "EXP Boost"),
   ;
 
   const ConsumableCategory({
