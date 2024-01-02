@@ -477,7 +477,7 @@ class _SearchableItemListState extends State<_SearchableItemList> {
                     "Equip Type:",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  _ListenableDropDownSelector(
+                  ListenableDropDownSelector(
                     selectedValue: selectedEquipType,
                     menuItems: EquipType.values.map((equipType) {
                       return DropdownMenuItem(
@@ -490,7 +490,7 @@ class _SearchableItemListState extends State<_SearchableItemList> {
                     "Class:",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  _ListenableDropDownSelector(
+                  ListenableDropDownSelector(
                     selectedValue: selectedClassType,
                     menuItems: ClassType.values.map((classType) {
                       return DropdownMenuItem(
@@ -558,34 +558,6 @@ class _SearchableItemListState extends State<_SearchableItemList> {
           ),
         ],
       )
-    );
-  }
-}
-
-class _ListenableDropDownSelector extends StatelessWidget {
-  final ValueNotifier selectedValue;
-  final List<DropdownMenuItem> menuItems;
-
-  const _ListenableDropDownSelector({ 
-    required this.selectedValue,
-    required this.menuItems
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: selectedValue,
-      builder: (context, v, _) {
-        return DropdownButton(
-          value: v,
-          onChanged: (newValue) {
-            if (newValue != null) {
-              selectedValue.value = newValue;
-            }
-          },
-          items: menuItems,
-        );
-      }
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:maplestory_builder/constants/constants.dart';
 
 enum ConsumableCategory {
+  all(formattedName: "All"),  // Only used for filtering
   allStatsBoost(formattedName: "All Stats Boost"),
   strBoost(formattedName: "STR Boost"),
   dexBoost(formattedName: "DEX Boost"),

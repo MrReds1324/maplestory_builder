@@ -200,6 +200,8 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
             totalStats[StatType.finalStr] = totalStats[StatType.finalStr]! + entry.value;
             totalStats[StatType.finalDex] = totalStats[StatType.finalDex]! + entry.value;
             totalStats[StatType.finalLuk] = totalStats[StatType.finalLuk]! + entry.value;
+          case StatType.expMultiplicative:
+            totalStats[entry.key] = totalStats[entry.key]! * (1 + entry.value);
           case StatType.ignoreDefense:
             totalStats[entry.key] = calculateIgnoreDefense(totalStats[entry.key]!, entry.value);
           case StatType.exp:
@@ -292,6 +294,8 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
 
     for(StatType statType in StatType.values) {
       switch(statType) {
+        case StatType.expMultiplicative:
+          defaultStats[statType] = 1;
         case StatType.critRate:
           defaultStats[statType] = 0.05;
         case StatType.mastery:

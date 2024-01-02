@@ -202,3 +202,32 @@ class SetSelectButton<P> extends StatelessWidget {
     );
   }
 }
+
+class ListenableDropDownSelector extends StatelessWidget {
+  final ValueNotifier selectedValue;
+  final List<DropdownMenuItem> menuItems;
+
+  const ListenableDropDownSelector({ 
+    required this.selectedValue,
+    required this.menuItems,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: selectedValue,
+      builder: (context, v, _) {
+        return DropdownButton(
+          value: v,
+          onChanged: (newValue) {
+            if (newValue != null) {
+              selectedValue.value = newValue;
+            }
+          },
+          items: menuItems,
+        );
+      }
+    );
+  }
+}
