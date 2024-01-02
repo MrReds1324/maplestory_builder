@@ -3,9 +3,8 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
+import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/hexa_stats/hexa_stats_provider.dart';
-import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
 import 'package:provider/provider.dart';
 
 class ConsumablesPage extends StatelessWidget {
@@ -29,10 +28,10 @@ class ConsumablesPage extends StatelessWidget {
             "Consumable Buffs",
             style: Theme.of(context).textTheme.headlineLarge
           ),
-          SetSelectButtonRow<LegionStatsProvider>(
+          SetSelectButtonRow<ConsumablesProvider>(
             onHoverFunction: context.read<DifferenceCalculatorProvider>().compareLegionSets,
-            onPressed: (int setPosition) => context.read<LegionStatsProvider>().changeActiveSet(setPosition),
-            selectorFunction: (BuildContext context, LegionStatsProvider legionStatsProvider) => legionStatsProvider.activeSetNumber,
+            onPressed: (int setPosition) => context.read<ConsumablesProvider>().changeActiveSet(setPosition),
+            selectorFunction: (BuildContext context, ConsumablesProvider consumablesProvider) => consumablesProvider.activeSetNumber,
           ),
           const Expanded(
             child: Row(
@@ -210,9 +209,9 @@ class _ConsumableStatsListView extends StatelessWidget {
               border: Border.all(color: DEFAULT_COLOR),
               borderRadius: const BorderRadius.all(Radius.circular(10))
             ),
-            child: Consumer<HexaStatsProvider>(
-              builder: (context, hexaStatsProvider, child) {
-                var selectedStats = hexaStatsProvider.calculateStats().entries.toList();
+            child: Consumer<ConsumablesProvider>(
+              builder: (context, consumablesProvider, child) {
+                var selectedStats = consumablesProvider.calculateStats().entries.toList();
                 return ListView.builder(
                   padding: const EdgeInsets.only(right: 8),
                   itemCount: selectedStats.length,

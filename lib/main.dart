@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/utilities/provider_utilities.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:maplestory_builder/providers/hexa_stats/hexa_stat_editing_provider.dart';
@@ -63,6 +64,7 @@ void main() {
         ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
         ChangeNotifierProvider<FamiliarsProvider>(create: (_) => FamiliarsProvider()),
+        ChangeNotifierProvider<ConsumablesProvider>(create: (_) => ConsumablesProvider()),
         ChangeNotifierProxyProvider<CharacterProvider, HexaStatsProvider>(
           create: (BuildContext context) => HexaStatsProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false)
