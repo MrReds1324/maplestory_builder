@@ -276,8 +276,9 @@ def handle_duration(stat_effects_string: str) -> int:
 STAT_REGEX_DICT = {
     "StatType.xallStatsPercentage": re.compile(r"All Stats: ([+|-]\d+)+%"),
     "StatType.allStats": re.compile(r"All Stats: ([+|-]\d+)(?!%)"),
-    "StatType.speed": re.compile(r"Speed: ([+|-]\d+)(?!%)"),
     "StatType.jump": re.compile(r"Jump: ([+|-]\d+)(?!%)"),
+    "StatType.speed": re.compile(r"(?<!Attack )Speed: ([+|-]\d+)(?!%)"),
+    "StatType.attackSpeed": re.compile(r"Attack Speed: ([+|-]\d+)(?!%)"),
     "StatType.str": re.compile(r"STR: ([+|-]\d+)(?!%)"),
     "StatType.dex": re.compile(r"DEX: ([+|-]\d+)(?!%)"),
     "StatType.int": re.compile(r"INT: ([+|-]\d+)(?!%)"),

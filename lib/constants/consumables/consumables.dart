@@ -51,7 +51,7 @@ enum ConsumableName {
       formattedName: "Advanced Great Blessing Potion",
       description:
           "Alchemy Masters and Renowned Masters can make this potion that increases all stats by 10% for 40 minutes. Caution:Normally, only 1 Potion can be used at a time, but Alchemists can use 2 if they are of different kinds.",
-      statValues: {StatType.allStatsPercentage: 0.1, StatType.allStats: 1},
+      statValues: {StatType.allStatsPercentage: 0.1},
       consumableCategories: [ConsumableCategory.allStatsBoost],
       duration: 2400),
   blessingPotion(
@@ -1400,7 +1400,7 @@ enum ConsumableName {
   extremeGreenPotion(
       formattedName: "Extreme Green Potion",
       description: "A green potion from Monster Park.",
-      statValues: {StatType.attackSpeed: 1, StatType.speed: 1},
+      statValues: {StatType.attackSpeed: 1},
       consumableCategories: [ConsumableCategory.attackSpeedBoost],
       duration: 1800),
   exceptionalConcentrationPotion(

@@ -48,8 +48,8 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
     return activeConsumablesSet.calculateStats();
   }
 
-  void selectConsumable(ConsumableName consumableName) {
-    activeConsumablesSet.selectConsumable(consumableName);
+  void selectConsumable(ConsumableName consumableName, bool? isAdding) {
+    activeConsumablesSet.selectConsumable(consumableName, isAdding);
     notifyListeners();
   }
 

@@ -1,6 +1,7 @@
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/base.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class ConsumablesModule implements Copyable {
   // This tracks the consumables we have selected, as well as if it has been disabled
@@ -23,8 +24,15 @@ class ConsumablesModule implements Copyable {
     );
   }
 
-  void selectConsumable(ConsumableName consumableName) {
+  void selectConsumable(ConsumableName consumableName, bool? isAdding) {
     // TODO figure out if this consumable takes effect or not
+
+    if (isAdding == true) {
+      selectedConsumables[consumableName] = true;
+    }
+    else {
+      selectedConsumables.remove(consumableName);
+    }
     cacheValue = null;
   }
 
@@ -33,10 +41,31 @@ class ConsumablesModule implements Copyable {
       return cacheValue!;
     }
 
-    Map<StatType, num> consumableStats = {};
+    Map<StatType, num> consumablesStats = {};
 
+    void updateStatFromConsumableName(MapEntry<ConsumableName, bool> consumableEntry) {
+      if (!consumableEntry.value) {
+        return;
+      }
+      else {
+        for (MapEntry<StatType, num> consumableStats in consumableEntry.key.statValues.entries) {
+          switch(consumableStats.key) {
+            case StatType.expMultiplicative:
+              consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 1) * (1 + consumableStats.value);
+            case StatType.ignoreDefense:
+              consumablesStats[consumableStats.key] = calculateIgnoreDefense((consumablesStats[consumableStats.key] ?? 0), consumableStats.value);
+            default:
+              consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 0) + consumableStats.value;
+          }
+        }
+      }
+    }
 
-    cacheValue = consumableStats;
-    return consumableStats;
+    for (MapEntry<ConsumableName, bool> consumableEntry in selectedConsumables.entries) {
+      updateStatFromConsumableName(consumableEntry);
+    }
+
+    cacheValue = consumablesStats;
+    return consumablesStats;
   }
 }

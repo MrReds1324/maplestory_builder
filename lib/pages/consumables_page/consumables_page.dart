@@ -3,6 +3,7 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
+import 'package:maplestory_builder/pages/consumables_page/consumable_card.dart';
 import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:provider/provider.dart';
@@ -162,21 +163,8 @@ class _SearchableItemGridState extends State<_SearchableItemGrid> {
                 itemCount: items.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    color: DEFAULT_COLOR,
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            items[index].formattedName,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                          Text(items[index].description)
-                        ],
-                      ),
-                    ),
+                  return ConsumableCard(
+                    consumableName: items[index]
                   );
                 }
               ),
