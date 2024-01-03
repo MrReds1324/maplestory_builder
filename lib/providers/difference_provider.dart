@@ -53,6 +53,7 @@ class DifferenceCalculatorProvider with ChangeNotifier {
     legionArtifactProvider: mainCalculatorProvider.legionArtifactProvider,
     familiarsProvider: mainCalculatorProvider.familiarsProvider,
     hexaStatsProvider: mainCalculatorProvider.hexaStatsProvider,
+    consumablesProvider: mainCalculatorProvider.consumablesProvider,
   );
 
 
@@ -642,6 +643,18 @@ void compareBadgeSets(BuildContext context, int newBadgeSetNumber) {
 
     // Reset the hexa stats provider for the diff character model
     diffCalculatorProvider.hexaStatsProvider = tempHexaStatsProvider;
+    notifyListeners();
+  }
+
+  void compareConsumablesSets(BuildContext context, int newConsumablesSetNumber) {
+    var tempConsumablesProvider = diffCalculatorProvider.consumablesProvider;
+    diffCalculatorProvider.consumablesProvider = tempConsumablesProvider.copyWith();
+    diffCalculatorProvider.consumablesProvider.changeActiveSet(newConsumablesSetNumber);
+    diffCalculatorProvider.calculateEverything(recalculateCache: true);
+    updateDifferenceText(context: context, calculationType: CalculationType.compareStats);
+
+    // Reset the consumables provider for the diff character model
+    diffCalculatorProvider.consumablesProvider = tempConsumablesProvider;
     notifyListeners();
   }
 

@@ -5,6 +5,7 @@ import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
@@ -66,6 +67,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
   LegionArtifactProvider legionArtifactProvider;
   FamiliarsProvider familiarsProvider;
   HexaStatsProvider hexaStatsProvider;
+  ConsumablesProvider consumablesProvider;
 
   CalculatorProvider({
     required this.characterProvider,
@@ -79,6 +81,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     required this.legionArtifactProvider,
     required this.familiarsProvider,
     required this.hexaStatsProvider,
+    required this.consumablesProvider,
     bool doCalculation = true
   }){
     if (doCalculation) {
@@ -99,6 +102,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     LegionArtifactProvider? legionArtifactProvider,
     FamiliarsProvider? familiarsProvider,
     HexaStatsProvider? hexaStatsProvider,
+    ConsumablesProvider? consumablesProvider,
     bool doCalculation = true
   }){
     return CalculatorProvider(
@@ -113,6 +117,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
       legionArtifactProvider: legionArtifactProvider ?? this.legionArtifactProvider.copyWith(),
       familiarsProvider: familiarsProvider ?? this.familiarsProvider.copyWith(),
       hexaStatsProvider: hexaStatsProvider ?? this.hexaStatsProvider.copyWith(),
+      consumablesProvider: consumablesProvider ?? this.consumablesProvider.copyWith(),
       doCalculation: doCalculation,
     );
   }
@@ -133,6 +138,7 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     LegionArtifactProvider legionArtifactProvider,
     FamiliarsProvider familiarsProvider,
     HexaStatsProvider hexaStatsProvider,
+    ConsumablesProvider consumablesProvider,
   ) {
     calculateEverything();
     notifyListeners();
@@ -234,6 +240,8 @@ class CalculatorProvider with ChangeNotifier implements Copyable {
     updateTempStats(legionStatsProvider.calculateStats());
     updateTempStats(legionArtifactProvider.calculateStats());
     updateTempStats(hexaStatsProvider.calculateStats());
+
+    updateTempStats(consumablesProvider.calculateStats());
 
     var calculatedCharacterLevel = max(characterProvider.characterLevel - 10, 0);
     tempStats[StatType.hp] = tempStats[StatType.hp]! + (calculatedCharacterLevel * 50);

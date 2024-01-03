@@ -30,7 +30,7 @@ class ConsumablesPage extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineLarge
           ),
           SetSelectButtonRow<ConsumablesProvider>(
-            onHoverFunction: context.read<DifferenceCalculatorProvider>().compareLegionSets,
+            onHoverFunction: context.read<DifferenceCalculatorProvider>().compareConsumablesSets,
             onPressed: (int setPosition) => context.read<ConsumablesProvider>().changeActiveSet(setPosition),
             selectorFunction: (BuildContext context, ConsumablesProvider consumablesProvider) => consumablesProvider.activeSetNumber,
           ),

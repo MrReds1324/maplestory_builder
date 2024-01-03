@@ -131,7 +131,7 @@ enum ConsumableName {
       statValues: {StatType.allStatsPercentage: 0.05},
       consumableCategories: [ConsumableCategory.allStatsBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   legendaryBlessingPotion(
       formattedName: "Legendary Blessing Potion",
       description:
@@ -1669,7 +1669,7 @@ enum ConsumableName {
       statValues: {StatType.bossDamage: 0.2},
       consumableCategories: [ConsumableCategory.bossDamageBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   bossRushBoostPotion(
       formattedName: "Boss Rush Boost Potion",
       description:
@@ -1677,15 +1677,15 @@ enum ConsumableName {
       statValues: {StatType.bossDamage: 0.1},
       consumableCategories: [ConsumableCategory.bossDamageBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   golluxRubyDominancePotion(
       formattedName: "Gollux Ruby Dominance Potion",
       description:
-          "A legendary fairy potion containing red star fragments.Does not stack with other potions.Effects only work against Gollux.",
+          "A legendary fairy potion containing red star fragments.Does not stack with other potions. Effects only work against Gollux.",
       statValues: {StatType.bossDamage: 0.2},
       consumableCategories: [ConsumableCategory.bossDamageBoost],
       duration: 3600,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.starPotion}),
   redStarPotion(
       formattedName: "Red Star Potion",
       description:
@@ -1709,7 +1709,7 @@ enum ConsumableName {
       statValues: {StatType.damage: 0.1},
       consumableCategories: [ConsumableCategory.damageBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   greatHeroBoostPotion(
       formattedName: "Great Hero Boost Potion",
       description:
@@ -1717,7 +1717,7 @@ enum ConsumableName {
       statValues: {StatType.damage: 0.05},
       consumableCategories: [ConsumableCategory.damageBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   advancedDefensePillI(
       formattedName: "Advanced Defense Pill I",
       description: "A pill made through Alchemy.",
@@ -2077,7 +2077,7 @@ enum ConsumableName {
       statValues: {StatType.ignoreDefense: 0.2},
       consumableCategories: [ConsumableCategory.ignoreDefenseBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   blueStarPotion(
       formattedName: "Blue Star Potion",
       description:
@@ -2085,15 +2085,15 @@ enum ConsumableName {
       statValues: {StatType.ignoreDefense: 0.2},
       consumableCategories: [ConsumableCategory.ignoreDefenseBoost],
       duration: 7200,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.starPotion}),
   golluxSapphirePiercingPotion(
       formattedName: "Gollux Sapphire Piercing Potion",
       description:
-          "A legendary fairy potion containing blue star fragments.Does not stack with other potions.Effects only work against Gollux.",
+          "A legendary fairy potion containing blue star fragments. Does not stack with other potions. Effects only work against Gollux.",
       statValues: {StatType.ignoreDefense: 0.2},
       consumableCategories: [ConsumableCategory.ignoreDefenseBoost],
       duration: 3600,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.starPotion}),
   penetratingBoostPotion(
       formattedName: "Penetrating Boost Potion",
       description:
@@ -2101,7 +2101,7 @@ enum ConsumableName {
       statValues: {StatType.ignoreDefense: 0.1},
       consumableCategories: [ConsumableCategory.ignoreDefenseBoost],
       duration: 2400,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.alchemyPotion}),
   sparklingBlueStarPotion(
       formattedName: "Sparkling Blue Star Potion",
       description:
@@ -2537,14 +2537,14 @@ enum ConsumableName {
   goldStarPotion(
       formattedName: "Gold Star Potion",
       description:
-          "A legendary fairy potion, containing gold star fragments.Warning:Does not stack with other potions and Star Potions of different kind.Effects only work in the Root Abyss.",
+          "A legendary fairy potion, containing gold star fragments. Warning:Does not stack with other potions and Star Potions of different kind. Effects only work in the Root Abyss.",
       statValues: {StatType.attack: 20, StatType.mattack: 20},
       consumableCategories: [
         ConsumableCategory.mattackBoost,
         ConsumableCategory.attackBoost
       ],
       duration: 7200,
-      buffSlots: {}),
+      buffSlots: {BuffSlot.starPotion}),
   heroPotion(
       formattedName: "Hero Potion",
       description:

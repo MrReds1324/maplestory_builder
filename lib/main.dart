@@ -156,8 +156,21 @@ void main() {
             ),
         ),
         // The main character/calculator provider
-        ChangeNotifierProxyProvider11<CharacterProvider, APStatsProvider, InnerAbilityProvider, TraitStatsProvider, 
-        HyperStatsProvider, SymbolStatsProvider, EquipsProvider, LegionStatsProvider, LegionArtifactProvider, FamiliarsProvider, HexaStatsProvider, CalculatorProvider>(
+        ChangeNotifierProxyProvider12<
+          CharacterProvider, 
+          APStatsProvider, 
+          InnerAbilityProvider, 
+          TraitStatsProvider, 
+          HyperStatsProvider, 
+          SymbolStatsProvider, 
+          EquipsProvider, 
+          LegionStatsProvider, 
+          LegionArtifactProvider, 
+          FamiliarsProvider, 
+          HexaStatsProvider, 
+          ConsumablesProvider,
+          CalculatorProvider
+        >(
           create: (BuildContext context) => CalculatorProvider(
             characterProvider: Provider.of<CharacterProvider>(context, listen: false),
             apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
@@ -169,7 +182,8 @@ void main() {
             legionStatsProvider: Provider.of<LegionStatsProvider>(context, listen: false),
             legionArtifactProvider: Provider.of<LegionArtifactProvider>(context, listen: false),
             familiarsProvider: Provider.of<FamiliarsProvider>(context, listen: false),
-            hexaStatsProvider: Provider.of<HexaStatsProvider>(context, listen: false)
+            hexaStatsProvider: Provider.of<HexaStatsProvider>(context, listen: false),
+            consumablesProvider: Provider.of<ConsumablesProvider>(context, listen: false),
           ), 
           update: (
             BuildContext context, 
@@ -184,6 +198,7 @@ void main() {
             LegionArtifactProvider legionArtifactProvider,
             FamiliarsProvider familiarsProvider,
             HexaStatsProvider hexaStatsProvider,
+            ConsumablesProvider consumablesProvider,
             CalculatorProvider? calculatorProvider
           ) => calculatorProvider?.update(
               characterProvider, 
@@ -197,6 +212,7 @@ void main() {
               legionArtifactProvider,
               familiarsProvider,
               hexaStatsProvider,
+              consumablesProvider,
             ) 
             ?? 
             CalculatorProvider(
@@ -211,6 +227,7 @@ void main() {
               legionArtifactProvider: legionArtifactProvider,
               familiarsProvider: familiarsProvider,
               hexaStatsProvider: hexaStatsProvider,
+              consumablesProvider: consumablesProvider,
             ),
         ),
         // Difference calculator provider, used to show increases & decreses in stats & range

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/base.dart';
@@ -50,6 +52,10 @@ class ConsumablesModule implements Copyable {
       else {
         for (MapEntry<StatType, num> consumableStats in consumableEntry.key.statValues.entries) {
           switch(consumableStats.key) {
+            case StatType.itemDropRate:
+              consumablesStats[consumableStats.key] = min((consumablesStats[consumableStats.key] ?? 0) + consumableStats.value, DROP_RATE_USE_CAP);
+            case StatType.mesosObtained:
+              consumablesStats[consumableStats.key] = min((consumablesStats[consumableStats.key] ?? 0) + consumableStats.value, MESOS_OBTAINED_USE_CAP);
             case StatType.expMultiplicative:
               consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 1) * (1 + consumableStats.value);
             case StatType.ignoreDefense:
