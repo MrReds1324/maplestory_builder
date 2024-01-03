@@ -47,12 +47,13 @@ class ConsumableCard extends StatelessWidget {
 
   bool _getActivatedState(BuildContext context, bool? isActivated) {
     if (isActivated == null) {
-      if (context.read<ConsumablesProvider>().activeConsumablesSet.selectedConsumables.keys.contains(ConsumableName.advancedBlessingPotion)) {
-        return false;
+      var disabledBuffSlots = context.read<ConsumablesProvider>().disabledBuffSlots;
+      for (BuffSlot buffSlot in consumableName.buffSlots) {
+        if (disabledBuffSlots.contains(buffSlot)) {
+          return false;
+        }
       }
-      else {
-        return true;
-      }
+      return true;
     }
     else {
       return isActivated;
@@ -62,45 +63,44 @@ class ConsumableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: DEFAULT_COLOR,
-      child: Container(
-        padding: const EdgeInsets.all(2.5),
-        child: Selector<ConsumablesProvider, (bool, bool)>(
-          selector: (_, consumablesProvider) => (consumablesProvider.activeConsumablesSet.selectedConsumables[consumableName] != null, _getActivatedState(context, consumablesProvider.activeConsumablesSet.selectedConsumables[consumableName])),
-          builder: (context, data, child) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: data.$2 ? DEFAULT_COLOR: Colors.redAccent),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
+      child: Selector<ConsumablesProvider, (bool, bool)>(
+        selector: (_, consumablesProvider) => (consumablesProvider.activeConsumablesSet.selectedConsumables[consumableName] != null, _getActivatedState(context, consumablesProvider.activeConsumablesSet.selectedConsumables[consumableName])),
+        builder: (context, data, child) {
+          return Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: data.$1 ? Colors.greenAccent : data.$2 ? DEFAULT_COLOR: Colors.redAccent,
+                width: 2
               ),
-              padding: const EdgeInsets.all(2.5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: child ?? const SizedBox.shrink(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Duration: ${_getDurationString()}"),
-                      const Spacer(),
-                      const Text("Selected"),
-                      const SizedBox(width: 5),
-                      Checkbox(
-                        isError: true,
-                        value: data.$1,
-                        onChanged: _getOnChangedFunction(context, data.$1, data.$2),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            );
-          },
-          child: _ConsumableInnerContents(consumableName: consumableName),
-        ),
+              borderRadius: const BorderRadius.all(Radius.circular(10))
+            ),
+            padding: const EdgeInsets.all(2.5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: child ?? const SizedBox.shrink(),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Duration: ${_getDurationString()}"),
+                    const Spacer(),
+                    const Text("Selected"),
+                    const SizedBox(width: 5),
+                    Checkbox(
+                      isError: true,
+                      value: data.$1,
+                      onChanged: _getOnChangedFunction(context, data.$1, data.$2),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          );
+        },
+        child: _ConsumableInnerContents(consumableName: consumableName),
       ),
     );
   }
@@ -124,7 +124,7 @@ class _ConsumableInnerContents extends StatelessWidget {
           children: [
             Container(
               constraints: const BoxConstraints(
-                maxWidth: 235
+                maxWidth: 233
               ),
               child: Text(
                 consumableName.formattedName,

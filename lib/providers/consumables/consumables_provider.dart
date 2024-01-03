@@ -10,11 +10,13 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
   int activeSetNumber;
   late Map<int, ConsumablesModule> consumablesSets; 
   late ConsumablesModule activeConsumablesSet;
+  bool isDropFamiliarActive;
 
   ConsumablesProvider({
     this.activeSetNumber = 1,
     Map<int, ConsumablesModule>? consumablesSets,
     ConsumablesModule? activeConsumablesSet,
+    this.isDropFamiliarActive = false,
   }) {
     this.consumablesSets = consumablesSets ?? {
       1: ConsumablesModule(),
@@ -26,21 +28,40 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
     this.activeConsumablesSet = activeConsumablesSet ?? this.consumablesSets[activeSetNumber]!;
   }
 
+  Set<BuffSlot> get disabledBuffSlots {
+    int alchemyPotionCounter = 0;
+    Set<BuffSlot> disabledBuffSlots = isDropFamiliarActive ? {BuffSlot.dropCoupon} : {};
+
+    for (ConsumableName consumableName in activeConsumablesSet.selectedConsumables.keys) {
+      disabledBuffSlots.addAll(consumableName.buffSlots);
+
+      if (alchemyPotionCounter < 2 && consumableName.buffSlots.contains(BuffSlot.alchemyPotion)) {
+        alchemyPotionCounter += 1;
+        if (alchemyPotionCounter == 1) {
+          disabledBuffSlots.remove(BuffSlot.alchemyPotion);
+        }
+      }
+    }
+    return disabledBuffSlots;
+  }
+
   @override
   ConsumablesProvider copyWith({
     int? activeSetNumber,
     Map<int, ConsumablesModule>? consumablesSets,
     ConsumablesModule? activeConsumablesSet,
+    bool? isDropFamiliarActive,
   }) {
     return ConsumablesProvider(
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
       consumablesSets: consumablesSets ?? mapDeepCopy(this.consumablesSets),
-      activeConsumablesSet: activeConsumablesSet ?? this.activeConsumablesSet.copyWith()
+      activeConsumablesSet: activeConsumablesSet ?? this.activeConsumablesSet.copyWith(),
+      isDropFamiliarActive: isDropFamiliarActive ?? this.isDropFamiliarActive,
     );
   }
 
   ConsumablesProvider update(FamiliarsProvider familiarsProvider) {
-    // TODO - large drop fam does not stack with drop coupons
+    // TODO - drop fam does not stack with drop coupons
     return this;
   }
 
