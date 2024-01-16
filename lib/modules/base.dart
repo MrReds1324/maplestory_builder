@@ -23,7 +23,6 @@ class Base {
   }): baseStats = baseStats ?? {};
 }
 
-abstract class Copyable {
-
+abstract interface class Copyable {
   dynamic copyWith();
 }
