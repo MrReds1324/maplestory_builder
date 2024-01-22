@@ -1,33 +1,11 @@
 # For the life of me I could not get the c# load function to work for the StringLinker Class - implementing the API in python...
 from typing import Optional
-from wz_utilities import Wz_Node, Wz_File
-
-
-class StringResult:
-    def __init__(self):
-        self.name: Optional[str] = None
-        self.desc: Optional[str] = None
-        self.pdesc: Optional[str] = None
-        self.auto_desc: Optional[str] = None
-        self.full_path: Optional[str] = None
-        self.all_values: dict[str, str] = {}
-
-    def __str__(self):
-        return f"{self.name} - {self.desc}"
-
-    def __repr__(self):
-        return self.__str__()
-
-
-class StringResultSkill(StringResult):
-    def __init__(self):
-        super(StringResultSkill, self).__init__()
-        self.skill_h: list[str] = []
-        self.skill_ph: list[str] = []
-        self.skill_hch: list[str] = []
+from wz_utilities import Wz_Node, Wz_File, StringResult, StringResultSkill
 
 
 class StringLinker:
+    VALUE_NAMES: set[str] = set()
+
     def __init__(self):
         self.string_eqp: dict[int, StringResult] = {}
         self.string_item: dict[int, StringResult] = {}
@@ -57,14 +35,14 @@ class StringLinker:
                     except Exception:
                         continue
 
-                    str_ressult = StringResult()
-                    str_ressult.name = self._get_default_string(tree, "name")
-                    str_ressult.desc = self._get_default_string(tree, "desc")
-                    str_ressult.auto_desc = self._get_default_string(tree, "autodesc")
-                    str_ressult.full_path = tree.FullPath
+                    str_result = StringResult()
+                    str_result.Name = self._get_default_string(tree, "name")
+                    str_result.Desc = self._get_default_string(tree, "desc")
+                    str_result.AutoDesc = self._get_default_string(tree, "autodesc")
+                    str_result.FullPath = tree.FullPath
 
-                    self._add_all_value(str_ressult, tree)
-                    self.string_item[tree_id] = str_ressult
+                    self._add_all_value(str_result, tree)
+                    self.string_item[tree_id] = str_result
 
             elif node_.Text == "Etc.img":
                 for tree0 in image.Node.Nodes:
@@ -75,9 +53,9 @@ class StringLinker:
                             continue
 
                         str_result = StringResult()
-                        str_result.name = self._get_default_string(tree, "name")
-                        str_result.desc = self._get_default_string(tree, "desc")
-                        str_result.full_path = tree.FullPath
+                        str_result.Name = self._get_default_string(tree, "name")
+                        str_result.Desc = self._get_default_string(tree, "desc")
+                        str_result.FullPath = tree.FullPath
 
                         self._add_all_value(str_result, tree)
                         self.string_item[tree_id] = str_result
@@ -90,8 +68,8 @@ class StringLinker:
                         continue
 
                     str_result = StringResult()
-                    str_result.name = self._get_default_string(tree, "name")
-                    str_result.full_path = tree.FullPath
+                    str_result.Name = self._get_default_string(tree, "name")
+                    str_result.FullPath = tree.FullPath
 
                     self._add_all_value(str_result, tree)
                     self.string_mob[tree_id] = str_result
@@ -104,9 +82,9 @@ class StringLinker:
                         continue
 
                     str_result = StringResult()
-                    str_result.name = self._get_default_string(tree, "name")
-                    str_result.desc = self._get_default_string(tree, "desc")
-                    str_result.full_path = tree.FullPath
+                    str_result.Name = self._get_default_string(tree, "name")
+                    str_result.Desc = self._get_default_string(tree, "desc")
+                    str_result.FullPath = tree.FullPath
 
                     self._add_all_value(str_result, tree)
                     self.string_npc[tree_id] = str_result
@@ -120,9 +98,9 @@ class StringLinker:
                             continue
 
                         str_result = StringResult()
-                        str_result.name = f"{self._get_default_string(tree, 'streetName')}: {self._get_default_string(tree, 'mapName')}"
-                        str_result.desc = self._get_default_string(tree, "mapDesc")
-                        str_result.full_path = tree.FullPath
+                        str_result.Name = f"{self._get_default_string(tree, 'streetName')}: {self._get_default_string(tree, 'mapName')}"
+                        str_result.Desc = self._get_default_string(tree, "mapDesc")
+                        str_result.FullPath = tree.FullPath
 
                         self._add_all_value(str_result, tree)
                         self.string_map[tree_id] = str_result
@@ -130,25 +108,25 @@ class StringLinker:
             elif node_.Text == "Skill.img":
                 for tree in image.Node.Nodes:
                     str_result = StringResultSkill()
-                    str_result.name = self._get_default_string(tree, "name")
-                    str_result.desc = self._get_default_string(tree, "desc")
-                    str_result.pdesc = self._get_default_string(tree, "pdesc")
-                    str_result.skill_h.append(self._get_default_string(tree, "h"))
-                    str_result.skill_ph.append(self._get_default_string(tree, "ph"))
-                    str_result.skill_hch.append(self._get_default_string(tree, "hch"))
+                    str_result.Name = self._get_default_string(tree, "name")
+                    str_result.Desc = self._get_default_string(tree, "desc")
+                    str_result.Pdesc = self._get_default_string(tree, "pdesc")
+                    str_result.SkillH.Add(self._get_default_string(tree, "h"))
+                    str_result.SkillpH.Add(self._get_default_string(tree, "ph"))
+                    str_result.SkillhcH.Add(self._get_default_string(tree, "hch"))
 
-                    if str_result.skill_h[0] is None:
-                        str_result.skill_h = str_result.skill_h[1:]
+                    if str_result.SkillH[0] is None:
+                        str_result.SkillH.RemoveAt(0)
                         i = 1
                         while True:
                             hi = self._get_default_string(tree, f"h{i}")
                             if not hi:
                                 break
 
-                            str_result.skill_h.append(hi)
+                            str_result.SkillH.Add(hi)
                             i += 1
 
-                    str_result.full_path = tree.FullPath
+                    str_result.FullPath = tree.FullPath
 
                     self._add_all_value(str_result, tree)
 
@@ -170,9 +148,9 @@ class StringLinker:
                                 continue
 
                             str_result = StringResult()
-                            str_result.name = self._get_default_string(tree, "name")
-                            str_result.desc = self._get_default_string(tree, "desc")
-                            str_result.full_path = tree.FullPath
+                            str_result.Name = self._get_default_string(tree, "name")
+                            str_result.Desc = self._get_default_string(tree, "desc")
+                            str_result.FullPath = tree.FullPath
 
                             self._add_all_value(str_result, tree)
                             self.string_eqp[tree_id] = str_result
@@ -191,7 +169,8 @@ class StringLinker:
     def _add_all_value(str_result: StringResult, node_: Wz_Node):
         for child in node_.Nodes:
             if child.Value is not None:
-                str_result.all_values[child.Text] = child.GetValue[str]()
+                StringLinker.VALUE_NAMES.add(child.Text)
+                str_result[child.Text] = child.GetValue[str]()
 
     def clear(self):
         self.string_eqp.clear()
