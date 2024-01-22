@@ -100,10 +100,33 @@ for skill_wrapper_id in SKILLS_WITH_PSD_SKILL_SET:
     for psd_skill in skill_wrapper.psd_skills:
         resolved_skill = ALL_SKILLS_BY_ID.get(psd_skill)
         if resolved_skill is None:
-            print(f"Unable to resolve psd skill for skill id: {skill_wrapper_id}")
+            print(f"Unable to resolve psd skill for skill id: {psd_skill}")
             continue
         SKILLS_WITH_PSD_SKILL[skill_wrapper_key].append(str(resolved_skill))
 
+RELATION_SKILLS = set()
+ADD_ATTACK_DESC = set()
+ASSIST_LINK_SKILL = set()
+SKILLS_WITH_SKILL_LISTS: dict[str, list[str]] = {}
+for skill_wrapper in ALL_SKILLS_BY_ID.values():
+    if skill_wrapper.skill.RelationSkill is not None:
+        RELATION_SKILLS.add(skill_wrapper)
+
+    if skill_wrapper.skill.AddAttackToolTipDescSkill != 0:
+        ADD_ATTACK_DESC.add(skill_wrapper)
+
+    if skill_wrapper.skill.AssistSkillLink != 0:
+        ASSIST_LINK_SKILL.add(skill_wrapper)
+
+    if skill_wrapper.skill_list:
+        skill_wrapper_key = str(skill_wrapper)
+        SKILLS_WITH_SKILL_LISTS[skill_wrapper_key] = []
+        for skill_list_id in skill_wrapper.skill_list:
+            resolved_skill = ALL_SKILLS_BY_ID.get(skill_list_id)
+            if resolved_skill is None:
+                print(f"Unable to resolve list skill for skill id: {skill_list_id}")
+                continue
+            SKILLS_WITH_SKILL_LISTS[skill_wrapper_key].append(str(resolved_skill))
 
 with open("type_output.json", "w+") as _fh:
     json.dump(SKILL_BY_TYPE, _fh, indent=4)
@@ -115,4 +138,7 @@ with open("skills_with_psd.json", "w+") as _fh:
     json.dump(list(SKILLS_WITH_PSD), _fh, indent=4)
 
 with open("skills_with_psd_skills.json", "w+") as _fh:
-    json.dump(SKILLS_WITH_PSD, _fh, indent=4)
+    json.dump(SKILLS_WITH_PSD_SKILL, _fh, indent=4)
+
+with open("skills_with_skill_list.json", "w+") as _fh:
+    json.dump(SKILLS_WITH_SKILL_LISTS, _fh, indent=4)

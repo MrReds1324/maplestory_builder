@@ -42,6 +42,9 @@ class SkillWrapper:
     def __str__(self):
         return f"{self.skill_id}: {self.skill_name}"
 
+    def __repr__(self):
+        return self.__str__()
+
     @property
     def level(self) -> int:
         return self.skill.Level
