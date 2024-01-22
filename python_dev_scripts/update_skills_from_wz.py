@@ -9,7 +9,7 @@ from wz_utilities.wz_skill import SkillWrapper
 
 JOB_IDS_TO_NAME: dict[str, str] = {}
 PROCESSED_SKILLS: dict[str, SkillWrapper] = {}
-SKILL_BY_TYPE: dict[int, dict[str, list[int]]] = {}
+SKILL_BY_TYPE: dict[int, list[str]] = {}
 ALL_SKILLS_BY_ID: dict[int, SkillWrapper] = {}
 ALL_COMMON_ATTRS: set[str] = set()
 SKILLS_WITH_PSD: set[str] = set()
@@ -75,12 +75,11 @@ for node in skill_wz.Nodes:
         skill_type: Optional[int] = skill_wrapper.additional_modifiers.get("type")
         if skill_type is not None:
             skill_type = int(skill_type)
+            skill_wrapper_value = str(skill_wrapper)
             if skill_type not in SKILL_BY_TYPE:
-                SKILL_BY_TYPE[skill_type][skill_wrapper.skill_name] = [skill_wrapper.skill_id]
-            elif skill_wrapper.skill_name not in SKILL_BY_TYPE[skill_type]:
-                SKILL_BY_TYPE[skill_type][skill_wrapper.skill_name] = [skill_wrapper.skill_id]
+                SKILL_BY_TYPE[skill_type] = [skill_wrapper_value]
             else:
-                SKILL_BY_TYPE[skill_type][skill_wrapper.skill_name].append(skill_wrapper.skill_id)
+                SKILL_BY_TYPE[skill_type].append(skill_wrapper_value)
 
         if skill_wrapper.is_psd:
             SKILLS_WITH_PSD.add(str(skill_wrapper))
