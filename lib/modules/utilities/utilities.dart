@@ -13,7 +13,7 @@ final doublePercentFormater = NumberFormat('###0.00%');
 final doubleFormater = NumberFormat('#######.00');
 final rangeFormatter = NumberFormat('###,###,###,###,###');
 
-double calculteDifferencePercentage(num newValue, num originalValue) {
+double calculateRelativeChangePercentage(num newValue, num originalValue) {
   return (newValue - originalValue) / originalValue;
 }
 

@@ -42,3 +42,21 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Pycharm
+.idea
+
+# Ruff
+.ruff_cache
+
+# Virtual environments
+.venv
