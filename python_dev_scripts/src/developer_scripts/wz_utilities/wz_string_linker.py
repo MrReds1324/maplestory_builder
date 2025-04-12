@@ -1,6 +1,5 @@
 # For the life of me I could not get the c# load function to work for the StringLinker Class - implementing the API in python...
-from typing import Optional
-from wz_utilities import Wz_Node, Wz_File, StringResult, StringResultSkill
+from developer_scripts.wz_utilities import StringResult, StringResultSkill, Wz_File, Wz_Node
 
 
 class StringLinker:
@@ -156,14 +155,14 @@ class StringLinker:
                             self.string_eqp[tree_id] = str_result
             else:
                 continue
+        return None
 
     @staticmethod
     def _get_default_string(node_: Wz_Node, search_node_text: str):
         node_ = node_.FindNodeByPath(search_node_text)
         if node_ is None:
             return None
-        else:
-            return str(node_.Value)
+        return str(node_.Value)
 
     @staticmethod
     def _add_all_value(str_result: StringResult, node_: Wz_Node):

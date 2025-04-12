@@ -1,8 +1,9 @@
 # python implementation of WzComparerR2.CharaSim.Skill
-from enum import IntEnum, Enum
+import contextlib
+from enum import Enum, IntEnum
 from typing import Optional
 
-from wz_utilities import Wz_Node, Skill, HyperSkillType
+from developer_scripts.wz_utilities import HyperSkillType, Skill, Wz_Node
 
 
 # mes = mob effect status?
@@ -31,7 +32,7 @@ class SkillElement(Enum):
 class SkillWrapper:
     def __init__(self):
         self.skill = Skill()
-        self.skill_name: str = ''
+        self.skill_name: str = ""
         self.additional_modifiers: dict[str, str] = {}
         self.final_attacks: dict = {}
         self.level_descriptions: dict[int, str] = {}
@@ -114,7 +115,7 @@ class SkillWrapper:
         return self.skill.Origin
 
     @classmethod
-    def create_from_node(cls, node: Wz_Node) -> Optional['SkillWrapper']:
+    def create_from_node(cls, node: Wz_Node) -> Optional["SkillWrapper"]:
         skill_wrapper = cls()
         try:
             skill_wrapper.skill = Skill.CreateFromNode(node, None)
@@ -122,13 +123,39 @@ class SkillWrapper:
             return None
 
         for child_node in node.Nodes:
-            if child_node.Text in ("icon", "iconMouseOver", "iconDisabled", "common", "level", "hyper", "invisible",
-                                   "combatOrders", "notRemoved", "vSkill", "origin", "masterLevel", "reqLev", "req",
-                                   "action", "effect", "effect0", "hit", "screen", "affected", "affected0", "repeat",
-                                   "special", "special0", "mob", "mob0", "tile", "PVPCommon"):
+            if child_node.Text in (
+                "icon",
+                "iconMouseOver",
+                "iconDisabled",
+                "common",
+                "level",
+                "hyper",
+                "invisible",
+                "combatOrders",
+                "notRemoved",
+                "vSkill",
+                "origin",
+                "masterLevel",
+                "reqLev",
+                "req",
+                "action",
+                "effect",
+                "effect0",
+                "hit",
+                "screen",
+                "affected",
+                "affected0",
+                "repeat",
+                "special",
+                "special0",
+                "mob",
+                "mob0",
+                "tile",
+                "PVPCommon",
+            ):
                 continue
 
-            elif child_node.Text == "summon":
+            if child_node.Text == "summon":
                 ...
 
             elif child_node.Text == "finalAttack":
@@ -140,10 +167,8 @@ class SkillWrapper:
 
             elif child_node.Text == "skillList":
                 for skill_node in child_node.Nodes:
-                    try:
+                    with contextlib.suppress(Exception):
                         skill_wrapper.skill_list.append(int(skill_node.Value))
-                    except Exception:
-                        ...
 
             elif child_node.Text in ("info", "info2"):
                 for info_node in child_node.Nodes:
@@ -157,10 +182,8 @@ class SkillWrapper:
 
             elif child_node.Text == "psdSkill":
                 for psd_node in child_node.Nodes:
-                    try:
+                    with contextlib.suppress(Exception):
                         skill_wrapper.psd_skills.append(int(psd_node.Text))
-                    except Exception:
-                        ...
 
             else:
                 skill_wrapper.additional_modifiers[child_node.Text] = child_node.Value

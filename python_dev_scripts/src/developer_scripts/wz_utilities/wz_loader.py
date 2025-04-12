@@ -1,19 +1,15 @@
 import re
 from pathlib import Path
 
-import clr
-from typing import Optional, Union
-
 # clr.AddReference(r'C:\Users\ryanb\Desktop\WzViewer\Lib\WzComparerR2.WzLib.dll')
-from wz_utilities import Wz_Structure, Wz_Node, Wz_NodeExtension, Wz_Type, Wz_File, Wz_Image
-from wz_utilities.utilities import wz_type_parse
-from wz_utilities.wz_finder import FindWzHelper
-from wz_utilities.wz_string_linker import StringLinker
+from developer_scripts.wz_utilities import Wz_File, Wz_Image, Wz_Node, Wz_NodeExtension, Wz_Structure, Wz_Type
+from developer_scripts.wz_utilities.utilities import wz_type_parse
+from developer_scripts.wz_utilities.wz_finder import FindWzHelper
+from developer_scripts.wz_utilities.wz_string_linker import StringLinker
 
 
 class WzLoader:
-
-    def __init__(self, path_to_base_wz: Union[str, Path]):
+    def __init__(self, path_to_base_wz: str | Path):
         self.opened_wz: list[Wz_Structure] = []
         self.wz_struct: Wz_Structure = Wz_Structure()
         self.string_linker: StringLinker = StringLinker()
@@ -28,11 +24,12 @@ class WzLoader:
 
         self.sort_wz_node(self.wz_struct.WzNode)
 
-    def find_string_wz(self) -> Optional[Wz_File]:
+    def find_string_wz(self) -> Wz_File | None:
         for wzs in self.opened_wz:
             for wz_f in wzs.wz_files:
                 if wz_f.Type == Wz_Type.String:
                     return wz_f
+        return None
 
     @staticmethod
     def sort_wz_node(wz_node: Wz_Node, sort_by_img_id: bool = True):
@@ -45,13 +42,14 @@ class WzLoader:
             for sub_node in wz_node.Nodes:
                 WzLoader.sort_wz_node(sub_node, sort_by_img_id)
 
-    def find_wz(self, find_wz_helper) -> Optional[Wz_Node]:
+    def find_wz(self, find_wz_helper) -> Wz_Node | None:
         self.search_for_wz(find_wz_helper)
 
         if find_wz_helper.wz_node is not None:
             return find_wz_helper.wz_node
         if find_wz_helper.wz_file is not None:
             return find_wz_helper.wz_file.Node
+        return None
 
     def search_for_wz(self, find_wz_helper: FindWzHelper):
         full_path = []
@@ -62,7 +60,6 @@ class WzLoader:
 
         pre_search: list[Wz_Node] = []
         if find_wz_helper.wz_type != Wz_Type.Unknown:
-
             if find_wz_helper.wz_file is not None and find_wz_helper.wz_file.WzStructure is not None:
                 pre_search_wz = [find_wz_helper.wz_file.WzStructure]
             else:
@@ -102,10 +99,7 @@ class WzLoader:
                 img = Wz_NodeExtension.GetValueEx[Wz_Image](None)
                 if img is not None:
                     search_node = img.TryExtract()
-                    if not search_node:
-                        search_node = img.Node
-                    else:
-                        search_node = None
+                    search_node = img.Node if not search_node else None
                 i += 1
 
             if search_node is not None:
