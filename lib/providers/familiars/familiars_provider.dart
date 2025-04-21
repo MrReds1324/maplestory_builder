@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/familiars/badge_stats.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/familiars/badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
+import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
 import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class FamiliarsProvider with ChangeNotifier implements Copyable {
-  // This is what we are going to use to set the equips hash value once it is saved here so that when 
+  // This is what we are going to use to set the familiars hash value once it is saved here so that when
   // rebuilding from json we can ensure the items stay "linked"
   int familiarId;
   late Map<int, Familiar> allFamiliars;
@@ -121,8 +121,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     notifyListeners();
   }
 
-  void equipBadge(BadgeName? badgeName, int badgePosition) {
-    activeBadgeSet.equipBadge(badgeName, badgePosition);
+  void equipBadge(FamiliarBadge? familiarBadge, int badgePosition) {
+    activeBadgeSet.equipBadge(familiarBadge, badgePosition);
 
     notifyListeners();
   }

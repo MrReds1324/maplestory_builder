@@ -1,5 +1,5 @@
 from developer_scripts.wz_utilities import SetItemIDList
-from developer_scripts.wz_utilities.items.set_item_id_part import SetItemPartWrapper
+from developer_scripts.wz_utilities.equipment.set_item_id_part import SetItemPartWrapper
 
 
 class SetItemIDListWrapper:

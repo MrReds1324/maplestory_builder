@@ -1,0 +1,372 @@
+{
+    "1": {
+        "badgeName": "Snowflake Badge",
+        "badgeStats": {
+            "hp": 5
+        },
+        "randomStats": []
+    },
+    "2": {
+        "badgeName": "Oppressor Badge",
+        "badgeStats": {
+            "hp": 5
+        },
+        "randomStats": []
+    },
+    "3": {
+        "badgeName": "Shadow Badge",
+        "badgeStats": {
+            "luk": 2
+        },
+        "randomStats": []
+    },
+    "4": {
+        "badgeName": "Magical Badge",
+        "badgeStats": {
+            "int": 2
+        },
+        "randomStats": []
+    },
+    "5": {
+        "badgeName": "Secret Badge",
+        "badgeStats": {
+            "attack": 1,
+            "defense": 5
+        },
+        "randomStats": []
+    },
+    "6": {
+        "badgeName": "Mesa Badge",
+        "badgeStats": {
+            "str": 2
+        },
+        "randomStats": []
+    },
+    "7": {
+        "badgeName": "Peaceful Badge",
+        "badgeStats": {
+            "dex": 2
+        },
+        "randomStats": []
+    },
+    "8": {
+        "badgeName": "Beach Badge",
+        "badgeStats": {
+            "speed": 1,
+            "mattackPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "9": {
+        "badgeName": "Rebel Badge",
+        "badgeStats": {
+            "critRate": 0.01
+        },
+        "randomStats": []
+    },
+    "10": {
+        "badgeName": "Mineral Badge",
+        "badgeStats": {
+            "defense": 5,
+            "ignoreDefense": 0.03
+        },
+        "randomStats": []
+    },
+    "11": {
+        "badgeName": "Sandy Badge",
+        "badgeStats": {
+            "damage": 0.01,
+            "defense": 5
+        },
+        "randomStats": []
+    },
+    "12": {
+        "badgeName": "Machine Badge",
+        "badgeStats": {
+            "int": 2,
+            "mattack": 1
+        },
+        "randomStats": []
+    },
+    "13": {
+        "badgeName": "Toy Badge",
+        "badgeStats": {
+            "hp": 10,
+            "ignoreDefense": 0.03
+        },
+        "randomStats": []
+    },
+    "14": {
+        "badgeName": "Clockwork Badge",
+        "badgeStats": {
+            "hpPercentage": 0.01,
+            "defense": 5
+        },
+        "randomStats": []
+    },
+    "15": {
+        "badgeName": "Forest Badge",
+        "badgeStats": {
+            "hp": 5,
+            "defense": 5
+        },
+        "randomStats": []
+    },
+    "16": {
+        "badgeName": "Wave Badge",
+        "badgeStats": {
+            "mattackPercentage": 0.01,
+            "defense": 10
+        },
+        "randomStats": []
+    },
+    "17": {
+        "badgeName": "Wings Badge",
+        "badgeStats": {
+            "speed": 1,
+            "strPercentage": 0.01,
+            "dexPercentage": 0.01,
+            "intPercentage": 0.01,
+            "lukPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "18": {
+        "badgeName": "Snow Badge",
+        "badgeStats": {
+            "attack": 1,
+            "dex": 1
+        },
+        "randomStats": []
+    },
+    "19": {
+        "badgeName": "Depths Badge",
+        "badgeStats": {
+            "attackPercentage": 0.01,
+            "mattack": 2
+        },
+        "randomStats": []
+    },
+    "20": {
+        "badgeName": "Cloud Badge",
+        "badgeStats": {
+            "str": 1,
+            "dex": 1,
+            "int": 1,
+            "luk": 1,
+            "ignoreDefense": 0.03
+        },
+        "randomStats": []
+    },
+    "21": {
+        "badgeName": "Hatching Badge",
+        "badgeStats": {
+            "allSkillLevel": 1
+        },
+        "randomStats": []
+    },
+    "22": {
+        "badgeName": "Time Badge",
+        "badgeStats": {
+            "ignoreDefense": 0.03
+        },
+        "randomStats": [
+            {
+                "procChance": 0.03,
+                "healHP": 20
+            }
+        ]
+    },
+    "23": {
+        "badgeName": "Shrine Badge",
+        "badgeStats": {
+            "damage": 0.01
+        },
+        "randomStats": [
+            {
+                "procChance": 0.15,
+                "healMP": 40
+            }
+        ]
+    },
+    "24": {
+        "badgeName": "Shuriken Badge",
+        "badgeStats": {
+            "dex": 1,
+            "damage": 0.01
+        },
+        "randomStats": []
+    },
+    "25": {
+        "badgeName": "Showa Badge",
+        "badgeStats": {
+            "str": 1,
+            "dex": 1,
+            "int": 1,
+            "luk": 1,
+            "damage": 0.01
+        },
+        "randomStats": []
+    },
+    "26": {
+        "badgeName": "City Badge",
+        "badgeStats": {
+            "attack": 1,
+            "mattack": 2
+        },
+        "randomStats": []
+    },
+    "27": {
+        "badgeName": "Mighty Badge",
+        "badgeStats": {
+            "str": 2,
+            "attack": 2
+        },
+        "randomStats": []
+    },
+    "28": {
+        "badgeName": "Exorcism Badge",
+        "badgeStats": {
+            "strPercentage": 0.01,
+            "dexPercentage": 0.01,
+            "intPercentage": 0.01,
+            "lukPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "29": {
+        "badgeName": "Tyrant Badge",
+        "badgeStats": {
+            "strPercentage": 0.01,
+            "dexPercentage": 0.01,
+            "intPercentage": 0.01,
+            "lukPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "30": {
+        "badgeName": "Lion Badge",
+        "badgeStats": {
+            "attackPercentage": 0.01,
+            "hpPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "31": {
+        "badgeName": "Future Badge",
+        "badgeStats": {
+            "attackPercentage": 0.01,
+            "mattackPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "32": {
+        "badgeName": "Mariner Badge",
+        "badgeStats": {
+            "jump": 1,
+            "luk": 2
+        },
+        "randomStats": []
+    },
+    "33": {
+        "badgeName": "Cursed Badge",
+        "badgeStats": {
+            "defensePercentage": 0.02,
+            "critRate": 0.01
+        },
+        "randomStats": []
+    },
+    "34": {
+        "badgeName": "Commerci Badge",
+        "badgeStats": {
+            "defensePercentage": 0.02,
+            "critRate": 0.01
+        },
+        "randomStats": []
+    },
+    "36": {
+        "badgeName": "Mushking Badge",
+        "badgeStats": {
+            "attack": 2,
+            "mattack": 2
+        },
+        "randomStats": []
+    },
+    "37": {
+        "badgeName": "Darkness Badge",
+        "badgeStats": {
+            "damage": 0.01
+        },
+        "randomStats": []
+    },
+    "38": {
+        "badgeName": "Dragon Badge",
+        "badgeStats": {
+            "hp": 5,
+            "ignoreDefense": 0.03
+        },
+        "randomStats": []
+    },
+    "40": {
+        "badgeName": "Void Badge",
+        "badgeStats": {
+            "mattackPercentage": 0.01,
+            "mattack": 2
+        },
+        "randomStats": []
+    },
+    "41": {
+        "badgeName": "Labyrinth Badge",
+        "badgeStats": {
+            "strPercentage": 0.01,
+            "dexPercentage": 0.01,
+            "intPercentage": 0.01,
+            "lukPercentage": 0.01,
+            "damage": 0.01
+        },
+        "randomStats": []
+    },
+    "42": {
+        "badgeName": "Apocalypse Badge",
+        "badgeStats": {
+            "attackPercentage": 0.01,
+            "attack": 2
+        },
+        "randomStats": []
+    },
+    "43": {
+        "badgeName": "Ocean Badge",
+        "badgeStats": {
+            "critRate": 0.01,
+            "damage": 0.01
+        },
+        "randomStats": []
+    },
+    "44": {
+        "badgeName": "Swamp Badge",
+        "badgeStats": {
+            "strPercentage": 0.01,
+            "dexPercentage": 0.01,
+            "intPercentage": 0.01,
+            "lukPercentage": 0.01,
+            "attack": 2
+        },
+        "randomStats": []
+    },
+    "45": {
+        "badgeName": "Holy Badge",
+        "badgeStats": {
+            "attackPercentage": 0.01,
+            "critRate": 0.01
+        },
+        "randomStats": []
+    },
+    "46": {
+        "badgeName": "Wasteland Badge",
+        "badgeStats": {
+            "mattackPercentage": 0.01,
+            "ignoreDefense": 0.03
+        },
+        "randomStats": []
+    }
+}

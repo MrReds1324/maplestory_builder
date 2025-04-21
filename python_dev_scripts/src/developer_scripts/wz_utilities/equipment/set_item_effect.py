@@ -1,5 +1,5 @@
 from developer_scripts.wz_utilities import GearPropType, SetItemEffect
-from developer_scripts.wz_utilities.items.potential import PotentialWrapper
+from developer_scripts.wz_utilities.equipment.potential import PotentialWrapper
 
 
 class SetItemEffectWrapper:

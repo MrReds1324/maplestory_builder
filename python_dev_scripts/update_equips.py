@@ -1,5 +1,5 @@
 from developer_scripts.wz_utilities import SetItem, Wz_Type
-from developer_scripts.wz_utilities.items.set_item import SetItemWrapper
+from developer_scripts.wz_utilities.equipment.set_item import SetItemWrapper
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 from developer_scripts.wz_utilities.wz_loader import WzLoader
 

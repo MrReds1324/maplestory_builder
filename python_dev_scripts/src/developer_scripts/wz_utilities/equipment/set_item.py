@@ -1,6 +1,6 @@
 from developer_scripts.wz_utilities import SetItem
-from developer_scripts.wz_utilities.items.set_item_effect import SetItemEffectWrapper
-from developer_scripts.wz_utilities.items.set_item_id_list import SetItemIDListWrapper
+from developer_scripts.wz_utilities.equipment.set_item_effect import SetItemEffectWrapper
+from developer_scripts.wz_utilities.equipment.set_item_id_list import SetItemIDListWrapper
 
 
 class SetItemWrapper:

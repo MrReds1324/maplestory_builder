@@ -105,6 +105,8 @@ enum StatType {
     isPercentage: true
   ),
   heal(formattedName: "Heal"),
+  healHP(formattedName: "Heal HP"),
+  healMP(formattedName: "Heal MP"),
   healDamagePercentage(formattedName: "Heal % of Damage", isPercentage: true),
   healHPPercentage(formattedName: "Heal % of HP", isPercentage: true),
   healMPPercentage(formattedName: "Heal % of MP", isPercentage: true),
@@ -186,6 +188,7 @@ enum StatType {
   hpRecovery(formattedName: "Skills and Potion HP Recovery", isPercentage: true),
   skill(formattedName: "Skill"),
   skillLevel(formattedName: "Skill Level"),
+  allSkillLevel(formattedName: "All Skill Levels"),
   skillCooldown(formattedName: "Skill Cooldown", isPositive: false),
   skillCooldownPercentage(formattedName: "Skill Cooldown", isPercentage: true),
   skipCooldownChance(formattedName: "Skip Cooldown Chance", isPercentage: true),
@@ -196,6 +199,7 @@ enum StatType {
   autoStealChance(formattedName: "Chance to Auto Steal", isPercentage: true),
   mainStat(formattedName: "Main Stat"), // This will be replaced, mainly for ease of use in things like hexa matrix and skills
   mainAttack(formattedName: "Main Attack"), // Same as main stat
+  procChance(formattedName: "Chance", isPercentage: true)
   ;
 
   const StatType({
