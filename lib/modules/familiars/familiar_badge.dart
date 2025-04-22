@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:maplestory_builder/constants/constants.dart';
 
-import 'package:maplestory_builder/modules//utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/json_utilities.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class FamiliarBadge {
 
@@ -28,27 +28,16 @@ class FamiliarBadge {
   }
 
   Widget createBadgeContainer(BuildContext context) {
-    List<Widget> statWidgets = [];
+    Widget assetImage = Image(image: AssetImage('assets/images/familiar_badges/${badgeId}.png'), errorBuilder: (ctx, error, stackTrace) => Icon(
+        MdiIcons.accountBox,
+        size: 51,
+      ));
+
+    List<Widget> statWidgets = [assetImage];
+
     for (MapEntry<StatType, num> statEntry in badgeStats.entries) {
       statWidgets.add(
-          SizedBox(
-              width: 150,
-              child: Row(
-                  children: [
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 120),
-                      child: Text(
-                        statEntry.key.formattedName,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
-                    Text(
-                        " ${statEntry.key.isPositive ? '+' : ' -'}${statEntry.key.isPercentage ? doubleRoundPercentFormater.format(statEntry.value) : statEntry.value}",
-                        style: Theme.of(context).textTheme.bodyMedium
-                    )
-                  ]
-              )
-          )
+        statEntry.key.buildRowDisplayWithValue(context, statEntry.value, 150, constraints: const BoxConstraints(maxWidth: 120))
       );
     }
 

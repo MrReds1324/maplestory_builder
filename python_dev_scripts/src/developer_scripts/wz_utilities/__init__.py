@@ -20,4 +20,4 @@ from WzComparerR2.CharaSim import (
     SummaryParser,
 )
 from WzComparerR2.Common import StringResult, StringResultSkill
-from WzComparerR2.WzLib import Wz_File, Wz_Image, Wz_Node, Wz_NodeExtension, Wz_Structure, Wz_Type, Wz_Vector
+from WzComparerR2.WzLib import Wz_File, Wz_Image, Wz_Node, Wz_NodeExtension, Wz_Structure, Wz_Type, Wz_Vector, Wz_Uol, Wz_Png

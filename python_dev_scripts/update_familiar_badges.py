@@ -1,9 +1,11 @@
 import json
 import logging
 import sys
+from pathlib import Path
 
 from developer_scripts.wz_utilities import SetItem, Wz_Type
 from developer_scripts.wz_utilities.familiars.familiar_badge import FamiliarBadge
+from developer_scripts.wz_utilities.utilities import save_icon_from_node
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 from developer_scripts.wz_utilities.wz_loader import WzLoader
 
@@ -45,7 +47,13 @@ def dump_familiar_badges_to_file():
     for badge_idx, badge in loaded_familiar_badges.items():
         results[badge_idx] = badge.to_dict_format()
 
-    with open("badge_stats", "w") as _fh:
+        if not badge.icon_complete:
+            LOGGER.error(f"{badge.set_name}: {badge_idx} does not have an icon to save - will need to manually download it")
+            continue
+
+        save_icon_from_node(badge.icon_complete, Path(f"familiar_badges/{badge_idx}.png"), loader)
+
+    with open("badge_stats.json", "w") as _fh:
         json.dump(results, _fh, indent=4)
 
 load_familiar_badges()
@@ -53,4 +61,3 @@ load_familiar_badges()
 LOGGER.info(f"LOADED {len(loaded_familiar_badges)} FAMILIAR BADGES")
 
 dump_familiar_badges_to_file()
-...

@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
+import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 const int JUMP_CAP = 123;
 const int SPEED_CAP = 140;
@@ -213,6 +213,32 @@ enum StatType {
   final String description;
   final bool isPercentage;
   final bool isPositive;
+
+  String toStringWithValue(num value) {
+    return "$formattedName ${isPositive ? '+' : ' -'}${isPercentage ? doubleRoundPercentFormater.format(value) : value}";
+  }
+
+  Widget buildRowDisplayWithValue(BuildContext context, num value, double width, {BoxConstraints? constraints, bool includeSpacer = false}) {
+    return SizedBox(
+        width: width,
+        child: Row(
+            children: [
+              Container(
+                constraints: constraints,
+                child: Text(
+                  formattedName,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+              includeSpacer ? const Spacer() : const SizedBox.shrink(),
+              Text(
+                  "${includeSpacer ? '' : ' '}${isPositive ? '+' : ' -'}${isPercentage ? doubleRoundPercentFormater.format(value) : value}",
+                  style: Theme.of(context).textTheme.bodyMedium
+              )
+            ]
+        )
+    );
+  }
 }
 
 enum StatCategory {

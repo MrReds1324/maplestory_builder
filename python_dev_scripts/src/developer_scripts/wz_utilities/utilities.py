@@ -1,8 +1,16 @@
 import logging
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+from System.Drawing.Imaging import ImageFormat
 
 from developer_scripts.conversion.maplestory_builder_stat_enums import StatType
-from developer_scripts.wz_utilities import GearPropType, Wz_Type
+from developer_scripts.wz_utilities import GearPropType, Wz_Node, Wz_Png, Wz_Type, Wz_Uol
 from developer_scripts.wz_utilities.equipment.potential import PotentialWrapper
+from developer_scripts.wz_utilities.wz_finder import FindWzHelper
+
+if TYPE_CHECKING:
+    from developer_scripts.wz_utilities.wz_loader import WzLoader
 
 LOGGER = logging.getLogger(__name__)
 
@@ -44,3 +52,16 @@ def potentials_list_to_stat_enum(values: list[PotentialWrapper]) -> tuple[dict[S
             stat_values[stat_type] = prop_value
 
     return stat_values, random_stats
+
+def save_icon_from_node(node: Wz_Node, output_path: Path, loader: "WzLoader"):
+    if isinstance(node.Value, Wz_Uol):
+        resolved_node = node.ResolveUol()
+        outlink = resolved_node.FindNodeByPath("_outlink", True).Value
+
+    else:
+        outlink = node.FindNodeByPath("_outlink", True).Value
+
+    search_node = loader.find_wz(FindWzHelper(full_path=outlink))
+    if search_node is not None and isinstance(search_node.Value, Wz_Png):
+        search_node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+        ...

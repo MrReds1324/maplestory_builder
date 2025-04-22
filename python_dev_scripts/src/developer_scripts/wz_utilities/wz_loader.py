@@ -96,10 +96,9 @@ class WzLoader:
             i = 1
             while i < len(full_path) and search_node is not None:
                 search_node = search_node.Nodes[full_path[i]]
-                img = Wz_NodeExtension.GetValueEx[Wz_Image](None)
-                if img is not None:
-                    search_node = img.TryExtract()
-                    search_node = img.Node if not search_node else None
+                if img := search_node.GetValue[Wz_Image]():
+                    if img.TryExtract():
+                        search_node = img.Node
                 i += 1
 
             if search_node is not None:
