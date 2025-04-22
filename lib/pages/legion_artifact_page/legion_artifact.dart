@@ -18,11 +18,11 @@ class LegionArtifactLevelWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const _ArtifactLevelCell(),
-          Selector<LegionArtifactProvider, int>(
-            selector: (_, legionArtifactProvider) => legionArtifactProvider.activeArtifactCount,
+          Selector<LegionArtifactProvider, (int, int)>(
+            selector: (_, legionArtifactProvider) => (legionArtifactProvider.usedAbilityPoints, legionArtifactProvider.abilityPoints),
             builder: (context, data, child) {
               return Text(
-                '$data Active Artifact Crystals',
+                '${data.$1}/${data.$2} Used Artifact Ability Points',
               );
             }
           ),

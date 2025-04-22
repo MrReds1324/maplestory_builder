@@ -30,7 +30,7 @@ class FamiliarBadge {
   Widget createBadgeContainer(BuildContext context) {
     Widget assetImage = Image(image: AssetImage('assets/images/familiar_badges/${badgeId}.png'), height: 105, errorBuilder: (ctx, error, stackTrace) => Icon(
         MdiIcons.accountBox,
-        size: 51,
+        size: 96,
       ));
 
     List<Widget> statWidgets = [assetImage];

@@ -12,6 +12,8 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
   late LegionArtifactCrystalsModule activeCrystalSet;
   int activeSetNumber;
   int legionArtifactLevel;
+  int abilityPoints;
+  int usedAbilityPoints;
 
   int get activeArtifactCount {
     if (legionArtifactLevel == 0) {
@@ -43,6 +45,8 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
   LegionArtifactProvider({
     this.legionArtifactLevel = 0,
     this.activeSetNumber = 1,
+    this.abilityPoints = 0,
+    this.usedAbilityPoints = 0,
     Map<int, LegionArtifactCrystalsModule>? artifactSets,
     LegionArtifactCrystalsModule? activeCrystalSet,
   }) {
@@ -60,12 +64,16 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
   LegionArtifactProvider copyWith({
     int? legionArtifactLevel,
     int? activeSetNumber,
+    int? abilityPoints,
+    int? usedAbilityPoints,
     Map<int, LegionArtifactCrystalsModule>? artifactSets,
     LegionArtifactCrystalsModule? activeCrystalSet
   }) {
     return LegionArtifactProvider(
       legionArtifactLevel: legionArtifactLevel ?? this.legionArtifactLevel,
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
+      abilityPoints: abilityPoints ?? this.abilityPoints,
+      usedAbilityPoints: usedAbilityPoints ?? this.usedAbilityPoints,
       activeCrystalSet: activeCrystalSet ?? this.activeCrystalSet.copyWith(),
       artifactSets: artifactSets ?? mapDeepCopy(this.artifactSets),
     );
@@ -81,8 +89,9 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
     }
 
     legionArtifactLevel += min(levelsToAdd, MAX_LEGION_ARTIFACT_LEVEL - legionArtifactLevel);
+    abilityPoints = ARTIFACT_ABILITY_POINTS_BY_LEVEL[legionArtifactLevel]!;
 
-    // Invalidate the cahces in case we go over the boundary of increasing the active crystal count
+    // Invalidate the caches in case we go over the boundary of increasing the active crystal count
     for (LegionArtifactCrystalsModule legionArtifactModule in artifactSets.values) {
       legionArtifactModule.cacheValue = null;
     } 
@@ -96,8 +105,9 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
     }
 
     legionArtifactLevel -= min(levelsToSubtract, legionArtifactLevel);
+    abilityPoints = ARTIFACT_ABILITY_POINTS_BY_LEVEL[legionArtifactLevel]!;
 
-    // Invalidate the cahces in case we go over the boundary of decreasing the active crystal count
+    // Invalidate the caches in case we go over the boundary of decreasing the active crystal count
     for (LegionArtifactCrystalsModule legionArtifactModule in artifactSets.values) {
       legionArtifactModule.cacheValue = null;
     } 
@@ -105,14 +115,23 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
     notifyListeners();
   }
 
+  void updateUsedAbilityPoints() {
+    usedAbilityPoints = activeCrystalSet.calculateUsedAbilityPoints();
+  }
+
   void addArtifactLevel(int artifactPosition) {
-    if (activeCrystalSet.addArtifactLevel(artifactPosition)) {
+    if (usedAbilityPoints == abilityPoints) {
+      return;
+    }
+    if (activeCrystalSet.addArtifactLevel(artifactPosition, abilityPoints - usedAbilityPoints)) {
+      updateUsedAbilityPoints();
       notifyListeners();
     }
   }
 
   void subtractArtifactLevel(int artifactPosition) {
     if (activeCrystalSet.subtractArtifactLevel(artifactPosition)) {
+      updateUsedAbilityPoints();
       notifyListeners();
     }
   }
@@ -125,11 +144,8 @@ class LegionArtifactProvider with ChangeNotifier implements Copyable {
   void changeActiveSet(int artifactSetPosition) {
     activeSetNumber = artifactSetPosition;
     activeCrystalSet = artifactSets[artifactSetPosition]!;
+    updateUsedAbilityPoints();
 
     notifyListeners();
-  }
-
-  void getActiveArtifactCount() {
-    
   }
 }

@@ -5,6 +5,7 @@ import 'package:maplestory_builder/constants/legion/legion_artifat_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class LegionArtifactCrystalsModule implements Copyable {
   Map<int, ArtifactCrystal> artifactCrystals;
@@ -23,7 +24,6 @@ class LegionArtifactCrystalsModule implements Copyable {
     7: ArtifactCrystal(),
     8: ArtifactCrystal(),
     9: ArtifactCrystal(),
-
   };
 
   @override
@@ -33,6 +33,14 @@ class LegionArtifactCrystalsModule implements Copyable {
     return LegionArtifactCrystalsModule(
       legionArtifacts: artifactCrystals ?? mapDeepCopy(this.artifactCrystals),
     );
+  }
+
+  int calculateUsedAbilityPoints() {
+    int usedAbilityPoints = 0;
+    for (MapEntry<int, ArtifactCrystal> crystalEntry in artifactCrystals.entries) {
+      usedAbilityPoints += crystalEntry.value.artifactCrystalCost;
+    }
+    return usedAbilityPoints;
   }
 
   Map<StatType, num> calculateModuleStats(int activeArtifactCount) {
@@ -77,23 +85,31 @@ class LegionArtifactCrystalsModule implements Copyable {
     return artifactCrystals[artifactCrystalPosition]!;
   }
 
-  bool addArtifactLevel(int artifactCrystalPosition) {
-    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == MAX_ARTIFACT_CRYSTAL_LEVEL) {
+  bool addArtifactLevel(int artifactCrystalPosition, int availableAbilityPoints) {
+    var crystalTarget = artifactCrystals[artifactCrystalPosition]!;
+
+    if (crystalTarget.artifactCrystalLevel == MAX_ARTIFACT_CRYSTAL_LEVEL) {
+      return false;
+    }
+    else if (ARTIFACT_CRYSTAL_LEVEL_COST[crystalTarget.artifactCrystalLevel + 1]! > availableAbilityPoints) {
       return false;
     }
 
-    artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel += 1;
+    crystalTarget.artifactCrystalLevel += 1;
+    crystalTarget.artifactCrystalCost += ARTIFACT_CRYSTAL_LEVEL_COST[crystalTarget.artifactCrystalLevel]!;
 
     cacheValue = null;
     return true;
   }
 
   bool subtractArtifactLevel(int artifactCrystalPosition) {
-    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == 0) {
+    if (artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel == 1) {
       return false;
     }
 
-    artifactCrystals[artifactCrystalPosition]!.artifactCrystalLevel -= 1;
+    var crystalTarget = artifactCrystals[artifactCrystalPosition]!;
+    crystalTarget.artifactCrystalCost -= ARTIFACT_CRYSTAL_LEVEL_COST[crystalTarget.artifactCrystalLevel]!;
+    crystalTarget.artifactCrystalLevel -= 1;
 
     cacheValue = null;
     return true;
@@ -107,10 +123,12 @@ class LegionArtifactCrystalsModule implements Copyable {
 
 class ArtifactCrystal implements Copyable {
   int artifactCrystalLevel;
+  int artifactCrystalCost;
   Map<int, StatType?> artifactCrystalStats;
 
   ArtifactCrystal({
-    this.artifactCrystalLevel = 0,
+    this.artifactCrystalLevel = 1,
+    this.artifactCrystalCost = 0,
     Map<int, StatType?>? artifactStats
   }) : artifactCrystalStats =  artifactStats ?? {
     1: null,
@@ -121,10 +139,12 @@ class ArtifactCrystal implements Copyable {
   @override
   ArtifactCrystal copyWith({
     int? artifactCrystalLevel,
+    int? artifactCrystalCost,
     Map<int, StatType?>? artifactCrystalStats
   }) {
     return ArtifactCrystal(
       artifactCrystalLevel: artifactCrystalLevel ?? this.artifactCrystalLevel,
+      artifactCrystalCost: artifactCrystalCost ?? this.artifactCrystalCost,
       artifactStats: artifactCrystalStats ?? Map.of(this.artifactCrystalStats),
     );
   }
@@ -144,6 +164,37 @@ class ArtifactCrystal implements Copyable {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: starGroup
+    );
+  }
+
+  Widget getArtifactImage(BuildContext context, int artifactCrystalPosition, bool enabled) {
+    String assetPath;
+    if (enabled) {
+      int levelToPart;
+      switch (artifactCrystalLevel) {
+        case 0:
+          levelToPart = 0;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+          levelToPart = 1;
+        case 5:
+          levelToPart = 4;
+        default:
+          levelToPart = 0;
+      }
+      assetPath = "assets/images/legion_artifacts/$artifactCrystalPosition.$levelToPart.png";
+    }
+    else {
+      assetPath = "assets/images/legion_artifacts/$artifactCrystalPosition.disabled.png";
+    }
+
+    return Image(image: AssetImage(assetPath),
+        height: 135, errorBuilder: (ctx, error, stackTrace) => Icon(
+      MdiIcons.accountBox,
+      size: 115,
+    )
     );
   }
 }

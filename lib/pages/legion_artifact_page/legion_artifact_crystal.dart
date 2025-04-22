@@ -12,11 +12,7 @@ class ArtifactCrystalWidget extends StatelessWidget {
   final int artifactCrystalPosition;
 
   const ArtifactCrystalWidget(
-    {
-      required this.artifactCrystalPosition,
-      super.key
-    }
-  );
+      {required this.artifactCrystalPosition, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,54 +20,64 @@ class ArtifactCrystalWidget extends StatelessWidget {
       width: 300,
       height: 283,
       padding: const EdgeInsets.all(2.5),
-      child: Consumer<LegionArtifactProvider>(
-        builder: (context, legionArtifactProvider, child) {
-          return Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: artifactCrystalPosition <= legionArtifactProvider.activeArtifactCount ? DEFAULT_COLOR : Colors.redAccent
+      child: Selector<LegionArtifactProvider, (int, int)>(
+          selector: (_, legionArtifactsProvider) => (
+                legionArtifactsProvider.activeArtifactCount,
+                legionArtifactsProvider.activeCrystalSet
+                    .getArtifactCrystal(artifactCrystalPosition)
+                    .artifactCrystalLevel
               ),
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _ArtifactCrystalLevelCell(artifactCrystalPosition: artifactCrystalPosition),
-                Icon(
-                  MdiIcons.accountBox,
-                  size: 145,
+          builder: (context, data, child) {
+            LegionArtifactProvider artifactProvider =
+                context.read<LegionArtifactProvider>();
+
+            return Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: artifactCrystalPosition <= data.$1
+                          ? DEFAULT_COLOR
+                          : Colors.redAccent),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
-                _ArtifactCrystalStatDropdown(
-                  artifactCrystalPosition: artifactCrystalPosition,
-                  statPosition: 1,
-                ),
-                _ArtifactCrystalStatDropdown(
-                  artifactCrystalPosition: artifactCrystalPosition,
-                  statPosition: 2,
-                ),
-                _ArtifactCrystalStatDropdown(
-                  artifactCrystalPosition: artifactCrystalPosition,
-                  statPosition: 3,
-                ),
-              ]
-            )
-          );
-        }
-      ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _ArtifactCrystalLevelCell(
+                          artifactCrystalPosition: artifactCrystalPosition),
+                      artifactProvider.activeCrystalSet
+                          .getArtifactCrystal(artifactCrystalPosition)
+                          .getArtifactImage(
+                              context,
+                              artifactCrystalPosition,
+                              artifactCrystalPosition <= data.$1),
+                      _ArtifactCrystalStatDropdown(
+                        artifactCrystalPosition: artifactCrystalPosition,
+                        statPosition: 1,
+                      ),
+                      _ArtifactCrystalStatDropdown(
+                        artifactCrystalPosition: artifactCrystalPosition,
+                        statPosition: 2,
+                      ),
+                      _ArtifactCrystalStatDropdown(
+                        artifactCrystalPosition: artifactCrystalPosition,
+                        statPosition: 3,
+                      ),
+                    ]));
+          }),
     );
   }
 }
 
 class _ArtifactCrystalLevelCell extends StatelessWidget {
   final int artifactCrystalPosition;
-  
+
   const _ArtifactCrystalLevelCell({
     required this.artifactCrystalPosition,
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2.5),
       child: SizedBox(
@@ -85,15 +91,20 @@ class _ArtifactCrystalLevelCell extends StatelessWidget {
             ),
             const Spacer(),
             Selector<LegionArtifactProvider, int>(
-              selector: (_, legionArtifactsProvider) => legionArtifactsProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition).artifactCrystalLevel,
-              builder: (context, data, child) {
-                return context.read<LegionArtifactProvider>().activeCrystalSet.getArtifactCrystal(artifactCrystalPosition).buildLevelWidget(context);
-              }
-            ),
+                selector: (_, legionArtifactsProvider) =>
+                    legionArtifactsProvider.activeCrystalSet
+                        .getArtifactCrystal(artifactCrystalPosition)
+                        .artifactCrystalLevel,
+                builder: (context, data, child) {
+                  return context
+                      .read<LegionArtifactProvider>()
+                      .activeCrystalSet
+                      .getArtifactCrystal(artifactCrystalPosition)
+                      .buildLevelWidget(context);
+                }),
             const Spacer(),
             _ArtifactCrystallevelButton(
-              artifactCrystalPosition: artifactCrystalPosition
-            ),
+                artifactCrystalPosition: artifactCrystalPosition),
           ],
         ),
       ),
@@ -111,32 +122,35 @@ class _ArtifactCrystallevelButton extends StatelessWidget {
   });
 
   _onHover(BuildContext context) {
-    context.read<DifferenceCalculatorProvider>().modifyArtifactCrsytalLevel(artifactCrystalPosition, isSubtract);
+    context
+        .read<DifferenceCalculatorProvider>()
+        .modifyArtifactCrsytalLevel(artifactCrystalPosition, isSubtract);
   }
 
   @override
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} 1 Artifact Crystal Level'),
+        Text('${isSubtract ? "Removes" : "Adds"} 1 Artifact Crystal Level'),
         Selector<DifferenceCalculatorProvider, Widget>(
-          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-          builder: (context, widget, child) {
-            return widget;
-          }
-        ),
+            selector: (_, differenceCalculatorProvider) =>
+                differenceCalculatorProvider.differenceWidget,
+            builder: (context, widget, child) {
+              return widget;
+            }),
       ],
       onHoverFunction: _onHover,
       child: IconButton(
         iconSize: 12,
         onPressed: () {
           var legionArtifactProvider = context.read<LegionArtifactProvider>();
-          var func = isSubtract ? legionArtifactProvider.subtractArtifactLevel : legionArtifactProvider.addArtifactLevel;
+          var func = isSubtract
+              ? legionArtifactProvider.subtractArtifactLevel
+              : legionArtifactProvider.addArtifactLevel;
           func(artifactCrystalPosition);
         },
         icon: Icon(
-          isSubtract ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up
-        ),
+            isSubtract ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up),
       ),
     );
   }
@@ -151,46 +165,40 @@ class _ArtifactCrystalStatDropdown extends StatelessWidget {
     required this.statPosition,
   });
 
-  List<DropdownMenuItem> getDropdownStatsList(BuildContext context, ArtifactCrystal artifactCrystal) {
+  List<DropdownMenuItem> getDropdownStatsList(
+      BuildContext context, ArtifactCrystal artifactCrystal) {
     List<DropdownMenuItem<StatType>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
         value: null,
-        child: Text(
-          'None',
-          style: Theme.of(context).textTheme.bodyMedium
-        ),
+        child: Text('None', style: Theme.of(context).textTheme.bodyMedium),
       )
     ];
 
     List<StatType> filteredList = <StatType>[];
     // We can only have one of the flame types per equip, filter out any ones already used here
     statFilterLoop:
-    for(StatType statType in ARTIFACT_STAT_INCREMENTS.keys) { 
+    for (StatType statType in ARTIFACT_STAT_INCREMENTS.keys) {
       // Stops us from being able to select multiple of a single stat
-      for (MapEntry<int, StatType?> editingStats in artifactCrystal.artifactCrystalStats.entries) {
+      for (MapEntry<int, StatType?> editingStats
+          in artifactCrystal.artifactCrystalStats.entries) {
         if (editingStats.key == statPosition) {
           continue;
-        }
-        else if (statType == editingStats.value) {
+        } else if (statType == editingStats.value) {
           continue statFilterLoop;
         }
       }
-      
+
       filteredList.add(statType);
     }
 
-    dropdownItems.addAll(
-      filteredList.map((value) {
-        return DropdownMenuItem(
-          value: value,
-          child: Text(
-            value.formattedName,
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-        );
-      }).toList()
-    );
+    dropdownItems.addAll(filteredList.map((value) {
+      return DropdownMenuItem(
+        value: value,
+        child: Text(value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium),
+      );
+    }).toList());
 
     return dropdownItems;
   }
@@ -201,28 +209,28 @@ class _ArtifactCrystalStatDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("Stat $statPosition: "),
-        SizedBox(
-          width: 200,
-          child: Consumer<LegionArtifactProvider>(
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text("Stat $statPosition: "),
+      SizedBox(
+        width: 200,
+        child: Consumer<LegionArtifactProvider>(
             builder: (context, legionArtifactProvider, child) {
-              return DropdownButton(
-                alignment: AlignmentDirectional.center,
-                isDense: true,
-                isExpanded: true,
-                value: getSelectedStat(legionArtifactProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition)),
-                onChanged: (newValue) {
-                  legionArtifactProvider.updateArtifactStat(artifactCrystalPosition, statPosition, newValue);
-                },
-                items: getDropdownStatsList(context, legionArtifactProvider.activeCrystalSet.getArtifactCrystal(artifactCrystalPosition))
-              );
-            }
-          ),
-        ),
-      ]
-    );
+          return DropdownButton(
+              alignment: AlignmentDirectional.center,
+              isDense: true,
+              isExpanded: true,
+              value: getSelectedStat(legionArtifactProvider.activeCrystalSet
+                  .getArtifactCrystal(artifactCrystalPosition)),
+              onChanged: (newValue) {
+                legionArtifactProvider.updateArtifactStat(
+                    artifactCrystalPosition, statPosition, newValue);
+              },
+              items: getDropdownStatsList(
+                  context,
+                  legionArtifactProvider.activeCrystalSet
+                      .getArtifactCrystal(artifactCrystalPosition)));
+        }),
+      ),
+    ]);
   }
 }

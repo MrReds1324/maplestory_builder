@@ -73,6 +73,7 @@ flutter:
     - assets/items/
     - assets/images/
     - assets/images/familiar_badges/
+    - assets/images/legion_artifacts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
