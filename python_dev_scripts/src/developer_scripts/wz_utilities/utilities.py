@@ -55,22 +55,24 @@ def potentials_list_to_stat_enum(values: list[PotentialWrapper]) -> tuple[dict[S
 
 def save_icon_from_node(node: Wz_Node | None, output_path: Path, loader: "WzLoader"):
     if node is None:
-        LOGGER.warning(f"No image to save to {output_path}")
+        LOGGER.warning(f"No node image to save to {output_path}")
 
-    if not output_path.parent.exists():
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+    LOGGER.info(f"Saving image to {output_path}")
 
-    if isinstance(node.Value, Wz_Png):
-        node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
-        return
+    try:
+        if isinstance(node.Value, Wz_Png):
+            node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+            return
 
-    if isinstance(node.Value, Wz_Uol):
-        resolved_node = node.ResolveUol()
-        outlink = resolved_node.FindNodeByPath("_outlink", True).Value
+        if isinstance(node.Value, Wz_Uol):
+            resolved_node = node.ResolveUol()
+            outlink = resolved_node.FindNodeByPath("_outlink", True).Value
 
-    else:
-        outlink = node.FindNodeByPath("_outlink", True).Value
+        else:
+            outlink = node.FindNodeByPath("_outlink", True).Value
 
-    search_node = loader.find_wz(FindWzHelper(full_path=outlink))
-    if search_node is not None and isinstance(search_node.Value, Wz_Png):
-        search_node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+        search_node = loader.find_wz(FindWzHelper(full_path=outlink))
+        if search_node is not None and isinstance(search_node.Value, Wz_Png):
+            search_node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+    except Exception:
+        LOGGER.exception("Failed to save node image")

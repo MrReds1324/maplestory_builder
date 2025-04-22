@@ -1,3 +1,4 @@
+import argparse
 import json
 import logging
 import sys
@@ -9,26 +10,22 @@ from developer_scripts.wz_utilities.utilities import save_icon_from_node
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 from developer_scripts.wz_utilities.wz_loader import WzLoader
 
-logging.basicConfig(stream=sys.stdout, format="%(asctime)s - %(levelname)s: %(message)s")
+logging.basicConfig(stream=sys.stdout, format="%(asctime)s - %(levelname)s: %(message)s", level=logging.INFO)
 LOGGER = logging.getLogger()
-LOGGER.setLevel(logging.DEBUG)
 
-LOGGER.info("LOADING WZ FILES")
-
-wz_file_path = r"E:\Video Games\Nexon\Library\maplestory\appdata\Data\Base\Base.wz"
-loader = WzLoader(wz_file_path)
+LOADER: WzLoader = None
 
 loaded_familiar_badges = {}
 
 
 def load_familiar_badges():
-    etc_wz = loader.find_wz(FindWzHelper(Wz_Type.Etc))
+    etc_wz = LOADER.find_wz(FindWzHelper(Wz_Type.Etc))
 
     familiar_badge_node = etc_wz.FindNodeByPath("FamiliarSet.img", True)
     if familiar_badge_node is None:
         return
 
-    item_wz = loader.find_wz(FindWzHelper(Wz_Type.Item))
+    item_wz = LOADER.find_wz(FindWzHelper(Wz_Type.Item))
     if item_wz is None:
         return
 
@@ -44,23 +41,62 @@ def load_familiar_badges():
             LOGGER.exception("Something went wrong trying to load familiar badge")
 
 
-def dump_familiar_badges_to_file():
+def dump_familiar_badges_to_file(output_stats: Path, output_images: Path):
     results = {}
 
-    ui_wz = loader.find_wz(FindWzHelper(Wz_Type.UI))
+    ui_wz = LOADER.find_wz(FindWzHelper(Wz_Type.UI))
 
     for badge_idx, badge in loaded_familiar_badges.items():
         results[badge_idx] = badge.to_dict_format()
 
         badge_icon_node = ui_wz.FindNodeByPath(f"_Canvas\\UIWindowPL2.img\\Familiar\\viewPage\\badge\\@badge\\{badge_idx}\\complete\\normal\\0", True)
 
-        save_icon_from_node(badge_icon_node, Path(f"familiar_badges/{badge_idx}.png"), loader)
+        save_icon_from_node(badge_icon_node, output_images / f"{badge_idx}.png", LOADER)
 
-    with open("badge_stats.json", "w") as _fh:
+    output_stats_path = output_stats / "familiar_badges.json"
+    LOGGER.info(f"Writing Badge Stats to {output_stats_path}")
+
+    with output_stats_path.open("w") as _fh:
         json.dump(results, _fh, indent=4)
 
-load_familiar_badges()
 
-LOGGER.info(f"LOADED {len(loaded_familiar_badges)} FAMILIAR BADGES")
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Parse the WZ files")
+    parser.add_argument("-i", "--input", required=True, type=Path, help="Path to Base.wz")
+    parser.add_argument("-os", "--output-stats", required=True, type=Path, help="Path to the output directory for badge stats")
+    parser.add_argument("-oi", "--output-images", required=True, type=Path, help="Path to the output directory for badge images/icons")
+    parser.add_argument("-d", "--debug", action="store_true", help="Run with debug log messages")
 
-dump_familiar_badges_to_file()
+    args = parser.parse_args()
+    if not args.input.exists():
+        LOGGER.error(f"Input path to Base.wz {args.input} does not exist")
+        return -1
+
+    if args.output_stats.exists() and not args.output_stats.is_dir():
+        LOGGER.error(f"{args.output_stats} is not a directory")
+        return -1
+    args.output_stats.mkdir(parents=True, exist_ok=True)
+
+    if args.output_images.exists() and not args.output_images.is_dir():
+        LOGGER.error(f"{args.output_images} is not a directory")
+        return -1
+    args.output_images.mkdir(parents=True, exist_ok=True)
+
+    if args.debug:
+        LOGGER.setLevel(logging.DEBUG)
+
+    LOGGER.info("LOADING WZ FILES")
+
+    global LOADER  # noqa: PLW0603
+    LOADER = WzLoader(str(args.input))
+
+    load_familiar_badges()
+
+    LOGGER.info(f"LOADED {len(loaded_familiar_badges)} FAMILIAR BADGES")
+
+    dump_familiar_badges_to_file(args.output_stats, args.output_images)
+
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
