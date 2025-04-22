@@ -15,8 +15,6 @@ class FamiliarBadge:
         self._familiar_node = familiar_node
         self._option_node = option_node
 
-        self.icon_complete: Wz_Node | None = None
-
         self.__update_from_nodes()
 
     def __update_from_nodes(self):
@@ -24,8 +22,6 @@ class FamiliarBadge:
             match sub_node.Text:
                 case "setName":
                     self.set_name = sub_node.Value
-                case "iconComplete":
-                    self.icon_complete = sub_node
                 case "stats":
                     if self._option_node is None:
                         continue

@@ -53,7 +53,17 @@ def potentials_list_to_stat_enum(values: list[PotentialWrapper]) -> tuple[dict[S
 
     return stat_values, random_stats
 
-def save_icon_from_node(node: Wz_Node, output_path: Path, loader: "WzLoader"):
+def save_icon_from_node(node: Wz_Node | None, output_path: Path, loader: "WzLoader"):
+    if node is None:
+        LOGGER.warning(f"No image to save to {output_path}")
+
+    if not output_path.parent.exists():
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if isinstance(node.Value, Wz_Png):
+        node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+        return
+
     if isinstance(node.Value, Wz_Uol):
         resolved_node = node.ResolveUol()
         outlink = resolved_node.FindNodeByPath("_outlink", True).Value
@@ -64,4 +74,3 @@ def save_icon_from_node(node: Wz_Node, output_path: Path, loader: "WzLoader"):
     search_node = loader.find_wz(FindWzHelper(full_path=outlink))
     if search_node is not None and isinstance(search_node.Value, Wz_Png):
         search_node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
-        ...

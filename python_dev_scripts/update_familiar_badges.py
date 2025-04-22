@@ -9,9 +9,11 @@ from developer_scripts.wz_utilities.utilities import save_icon_from_node
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 from developer_scripts.wz_utilities.wz_loader import WzLoader
 
-logging.basicConfig(stream=sys.stdout)
+logging.basicConfig(stream=sys.stdout, format="%(asctime)s - %(levelname)s: %(message)s")
 LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.DEBUG)
+
+LOGGER.info("LOADING WZ FILES")
 
 wz_file_path = r"E:\Video Games\Nexon\Library\maplestory\appdata\Data\Base\Base.wz"
 loader = WzLoader(wz_file_path)
@@ -44,14 +46,15 @@ def load_familiar_badges():
 
 def dump_familiar_badges_to_file():
     results = {}
+
+    ui_wz = loader.find_wz(FindWzHelper(Wz_Type.UI))
+
     for badge_idx, badge in loaded_familiar_badges.items():
         results[badge_idx] = badge.to_dict_format()
 
-        if not badge.icon_complete:
-            LOGGER.error(f"{badge.set_name}: {badge_idx} does not have an icon to save - will need to manually download it")
-            continue
+        badge_icon_node = ui_wz.FindNodeByPath(f"_Canvas\\UIWindowPL2.img\\Familiar\\viewPage\\badge\\@badge\\{badge_idx}\\complete\\normal\\0", True)
 
-        save_icon_from_node(badge.icon_complete, Path(f"familiar_badges/{badge_idx}.png"), loader)
+        save_icon_from_node(badge_icon_node, Path(f"familiar_badges/{badge_idx}.png"), loader)
 
     with open("badge_stats.json", "w") as _fh:
         json.dump(results, _fh, indent=4)
