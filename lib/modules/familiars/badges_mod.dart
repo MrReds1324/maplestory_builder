@@ -7,7 +7,7 @@ import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
 
 class BadgeModule implements Copyable {
   static Map<int, FamiliarBadge> allBadges = {};
-  static Future<void> loadingBadges = Future.delayed(const Duration(seconds: 5), BadgeModule.loadFamiliarBadges);
+  static Future<void> loadingBadges = BadgeModule.loadFamiliarBadges();
 
   // There will be 8 active badges
   Map<int, FamiliarBadge?> activeBadges;
