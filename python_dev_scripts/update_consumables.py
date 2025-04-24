@@ -11,7 +11,7 @@ from developer_scripts.wz_utilities.utilities import is_english
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 from developer_scripts.wz_utilities.wz_loader import WzLoader
 
-logging.basicConfig(stream=sys.stdout, format="%(asctime)s - %(levelname)s: %(message)s", level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, format="%(asctime)s - %(levelname)s: %(message)s", level=logging.INFO)
 LOGGER = logging.getLogger()
 
 LOADER: WzLoader = None
