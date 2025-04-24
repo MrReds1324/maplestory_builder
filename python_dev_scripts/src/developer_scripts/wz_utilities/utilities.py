@@ -1,11 +1,10 @@
 import logging
+import string
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from System.Drawing.Imaging import ImageFormat
-
 from developer_scripts.conversion.maplestory_builder_stat_enums import StatType
-from developer_scripts.wz_utilities import GearPropType, Wz_Node, Wz_Png, Wz_Type, Wz_Uol
+from developer_scripts.wz_utilities import GearPropType, Wz_Node, Wz_NodeExtension, Wz_Png, Wz_Type, Wz_Uol
 from developer_scripts.wz_utilities.equipment.potential import PotentialWrapper
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 
@@ -86,24 +85,46 @@ def convert_to_all_stat(stat_dict: dict):
 
 def save_icon_from_node(node: Wz_Node | None, output_path: Path, loader: "WzLoader"):
     if node is None:
-        LOGGER.warning(f"No node image to save to {output_path}")
+        LOGGER.warning(f"No node icon image to save to {output_path}")
 
-    LOGGER.info(f"Saving image to {output_path}")
+    LOGGER.info(f"Saving icon image to {output_path}")
+
+    def save_png(png_node: Wz_Png) -> bool:
+        if png_node.Width > 1 and png_node.Height > 1:
+            png_node.ExtractPng().Save(str(output_path))
+            return True
+        return False
 
     try:
-        if isinstance(node.Value, Wz_Png):
-            node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+        if isinstance(node.Value, Wz_Png) and save_png(node.Value):
             return
 
+        outlink = None
+
         if isinstance(node.Value, Wz_Uol):
-            resolved_node = node.ResolveUol()
-            outlink = resolved_node.FindNodeByPath("_outlink", True).Value
+            resolved_node = Wz_NodeExtension.ResolveUol(node)
+            if isinstance(resolved_node.Value, Wz_Png) and save_png(resolved_node.Value):
+                return
+
+            if out_node := resolved_node.FindNodeByPath("_outlink", True):
+                outlink = out_node.Value
 
         else:
-            outlink = node.FindNodeByPath("_outlink", True).Value
+            if out_node := node.FindNodeByPath("_outlink", True):
+                outlink = out_node.Value
+
+        if outlink is None:
+            LOGGER.warning("Node has no outlink to search for, therefore there is no icon image")
+            return
 
         search_node = loader.find_wz(FindWzHelper(full_path=outlink))
         if search_node is not None and isinstance(search_node.Value, Wz_Png):
-            search_node.Value.ExtractPng().Save(str(output_path), ImageFormat.Png)
+            if not save_png(search_node.Value):
+                LOGGER.error("Could not find a valid icon image to save")
+        else:
+            LOGGER.error(f"Search node path {outlink} did not return an icon image to save")
     except Exception:
-        LOGGER.exception("Failed to save node image")
+        LOGGER.exception("Failed to save node icon image")
+
+def is_english(value: str) -> bool:
+    return all(char in string.printable for char in value)

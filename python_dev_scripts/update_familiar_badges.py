@@ -41,10 +41,10 @@ def load_familiar_badges():
 
 
 def dump_familiar_badges_to_file(output_stats: Path, output_images: Path):
-    results = {}
+    badge_stats = {}
 
     for badge_idx, badge in loaded_familiar_badges.items():
-        results[badge_idx] = badge.to_dict_format()
+        badge_stats[badge_idx] = badge.to_dict_format()
 
         badge.save_icon(badge_idx, output_images, LOADER)
 
@@ -52,7 +52,7 @@ def dump_familiar_badges_to_file(output_stats: Path, output_images: Path):
     LOGGER.info(f"Writing Badge Stats to {output_stats_path}")
 
     with output_stats_path.open("w") as _fh:
-        json.dump(results, _fh, indent=4)
+        json.dump(badge_stats, _fh, indent=4)
 
 
 def main() -> int:

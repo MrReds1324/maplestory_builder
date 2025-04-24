@@ -40,7 +40,7 @@ enum ConsumableCategory {
   defenseBoost(formattedName: "DEF Boost"),
   attackBoost(formattedName: "Attack Power Boost"),
   mattackBoost(formattedName: "Magic Attack Boost"),
-  sppedBoost(formattedName: "Speed Boost"),
+  speedBoost(formattedName: "Speed Boost"),
   jumpBoost(formattedName: "Jump Boost"),
   attackSpeedBoost(formattedName: "Attack Speed Boost"),
   bossDamageBoost(formattedName: "Boss Damage Boost"),
@@ -71,7 +71,7 @@ enum ConsumableName {
       },
       consumableCategories: [
         ConsumableCategory.allStatsBoost,
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost
       ],
       duration: 7200,
@@ -95,7 +95,7 @@ enum ConsumableName {
       },
       consumableCategories: [
         ConsumableCategory.allStatsBoost,
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost
       ],
       duration: 7200,
@@ -119,7 +119,7 @@ enum ConsumableName {
       },
       consumableCategories: [
         ConsumableCategory.allStatsBoost,
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost
       ],
       duration: 7200,
@@ -143,7 +143,7 @@ enum ConsumableName {
       },
       consumableCategories: [
         ConsumableCategory.allStatsBoost,
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost
       ],
       duration: 7200,
@@ -159,7 +159,7 @@ enum ConsumableName {
       },
       consumableCategories: [
         ConsumableCategory.allStatsBoost,
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost
       ],
       duration: 7200,
@@ -1579,7 +1579,7 @@ enum ConsumableName {
         StatType.jump: 10
       },
       consumableCategories: [
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost,
         ConsumableCategory.mattackBoost
       ],
@@ -1596,7 +1596,7 @@ enum ConsumableName {
         StatType.jump: 10
       },
       consumableCategories: [
-        ConsumableCategory.sppedBoost,
+        ConsumableCategory.speedBoost,
         ConsumableCategory.jumpBoost,
         ConsumableCategory.defenseBoost,
         ConsumableCategory.attackBoost
@@ -1608,7 +1608,7 @@ enum ConsumableName {
       description:
           "These sweet, bite-sized delights are a favorite pastry dish enjoyed during parties or while having tea.",
       statValues: {StatType.speed: 10},
-      consumableCategories: [ConsumableCategory.sppedBoost],
+      consumableCategories: [ConsumableCategory.speedBoost],
       duration: 1800,
       buffSlots: {}),
   speedPill(
@@ -1616,8 +1616,8 @@ enum ConsumableName {
       description: "A pill of concentrated speed potion.",
       statValues: {StatType.speed: 10},
       consumableCategories: [
-        ConsumableCategory.sppedBoost,
-        ConsumableCategory.sppedBoost
+        ConsumableCategory.speedBoost,
+        ConsumableCategory.speedBoost
       ],
       duration: 600,
       buffSlots: {}),
@@ -1626,8 +1626,8 @@ enum ConsumableName {
       description: "Increases speed.",
       statValues: {StatType.speed: 8},
       consumableCategories: [
-        ConsumableCategory.sppedBoost,
-        ConsumableCategory.sppedBoost
+        ConsumableCategory.speedBoost,
+        ConsumableCategory.speedBoost
       ],
       duration: 180,
       buffSlots: {}),

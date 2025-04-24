@@ -3,11 +3,12 @@ from enum import StrEnum
 from typing import Self
 
 from developer_scripts.wz_utilities import GearPropType
+from developer_scripts.wz_utilities.consumable.prop_type import ConsPropType
 
 LOGGER = logging.getLogger(__name__)
 
-
 class StatType(StrEnum):
+    duration = "duration"
     arcaneForce = "arcaneForce"
     attack = "attack"
     attackMattack = "attackMattack"
@@ -96,92 +97,125 @@ class StatType(StrEnum):
     procChance = "procChance"
 
     @classmethod
-    def gear_prop_type_to_stat_type(cls, gear_prop_type: GearPropType, value: int) -> tuple[Self | None, float]:
-        match gear_prop_type:
-            case GearPropType.incLUK:
-                return StatType.luk, value
+    def gear_prop_type_to_stat_type(cls, gear_prop_type: GearPropType, value) -> tuple[Self | None, float]:
+        conversion = GearPropType_to_StatType.get(gear_prop_type)
+        if conversion is None:
+            LOGGER.debug(f"ENCOUNTERED UNHANDLED GEAR PROP TYPE {gear_prop_type}")
+            return None, value
 
-            case GearPropType.incINT:
-                return StatType.int, value
+        stat_type, divisor = conversion
+        if divisor == 100:
+            return stat_type, value / divisor
+        return stat_type, value
 
-            case GearPropType.incDEX:
-                return StatType.dex, value
+    @classmethod
+    def cons_prop_type_to_stat_type(cls, cons_prop_type: ConsPropType, value) -> tuple[Self | None, float]:
+        conversion = ConsPropType_to_StatType.get(cons_prop_type)
+        if conversion is None:
+            LOGGER.debug(f"ENCOUNTERED UNHANDLED CONS PROP TYPE {cons_prop_type}")
+            return None, value
 
-            case GearPropType.incSTR:
-                return StatType.str, value
+        stat_type, divisor = conversion
+        if divisor == 100:
+            return stat_type, int(value) / divisor
+        return stat_type, int(value)
 
-            case GearPropType.incLUKr:
-                return StatType.lukPercentage, value / 100
+GearPropType_to_StatType: dict[GearPropType, tuple[StatType, int]] = {
+GearPropType.incLUK: (StatType.luk, 1),
+GearPropType.incDEX: (StatType.dex, 1),
+GearPropType.incINT: (StatType.int, 1),
+GearPropType.incSTR: (StatType.str, 1),
+    GearPropType.incMHP: (StatType.hp, 1),
+    GearPropType.incMMP: (StatType.mp, 1),
+    GearPropType.incSpeed: (StatType.speed, 1),
+    GearPropType.incJump: (StatType, 1),
+    GearPropType.incPDD: (StatType.defense, 1),
+    GearPropType.incMDD: (StatType.defense, 1),
+    GearPropType.incPAD: (StatType.attack, 1),
+    GearPropType.incMAD: (StatType.mattack, 1),
+    GearPropType.incAllskill: (StatType.allSkillLevel, 1),
+GearPropType.incLUKr: (StatType.lukPercentage, 100),
+GearPropType.incDEXr: (StatType.dexPercentage, 100),
+GearPropType.incINTr: (StatType.intPercentage, 100),
+GearPropType.incSTRr: (StatType.strPercentage, 100),
+    GearPropType.incMHPr: (StatType.hpPercentage, 100),
+    GearPropType.incMMPr: (StatType.mpPercentage, 100),
+GearPropType.incPDDr: (StatType.defensePercentage, 100),
+    GearPropType.incMDDr: (StatType.defensePercentage, 100),
+    GearPropType.incPADr: (StatType.attackPercentage, 100),
+    GearPropType.incMADr: (StatType.mattackPercentage, 100),
+    GearPropType.incCr: (StatType.critRate, 100),
+    GearPropType.incDAMr: (StatType.damage, 100),
+    GearPropType.ignoreTargetDEF: (StatType.ignoreDefense, 100),
+    GearPropType.HP: (StatType.healHP, 1),
+    GearPropType.MP: (StatType.healMP, 1),
+    GearPropType.prop: (StatType.procChance, 100),
+}
 
-            case GearPropType.incINTr:
-                return StatType.intPercentage, value / 100
-
-            case GearPropType.incDEXr:
-                return StatType.dexPercentage, value / 100
-
-            case GearPropType.incSTRr:
-                return StatType.strPercentage, value / 100
-
-            case GearPropType.incSpeed:
-                return StatType.speed, value
-
-            case GearPropType.incCr:
-                return StatType.critRate, value / 100
-
-            case GearPropType.incPDD:
-                return StatType.defense, value
-
-            case GearPropType.incMDD:
-                return StatType.defense, value
-
-            case GearPropType.incMHP:
-                return StatType.hp, value
-
-            case GearPropType.incMHPr:
-                return StatType.hpPercentage, value / 100
-
-            case GearPropType.incMMPr:
-                return StatType.mpPercentage, value / 100
-
-            case GearPropType.incMMP:
-                return StatType.mp, value
-
-            case GearPropType.incPAD:
-                return StatType.attack, value
-
-            case GearPropType.incMAD:
-                return StatType.mattack, value
-
-            case GearPropType.incPADr:
-                return StatType.attackPercentage, value / 100
-
-            case GearPropType.incMADr:
-                return StatType.mattackPercentage, value / 100
-
-            case GearPropType.ignoreTargetDEF:
-                return StatType.ignoreDefense, value / 100
-
-            case GearPropType.incDAMr:
-                return StatType.damage, value / 100
-
-            case GearPropType.incAllskill:
-                return StatType.allSkillLevel, value
-
-            case GearPropType.HP:
-                return StatType.healHP, value
-
-            case GearPropType.MP:
-                return StatType.healMP, value
-
-            case GearPropType.incJump:
-                return StatType.jump, value
-
-            case GearPropType.incPDDr:
-                return StatType.defensePercentage, value / 100
-
-            case GearPropType.prop:
-                return StatType.procChance, value / 100
-
-            case _:
-                LOGGER.debug(f"ENCOUNTERED UNHANDLED GEAR PROP TYPE {gear_prop_type}")
-                return None, value
+ConsPropType_to_StatType: dict[ConsPropType, tuple[StatType, int]] = {
+    ConsPropType.duration: (StatType.duration, 1),
+    ConsPropType.duration2: (StatType.duration, 1),
+    ConsPropType.status_resistance: (StatType.statusResistance, 1),
+    ConsPropType.status_resistance2: (StatType.statusResistance, 1),
+    ConsPropType.int: (StatType.int, 1),
+    ConsPropType.int2: (StatType.int, 1),
+    ConsPropType.luk: (StatType.luk, 1),
+    ConsPropType.luk2: (StatType.luk, 1),
+    ConsPropType.dex: (StatType.dex, 1),
+    ConsPropType.dex2: (StatType.dex, 1),
+    ConsPropType.str: (StatType.str, 1),
+    ConsPropType.str2: (StatType.str, 1),
+    ConsPropType.attack: (StatType.attack, 1),
+    ConsPropType.attack2: (StatType.attack, 1),
+    ConsPropType.magic_attack: (StatType.mattack, 1),
+    ConsPropType.magic_attack2: (StatType.mattack, 1),
+    ConsPropType.all_stat: (StatType.allStats, 1),
+    ConsPropType.all_stat_percentage: (StatType.allStatsPercentage, 100),
+    ConsPropType.allSkillLevels: (StatType.allSkillLevel, 1),
+    ConsPropType.normal_monster_damage: (StatType.damageNormalMobs, 1),
+    ConsPropType.defense: (StatType.defense, 1),
+    ConsPropType.defense2: (StatType.defense, 1),
+    ConsPropType.defense3: (StatType.defense, 1),
+    ConsPropType.defense4: (StatType.defense, 1),
+    ConsPropType.attack_speed: (StatType.attackSpeed, 1),
+    ConsPropType.attack_speed2: (StatType.attackSpeed, 1),
+    ConsPropType.speed: (StatType.speed, 1),
+    ConsPropType.speed2: (StatType.speed, 1),
+    ConsPropType.jump: (StatType.jump, 1),
+    ConsPropType.jump2: (StatType.jump, 1),
+    # ConsPropType.skill_id: (StatType.skill, 1),
+    ConsPropType.max_hp: (StatType.hp, 1),
+    ConsPropType.max_hp2: (StatType.hp, 1),
+    ConsPropType.max_mp: (StatType.mp, 1),
+    ConsPropType.max_mp2: (StatType.mp, 1),
+    ConsPropType.max_hp_percentage: (StatType.hpPercentage, 100),
+    ConsPropType.max_hp_percentage2: (StatType.hpPercentage, 100),
+    ConsPropType.max_mp_percentage: (StatType.mpPercentage, 100),
+    ConsPropType.max_mp_percentage2: (StatType.mpPercentage, 100),
+    ConsPropType.attack_percentage: (StatType.attackPercentage, 100),
+    ConsPropType.magic_attack_percentage: (StatType.mattackPercentage, 100),
+    ConsPropType.ignore_enemy_defense: (StatType.ignoreDefense, 100),
+    ConsPropType.ignore_enemy_defense2: (StatType.ignoreDefense, 100),
+    ConsPropType.boss_damage: (StatType.bossDamage, 100),
+    ConsPropType.boss_damage2: (StatType.bossDamage, 100),
+    ConsPropType.damage: (StatType.damage, 100),
+    ConsPropType.crit_rate: (StatType.critRate, 100),
+    ConsPropType.crit_rate2: (StatType.critRate, 100),
+    ConsPropType.crit_damage: (StatType.critDamage, 100),
+    ConsPropType.flat_exp: (StatType.expAdditional, 100),
+    ConsPropType.flat_exp2: (StatType.expAdditional, 100),
+    ConsPropType.flat_exp3: (StatType.expAdditional, 100),
+    ConsPropType.flat_exp4: (StatType.expAdditional, 100),
+ConsPropType.flat_exp5: (StatType.expAdditional, 100),
+    ConsPropType.exp: (StatType.expMultiplicative, 100),
+    ConsPropType.drop_rate: (StatType.itemDropRate, 100),
+    ConsPropType.drop_rate2: (StatType.itemDropRate, 100),
+    ConsPropType.drop_rate3: (StatType.itemDropRate, 100),
+    ConsPropType.drop_rate4: (StatType.itemDropRate, 100),
+    ConsPropType.drop_rate5: (StatType.itemDropRate, 100),
+    ConsPropType.drop_rate6: (StatType.itemDropRate, 100),
+    ConsPropType.meso_obtained: (StatType.mesosObtained, 100),
+    ConsPropType.meso_obtained2: (StatType.mesosObtained, 100),
+    ConsPropType.star_force: (StatType.starForce, 1),
+    ConsPropType.arcane_force: (StatType.arcaneForce, 1)
+}

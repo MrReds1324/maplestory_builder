@@ -5,8 +5,8 @@ class ConsPropType(StrEnum):
     # attack/magic attack
     magic_attack = "mad"
     attack = "pad"
-    iattack = "indiePad"
-    imagic_attack = "indieMad"
+    attack2 = "indiePad"
+    magic_attack2 = "indieMad"
 
     # stats
     all_stat = "indieAllStat"
@@ -20,20 +20,20 @@ class ConsPropType(StrEnum):
     defense2 = "mdd"
     defense3 = "indiePdd"
     defense4 = "indieMdd"
-    iint = "indieINT"
-    iluk = "indieLUK"
-    idex = "indieDEX"
-    istr = "indieSTR"
-    ispeed = "indieSpeed"
-    ijump = "indieJump"
+    int2 = "indieINT"
+    luk2 = "indieLUK"
+    dex2 = "indieDEX"
+    str2 = "indieSTR"
+    speed2 = "indieSpeed"
+    jump2 = "indieJump"
     max_hp = "indieMhp"
     max_mp = "indieMmp"
+    max_hp2 = "imhp"
+    max_mp2 = "immp"
     attack_speed = "booster"
     attack_speed2 = "indieBooster"
     star_force = "indieStarForce"
     arcane_force = "indieArc"
-    hp_increase = "imhp"
-    mp_increase = "immp"
 
     # Stat percentage
     all_stat_percentage = "indieStatR"
@@ -45,9 +45,9 @@ class ConsPropType(StrEnum):
     boss_damage2 = "indieBDR"
     damage = "indieDamR"
     ignore_enemy_defense = "ignoreMobpdpR"
-    iignore_enemy_defense = "indieIgnoreMobpdpR"
+    ignore_enemy_defense2 = "indieIgnoreMobpdpR"
     crit_rate = "criticalProb"
-    icrit_rate = "indieCr"
+    crit_rate2 = "indieCr"
     crit_damage = "indieCD"
     normal_monster_damage = "indieNBDR"
     magic_attack_percentage = "indieMadR"
@@ -57,7 +57,7 @@ class ConsPropType(StrEnum):
 
     # duration of consumable
     duration = "time"
-    duration2 = 'durationFieldAllUserBuff'
+    duration2 = "durationFieldAllUserBuff"
     end_use_date = "endUseDate"
     min_time = "minTime"
     max_time = "maxTime"
@@ -83,12 +83,18 @@ class ConsPropType(StrEnum):
     drop_rate6 = "worldDropBuff2"
 
     # mesos
-    meso_obtained = 'mesoAmountRate'
+    meso_obtained = "mesoAmountRate"
     meso_obtained2 = "indieMesoAmountRate"
 
     # give buff skill
     give_buff = "giveBuff"
     skill_id = "skillID"
+    inflation = "inflation"  # giant potions
+    allSkillLevels = "indieAllSkill"
+    create_time = "time_create"
+    expire_time = "time_expired"
+    start_time = "startTime"
+
 
 IGNORED_PROPS = {
     # Recover a flat amount of hp or mp
@@ -97,8 +103,7 @@ IGNORED_PROPS = {
     # Recover a percentage amount of hp or mp
     "hpR",
     "mpR",
-    "exp", # A flat value of exp is given
-    "inflation",  # giant potions
+    "exp",  # A flat value of exp is given
     # status effects
     "weakness",
     "poison",
@@ -117,7 +122,7 @@ IGNORED_PROPS = {
     "npc",
     "indieScriptBuff",
     "grade",
-'effectSkillID',
+    "effectSkillID",
     "acc",  # accuracy is not used anymore
     "captureBuff",
     "FfatigueR",  # Familiar fatigue gauge percentage
@@ -154,8 +159,8 @@ IGNORED_PROPS = {
     "dojangLuckyBonus",
     "craftExp",
     "hue",
-'incEffectHPPotion',
-'incEffectMPPotion',
+    "incEffectHPPotion",
+    "incEffectMPPotion",
     "evadeProb",
     "itemupbyitem",  # No idea, applies to some drop rate potions
     "mobHp",
@@ -168,29 +173,26 @@ IGNORED_PROPS = {
     "realConsumeItems",
     "indieForceSpeed",
     "indieForceJump",
-'indieQrPointTerm',
-'indieMonsterCollectionR',
+    "indieQrPointTerm",
+    "indieMonsterCollectionR",
     "onlyPremium",
     "heavensDoor",
     "notSale",
     "tradeBlock",
-    "indieAllSkill",
     "accountSharable",
     "indieWaterSmashBuff",
-'plusFameExpRate',
-'noTimeLimit',
-'plusPurifyStone',
+    "plusFameExpRate",
+    "noTimeLimit",
+    "plusPurifyStone",
     "hyperUpgradeDiscountR",
     "indieNotDamaged",
-    "time_create",
-    "time_expired",
     "moveTo",  # Town scrolls/return scrolls
     "ignoreContinent",
     "mhpRRate",
     "mmpRRate",
-'returnMapQR',
-# Seen on pet food
-'0',
+    "returnMapQR",
+    # Seen on pet food
+    "0",
     "1",
     "2",
     "3",
@@ -223,23 +225,30 @@ IGNORED_PROPS = {
     "dropRIncrease",
     "recipeValidDay",
     "cosmetic",
-'ignoreMixHair_jp',
+    "ignoreMixHair_jp",
     "slotCount",
     "slotPerLine",
     "type",
-"incFixedDamageR",  # PQ Consumable
+    "incFixedDamageR",  # PQ Consumable
     # More familiar things
     "interval",
-    "startTime",
-"familiarPassiveSkillTarget",
+    "familiarPassiveSkillTarget",
     "charColor",
     "familiar",  # will require some digging into
     "reward",
-    'accRate', 'effectedOnAlly', 'evaRate', 'madRate', 'mddRate', 'padRate', 'pddRate', 'preventslip', 'speedRate',
+    "accRate",
+    "effectedOnAlly",
+    "evaRate",
+    "madRate",
+    "mddRate",
+    "padRate",
+    "pddRate",
+    "preventslip",
+    "speedRate",
     "incPVPDamage",
     "bs",
     "bsUp",
     "immortal",
-'randomPickupConsume',
-'randomPickup',
+    "randomPickupConsume",
+    "randomPickup",
 }

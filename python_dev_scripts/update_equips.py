@@ -32,8 +32,11 @@ def load_item_sets():
                     loaded_set_items[set_item_index] = SetItemWrapper(set_item)
         except Exception:
             ...
+
+
 def write_item_sets_to_file():
     target_item_set = loaded_set_items.get(677)
+
 
 load_item_sets()
 ...

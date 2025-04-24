@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from typing import Any
 
-from developer_scripts.wz_utilities import Wz_Node, Potential, Wz_Type
+from developer_scripts.wz_utilities import Potential, Wz_Node, Wz_Type
 from developer_scripts.wz_utilities.equipment.potential import PotentialWrapper
 from developer_scripts.wz_utilities.utilities import potentials_list_to_stat_enum, save_icon_from_node
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
