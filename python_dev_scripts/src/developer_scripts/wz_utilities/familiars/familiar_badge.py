@@ -1,11 +1,15 @@
 import logging
+from pathlib import Path
 from typing import Any
 
-from developer_scripts.wz_utilities import Wz_Node, Potential
+from developer_scripts.wz_utilities import Wz_Node, Potential, Wz_Type
 from developer_scripts.wz_utilities.equipment.potential import PotentialWrapper
-from developer_scripts.wz_utilities.utilities import potentials_list_to_stat_enum
+from developer_scripts.wz_utilities.utilities import potentials_list_to_stat_enum, save_icon_from_node
+from developer_scripts.wz_utilities.wz_finder import FindWzHelper
+from developer_scripts.wz_utilities.wz_loader import WzLoader
 
 LOGGER = logging.getLogger(__name__)
+
 
 class FamiliarBadge:
     def __init__(self, familiar_node: Wz_Node, option_node: Wz_Node):
@@ -41,6 +45,10 @@ class FamiliarBadge:
         option_stats, random_stats = potentials_list_to_stat_enum(self.potentials)
         return {"badgeName": self.set_name, "badgeStats": option_stats, "randomStats": random_stats}
 
+    @staticmethod
+    def save_icon(badge_idx:int, output_path: Path, loader: WzLoader):
 
-    def save_icon(self, output_path):
-        ...
+        ui_wz = loader.find_wz(FindWzHelper(Wz_Type.UI))
+        badge_icon_node = ui_wz.FindNodeByPath(f"_Canvas\\UIWindowPL2.img\\Familiar\\viewPage\\badge\\@badge\\{badge_idx}\\complete\\normal\\0", True)
+
+        save_icon_from_node(badge_icon_node, output_path / f"{badge_idx}.png", loader)

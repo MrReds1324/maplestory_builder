@@ -14,10 +14,12 @@ if TYPE_CHECKING:
 
 LOGGER = logging.getLogger(__name__)
 
+
 def wz_type_parse(string: str) -> Wz_Type:
     if "." in string:
         string = string.split(".")[0]
     return getattr(Wz_Type, string)
+
 
 def potentials_list_to_stat_enum(values: list[PotentialWrapper]) -> tuple[dict[StatType, float], list[dict[StatType, float]]]:
     stat_values = {}
@@ -37,6 +39,7 @@ def potentials_list_to_stat_enum(values: list[PotentialWrapper]) -> tuple[dict[S
 
                 proc_stats[stat_type] = prop_value
 
+            convert_to_all_stat(proc_stats)
             random_stats.append(proc_stats)
             continue
 
@@ -51,7 +54,35 @@ def potentials_list_to_stat_enum(values: list[PotentialWrapper]) -> tuple[dict[S
 
             stat_values[stat_type] = prop_value
 
+    convert_to_all_stat(stat_values)
     return stat_values, random_stats
+
+def convert_to_all_stat(stat_dict: dict):
+    int_value = stat_dict.get(StatType.int)
+    luk_value = stat_dict.get(StatType.luk)
+    dex_value = stat_dict.get(StatType.dex)
+    str_value = stat_dict.get(StatType.str)
+    set_values = {int_value, luk_value, dex_value, str_value}
+
+    if len(set_values) == 1 and (set_val := next(iter(set_values))) is not None:
+        stat_dict[StatType.allStats] = set_val
+        del stat_dict[StatType.int]
+        del stat_dict[StatType.luk]
+        del stat_dict[StatType.dex]
+        del stat_dict[StatType.str]
+
+    int_value_p = stat_dict.get(StatType.intPercentage)
+    luk_value_p = stat_dict.get(StatType.lukPercentage)
+    dex_value_p = stat_dict.get(StatType.dexPercentage)
+    str_value_p = stat_dict.get(StatType.strPercentage)
+    set_values_p = {int_value_p, luk_value_p, dex_value_p, str_value_p}
+
+    if len(set_values_p) == 1 and (set_val_p := next(iter(set_values_p))) is not None:
+        stat_dict[StatType.allStatsPercentage] = set_val_p
+        del stat_dict[StatType.intPercentage]
+        del stat_dict[StatType.lukPercentage]
+        del stat_dict[StatType.dexPercentage]
+        del stat_dict[StatType.strPercentage]
 
 def save_icon_from_node(node: Wz_Node | None, output_path: Path, loader: "WzLoader"):
     if node is None:

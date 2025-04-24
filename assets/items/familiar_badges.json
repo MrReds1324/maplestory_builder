@@ -124,10 +124,7 @@
         "badgeName": "Wings Badge",
         "badgeStats": {
             "speed": 1,
-            "strPercentage": 0.01,
-            "dexPercentage": 0.01,
-            "intPercentage": 0.01,
-            "lukPercentage": 0.01
+            "allStatsPercentage": 0.01
         },
         "randomStats": []
     },
@@ -150,11 +147,8 @@
     "20": {
         "badgeName": "Cloud Badge",
         "badgeStats": {
-            "str": 1,
-            "dex": 1,
-            "int": 1,
-            "luk": 1,
-            "ignoreDefense": 0.03
+            "ignoreDefense": 0.03,
+            "allStats": 1
         },
         "randomStats": []
     },
@@ -200,11 +194,8 @@
     "25": {
         "badgeName": "Showa Badge",
         "badgeStats": {
-            "str": 1,
-            "dex": 1,
-            "int": 1,
-            "luk": 1,
-            "damage": 0.01
+            "damage": 0.01,
+            "allStats": 1
         },
         "randomStats": []
     },
@@ -227,20 +218,14 @@
     "28": {
         "badgeName": "Exorcism Badge",
         "badgeStats": {
-            "strPercentage": 0.01,
-            "dexPercentage": 0.01,
-            "intPercentage": 0.01,
-            "lukPercentage": 0.01
+            "allStatsPercentage": 0.01
         },
         "randomStats": []
     },
     "29": {
         "badgeName": "Tyrant Badge",
         "badgeStats": {
-            "strPercentage": 0.01,
-            "dexPercentage": 0.01,
-            "intPercentage": 0.01,
-            "lukPercentage": 0.01
+            "allStatsPercentage": 0.01
         },
         "randomStats": []
     },
@@ -318,11 +303,8 @@
     "41": {
         "badgeName": "Labyrinth Badge",
         "badgeStats": {
-            "strPercentage": 0.01,
-            "dexPercentage": 0.01,
-            "intPercentage": 0.01,
-            "lukPercentage": 0.01,
-            "damage": 0.01
+            "damage": 0.01,
+            "allStatsPercentage": 0.01
         },
         "randomStats": []
     },
@@ -345,11 +327,8 @@
     "44": {
         "badgeName": "Swamp Badge",
         "badgeStats": {
-            "strPercentage": 0.01,
-            "dexPercentage": 0.01,
-            "intPercentage": 0.01,
-            "lukPercentage": 0.01,
-            "attack": 2
+            "attack": 2,
+            "allStatsPercentage": 0.01
         },
         "randomStats": []
     },

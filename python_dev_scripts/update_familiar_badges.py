@@ -6,7 +6,6 @@ from pathlib import Path
 
 from developer_scripts.wz_utilities import SetItem, Wz_Type
 from developer_scripts.wz_utilities.familiars.familiar_badge import FamiliarBadge
-from developer_scripts.wz_utilities.utilities import save_icon_from_node
 from developer_scripts.wz_utilities.wz_finder import FindWzHelper
 from developer_scripts.wz_utilities.wz_loader import WzLoader
 
@@ -44,14 +43,10 @@ def load_familiar_badges():
 def dump_familiar_badges_to_file(output_stats: Path, output_images: Path):
     results = {}
 
-    ui_wz = LOADER.find_wz(FindWzHelper(Wz_Type.UI))
-
     for badge_idx, badge in loaded_familiar_badges.items():
         results[badge_idx] = badge.to_dict_format()
 
-        badge_icon_node = ui_wz.FindNodeByPath(f"_Canvas\\UIWindowPL2.img\\Familiar\\viewPage\\badge\\@badge\\{badge_idx}\\complete\\normal\\0", True)
-
-        save_icon_from_node(badge_icon_node, output_images / f"{badge_idx}.png", LOADER)
+        badge.save_icon(badge_idx, output_images, LOADER)
 
     output_stats_path = output_stats / "familiar_badges.json"
     LOGGER.info(f"Writing Badge Stats to {output_stats_path}")
@@ -97,6 +92,7 @@ def main() -> int:
     dump_familiar_badges_to_file(args.output_stats, args.output_images)
 
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())

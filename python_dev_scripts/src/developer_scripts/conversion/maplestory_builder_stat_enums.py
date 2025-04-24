@@ -6,6 +6,7 @@ from developer_scripts.wz_utilities import GearPropType
 
 LOGGER = logging.getLogger(__name__)
 
+
 class StatType(StrEnum):
     arcaneForce = "arcaneForce"
     attack = "attack"
@@ -161,7 +162,7 @@ class StatType(StrEnum):
                 return StatType.ignoreDefense, value / 100
 
             case GearPropType.incDAMr:
-              return StatType.damage, value / 100
+                return StatType.damage, value / 100
 
             case GearPropType.incAllskill:
                 return StatType.allSkillLevel, value
