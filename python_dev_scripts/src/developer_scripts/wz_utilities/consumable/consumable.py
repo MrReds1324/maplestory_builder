@@ -101,11 +101,11 @@ class Consumable:
         return {"name": self.name, "description": self._convert_description(), "consumableStats": stat_values}
 
     def _convert_description(self) -> str:
-        description = self.description or self.reboot_description or ""
+        description: str = self.description or self.reboot_description or ""
         if results := DESCRIPTION_REGEX.findall(description):
             for replacing in results:
                 replacement = replacing[2:-1]
-                description.replace(replacing, replacement)
+                description = description.replace(replacing, replacement)
 
         return description
 
