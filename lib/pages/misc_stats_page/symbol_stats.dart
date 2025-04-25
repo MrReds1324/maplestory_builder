@@ -62,6 +62,29 @@ class SacredSymbolTable extends StatelessWidget {
   }
 }
 
+class GrandSacredSymbolTable extends StatelessWidget {
+  const GrandSacredSymbolTable({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 463,
+      height: 88,
+      padding: const EdgeInsets.all(5),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+                "Grand Sacred Symbols",
+                style: Theme.of(context).textTheme.headlineMedium
+            ),
+            const _GrandSacredSymbolCell(grandSacredSymbol: GrandSacredSymbol.tallahart),
+          ]
+      ),
+    );
+  }
+}
+
 class _ArcaneSymbolCell extends StatelessWidget {
   final ArcaneSymbol arcaneSymbol;
 
@@ -230,6 +253,90 @@ class _SacredSymbolCell extends StatelessWidget {
   }
 }
 
+class _GrandSacredSymbolCell extends StatelessWidget {
+  final GrandSacredSymbol grandSacredSymbol;
+
+  const _GrandSacredSymbolCell({
+    required this.grandSacredSymbol,
+  });
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      padding: const EdgeInsets.all(2.5),
+      child: Row(
+        children: <Widget>[
+          Container(
+              height: 37,
+              width: 220,
+              clipBehavior: Clip.hardEdge,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              decoration: BoxDecoration(
+                color: DEFAULT_COLOR,
+                border: Border.all(
+                    color: DEFAULT_COLOR
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+              ),
+              child: Center(
+                  child: _getStatTooltip(grandSacredSymbol: grandSacredSymbol)
+              )
+          ),
+          Container(
+            height: 37,
+            width: 220,
+            clipBehavior: Clip.hardEdge,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            decoration: BoxDecoration(
+              border: Border.all(
+                  color: DEFAULT_COLOR
+              ),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _GrandSacredSymbolButton(
+                    grandSacredSymbol: grandSacredSymbol,
+                    isLarge: true,
+                    isSubtract: true,
+                  ),
+                  _GrandSacredSymbolButton(
+                    grandSacredSymbol: grandSacredSymbol,
+                    isSubtract: true,
+                  ),
+                  const Spacer(),
+                  Selector<SymbolStatsProvider, int>(
+                      selector: (_, symbolStatsProvider) => symbolStatsProvider.grandSacredSymbolLevels[grandSacredSymbol]!,
+                      builder: (context, data, child) {
+                        return Text('$data');
+                      }
+                  ),
+                  const Spacer(),
+                  _GrandSacredSymbolButton(
+                    grandSacredSymbol: grandSacredSymbol,
+                  ),
+                  _GrandSacredSymbolButton(
+                    grandSacredSymbol: grandSacredSymbol,
+                    isLarge: true,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class _ArcaneSymbolButton extends StatelessWidget {
   final ArcaneSymbol arcaneSymbol;
   final bool isLarge;
@@ -320,14 +427,59 @@ class _SacredSymbolButton extends StatelessWidget {
   }
 }
 
-MapleTooltip _getStatTooltip({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol}) {
+class _GrandSacredSymbolButton extends StatelessWidget {
+  final GrandSacredSymbol grandSacredSymbol;
+  final bool isLarge;
+  final bool isSubtract;
+
+  const _GrandSacredSymbolButton({
+    required this.grandSacredSymbol,
+    this.isLarge = false,
+    this.isSubtract = false,
+  });
+
+  void _onHover(BuildContext context){
+    context.read<DifferenceCalculatorProvider>().modifyGrandSacredLevels(isLarge ? 5 : 1, grandSacredSymbol, isSubtract);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MapleTooltip(
+      tooltipWidgets: [
+        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} levels ${isSubtract ? "from" : "to"} ${grandSacredSymbol.formattedName}'),
+        Selector<DifferenceCalculatorProvider, Widget>(
+            selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
+            builder: (context, widget, child) {
+              return widget;
+            }
+        ),
+      ],
+      onHoverFunction: _onHover,
+      child: IconButton(
+        iconSize: 12,
+        onPressed: () {
+          var symbolStatsProvider = context.read<SymbolStatsProvider>();
+          var func = isSubtract ? symbolStatsProvider.subtractGrandSacredLevels : symbolStatsProvider.addGrandSacredLevels;
+          func(isLarge ? 5 : 1, grandSacredSymbol);
+        },
+        icon: Icon(
+            isSubtract ?
+            isLarge ? Icons.keyboard_double_arrow_down : Icons.keyboard_arrow_down :
+            isLarge ? Icons.keyboard_double_arrow_up : Icons.keyboard_arrow_up
+        ),
+      ),
+    );
+  }
+}
+
+MapleTooltip _getStatTooltip({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, GrandSacredSymbol? grandSacredSymbol}) {
 
   void onHover(BuildContext context) {
     context.read<SymbolStatsProvider>().getHoverTooltipText(arcaneSymbol: arcaneSymbol, sacredSymbol: sacredSymbol);
   }
 
   return MapleTooltip(
-    tooltipTitle: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName ?? '',
+    tooltipTitle: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName ?? grandSacredSymbol?.formattedName ?? '',
     tooltipWidgets: [
       Selector<SymbolStatsProvider, Widget>(
         selector: (_, symbolStatsProvider) => symbolStatsProvider.hoverTooltip,
@@ -337,6 +489,6 @@ MapleTooltip _getStatTooltip({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSy
       )
     ],
     onHoverFunction: onHover,
-    label: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName,
+    label: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName ?? grandSacredSymbol?.formattedName,
   );
 }

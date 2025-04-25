@@ -18,6 +18,7 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
   Map<ArcaneSymbol, int> arcaneSymbolLevels;
   Map<SacredSymbol, int> sacredSymbolLevels;
+  Map<GrandSacredSymbol, int> grandSacredSymbolLevels;
   Map<StatType, num>? cacheValue;
 
   Widget hoverTooltip = const SizedBox.shrink();
@@ -26,6 +27,7 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     required this.characterProvider,
     Map<ArcaneSymbol, int>? arcaneSymbolLevels,
     Map<SacredSymbol, int>? sacredSymbolLevels,
+    Map<GrandSacredSymbol, int>? grandSacredSymbolLevels,
   }) : 
     arcaneSymbolLevels = arcaneSymbolLevels ?? {
       ArcaneSymbol.vanishingJourney: 0,
@@ -42,7 +44,10 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
       SacredSymbol.shangrila: 0,
       SacredSymbol.arteria: 0,
       SacredSymbol.carcion: 0,
-    }
+    },
+    grandSacredSymbolLevels = grandSacredSymbolLevels ?? {
+      GrandSacredSymbol.tallahart: 0,
+  }
     ;
 
   @override
@@ -50,11 +55,13 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     CharacterProvider? characterProvider,
     Map<ArcaneSymbol, int>? arcaneSymbolLevels,
     Map<SacredSymbol, int>? sacredSymbolLevels,
+    Map<GrandSacredSymbol, int>? grandSacredSymbolLevels,
   }) {
     return SymbolStatsProvider(
       characterProvider: characterProvider ?? this.characterProvider.copyWith(),
       arcaneSymbolLevels: arcaneSymbolLevels ?? Map<ArcaneSymbol, int>.of(this.arcaneSymbolLevels),
       sacredSymbolLevels: sacredSymbolLevels ?? Map<SacredSymbol, int>.of(this.sacredSymbolLevels),
+      grandSacredSymbolLevels: grandSacredSymbolLevels ?? Map<GrandSacredSymbol, int>.of(this.grandSacredSymbolLevels),
     );
   }
 
@@ -75,11 +82,11 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     }
   }
 
-  Map<int, Map<StatType, int>> _getSymbolStatValues({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol}) {
+  Map<int, Map<StatType, num>> _getSymbolStatValues({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, GrandSacredSymbol? grandSacredSymbol}) {
     Map<StatType, int> level1Stats = {};
     Map<StatType, int> levelOtherStats = {};
 
-    Map<int, Map<StatType, int>> returnValue = {
+    Map<int, Map<StatType, num>> returnValue = {
       1: level1Stats,
       2: levelOtherStats,
     };
@@ -100,6 +107,14 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
 
       level1Target = SacredSymbol.LEVEL_1_STATS;
       levelOtherTarget = SacredSymbol.LEVEL_OTHER_STATS; 
+    }
+    else if (grandSacredSymbol != null) {
+      level1Stats[StatType.sacredPower] = GrandSacredSymbol.LEVEL_1_SACRED_POWER;
+      levelOtherStats[StatType.sacredPower] = GrandSacredSymbol.LEVEL_OTHER_SACRED_POWER;
+
+      returnValue[1] = GrandSacredSymbol.LEVEL_1_STATS;
+      returnValue[2] = GrandSacredSymbol.LEVEL_OTHER_STATS;
+      return returnValue;
     }
     else {
       return returnValue;
@@ -143,12 +158,12 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
         }
         var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbolEntry.key);
         // Do all the Level 1 stats first
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
         }
 
         // Do all the level 2-20 stats next
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolEntry.value - 1));
         }
       }
@@ -160,21 +175,37 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
         var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbolEntry.key);
 
         // Do all the Level 1 stats first
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
         }
 
         // Do all the level 2-11 stats next
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolEntry.value - 1));
         }
       }
 
+    for (MapEntry<GrandSacredSymbol, int> grandSacredSymbolEntry in grandSacredSymbolLevels.entries) {
+      if (grandSacredSymbolEntry.value == 0) {
+        continue;
+      }
+      var levelValues = _getSymbolStatValues(grandSacredSymbol: grandSacredSymbolEntry.key);
+
+      // Do all the Level 1 stats first
+      for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
+        symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+      }
+
+      // Do all the level 2-11 stats next
+      for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+        symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (grandSacredSymbolEntry.value - 1));
+      }
+    }
       
       return symbolStats;
   }
 
-  Map<StatType, num> getSingleSymbolStatValue({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, int additionalLevels = 0}) {
+  Map<StatType, num> getSingleSymbolStatValue({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, GrandSacredSymbol? grandSacredSymbol, int additionalLevels = 0}) {
     Map<StatType, num> symbolStats = {};
 
       if (arcaneSymbol != null) {
@@ -183,12 +214,12 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
         }
         var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbol);
         // Do all the Level 1 stats first
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
         }
 
         // Do all the level 2-20 stats next
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolLevels[arcaneSymbol]! + additionalLevels - 1));
         }
       }
@@ -200,12 +231,29 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
         var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbol);
 
         // Do all the Level 1 stats first
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_1]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
         }
 
         // Do all the level 2-11 stats next
-        for (MapEntry<StatType, int> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolLevels[sacredSymbol]! + additionalLevels - 1));
+        }
+      }
+
+      if (grandSacredSymbol != null) {
+        if ((grandSacredSymbolLevels[grandSacredSymbol]! + additionalLevels) == 0) {
+          return symbolStats;
+        }
+        var levelValues = _getSymbolStatValues(grandSacredSymbol: grandSacredSymbol);
+
+        // Do all the Level 1 stats first
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
+        }
+
+        // Do all the level 2-11 stats next
+        for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolLevels[sacredSymbol]! + additionalLevels - 1));
         }
       }
@@ -264,6 +312,34 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
 
     levelAmount = min(currentSacredLevel, levelAmount);
     sacredSymbolLevels[sacredSymbol] = sacredSymbolLevels[sacredSymbol]! - levelAmount;
+
+    cacheValue = null;
+    notifyListeners();
+  }
+
+  void addGrandSacredLevels(int levelAmount, GrandSacredSymbol grandSacredSymbol) {
+    var currentGrandSacredLevel = grandSacredSymbolLevels[grandSacredSymbol]!;
+
+    if (currentGrandSacredLevel == GrandSacredSymbol.MAX_LEVEL) {
+      return;
+    }
+
+    levelAmount = min(GrandSacredSymbol.MAX_LEVEL - currentGrandSacredLevel, levelAmount);
+    grandSacredSymbolLevels[grandSacredSymbol] = grandSacredSymbolLevels[grandSacredSymbol]! + levelAmount;
+
+    cacheValue = null;
+    notifyListeners();
+  }
+
+  void subtractGrandSacredLevels(int levelAmount, GrandSacredSymbol grandSacredSymbol) {
+    var currentGrandSacredLevel = grandSacredSymbolLevels[grandSacredSymbol]!;
+
+    if (currentGrandSacredLevel == 0) {
+      return;
+    }
+
+    levelAmount = min(currentGrandSacredLevel, levelAmount);
+    grandSacredSymbolLevels[grandSacredSymbol] = grandSacredSymbolLevels[grandSacredSymbol]! - levelAmount;
 
     cacheValue = null;
     notifyListeners();

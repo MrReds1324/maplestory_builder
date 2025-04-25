@@ -36,7 +36,8 @@ class MiscStatsPage extends StatelessWidget {
           Column(
             children: [
               ArcaneSymbolTable(),
-              SacredSymbolTable()
+              SacredSymbolTable(),
+              GrandSacredSymbolTable(),
             ],
           )
         ],

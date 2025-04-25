@@ -55,13 +55,39 @@ enum SacredSymbol {
   static const int LEVEL_OTHER_SACRED_POWER = 10;
   // https://maplestory.fandom.com/wiki/Sacred_Symbol:_Cernium
   static const Map<CharacterClass, Map<StatType, int>> LEVEL_1_STATS = {
-    CharacterClass.beginner: {StatType.allStats: 500}, // Note that this is not real - maps all other classes to their main stat value
+    CharacterClass.beginner: {StatType.mainStat: 500}, // Note that this is not real - maps all other classes to their main stat value
     CharacterClass.xenon: {StatType.finalStr: 240, StatType.finalDex: 240, StatType.finalLuk: 240},
     CharacterClass.demonAvenger: {StatType.finalHp: 10500},
   };
   static const Map<CharacterClass, Map<StatType, int>> LEVEL_OTHER_STATS = {
-    CharacterClass.beginner: {StatType.allStats: 200}, // Note that this is not real - maps all other classes to their main stat value
+    CharacterClass.beginner: {StatType.mainStat: 200}, // Note that this is not real - maps all other classes to their main stat value
     CharacterClass.xenon: {StatType.finalStr: 96, StatType.finalDex: 96, StatType.finalLuk: 96},
     CharacterClass.demonAvenger: {StatType.finalHp: 4200},
+  };
+}
+
+enum GrandSacredSymbol {
+  tallahart(formattedName: "Tallahart"),
+  ;
+
+  const GrandSacredSymbol({
+    required this.formattedName,
+  });
+
+  final String formattedName;
+
+  static const int MAX_LEVEL = 11;
+  static const int LEVEL_1_SACRED_POWER = 10;
+  static const int LEVEL_OTHER_SACRED_POWER = 10;
+  // https://maplestorywiki.net/w/Grand_Sacred_Symbol:_Tallahart
+  static const Map<StatType, num> LEVEL_1_STATS = {
+    StatType.expAdditional: 0.1,
+    StatType.mesosObtained: 0.05,
+    StatType.itemDropRate: 0.05,
+  };
+  static const Map<StatType, num> LEVEL_OTHER_STATS = {
+    StatType.expAdditional: 0.04,
+    StatType.mesosObtained: 0.01,
+    StatType.itemDropRate: 0.01,
   };
 }

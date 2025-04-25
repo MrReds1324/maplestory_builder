@@ -747,6 +747,20 @@ void compareBadgeSets(BuildContext context, int newBadgeSetNumber) {
     diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
   }
 
+  void modifyGrandSacredLevels(int possibleLevelsToAddOrSubtract, GrandSacredSymbol grandSacredSymbol, bool isSubtract) {
+    var tempSymbolStatsProvider = diffCalculatorProvider.symbolStatsProvider;
+    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider.copyWith();
+    if (isSubtract) {
+      diffCalculatorProvider.symbolStatsProvider.subtractGrandSacredLevels(possibleLevelsToAddOrSubtract, grandSacredSymbol);
+    }
+    else {
+      diffCalculatorProvider.symbolStatsProvider.addGrandSacredLevels(possibleLevelsToAddOrSubtract, grandSacredSymbol);
+    }
+    diffCalculatorProvider.calculateEverything();
+    updateDifferenceText();
+    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
+  }
+
   void modifyLegionBoardStatLevels(int possibleLevelsToAddOrSubtract, StatType statType, bool isSubtract, bool isOuterBoard) {
     var tempLegionStatsProvider = diffCalculatorProvider.legionStatsProvider;
     diffCalculatorProvider.legionStatsProvider = tempLegionStatsProvider.copyWith();
