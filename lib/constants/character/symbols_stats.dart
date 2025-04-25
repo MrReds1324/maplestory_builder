@@ -1,7 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
+
 import 'package:maplestory_builder/constants/character/classes.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 enum ArcaneSymbol {
   vanishingJourney(formattedName: "Vanishing Journey"),
@@ -32,6 +35,28 @@ enum ArcaneSymbol {
     CharacterClass.xenon: {StatType.finalStrDexLuk: 48},
     CharacterClass.demonAvenger: {StatType.finalHp: 2100},
   };
+
+  Image getAssetImage() {
+    String imageIndex;
+    switch (this) {
+      case ArcaneSymbol.vanishingJourney:
+        imageIndex = "1";
+      case ArcaneSymbol.chuchuIsland:
+        imageIndex = "2";
+      case ArcaneSymbol.lachelein:
+        imageIndex = "3";
+      case ArcaneSymbol.arcana:
+        imageIndex = "4";
+      case ArcaneSymbol.morass:
+        imageIndex = "5";
+      case ArcaneSymbol.esfera:
+        imageIndex = "6";
+    }
+    return Image(image: AssetImage('assets/images/arcane_symbols/$imageIndex.png'), height: 34, width: 34, errorBuilder: (ctx, error, stackTrace) => Icon(
+    MdiIcons.circle,
+    size: 30,
+    ));
+  }
 }
 
 
@@ -64,6 +89,28 @@ enum SacredSymbol {
     CharacterClass.xenon: {StatType.finalStr: 96, StatType.finalDex: 96, StatType.finalLuk: 96},
     CharacterClass.demonAvenger: {StatType.finalHp: 4200},
   };
+
+  Image getAssetImage() {
+    String imageIndex;
+    switch (this) {
+      case SacredSymbol.cernium:
+        imageIndex = "1";
+      case SacredSymbol.arcus:
+        imageIndex = "2";
+      case SacredSymbol.odium:
+        imageIndex = "3";
+      case SacredSymbol.shangrila:
+        imageIndex = "4";
+      case SacredSymbol.arteria:
+        imageIndex = "5";
+      case SacredSymbol.carcion:
+        imageIndex = "6";
+    }
+    return Image(image: AssetImage('assets/images/sacred_symbols/$imageIndex.png'), height: 34, width: 34, errorBuilder: (ctx, error, stackTrace) => Icon(
+      MdiIcons.circle,
+      size: 30,
+    ));
+  }
 }
 
 enum GrandSacredSymbol {
@@ -90,4 +137,16 @@ enum GrandSacredSymbol {
     StatType.mesosObtained: 0.01,
     StatType.itemDropRate: 0.01,
   };
+
+  Image getAssetImage() {
+    String imageIndex;
+    switch (this) {
+      case GrandSacredSymbol.tallahart:
+        imageIndex = "7";
+    }
+    return Image(image: AssetImage('assets/images/sacred_symbols/$imageIndex.png'), height: 34, width: 34, errorBuilder: (ctx, error, stackTrace) => Icon(
+      MdiIcons.circle,
+      size: 30,
+    ));
+  }
 }

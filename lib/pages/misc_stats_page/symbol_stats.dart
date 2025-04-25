@@ -113,9 +113,16 @@ class _ArcaneSymbolCell extends StatelessWidget {
                 bottomLeft: Radius.circular(10),
               ),
             ),
-            child: Center(
-              child: _getStatTooltip(arcaneSymbol: arcaneSymbol)
-            )
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 30),
+                  arcaneSymbol.getAssetImage(),
+                  const SizedBox(width: 15),
+                  _getStatTooltip(arcaneSymbol: arcaneSymbol),
+                  const Spacer()
+                ]
+            ),
           ),
           Container(
             height: 37,
@@ -197,9 +204,16 @@ class _SacredSymbolCell extends StatelessWidget {
                 bottomLeft: Radius.circular(10),
               ),
             ),
-            child: Center(
-              child: _getStatTooltip(sacredSymbol: sacredSymbol)
-            )
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(width: 30),
+                  sacredSymbol.getAssetImage(),
+                  const SizedBox(width: 15),
+                  _getStatTooltip(sacredSymbol: sacredSymbol),
+                  const Spacer()
+                ]
+            ),
           ),
           Container(
             height: 37,
@@ -281,9 +295,16 @@ class _GrandSacredSymbolCell extends StatelessWidget {
                   bottomLeft: Radius.circular(10),
                 ),
               ),
-              child: Center(
-                  child: _getStatTooltip(grandSacredSymbol: grandSacredSymbol)
-              )
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 30),
+                    grandSacredSymbol.getAssetImage(),
+                    const SizedBox(width: 15),
+                    _getStatTooltip(grandSacredSymbol: grandSacredSymbol),
+                    const Spacer()
+                  ]
+              ),
           ),
           Container(
             height: 37,
