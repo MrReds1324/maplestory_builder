@@ -6,91 +6,76 @@ import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
 import 'package:provider/provider.dart';
 
-class ArcaneSymbolTable extends StatelessWidget {
-  const ArcaneSymbolTable({super.key});
+class SymbolTable<T extends Enum> extends StatelessWidget {
+  final List<T> enumValues;
+  final String tableTitle;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 463,
-      height: 298,
-      padding: const EdgeInsets.all(5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Arcane Symbols",
-            style: Theme.of(context).textTheme.headlineMedium
-          ),
-          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.vanishingJourney),
-          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.chuchuIsland),
-          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.lachelein),
-          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.arcana),
-          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.morass),
-          const _ArcaneSymbolCell(arcaneSymbol: ArcaneSymbol.esfera),          
-        ]
-      ),
-    );
-  }
-}
-
-class SacredSymbolTable extends StatelessWidget {
-  const SacredSymbolTable({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 463,
-      height: 298,
-      padding: const EdgeInsets.all(5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Sacred Symbols",
-            style: Theme.of(context).textTheme.headlineMedium
-          ),
-          const _SacredSymbolCell(sacredSymbol: SacredSymbol.cernium),
-          const _SacredSymbolCell(sacredSymbol: SacredSymbol.arcus),
-          const _SacredSymbolCell(sacredSymbol: SacredSymbol.odium),
-          const _SacredSymbolCell(sacredSymbol: SacredSymbol.shangrila),
-          const _SacredSymbolCell(sacredSymbol: SacredSymbol.arteria),
-          const _SacredSymbolCell(sacredSymbol: SacredSymbol.carcion),          
-        ]
-      ),
-    );
-  }
-}
-
-class GrandSacredSymbolTable extends StatelessWidget {
-  const GrandSacredSymbolTable({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 463,
-      height: 88,
-      padding: const EdgeInsets.all(5),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-                "Grand Sacred Symbols",
-                style: Theme.of(context).textTheme.headlineMedium
-            ),
-            const _GrandSacredSymbolCell(grandSacredSymbol: GrandSacredSymbol.tallahart),
-          ]
-      ),
-    );
-  }
-}
-
-class _ArcaneSymbolCell extends StatelessWidget {
-  final ArcaneSymbol arcaneSymbol;
-
-  const _ArcaneSymbolCell({
-    required this.arcaneSymbol,
+  const SymbolTable({
+    required this.enumValues,
+    required this.tableTitle,
+    super.key
   });
+
+  List<Widget> generateTable(BuildContext context) {
+    List<Widget> returnValue = [Text(
+        tableTitle,
+        style: Theme.of(context).textTheme.headlineMedium
+    ),];
+
+    for (Enum enumValue in enumValues) {
+      returnValue.add(_SymbolCell(symbol: enumValue));
+    }
+
+    return returnValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 463,
+      height: (76 + (37 * enumValues.length)).toDouble(),
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: generateTable(context)
+      ),
+    );
+  }
+}
+
+
+class _SymbolCell<T extends Enum> extends StatelessWidget {
+  final T symbol;
+
+  const _SymbolCell({
+    required this.symbol,
+  });
+
+  Widget getAssetImage() {
+    if (symbol is ArcaneSymbol) {
+      return (symbol as ArcaneSymbol).getAssetImage();
+    }
+    else if (symbol is SacredSymbol) {
+      return (symbol as SacredSymbol).getAssetImage();
+    }
+    else if (symbol is GrandSacredSymbol) {
+      return (symbol as GrandSacredSymbol).getAssetImage();
+    }
+    return const SizedBox.shrink();
+  }
+
+  int getSelector(SymbolStatsProvider symbolStatsProvider) {
+    if (symbol is ArcaneSymbol) {
+      return symbolStatsProvider.arcaneSymbolLevels[symbol]!;
+    }
+    else if (symbol is SacredSymbol) {
+      return symbolStatsProvider.sacredSymbolLevels[symbol]!;
+    }
+    else if (symbol is GrandSacredSymbol) {
+      return symbolStatsProvider.grandSacredSymbolLevels[symbol]!;
+    }
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context){
@@ -117,9 +102,9 @@ class _ArcaneSymbolCell extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(width: 30),
-                  arcaneSymbol.getAssetImage(),
+                  getAssetImage(),
                   const SizedBox(width: 15),
-                  _getStatTooltip(arcaneSymbol: arcaneSymbol),
+                  _getStatTooltip(symbol),
                   const Spacer()
                 ]
             ),
@@ -142,28 +127,28 @@ class _ArcaneSymbolCell extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _ArcaneSymbolButton(
-                    arcaneSymbol: arcaneSymbol, 
+                  _SymbolButton(
+                    symbol: symbol,
                     isLarge: true,
                     isSubtract: true,
                   ),
-                  _ArcaneSymbolButton(
-                    arcaneSymbol: arcaneSymbol, 
+                  _SymbolButton(
+                    symbol: symbol,
                     isSubtract: true,
                   ),
                   const Spacer(),
                   Selector<SymbolStatsProvider, int>(
-                    selector: (_, symbolStatsProvider) => symbolStatsProvider.arcaneSymbolLevels[arcaneSymbol]!,
+                    selector: (_, symbolStatsProvider) => getSelector(symbolStatsProvider),
                     builder: (context, data, child) {
                       return Text('$data');
                     }
                   ),
                   const Spacer(),
-                  _ArcaneSymbolButton(
-                    arcaneSymbol: arcaneSymbol, 
+                  _SymbolButton(
+                    symbol: symbol,
                   ),
-                  _ArcaneSymbolButton(
-                    arcaneSymbol: arcaneSymbol, 
+                  _SymbolButton(
+                    symbol: symbol,
                     isLarge: true,
                   ),
                 ],
@@ -176,208 +161,39 @@ class _ArcaneSymbolCell extends StatelessWidget {
   }
 }
 
-class _SacredSymbolCell extends StatelessWidget {
-  final SacredSymbol sacredSymbol;
-
-  const _SacredSymbolCell({
-    required this.sacredSymbol,
-  });
-
-  @override
-  Widget build(BuildContext context){
-    return Container(
-      padding: const EdgeInsets.all(2.5),
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: 37,
-            width: 220,
-            clipBehavior: Clip.hardEdge,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              color: DEFAULT_COLOR,
-              border: Border.all(
-                color: DEFAULT_COLOR
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-            ),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(width: 30),
-                  sacredSymbol.getAssetImage(),
-                  const SizedBox(width: 15),
-                  _getStatTooltip(sacredSymbol: sacredSymbol),
-                  const Spacer()
-                ]
-            ),
-          ),
-          Container(
-            height: 37,
-            width: 220,
-            clipBehavior: Clip.hardEdge,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: DEFAULT_COLOR
-              ),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _SacredSymbolButton(
-                    sacredSymbol: sacredSymbol, 
-                    isLarge: true,
-                    isSubtract: true,
-                  ),
-                  _SacredSymbolButton(
-                    sacredSymbol: sacredSymbol, 
-                    isSubtract: true,
-                  ),
-                  const Spacer(),
-                  Selector<SymbolStatsProvider, int>(
-                    selector: (_, symbolStatsProvider) => symbolStatsProvider.sacredSymbolLevels[sacredSymbol]!,
-                    builder: (context, data, child) {
-                      return Text('$data');
-                    }
-                  ),
-                  const Spacer(),
-                  _SacredSymbolButton(
-                    sacredSymbol: sacredSymbol, 
-                  ),
-                  _SacredSymbolButton(
-                    sacredSymbol: sacredSymbol, 
-                    isLarge: true,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _GrandSacredSymbolCell extends StatelessWidget {
-  final GrandSacredSymbol grandSacredSymbol;
-
-  const _GrandSacredSymbolCell({
-    required this.grandSacredSymbol,
-  });
-
-  @override
-  Widget build(BuildContext context){
-    return Container(
-      padding: const EdgeInsets.all(2.5),
-      child: Row(
-        children: <Widget>[
-          Container(
-              height: 37,
-              width: 220,
-              clipBehavior: Clip.hardEdge,
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                color: DEFAULT_COLOR,
-                border: Border.all(
-                    color: DEFAULT_COLOR
-                ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                ),
-              ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(width: 30),
-                    grandSacredSymbol.getAssetImage(),
-                    const SizedBox(width: 15),
-                    _getStatTooltip(grandSacredSymbol: grandSacredSymbol),
-                    const Spacer()
-                  ]
-              ),
-          ),
-          Container(
-            height: 37,
-            width: 220,
-            clipBehavior: Clip.hardEdge,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: DEFAULT_COLOR
-              ),
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _GrandSacredSymbolButton(
-                    grandSacredSymbol: grandSacredSymbol,
-                    isLarge: true,
-                    isSubtract: true,
-                  ),
-                  _GrandSacredSymbolButton(
-                    grandSacredSymbol: grandSacredSymbol,
-                    isSubtract: true,
-                  ),
-                  const Spacer(),
-                  Selector<SymbolStatsProvider, int>(
-                      selector: (_, symbolStatsProvider) => symbolStatsProvider.grandSacredSymbolLevels[grandSacredSymbol]!,
-                      builder: (context, data, child) {
-                        return Text('$data');
-                      }
-                  ),
-                  const Spacer(),
-                  _GrandSacredSymbolButton(
-                    grandSacredSymbol: grandSacredSymbol,
-                  ),
-                  _GrandSacredSymbolButton(
-                    grandSacredSymbol: grandSacredSymbol,
-                    isLarge: true,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _ArcaneSymbolButton extends StatelessWidget {
-  final ArcaneSymbol arcaneSymbol;
+class _SymbolButton<T extends Enum> extends StatelessWidget {
+  final T symbol;
   final bool isLarge;
   final bool isSubtract;
 
-  const _ArcaneSymbolButton({
-    required this.arcaneSymbol,
+  const _SymbolButton({
+    required this.symbol,
     this.isLarge = false,
     this.isSubtract = false,
   });
 
   void _onHover(BuildContext context){
-    context.read<DifferenceCalculatorProvider>().modifyArcaneLevels(isLarge ? 5 : 1, arcaneSymbol, isSubtract);
+    context.read<DifferenceCalculatorProvider>().modifySymbolLevels(isLarge ? 5 : 1, symbol, isSubtract);
+  }
+
+  String getFormattedName() {
+    if (symbol is ArcaneSymbol) {
+      return (symbol as ArcaneSymbol).formattedName;
+    }
+    else if (symbol is SacredSymbol) {
+      return (symbol as SacredSymbol).formattedName;
+    }
+    else if (symbol is GrandSacredSymbol) {
+      return (symbol as GrandSacredSymbol).formattedName;
+    }
+    return "";
   }
 
   @override
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} levels ${isSubtract ? "from" : "to"} ${arcaneSymbol.formattedName}'),
+        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} levels ${isSubtract ? "from" : "to"} ${getFormattedName()}'),
         Selector<DifferenceCalculatorProvider, Widget>(
           selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
           builder: (context, widget, child) {
@@ -390,8 +206,8 @@ class _ArcaneSymbolButton extends StatelessWidget {
         iconSize: 12,
         onPressed: () {
           var traitStatsProvider = context.read<SymbolStatsProvider>();
-          var func = isSubtract ? traitStatsProvider.subtractArcaneLevels : traitStatsProvider.addArcaneLevels;
-          func(isLarge ? 5 : 1, arcaneSymbol);
+          var func = isSubtract ? traitStatsProvider.subtractSymbolLevels : traitStatsProvider.addSymbolLevels;
+          func(isLarge ? 5 : 1, symbol);
         },
         icon: Icon(
           isSubtract ? 
@@ -403,104 +219,25 @@ class _ArcaneSymbolButton extends StatelessWidget {
   }
 }
 
-class _SacredSymbolButton extends StatelessWidget {
-  final SacredSymbol sacredSymbol;
-  final bool isLarge;
-  final bool isSubtract;
-
-  const _SacredSymbolButton({
-    required this.sacredSymbol,
-    this.isLarge = false,
-    this.isSubtract = false,
-  });
-
-  void _onHover(BuildContext context){
-    context.read<DifferenceCalculatorProvider>().modifySacredLevels(isLarge ? 5 : 1, sacredSymbol, isSubtract);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MapleTooltip(
-      tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} levels ${isSubtract ? "from" : "to"} ${sacredSymbol.formattedName}'),
-        Selector<DifferenceCalculatorProvider, Widget>(
-          selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-          builder: (context, widget, child) {
-            return widget;
-          }
-        ),
-      ],
-      onHoverFunction: _onHover,
-      child: IconButton(
-        iconSize: 12,
-        onPressed: () {
-          var symbolStatsProvider = context.read<SymbolStatsProvider>();
-          var func = isSubtract ? symbolStatsProvider.subtractSacredLevels : symbolStatsProvider.addSacredLevels;
-          func(isLarge ? 5 : 1, sacredSymbol);
-        },
-        icon: Icon(
-          isSubtract ? 
-          isLarge ? Icons.keyboard_double_arrow_down : Icons.keyboard_arrow_down : 
-          isLarge ? Icons.keyboard_double_arrow_up : Icons.keyboard_arrow_up
-        ),
-      ),
-    );
-  }
-}
-
-class _GrandSacredSymbolButton extends StatelessWidget {
-  final GrandSacredSymbol grandSacredSymbol;
-  final bool isLarge;
-  final bool isSubtract;
-
-  const _GrandSacredSymbolButton({
-    required this.grandSacredSymbol,
-    this.isLarge = false,
-    this.isSubtract = false,
-  });
-
-  void _onHover(BuildContext context){
-    context.read<DifferenceCalculatorProvider>().modifyGrandSacredLevels(isLarge ? 5 : 1, grandSacredSymbol, isSubtract);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MapleTooltip(
-      tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} levels ${isSubtract ? "from" : "to"} ${grandSacredSymbol.formattedName}'),
-        Selector<DifferenceCalculatorProvider, Widget>(
-            selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-            builder: (context, widget, child) {
-              return widget;
-            }
-        ),
-      ],
-      onHoverFunction: _onHover,
-      child: IconButton(
-        iconSize: 12,
-        onPressed: () {
-          var symbolStatsProvider = context.read<SymbolStatsProvider>();
-          var func = isSubtract ? symbolStatsProvider.subtractGrandSacredLevels : symbolStatsProvider.addGrandSacredLevels;
-          func(isLarge ? 5 : 1, grandSacredSymbol);
-        },
-        icon: Icon(
-            isSubtract ?
-            isLarge ? Icons.keyboard_double_arrow_down : Icons.keyboard_arrow_down :
-            isLarge ? Icons.keyboard_double_arrow_up : Icons.keyboard_arrow_up
-        ),
-      ),
-    );
-  }
-}
-
-MapleTooltip _getStatTooltip({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, GrandSacredSymbol? grandSacredSymbol}) {
+MapleTooltip _getStatTooltip<T extends Enum>(T symbol) {
 
   void onHover(BuildContext context) {
-    context.read<SymbolStatsProvider>().getHoverTooltipText(arcaneSymbol: arcaneSymbol, sacredSymbol: sacredSymbol);
+    context.read<SymbolStatsProvider>().getHoverTooltipText(symbol);
+  }
+
+  String formattedName = "";
+  if (symbol is ArcaneSymbol) {
+    formattedName = symbol.formattedName;
+  }
+  else if (symbol is SacredSymbol) {
+    formattedName = symbol.formattedName;
+  }
+  else if (symbol is GrandSacredSymbol) {
+    formattedName = symbol.formattedName;
   }
 
   return MapleTooltip(
-    tooltipTitle: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName ?? grandSacredSymbol?.formattedName ?? '',
+    tooltipTitle: formattedName,
     tooltipWidgets: [
       Selector<SymbolStatsProvider, Widget>(
         selector: (_, symbolStatsProvider) => symbolStatsProvider.hoverTooltip,
@@ -510,6 +247,6 @@ MapleTooltip _getStatTooltip({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSy
       )
     ],
     onHoverFunction: onHover,
-    label: arcaneSymbol?.formattedName ?? sacredSymbol?.formattedName ?? grandSacredSymbol?.formattedName,
+    label: formattedName,
   );
 }

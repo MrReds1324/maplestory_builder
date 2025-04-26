@@ -719,42 +719,14 @@ void compareBadgeSets(BuildContext context, int newBadgeSetNumber) {
     diffCalculatorProvider.traitStatsProvider = tempTraitStatsProvider;
   }
 
-  void modifyArcaneLevels(int possibleLevelsToAddOrSubtract, ArcaneSymbol arcaneSymbol, bool isSubtract) {
+  void modifySymbolLevels<T extends Enum>(int possibleLevelsToAddOrSubtract, T symbol, bool isSubtract) {
     var tempSymbolStatsProvider = diffCalculatorProvider.symbolStatsProvider;
     diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider.copyWith();
     if (isSubtract) {
-      diffCalculatorProvider.symbolStatsProvider.subtractArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
+      diffCalculatorProvider.symbolStatsProvider.subtractSymbolLevels(possibleLevelsToAddOrSubtract, symbol);
     }
     else {
-      diffCalculatorProvider.symbolStatsProvider.addArcaneLevels(possibleLevelsToAddOrSubtract, arcaneSymbol);
-    }
-    diffCalculatorProvider.calculateEverything();
-    updateDifferenceText();
-    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
-  }
-
-  void modifySacredLevels(int possibleLevelsToAddOrSubtract, SacredSymbol sacredSymbol, bool isSubtract) {
-    var tempSymbolStatsProvider = diffCalculatorProvider.symbolStatsProvider;
-    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider.copyWith();
-    if (isSubtract) {
-      diffCalculatorProvider.symbolStatsProvider.subtractSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
-    }
-    else {
-      diffCalculatorProvider.symbolStatsProvider.addSacredLevels(possibleLevelsToAddOrSubtract, sacredSymbol);
-    }
-    diffCalculatorProvider.calculateEverything();
-    updateDifferenceText();
-    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider;
-  }
-
-  void modifyGrandSacredLevels(int possibleLevelsToAddOrSubtract, GrandSacredSymbol grandSacredSymbol, bool isSubtract) {
-    var tempSymbolStatsProvider = diffCalculatorProvider.symbolStatsProvider;
-    diffCalculatorProvider.symbolStatsProvider = tempSymbolStatsProvider.copyWith();
-    if (isSubtract) {
-      diffCalculatorProvider.symbolStatsProvider.subtractGrandSacredLevels(possibleLevelsToAddOrSubtract, grandSacredSymbol);
-    }
-    else {
-      diffCalculatorProvider.symbolStatsProvider.addGrandSacredLevels(possibleLevelsToAddOrSubtract, grandSacredSymbol);
+      diffCalculatorProvider.symbolStatsProvider.addSymbolLevels(possibleLevelsToAddOrSubtract, symbol);
     }
     diffCalculatorProvider.calculateEverything();
     updateDifferenceText();

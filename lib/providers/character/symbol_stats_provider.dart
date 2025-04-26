@@ -82,7 +82,7 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     }
   }
 
-  Map<int, Map<StatType, num>> _getSymbolStatValues({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, GrandSacredSymbol? grandSacredSymbol}) {
+  Map<int, Map<StatType, num>> _getSymbolStatValues<T extends Enum>(T symbol) {
     Map<StatType, int> level1Stats = {};
     Map<StatType, int> levelOtherStats = {};
 
@@ -94,21 +94,21 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
     Map<CharacterClass, Map<StatType, int>> level1Target;
     Map<CharacterClass, Map<StatType, int>> levelOtherTarget;
 
-    if (arcaneSymbol != null) {
+    if (symbol is ArcaneSymbol) {
       level1Stats[StatType.arcaneForce] = ArcaneSymbol.LEVEL_1_ARCANE_FORCE;
       levelOtherStats[StatType.arcaneForce] = ArcaneSymbol.LEVEL_OTHER_ARCANE_FORCE;
 
       level1Target = ArcaneSymbol.LEVEL_1_STATS;
       levelOtherTarget = ArcaneSymbol.LEVEL_OTHER_STATS; 
     }
-    else if (sacredSymbol != null) {
+    else if (symbol is SacredSymbol) {
       level1Stats[StatType.sacredPower] = SacredSymbol.LEVEL_1_SACRED_POWER;
       levelOtherStats[StatType.sacredPower] = SacredSymbol.LEVEL_OTHER_SACRED_POWER;
 
       level1Target = SacredSymbol.LEVEL_1_STATS;
       levelOtherTarget = SacredSymbol.LEVEL_OTHER_STATS; 
     }
-    else if (grandSacredSymbol != null) {
+    else if (symbol is GrandSacredSymbol) {
       level1Stats[StatType.sacredPower] = GrandSacredSymbol.LEVEL_1_SACRED_POWER;
       levelOtherStats[StatType.sacredPower] = GrandSacredSymbol.LEVEL_OTHER_SACRED_POWER;
 
@@ -156,7 +156,7 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
         if (arcaneSymbolEntry.value == 0) {
           continue;
         }
-        var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbolEntry.key);
+        var levelValues = _getSymbolStatValues(arcaneSymbolEntry.key);
         // Do all the Level 1 stats first
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
@@ -172,7 +172,7 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
         if (sacredSymbolEntry.value == 0) {
           continue;
         }
-        var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbolEntry.key);
+        var levelValues = _getSymbolStatValues(sacredSymbolEntry.key);
 
         // Do all the Level 1 stats first
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
@@ -189,7 +189,7 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
       if (grandSacredSymbolEntry.value == 0) {
         continue;
       }
-      var levelValues = _getSymbolStatValues(grandSacredSymbol: grandSacredSymbolEntry.key);
+      var levelValues = _getSymbolStatValues(grandSacredSymbolEntry.key);
 
       // Do all the Level 1 stats first
       for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
@@ -205,14 +205,14 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
       return symbolStats;
   }
 
-  Map<StatType, num> getSingleSymbolStatValue({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol, GrandSacredSymbol? grandSacredSymbol, int additionalLevels = 0}) {
+  Map<StatType, num> getSingleSymbolStatValue<T extends Enum>(T symbol, {int additionalLevels = 0}) {
     Map<StatType, num> symbolStats = {};
 
-      if (arcaneSymbol != null) {
-        if ((arcaneSymbolLevels[arcaneSymbol]! + additionalLevels) == 0) {
+      if (symbol is ArcaneSymbol) {
+        if ((arcaneSymbolLevels[symbol]! + additionalLevels) == 0) {
           return symbolStats;
         }
-        var levelValues = _getSymbolStatValues(arcaneSymbol: arcaneSymbol);
+        var levelValues = _getSymbolStatValues(symbol);
         // Do all the Level 1 stats first
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
           symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + statEntry.value;
@@ -220,15 +220,15 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
 
         // Do all the level 2-20 stats next
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolLevels[arcaneSymbol]! + additionalLevels - 1));
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (arcaneSymbolLevels[symbol]! + additionalLevels - 1));
         }
       }
 
-      if (sacredSymbol != null) {
-        if ((sacredSymbolLevels[sacredSymbol]! + additionalLevels) == 0) {
+      else if (symbol is SacredSymbol) {
+        if ((sacredSymbolLevels[symbol]! + additionalLevels) == 0) {
           return symbolStats;
         }
-        var levelValues = _getSymbolStatValues(sacredSymbol: sacredSymbol);
+        var levelValues = _getSymbolStatValues(symbol);
 
         // Do all the Level 1 stats first
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
@@ -237,15 +237,15 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
 
         // Do all the level 2-11 stats next
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolLevels[sacredSymbol]! + additionalLevels - 1));
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolLevels[symbol]! + additionalLevels - 1));
         }
       }
 
-      if (grandSacredSymbol != null) {
-        if ((grandSacredSymbolLevels[grandSacredSymbol]! + additionalLevels) == 0) {
+      else if (symbol is GrandSacredSymbol) {
+        if ((grandSacredSymbolLevels[symbol]! + additionalLevels) == 0) {
           return symbolStats;
         }
-        var levelValues = _getSymbolStatValues(grandSacredSymbol: grandSacredSymbol);
+        var levelValues = _getSymbolStatValues(symbol);
 
         // Do all the Level 1 stats first
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_1]!.entries) {
@@ -254,105 +254,75 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
 
         // Do all the level 2-11 stats next
         for (MapEntry<StatType, num> statEntry in levelValues[LEVEL_OTHER]!.entries) {
-          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (sacredSymbolLevels[sacredSymbol]! + additionalLevels - 1));
+          symbolStats[statEntry.key] = (symbolStats[statEntry.key] ?? 0) + (statEntry.value * (grandSacredSymbolLevels[symbol]! + additionalLevels - 1));
         }
       }
 
       return symbolStats;
   }
 
-  void addArcaneLevels(int levelAmount, ArcaneSymbol arcaneSymbol) {
-    var currentArcaneLevel = arcaneSymbolLevels[arcaneSymbol]!;
+  void addSymbolLevels<T extends Enum>(int levelAmount, T symbol) {
+    Map<Enum, int> targetMap = {};
+    int maxLevel = 0;
+    if (symbol is ArcaneSymbol) {
+      targetMap = arcaneSymbolLevels;
+      maxLevel = ArcaneSymbol.MAX_LEVEL;
+    }
+    else if (symbol is SacredSymbol) {
+      targetMap = sacredSymbolLevels;
+      maxLevel = SacredSymbol.MAX_LEVEL;
+    }
+    else if (symbol is GrandSacredSymbol) {
+      targetMap = grandSacredSymbolLevels;
+      maxLevel = GrandSacredSymbol.MAX_LEVEL;
+    }
+
+    var currentLevel = targetMap[symbol]!;
     
-    if (currentArcaneLevel == ArcaneSymbol.MAX_LEVEL) {
+    if (currentLevel == maxLevel) {
       return;
     }
 
-    levelAmount = min(ArcaneSymbol.MAX_LEVEL - currentArcaneLevel, levelAmount);
-    arcaneSymbolLevels[arcaneSymbol] = arcaneSymbolLevels[arcaneSymbol]! + levelAmount;
+    levelAmount = min(maxLevel - currentLevel, levelAmount);
+    targetMap[symbol] = targetMap[symbol]! + levelAmount;
 
     cacheValue = null;
     notifyListeners();
   }
 
-  void subtractArcaneLevels(int levelAmount, ArcaneSymbol arcaneSymbol) {
-    var currentArcaneLevel = arcaneSymbolLevels[arcaneSymbol]!;
-    
-    if (currentArcaneLevel == 0) {
+  void subtractSymbolLevels<T extends Enum>(int levelAmount, T symbol) {
+    Map<Enum, int> targetMap = {};
+    if (symbol is ArcaneSymbol) {
+      targetMap = arcaneSymbolLevels;
+    }
+    else if (symbol is SacredSymbol) {
+      targetMap = sacredSymbolLevels;
+    }
+    else if (symbol is GrandSacredSymbol) {
+      targetMap = grandSacredSymbolLevels;
+    }
+
+    var currentLevel = targetMap[symbol]!;
+
+    if (currentLevel == 0) {
       return;
     }
 
-    levelAmount = min(currentArcaneLevel, levelAmount);
-    arcaneSymbolLevels[arcaneSymbol] = arcaneSymbolLevels[arcaneSymbol]! - levelAmount;
+    levelAmount = min(currentLevel, levelAmount);
+    targetMap[symbol] = targetMap[symbol]! - levelAmount;
 
     cacheValue = null;
     notifyListeners();
   }
 
-  void addSacredLevels(int levelAmount, SacredSymbol sacredSymbol) {
-    var currentSacredLevel = sacredSymbolLevels[sacredSymbol]!;
-    
-    if (currentSacredLevel == SacredSymbol.MAX_LEVEL) {
-      return;
-    }
-
-    levelAmount = min(SacredSymbol.MAX_LEVEL - currentSacredLevel, levelAmount);
-    sacredSymbolLevels[sacredSymbol] = sacredSymbolLevels[sacredSymbol]! + levelAmount;
-
-    cacheValue = null;
-    notifyListeners();
-  }
-
-  void subtractSacredLevels(int levelAmount, SacredSymbol sacredSymbol) {
-    var currentSacredLevel = sacredSymbolLevels[sacredSymbol]!;
-    
-    if (currentSacredLevel == 0) {
-      return;
-    }
-
-    levelAmount = min(currentSacredLevel, levelAmount);
-    sacredSymbolLevels[sacredSymbol] = sacredSymbolLevels[sacredSymbol]! - levelAmount;
-
-    cacheValue = null;
-    notifyListeners();
-  }
-
-  void addGrandSacredLevels(int levelAmount, GrandSacredSymbol grandSacredSymbol) {
-    var currentGrandSacredLevel = grandSacredSymbolLevels[grandSacredSymbol]!;
-
-    if (currentGrandSacredLevel == GrandSacredSymbol.MAX_LEVEL) {
-      return;
-    }
-
-    levelAmount = min(GrandSacredSymbol.MAX_LEVEL - currentGrandSacredLevel, levelAmount);
-    grandSacredSymbolLevels[grandSacredSymbol] = grandSacredSymbolLevels[grandSacredSymbol]! + levelAmount;
-
-    cacheValue = null;
-    notifyListeners();
-  }
-
-  void subtractGrandSacredLevels(int levelAmount, GrandSacredSymbol grandSacredSymbol) {
-    var currentGrandSacredLevel = grandSacredSymbolLevels[grandSacredSymbol]!;
-
-    if (currentGrandSacredLevel == 0) {
-      return;
-    }
-
-    levelAmount = min(currentGrandSacredLevel, levelAmount);
-    grandSacredSymbolLevels[grandSacredSymbol] = grandSacredSymbolLevels[grandSacredSymbol]! - levelAmount;
-
-    cacheValue = null;
-    notifyListeners();
-  }
-
-  void getHoverTooltipText({ArcaneSymbol? arcaneSymbol, SacredSymbol? sacredSymbol}) {
+  void getHoverTooltipText<T extends Enum>(T symbol) {
     Widget? statDescription;
     Widget? currentLevelText;
     Widget? nextLevelText;
     
     String buildLevelString({int additionalLevels = 0}) {
       List<String> returnParts = [];
-      var statValue = getSingleSymbolStatValue(arcaneSymbol: arcaneSymbol, sacredSymbol: sacredSymbol, additionalLevels: additionalLevels);
+      var statValue = getSingleSymbolStatValue(symbol, additionalLevels: additionalLevels);
       for (MapEntry<StatType, num> symbolStatValue in statValue.entries) {
         returnParts.add("~ ${symbolStatValue.key.formattedName}: ${symbolStatValue.key.isPositive ? '+' : ' -'}${symbolStatValue.key.isPercentage ? doublePercentFormater.format(symbolStatValue.value) : symbolStatValue.value}");
       }
@@ -360,15 +330,19 @@ class SymbolStatsProvider with ChangeNotifier implements Copyable {
       return returnParts.join("\n");
     }
 
-    int currentLevel;
-    int maxLevel;
-    if (arcaneSymbol != null) {
+    int currentLevel = 0;
+    int maxLevel = 0;
+    if (symbol is ArcaneSymbol) {
       maxLevel = ArcaneSymbol.MAX_LEVEL;
-      currentLevel = arcaneSymbolLevels[arcaneSymbol]!;
+      currentLevel = arcaneSymbolLevels[symbol]!;
     }
-    else {
+    else if (symbol is SacredSymbol){
       maxLevel = SacredSymbol.MAX_LEVEL;
-      currentLevel = sacredSymbolLevels[sacredSymbol]!;
+      currentLevel = sacredSymbolLevels[symbol]!;
+    }
+    else if (symbol is GrandSacredSymbol) {
+      maxLevel = GrandSacredSymbol.MAX_LEVEL;
+      currentLevel = grandSacredSymbolLevels[symbol]!;
     }
 
     currentLevelText = Text("Current Level ($currentLevel):\n${buildLevelString()}");
