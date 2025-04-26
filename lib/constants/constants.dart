@@ -199,7 +199,8 @@ enum StatType {
   autoStealChance(formattedName: "Chance to Auto Steal", isPercentage: true),
   mainStat(formattedName: "Main Stat"), // This will be replaced, mainly for ease of use in things like hexa matrix and skills
   mainAttack(formattedName: "Main Attack"), // Same as main stat
-  procChance(formattedName: "Chance", isPercentage: true)
+  procChance(formattedName: "Chance", isPercentage: true),
+  duration(formattedName: "Duration"),
   ;
 
   const StatType({
