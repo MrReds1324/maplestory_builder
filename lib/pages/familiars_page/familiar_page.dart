@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/modules/familiars/badges_mod.dart';
+import 'package:maplestory_builder/modules/familiars/familiar_badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
@@ -79,7 +79,7 @@ class _EquippedFamiliarsBadges extends StatelessWidget {
                   familiarsProvider.activeBadgeSetNumber,
         ),
         FutureBuilder(
-            future: BadgeModule.loadingBadges,
+            future: FamiliarBadgeModule.loadingBadges,
             builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError) {
@@ -166,7 +166,7 @@ class _BadgeSelector extends StatelessWidget {
     // We can only have one of badge of each, filter out already used ones here
     badgeFilterLoop:
     for (MapEntry<int, FamiliarBadge> badgeEntry
-        in BadgeModule.allBadges.entries) {
+        in FamiliarBadgeModule.allBadges.entries) {
       // Stops us from being able to select multiple of a single badge
       for (MapEntry<int, FamiliarBadge?> activeBadges
           in familiarsProvider.activeBadgeSet.activeBadges.entries) {

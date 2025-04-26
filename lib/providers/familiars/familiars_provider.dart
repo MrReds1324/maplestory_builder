@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
-import 'package:maplestory_builder/modules/familiars/badges_mod.dart';
+import 'package:maplestory_builder/modules/familiars/familiar_badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
 import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
@@ -13,8 +13,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   int familiarId;
   late Map<int, Familiar> allFamiliars;
   int activeBadgeSetNumber;
-  late Map<int, BadgeModule> badgeSets; 
-  late BadgeModule activeBadgeSet;
+  late Map<int, FamiliarBadgeModule> badgeSets;
+  late FamiliarBadgeModule activeBadgeSet;
 
   int activeFamiliarSetNumber;
   late Map<int, FamiliarModule> familiarSets; 
@@ -27,18 +27,18 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     this.activeBadgeSetNumber = 1,
     this.activeFamiliarSetNumber = 1,
     Map<int, Familiar>? allFamiliars,
-    Map<int, BadgeModule>? badgeSets,
-    BadgeModule? activeBadgeSet,
+    Map<int, FamiliarBadgeModule>? badgeSets,
+    FamiliarBadgeModule? activeBadgeSet,
     Map<int, FamiliarModule>? familiarSets,
     FamiliarModule? activeFamiliarSet,
   }) {
     this.allFamiliars = allFamiliars ?? {};
     this.badgeSets = badgeSets ?? {
-      1: BadgeModule(),
-      2: BadgeModule(),
-      3: BadgeModule(),
-      4: BadgeModule(),
-      5: BadgeModule(),
+      1: FamiliarBadgeModule(),
+      2: FamiliarBadgeModule(),
+      3: FamiliarBadgeModule(),
+      4: FamiliarBadgeModule(),
+      5: FamiliarBadgeModule(),
     };
     this.activeBadgeSet = activeBadgeSet ?? this.badgeSets[activeBadgeSetNumber]!;
 
@@ -58,8 +58,8 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     Map<int, Familiar>? allFamiliars,
     int? activeFamiliarSetNumber,
     int? activeBadgeSetNumber,
-    Map<int, BadgeModule>? badgeSets,
-    BadgeModule? activeBadgeSet,
+    Map<int, FamiliarBadgeModule>? badgeSets,
+    FamiliarBadgeModule? activeBadgeSet,
     Map<int, FamiliarModule>? familiarSets,
     FamiliarModule? activeFamiliarSet,
   }) {

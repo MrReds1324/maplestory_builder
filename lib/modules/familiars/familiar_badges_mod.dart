@@ -5,26 +5,26 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
 
-class BadgeModule implements Copyable {
+class FamiliarBadgeModule implements Copyable {
   static Map<int, FamiliarBadge> allBadges = {};
-  static Future<void> loadingBadges = BadgeModule.loadFamiliarBadges();
+  static Future<void> loadingBadges = FamiliarBadgeModule.loadFamiliarBadges();
 
   // There will be 8 active badges
   Map<int, FamiliarBadge?> activeBadges;
   Map<StatType, num> moduleStats;
 
-  BadgeModule({
+  FamiliarBadgeModule({
     Map<int, FamiliarBadge?>? activeBadges,
     Map<StatType, num>? moduleStats,
   }) : activeBadges = activeBadges ?? {},
       moduleStats = moduleStats ?? {};
 
   @override
-  BadgeModule copyWith({
+  FamiliarBadgeModule copyWith({
     Map<int, FamiliarBadge?>? activeBadges,
     Map<StatType, num>? moduleStats,
   }) {
-    return BadgeModule(
+    return FamiliarBadgeModule(
       activeBadges: activeBadges ?? Map.of(this.activeBadges),
       moduleStats: moduleStats ?? Map.of(this.moduleStats),
     );
@@ -62,14 +62,11 @@ class BadgeModule implements Copyable {
   static Future<void> loadFamiliarBadges() async {
     String data = await rootBundle.loadString('assets/items/familiar_badges.json');
 
-    Map<int, FamiliarBadge> returnValue = {};
-
     var jsonData = json.decode(data);
     for (MapEntry<String, dynamic> badgeEntry in jsonData.entries) {
       var badgeId = int.parse(badgeEntry.key);
       var badge = FamiliarBadge.loadFromJson(badgeId, badgeEntry.value);
-      returnValue[badgeId] = badge;
-      BadgeModule.allBadges[badgeId] = badge;
+      FamiliarBadgeModule.allBadges[badgeId] = badge;
     }
   }
 }
