@@ -4,6 +4,7 @@ import logging
 import sys
 from pathlib import Path
 
+import developer_scripts.wz_utilities.consumable
 from developer_scripts.wz_utilities import Wz_Type
 from developer_scripts.wz_utilities.consumable.consumable import Consumable
 from developer_scripts.wz_utilities.consumable.prop_type import ConsPropType
@@ -16,8 +17,12 @@ LOGGER = logging.getLogger()
 
 LOADER: WzLoader = None
 
-loaded_consumables = {}
+LOADED_CONSUMABLES: dict[str, Consumable] = {}
+IGNORED_CONSUMABLE_IDS: set[str] = set()
 
+IGNORED_CONSUMABLE_IDS_FILE = Path(next(iter(developer_scripts.wz_utilities.consumable.__path__)), "ignored_consumable_ids.json")
+with IGNORED_CONSUMABLE_IDS_FILE.open('r') as _fh:
+   IGNORED_CONSUMABLE_IDS = set(json.load(_fh))
 
 def load_consumables():
     string_wz = LOADER.find_wz(FindWzHelper(Wz_Type.String))
@@ -43,7 +48,7 @@ def load_consumables():
 
         try:
             for consumable_sub_node in consumable_node.FindNodeByPath(top_node.Text, True).Nodes:
-                loaded_consumables[consumable_sub_node.Text] = Consumable(consumable_sub_node, consumable_string_wz)
+                LOADED_CONSUMABLES[consumable_sub_node.Text] = Consumable(consumable_sub_node, consumable_string_wz)
         except Exception:  # noqa: PERF203
             LOGGER.exception("Something went wrong trying to load consumable img")
 
@@ -53,57 +58,84 @@ def dump_consumables_to_file(output_stats: Path, output_images: Path):
     familiar_buffs = {}
     scrolls = {}
 
-    for cons_id, consumable in loaded_consumables.items():
-        if "Familiar Skill" in (consumable.name or ""):
-            familiar_buffs[cons_id] = consumable
-
-        elif "Scroll" in (consumable.name or ""):
-            scrolls[cons_id] = consumable
-
-        elif not consumable.effects or not consumable.name or not is_english(consumable.name):
+    for consumable_id, consumable in LOADED_CONSUMABLES.items():
+        if consumable_id in IGNORED_CONSUMABLE_IDS:
             continue
 
+        if "Familiar Skill" in (consumable.name or ""):
+            familiar_buffs[consumable_id] = consumable
+            IGNORED_CONSUMABLE_IDS.add(consumable_id)
+            continue
+
+        if "Scroll" in (consumable.name or ""):
+            scrolls[consumable_id] = consumable
+            IGNORED_CONSUMABLE_IDS.add(consumable_id)
+            continue
+
+        if not consumable.effects or not consumable.name or not is_english(consumable.name):
+            IGNORED_CONSUMABLE_IDS.add(consumable_id)
+            continue
+
+        # These are the ones we want to skip
+        if ((len(consumable.effects) == 1 and (
+                ConsPropType.duration in consumable.effects or
+                ConsPropType.duration2 in consumable.effects or
+                ConsPropType.end_use_date in consumable.effects
+        ))
+            or ConsPropType.inflation in consumable.effects
+            or ConsPropType.expire_time in consumable.effects
+        ):
+            IGNORED_CONSUMABLE_IDS.add(consumable_id)
+            continue
+
+        # This is related to pq, specifically only filtering these ones out incase we encounter this
+        # type again
+        if ConsPropType.skill_id in consumable.effects and "Eye" in consumable.name:
+            IGNORED_CONSUMABLE_IDS.add(consumable_id)
+            continue
+
+        # There are some exp buffs that only apply to certain level ranges, or give a random exp buff
+        # Doesnt seem worth it to try and include them currently
+        if (ConsPropType.min_time in consumable.effects or
+                ConsPropType.max_time in consumable.effects or
+                ConsPropType.exp_level_limit in consumable.effects or
+                ConsPropType.exp_under_level_limit in consumable.effects
+        ):
+            IGNORED_CONSUMABLE_IDS.add(consumable_id)
+            continue
+
+        for saved_consumable_id, saved_consumable in filtered_consumables.items():
+            if saved_consumable == consumable:
+                IGNORED_CONSUMABLE_IDS.add(consumable_id)
+                LOGGER.debug(f"FOUND DUPLICATE CONSUMABLE - SAVED_ID: '{saved_consumable_id}' = DUPLICATED ID: '{consumable_id}'")
+                break
         else:
-            # These are the ones we want to skip
-            if ((len(consumable.effects) == 1 and (
-                    ConsPropType.duration in consumable.effects or
-                    ConsPropType.duration2 in consumable.effects or
-                    ConsPropType.end_use_date in consumable.effects
-            ))
-                or ConsPropType.inflation in consumable.effects
-                or ConsPropType.expire_time in consumable.effects
-            ):
-                continue
-
-            # This is related to pq, specifically only filtering these ones out incase we encounter this
-            # type again
-            if ConsPropType.skill_id in consumable.effects and "Eye" in consumable.name:
-                continue
-
-            # There are some exp buffs that only apply to certain level ranges, or give a random exp buff
-            # Doesnt seem worth it to try and include them currently
-            if (ConsPropType.min_time in consumable.effects or
-                    ConsPropType.max_time in consumable.effects or
-                    ConsPropType.exp_level_limit in consumable.effects or
-                    ConsPropType.exp_under_level_limit in consumable.effects
-            ):
-                continue
-
-            filtered_consumables[cons_id] = consumable
+            filtered_consumables[consumable_id] = consumable
 
     LOGGER.info(f"FILTERED TO {len(filtered_consumables)} TOTAL CONSUMABLES")
 
     consumable_stats = {}
     for consumable_id, consumable in filtered_consumables.items():
-        consumable_stats[consumable_id] = consumable.to_dict_format()
+        formatted = consumable.to_dict_format()
+        for saved_consumable_id, saved_consumable in consumable_stats.items():
+            if saved_consumable["name"] == formatted["name"] and saved_consumable["consumableStats"] == formatted["consumableStats"]:
+                IGNORED_CONSUMABLE_IDS.add(consumable_id)
+                LOGGER.debug(f"FOUND DUPLICATE CONSUMABLE - SAVED_ID: '{saved_consumable_id}' = DUPLICATED ID: '{consumable_id}'")
+                break
+        else:
+            consumable_stats[consumable_id] = formatted
 
-        consumable.save_icon(output_images / f"{consumable_id}.png", LOADER)
+            consumable.save_icon(output_images / f"{consumable_id}.png", LOADER)
 
     output_stats_path = output_stats / "consumables.json"
     LOGGER.info(f"Writing Consumable Stats to {output_stats_path}")
 
     with output_stats_path.open("w") as _fh:
         json.dump(consumable_stats, _fh, indent=4)
+
+    LOGGER.info("UPDATING IGNORED CONSUMABLES FILE")
+    with IGNORED_CONSUMABLE_IDS_FILE.open("w") as _fh:
+        json.dump(list(IGNORED_CONSUMABLE_IDS), _fh, indent=4)
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Parse the WZ files")
@@ -137,7 +169,7 @@ def main() -> int:
 
     load_consumables()
 
-    LOGGER.info(f"LOADED {len(loaded_consumables)} FAMILIAR BADGES")
+    LOGGER.info(f"LOADED {len(LOADED_CONSUMABLES)} FAMILIAR BADGES")
 
     dump_consumables_to_file(args.output_stats, args.output_images)
 

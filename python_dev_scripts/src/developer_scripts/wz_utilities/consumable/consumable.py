@@ -41,7 +41,7 @@ class Consumable:
                 case "Desc":
                     self.description = str_sub_node.Value
                 case "name":
-                    self.name = str_sub_node.Value
+                    self.name = str(str_sub_node.Value or "").strip()
                 case "autodesc":
                     self.auto_description = str_sub_node.Value
                 case "desc_leftalign":
@@ -80,6 +80,12 @@ class Consumable:
     def __repr__(self) -> str:
         return f"{self.name}: {self.description or self.reboot_description}"
 
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Consumable):
+            return NotImplemented
+
+        return other.name == self.name and other.effects == self.effects
+
     def to_dict_format(self):
         stat_values = {}
         for cons_prop_type, value in self.effects.items():
@@ -107,7 +113,7 @@ class Consumable:
                 replacement = replacing[2:-1]
                 description = description.replace(replacing, replacement)
 
-        return description
+        return description.replace(r"\n", " ").strip()
 
     def save_icon(self, output_path: Path, loader: WzLoader):
         save_icon_from_node(self.icon_node, output_path, loader)
