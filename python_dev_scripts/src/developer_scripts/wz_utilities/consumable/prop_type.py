@@ -94,6 +94,7 @@ class ConsPropType(StrEnum):
     create_time = "time_create"
     expire_time = "time_expired"
     start_time = "startTime"
+    final_damage = "berserk"
 
 
 IGNORED_PROPS = {
@@ -140,7 +141,6 @@ IGNORED_PROPS = {
     "eventRate",
     "BFSkill",
     "dojangshield",
-    "berserk",
     "repeatEffect",
     "con",
     "mobID",

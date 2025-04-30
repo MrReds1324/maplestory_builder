@@ -347,5 +347,21 @@
             "ignoreDefense": 0.03
         },
         "randomStats": []
+    },
+    "47": {
+        "badgeName": "Researcher Badge",
+        "badgeStats": {
+            "damage": 0.01,
+            "hpPercentage": 0.01
+        },
+        "randomStats": []
+    },
+    "48": {
+        "badgeName": "Flora Army Badge",
+        "badgeStats": {
+            "mpPercentage": 0.01,
+            "allStatsPercentage": 0.01
+        },
+        "randomStats": []
     }
 }

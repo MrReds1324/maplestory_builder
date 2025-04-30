@@ -104,8 +104,13 @@ class StatType(StrEnum):
             return None, value
 
         stat_type, divisor = conversion
+
+        if stat_type == StatType.attackSpeed:
+            value = abs(value)
+
         if divisor == 100:
             return stat_type, value / divisor
+
         return stat_type, value
 
     @classmethod
@@ -116,8 +121,12 @@ class StatType(StrEnum):
             return None, value
 
         stat_type, divisor = conversion
+        if stat_type == StatType.attackSpeed:
+            value = abs(value)
+
         if divisor == 100:
             return stat_type, int(value) / divisor
+
         return stat_type, int(value)
 
 GearPropType_to_StatType: dict[GearPropType, tuple[StatType, int]] = {
@@ -128,7 +137,7 @@ GearPropType.incSTR: (StatType.str, 1),
     GearPropType.incMHP: (StatType.hp, 1),
     GearPropType.incMMP: (StatType.mp, 1),
     GearPropType.incSpeed: (StatType.speed, 1),
-    GearPropType.incJump: (StatType, 1),
+    GearPropType.incJump: (StatType.jump, 1),
     GearPropType.incPDD: (StatType.defense, 1),
     GearPropType.incMDD: (StatType.defense, 1),
     GearPropType.incPAD: (StatType.attack, 1),
@@ -217,5 +226,6 @@ ConsPropType.flat_exp5: (StatType.expAdditional, 100),
     ConsPropType.meso_obtained: (StatType.mesosObtained, 100),
     ConsPropType.meso_obtained2: (StatType.mesosObtained, 100),
     ConsPropType.star_force: (StatType.starForce, 1),
-    ConsPropType.arcane_force: (StatType.arcaneForce, 1)
+    ConsPropType.arcane_force: (StatType.arcaneForce, 1),
+    ConsPropType.final_damage: (StatType.finalDamage, 100),
 }

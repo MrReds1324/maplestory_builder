@@ -43,7 +43,7 @@ def load_consumables():
 
     for top_node in consumable_node.Nodes:
         # _Canvas contains just the ui elements, 238 is for old familiar book cards
-        if top_node.Text in ("_Canvas", "238.img"):
+        if top_node.Text in ("_Canvas", "0238.img"):
             continue
 
         try:
@@ -128,14 +128,14 @@ def dump_consumables_to_file(output_stats: Path, output_images: Path):
             consumable.save_icon(output_images / f"{consumable_id}.png", LOADER)
 
     output_stats_path = output_stats / "consumables.json"
-    LOGGER.info(f"Writing Consumable Stats to {output_stats_path}")
+    LOGGER.info(f"Writing {len(consumable_stats)} Consumable Stats to {output_stats_path}")
 
     with output_stats_path.open("w") as _fh:
         json.dump(consumable_stats, _fh, indent=4)
 
     LOGGER.info("UPDATING IGNORED CONSUMABLES FILE")
     with IGNORED_CONSUMABLE_IDS_FILE.open("w") as _fh:
-        json.dump(list(IGNORED_CONSUMABLE_IDS), _fh, indent=4)
+        json.dump(sorted(IGNORED_CONSUMABLE_IDS), _fh, indent=4)
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Parse the WZ files")

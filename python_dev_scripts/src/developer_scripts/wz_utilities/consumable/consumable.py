@@ -12,6 +12,8 @@ LOGGER = logging.getLogger(__name__)
 
 FAILED_PROP_TYPES = set()
 
+REPLACEMENT_STRINGS: dict[str, str] = {r"\n\r": " ", r"\n": " ", "#c": "", r"\r": ""}
+
 DESCRIPTION_REGEX = re.compile(r"#c.*?#", flags=re.MULTILINE)
 
 class Consumable:
@@ -113,7 +115,10 @@ class Consumable:
                 replacement = replacing[2:-1]
                 description = description.replace(replacing, replacement)
 
-        return description.replace(r"\n", " ").strip()
+        for replacing, replacement in REPLACEMENT_STRINGS.items():
+            description = description.replace(replacing, replacement)
+
+        return description.strip()
 
     def save_icon(self, output_path: Path, loader: WzLoader):
         save_icon_from_node(self.icon_node, output_path, loader)

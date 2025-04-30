@@ -3292,7 +3292,7 @@
     },
     "02022089": {
         "name": "Baby Dragon Food",
-        "description": "A delicious bowl of baby food for a baby dragon. Grants attack +7 for 20 minutes.\\r Can be purchased at the General Store in Leafre.",
+        "description": "A delicious bowl of baby food for a baby dragon. Grants attack +7 for 20 minutes. Can be purchased at the General Store in Leafre.",
         "consumableStats": {
             "attack": 7,
             "duration": 1200000
@@ -4372,7 +4372,8 @@
         "name": "Pharaoh's Blessing Lv. 1",
         "description": "Final Damage 100%, Attack Speed increased by 1 level",
         "consumableStats": {
-            "attackSpeed": -1,
+            "attackSpeed": 1,
+            "finalDamage": 2.0,
             "duration": 2400000
         }
     },
@@ -4381,7 +4382,8 @@
         "description": "Final Damage 200%, Attack Speed increased by 2 levels",
         "consumableStats": {
             "duration": 2400000,
-            "attackSpeed": -2
+            "attackSpeed": 2,
+            "finalDamage": 3.0
         }
     },
     "02022587": {
@@ -4389,7 +4391,8 @@
         "description": "Final Damage 300%, Attack Speed increased by 3 levels",
         "consumableStats": {
             "duration": 2400000,
-            "attackSpeed": -3
+            "attackSpeed": 3,
+            "finalDamage": 4.0
         }
     },
     "02022588": {
@@ -4397,14 +4400,16 @@
         "description": "Final Damage 400%, Attack Speed increased by 4 levels",
         "consumableStats": {
             "duration": 2400000,
-            "attackSpeed": -4
+            "attackSpeed": 4,
+            "finalDamage": 5.0
         }
     },
     "02022616": {
         "name": "Power Buff Lv. 1",
         "description": "Final Damage 100%, Attack Speed increased by 1 level",
         "consumableStats": {
-            "attackSpeed": -2,
+            "attackSpeed": 2,
+            "finalDamage": 2.0,
             "duration": 2400000
         }
     },
@@ -4413,7 +4418,8 @@
         "description": "Final Damage 200%, Attack Speed increased by 2 levels",
         "consumableStats": {
             "duration": 2400000,
-            "attackSpeed": -4
+            "attackSpeed": 4,
+            "finalDamage": 3.0
         }
     },
     "02022631": {
@@ -4499,14 +4505,14 @@
         "description": "What you don't know can't hurt you. If the truth is too much to handle, avoiding it may be wise. It provides Critical +10 in your consideration for others, but you suffer -80 HP because of the anxiety that comes after telling a lie.",
         "consumableStats": {
             "duration": 1800000,
-            "attackSpeed": -2
+            "attackSpeed": 2
         }
     },
     "02022701": {
         "name": "Speed Up",
         "description": "Used in Ad Balloon Hunts.  Increases Attack Speed and Movement Speed for you and your party for 10 sec.",
         "consumableStats": {
-            "attackSpeed": -1,
+            "attackSpeed": 1,
             "speed": 20,
             "duration": 10000
         }
@@ -5027,7 +5033,7 @@
         "description": "Increases Attack Speed by 1 for 10 minutes.",
         "consumableStats": {
             "duration": 600000,
-            "attackSpeed": -1
+            "attackSpeed": 1
         }
     },
     "02022865": {
@@ -5930,7 +5936,7 @@
     },
     "02023082": {
         "name": "Giant Pet Gift",
-        "description": "Amazingly awesome blessings and stuff! #cDuration: 10 min HP Potion recovery: +15%",
+        "description": "Amazingly awesome blessings and stuff! Duration: 10 min HP Potion recovery: +15%",
         "consumableStats": {
             "duration": 600000,
             "itemDropRate": 0.15
@@ -6034,7 +6040,7 @@
         "description": "A green potion from Monster Park. Weapon Speed is increased for 30 minutes.",
         "consumableStats": {
             "duration": 1800000,
-            "attackSpeed": -1
+            "attackSpeed": 1
         }
     },
     "02023127": {
@@ -6239,7 +6245,7 @@
     },
     "02023164": {
         "name": "Berzerker Bon-Bons",
-        "description": "These little round delights will increase your ability to sit on the couch, and your desire for leopard-print tights. #cDuration: 20 min ATT +30",
+        "description": "These little round delights will increase your ability to sit on the couch, and your desire for leopard-print tights. Duration: 20 min ATT +30",
         "consumableStats": {
             "duration": 1200000,
             "attack": 30,
@@ -6248,7 +6254,7 @@
     },
     "02023165": {
         "name": "Overpower Lv.1",
-        "description": "Increases your attack power. #cDuration: 30 min Physical Attack: +20 Magic ATT: +20",
+        "description": "Increases your attack power. Duration: 30 min Physical Attack: +20 Magic ATT: +20",
         "consumableStats": {
             "attack": 20,
             "mattack": 20,
@@ -6257,7 +6263,7 @@
     },
     "02023166": {
         "name": "Overpower Lv.2",
-        "description": "Increases your attack power. #cDuration: 30 min Physical Attack: +30 Magic ATT: +30",
+        "description": "Increases your attack power. Duration: 30 min Physical Attack: +30 Magic ATT: +30",
         "consumableStats": {
             "attack": 30,
             "mattack": 30,
@@ -6266,7 +6272,7 @@
     },
     "02023167": {
         "name": "Overpower Lv.3",
-        "description": "Increases your attack power. #cDuration: 30 min Physical Attack: +40 Magic ATT: +40",
+        "description": "Increases your attack power. Duration: 30 min Physical Attack: +40 Magic ATT: +40",
         "consumableStats": {
             "attack": 40,
             "mattack": 40,
@@ -6386,7 +6392,7 @@
     },
     "02023194": {
         "name": "The Boy Who Cried Buff",
-        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  #cDuration: 30 min All stats +10",
+        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  Duration: 30 min All stats +10",
         "consumableStats": {
             "duration": 1800000,
             "allStats": 10
@@ -6394,7 +6400,7 @@
     },
     "02023195": {
         "name": "The Boy Who Cried Buff",
-        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  #cDuration: 30 min Weapon/Magic ATT +10",
+        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  Duration: 30 min Weapon/Magic ATT +10",
         "consumableStats": {
             "attack": 10,
             "mattack": 10,
@@ -6403,7 +6409,7 @@
     },
     "02023196": {
         "name": "The Boy Who Cried Buff",
-        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  #cDuration: 30 min Speed +15",
+        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  Duration: 30 min Speed +15",
         "consumableStats": {
             "duration": 1800000,
             "speed": 15
@@ -6411,7 +6417,7 @@
     },
     "02023197": {
         "name": "The Boy Who Cried Buff",
-        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  #cDuration: 30 min Jump +15",
+        "description": "Th Boy Who Cried Buff. But will this buff really increase the Weapon/Magic ATT?  Duration: 30 min Jump +15",
         "consumableStats": {
             "duration": 1800000,
             "jump": 15
@@ -6419,7 +6425,7 @@
     },
     "02023198": {
         "name": "The Boy Who Cried Buff",
-        "description": "Increases Attack Power and Magic ATT?  #cDuration: 30 min DEF +150 ...but will anyone believe it?",
+        "description": "Increases Attack Power and Magic ATT?  Duration: 30 min DEF +150 ...but will anyone believe it?",
         "consumableStats": {
             "duration": 1800000,
             "defense": 150
@@ -6505,7 +6511,7 @@
     },
     "02023207": {
         "name": "1.5x EXP Coupon (30 min)",
-        "description": "Double-click to receive a 1.5x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Double-click to receive a 1.5x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 1.5,
             "duration": 1800000
@@ -6587,7 +6593,7 @@
     },
     "02023221": {
         "name": "Red Tide Buff",
-        "description": "A special buff to celebrate the coming of RED. Can be used on the opening day until midnight.#c Weapon/Magic ATT +10 Speed and Jump bonuses Duration: 30 minutes Cooldown: 30 minutes",
+        "description": "A special buff to celebrate the coming of RED. Can be used on the opening day until midnight. Weapon/Magic ATT +10 Speed and Jump bonuses Duration: 30 minutes Cooldown: 30 minutes",
         "consumableStats": {
             "attack": 10,
             "mattack": 10,
@@ -6598,7 +6604,7 @@
     },
     "02023222": {
         "name": "Invigorating Buff Drop Rate x1.5",
-        "description": "A tender, tasty chicken leg that helps you keep up your strength.\\r #cIncreases drop rate by 50% for 30 minutes.",
+        "description": "A tender, tasty chicken leg that helps you keep up your strength. Increases drop rate by 50% for 30 minutes.",
         "consumableStats": {
             "duration": 1800000,
             "itemDropRate": 0.5
@@ -6606,7 +6612,7 @@
     },
     "02023223": {
         "name": "Invigorating Buff Lv. 3",
-        "description": "This unagi is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts stat, DEF, Speed, Jump",
+        "description": "This unagi is great for stamina! Duration: 30 min Greatly boosts stat, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "str": 10,
@@ -6620,7 +6626,7 @@
     },
     "02023224": {
         "name": "Invigorating Buff Lv. 2",
-        "description": "This chicken soup is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts stat, DEF, Speed, Jump",
+        "description": "This chicken soup is great for stamina! Duration: 30 min Greatly boosts stat, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "str": 7,
@@ -6634,7 +6640,7 @@
     },
     "02023225": {
         "name": "Invigorating Buff Lv. 1",
-        "description": "This chicken drumstick is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts stat, DEF, Speed, Jump",
+        "description": "This chicken drumstick is great for stamina! Duration: 30 min Greatly boosts stat, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "str": 5,
@@ -6648,7 +6654,7 @@
     },
     "02023226": {
         "name": "M-Forcer Support",
-        "description": "M-Forcer Support!\\r \\r #c Increases all stats by 15 for 30 minutes.",
+        "description": "M-Forcer Support!   Increases all stats by 15 for 30 minutes.",
         "consumableStats": {
             "duration": 1800000,
             "str": 15,
@@ -6659,7 +6665,7 @@
     },
     "02023227": {
         "name": "M-Forcer Support",
-        "description": "M-Forcer's Support\\r \\r #c Increases Strength, Dexterity, and Luck by 5 for 30 minutes.",
+        "description": "M-Forcer's Support   Increases Strength, Dexterity, and Luck by 5 for 30 minutes.",
         "consumableStats": {
             "duration": 1800000,
             "luk": 5,
@@ -6669,7 +6675,7 @@
     },
     "02023228": {
         "name": "M-Forcer Support",
-        "description": "M-Forcer's Support\\r \\r #c Increases HP by 1,000 for 30 minutes.",
+        "description": "M-Forcer's Support   Increases HP by 1,000 for 30 minutes.",
         "consumableStats": {
             "duration": 1800000,
             "hp": 1000,
@@ -6727,7 +6733,7 @@
     },
     "02023255": {
         "name": "Invigorating Buff Lv. 3",
-        "description": "This unagi is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts HP, DEF, Speed, Jump",
+        "description": "This unagi is great for stamina! Duration: 30 min Greatly boosts HP, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "hp": 500,
@@ -6738,7 +6744,7 @@
     },
     "02023256": {
         "name": "Invigorating Buff Lv. 2",
-        "description": "This chicken soup is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts HP, DEF, Speed, Jump",
+        "description": "This chicken soup is great for stamina! Duration: 30 min Greatly boosts HP, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "hp": 400,
@@ -6749,7 +6755,7 @@
     },
     "02023257": {
         "name": "Invigorating Buff Lv. 1",
-        "description": "This chicken drumstick is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts HP, DEF, Speed, Jump",
+        "description": "This chicken drumstick is great for stamina! Duration: 30 min Greatly boosts HP, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "hp": 300,
@@ -6760,7 +6766,7 @@
     },
     "02023258": {
         "name": "Invigorating Buff Lv. 3",
-        "description": "This unagi is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts stat, DEF, Speed, Jump",
+        "description": "This unagi is great for stamina! Duration: 30 min Greatly boosts stat, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "str": 3,
@@ -6773,7 +6779,7 @@
     },
     "02023259": {
         "name": "Invigorating Buff Lv. 2",
-        "description": "This chicken soup is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts stat, DEF, Speed, Jump",
+        "description": "This chicken soup is great for stamina! Duration: 30 min Greatly boosts stat, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "str": 2,
@@ -6786,7 +6792,7 @@
     },
     "02023260": {
         "name": "Invigorating Buff Lv. 1",
-        "description": "This chicken drumstick is great for stamina!\\r #cDuration: 30 min\\r Greatly boosts stat, DEF, Speed, Jump",
+        "description": "This chicken drumstick is great for stamina! Duration: 30 min Greatly boosts stat, DEF, Speed, Jump",
         "consumableStats": {
             "duration": 1800000,
             "str": 1,
@@ -6865,7 +6871,7 @@
     },
     "02023270": {
         "name": "Abnormal Status Resistance 100 Potion",
-        "description": "Abnormal Status Resistance is strengthened during the buff.\\r Abnormal Status Resistance +100 for 3 min",
+        "description": "Abnormal Status Resistance is strengthened during the buff. Abnormal Status Resistance +100 for 3 min",
         "consumableStats": {
             "duration": 180000,
             "statusResistance": 100
@@ -7357,7 +7363,7 @@
     },
     "02023362": {
         "name": "EXP Buff (30 min)",
-        "description": "A buff that increases earned EXP by 1.5x for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "A buff that increases earned EXP by 1.5x for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 1.5,
             "duration": 1800000
@@ -7394,7 +7400,7 @@
     },
     "02023395": {
         "name": "Star Planet EXP Coupon",
-        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 15 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 900000
@@ -7402,7 +7408,7 @@
     },
     "02023396": {
         "name": "Fine Star Planet EXP Coupon",
-        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 1800000
@@ -7410,7 +7416,7 @@
     },
     "02023397": {
         "name": "Dazzling Star Planet EXP Coupon",
-        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 45 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 45 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 2700000
@@ -7418,7 +7424,7 @@
     },
     "02023398": {
         "name": "Stupendous Star Planet Coupon",
-        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 60 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "A coupon for your outstanding performance on Star Planet. Double-click this EXP coupon to double your EXP reward for 60 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 3600000
@@ -7454,7 +7460,7 @@
     },
     "02023404": {
         "name": "Star Planet 2x EXP Time Coupon",
-        "description": "Increases the duration of a Star Planet EXP Coupon from 15 minutes to 30 minutes. Double-click the coupon to use. \\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Increases the duration of a Star Planet EXP Coupon from 15 minutes to 30 minutes. Double-click the coupon to use.   Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 1800000
@@ -7462,7 +7468,7 @@
     },
     "02023405": {
         "name": "Fine Star Planet 2x EXP Time Coupon",
-        "description": "Increases the duration of a Star Planet EXP Coupon from 30 minutes to 60 minutes. Double-click the coupon to use. \\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Increases the duration of a Star Planet EXP Coupon from 30 minutes to 60 minutes. Double-click the coupon to use.   Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 3600000
@@ -7470,7 +7476,7 @@
     },
     "02023406": {
         "name": "Dazzling Star Planet 2x EXP Time Coupon",
-        "description": "Increases the duration of a Star Planet EXP Coupon from 45 minutes to 90 minutes. Double-click the coupon to use. \\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Increases the duration of a Star Planet EXP Coupon from 45 minutes to 90 minutes. Double-click the coupon to use.   Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 5400000
@@ -7478,7 +7484,7 @@
     },
     "02023407": {
         "name": "Stupendous Star Planet 2x EXP Time Coupon",
-        "description": "Increases the duration of a Star Planet EXP Coupon from 60 minutes to 120 minutes. Double-click the coupon to use. \\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Increases the duration of a Star Planet EXP Coupon from 60 minutes to 120 minutes. Double-click the coupon to use.   Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 2.0,
             "duration": 7200000
@@ -7572,7 +7578,7 @@
     },
     "02023462": {
         "name": "Shining Star Booster",
-        "description": "Grants 20% bonus EXP for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Grants 20% bonus EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 1.2,
             "duration": 1800000
@@ -7673,7 +7679,7 @@
     },
     "02023530": {
         "name": "Attack Power Increase Coupon",
-        "description": "Increases your Attack Power. #cDuration: 30 min Weapon ATT +30",
+        "description": "Increases your Attack Power. Duration: 30 min Weapon ATT +30",
         "consumableStats": {
             "attack": 30,
             "duration": 1800000
@@ -7681,7 +7687,7 @@
     },
     "02023531": {
         "name": "Magic Attack Increase Coupon",
-        "description": "Increases your Magic Attack.  #cDuration: 30 min  Magic ATT +30",
+        "description": "Increases your Magic Attack.  Duration: 30 min  Magic ATT +30",
         "consumableStats": {
             "mattack": 30,
             "duration": 1800000
@@ -7689,35 +7695,11 @@
     },
     "02023544": {
         "name": "MVP Superpower Buff",
-        "description": "Increases your Attack Power and Magic Attack. Can be stacked with other buffs.  #cDuration: 30 min Weapon ATT +30 Magic ATT +30",
+        "description": "Increases your Attack Power and Magic Attack. Can be stacked with other buffs.  Duration: 30 min Weapon ATT +30 Magic ATT +30",
         "consumableStats": {
             "duration": 1800000,
             "attack": 30,
             "mattack": 30
-        }
-    },
-    "02023553": {
-        "name": "Extreme Red Potion",
-        "description": "A red potion that was only available in Monster Park Extreme. Weapon ATT +30 for 30 minutes. Can be stacked with other buffs.",
-        "consumableStats": {
-            "duration": 1800000,
-            "attack": 30
-        }
-    },
-    "02023555": {
-        "name": "Extreme Blue Potion",
-        "description": "A blue potion that was only available in Monster Park Extreme.  Magic ATT +30 for 30 minutes",
-        "consumableStats": {
-            "duration": 1800000,
-            "mattack": 30
-        }
-    },
-    "02023556": {
-        "name": "Extreme Gold Potion",
-        "description": "A gold potion that was only available in Monster Park Extreme. Max HP and Max MP +2000 for 30 minutes and EXP obtained +10%.\\r \\r Effect does not stack with similar\\r event buffs.",
-        "consumableStats": {
-            "duration": 1800000,
-            "expMultiplicative": 1.1
         }
     },
     "02023558": {
@@ -7730,7 +7712,7 @@
     },
     "02023582": {
         "name": "Multimillionaire Energy",
-        "description": "A buff item received from Spiegelmann after exploring Nihal Desert. You give off a real multimillionaire vibe.\\r #c\\r All Stats +30\\r Weapon ATT/Magic ATT +20\\r Boss ATT +10%\\r Ignore Enemy DEF +10%\\r MHP/MMP +2000\\r Duration: 10 min\\r \\r Effect disappears when you log back in.",
+        "description": "A buff item received from Spiegelmann after exploring Nihal Desert. You give off a real multimillionaire vibe.  All Stats +30 Weapon ATT/Magic ATT +20 Boss ATT +10% Ignore Enemy DEF +10% MHP/MMP +2000 Duration: 10 min  Effect disappears when you log back in.",
         "consumableStats": {
             "duration": 600000,
             "str": 30,
@@ -7770,7 +7752,7 @@
             "duration": 1800000,
             "attack": 30,
             "mattack": 30,
-            "attackSpeed": -1,
+            "attackSpeed": 1,
             "speed": 60,
             "jump": 23
         }
@@ -7809,14 +7791,14 @@
             "duration": 1800000,
             "attack": 30,
             "mattack": 30,
-            "attackSpeed": -1,
+            "attackSpeed": 1,
             "speed": 60,
             "jump": 23
         }
     },
     "02023653": {
         "name": "5000-Day Party Buff",
-        "description": "Thank you for helping celebrate MapleStory's 5,000th day!\\r #cAttack Power and Magic ATT +20 for 30 min.",
+        "description": "Thank you for helping celebrate MapleStory's 5,000th day! Attack Power and Magic ATT +20 for 30 min.",
         "consumableStats": {
             "duration": 1800000,
             "attack": 20,
@@ -7833,7 +7815,7 @@
     },
     "02023658": {
         "name": "Legion's Might Lv. 1",
-        "description": "Call upon the might of your Legion. #c Attack Power & Magic ATT +30 Duration: 10 min",
+        "description": "Call upon the might of your Legion.  Attack Power & Magic ATT +30 Duration: 10 min",
         "consumableStats": {
             "attack": 30,
             "mattack": 30,
@@ -7842,7 +7824,7 @@
     },
     "02023659": {
         "name": "Legion's Might Lv. 2",
-        "description": "Call upon the might of your Legion. #c Attack Power & Magic ATT +30 Duration: 20 min",
+        "description": "Call upon the might of your Legion.  Attack Power & Magic ATT +30 Duration: 20 min",
         "consumableStats": {
             "attack": 30,
             "mattack": 30,
@@ -7851,7 +7833,7 @@
     },
     "02023660": {
         "name": "Legion's Might Lv. 3",
-        "description": "Call upon the might of your Legion. #c Attack Power & Magic ATT +30 Duration: 30 min",
+        "description": "Call upon the might of your Legion.  Attack Power & Magic ATT +30 Duration: 30 min",
         "consumableStats": {
             "attack": 30,
             "mattack": 30,
@@ -7860,7 +7842,7 @@
     },
     "02023661": {
         "name": "Legion's Luck Lv. 1",
-        "description": "Call upon your Legion's Luck to score extra loot.#c Item drop rate +50%, increase in item drop rate from consumables is applied up to a maximum of 100%. Duration: 10 min",
+        "description": "Call upon your Legion's Luck to score extra loot. Item drop rate +50%, increase in item drop rate from consumables is applied up to a maximum of 100%. Duration: 10 min",
         "consumableStats": {
             "duration": 600000,
             "itemDropRate": 0.5
@@ -7868,7 +7850,7 @@
     },
     "02023662": {
         "name": "Legion's Luck Lv. 2",
-        "description": "Call upon your Legion's Luck to score extra loot.#c Item drop rate +50%, increase in item drop rate from consumables is applied up to a maximum of 100%. Duration: 20 min",
+        "description": "Call upon your Legion's Luck to score extra loot. Item drop rate +50%, increase in item drop rate from consumables is applied up to a maximum of 100%. Duration: 20 min",
         "consumableStats": {
             "duration": 1200000,
             "itemDropRate": 0.5
@@ -7876,7 +7858,7 @@
     },
     "02023663": {
         "name": "Legion's Luck Lv. 3",
-        "description": "Call upon your Legion's Luck to score extra loot.#c Item drop rate +50%, increase in item drop rate from consumables is applied up to a maximum of 100%. Duration: 30 min",
+        "description": "Call upon your Legion's Luck to score extra loot. Item drop rate +50%, increase in item drop rate from consumables is applied up to a maximum of 100%. Duration: 30 min",
         "consumableStats": {
             "duration": 1800000,
             "itemDropRate": 0.5
@@ -7884,7 +7866,7 @@
     },
     "02023664": {
         "name": "Legion's Wealth Lv. 1",
-        "description": "Call upon your Legion's treasure-seeking expertise to score extra mesos. #c Mesos Obtained +50%, Meso's obtained rate increase is applied up to 300% Duration: 10 min",
+        "description": "Call upon your Legion's treasure-seeking expertise to score extra mesos.  Mesos Obtained +50%, Meso's obtained rate increase is applied up to 300% Duration: 10 min",
         "consumableStats": {
             "duration": 600000,
             "mesosObtained": 0.5
@@ -7892,7 +7874,7 @@
     },
     "02023665": {
         "name": "Legion's Wealth Lv. 2",
-        "description": "Call upon your Legion's treasure-seeking expertise to score extra mesos. #c Mesos Obtained +50%, Meso's obtained rate increase is applied up to 300% Duration: 20 min",
+        "description": "Call upon your Legion's treasure-seeking expertise to score extra mesos.  Mesos Obtained +50%, Meso's obtained rate increase is applied up to 300% Duration: 20 min",
         "consumableStats": {
             "duration": 1200000,
             "mesosObtained": 0.5
@@ -7900,7 +7882,7 @@
     },
     "02023666": {
         "name": "Legion's Wealth Lv. 3",
-        "description": "Call upon your Legion's treasure-seeking expertise to score extra mesos. #c Mesos Obtained +50%, Meso's obtained rate increase is applied up to 300% Duration: 30 min",
+        "description": "Call upon your Legion's treasure-seeking expertise to score extra mesos.  Mesos Obtained +50%, Meso's obtained rate increase is applied up to 300% Duration: 30 min",
         "consumableStats": {
             "duration": 1800000,
             "mesosObtained": 0.5
@@ -7908,7 +7890,7 @@
     },
     "02023670": {
         "name": "Rainbow Power Buff",
-        "description": "It's a Rainbow Power Buff that pumps you up!\\r #c\\r Attack Power & Magic ATT +30\\r Critical Rate +15%\\r Duration: 15 min\\r \\r Effect disappears when you log back in.",
+        "description": "It's a Rainbow Power Buff that pumps you up!  Attack Power & Magic ATT +30 Critical Rate +15% Duration: 15 min  Effect disappears when you log back in.",
         "consumableStats": {
             "critRate": 0.15,
             "attack": 30,
@@ -7918,7 +7900,7 @@
     },
     "02023671": {
         "name": "Rainbow Enhancement Buff",
-        "description": "You can feel the power in this Rainbow Enhancement Buff.\\r #c\\r Boss Damage +20%\\r Ignore Enemy DEF +20%\\r Duration: 15 min\\r \\r Effect disappears when you log back in.",
+        "description": "You can feel the power in this Rainbow Enhancement Buff.  Boss Damage +20% Ignore Enemy DEF +20% Duration: 15 min  Effect disappears when you log back in.",
         "consumableStats": {
             "duration": 900000,
             "ignoreDefense": 0.2,
@@ -7927,7 +7909,7 @@
     },
     "02023672": {
         "name": "2x Mesos Coupon",
-        "description": "Double-click to increase your Meso drop rate by 100% for 15 minutes. Meso's obtained rate is applied up to 300%.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to increase your Meso drop rate by 100% for 15 minutes. Meso's obtained rate is applied up to 300%.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "mesosObtained": 1.0
@@ -7935,7 +7917,7 @@
     },
     "02023677": {
         "name": "Party EXP Booster",
-        "description": "Increases EXP by 10% for 15 min when hunting in normal fields with party members.\\r This item's effect stacks with that of other EXP reward items, and the effect disappears when you die or log back in.",
+        "description": "Increases EXP by 10% for 15 min when hunting in normal fields with party members. This item's effect stacks with that of other EXP reward items, and the effect disappears when you die or log back in.",
         "consumableStats": {
             "expAdditional": 0.1,
             "duration": 900000
@@ -7948,7 +7930,7 @@
             "duration": 1800000,
             "attack": 30,
             "mattack": 30,
-            "attackSpeed": -1,
+            "attackSpeed": 1,
             "speed": 60,
             "jump": 23
         }
@@ -7981,7 +7963,7 @@
     },
     "02023736": {
         "name": "Pink Bean's Popcorn Power",
-        "description": "A special buff you can get from Maple 14th Street's CHAOS Pink Bean Theater at the 15-minute mark of every hour. \\r Increases EXP rewards by 15% for 30 minutes.  This effect stacks with that of other EXP increase effects.",
+        "description": "A special buff you can get from Maple 14th Street's CHAOS Pink Bean Theater at the 15-minute mark of every hour.  Increases EXP rewards by 15% for 30 minutes.  This effect stacks with that of other EXP increase effects.",
         "consumableStats": {
             "expAdditional": 0.15,
             "duration": 1800000
@@ -8034,7 +8016,7 @@
     },
     "02023804": {
         "name": "Alliance Support: Breaker of Living Chains",
-        "description": "A support effect granted to brave heroes who helped eliminate the Living Chains. Increases EXP obtained by 50% for 10 min.\\r Cooldown: 60 min",
+        "description": "A support effect granted to brave heroes who helped eliminate the Living Chains. Increases EXP obtained by 50% for 10 min. Cooldown: 60 min",
         "consumableStats": {
             "duration": 600000,
             "expAdditional": 0.5
@@ -8077,7 +8059,7 @@
             "duration": 1800000,
             "attack": 30,
             "mattack": 30,
-            "attackSpeed": -1,
+            "attackSpeed": 1,
             "speed": 60,
             "jump": 23
         }
@@ -8092,7 +8074,7 @@
     },
     "02023946": {
         "name": "Sage Pill: Physical Enhancement",
-        "description": "An enlightening pill created by Mr. Do.\\r #c - Damage Against Normal Monsters + 30%\\r  - Critical Rate + 20%\\r  - Max HP/MP + 1000\\r  - Duration 60 min\\r \\r Logging out while the pill is in use will end its effect early.",
+        "description": "An enlightening pill created by Mr. Do.  - Damage Against Normal Monsters + 30%  - Critical Rate + 20%  - Max HP/MP + 1000  - Duration 60 min  Logging out while the pill is in use will end its effect early.",
         "consumableStats": {
             "critRate": 0.2,
             "damageNormalMobs": 30,
@@ -8103,7 +8085,7 @@
     },
     "02023947": {
         "name": "Sage Pill: Star Force",
-        "description": "An enlightening pill created by Mr. Do.\\r #c - Star Force + 20\\r  - Duration 60 min\\r \\r Logging out while the pill is in use will end its effect early. Increasing Star Force with a Sage Pill will not affect quest conditions.",
+        "description": "An enlightening pill created by Mr. Do.  - Star Force + 20  - Duration 60 min  Logging out while the pill is in use will end its effect early. Increasing Star Force with a Sage Pill will not affect quest conditions.",
         "consumableStats": {
             "duration": 3600000,
             "starForce": 20
@@ -8111,7 +8093,7 @@
     },
     "02023948": {
         "name": "Sage Pill: Arcane Power",
-        "description": "An enlightening pill created by Mr. Do.\\r #c - Arcane Power + 30\\r  - Duration 60 min\\r \\r Logging out while the pill is in use will end its effect early.",
+        "description": "An enlightening pill created by Mr. Do.  - Arcane Power + 30  - Duration 60 min  Logging out while the pill is in use will end its effect early.",
         "consumableStats": {
             "duration": 3600000,
             "arcaneForce": 30
@@ -8127,7 +8109,7 @@
     },
     "02024092": {
         "name": "Giant Pet's Gift",
-        "description": "Amazingly awesome blessings and stuff! #cDuration: 10 min Max HP: +500 Max MP: +500",
+        "description": "Amazingly awesome blessings and stuff! Duration: 10 min Max HP: +500 Max MP: +500",
         "consumableStats": {
             "duration": 600000,
             "hp": 500,
@@ -8136,7 +8118,7 @@
     },
     "02024093": {
         "name": "Giant Pet's Gift",
-        "description": "Amazingly awesome blessings and stuff! #cDuration: 10 min Speed: +15 Jump: +15",
+        "description": "Amazingly awesome blessings and stuff! Duration: 10 min Speed: +15 Jump: +15",
         "consumableStats": {
             "duration": 600000,
             "speed": 15,
@@ -8209,7 +8191,7 @@
     },
     "02023895": {
         "name": "Rainbow Riot Buff",
-        "description": "A special rainbow-magic buff that will fill you with potent prismatic power.\\r #c\\r Boss Damage +20%, Enemy DEF Ignored +20%\\r Attack Power & Magic ATT +30\\r Critical Rate +15%\\r Duration: 15 min\\r \\r Effect will disappear the next time you log in.",
+        "description": "A special rainbow-magic buff that will fill you with potent prismatic power.  Boss Damage +20%, Enemy DEF Ignored +20% Attack Power & Magic ATT +30 Critical Rate +15% Duration: 15 min  Effect will disappear the next time you log in.",
         "consumableStats": {
             "duration": 900000,
             "ignoreDefense": 0.2,
@@ -8221,14 +8203,14 @@
     },
     "02023909": {
         "name": "Extreme Buff",
-        "description": "A buff that makes you feel more powerful.\\r \\r #cAttack Speed: +1\\r Attack Power & Magic ATT +30\\r Max HP/Max MP +3,000\\r Duration: 30 min\\r \\r Effect will disappear the next time you log in.",
+        "description": "A buff that makes you feel more powerful.  Attack Speed: +1 Attack Power & Magic ATT +30 Max HP/Max MP +3,000 Duration: 30 min  Effect will disappear the next time you log in.",
         "consumableStats": {
             "duration": 1800000,
             "attack": 30,
             "mattack": 30,
             "hp": 3000,
             "mp": 3000,
-            "attackSpeed": -1
+            "attackSpeed": 1
         }
     },
     "02023912": {
@@ -8567,32 +8549,6 @@
             "duration": 7200000
         }
     },
-    "02024183": {
-        "name": "Extreme Red Potion",
-        "description": "Boss Practice Mode, Fog Forest Training Grounds Exclusive  A red potion from Monster Park. Max HP +2,000 and Attack Power +30.",
-        "consumableStats": {
-            "attack": 30,
-            "hp": 2000,
-            "duration": 7200000
-        }
-    },
-    "02024184": {
-        "name": "Extreme Green Potion",
-        "description": "Boss Practice Mode, Fog Forest Training Grounds Exclusive  A green potion from Monster Park. Attack Speed is increased.",
-        "consumableStats": {
-            "attackSpeed": -1,
-            "duration": 7200000
-        }
-    },
-    "02024185": {
-        "name": "Extreme Blue Potion",
-        "description": "Boss Practice Mode, Fog Forest Training Grounds Exclusive  A blue potion from Monster Park. Max MP +2,000 and Magic ATT +30.",
-        "consumableStats": {
-            "mattack": 30,
-            "mp": 2000,
-            "duration": 7200000
-        }
-    },
     "02024186": {
         "name": "Blessing of the Guild",
         "description": "Boss Practice Mode, Fog Forest Training Grounds Exclusive  Increases Attack Power and Magic ATT by 20.",
@@ -8690,7 +8646,7 @@
     },
     "02024210": {
         "name": "Mike's Cheer",
-        "description": "Mike's cheering empowers you. Grants +100% Bonus EXP for 30 minutes. Can be stacked with other EXP buff effects.  #c* Can be used together with Mu Gong-Certified Wellness Tonic, Alicia's Blessing, MVP 50% Bonus EXP Coupon effects, or +50% Bonus EXP Coupon effects.",
+        "description": "Mike's cheering empowers you. Grants +100% Bonus EXP for 30 minutes. Can be stacked with other EXP buff effects.  * Can be used together with Mu Gong-Certified Wellness Tonic, Alicia's Blessing, MVP 50% Bonus EXP Coupon effects, or +50% Bonus EXP Coupon effects.",
         "consumableStats": {
             "duration": 1800000,
             "expAdditional": 1.0
@@ -8698,7 +8654,7 @@
     },
     "02024229": {
         "name": "Mike's Big Cheer",
-        "description": "Mike's cheering empowers you. Grants +100% Bonus EXP for 180 minutes. Can be stacked with other EXP buff effects.  #c* Can be used together with Mu Gong-Certified Wellness Tonic, Alicia's Blessing, MVP 50% Bonus EXP Coupon effects, or +50% Bonus EXP Coupon effects.",
+        "description": "Mike's cheering empowers you. Grants +100% Bonus EXP for 180 minutes. Can be stacked with other EXP buff effects.  * Can be used together with Mu Gong-Certified Wellness Tonic, Alicia's Blessing, MVP 50% Bonus EXP Coupon effects, or +50% Bonus EXP Coupon effects.",
         "consumableStats": {
             "duration": 10800000,
             "expAdditional": 1.0
@@ -8977,7 +8933,7 @@
     },
     "02022216": {
         "name": "Fortune No.0",
-        "description": "\\r  Status : Jump +20, Speed +10  Increases Jump by 20 and speed by 10 for 1 hour.",
+        "description": "Status : Jump +20, Speed +10  Increases Jump by 20 and speed by 10 for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "jump": 20,
@@ -8986,7 +8942,7 @@
     },
     "02022217": {
         "name": "Fortune No.1",
-        "description": "\\r  Status: Weapon Attack +30, Magic Attack +30\\r Increases weapon and magic attack by 30 for 1 hour.",
+        "description": "Status: Weapon Attack +30, Magic Attack +30 Increases weapon and magic attack by 30 for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "attack": 30,
@@ -8995,7 +8951,7 @@
     },
     "02022218": {
         "name": "Fortune No.2",
-        "description": "\\r  Status: Avoidability + 50  Inceases avoidablility by 50 for 1 hour.",
+        "description": "Status: Avoidability + 50  Inceases avoidablility by 50 for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "dex": 2
@@ -9003,7 +8959,7 @@
     },
     "02022219": {
         "name": "Fortune No.3",
-        "description": "\\r  Status:Weapon Def.+ 30, Magic Def. +30\\r Increases weapon and magic defense by 30 for 1 hour.",
+        "description": "Status:Weapon Def.+ 30, Magic Def. +30 Increases weapon and magic defense by 30 for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "defense": 30
@@ -9011,7 +8967,7 @@
     },
     "02022220": {
         "name": "Fortune No.4",
-        "description": "\\r  Status : Accuracy 50  Increases the accuracy by 50 for 1 hour.",
+        "description": "Status : Accuracy 50  Increases the accuracy by 50 for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "dex": 3
@@ -9019,7 +8975,7 @@
     },
     "02022221": {
         "name": "Fortune No.5",
-        "description": "\\r  Status : Max HP +50%, Max MP+25%  Increases the Max HP by 50% and Max Mp by 25% for 1 hour.",
+        "description": "Status : Max HP +50%, Max MP+25%  Increases the Max HP by 50% and Max Mp by 25% for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "hpPercentage": 0.5,
@@ -9028,7 +8984,7 @@
     },
     "02022222": {
         "name": "Fortune No.6",
-        "description": "\\r  Status : Max MP + 50%, Max HP +25%\\r Increases the Max MP by 50%, Max HP by 25% for 1 hour.",
+        "description": "Status : Max MP + 50%, Max HP +25% Increases the Max MP by 50%, Max HP by 25% for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "hpPercentage": 0.25,
@@ -9037,7 +8993,7 @@
     },
     "02022223": {
         "name": "Fortune No.7",
-        "description": "\\r  Status : Speed +20, Jump +10\\r  Increases the speed by 20 and jump by 10 for 1 hour.",
+        "description": "Status : Speed +20, Jump +10  Increases the speed by 20 and jump by 10 for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "speed": 20,
@@ -9901,7 +9857,7 @@
         "name": "Old Slime",
         "description": "Attack Speed Grade +2 for 2 hours. This buff depends on the number of pets summoned when the perfume is first used. This buff stacks with other buffs, but not with other Pet Perfume buffs.",
         "consumableStats": {
-            "attackSpeed": -4,
+            "attackSpeed": 4,
             "duration": 7200000
         }
     },
@@ -9909,7 +9865,7 @@
         "name": "Old Slime",
         "description": "Attack Speed Grade +3 for 2 hours. This buff depends on the number of pets summoned when the perfume is first used. This buff stacks with other buffs, but not with other Pet Perfume buffs.",
         "consumableStats": {
-            "attackSpeed": -6,
+            "attackSpeed": 6,
             "duration": 7200000
         }
     },
@@ -9917,7 +9873,7 @@
         "name": "Old Slime",
         "description": "Attack Speed Grade +4 for 2 hours. This buff depends on the number of pets summoned when the perfume is first used. This buff stacks with other buffs, but not with other Pet Perfume buffs.",
         "consumableStats": {
-            "attackSpeed": -8,
+            "attackSpeed": 8,
             "duration": 7200000
         }
     },
@@ -10210,7 +10166,7 @@
     },
     "02023373": {
         "name": "Infected",
-        "description": "This person's got the virus! If they don't get a vaccine within 30 minutes, they'll start turning undead. #cCan be cured with any vaccine.",
+        "description": "This person's got the virus! If they don't get a vaccine within 30 minutes, they'll start turning undead. Can be cured with any vaccine.",
         "consumableStats": {
             "duration": 1800000,
             "defense": 5
@@ -10218,7 +10174,7 @@
     },
     "02023374": {
         "name": "Hothead",
-        "description": "This zombie is raging out, making them faster and stronger! #cIf they don't get the right vaccine within 10 minutes, they'll become a vector.",
+        "description": "This zombie is raging out, making them faster and stronger! If they don't get the right vaccine within 10 minutes, they'll become a vector.",
         "consumableStats": {
             "duration": 600000,
             "speed": 60,
@@ -10228,7 +10184,7 @@
     },
     "02023375": {
         "name": "Clobber",
-        "description": "This zombie fights 'till it drops.! #cIf they don't get the right vaccine within 10 minutes, they'll become a vector.",
+        "description": "This zombie fights 'till it drops.! If they don't get the right vaccine within 10 minutes, they'll become a vector.",
         "consumableStats": {
             "duration": 600000,
             "attack": 80,
@@ -10237,7 +10193,7 @@
     },
     "02023376": {
         "name": "Slab",
-        "description": "This zombie's skin turned hard as a rock! #cIf they don't get the right vaccine within 10 minutes, they'll become a vector.",
+        "description": "This zombie's skin turned hard as a rock! If they don't get the right vaccine within 10 minutes, they'll become a vector.",
         "consumableStats": {
             "duration": 600000,
             "defense": 4000,
@@ -10246,7 +10202,7 @@
     },
     "02023377": {
         "name": "Oozer",
-        "description": "Eww, this rotting zombie smells terrible! #cIf they don't get the right vaccine within 10 minutes, they'll become a vector.",
+        "description": "Eww, this rotting zombie smells terrible! If they don't get the right vaccine within 10 minutes, they'll become a vector.",
         "consumableStats": {
             "duration": 600000,
             "dex": 1
@@ -10254,7 +10210,7 @@
     },
     "02023378": {
         "name": "Vector",
-        "description": "This person looks normal, but spreads the zombie virus to everyone around them! #cThey can only be cured with the Source Vaccine.",
+        "description": "This person looks normal, but spreads the zombie virus to everyone around them! They can only be cured with the Source Vaccine.",
         "consumableStats": {
             "dex": 1,
             "duration": 1814400000
@@ -10390,7 +10346,7 @@
     },
     "02023464": {
         "name": "Vampire",
-        "description": "Someone infected with Vampire Blood. They possess improved physical capabilities, but #cif they are not treated with a Blood Cure within 10 minutes, they will become a Pure Vampire.",
+        "description": "Someone infected with Vampire Blood. They possess improved physical capabilities, but if they are not treated with a Blood Cure within 10 minutes, they will become a Pure Vampire.",
         "consumableStats": {
             "duration": 600000,
             "defense": 5
@@ -10398,7 +10354,7 @@
     },
     "02023465": {
         "name": "Dark King",
-        "description": "A Pure Vampire with incredible defense.\\r #cIf not treated with a Blood Cure within 10 minutes, they will degenerate into a horrible monster.\\r Drink Vampire Blood before the 10 minutes are up to remain a Pure Vampire.",
+        "description": "A Pure Vampire with incredible defense. If not treated with a Blood Cure within 10 minutes, they will degenerate into a horrible monster. Drink Vampire Blood before the 10 minutes are up to remain a Pure Vampire.",
         "consumableStats": {
             "duration": 600000,
             "defense": 4000,
@@ -10407,7 +10363,7 @@
     },
     "02023466": {
         "name": "Bloody Queen",
-        "description": "A Pure Vampire with devastating power.#cIf not treated with a Blood Cure within 10 minutes, they will degenerate into a horrible monster.\\r Drink Vampire Blood before the 10 minutes are up to remain a Pure Vampire.",
+        "description": "A Pure Vampire with devastating power.If not treated with a Blood Cure within 10 minutes, they will degenerate into a horrible monster. Drink Vampire Blood before the 10 minutes are up to remain a Pure Vampire.",
         "consumableStats": {
             "duration": 600000,
             "attack": 80,
@@ -10416,7 +10372,7 @@
     },
     "02023467": {
         "name": "Killer Ace",
-        "description": "A Pure Vampire with fantastic dexterity.#cIf not treated with a Blood Cure within 10 minutes, they will degenerate into a horrible monster.\\r Drink Vampire Blood before the 10 minutes are up to remain a Pure Vampire.",
+        "description": "A Pure Vampire with fantastic dexterity.If not treated with a Blood Cure within 10 minutes, they will degenerate into a horrible monster. Drink Vampire Blood before the 10 minutes are up to remain a Pure Vampire.",
         "consumableStats": {
             "duration": 600000,
             "speed": 100,
@@ -10426,7 +10382,7 @@
     },
     "02023468": {
         "name": "Foul Joker",
-        "description": "A hideous mutation that has only improved jumping and speed.\\r #cThey can return to normal by using a Blood Cure.",
+        "description": "A hideous mutation that has only improved jumping and speed. They can return to normal by using a Blood Cure.",
         "consumableStats": {
             "duration": 86400000,
             "speed": 10,
@@ -10578,7 +10534,7 @@
     },
     "02023521": {
         "name": "Ready, Fly!",
-        "description": "Cheering for those magical melodies boosts your mood and your fighting spirit! \\r Duration: 30 min, Attack Power +10, Magic ATT +10, Speed +5, Jump +5",
+        "description": "Cheering for those magical melodies boosts your mood and your fighting spirit!  Duration: 30 min, Attack Power +10, Magic ATT +10, Speed +5, Jump +5",
         "consumableStats": {
             "duration": 1800000,
             "attack": 10,
@@ -10658,7 +10614,7 @@
     },
     "02023546": {
         "name": "Lucky Pig Fortune Buff",
-        "description": "The fortune-telling pig said oink to you! Looks like a good day to make some money.\\r #cMeso drop rate increased 50% for 1 hour.",
+        "description": "The fortune-telling pig said oink to you! Looks like a good day to make some money. Meso drop rate increased 50% for 1 hour.",
         "consumableStats": {
             "duration": 3600000,
             "itemDropRate": 0.5
@@ -10701,7 +10657,7 @@
     },
     "02023551": {
         "name": "Santa Power Lv.1",
-        "description": "The raw energy of Christmas, granting the power to last the most magical night of the year!\\r PAD, MAD +20 and MHP, MMP +500 for 2 hours.",
+        "description": "The raw energy of Christmas, granting the power to last the most magical night of the year! PAD, MAD +20 and MHP, MMP +500 for 2 hours.",
         "consumableStats": {
             "duration": 7200000,
             "hp": 500,
@@ -10712,7 +10668,7 @@
     },
     "02023569": {
         "name": "Santa Power Lv.2",
-        "description": "The raw energy of Christmas, granting the power to last the most magical night of the year!\\r PAD, MAD +50 and MHP, MMP +500 for 4 hours.",
+        "description": "The raw energy of Christmas, granting the power to last the most magical night of the year! PAD, MAD +50 and MHP, MMP +500 for 4 hours.",
         "consumableStats": {
             "hp": 500,
             "mp": 500,
@@ -10832,7 +10788,7 @@
     },
     "02023620": {
         "name": "Maple Music Groove",
-        "description": "Get into the rhythm of the Maple Music Festival! \\r #cDuration: 30 min\\r Grants 2x EXP and increases Attack Power and Defense.",
+        "description": "Get into the rhythm of the Maple Music Festival!  Duration: 30 min Grants 2x EXP and increases Attack Power and Defense.",
         "consumableStats": {
             "attack": 10,
             "mattack": 10,
@@ -10843,7 +10799,7 @@
     },
     "02023621": {
         "name": "Maple Music Boogie",
-        "description": "Get into the rhythm of the Maple Music Festival! \\r #cDuration: 30 min\\r Grants 2x EXP and increases Stats and Defense.",
+        "description": "Get into the rhythm of the Maple Music Festival!  Duration: 30 min Grants 2x EXP and increases Stats and Defense.",
         "consumableStats": {
             "str": 10,
             "int": 10,
@@ -10856,7 +10812,7 @@
     },
     "02023622": {
         "name": "Maple Music Strut",
-        "description": "Get into the rhythm of the Maple Music Festival! \\r #cDuration: 30 min\\r Increases Stats, Attack Power, and Defense.",
+        "description": "Get into the rhythm of the Maple Music Festival!  Duration: 30 min Increases Stats, Attack Power, and Defense.",
         "consumableStats": {
             "str": 10,
             "int": 10,
@@ -10870,7 +10826,7 @@
     },
     "02023626": {
         "name": "Tengu's Judgement",
-        "description": "You have been empowered by Tengu's Judgement. \\r  Weapon & Magic ATT +20 for 1 hour.",
+        "description": "You have been empowered by Tengu's Judgement.   Weapon & Magic ATT +20 for 1 hour.",
         "consumableStats": {
             "attack": 20,
             "mattack": 20,
@@ -10929,7 +10885,7 @@
     },
     "02023633": {
         "name": "Restful Night",
-        "description": "As night falls, you feel suddenly revitalized.\\r #HP/MP +1000",
+        "description": "As night falls, you feel suddenly revitalized. #HP/MP +1000",
         "consumableStats": {
             "duration": 1800000,
             "hp": 1000,
@@ -10948,7 +10904,7 @@
     },
     "02023635": {
         "name": "Winds of Winter",
-        "description": "A Snowflake that fell where the Frost Fiends were defeated.\\r #cDuration: 30 min\\r Significantly increases Max HP, MP, Defense, Attack Power, Speed, and Jump.",
+        "description": "A Snowflake that fell where the Frost Fiends were defeated. Duration: 30 min Significantly increases Max HP, MP, Defense, Attack Power, Speed, and Jump.",
         "consumableStats": {
             "duration": 1800000,
             "attack": 20,
@@ -10982,7 +10938,7 @@
     },
     "02023641": {
         "name": "Chocolate Rain",
-        "description": "You have been drenched by chocolate rain.\\r  Attack Power and Magic ATT +20 for 30 sec and +30 Choco Power.\\r (Fixed chance of triggering Choco Frenzy.)",
+        "description": "You have been drenched by chocolate rain.  Attack Power and Magic ATT +20 for 30 sec and +30 Choco Power. (Fixed chance of triggering Choco Frenzy.)",
         "consumableStats": {
             "attack": 20,
             "mattack": 20,
@@ -10991,7 +10947,7 @@
     },
     "02023643": {
         "name": "Synergy Lv. 1",
-        "description": "You and your partner are working in sync!  #cDuration 30 min Speed & Jump +15",
+        "description": "You and your partner are working in sync!  Duration 30 min Speed & Jump +15",
         "consumableStats": {
             "speed": 15,
             "jump": 15,
@@ -11000,7 +10956,7 @@
     },
     "02023644": {
         "name": "Synergy Lv. 2",
-        "description": "You and your partner are working in sync! #cDuration 30 min HP & MP +1000 Speed & Jump +15",
+        "description": "You and your partner are working in sync! Duration 30 min HP & MP +1000 Speed & Jump +15",
         "consumableStats": {
             "speed": 15,
             "jump": 15,
@@ -11011,7 +10967,7 @@
     },
     "02023645": {
         "name": "Synergy Lv. 3",
-        "description": "You and your partner work pretty well together! #cDuration 30 min Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
+        "description": "You and your partner work pretty well together! Duration 30 min Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
         "consumableStats": {
             "speed": 15,
             "jump": 15,
@@ -11024,7 +10980,7 @@
     },
     "02023646": {
         "name": "Synergy Lv. 4",
-        "description": "You and your partner work very well together! #cDuration 30 min Critical Rate +20% Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
+        "description": "You and your partner work very well together! Duration 30 min Critical Rate +20% Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
         "consumableStats": {
             "speed": 15,
             "jump": 15,
@@ -11038,7 +10994,7 @@
     },
     "02023647": {
         "name": "Synergy Lv. 5",
-        "description": "You and your partner work together like a well-oiled machine! #cDuration 60 min Drop Rate x2 Critical Rate +20% Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
+        "description": "You and your partner work together like a well-oiled machine! Duration 60 min Drop Rate x2 Critical Rate +20% Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
         "consumableStats": {
             "speed": 15,
             "jump": 15,
@@ -11053,7 +11009,7 @@
     },
     "02023648": {
         "name": "Synergy Lv. 6",
-        "description": "You and your partner work in such perfect sync that it's kind of ridiculous. #cDuration 60 min EXP x2 Drop Rate x2 Critical Rate +20% Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
+        "description": "You and your partner work in such perfect sync that it's kind of ridiculous. Duration 60 min EXP x2 Drop Rate x2 Critical Rate +20% Attack Power & Magic ATT +30 HP & MP +2000 Speed & Jump +15",
         "consumableStats": {
             "speed": 15,
             "jump": 15,
@@ -11078,7 +11034,7 @@
     },
     "02023657": {
         "name": "I Believe I Can Soar",
-        "description": "You are extremely excited about riding a rocket. Gain a buff granting 2x item drop rate for 5 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "You are extremely excited about riding a rocket. Gain a buff granting 2x item drop rate for 5 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 300000,
             "itemDropRate": 1.0
@@ -11094,7 +11050,7 @@
     },
     "02023678": {
         "name": "Horntail's Magic",
-        "description": "A special buff created by harnessing Horntail's evil magic.\\r \\r Attack Power & Magic ATT +50",
+        "description": "A special buff created by harnessing Horntail's evil magic.  Attack Power & Magic ATT +50",
         "consumableStats": {
             "duration": 600000,
             "attack": 50,
@@ -11103,7 +11059,7 @@
     },
     "02023680": {
         "name": "Trienohk's Blessing",
-        "description": "Trienohk's power flows through you. It will dissipate if you leave Eluna.\\r Duration: 30 min Attack Power & Magic ATT +30 Increases Speed and Jump",
+        "description": "Trienohk's power flows through you. It will dissipate if you leave Eluna. Duration: 30 min Attack Power & Magic ATT +30 Increases Speed and Jump",
         "consumableStats": {
             "duration": 1800000,
             "speed": 15,
@@ -11114,7 +11070,7 @@
     },
     "02023683": {
         "name": "Grade 10 Chef Buff",
-        "description": "A drop rate buff you receive in honor of a new Grade 10 chef being introduced to the world. Now aim for the Legendary Grade!\\r Drop Rate: +100% if you reached it, Drop Rate: +20% if someone else reached it, Duration: 20 min",
+        "description": "A drop rate buff you receive in honor of a new Grade 10 chef being introduced to the world. Now aim for the Legendary Grade! Drop Rate: +100% if you reached it, Drop Rate: +20% if someone else reached it, Duration: 20 min",
         "consumableStats": {
             "itemDropRate": 1.0,
             "duration": 1200000
@@ -11122,7 +11078,7 @@
     },
     "02023684": {
         "name": "Legendary Grade Chef Buff",
-        "description": "An EXP buff you receive in honor of a new Legendary Grade chef being introduced to the world.\\r EXP: +100% if you reached it, EXP: +10% if someone else reached it, Duration: 20 min",
+        "description": "An EXP buff you receive in honor of a new Legendary Grade chef being introduced to the world. EXP: +100% if you reached it, EXP: +10% if someone else reached it, Duration: 20 min",
         "consumableStats": {
             "expAdditional": 1.0,
             "duration": 1200000
@@ -11140,7 +11096,7 @@
     },
     "02023685": {
         "name": "Custom Kitty Pounce",
-        "description": "Your Custom Kitty improved your strength! \\r #cDuration: 15 min  Attack Power and Magic ATT + 20",
+        "description": "Your Custom Kitty improved your strength!  Duration: 15 min  Attack Power and Magic ATT + 20",
         "consumableStats": {
             "duration": 900000,
             "attack": 20,
@@ -11191,7 +11147,7 @@
     },
     "02023722": {
         "name": "[Dice Master] Meso Drop Rate Buff",
-        "description": "The number you roll on the die will determine which special buff is applied.\\r 1. Ribbon Pig Transformation/1 min\\r 2. Item Drop Rate +100%/30 min\\r 3. Attack Power & Magic ATT +30/30 min\\r 4. Critical Rate +20%/30 min\\r 5. HP & MP +15%/30 min\\r 6. Meso Drop Rate +100%/30 min",
+        "description": "The number you roll on the die will determine which special buff is applied. 1. Ribbon Pig Transformation/1 min 2. Item Drop Rate +100%/30 min 3. Attack Power & Magic ATT +30/30 min 4. Critical Rate +20%/30 min 5. HP & MP +15%/30 min 6. Meso Drop Rate +100%/30 min",
         "consumableStats": {
             "duration": 1800000,
             "itemDropRate": 1.0
@@ -11199,7 +11155,7 @@
     },
     "02023723": {
         "name": "[Dice Master] Item Drop Rate Buff",
-        "description": "The number you roll on the die will determine which special buff is applied.\\r 1. Ribbon Pig Transformation/1 min\\r 2. Item Drop Rate +100%/30 min\\r 3. Attack Power & Magic ATT +30/30 min\\r 4. Critical Rate +20%/30 min\\r 5. HP & MP +15%/30 min\\r 6. Meso Drop Rate +100%/30 min",
+        "description": "The number you roll on the die will determine which special buff is applied. 1. Ribbon Pig Transformation/1 min 2. Item Drop Rate +100%/30 min 3. Attack Power & Magic ATT +30/30 min 4. Critical Rate +20%/30 min 5. HP & MP +15%/30 min 6. Meso Drop Rate +100%/30 min",
         "consumableStats": {
             "duration": 1800000,
             "itemDropRate": 1.0
@@ -11207,7 +11163,7 @@
     },
     "02023724": {
         "name": "[Dice Master] Damage Buff",
-        "description": "The number you roll on the die will determine which special buff is applied.\\r 1. Ribbon Pig Transformation/1 min\\r 2. Item Drop Rate +100%/30 min\\r 3. Attack Power & Magic ATT +30/30 min\\r 4. Critical Rate +20%/30 min\\r 5. HP & MP +15%/30 min\\r 6. Meso Drop Rate +100%/30 min",
+        "description": "The number you roll on the die will determine which special buff is applied. 1. Ribbon Pig Transformation/1 min 2. Item Drop Rate +100%/30 min 3. Attack Power & Magic ATT +30/30 min 4. Critical Rate +20%/30 min 5. HP & MP +15%/30 min 6. Meso Drop Rate +100%/30 min",
         "consumableStats": {
             "attack": 30,
             "mattack": 30,
@@ -11216,7 +11172,7 @@
     },
     "02023725": {
         "name": "[Dice Master] Critical Buff",
-        "description": "The number you roll on the die will determine which special buff is applied.\\r 1. Ribbon Pig Transformation/1 min\\r 2. Item Drop Rate +100%/30 min\\r 3. Attack Power & Magic ATT +30/30 min\\r 4. Critical Rate +20%/30 min\\r 5. HP & MP +15%/30 min\\r 6. Meso Drop Rate +100%/30 min",
+        "description": "The number you roll on the die will determine which special buff is applied. 1. Ribbon Pig Transformation/1 min 2. Item Drop Rate +100%/30 min 3. Attack Power & Magic ATT +30/30 min 4. Critical Rate +20%/30 min 5. HP & MP +15%/30 min 6. Meso Drop Rate +100%/30 min",
         "consumableStats": {
             "critRate": 0.2,
             "duration": 1800000
@@ -11224,7 +11180,7 @@
     },
     "02023726": {
         "name": "[Dice Master] HP/MP Buff",
-        "description": "The number you roll on the die will determine which special buff is applied.\\r 1. Ribbon Pig Transformation/1 min\\r 2. Item Drop Rate +100%/30 min\\r 3. Attack Power & Magic ATT +30/30 min\\r 4. Critical Rate +20%/30 min\\r 5. HP & MP +15%/30 min\\r 6. Meso Drop Rate +100%/30 min",
+        "description": "The number you roll on the die will determine which special buff is applied. 1. Ribbon Pig Transformation/1 min 2. Item Drop Rate +100%/30 min 3. Attack Power & Magic ATT +30/30 min 4. Critical Rate +20%/30 min 5. HP & MP +15%/30 min 6. Meso Drop Rate +100%/30 min",
         "consumableStats": {
             "duration": 1800000,
             "mpPercentage": 0.15,
@@ -11233,7 +11189,7 @@
     },
     "02023717": {
         "name": "Shinji's Cassette Player",
-        "description": "It's Shinji's favorite music player. #cDuration: 1 hr Attack Power & Magic ATT +20",
+        "description": "It's Shinji's favorite music player. Duration: 1 hr Attack Power & Magic ATT +20",
         "consumableStats": {
             "duration": 3600000,
             "attack": 20,
@@ -11242,7 +11198,7 @@
     },
     "02023718": {
         "name": "Asuka's Homemade Lunch",
-        "description": "Asuka poured her heart into making this special homemade lunch. #cDuration: 1 hr DEF +250",
+        "description": "Asuka poured her heart into making this special homemade lunch. Duration: 1 hr DEF +250",
         "consumableStats": {
             "duration": 3600000,
             "defense": 250
@@ -11250,7 +11206,7 @@
     },
     "02023732": {
         "name": "Golden Leaf Blessing 1",
-        "description": "\\r \\r #cIncreases all stats by 10 for 15 minutes when used.\\r \\r The effect disappears when you log back in.",
+        "description": "Increases all stats by 10 for 15 minutes when used.  The effect disappears when you log back in.",
         "consumableStats": {
             "duration": 900000,
             "str": 10,
@@ -11261,7 +11217,7 @@
     },
     "02023733": {
         "name": "Golden Leaf Blessing 2",
-        "description": "\\r \\r #cIncreases Attack Power & Magic ATT by 10 for 15 minutes when used\\r \\r Effect disappears when you log back in.",
+        "description": "Increases Attack Power & Magic ATT by 10 for 15 minutes when used  Effect disappears when you log back in.",
         "consumableStats": {
             "duration": 900000,
             "attack": 10,
@@ -11270,7 +11226,7 @@
     },
     "02023734": {
         "name": "Golden Leaf Blessing 3",
-        "description": "\\r \\r #cIncreases Critical Rate by 10%\\r Increases Enemy DEF Ignored by 10%\\r \\r Effects last for 15 minutes and disappear when you log back in.",
+        "description": "Increases Critical Rate by 10% Increases Enemy DEF Ignored by 10%  Effects last for 15 minutes and disappear when you log back in.",
         "consumableStats": {
             "duration": 900000,
             "critRate": 0.1,
@@ -11279,7 +11235,7 @@
     },
     "02023735": {
         "name": "Golden Leaf Blessing 4",
-        "description": "\\r \\r #cIncreases Attack Power & Magic ATT by 15\\r Increases Boss ATT by 10%\\r \\r Effects last for 15 minutes and disappear when you log back in.",
+        "description": "Increases Attack Power & Magic ATT by 15 Increases Boss ATT by 10%  Effects last for 15 minutes and disappear when you log back in.",
         "consumableStats": {
             "duration": 900000,
             "attack": 15,
@@ -11869,7 +11825,7 @@
     },
     "02023728": {
         "name": "Kero-chan's Support",
-        "description": "Kero-chan cheers you on.\\r All Stats +7 for 30 min.#",
+        "description": "Kero-chan cheers you on. All Stats +7 for 30 min.#",
         "consumableStats": {
             "duration": 1800000,
             "str": 7,
@@ -11880,7 +11836,7 @@
     },
     "02023729": {
         "name": "Syaoran-kun's Support",
-        "description": "Syaoran-kun cheers you on.\\r All Stats +7 for 30 min.#",
+        "description": "Syaoran-kun cheers you on. All Stats +7 for 30 min.#",
         "consumableStats": {
             "duration": 1800000,
             "str": 7,
@@ -11891,7 +11847,7 @@
     },
     "02023730": {
         "name": "Tomoyo-chan's Support",
-        "description": "Tomoyo-chan cheers you on.\\r All Stats +7 for 30 min.#",
+        "description": "Tomoyo-chan cheers you on. All Stats +7 for 30 min.#",
         "consumableStats": {
             "duration": 1800000,
             "str": 7,
@@ -11902,7 +11858,7 @@
     },
     "02023731": {
         "name": "Sakura-chan's Support",
-        "description": "Sakura-chan cheers you on.\\r All Stats +7 for 30 min.#",
+        "description": "Sakura-chan cheers you on. All Stats +7 for 30 min.#",
         "consumableStats": {
             "duration": 1800000,
             "str": 7,
@@ -11913,7 +11869,7 @@
     },
     "02023810": {
         "name": "Viva Support Buff",
-        "description": "A buff you can get once every 30 minutes during the Viva Event. #cDuration: 20 min Attack Power +20 All Stat +20",
+        "description": "A buff you can get once every 30 minutes during the Viva Event. Duration: 20 min Attack Power +20 All Stat +20",
         "consumableStats": {
             "duration": 1200000,
             "mattack": 20,
@@ -11926,7 +11882,7 @@
     },
     "02023808": {
         "name": "Custom Puppy Pep",
-        "description": "Your Custom Puppy improved your Strength!\\r #cDuration: 15 min Attack Power and Magic ATT + 20",
+        "description": "Your Custom Puppy improved your Strength! Duration: 15 min Attack Power and Magic ATT + 20",
         "consumableStats": {
             "duration": 900000,
             "attack": 20,
@@ -11935,7 +11891,7 @@
     },
     "02023812": {
         "name": "Courage Balance Blessing",
-        "description": "Your courage balance improved your Strength!\\r #cDuration: 15 min Boss Attack Power +15",
+        "description": "Your courage balance improved your Strength! Duration: 15 min Boss Attack Power +15",
         "consumableStats": {
             "duration": 900000,
             "bossDamage": 0.15
@@ -11943,7 +11899,7 @@
     },
     "02023813": {
         "name": "Curiosity Balance Blessing",
-        "description": "Your curiosity balance improved your Strength!\\r #cDuration: 15 min Attack Power & Magic ATT +15",
+        "description": "Your curiosity balance improved your Strength! Duration: 15 min Attack Power & Magic ATT +15",
         "consumableStats": {
             "duration": 900000,
             "attack": 15,
@@ -11952,7 +11908,7 @@
     },
     "02023814": {
         "name": "Stamina Balance Blessing",
-        "description": "Your stamina balance improved your Strength!\\r #cDuration: 15 min All Stats +15",
+        "description": "Your stamina balance improved your Strength! Duration: 15 min All Stats +15",
         "consumableStats": {
             "duration": 900000,
             "str": 15,
@@ -11963,7 +11919,7 @@
     },
     "02023822": {
         "name": "Dumpling Power! (15 min)",
-        "description": "Maple World's residents united to make this extra special Dumpling. It's still piping hot and ready to be enjoyed.\\r #cEXP: +100%\\r Attack Power & Magic ATT: +15\\r Duration: 15 min",
+        "description": "Maple World's residents united to make this extra special Dumpling. It's still piping hot and ready to be enjoyed. EXP: +100% Attack Power & Magic ATT: +15 Duration: 15 min",
         "consumableStats": {
             "duration": 900000,
             "attack": 15,
@@ -11973,7 +11929,7 @@
     },
     "02023823": {
         "name": "Duo Dumpling Power! (30 min)",
-        "description": "Sharing your Dumpling doubled the duration! You're strong as ever!\\r #cEXP: +100%\\r Attack Power & Magic ATT: +30\\r Duration: 30 min",
+        "description": "Sharing your Dumpling doubled the duration! You're strong as ever! EXP: +100% Attack Power & Magic ATT: +30 Duration: 30 min",
         "consumableStats": {
             "duration": 1800000,
             "attack": 30,
@@ -12215,7 +12171,7 @@
         "description": "While fighting Oda forces at Fort Asura, your Attack Speed is increased by 1.",
         "consumableStats": {
             "duration": 900000,
-            "attackSpeed": -1
+            "attackSpeed": 1
         }
     },
     "02023955": {
@@ -12296,7 +12252,7 @@
     },
     "02023997": {
         "name": "New Year's Blessing",
-        "description": "Happy New Year!\\r Max HP & MP +2,000, Attack Power & Magic Attack +10 for 15 minutes.",
+        "description": "Happy New Year! Max HP & MP +2,000, Attack Power & Magic Attack +10 for 15 minutes.",
         "consumableStats": {
             "duration": 900000,
             "attack": 10,
@@ -12456,7 +12412,7 @@
     },
     "02024129": {
         "name": "Overwhelming Power Drink",
-        "description": "Drink this for a taste of greatness. Attack Power and Magic ATT +30 and Defense +30 for 30 minutes.\\r  Awaken the power inside you!",
+        "description": "Drink this for a taste of greatness. Attack Power and Magic ATT +30 and Defense +30 for 30 minutes.  Awaken the power inside you!",
         "consumableStats": {
             "attack": 30,
             "mattack": 30,
@@ -12562,7 +12518,7 @@
     },
     "02024165": {
         "name": "10% EXP Coupon (30 min)",
-        "description": "Double-click to use and get an additional 10% EXP for 30 minutes.\\rStacks with other EXP buff effects.",
+        "description": "Double-click to use and get an additional 10% EXP for 30 minutes.Stacks with other EXP buff effects.",
         "consumableStats": {
             "duration": 1800000,
             "expAdditional": 0.1
@@ -12584,7 +12540,7 @@
     },
     "02024133": {
         "name": "King Pirate Vikin's Meso Flex",
-        "description": "Someone who learned how to flex Mesos, from King Pirate Vikin of the Night Troupe Nautilus Festival,\\r is scattering Mesos all across the Nautilus Festival Venue!\\r Increases EXP obtained by 50% for 30 minutes.  Stacks with other EXP increasing effects.",
+        "description": "Someone who learned how to flex Mesos, from King Pirate Vikin of the Night Troupe Nautilus Festival, is scattering Mesos all across the Nautilus Festival Venue! Increases EXP obtained by 50% for 30 minutes.  Stacks with other EXP increasing effects.",
         "consumableStats": {
             "expAdditional": 0.5,
             "duration": 1800000
@@ -12750,2237 +12706,9 @@
             "jump": 100
         }
     },
-    "02380023": {
-        "name": "Jr. Boogie Card",
-        "description": "A card that features Jr. Boogie.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.05
-        }
-    },
-    "02380036": {
-        "name": "Jr. Wraith Card",
-        "description": "A card that features Jr. Wraith.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02380041": {
-        "name": "Wraith Card",
-        "description": "A card that features Wraith.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02381088": {
-        "name": "Curse Eye Card",
-        "description": "A card that features Curse Eye.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02381093": {
-        "name": "Cold Eye Card",
-        "description": "A card that features Cold Eye.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02381094": {
-        "name": "Iron Hog Card",
-        "description": "A card that features Iron Hog.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02381103": {
-        "name": "Fire Boar Card",
-        "description": "A card that features Fire Boar.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.04
-        }
-    },
-    "02381104": {
-        "name": "Lupin Card",
-        "description": "A card that features Lupin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02381106": {
-        "name": "Zombie Lupin Card",
-        "description": "A card that features Zombie Lupin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02381109": {
-        "name": "Malady Card",
-        "description": "A card that features Malady.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02382005": {
-        "name": "Ratz Card",
-        "description": "A card that features Ratz. If hunting at Eos TowernMeso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02382011": {
-        "name": "Jr. Cellion Card",
-        "description": "A card that features Jr. Cellion. If hunting at the Orbis GardennDefense against fire-based attacks +3%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02382012": {
-        "name": "Jr. Lioner Card",
-        "description": "A card that features Jr. Lioner. If hunting at the Orbis GardennDefense against electric-based attacks +3%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02382013": {
-        "name": "Jr. Grupin Card",
-        "description": "A card that features Jr. Grupin. If hunting at the Orbis GardennDefense against ice-based attacks +3%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02382016": {
-        "name": "Black Ratz Card",
-        "description": "A card that features Black Ratz. If hunting at Eos TowernMeso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02382020": {
-        "name": "Star Pixie Card",
-        "description": "A card that features Star Pixie. If hunting at the Cloud ParknSpeed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382023": {
-        "name": "Jr. Pepe Card",
-        "description": "A card that features Jr. Pepe. If hunting at Orbis TowernSpeed + 1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382030": {
-        "name": "Lorang Card",
-        "description": "A card that features Lorang. If hunting at Victoria IslandnSpeed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382052": {
-        "name": "Nependeath Card",
-        "description": "A card that features Nependeath. Increases drop rate of Nependeath Honey",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02382063": {
-        "name": "Skeledog Card",
-        "description": "A card that features Skeledog. If hunting at PerionnSpeed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382064": {
-        "name": "Lunar Pixie Card",
-        "description": "A card that features Lunar Pixie. If hunting at the Cloud ParknJump +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02382073": {
-        "name": "Big Cloud Fox Card",
-        "description": "A card that features Big Cloud Fox.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382075": {
-        "name": "Yakuza Soldier Card",
-        "description": "A card that features a Yakuza Soldier.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382094": {
-        "name": "Intoxicated Pig Card",
-        "description": "A card featuring the Intoxicated Pig #cWhen hunting in the Mushroom Castle:  Speed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382095": {
-        "name": "Helmet Pepe Card",
-        "description": "A card featuring Helmet Pepe #cWhen hunting in the Mushroom Castle:  Jump +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02382096": {
-        "name": "Royal Guard Pepe Card",
-        "description": "A card featuring Royal Guard Pepe #cWhen hunting in the Mushroom Castle:  Speed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382097": {
-        "name": "Cherry Bubble Tea Card",
-        "description": "A card featuring Cherry Bubble Tea. \\cSTR +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "str": 1
-        }
-    },
-    "02382098": {
-        "name": "Melon Bubble Tea Card",
-        "description": "A card featuring Melon Bubble Tea. \\cLUK +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "luk": 1
-        }
-    },
-    "02382099": {
-        "name": "Mango Bubble Tea Card",
-        "description": "A card featuring Mango Bubble Tea. \\cINT +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "int": 1
-        }
-    },
-    "02382100": {
-        "name": "Yeti Doll Claw Game Card",
-        "description": "A card featuring the Yeti Doll Claw Game. \\cDEX +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "dex": 1
-        }
-    },
-    "02382101": {
-        "name": "Pepe Doll Claw Game Card",
-        "description": "A card featuring the Jr. Pepe Doll Claw Game. \\cSpeed +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382102": {
-        "name": "Transformed Doll Claw Game Card",
-        "description": "A card featuring the Transformed Doll Claw Game. \\cJump +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02382105": {
-        "name": "Pink Perfume Card",
-        "description": "A card featuring Pink Perfume. DEF +1 when hunting in Kerning Square",
-        "consumableStats": {
-            "duration": 1200000,
-            "defense": 1
-        }
-    },
-    "02382106": {
-        "name": "Kid Mannequin Card",
-        "description": "A card featuring the Kid Mannequin. \\cMagic DEF +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "defense": 1
-        }
-    },
-    "02382107": {
-        "name": "Female Mannequin Card",
-        "description": "A card featuring the Female Mannequin. \\cSTR +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "str": 1
-        }
-    },
-    "02382108": {
-        "name": "Male Mannequin Card",
-        "description": "A card featuring the Male Mannequin. \\cINT +1 when hunting in Kerning Square#",
-        "consumableStats": {
-            "duration": 1200000,
-            "int": 1
-        }
-    },
-    "02382119": {
-        "name": "Big Boulder Muncher Card",
-        "description": "A card that features Big Boulder Muncher.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.05
-        }
-    },
-    "02382121": {
-        "name": "Clang Card",
-        "description": "A card that features Clang.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02382126": {
-        "name": "Latest Hits Compilation Card",
-        "description": "A card that features Latest Hits Compilation.",
-        "consumableStats": {
-            "duration": 1200000,
-            "dex": 1
-        }
-    },
-    "02382127": {
-        "name": "Dark Nependeath Card",
-        "description": "A card that features Dark Nependeath.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02382129": {
-        "name": "Greatest Oldies Card",
-        "description": "A card that features Greatest Oldies.",
-        "consumableStats": {
-            "duration": 1200000,
-            "luk": 1
-        }
-    },
-    "02382130": {
-        "name": "Cheap Amplifier Card",
-        "description": "A card that features Cheap Amplifier.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02382132": {
-        "name": "Fancy Amplifier Card",
-        "description": "A card that features Fancy Amplifier .",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02383005": {
-        "name": "Mummy Dog Card",
-        "description": "A card that features Mummy Dog. If hunting at PerionnJump +2",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02383012": {
-        "name": "Drake Card",
-        "description": "A card that features Drake. If hunting at Victoria IslandnSpeed +2",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02383014": {
-        "name": "Hodori Card",
-        "description": "A card that features Hodori. If hunting at the Black MountainnSpeed +2",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02383017": {
-        "name": "Firebomb Card",
-        "description": "A card that features Firebomb. If hunting at Dead MinenDefense against fire-based attacks +6%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02383021": {
-        "name": "Cellion Card",
-        "description": "A card that features Cellion Card. If hunting at the Orbis GardennDefense against fire-based attacks +6%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02383022": {
-        "name": "Lioner Card",
-        "description": "A card that features Lioner. If hunting at the Orbis GardennDefense against electric-based attacks +6%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02383023": {
-        "name": "Grupin Card",
-        "description": "A card that features Grupin. If hunting at the Orbis GardennDefense against ice-based attacks +6%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02383024": {
-        "name": "Hogul",
-        "description": "A card that features Hogul. If hunting at the Black MountainnProtection against being knocked out +10%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02383031": {
-        "name": "Hector Card",
-        "description": "A card that features Hector Card. If hunting at the SnowfieldnSpeed +2",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02383040": {
-        "name": "White Fang Card",
-        "description": "A card that features White Fang. If hunting at the SnowfieldnSpeed +2",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02383044": {
-        "name": "Red Drake Card",
-        "description": "A card that features Red Drake. If hunting at Victoria IslandnDefense against fire-based attacks +6%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02383045": {
-        "name": "Pepe Card",
-        "description": "A card that features Pepe. If hunting at the SnowfieldnSpeed +2",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02383050": {
-        "name": "Nightghost Card",
-        "description": "A card that features Nightghost.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02383053": {
-        "name": "Yakuza Bruiser Card",
-        "description": "A card that features a Yakuza Bruiser.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02383054": {
-        "name": "Chunin Card",
-        "description": "A card that features Chunin. Increases Jump +2 when you hunt at Sakura Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02383055": {
-        "name": "Kunoichi Card",
-        "description": "A card that features Kunoichi.  Increases Drop Rate of \"Use\" items when you hunt at Sakura Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02383074": {
-        "name": "Retz Card",
-        "description": "A card that features Retz.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02383078": {
-        "name": "Dark Pepe Card",
-        "description": "A card that features Dark Pepe.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 3
-        }
-    },
-    "02383080": {
-        "name": "Chirppy Card",
-        "description": "A card that features Chirppy.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02383081": {
-        "name": "Copper Drake Card",
-        "description": "A card that features Copper Drake.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02383082": {
-        "name": "Jr. Lucida Card",
-        "description": "A card that features Jr. Lucida .",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02383083": {
-        "name": "Pink Teddy Card",
-        "description": "A card that features Pink Teddy.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02383085": {
-        "name": "Drumming Bunny Card",
-        "description": "A card that features Drumming Bunny.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02383089": {
-        "name": "Bloctopus Card",
-        "description": "A card that features Bloctopus.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02383090": {
-        "name": "Lucida Card",
-        "description": "A card that features Lucida.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02383091": {
-        "name": "Moon Bunny Card",
-        "description": "A card that features Moon Bunny.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02383094": {
-        "name": "Ice Drake Card",
-        "description": "A card that features Ice Drake.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02383095": {
-        "name": "Propelly Card",
-        "description": "A card that features Propelly.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02383096": {
-        "name": "Toy Trojan Card",
-        "description": "A card that features Toy Trojan.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02383098": {
-        "name": "King Bloctopus Card",
-        "description": "A card that features King Bloctopus.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02383099": {
-        "name": "Dark Drake Card",
-        "description": "A card that features Dark Drake.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02383102": {
-        "name": "Wild Kargo Card",
-        "description": "A card that features Wild Kargo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 3
-        }
-    },
-    "02384020": {
-        "name": "Tauromacis Card",
-        "description": "A card that features Tauromacis. If hunting at Victoria IslandnDefense against poison-based attacks +9%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02384021": {
-        "name": "Yellow King Goblin Card",
-        "description": "A card that features Yellow King Goblin. If hunting at the Black MountainnDefense against fire-based attacks +9%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02384022": {
-        "name": "Blue King Goblin Card",
-        "description": "A card that features Blue King Goblin. If hunting at the Black MountainnDefense against ice-based attacks +9%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02384023": {
-        "name": "Green King Goblin Card",
-        "description": "A card that features Green King Goblin. If hunting at the Black MountainnDefense against poison-based attacks +9%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02384041": {
-        "name": "Yakuza Enforcer Card",
-        "description": "A card that features a Yakuza Enforcer.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 3
-        }
-    },
-    "02384043": {
-        "name": "Yakuza Shotcaller Card",
-        "description": "A card that features a Yakuza Shotcaller.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 3
-        }
-    },
-    "02384065": {
-        "name": "Robo Card",
-        "description": "A card that features Robo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02384067": {
-        "name": "Samiho Card",
-        "description": "A card that features Samiho.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02384069": {
-        "name": "Master Robo Card",
-        "description": "A card that features Master Robo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02384073": {
-        "name": "Barnard Gray Card",
-        "description": "A card that features Barnard Gray.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02384075": {
-        "name": "Mateon Card",
-        "description": "A card that features Mateon.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02384077": {
-        "name": "Zeta Gray Card",
-        "description": "A card that features Zeta Gray.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02384081": {
-        "name": "Jr. Seal Card",
-        "description": "A card that features Jr. Seal.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02384082": {
-        "name": "Plateon Card",
-        "description": "A card that features Plateon.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02384086": {
-        "name": "Poopa Card",
-        "description": "A card that features Poopa.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02384087": {
-        "name": "Poison Poopa Card",
-        "description": "A card that features Poison Poopa.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02384091": {
-        "name": "Mecateon Card",
-        "description": "A card that features Mecateon.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02384093": {
-        "name": "Freezer Card",
-        "description": "A card that features Freezer.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02384097": {
-        "name": "Sparker Card",
-        "description": "A card that features Sparker.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02384098": {
-        "name": "Platoon Chronos Card",
-        "description": "A card that features Platoon Chronos.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02384100": {
-        "name": "Master Chronos Card",
-        "description": "A card that features Master Chronos.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02385047": {
-        "name": "Chipmunk Card",
-        "description": "A card that features Chipmunk.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02385053": {
-        "name": "Cube Slime Card",
-        "description": "A card that features Cube Slime.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02385061": {
-        "name": "Rumo Card",
-        "description": "A card that features Rumo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02385064": {
-        "name": "Triple Rumo Card",
-        "description": "A card that features Triple Rumo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.03
-        }
-    },
-    "02385066": {
-        "name": "Mossy Mushroom Card",
-        "description": "A card that features Mossy Mushroom.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02385067": {
-        "name": "Raco Card",
-        "description": "A card that features Raco.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02385068": {
-        "name": "Iron Mutae Card",
-        "description": "A card that features Iron Mutae.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02385070": {
-        "name": "Sand Dwarf Card",
-        "description": "A card that features Sand Dwarf .",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02385071": {
-        "name": "Dark Sand Dwarf Card",
-        "description": "A card that features Dark Sand Dwarf .",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02385074": {
-        "name": "Primitive Boar Card",
-        "description": "A card that features Primitive Boar.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 2
-        }
-    },
-    "02385075": {
-        "name": "Grizzly  Card",
-        "description": "A card that features Grizzly.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02385079": {
-        "name": "Desert Giant Card",
-        "description": "A card that features Desert Giant .",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02385080": {
-        "name": "Roid Card",
-        "description": "A card that features Roid .",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02385081": {
-        "name": "Reindeer Card",
-        "description": "A card that features Reindeer.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02385082": {
-        "name": "Neo Huroid Card",
-        "description": "A card that features Neo Huroid.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02385083": {
-        "name": "Panda Card",
-        "description": "A card that features Panda.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02385085": {
-        "name": "Hoblin Hector Card",
-        "description": "A card that features Hoblin Hector.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02385086": {
-        "name": "Elite Hoblin Card",
-        "description": "A card that features Elite Hoblin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02385087": {
-        "name": "Elite Green Hoblin Card",
-        "description": "A card that features Elite Green Hoblin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02385088": {
-        "name": "Combat Hoblin",
-        "description": "A card that features Combat Hoblin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02385089": {
-        "name": "Ferocious Hoblin",
-        "description": "A card that features Ferocious Hoblin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02386000": {
-        "name": "Bone Fish Card",
-        "description": "A card that features Bone Fish. If hunting at Aqua Roadn30% chance of breaking through monster's weapon defense",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02386003": {
-        "name": "Squid Card",
-        "description": "A card that features Squid. If hunting at Aqua RoadnDefense against darkness +25%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.25
-        }
-    },
-    "02386007": {
-        "name": "Risell Squid Card",
-        "description": "A card that features Risell Squid. If hunting at Aqua RoadnDefense against darkness +25%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.25
-        }
-    },
-    "02386012": {
-        "name": "Shark Card",
-        "description": "A card that features SharknIf hunting at Aqua RoadnDefense against ice-based attacks +15%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02386018": {
-        "name": "Dreamy Ghost Card",
-        "description": "A card that features Dreamy Ghost.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 5
-        }
-    },
-    "02386019": {
-        "name": "Yakuza Executive Card",
-        "description": "A card that features a Yakuza Executive.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 5
-        }
-    },
-    "02386035": {
-        "name": "Jar Card",
-        "description": "A card that features Jar.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02386036": {
-        "name": "Goby Card",
-        "description": "A card that features Goby.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02386040": {
-        "name": "Ginseng Jar Card",
-        "description": "A card that features Ginseng Jar.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02386042": {
-        "name": "Bellflower Root Card",
-        "description": "A card that features Bellflower Root.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02386044": {
-        "name": "Buffy Card",
-        "description": "A card that features Buffy.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 3
-        }
-    },
-    "02386046": {
-        "name": "Sr. Bellflower Root Card",
-        "description": "A card that features Sr. Bellflower Root.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02386050": {
-        "name": "Rash Card",
-        "description": "A card that features Rash.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02386053": {
-        "name": "Mr. Alli Card",
-        "description": "A card that features Mr. Alli.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02386055": {
-        "name": "Homunscullo Card",
-        "description": "A card that features Homunscullo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 4
-        }
-    },
-    "02386056": {
-        "name": "Hobi Card",
-        "description": "A card that features Hobi.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02386059": {
-        "name": "Kru Card",
-        "description": "A card that features Kru.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 3
-        }
-    },
-    "02386060": {
-        "name": "Dark Rash Card",
-        "description": "A card that features Dark Rash.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02386062": {
-        "name": "Captain Card",
-        "description": "A card that features Captain.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 3
-        }
-    },
-    "02386065": {
-        "name": "Buffoon Card",
-        "description": "A card that features Buffoon. If hunting at the lower levels of the ClocktowernSpeed +3",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 3
-        }
-    },
-    "02387000": {
-        "name": "Gatekeeper Card",
-        "description": "A card that features Gatekeeper. #If hunting at the lower levels of the Clocktowern25% chance of breaking through monster's weapon defense#",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.25
-        }
-    },
-    "02387001": {
-        "name": "Thanatos Card",
-        "description": "A card that features ThanatosnIf hunting at the lower levels of the Clocktowern25% chance of breaking through monster's magic defense",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.25
-        }
-    },
-    "02387003": {
-        "name": "Skelosaurus Card",
-        "description": "A card that features SkelosaurusnIf hunting at the Dragon Forestn20% chance of breaking through monster's weapon/magic defense",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02387008": {
-        "name": "Qualm Guardian Card",
-        "description": "A card with a picture of the Qualm Guardian. When hunting on the Road of RegretsnJump +6",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 6
-        }
-    },
-    "02387009": {
-        "name": "Chief Qualm Guardian Card",
-        "description": "A card with a picture of the Chief Qualm Guardian. When hunting on the Road of RegretsnSpeed +6",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 6
-        }
-    },
-    "02387012": {
-        "name": "Oblivion Guardian Card",
-        "description": "A card with a picture of the Oblivion Guardian. When hunting on the Road to OblivionnJump +6",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 6
-        }
-    },
-    "02387013": {
-        "name": "Chief Oblivion Guardian Card",
-        "description": "A card with a picture of the Chief Oblivion Guardian. When hunting on the Road to OblivionnSpeed +6",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 6
-        }
-    },
-    "02387033": {
-        "name": "Deep Buffoon Card",
-        "description": "A card that features Deep Buffoon.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02387034": {
-        "name": "Hankie Card",
-        "description": "A card that features Hankie.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 4
-        }
-    },
-    "02387041": {
-        "name": "Birk Card",
-        "description": "A card that features Birk.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02387043": {
-        "name": "Dual Birk Card",
-        "description": "A card that features Dual Birk.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02387044": {
-        "name": "Yeti Card",
-        "description": "A card that features Yeti.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02387047": {
-        "name": "Black Kentaurus Card",
-        "description": "A card that features Black Kentaurus.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02387048": {
-        "name": "Red Kentaurus Card",
-        "description": "A card that features Red Kentaurus.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.12
-        }
-    },
-    "02387049": {
-        "name": "Blue Kentaurus Card",
-        "description": "A card that features Blue Kentaurus.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.12
-        }
-    },
-    "02387050": {
-        "name": "Dark Yeti Card",
-        "description": "A card that features Dark Yeti.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02387053": {
-        "name": "Spirit Viking Card",
-        "description": "A card that features Spirit Viking.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02387054": {
-        "name": "Phantom Watch Card",
-        "description": "A card that features Phantom Watch.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02387057": {
-        "name": "Gigantic Spirit Viking Card",
-        "description": "A card that features Gigantic Spirit Viking.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02387058": {
-        "name": "Jr. Cerebes Card",
-        "description": "A card that features Jr. Cerebes.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02387060": {
-        "name": "Grim Phantom Watch Card",
-        "description": "A card that features Grim Phantom Watch.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02387065": {
-        "name": "Rexton Card",
-        "description": "A card that features Rexton.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 5
-        }
-    },
-    "02387066": {
-        "name": "Coolie Zombie Card",
-        "description": "A card that features Coolie Zombie.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02387067": {
-        "name": "Miner Zombie Card",
-        "description": "A card that features Miner Zombie.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02387070": {
-        "name": "Red Wyvern Card",
-        "description": "A card that features Red Wyvern.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02387071": {
-        "name": "Bain Card",
-        "description": "A card that features Bain.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.12
-        }
-    },
-    "02387072": {
-        "name": "Green Cornian Card",
-        "description": "A card that features Green Cornian.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 5
-        }
-    },
-    "02387073": {
-        "name": "Eye of Time Card",
-        "description": "A card that features Eye of Time.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02387074": {
-        "name": "Blue Wyvern Card",
-        "description": "A card that features Blue Wyvern.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02387075": {
-        "name": "Dark Wyvern Card",
-        "description": "A card that features Dark Wyvern.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.25
-        }
-    },
-    "02387080": {
-        "name": "Memory Guardian Card",
-        "description": "A card that features Memory Guardian.",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 5
-        }
-    },
-    "02387081": {
-        "name": "Chief Memory Guardian Card",
-        "description": "A card that features Chief Memory Guardian.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 5
-        }
-    },
-    "02388034": {
-        "name": "Blue Mushmom Card",
-        "description": "A card that features Blue Mushmom.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1,
-            "jump": 1
-        }
-    },
-    "02388035": {
-        "name": "Black Crow Card",
-        "description": "A card that features Black Crow.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388036": {
-        "name": "Yakuza Underboss Card",
-        "description": "A card that features the Yakuza Underboss.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 6,
-            "jump": 6
-        }
-    },
-    "02388037": {
-        "name": "Yakuza Boss Card",
-        "description": "A card that features the Yakuza Boss.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388056": {
-        "name": "Yakuza Officer Card",
-        "description": "A card that features a Yakuza Officer.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 5
-        }
-    },
-    "02388096": {
-        "name": "Snow Witch Card",
-        "description": "A card that features Snow Witch.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.09
-        }
-    },
-    "02388099": {
-        "name": "Jr. Balrog Card",
-        "description": "A card that features Jr. Balrog.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388100": {
-        "name": "Rombot Card",
-        "description": "A card that features Rombot.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388101": {
-        "name": "Scholar Ghost Card",
-        "description": "A card that features Scholar Ghost.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.5
-        }
-    },
-    "02388106": {
-        "name": "Rurumo Card",
-        "description": "A card that features Rurumo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.5
-        }
-    },
-    "02388108": {
-        "name": "Security Camera Card",
-        "description": "A card that features Security Camera.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 3
-        }
-    },
-    "02388110": {
-        "name": "Deet and Roi Card",
-        "description": "A card that features Deet and Roi.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02388117": {
-        "name": "Lich Card",
-        "description": "A card that features Lich.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02388136": {
-        "name": "Lord Skeleton Card",
-        "description": "A card that features Lord Skeleton .",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388137": {
-        "name": "Pixiemom Card",
-        "description": "A card that features Pixiemom.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388138": {
-        "name": "Queen Pepe Card",
-        "description": "A card that features Queen Pepe.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388139": {
-        "name": "Toy Black Knight Card",
-        "description": "A card that features Toy Black Knight.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388140": {
-        "name": "King Centipede Card",
-        "description": "A card that features King Centipede.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388141": {
-        "name": "Master Hoblin Card",
-        "description": "A card that features Master Hoblin.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388142": {
-        "name": "Master Harp Card",
-        "description": "A card that features Master Harp.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388143": {
-        "name": "Master Birk Card",
-        "description": "A card that features Master Birk.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388144": {
-        "name": "Kentaurus King Card",
-        "description": "A card that features Kentaurus King.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388145": {
-        "name": "Coco Card",
-        "description": "A card that features Coco.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02385024": {
-        "name": "Sakura Jonin Card",
-        "description": "A card that features Jonin. Increases Speed +4 when you hunt at Sakura Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02387005": {
-        "name": "Samurai Armor Card",
-        "description": "A card that features Samurai Armor. It ignores Physical Resistance/Magic Resistance with a 20% rate when you hunt at Sakura Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388038": {
-        "name": "Daimyo Card",
-        "description": "A card that features Daimyo. Increases Meso Drop Rate when you hunt at Sakura Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388001": {
-        "name": "King Slime Card",
-        "description": "A card that features King Slime. #cIf hunting around the area of Kerning CitynSpeed +1/Jump +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1,
-            "speed": 1
-        }
-    },
-    "02388002": {
-        "name": "Faust Card",
-        "description": "A card that features Faust. If hunting around the area of EllinianItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388003": {
-        "name": "King Clang Card",
-        "description": "A card that features King Clang. If hunting around the area of Florina BeachnItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388009": {
-        "name": "Nine-Tailed Fox Card",
-        "description": "A card that features Nine-Tailed Fox. If hunting around the area of Korean Folk TownnItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388011": {
-        "name": "Lord Pirate Card",
-        "description": "A card that features Lord Pirate. If hunting around the area of Herb TownnItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388014": {
-        "name": "Frankenroid Card",
-        "description": "A card that features Frankenroid. If hunting around the area of MagatianItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388015": {
-        "name": "Elliza Card",
-        "description": "A card that features Elliza. If hunting around the area of Orbis gardennItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388017": {
-        "name": "Crimson Balrog Card",
-        "description": "A card that features Crimson Balrog. If hunting at El Nath / OrbisnItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 2400000,
-            "itemDropRate": 0.5
-        }
-    },
-    "02388020": {
-        "name": "Pianus Card",
-        "description": "A card that features Pianus. If hunting around the Aqua Road areanItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388022": {
-        "name": "Papulatus Card",
-        "description": "A card that features Papulatus. If hunting at the lower levels of the ClocktowernItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388023": {
-        "name": "Zakum Card",
-        "description": "A card that features Zakum. If hunting around the area of the Dead MinenItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388024": {
-        "name": "Horned Tail Card",
-        "description": "A card that features Horned Tail. If hunting around the area of Minar ForestnItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388033": {
-        "name": "Leviathan Card",
-        "description": "A card featuring Leviathan. Increases item and Meso drop rate  in the Dragon Forest.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388039": {
-        "name": "Poison Golme Card",
-        "description": "A card featuring Poison Golem. Increases item and Meso drop rate  in the Ellin Forest.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388040": {
-        "name": "Dodo Card",
-        "description": "A card featuring Dodo. Increases item and Meso drop rate  on Memory Lane.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388041": {
-        "name": "Lilynouch Card",
-        "description": "A card featuring Lilynouch. Increases item and Meso drop rate  on the Road of Regrets.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388042": {
-        "name": "Lyka Card",
-        "description": "A card featuring Lyka. Increases item and Meso drop rate  on the Road to Oblivion.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388043": {
-        "name": "Pink Bean",
-        "description": "A card featuring Pink Bean. Increases item and Meso drop rate  at the Temple of Time.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388046": {
-        "name": "Mu Gong Card",
-        "description": "A card featuring Mu Gong. Increases item and Meso drop rate  in Mu Lung.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388055": {
-        "name": "Balrog Card",
-        "description": "A card featuring Balrog. Increases item and Meso drop rate  in the central dungeon of Victoria.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388052": {
-        "name": "Giant Centipede Card",
-        "description": "A card featuring Giant Centipede. Increases item drop rate  in Herb Town.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388053": {
-        "name": "Blue Mushmom Card",
-        "description": "A card featuring Blue Mushmom. Increases item drop rate  in Korean Folk Town.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388054": {
-        "name": "Snack Bar Card",
-        "description": "A card featuring the Snack Bar. Increases item drop rate  in Drake's area.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388067": {
-        "name": "Gray Yeti and King Pepe Card",
-        "description": "A card featuring the Gray Yeti and King Pepe. Increases item drop rate  in the Mushroom Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388068": {
-        "name": "Gold Yeti and King Pepe Card",
-        "description": "A card featuring the Gold Yeti and King Pepe. Increases item drop rate  in the Mushroom Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388069": {
-        "name": "White Yeti and King Pepe Card",
-        "description": "A card featuring the White Yeti and King Pepe. Increases item drop rate  in the Mushroom Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388070": {
-        "name": "Prime Minister Mushroom Card",
-        "description": "A card featuring the Prime Minister Mushroom. Increases item and Meso drop rate  in the Mushroom Castle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388075": {
-        "name": "Rock Spirit Card",
-        "description": "A card featuring the Spirit of Rock. Increases item and Meso drop rate  in Kerning Square.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388076": {
-        "name": "Bergamot Card",
-        "description": "A card featuring the Bergamot. Increases item and Meso drop rate  in Neo City.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388077": {
-        "name": "Dunas Card",
-        "description": "A card featuring Dunas. Increases item and Meso drop rate  in Neo City.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388078": {
-        "name": "Aufheben Card",
-        "description": "A card featuring Aufheben. Increases item and Meso drop rate  in Neo City.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388079": {
-        "name": "Oberon Card",
-        "description": "A card featuring Oberon. Increases item and Meso drop rate  in Neo City.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388080": {
-        "name": "Nibelung Card",
-        "description": "A card featuring Nibelung. Increases item and Meso drop rate  in Neo City.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.5
-        }
-    },
-    "02388081": {
-        "name": "Dragonoir Card",
-        "description": "A card featuring the Dragonoir. Increases Meso drop rate  in Leafre.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388082": {
-        "name": "Dragon Rider Card",
-        "description": "A card featuring the Dragon Rider. Attack Power +1 and Magic ATT +1 when hunting in Leafre",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388084": {
-        "name": "Rex Summoning Sack",
-        "description": "A card featuring Rex. Increases Meso drop rate  in the Snow Fields.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02388085": {
-        "name": "Mano Card",
-        "description": "A card that features Mano .",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02388086": {
-        "name": "Mushmom Card",
-        "description": "A card that features Mushmom.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388088": {
-        "name": "Stumpy Card",
-        "description": "A card that features Stumpy.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02388089": {
-        "name": "Zombie Mushmom Card",
-        "description": "A card that features Zombie Mushmom.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388090": {
-        "name": "Dyle Card",
-        "description": "A card that features Dyle.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388094": {
-        "name": "Alishar Card",
-        "description": "A card that features Alishar.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388097": {
-        "name": "Papa Pixie Card",
-        "description": "A card that features Papa Pixie.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388098": {
-        "name": "Seruf Card",
-        "description": "A card that features Seruf.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02388103": {
-        "name": "Timer Card",
-        "description": "A card that features Timer.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02388104": {
-        "name": "Zeno Card",
-        "description": "A card that features Zeno.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388105": {
-        "name": "Deo Card",
-        "description": "A card that features Deo.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02388109": {
-        "name": "Tae Roon Card",
-        "description": "A card that features Tae Roon.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02388111": {
-        "name": "King Sage Cat Card",
-        "description": "A card that features King Sage Cat.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388112": {
-        "name": "Chimera Card",
-        "description": "A card that features Chimera.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388114": {
-        "name": "Manon Card",
-        "description": "A card that features Manon.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.5
-        }
-    },
-    "02388115": {
-        "name": "Griffey Card",
-        "description": "A card that features Griffey.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.5
-        }
-    },
-    "02388116": {
-        "name": "Snowman Card",
-        "description": "A card that features Snowman.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02384058": {
-        "name": "Red Slime Card",
-        "description": "A card featuring Red Slime. \\cLUK +3 when hunting in Year 2030 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "luk": 3
-        }
-    },
-    "02384059": {
-        "name": "Silver Slime Card",
-        "description": "A card featuring Silver Slime. DEF +3 when hunting in Year 2030 Neo City",
-        "consumableStats": {
-            "duration": 1200000,
-            "defense": 3
-        }
-    },
-    "02384060": {
-        "name": "Gold Slime Card",
-        "description": "A card featuring Gold Slime. \\cINT +3 when hunting in Year 2030 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "int": 3
-        }
-    },
-    "02384061": {
-        "name": "Overlord A Card",
-        "description": "A card featuring Overlord A. \\cDEX +3 when hunting in Year 2099 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "dex": 3
-        }
-    },
-    "02384062": {
-        "name": "Overlord B Card",
-        "description": "A card featuring Overlord B. \\cSTR +3 when hunting in Year 2099 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "str": 3
-        }
-    },
-    "02385038": {
-        "name": "Robby Card",
-        "description": "A card featuring Robby. \\cMagic DEF +4 when hunting in Year 2215 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "defense": 4
-        }
-    },
-    "02385039": {
-        "name": "Iruvata Card",
-        "description": "A card featuring Iruvata. DEF +4 when hunting in Year 2215 Neo City",
-        "consumableStats": {
-            "duration": 1200000,
-            "defense": 4
-        }
-    },
-    "02385044": {
-        "name": "Prototype Lord Card",
-        "description": "A card featuring the Prototype Lord. \\cSpeed +4 when hunting in Year 2216 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 4
-        }
-    },
-    "02385040": {
-        "name": "Maverick Type A Card",
-        "description": "A card featuring Maverick Type A. \\cINT +4 when hunting in Year 2230 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "int": 4
-        }
-    },
-    "02385041": {
-        "name": "Maverick Type S Card",
-        "description": "A card featuring Maverick Type S. \\cLUK +4 when hunting in Year 2230 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "luk": 4
-        }
-    },
-    "02386033": {
-        "name": "Imperial Guard Card",
-        "description": "A card featuring the Imperial Guard. \\cDEX +5 when hunting in Year 2503 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "dex": 5
-        }
-    },
-    "02386034": {
-        "name": "Royal Guard Card",
-        "description": "A card featuring the Bergamot. \\cSTR +5 when hunting in Year 2503 Neo City#",
-        "consumableStats": {
-            "duration": 1200000,
-            "str": 5
-        }
-    },
-    "02388021": {
-        "name": "Ergoth Card",
-        "description": "A card featuring Ergoth. Jump +6/Speed+6 for party hunting",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 6,
-            "speed": 6
-        }
-    },
-    "02388193": {
-        "name": "Damien Familiar",
-        "description": "",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.6
-        }
-    },
-    "02382001": {
-        "name": "Drum Bunny Card",
-        "description": "A card that features Drum Bunny. Improves the drop rate of the Drum Bunny.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02382003": {
-        "name": "Fireboar Card",
-        "description": "A card that features Fireboar. If hunting at Perion Defense against fire-based attacks +3%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.04
-        }
-    },
-    "02382010": {
-        "name": "Red Sand Dwarf Card",
-        "description": "A card that features Red Sand Dwarf. If hunting at the DesertnThe drop rate for jewels are increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02382028": {
-        "name": "Retz",
-        "description": "A card that features Retz. If hunting at Helios TowernItem drop rates are increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02382042": {
-        "name": "Barnard Grey Card",
-        "description": "A card that features Barnard Grey. If hunting at Kulan FieldnJump +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 1
-        }
-    },
-    "02382055": {
-        "name": "Zeta Grey Card",
-        "description": "A card that features Zeta Grey. If hunting at Kulan FieldnSpeed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02382057": {
-        "name": "Iron Mutae",
-        "description": "A card that features Iron Mutae. If hunting at the Alcadno InstitutenSpeed +1",
-        "consumableStats": {
-            "duration": 1200000,
-            "speed": 1
-        }
-    },
-    "02383010": {
-        "name": "Ginseng Jar",
-        "description": "A card that features Ginseng Jar. If hunting at Herb Townnthe \"Use\" item drop rates are increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.2
-        }
-    },
-    "02383034": {
-        "name": "Tri-Tailed Fox Card",
-        "description": "A card that features Tri-Tailed Fox. If hunting at the Black MountainnDefense against curse +10%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.1
-        }
-    },
-    "02383035": {
-        "name": "Grizzly Card",
-        "description": "A card that features Grizzly. #If hunting at Mu LungnJump +2#",
-        "consumableStats": {
-            "duration": 1200000,
-            "jump": 2
-        }
-    },
-    "02383038": {
-        "name": "Miner Zombie",
-        "description": "A card that features Miner Zombie. If hunting at El NathnDefense against poison-based attacks +6%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.06
-        }
-    },
-    "02386002": {
-        "name": "Viking Card",
-        "description": "A card that features Viking. If hunting at the lower levels of the ClocktowernDefense against fire-based attacks +15%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02388032": {
-        "name": "Kimera Card",
-        "description": "A card featuring Kimera. Increases item and Meso drop rate  around the lab area.",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.4
-        }
-    },
-    "02388008": {
-        "name": "Zombie Mushmom",
-        "description": "A card that features Zombie Mushmom. If hunting around the area of Ant TunnelnItem/Meso drop rate is increased",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.3
-        }
-    },
-    "02386010": {
-        "name": "G. Phantom Watch Card",
-        "description": "A card that features G. Phantom Watch. If hunting at the lower levels of the ClocktowernDefense against ice-based attacks +15%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
-    "02386009": {
-        "name": "Gigantic Viking Card",
-        "description": "A card that features Gigantic Viking. If hunting at the lower levels of the ClocktowernDefense against fire-based attacks +15%",
-        "consumableStats": {
-            "duration": 1200000,
-            "itemDropRate": 0.15
-        }
-    },
     "02450000": {
         "name": "Hunter's Luck",
-        "description": "Grants 2x EXP from hunting for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Grants 2x EXP from hunting for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -14988,7 +12716,7 @@
     },
     "02450017": {
         "name": "Premium PC Cafe Privilege",
-        "description": "Multiplies your EXP by 2 for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Multiplies your EXP by 2 for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15004,7 +12732,7 @@
     },
     "02450019": {
         "name": "Maple Booster 2x",
-        "description": "Multiplies your EXP by 2 for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Multiplies your EXP by 2 for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15012,7 +12740,7 @@
     },
     "02450020": {
         "name": "Maple Booster 1.5x",
-        "description": "Multiplies your EXP by 1.5 for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Multiplies your EXP by 1.5 for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 1.5
@@ -15020,7 +12748,7 @@
     },
     "02450021": {
         "name": "Blessing for the Returned Friend",
-        "description": "Multiplies your EXP by 1.5 for 1 hour.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Multiplies your EXP by 1.5 for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15036,7 +12764,7 @@
     },
     "02450023": {
         "name": "Blessing for the Prodigal Son",
-        "description": "Multiplies your EXP by 3 for 1 hour.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Multiplies your EXP by 3 for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 3.0
@@ -15044,7 +12772,7 @@
     },
     "02450026": {
         "name": "Admin's Heart",
-        "description": "Admin's apologies for the events of MM/DD. Use it to receive EXP x2 for 1 hour.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Admin's apologies for the events of MM/DD. Use it to receive EXP x2 for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 2.0
@@ -15052,7 +12780,7 @@
     },
     "02450027": {
         "name": "Dreamer's Drive",
-        "description": "A weekend bonus for people who have played more than 3 times from Monday to Friday. Can only be used until midnight. Double-click to activate the buff. Duration: 1 Hour Effect: EXP x2\\r \\r cEffect does not stack with similar event buffs.#",
+        "description": "A weekend bonus for people who have played more than 3 times from Monday to Friday. Can only be used until midnight. Double-click to activate the buff. Duration: 1 Hour Effect: EXP x2  cEffect does not stack with similar event buffs.#",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 2.0
@@ -15060,7 +12788,7 @@
     },
     "02450028": {
         "name": "Warrior's Star",
-        "description": "The energy flowing from the Warrior's Star will place a 1.5x EXP buff on you for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "The energy flowing from the Warrior's Star will place a 1.5x EXP buff on you for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15068,7 +12796,7 @@
     },
     "02450029": {
         "name": "Wise Man's Star",
-        "description": "The energy flowing from the Wise Man's Star will place a 1.5x EXP buff on you for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "The energy flowing from the Wise Man's Star will place a 1.5x EXP buff on you for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15076,7 +12804,7 @@
     },
     "02450030": {
         "name": "Returning Member Blessing",
-        "description": "A blessing given to users who've returned to MapleStory during the Maple Return Event. 1.5x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A blessing given to users who've returned to MapleStory during the Maple Return Event. 1.5x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 1.5
@@ -15084,7 +12812,7 @@
     },
     "02450031": {
         "name": "New Member Blessing",
-        "description": "A blessing given to users who started MapleStory during the Maple New Member Event. 2x EXP buff for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A blessing given to users who started MapleStory during the Maple New Member Event. 2x EXP buff for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 2.0
@@ -15092,7 +12820,7 @@
     },
     "02450032": {
         "name": "Hunter's Star",
-        "description": "The energy flowing from the Hunter's Star will place a 1.5x EXP buff on you for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "The energy flowing from the Hunter's Star will place a 1.5x EXP buff on you for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15100,7 +12828,7 @@
     },
     "02450033": {
         "name": "Saturday Blessing",
-        "description": "A blessing that will guarantee a happy day by increasing your EXP by 1.5x for 1 hour. Can only be used on a Saturday.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A blessing that will guarantee a happy day by increasing your EXP by 1.5x for 1 hour. Can only be used on a Saturday.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15108,7 +12836,7 @@
     },
     "02450034": {
         "name": "Sunday Blessing",
-        "description": "A blessing that will guarantee a happy day by increasing your EXP by 1.5x for 1 hour. Can only be used on a Sunday.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A blessing that will guarantee a happy day by increasing your EXP by 1.5x for 1 hour. Can only be used on a Sunday.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15116,7 +12844,7 @@
     },
     "02450035": {
         "name": "Hakuna Matata Saturday Blessings",
-        "description": "Get Saturday blessings that will make the Legends Festival even more special! Grants 1.5x EXP for an hour. Can only be used on Saturdays.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Get Saturday blessings that will make the Legends Festival even more special! Grants 1.5x EXP for an hour. Can only be used on Saturdays.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15124,7 +12852,7 @@
     },
     "02450036": {
         "name": "Hakuna Matata Sunday Blessings",
-        "description": "Get Sunday blessings that will make the Legends Festival even more special! Grants 1.5x EXP for an hour. Can only be used on Sundays.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Get Sunday blessings that will make the Legends Festival even more special! Grants 1.5x EXP for an hour. Can only be used on Sundays.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15132,7 +12860,7 @@
     },
     "02450037": {
         "name": "Chill Thrill",
-        "description": "Double-click to receive a 1.5x EXP buff for 1 hour. Cool as the winter snow.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.5x EXP buff for 1 hour. Cool as the winter snow.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15140,7 +12868,7 @@
     },
     "02450038": {
         "name": "Legends Never Give Up!",
-        "description": "Double-click to receive a 1.5x EXP buff for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.5x EXP buff for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15148,7 +12876,7 @@
     },
     "02450039": {
         "name": "1.5x EXP Coupon (1 Hour)",
-        "description": "Double-click to receive a 1.5x EXP buff for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.5x EXP buff for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15156,7 +12884,7 @@
     },
     "02450040": {
         "name": "Legends 1.3x EXP Coupon",
-        "description": "A 1.3x EXP coupon that can be purchased from the Legends Shop. Double-click to receive a 1.3x EXP buff for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A 1.3x EXP coupon that can be purchased from the Legends Shop. Double-click to receive a 1.3x EXP buff for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.3
@@ -15164,7 +12892,7 @@
     },
     "02450042": {
         "name": "2x EXP Coupon (1 Hour)",
-        "description": "Double-click to receive a 2x EXP buff for 1 hour.\\r \\r Does not stack with similar \\r event buffs.",
+        "description": "Double-click to receive a 2x EXP buff for 1 hour.  Does not stack with similar  event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 2.0
@@ -15172,7 +12900,7 @@
     },
     "02450044": {
         "name": "Chocolate Stick Love",
-        "description": "Share your love for a week by sharing Chocolate Sticks! Double-click to receive a 1.5x EXP buff for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Share your love for a week by sharing Chocolate Sticks! Double-click to receive a 1.5x EXP buff for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15180,7 +12908,7 @@
     },
     "02450045": {
         "name": "Halloween 1.5X EXP Coupon",
-        "description": "A 1.5x EXP Coupon given to you by the Giant Halloween Tree. Double-click to gain 1.5x EXP for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A 1.5x EXP Coupon given to you by the Giant Halloween Tree. Double-click to gain 1.5x EXP for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15188,7 +12916,7 @@
     },
     "02450049": {
         "name": "Year End 1.5 EXP Coupon",
-        "description": "A 1.5x EXP Coupon issued to celebrate the Year of the Dragon. Double-click to gain 1.5x EXP for 1 hour.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A 1.5x EXP Coupon issued to celebrate the Year of the Dragon. Double-click to gain 1.5x EXP for 1 hour.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.5
@@ -15196,7 +12924,7 @@
     },
     "02450050": {
         "name": "Effective Rest (15-Minute)",
-        "description": "Double-click to receive a 1.3x EXP buff for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 1.3
@@ -15204,7 +12932,7 @@
     },
     "02450051": {
         "name": "Effective Rest (30-Minute)",
-        "description": "Double-click to receive a 1.3x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 1.3
@@ -15212,7 +12940,7 @@
     },
     "02450052": {
         "name": "Effective Rest (45-Minute)",
-        "description": "Double-click to receive a 1.3x EXP buff for 45 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 45 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 2700000,
             "expMultiplicative": 1.3
@@ -15220,7 +12948,7 @@
     },
     "02450053": {
         "name": "Effective Rest (60-Minute)",
-        "description": "Double-click to receive a 1.3x EXP buff for 60 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 60 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.3
@@ -15228,7 +12956,7 @@
     },
     "02450054": {
         "name": "New Year's 3x EXP Coupon",
-        "description": "Happy New Year! Double-click to receive a 3x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Happy New Year! Double-click to receive a 3x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 3.0
@@ -15236,7 +12964,7 @@
     },
     "02450056": {
         "name": "Monster Park 1.3x EXP Coupon",
-        "description": "Double-click to receive a 1.3x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 1.3
@@ -15244,7 +12972,7 @@
     },
     "02450057": {
         "name": "Monster Park 1.3x EXP Coupon",
-        "description": "Double-click to receive a 1.3x EXP buff for 60 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 60 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.3
@@ -15252,7 +12980,7 @@
     },
     "02450058": {
         "name": "Rising Star of One-Man Army",
-        "description": "It's okay. You're not lonely... You can become stronger all by yourself. For 15 minutes, you will receive 1.3x EXP from hunting.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "It's okay. You're not lonely... You can become stronger all by yourself. For 15 minutes, you will receive 1.3x EXP from hunting.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 1.3
@@ -15260,7 +12988,7 @@
     },
     "02450059": {
         "name": "1.3X EXP Coupon",
-        "description": "Double-click to receive a 1.3x EXP buff for 60 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 1.3x EXP buff for 60 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 1.3
@@ -15268,7 +12996,7 @@
     },
     "02450064": {
         "name": "2x EXP Coupon (30 min)",
-        "description": "Increases EXP rewards by 100% for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Increases EXP rewards by 100% for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15276,7 +13004,7 @@
     },
     "02450070": {
         "name": "Post Season 2x EXP Coupon",
-        "description": "Double-click to receive a 2x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 2x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15284,7 +13012,7 @@
     },
     "02450081": {
         "name": "Apple Cola",
-        "description": "Double-click to receive a 2x EXP buff for 120 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 2x EXP buff for 120 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 7200000,
             "expMultiplicative": 2.0
@@ -15292,7 +13020,7 @@
     },
     "02450113": {
         "name": "Hero Is Hot",
-        "description": "Double-click to receive a 2x EXP buff for 120 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 2x EXP buff for 120 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 7200000,
             "expMultiplicative": 2.0
@@ -15300,7 +13028,7 @@
     },
     "02450115": {
         "name": "2x EXP Coupon (15 min)",
-        "description": "Double-click to receive a 2x EXP buff for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 2x EXP buff for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 2.0
@@ -15308,7 +13036,7 @@
     },
     "02450124": {
         "name": "MVP 1.5x EXP Coupon (30 min)",
-        "description": "Multiplies your EXP by 1.5 for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Multiplies your EXP by 1.5 for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 1.5
@@ -15316,7 +13044,7 @@
     },
     "02450127": {
         "name": "Heroes of Maple Premium PC Cafe 2x EXP Coupon",
-        "description": "Double-click to receive 2x EXP for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive 2x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15324,7 +13052,7 @@
     },
     "02450129": {
         "name": "12th Anniversary 3x EXP Coupon",
-        "description": "Double-click to receive a 3x EXP buff for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 3x EXP buff for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 3.0
@@ -15332,7 +13060,7 @@
     },
     "02450131": {
         "name": "Chipmunk Buff (30 min)",
-        "description": "The squirrels are finally here. This coupon will grant you 2x EXP for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "The squirrels are finally here. This coupon will grant you 2x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15340,7 +13068,7 @@
     },
     "02450134": {
         "name": "3x EXP Coupon (15 min)",
-        "description": "Double-click to receive a 3x EXP buff for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 3x EXP buff for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 3.0
@@ -15348,7 +13076,7 @@
     },
     "02450136": {
         "name": "Shared Trick or Treat Candy",
-        "description": "A Halloween Candy that another Mapler shared with you. Mmm, tastes like friendship! Double-click to receive a buff that grants 2x EXP for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "A Halloween Candy that another Mapler shared with you. Mmm, tastes like friendship! Double-click to receive a buff that grants 2x EXP for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 2.0
@@ -15356,7 +13084,7 @@
     },
     "02450137": {
         "name": "Apple Cola",
-        "description": "Double-click for a buff granting 2x EXP for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click for a buff granting 2x EXP for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 2.0
@@ -15364,7 +13092,7 @@
     },
     "02450138": {
         "name": "Hero's Vigor",
-        "description": "Double-click for a buff granting 2x EXP for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click for a buff granting 2x EXP for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 2.0
@@ -15372,7 +13100,7 @@
     },
     "02450139": {
         "name": "EXPert Excavator",
-        "description": "Your extensive excavation experience has taught you not to overlook any opportunity to learn something new. Double-click to gain a buff granting 2x EXP for 10 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Your extensive excavation experience has taught you not to overlook any opportunity to learn something new. Double-click to gain a buff granting 2x EXP for 10 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 600000,
             "expMultiplicative": 2.0
@@ -15380,7 +13108,7 @@
     },
     "02450142": {
         "name": "Apple Cola",
-        "description": "Double-click for a buff granting 2x EXP for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click for a buff granting 2x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15388,7 +13116,7 @@
     },
     "02450143": {
         "name": "Hero's Vigor",
-        "description": "Double-click for a buff granting 2x EXP for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click for a buff granting 2x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15396,7 +13124,7 @@
     },
     "02450147": {
         "name": "Legion's Expertise Lv. 1",
-        "description": "Legion's Know-how is shared with you.  Obtained EXP is increased +100% Duration: 10 min  \\r \\r Effect does not stack with similar event buffs.",
+        "description": "Legion's Know-how is shared with you.  Obtained EXP is increased +100% Duration: 10 min    Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 600000,
             "expMultiplicative": 2.0
@@ -15404,7 +13132,7 @@
     },
     "02450148": {
         "name": "Legion's Expertise Lv. 2",
-        "description": "Legion's Know-how is shared with you.  Obtained EXP is increased +100% Duration: 20 min  \\r \\r Effect does not stack with similar event buffs.",
+        "description": "Legion's Know-how is shared with you.  Obtained EXP is increased +100% Duration: 20 min    Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1200000,
             "expMultiplicative": 2.0
@@ -15412,7 +13140,7 @@
     },
     "02450149": {
         "name": "Legion's Expertise Lv. 3",
-        "description": "Legion's Know-how is shared with you.  Obtained EXP is increased +100% Duration: 30 min  \\r \\r Effect does not stack with similar event buffs.",
+        "description": "Legion's Know-how is shared with you.  Obtained EXP is increased +100% Duration: 30 min    Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15444,7 +13172,7 @@
     },
     "02450163": {
         "name": "3x EXP Coupon (30 min)",
-        "description": "Double-click for a buff granting 3x EXP for 30 minutes.\\r \\r Effect does not stack with similar\\r event buffs.",
+        "description": "Double-click for a buff granting 3x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 3.0
@@ -15452,7 +13180,7 @@
     },
     "02450168": {
         "name": "Mu Lung Dojo 2x EXP Coupon (30 min)",
-        "description": "Double-click for a buff granting 2x EXP for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click for a buff granting 2x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15460,7 +13188,7 @@
     },
     "02450171": {
         "name": "MVP 2x EXP Coupon (30 min)",
-        "description": "Double-click to receive a 2x EXP buff for 30 minutes.\\r \\r The effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 2x EXP buff for 30 minutes.  The effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 2.0
@@ -15468,7 +13196,7 @@
     },
     "02450174": {
         "name": "Sage Pill: EXP",
-        "description": "An enlightening pill created by Mr. Do.\\r #c - 2x EXP effect\\r  - Duration 60 min\\r \\r Logging out while the pill is in use will end its effect early.",
+        "description": "An enlightening pill created by Mr. Do.  - 2x EXP effect  - Duration 60 min  Logging out while the pill is in use will end its effect early.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 2.0
@@ -15476,7 +13204,7 @@
     },
     "02450184": {
         "name": "5x Yeti x Pink Bean EXP Coupon (15 min)",
-        "description": "Double-click to receive a 5x EXP buff for 15 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 5x EXP buff for 15 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 900000,
             "expMultiplicative": 5.0
@@ -15484,7 +13212,7 @@
     },
     "02450187": {
         "name": "4x EXP Coupon (30 min)",
-        "description": "Double-click to receive a 4x EXP buff for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click to receive a 4x EXP buff for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "expMultiplicative": 4.0,
             "duration": 1800000
@@ -15663,7 +13391,7 @@
     },
     "02450146": {
         "name": "Spread Your Wings",
-        "description": "Whee! Gain a buff that grants 2x EXP for 5 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Whee! Gain a buff that grants 2x EXP for 5 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 300000,
             "expMultiplicative": 2.0
@@ -15679,7 +13407,7 @@
     },
     "02450157": {
         "name": "Rei's Maple World Diary",
-        "description": "It's a diary written by Rei during her time in Maple World.  #cDuration: 1 hr. EXP +100%.",
+        "description": "It's a diary written by Rei during her time in Maple World.  Duration: 1 hr. EXP +100%.",
         "consumableStats": {
             "duration": 3600000,
             "expMultiplicative": 2.0
@@ -15687,10 +13415,18 @@
     },
     "02450154": {
         "name": "3x EXP Coupon",
-        "description": "Double-click for a buff granting 3x EXP for 30 minutes.\\r \\r Effect does not stack with similar event buffs.",
+        "description": "Double-click for a buff granting 3x EXP for 30 minutes.  Effect does not stack with similar event buffs.",
         "consumableStats": {
             "duration": 1800000,
             "expMultiplicative": 3.0
+        }
+    },
+    "02450172": {
+        "name": "2x EXP Coupon",
+        "description": "Double-click to receive a 2x EXP buff for 15 minutes.  Effect does not stack with similar event buffs.",
+        "consumableStats": {
+            "duration": 900000,
+            "expMultiplicative": 2.0
         }
     },
     "02900008": {
