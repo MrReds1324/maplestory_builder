@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
@@ -14,32 +13,27 @@ class ConsumablesModule implements Copyable {
 
   // This tracks the consumables we have selected, as well as if it has been disabled
   // The fact that the consumable exists in the map means we have selected it, and the bool will determine if the effect takes place
-  Map<ConsumableName, bool> selectedConsumables;
+  Set<String> activeConsumables;
 
   Map<StatType, num>? cacheValue;
 
   ConsumablesModule({
-    Map<ConsumableName, bool>? selectedConsumables,
+    Set<String>? activeConsumables,
   }) :
-    selectedConsumables = selectedConsumables ?? {};
+    activeConsumables = activeConsumables ?? <String>{};
 
   @override
   ConsumablesModule copyWith({
-    Map<ConsumableName, bool>? selectedConsumables,
+    Set<String>? activeConsumables,
   }) {
     return ConsumablesModule(
-      selectedConsumables: selectedConsumables ?? Map.of(this.selectedConsumables),
+      activeConsumables: activeConsumables ?? Set.of(this.activeConsumables),
     );
   }
 
-  void selectConsumable(ConsumableName consumableName, bool? isAdding) {
-    // TODO figure out if this consumable takes effect or not
-
-    if (isAdding == true) {
-      selectedConsumables[consumableName] = true;
-    }
-    else {
-      selectedConsumables.remove(consumableName);
+  void activateConsumable(Consumable consumable) {
+    if (!activeConsumables.add(consumable.consumableId)) {
+      activeConsumables.remove(consumable.consumableId);
     }
     cacheValue = null;
   }
@@ -51,19 +45,20 @@ class ConsumablesModule implements Copyable {
 
     Map<StatType, num> consumablesStats = {};
 
-    void updateStatFromConsumableName(MapEntry<ConsumableName, bool> consumableEntry) {
-      if (!consumableEntry.value) {
+    void updateStatFromConsumableId(String consumableId) {
+      var consumable = allConsumables[consumableId];
+      if (consumable == null) {
         return;
       }
       else {
-        for (MapEntry<StatType, num> consumableStats in consumableEntry.key.statValues.entries) {
+        for (MapEntry<StatType, num> consumableStats in consumable.consumableStats.entries) {
           switch(consumableStats.key) {
             case StatType.itemDropRate:
               consumablesStats[consumableStats.key] = min((consumablesStats[consumableStats.key] ?? 0) + consumableStats.value, DROP_RATE_USE_CAP);
             case StatType.mesosObtained:
               consumablesStats[consumableStats.key] = min((consumablesStats[consumableStats.key] ?? 0) + consumableStats.value, MESOS_OBTAINED_USE_CAP);
             case StatType.expMultiplicative:
-              consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 1) * (1 + consumableStats.value);
+              consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 1) * (consumableStats.value);
             case StatType.ignoreDefense:
               consumablesStats[consumableStats.key] = calculateIgnoreDefense((consumablesStats[consumableStats.key] ?? 0), consumableStats.value);
             default:
@@ -73,8 +68,8 @@ class ConsumablesModule implements Copyable {
       }
     }
 
-    for (MapEntry<ConsumableName, bool> consumableEntry in selectedConsumables.entries) {
-      updateStatFromConsumableName(consumableEntry);
+    for (String consumableId in activeConsumables) {
+      updateStatFromConsumableId(consumableId);
     }
 
     cacheValue = consumablesStats;

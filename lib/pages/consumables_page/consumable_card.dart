@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
+import 'package:maplestory_builder/modules/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
@@ -8,72 +9,32 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 class ConsumableCard extends StatelessWidget {
+  final Consumable consumable;
 
-  final ConsumableName consumableName;
-
-  const ConsumableCard({
-    required this.consumableName,
-    super.key
-  });
-
-  String _getDurationString() {
-    if (consumableName.duration >= 3600) {
-      var formattedTime = consumableName.duration ~/ 3600;
-      return "$formattedTime hours";
-    }
-    else if (consumableName.duration >= 60) {
-      var formattedTime = consumableName.duration ~/ 60;
-      return "$formattedTime minutes";
-    }
-    else {
-      return "${consumableName.duration} seconds";
-    }
-  }
-
-  void Function(bool?)? _getOnChangedFunction(BuildContext context, bool isSelected, bool isActivated) {
-    void onChanged(bool? newValue) {
-      context.read<ConsumablesProvider>().selectConsumable(consumableName, newValue);
-    }
-
-    if (isSelected) {
-      return onChanged;
-    }
-    else if (!isActivated) {
-      return null;
-    }
-
-    return onChanged;
-  }
-
-  bool _getActivatedState(BuildContext context, bool? isActivated) {
-    if (isActivated == null) {
-      var disabledBuffSlots = context.read<ConsumablesProvider>().disabledBuffSlots;
-      for (BuffSlot buffSlot in consumableName.buffSlots) {
-        if (disabledBuffSlots.contains(buffSlot)) {
-          return false;
-        }
-      }
-      return true;
-    }
-    else {
-      return isActivated;
-    }
-  }
+  const ConsumableCard({required this.consumable, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Selector<ConsumablesProvider, (bool, bool)>(
-        selector: (_, consumablesProvider) => (consumablesProvider.activeConsumablesSet.selectedConsumables[consumableName] != null, _getActivatedState(context, consumablesProvider.activeConsumablesSet.selectedConsumables[consumableName])),
+        selector: (_, consumablesProvider) {
+          bool isActive = consumablesProvider
+              .activeConsumablesSet.activeConsumables
+              .contains(consumable.consumableId);
+          return (isActive, _getDeactivatedState(context, isActive));
+        },
         builder: (context, data, child) {
           return Container(
+            width: 40,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: data.$1 ? Colors.greenAccent : data.$2 ? DEFAULT_COLOR: Colors.redAccent,
-                width: 2
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(10))
-            ),
+                border: Border.all(
+                    color: data.$1
+                        ? Colors.greenAccent
+                        : data.$2
+                            ? Colors.red
+                            : DEFAULT_COLOR,
+                    width: 2),
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
             padding: const EdgeInsets.all(2.5),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -82,109 +43,93 @@ class ConsumableCard extends StatelessWidget {
                 Expanded(
                   child: child ?? const SizedBox.shrink(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Duration: ${_getDurationString()}"),
-                    const Spacer(),
-                    const Text("Selected"),
-                    const SizedBox(width: 5),
-                    Checkbox(
-                      isError: true,
-                      value: data.$1,
-                      onChanged: _getOnChangedFunction(context, data.$1, data.$2),
-                    ),
-                  ],
-                )
+                Text("Duration: ${consumable.getDurationString()}"),
+                Text("ID: ${consumable.consumableId}"),
               ],
             ),
           );
         },
-        child: _ConsumableInnerContents(consumableName: consumableName),
+        child: _ConsumableInnerContents(consumable: consumable),
       ),
     );
   }
 }
 
 class _ConsumableInnerContents extends StatelessWidget {
-  final ConsumableName consumableName;
+  final Consumable consumable;
 
   const _ConsumableInnerContents({
-    required this.consumableName,
+    required this.consumable,
   });
-
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              constraints: const BoxConstraints(
-                maxWidth: 233
-              ),
-              child: Text(
-                consumableName.formattedName,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
+    return Column(children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            constraints: const BoxConstraints(maxWidth: 145),
+            child: Text(
+              consumable.name,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            MapleTooltip(
-              tooltipWidgets: [
-                Text(consumableName.description),
-              ],
-              child: Icon(MdiIcons.informationOutline),
-            )
-          ],
-        ),
-        _ConsumableStatsListView(
-          consumableName: consumableName,
-        ),
-        const Spacer(),
-      ]
-    );
+          ),
+          MapleTooltip(
+            tooltipWidgets: [
+              Text(consumable.description),
+              const Divider(),
+              consumable.createConsumableContainer(context),
+            ],
+            child: Icon(MdiIcons.informationOutline),
+          )
+        ],
+      ),
+      const Spacer(),
+      Selector<ConsumablesProvider, (bool, bool)>(
+          selector: (_, consumablesProvider) {
+        bool isActive = consumablesProvider
+            .activeConsumablesSet.activeConsumables
+            .contains(consumable.consumableId);
+        return (isActive, _getDeactivatedState(context, isActive));
+      }, builder: (context, data, child) {
+        return IconButton(
+          onPressed:
+              _getOnPressedFunction(context, data.$1, data.$2, consumable),
+          icon: consumable.getAssetImage(),
+          iconSize: 40,
+        );
+      })
+    ]);
   }
 }
 
-class _ConsumableStatsListView extends StatelessWidget {
-  final ConsumableName consumableName;
+void Function()? _getOnPressedFunction(BuildContext context, bool isActivated,
+    bool isDeactivated, Consumable consumable) {
+  void onPressed() {
+    context.read<ConsumablesProvider>().activateConsumable(consumable);
+  }
 
- const _ConsumableStatsListView({
-  required this.consumableName,
- });
+  if (isActivated) {
+    return onPressed;
+  } else if (isDeactivated) {
+    return null;
+  } else {
+    return onPressed;
+  }
+}
 
-  @override
-  Widget build(BuildContext context) {
-    var consumableStats = consumableName.statValues.entries.toList();
-    return SizedBox(
-      width: 300,
-      child: ListView.builder(
-        padding: const EdgeInsets.only(right: 8),
-        itemCount: consumableStats.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Row(
-              children: [
-                Container(
-                  constraints: const BoxConstraints(maxWidth: 150),
-                  child: Text(
-                    consumableStats[index].key.formattedName,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  "${consumableStats[index].key.isPositive ? '+' : ' -'}${consumableStats[index].key.isPercentage ? doublePercentFormater.format(consumableStats[index].value) : consumableStats[index].value}",
-                  style: Theme.of(context).textTheme.bodyMedium
-                ) 
-              ]
-            ),
-          );
-        },
-      ),
-    );
+bool _getDeactivatedState(BuildContext context, bool isActivated) {
+  if (isActivated) {
+    return false;
+  } else {
+    // var disabledBuffSlots = context.read<ConsumablesProvider>().disabledBuffSlots;
+    // for (BuffSlot buffSlot in consumable.buffSlots) {
+    //   if (disabledBuffSlots.contains(buffSlot)) {
+    //     return false;
+    //   }
+    // }
+    return false;
   }
 }

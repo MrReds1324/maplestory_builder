@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/utilities/json_utilities.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Consumable {
   String name;
@@ -25,4 +27,38 @@ class Consumable {
     return Consumable(name: name, description: description, consumableId: consumableId, consumableStats: consumableStats, duration: duration);
   }
 
+  String getDurationString() {
+    if (duration >= 3600000) {
+      var formattedTime = duration ~/ 3600000;
+      return "$formattedTime hours";
+    }
+    else if (duration >= 60000) {
+      var formattedTime = duration ~/ 60000;
+      return "$formattedTime minutes";
+    }
+    else {
+      return "${(duration / 1000).toInt()} seconds";
+    }
+  }
+
+  Image getAssetImage() {
+    return Image(image: AssetImage('assets/images/consumables/$consumableId.png'), height: 40, errorBuilder: (ctx, error, stackTrace) => Icon(
+      MdiIcons.accountBox,
+      size: 40,
+    ));
+  }
+
+  Widget createConsumableContainer(BuildContext context) {
+    List<Widget> statWidgets = [];
+
+    for (MapEntry<StatType, num> statEntry in consumableStats.entries) {
+      statWidgets.add(
+          statEntry.key.buildRowDisplayWithValue(context, statEntry.value, 150, constraints: const BoxConstraints(maxWidth: 120))
+      );
+    }
+
+    return Column(
+      children: statWidgets,
+    );
+  }
 }

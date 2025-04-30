@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
+import 'package:maplestory_builder/modules/consumables/consumables.dart';
+import 'package:maplestory_builder/modules/consumables/consumables_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/consumables_page/consumable_card.dart';
@@ -34,13 +36,45 @@ class ConsumablesPage extends StatelessWidget {
             onPressed: (int setPosition) => context.read<ConsumablesProvider>().changeActiveSet(setPosition),
             selectorFunction: (BuildContext context, ConsumablesProvider consumablesProvider) => consumablesProvider.activeSetNumber,
           ),
-          const Expanded(
+          Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _SearchableItemGrid(),
-                SizedBox(width: 10),
-                _ConsumableStatsListView(),
+                FutureBuilder(
+                    future: ConsumablesModule.loadingConsumables,
+                    builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return Center(
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(Icons.error_outline,
+                                        color: Colors.red, size: 60),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Text('Error: ${snapshot.error}'),
+                                    ),
+                                  ]));
+                        }
+                        return const _SearchableItemGrid();
+                      } else {
+                        return const Center(
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: CircularProgressIndicator()),
+                                  Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Text('Loading Consumables')),
+                                ]));
+                      }
+                    }),
+                const SizedBox(width: 10),
+                const _ConsumableStatsListView(),
               ],
             ),
           ),
@@ -60,13 +94,14 @@ class _SearchableItemGrid extends StatefulWidget {
 
 class _SearchableItemGridState extends State<_SearchableItemGrid> {
   TextEditingController editingController = TextEditingController();
-  var items = <ConsumableName>[];
+  var items = <Consumable>[];
   var stringQuery = '';
   final ValueNotifier<ConsumableCategory> selectedConsumableCategory = ValueNotifier<ConsumableCategory>(ConsumableCategory.all);
 
   @override
   void initState() {
-    items = ConsumableName.values;
+    items = ConsumablesModule.allConsumables.values.toList();
+    items.sort((a, b) => a.name.compareTo(b.name));
     selectedConsumableCategory.addListener(filterSearchResultsEquip);
     stringQuery = '';
     super.initState();
@@ -74,14 +109,15 @@ class _SearchableItemGridState extends State<_SearchableItemGrid> {
 
   void filterSearchResultsEquip() {
     setState(() {
-      var tempItems = ConsumableName.values;
+      var tempItems = ConsumablesModule.allConsumables.values.toList();
+      tempItems.sort((a, b) => a.name.compareTo(b.name));
 
       if (selectedConsumableCategory.value != ConsumableCategory.all) {
-        tempItems = tempItems.where((element) => element.consumableCategories.contains(selectedConsumableCategory.value)).toList();
+        // tempItems = tempItems.where((element) => element.consumableCategories.contains(selectedConsumableCategory.value)).toList();
       }
 
       items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
-        element.formattedName.toLowerCase().contains(stringQuery.toLowerCase())
+        element.name.toLowerCase().contains(stringQuery.toLowerCase())
       ).toList();
     });
   }
@@ -89,14 +125,15 @@ class _SearchableItemGridState extends State<_SearchableItemGrid> {
   void filterSearchResultsText(String query) {
     setState(() {
       stringQuery = query;
-      var tempItems = ConsumableName.values;
+      var tempItems = ConsumablesModule.allConsumables.values.toList();
+      tempItems.sort((a, b) => a.name.compareTo(b.name));
 
       if (selectedConsumableCategory.value != ConsumableCategory.all) {
-        tempItems = tempItems.where((element) => element.consumableCategories.contains(selectedConsumableCategory.value)).toList();
+        // tempItems = tempItems.where((element) => element.consumableCategories.contains(selectedConsumableCategory.value)).toList();
       }
 
       items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
-        element.formattedName.toLowerCase().contains(stringQuery.toLowerCase())
+        element.name.toLowerCase().contains(stringQuery.toLowerCase())
       ).toList();
     });
   }
@@ -158,13 +195,13 @@ class _SearchableItemGridState extends State<_SearchableItemGrid> {
               child: GridView.builder(
                 padding: const EdgeInsets.only(right: 13),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
+                  crossAxisCount: 6,
                 ),
                 itemCount: items.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return ConsumableCard(
-                    consumableName: items[index]
+                    consumable: items[index]
                   );
                 }
               ),

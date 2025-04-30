@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/base.dart';
+import 'package:maplestory_builder/modules/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/consumables/consumables_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
@@ -28,22 +29,22 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
     this.activeConsumablesSet = activeConsumablesSet ?? this.consumablesSets[activeSetNumber]!;
   }
 
-  Set<BuffSlot> get disabledBuffSlots {
-    int alchemyPotionCounter = 0;
-    Set<BuffSlot> disabledBuffSlots = isDropFamiliarActive ? {BuffSlot.dropCoupon} : {};
-
-    for (ConsumableName consumableName in activeConsumablesSet.selectedConsumables.keys) {
-      disabledBuffSlots.addAll(consumableName.buffSlots);
-
-      if (alchemyPotionCounter < 2 && consumableName.buffSlots.contains(BuffSlot.alchemyPotion)) {
-        alchemyPotionCounter += 1;
-        if (alchemyPotionCounter == 1) {
-          disabledBuffSlots.remove(BuffSlot.alchemyPotion);
-        }
-      }
-    }
-    return disabledBuffSlots;
-  }
+  // Set<BuffSlot> get disabledBuffSlots {
+  //   int alchemyPotionCounter = 0;
+  //   Set<BuffSlot> disabledBuffSlots = isDropFamiliarActive ? {BuffSlot.dropCoupon} : {};
+  //
+  //   for (String consumableId in activeConsumablesSet.activeConsumables) {
+  //     disabledBuffSlots.addAll(consumableName.buffSlots);
+  //
+  //     if (alchemyPotionCounter < 2 && consumableName.buffSlots.contains(BuffSlot.alchemyPotion)) {
+  //       alchemyPotionCounter += 1;
+  //       if (alchemyPotionCounter == 1) {
+  //         disabledBuffSlots.remove(BuffSlot.alchemyPotion);
+  //       }
+  //     }
+  //   }
+  //   return disabledBuffSlots;
+  // }
 
   @override
   ConsumablesProvider copyWith({
@@ -69,8 +70,8 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
     return activeConsumablesSet.calculateStats();
   }
 
-  void selectConsumable(ConsumableName consumableName, bool? isAdding) {
-    activeConsumablesSet.selectConsumable(consumableName, isAdding);
+  void activateConsumable(Consumable consumable) {
+    activeConsumablesSet.activateConsumable(consumable);
     notifyListeners();
   }
 
