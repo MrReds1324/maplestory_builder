@@ -314,9 +314,7 @@ class _InventoryAndItemListColumn extends StatelessWidget {
 
 class _InventoryItems extends StatelessWidget {
 
-  const _InventoryItems({
-    super.key
-  });
+  const _InventoryItems();
 
   Function _curriedOnHover(Equip equip) {
     return (BuildContext context) {

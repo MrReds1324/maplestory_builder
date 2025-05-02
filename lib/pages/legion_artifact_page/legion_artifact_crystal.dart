@@ -5,7 +5,6 @@ import 'package:maplestory_builder/modules/legion/legion_artifact_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ArtifactCrystalWidget extends StatelessWidget {

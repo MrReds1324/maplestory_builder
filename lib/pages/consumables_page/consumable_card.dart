@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/consumables/consumables.dart';
-import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:maplestory_builder/constants/character/symbols_stats.dart';
 import 'package:maplestory_builder/constants/character/trait_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/equipment/set_effect_stats.dart';

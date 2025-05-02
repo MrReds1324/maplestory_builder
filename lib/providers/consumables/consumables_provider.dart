@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/constants/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/consumables/consumables.dart';
 import 'package:maplestory_builder/modules/consumables/consumables_mod.dart';
