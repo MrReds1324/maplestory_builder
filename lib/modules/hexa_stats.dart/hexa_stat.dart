@@ -65,17 +65,22 @@ class HexaStat implements Copyable {
 
   (StatType, num) _calculateStatLine(int statPosition, StatType statType, CharacterClass characterClass) {
     StatType convertedStatType;
-    num statIncrement;
+    num secondaryStatIncrement;
+    num primaryStatValue;
+
+    Map<StatType, num> primaryTarget = HEXA_STAT_PRIMARY[statLevels[statPosition] ?? 0] ?? {};
 
     switch(statType) {  
       case StatType.mainStat:
         switch(characterClass) {
           case CharacterClass.demonAvenger:
             convertedStatType = StatType.finalHp;
-            statIncrement = HEXA_STAT_INCREMENTS[convertedStatType]!;
+            secondaryStatIncrement = HEXA_STAT_SECONDARY_INCREMENTS[convertedStatType] ?? 0;
+            primaryStatValue = primaryTarget[convertedStatType] ?? 0;
           case CharacterClass.xenon:
             convertedStatType = StatType.finalStrDexLuk;
-            statIncrement = HEXA_STAT_INCREMENTS[convertedStatType]!;
+            secondaryStatIncrement = HEXA_STAT_SECONDARY_INCREMENTS[convertedStatType] ?? 0;
+            primaryStatValue = primaryTarget[convertedStatType] ?? 0;
           default:
             // Figure out the main stat
             var mainStat = determinePrimaryStat(characterClass.calculationStats);
@@ -92,7 +97,8 @@ class HexaStat implements Copyable {
               default:
                 throw Exception("Main Stat is not a valid Stat Type");                
             }
-            statIncrement = HEXA_STAT_INCREMENTS[statType]!;
+            secondaryStatIncrement = HEXA_STAT_SECONDARY_INCREMENTS[statType] ?? 0;
+            primaryStatValue = primaryTarget[statType] ?? 0;
         }
       case StatType.mainAttack:
         switch(characterClass.classType) {
@@ -104,13 +110,20 @@ class HexaStat implements Copyable {
           default:
             convertedStatType = StatType.mattack;
         }
-        statIncrement = HEXA_STAT_INCREMENTS[statType]!;
+        secondaryStatIncrement = HEXA_STAT_SECONDARY_INCREMENTS[statType] ?? 0;
+        primaryStatValue = primaryTarget[statType] ?? 0;
       default:
         convertedStatType = statType;
-        statIncrement = HEXA_STAT_INCREMENTS[convertedStatType]!;
+        secondaryStatIncrement = HEXA_STAT_SECONDARY_INCREMENTS[convertedStatType]!;
+        primaryStatValue = primaryTarget[convertedStatType] ?? 0;
     }
-    
-    return (convertedStatType, statIncrement * (statLevels[statPosition] ?? 0) * (statPosition == 1 ? 2 : 1));
+
+    if (statPosition == 1) {
+      return (convertedStatType, primaryStatValue);
+    }
+    else {
+      return (convertedStatType, secondaryStatIncrement * (statLevels[statPosition] ?? 0));
+    }
   }
 
   bool updateStatSelection(int statPosition, StatType? statType) {
