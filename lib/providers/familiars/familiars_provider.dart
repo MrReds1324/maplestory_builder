@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
-import 'package:maplestory_builder/modules/familiars/familiar_badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
+import 'package:maplestory_builder/modules/familiars/familiar_badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiars_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
@@ -17,7 +17,7 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
   late FamiliarBadgeModule activeBadgeSet;
 
   int activeFamiliarSetNumber;
-  late Map<int, FamiliarModule> familiarSets; 
+  late Map<int, FamiliarModule> familiarSets;
   late FamiliarModule activeFamiliarSet;
 
   Widget hoverTooltip = const SizedBox.shrink();
@@ -33,23 +33,27 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     FamiliarModule? activeFamiliarSet,
   }) {
     this.allFamiliars = allFamiliars ?? {};
-    this.badgeSets = badgeSets ?? {
-      1: FamiliarBadgeModule(),
-      2: FamiliarBadgeModule(),
-      3: FamiliarBadgeModule(),
-      4: FamiliarBadgeModule(),
-      5: FamiliarBadgeModule(),
-    };
-    this.activeBadgeSet = activeBadgeSet ?? this.badgeSets[activeBadgeSetNumber]!;
+    this.badgeSets = badgeSets ??
+        {
+          1: FamiliarBadgeModule(),
+          2: FamiliarBadgeModule(),
+          3: FamiliarBadgeModule(),
+          4: FamiliarBadgeModule(),
+          5: FamiliarBadgeModule(),
+        };
+    this.activeBadgeSet =
+        activeBadgeSet ?? this.badgeSets[activeBadgeSetNumber]!;
 
-    this.familiarSets = familiarSets ?? {
-      1: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
-      2: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
-      3: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
-      4: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
-      5: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
-    };
-    this.activeFamiliarSet = activeFamiliarSet ?? this.familiarSets[activeFamiliarSetNumber]!;
+    this.familiarSets = familiarSets ??
+        {
+          1: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
+          2: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
+          3: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
+          4: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
+          5: FamiliarModule(getFamiliarCallback: getFamiliarCallback),
+        };
+    this.activeFamiliarSet =
+        activeFamiliarSet ?? this.familiarSets[activeFamiliarSetNumber]!;
   }
 
   @override
@@ -64,15 +68,16 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     FamiliarModule? activeFamiliarSet,
   }) {
     return FamiliarsProvider(
-      familiarId: familiarId ?? this.familiarId,
-      allFamiliars: allFamiliars ?? Map.of(this.allFamiliars),
-      activeBadgeSetNumber: activeBadgeSetNumber ?? this.activeBadgeSetNumber,
-      activeFamiliarSetNumber: activeFamiliarSetNumber ?? this.activeFamiliarSetNumber,
-      badgeSets: badgeSets ?? mapDeepCopy(this.badgeSets),
-      activeBadgeSet: activeBadgeSet ?? this.activeBadgeSet.copyWith(),
-      familiarSets: familiarSets ?? mapDeepCopy(this.familiarSets),
-      activeFamiliarSet: activeFamiliarSet ?? this.activeFamiliarSet.copyWith()
-    );
+        familiarId: familiarId ?? this.familiarId,
+        allFamiliars: allFamiliars ?? Map.of(this.allFamiliars),
+        activeBadgeSetNumber: activeBadgeSetNumber ?? this.activeBadgeSetNumber,
+        activeFamiliarSetNumber:
+            activeFamiliarSetNumber ?? this.activeFamiliarSetNumber,
+        badgeSets: badgeSets ?? mapDeepCopy(this.badgeSets),
+        activeBadgeSet: activeBadgeSet ?? this.activeBadgeSet.copyWith(),
+        familiarSets: familiarSets ?? mapDeepCopy(this.familiarSets),
+        activeFamiliarSet:
+            activeFamiliarSet ?? this.activeFamiliarSet.copyWith());
   }
 
   Familiar? getFamiliarCallback(int? familiarId) {
@@ -93,11 +98,13 @@ class FamiliarsProvider with ChangeNotifier implements Copyable {
     if (editingFamiliar == null) {
       return;
     }
-    
+
     // New familiar that cannot be equipped
     if (editingFamiliar.familiarId == -1) {
       editingFamiliar.familiarId = familiarId;
-      editingFamiliar.familiarName = editingFamiliar.familiarName.isEmpty ? "Familiar $familiarId" : editingFamiliar.familiarName;
+      editingFamiliar.familiarName = editingFamiliar.familiarName.isEmpty
+          ? "Familiar $familiarId"
+          : editingFamiliar.familiarName;
       allFamiliars[editingFamiliar.familiarId] = editingFamiliar;
       familiarId++;
     }

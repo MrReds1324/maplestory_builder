@@ -1,4 +1,3 @@
-
 // ignore_for_file: constant_identifier_names
 
 // Gives us the index into the bonus stats tables
@@ -71,6 +70,16 @@ const STAR_FORCE_WEAPON_ATTACK_MATTACK = {
 // Weapon (including Kataras)
 
 const HP_CATEGORY = <EquipType>[
-  EquipType.hat, EquipType.top, EquipType.bottom, EquipType.overall, EquipType.cape, EquipType.ring, EquipType.pendant, 
-  EquipType.belt, EquipType.shoulder, EquipType.shield, EquipType.weapon, EquipType.katara,
+  EquipType.hat,
+  EquipType.top,
+  EquipType.bottom,
+  EquipType.overall,
+  EquipType.cape,
+  EquipType.ring,
+  EquipType.pendant,
+  EquipType.belt,
+  EquipType.shoulder,
+  EquipType.shield,
+  EquipType.weapon,
+  EquipType.katara,
 ];

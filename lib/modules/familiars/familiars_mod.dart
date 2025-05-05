@@ -9,17 +9,14 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 double MAX_FAMILIAR_BOSS_DAMAGE = 1.2;
 
 class FamiliarModule implements Copyable {
-
   Map<int, int?> equippedFamiliars;
   Familiar? Function(int? familiarId) getFamiliarCallback;
 
   Map<StatType, num>? cacheValue;
 
-  FamiliarModule({
-    Map<int, int?>? equippedFamiliars,
-    required this.getFamiliarCallback
-  }) :
-    equippedFamiliars = equippedFamiliars ?? {};
+  FamiliarModule(
+      {Map<int, int?>? equippedFamiliars, required this.getFamiliarCallback})
+      : equippedFamiliars = equippedFamiliars ?? {};
 
   @override
   FamiliarModule copyWith({
@@ -75,17 +72,20 @@ class FamiliarModule implements Copyable {
     void updateStatFromFamiliar(Familiar? familiar) {
       if (familiar == null) {
         return;
-      }
-      else {
-        for (MapEntry<StatType, num> familiarStat in familiar.calculateStats().entries) {
-          switch(familiarStat.key) {
+      } else {
+        for (MapEntry<StatType, num> familiarStat
+            in familiar.calculateStats().entries) {
+          switch (familiarStat.key) {
             case StatType.bossDamage:
-              
-              familiarStats[familiarStat.key] = min((familiarStats[familiarStat.key] ?? 0) + familiarStat.value, MAX_FAMILIAR_BOSS_DAMAGE);
+              familiarStats[familiarStat.key] = min(
+                  (familiarStats[familiarStat.key] ?? 0) + familiarStat.value,
+                  MAX_FAMILIAR_BOSS_DAMAGE);
             case StatType.ignoreDefense:
-              familiarStats[familiarStat.key] = calculateIgnoreDefense((familiarStats[familiarStat.key] ?? 0), familiarStat.value);
+              familiarStats[familiarStat.key] = calculateIgnoreDefense(
+                  (familiarStats[familiarStat.key] ?? 0), familiarStat.value);
             default:
-              familiarStats[familiarStat.key] = (familiarStats[familiarStat.key] ?? 0) + familiarStat.value;
+              familiarStats[familiarStat.key] =
+                  (familiarStats[familiarStat.key] ?? 0) + familiarStat.value;
           }
         }
       }

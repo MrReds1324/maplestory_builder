@@ -5,10 +5,9 @@ import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class InnerAbilityProvider with ChangeNotifier implements Copyable {
-
   // TODO - requires skills to know if "debuff" is applied for conditional boss damage
   int activeSetNumber = 1;
-  late Map<int, InnerAbilityContainer> innerAbilitySets; 
+  late Map<int, InnerAbilityContainer> innerAbilitySets;
   late InnerAbilityContainer activeInnerAbility;
 
   Widget hoverTooltip = const SizedBox.shrink();
@@ -17,15 +16,17 @@ class InnerAbilityProvider with ChangeNotifier implements Copyable {
     this.activeSetNumber = 1,
     InnerAbilityContainer? activeInnerAbility,
     Map<int, InnerAbilityContainer>? innerAbilitySets,
-  }) { 
-    this.innerAbilitySets = innerAbilitySets ?? {
-      1: InnerAbilityContainer(),
-      2: InnerAbilityContainer(),
-      3: InnerAbilityContainer(),
-      4: InnerAbilityContainer(),
-      5: InnerAbilityContainer(),
-    };
-    this.activeInnerAbility = activeInnerAbility ?? this.innerAbilitySets[activeSetNumber]!;
+  }) {
+    this.innerAbilitySets = innerAbilitySets ??
+        {
+          1: InnerAbilityContainer(),
+          2: InnerAbilityContainer(),
+          3: InnerAbilityContainer(),
+          4: InnerAbilityContainer(),
+          5: InnerAbilityContainer(),
+        };
+    this.activeInnerAbility =
+        activeInnerAbility ?? this.innerAbilitySets[activeSetNumber]!;
   }
 
   @override
@@ -48,7 +49,8 @@ class InnerAbilityProvider with ChangeNotifier implements Copyable {
   Map<StatType, num> calculateStats({bool isDebuffActive = false}) {
     Map<StatType, num> returnValue = {};
 
-    for (InnerAbilityLine innerAbilityLine in activeInnerAbility.assignedInnerAbility.values) {
+    for (InnerAbilityLine innerAbilityLine
+        in activeInnerAbility.assignedInnerAbility.values) {
       var innerAbilityLineStat = innerAbilityLine.calculateStatValue();
       switch (innerAbilityLine.innerAbility) {
         case null:
@@ -70,13 +72,14 @@ class InnerAbilityProvider with ChangeNotifier implements Copyable {
     return returnValue;
   }
 
-  void updateInnerAbility(int innerAbilityPosition, InnerAbility? innerAbility) {
-    var targetInnerAbilityLine = activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
+  void updateInnerAbility(
+      int innerAbilityPosition, InnerAbility? innerAbility) {
+    var targetInnerAbilityLine =
+        activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
 
     if (targetInnerAbilityLine.innerAbility == innerAbility) {
       return;
-    }
-    else {
+    } else {
       targetInnerAbilityLine.innerAbility = innerAbility;
       targetInnerAbilityLine.selectedRange = 0;
       notifyListeners();
@@ -84,7 +87,8 @@ class InnerAbilityProvider with ChangeNotifier implements Copyable {
   }
 
   void updateInnerAbilityValue(int innerAbilityPosition, int selectedRange) {
-    var targetInnerAbilityLine = activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
+    var targetInnerAbilityLine =
+        activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
     targetInnerAbilityLine.selectedRange = selectedRange;
     notifyListeners();
   }
@@ -99,14 +103,18 @@ class InnerAbilityProvider with ChangeNotifier implements Copyable {
   void getHoverTooltipText(int innerAbilityPosition) {
     Widget? statDescription;
     Widget? currentLevelText;
-    
-    var selectedInnerAbilityLine = activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
+
+    var selectedInnerAbilityLine =
+        activeInnerAbility.assignedInnerAbility[innerAbilityPosition]!;
     var currentLevelValues = selectedInnerAbilityLine.calculateStatValue();
     var statType = currentLevelValues.$1;
     var statValue = currentLevelValues.$2;
 
-    statDescription = selectedInnerAbilityLine.innerAbility?.description != null ? Text(selectedInnerAbilityLine.innerAbility!.description) : const SizedBox.shrink();
-    currentLevelText = Text("${statType?.formattedName ?? 'Nothing'}: ${(statType?.isPositive ?? true) ? '+' : ' -'}${(statType?.isPercentage ?? false) ? doublePercentFormater.format(statValue) : statValue}");
+    statDescription = selectedInnerAbilityLine.innerAbility?.description != null
+        ? Text(selectedInnerAbilityLine.innerAbility!.description)
+        : const SizedBox.shrink();
+    currentLevelText = Text(
+        "${statType?.formattedName ?? 'Nothing'}: ${(statType?.isPositive ?? true) ? '+' : ' -'}${(statType?.isPercentage ?? false) ? doublePercentFormater.format(statValue) : statValue}");
 
     hoverTooltip = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,11 +132,12 @@ class InnerAbilityContainer implements Copyable {
   InnerAbilityContainer({
     Map<int, InnerAbilityLine>? assignedInnerAbility,
   }) {
-    this.assignedInnerAbility = assignedInnerAbility ?? {
-      1: InnerAbilityLine(),
-      2: InnerAbilityLine(),
-      3: InnerAbilityLine(),
-    };
+    this.assignedInnerAbility = assignedInnerAbility ??
+        {
+          1: InnerAbilityLine(),
+          2: InnerAbilityLine(),
+          3: InnerAbilityLine(),
+        };
   }
 
   @override
@@ -136,8 +145,8 @@ class InnerAbilityContainer implements Copyable {
     Map<int, InnerAbilityLine>? assignedInnerAbility,
   }) {
     return InnerAbilityContainer(
-      assignedInnerAbility: assignedInnerAbility ?? mapDeepCopy(this.assignedInnerAbility)
-    );
+        assignedInnerAbility:
+            assignedInnerAbility ?? mapDeepCopy(this.assignedInnerAbility));
   }
 }
 
@@ -162,14 +171,18 @@ class InnerAbilityLine implements Copyable {
   }
 
   (StatType?, num) calculateStatValue() {
-    return (innerAbility?.targetStat, innerAbility?.statValues[selectedRange] ?? 0);
+    return (
+      innerAbility?.targetStat,
+      innerAbility?.statValues[selectedRange] ?? 0
+    );
   }
 
   Color getRankColor() {
     var abilityStatValue = innerAbility?.statValues[selectedRange];
     if (abilityStatValue != null) {
-      var abilityRank = innerAbility?.determineInnerAbilityRank(abilityStatValue);
-      switch(abilityRank) {
+      var abilityRank =
+          innerAbility?.determineInnerAbilityRank(abilityStatValue);
+      switch (abilityRank) {
         case InnerAbilityRank.legendary:
           return LEGENDARY_COLOR;
         case InnerAbilityRank.unique:
@@ -181,8 +194,7 @@ class InnerAbilityLine implements Copyable {
         default:
           return DEFAULT_COLOR;
       }
-    }
-    else {
+    } else {
       return DEFAULT_COLOR;
     }
   }
@@ -190,9 +202,7 @@ class InnerAbilityLine implements Copyable {
   String getSliderLabel() {
     if (innerAbility != null) {
       return "${innerAbility!.targetStat.formattedName}: ${innerAbility!.targetStat.isPositive ? '+' : '-'}${innerAbility!.targetStat.isPercentage ? doublePercentFormater.format(calculateStatValue().$2) : calculateStatValue().$2}";
-      
-    }
-    else {
+    } else {
       return 'None';
     }
   }

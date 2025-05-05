@@ -5,19 +5,18 @@ import 'package:maplestory_builder/modules/hexa_stats.dart/hexa_stat.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 
 class HexaStatsModule implements Copyable {
-
   Map<int, int?> equippedHexaStat;
   HexaStat? Function(int? hexaStatId) getHexaStatCallback;
 
   Map<StatType, (int, Set<int?>)> get additionalStatCount {
     Map<StatType, (int, Set<int?>)> additionalStatCount = {};
 
-    (int, Set<int?>) buildContainer(StatType selectedStatType, int? hexaStatPosition) {
+    (int, Set<int?>) buildContainer(
+        StatType selectedStatType, int? hexaStatPosition) {
       var target = additionalStatCount[selectedStatType];
       if (target != null) {
         return (target.$1 + 1, target.$2..add(hexaStatPosition));
-      }
-      else {
+      } else {
         return (1, {hexaStatPosition});
       }
     }
@@ -25,9 +24,13 @@ class HexaStatsModule implements Copyable {
     for (MapEntry<int, int?> equippedHexa in equippedHexaStat.entries) {
       var hexaStat = getHexaStatCallback(equippedHexa.value);
       if (hexaStat != null) {
-        for (StatType? selectedStat in [hexaStat.selectedStats[2], hexaStat.selectedStats[3]]) {
+        for (StatType? selectedStat in [
+          hexaStat.selectedStats[2],
+          hexaStat.selectedStats[3]
+        ]) {
           if (selectedStat != null) {
-            additionalStatCount[selectedStat] = buildContainer(selectedStat, equippedHexa.key);
+            additionalStatCount[selectedStat] =
+                buildContainer(selectedStat, equippedHexa.key);
           }
         }
       }
@@ -38,11 +41,9 @@ class HexaStatsModule implements Copyable {
 
   Map<StatType, num>? cacheValue;
 
-  HexaStatsModule({
-    Map<int, int?>? equippedHexaStat,
-    required this.getHexaStatCallback
-  }) :
-    equippedHexaStat = equippedHexaStat ?? {};
+  HexaStatsModule(
+      {Map<int, int?>? equippedHexaStat, required this.getHexaStatCallback})
+      : equippedHexaStat = equippedHexaStat ?? {};
 
   @override
   HexaStatsModule copyWith({
@@ -98,14 +99,16 @@ class HexaStatsModule implements Copyable {
     void updateStatFromHexaStat(HexaStat? hexaStat) {
       if (hexaStat == null) {
         return;
-      }
-      else {
-        for (MapEntry<StatType, num> hexaStatStats in hexaStat.calculateStats(characterClass).entries) {
-          switch(hexaStatStats.key) {
+      } else {
+        for (MapEntry<StatType, num> hexaStatStats
+            in hexaStat.calculateStats(characterClass).entries) {
+          switch (hexaStatStats.key) {
             case StatType.ignoreDefense:
-              hexaStats[hexaStatStats.key] = calculateIgnoreDefense((hexaStats[hexaStatStats.key] ?? 0), hexaStatStats.value);
+              hexaStats[hexaStatStats.key] = calculateIgnoreDefense(
+                  (hexaStats[hexaStatStats.key] ?? 0), hexaStatStats.value);
             default:
-              hexaStats[hexaStatStats.key] = (hexaStats[hexaStatStats.key] ?? 0) + hexaStatStats.value;
+              hexaStats[hexaStatStats.key] =
+                  (hexaStats[hexaStatStats.key] ?? 0) + hexaStatStats.value;
           }
         }
       }
@@ -121,7 +124,9 @@ class HexaStatsModule implements Copyable {
 
   int? getHexaStatMainStatPosition(HexaStat compareHexaStat) {
     for (MapEntry<int, int?> equippedHexa in equippedHexaStat.entries) {
-      if (equippedHexa.value != compareHexaStat.hexaStatId && getHexaStatCallback(equippedHexa.value)?.selectedStats[1] == compareHexaStat.selectedStats[1]) {
+      if (equippedHexa.value != compareHexaStat.hexaStatId &&
+          getHexaStatCallback(equippedHexa.value)?.selectedStats[1] ==
+              compareHexaStat.selectedStats[1]) {
         return equippedHexa.key;
       }
     }

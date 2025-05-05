@@ -12,7 +12,7 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
   int totalAvailableHyperStats;
   int activeSetNumber;
-  late Map<int, HyperStatContainer> hyperStatsSets; 
+  late Map<int, HyperStatContainer> hyperStatsSets;
   late HyperStatContainer activeHyperStat;
 
   Widget hoverTooltip = const SizedBox.shrink();
@@ -28,14 +28,16 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     HyperStatContainer? activeHyperStat,
     Map<int, HyperStatContainer>? hyperStatsSets,
   }) {
-    this.hyperStatsSets = hyperStatsSets ?? {
-      1: HyperStatContainer(),
-      2: HyperStatContainer(),
-      3: HyperStatContainer(),
-      4: HyperStatContainer(),
-      5: HyperStatContainer(),
-    };
-    this.activeHyperStat = activeHyperStat ?? this.hyperStatsSets[activeSetNumber]!;
+    this.hyperStatsSets = hyperStatsSets ??
+        {
+          1: HyperStatContainer(),
+          2: HyperStatContainer(),
+          3: HyperStatContainer(),
+          4: HyperStatContainer(),
+          5: HyperStatContainer(),
+        };
+    this.activeHyperStat =
+        activeHyperStat ?? this.hyperStatsSets[activeSetNumber]!;
   }
 
   @override
@@ -48,7 +50,8 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
   }) {
     return HyperStatsProvider(
       characterProvider: characterProvider ?? this.characterProvider.copyWith(),
-      totalAvailableHyperStats: totalAvailableHyperStats ?? this.totalAvailableHyperStats,
+      totalAvailableHyperStats:
+          totalAvailableHyperStats ?? this.totalAvailableHyperStats,
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
       activeHyperStat: activeHyperStat ?? this.activeHyperStat.copyWith(),
       hyperStatsSets: hyperStatsSets ?? mapDeepCopy(this.hyperStatsSets),
@@ -62,12 +65,17 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
   }
 
   num getStatValue(StatType statType, {int additionalLevels = 0}) {
-    switch(statType) {
+    switch (statType) {
       case StatType.specialMana:
-        var divisor = characterProvider.characterClass == CharacterClass.kinesis ? 10 : 1;
-        return HYPER_STATS_VALUES[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels] ~/ divisor;
+        var divisor =
+            characterProvider.characterClass == CharacterClass.kinesis ? 10 : 1;
+        return HYPER_STATS_VALUES[statType]![
+                activeHyperStat.assignedHyperStats[statType]! +
+                    additionalLevels] ~/
+            divisor;
       default:
-        return HYPER_STATS_VALUES[statType]![activeHyperStat.assignedHyperStats[statType]! + additionalLevels];
+        return HYPER_STATS_VALUES[statType]![
+            activeHyperStat.assignedHyperStats[statType]! + additionalLevels];
     }
   }
 
@@ -94,7 +102,8 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
   }
 
   void setAvailableHyperStatsFromLevel(int characterLevel) {
-    totalAvailableHyperStats = LEVEL_TO_TOTAL_HYPER_STAT_POINTS[characterLevel] ?? 0;
+    totalAvailableHyperStats =
+        LEVEL_TO_TOTAL_HYPER_STAT_POINTS[characterLevel] ?? 0;
     notifyListeners();
   }
 
@@ -114,22 +123,25 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     var costToUpgrade = 0;
     var possibleLevelsToAddByPoints = 0;
 
-    for (possibleLevelsToAddByPoints; possibleLevelsToAddByPoints < possibleLevelsToAdd; possibleLevelsToAddByPoints++) {
-      var costOfLevel = HYPER_STATS_LEVEL_TO_POINTS[currentLevel + possibleLevelsToAddByPoints + 1]!;
+    for (possibleLevelsToAddByPoints;
+        possibleLevelsToAddByPoints < possibleLevelsToAdd;
+        possibleLevelsToAddByPoints++) {
+      var costOfLevel = HYPER_STATS_LEVEL_TO_POINTS[
+          currentLevel + possibleLevelsToAddByPoints + 1]!;
       if (costOfLevel <= (availableHyperStats - costToUpgrade)) {
         costToUpgrade += costOfLevel;
-      }
-      else {
+      } else {
         break;
       }
     }
 
     if (possibleLevelsToAddByPoints == 0) {
       return;
-    }
-    else {
+    } else {
       activeHyperStat.totalAssignedHyperStats += costToUpgrade;
-      activeHyperStat.assignedHyperStats[statType] = activeHyperStat.assignedHyperStats[statType]! + possibleLevelsToAddByPoints;
+      activeHyperStat.assignedHyperStats[statType] =
+          activeHyperStat.assignedHyperStats[statType]! +
+              possibleLevelsToAddByPoints;
       notifyListeners();
     }
   }
@@ -154,9 +166,10 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     }
 
     activeHyperStat.totalAssignedHyperStats -= downgradeCost;
-    activeHyperStat.assignedHyperStats[statType] = activeHyperStat.assignedHyperStats[statType]! - possibleLevelsToSubtract;
+    activeHyperStat.assignedHyperStats[statType] =
+        activeHyperStat.assignedHyperStats[statType]! -
+            possibleLevelsToSubtract;
     notifyListeners();
-    
   }
 
   void changeActiveSet(int hyperStatPosition) {
@@ -171,21 +184,26 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
     Widget? statDescription;
     Widget? currentLevelText;
     Widget? nextLevelText;
-    
+
     var maxLevel = HYPER_STATS_VALUES[statType]!.length - 1;
     var currentLevel = activeHyperStat.assignedHyperStats[statType]!;
 
-    switch(statType) {
+    switch (statType) {
       case StatType.specialMana:
-        statDescription = const Text("Zero - Time Force: +10\nDemon Slayer - Demon Fury: +10\nKinesis - Psychic Points: +1\nKanna - Mana: +10\n");
-        currentLevelText = Text("Current Level ($currentLevel):\n~ ${statType.formattedName}: ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)}");
+        statDescription = const Text(
+            "Zero - Time Force: +10\nDemon Slayer - Demon Fury: +10\nKinesis - Psychic Points: +1\nKanna - Mana: +10\n");
+        currentLevelText = Text(
+            "Current Level ($currentLevel):\n~ ${statType.formattedName}: ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)}");
         if (currentLevel != maxLevel) {
-          nextLevelText = Text("Next Level (${currentLevel + 1}):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)}");
+          nextLevelText = Text(
+              "Next Level (${currentLevel + 1}):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)}");
         }
       default:
-        currentLevelText = Text("Current Level ($currentLevel):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)}");
+        currentLevelText = Text(
+            "Current Level ($currentLevel):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType)) : getStatValue(statType)}");
         if (currentLevel != maxLevel) {
-          nextLevelText = Text("Next Level (${currentLevel + 1}):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)}");
+          nextLevelText = Text(
+              "Next Level (${currentLevel + 1}):\n~ ${statType.formattedName}:  ${statType.isPositive ? '+' : ' -'}${statType.isPercentage || overrides.contains(statType) ? doublePercentFormater.format(getStatValue(statType, additionalLevels: 1)) : getStatValue(statType, additionalLevels: 1)}");
         }
     }
 
@@ -200,7 +218,6 @@ class HyperStatsProvider with ChangeNotifier implements Copyable {
   }
 }
 
-
 class HyperStatContainer implements Copyable {
   int totalAssignedHyperStats = 0;
   Map<StatType, int> assignedHyperStats;
@@ -208,25 +225,26 @@ class HyperStatContainer implements Copyable {
   HyperStatContainer({
     this.totalAssignedHyperStats = 0,
     Map<StatType, int>? assignedHyperStats,
-  }) : assignedHyperStats = assignedHyperStats ?? {
-      StatType.str: 0,
-      StatType.dex: 0,
-      StatType.int: 0,
-      StatType.luk: 0,
-      StatType.hp: 0,
-      StatType.mp: 0,
-      StatType.specialMana: 0,
-      StatType.critRate: 0,
-      StatType.critDamage: 0,
-      StatType.ignoreDefense: 0,
-      StatType.damage: 0,
-      StatType.bossDamage: 0,
-      StatType.damageNormalMobs: 0,
-      StatType.statusResistance: 0,
-      StatType.attackMattack: 0,
-      StatType.expAdditional: 0,
-      StatType.arcaneForce: 0,
-    };
+  }) : assignedHyperStats = assignedHyperStats ??
+            {
+              StatType.str: 0,
+              StatType.dex: 0,
+              StatType.int: 0,
+              StatType.luk: 0,
+              StatType.hp: 0,
+              StatType.mp: 0,
+              StatType.specialMana: 0,
+              StatType.critRate: 0,
+              StatType.critDamage: 0,
+              StatType.ignoreDefense: 0,
+              StatType.damage: 0,
+              StatType.bossDamage: 0,
+              StatType.damageNormalMobs: 0,
+              StatType.statusResistance: 0,
+              StatType.attackMattack: 0,
+              StatType.expAdditional: 0,
+              StatType.arcaneForce: 0,
+            };
 
   @override
   HyperStatContainer copyWith({
@@ -234,8 +252,9 @@ class HyperStatContainer implements Copyable {
     Map<StatType, int>? assignedHyperStats,
   }) {
     return HyperStatContainer(
-      totalAssignedHyperStats: totalAssignedHyperStats ?? this.totalAssignedHyperStats,
-      assignedHyperStats: assignedHyperStats ?? Map.of(this.assignedHyperStats)
-    );
+        totalAssignedHyperStats:
+            totalAssignedHyperStats ?? this.totalAssignedHyperStats,
+        assignedHyperStats:
+            assignedHyperStats ?? Map.of(this.assignedHyperStats));
   }
 }

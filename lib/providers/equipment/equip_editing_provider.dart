@@ -16,9 +16,9 @@ const int START_EDITING_EQUIP = 1;
 const int NO_EDITING_EQUIP = 0;
 
 class EquipEditingProvider with ChangeNotifier {
-
   Equip? editingEquip;
   int updateCounter = NO_EDITING_EQUIP;
+
   // Used to hide/show editing expansion tiles and their contents in the editing window
   bool canStar = false;
   bool canFlame = false;
@@ -26,13 +26,12 @@ class EquipEditingProvider with ChangeNotifier {
   bool canScroll = false;
   bool canSoul = false;
   bool canPitchedBossUpgrade = false;
+
   // Used to accurately modify/update the value in the tweak text controllers when loading an equip item
   // that already has values in the tweak module
   Map<StatType, TextEditingController> tweakTextControllers = {};
 
-  EquipEditingProvider({
-    this.editingEquip
-  });
+  EquipEditingProvider({this.editingEquip});
 
   void addEditingEquip(Equip equip) {
     editingEquip = equip.copyWith();
@@ -57,31 +56,40 @@ class EquipEditingProvider with ChangeNotifier {
 
   void updateStarforce(num newStarValue) {
     if (editingEquip?.starForceModule != null) {
-      editingEquip?.starForceModule?.updateStarforce(editingEquip!, newStarValue);
+      editingEquip?.starForceModule
+          ?.updateStarforce(editingEquip!, newStarValue);
       updateCounter += 1;
       notifyListeners();
     }
   }
 
-  void updateFlame(int flamePosition, {FlameName? flameName, FlameTier? flameTier, isUpdatingTier=false}) {
+  void updateFlame(int flamePosition,
+      {FlameName? flameName, FlameTier? flameTier, isUpdatingTier = false}) {
     if (editingEquip?.flameModule != null) {
-      editingEquip?.flameModule?.updateFlame(editingEquip!, flamePosition, flameName: flameName, flameTier: flameTier, isUpdatingTier: isUpdatingTier);
+      editingEquip?.flameModule?.updateFlame(editingEquip!, flamePosition,
+          flameName: flameName,
+          flameTier: flameTier,
+          isUpdatingTier: isUpdatingTier);
       updateCounter += 1;
       notifyListeners();
     }
   }
 
-  void updatePotentialTier(PotentialTier? potentialTier, {bool isBonus=false}) {
+  void updatePotentialTier(PotentialTier? potentialTier,
+      {bool isBonus = false}) {
     if (editingEquip?.potentialModule != null) {
-      editingEquip?.potentialModule?.updatePotentialTier(potentialTier, isBonus: isBonus);
+      editingEquip?.potentialModule
+          ?.updatePotentialTier(potentialTier, isBonus: isBonus);
       updateCounter += 1;
       notifyListeners();
     }
   }
 
-  void updatePotential(int potentialPosition, PotentialLine? potentialLine, {bool isBonus=false}) {
+  void updatePotential(int potentialPosition, PotentialLine? potentialLine,
+      {bool isBonus = false}) {
     if (editingEquip?.potentialModule != null) {
-      editingEquip?.potentialModule?.updatePotential(potentialPosition, potentialLine, isBonus: isBonus);
+      editingEquip?.potentialModule
+          ?.updatePotential(potentialPosition, potentialLine, isBonus: isBonus);
       updateCounter += 1;
       notifyListeners();
     }
@@ -121,7 +129,8 @@ class EquipEditingProvider with ChangeNotifier {
 
   void updateEditingScrollStatsValue(StatType statType, double statValue) {
     if (editingEquip?.scrollModule != null) {
-      editingEquip!.scrollModule!.updateEditingScrollStatsValue(statType, statValue);
+      editingEquip!.scrollModule!
+          .updateEditingScrollStatsValue(statType, statValue);
       updateCounter += 1;
       notifyListeners();
     }
@@ -137,7 +146,8 @@ class EquipEditingProvider with ChangeNotifier {
 
   void updatePitchedBossUpgrade(bool trigger) {
     if (editingEquip?.pitchedBossUpgradeModule != null) {
-      editingEquip!.pitchedBossUpgradeModule!.activatePitchedBossUpgrade(trigger);
+      editingEquip!.pitchedBossUpgradeModule!
+          .activatePitchedBossUpgrade(trigger);
       updateCounter += 1;
       notifyListeners();
     }
@@ -170,7 +180,8 @@ class EquipEditingProvider with ChangeNotifier {
   TextEditingController getTweakTextController(StatType statType) {
     var textController = tweakTextControllers[statType];
     if (textController == null) {
-      textController = TextEditingController(text: editingEquip?.tweakModule?.get(statType).toString() ?? "");
+      textController = TextEditingController(
+          text: editingEquip?.tweakModule?.get(statType).toString() ?? "");
       tweakTextControllers[statType] = textController;
     }
 
@@ -186,40 +197,37 @@ class EquipEditingProvider with ChangeNotifier {
 
     if (editingEquip!.equipName.starForceCategory == StarForceCategory.player) {
       canStar = true;
-    }
-    else {
+    } else {
       canStar = false;
     }
 
     if (editingEquip!.equipName.flameCategory != FlameCategory.none) {
       canFlame = true;
-    }
-    else {
+    } else {
       canFlame = false;
     }
 
     if (editingEquip!.equipName.potentialCategory == PotentialCategory.player) {
       canPotential = true;
-    }
-    else {
+    } else {
       canPotential = false;
     }
 
     if (editingEquip!.equipName.maxScrollsSlots != 0) {
       canScroll = true;
-    }
-    else {
+    } else {
       canScroll = false;
     }
 
-    if (editingEquip!.equipName.equipType == EquipType.weapon && editingEquip!.equipName.itemLevel >= 75) {
+    if (editingEquip!.equipName.equipType == EquipType.weapon &&
+        editingEquip!.equipName.itemLevel >= 75) {
       canSoul = true;
-    }
-    else {
+    } else {
       canSoul = false;
     }
 
-    canPitchedBossUpgrade = isEquipPitchBossUpgradeable(editingEquip!.equipName);   
+    canPitchedBossUpgrade =
+        isEquipPitchBossUpgradeable(editingEquip!.equipName);
   }
 
   void _clearTweakTextControllers() {
@@ -239,4 +247,4 @@ class EquipEditingProvider with ChangeNotifier {
     canPitchedBossUpgrade = false;
     _clearTweakTextControllers();
   }
-} 
+}

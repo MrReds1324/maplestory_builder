@@ -10,7 +10,6 @@ const int START_EDITING_EQUIP = 1;
 const int NO_EDITING_EQUIP = 0;
 
 class LegionCharacterEditingProvider with ChangeNotifier {
-
   LegionCharacter? editingLegionCharacter;
   int updateCounter = NO_EDITING_EQUIP;
 
@@ -18,15 +17,13 @@ class LegionCharacterEditingProvider with ChangeNotifier {
   // that already has a value in the levels
   TextEditingController levelTextController = TextEditingController(text: "0");
 
-  LegionCharacterEditingProvider({
-    this.editingLegionCharacter
-  });
+  LegionCharacterEditingProvider({this.editingLegionCharacter});
 
   void addEditingLegionCharacter({LegionCharacter? legionCharacter}) {
     if (legionCharacter == null) {
-      editingLegionCharacter = LegionCharacter(legionBlock: LegionBlock.nothing);
-    }
-    else {
+      editingLegionCharacter =
+          LegionCharacter(legionBlock: LegionBlock.nothing);
+    } else {
       editingLegionCharacter = legionCharacter.copyWith();
       levelTextController.text = "${legionCharacter.legionCharacterLevel}";
     }
@@ -63,7 +60,7 @@ class LegionCharacterEditingProvider with ChangeNotifier {
   void updatedLegionBlock(LegionBlock legionBlock) {
     if (editingLegionCharacter != null) {
       editingLegionCharacter!.legionBlock = legionBlock;
-    
+
       updateCounter += 1;
       notifyListeners();
     }
@@ -82,4 +79,4 @@ class LegionCharacterEditingProvider with ChangeNotifier {
     updateCounter = NO_EDITING_EQUIP;
     _clearLevelTextController();
   }
-} 
+}

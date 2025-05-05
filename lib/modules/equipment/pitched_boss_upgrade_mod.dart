@@ -36,10 +36,13 @@ class PitchedBossUpgradeModule implements Copyable {
       List<Widget> childrenRows = [
         Text(
           pitchedBossUpgrade.formattedName,
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(decoration: TextDecoration.underline),
         ),
       ];
-      
+
       pitchedBossUpgrade.upgradeStats.forEach((key, value) {
         childrenRows.add(
           Text(
@@ -53,8 +56,7 @@ class PitchedBossUpgradeModule implements Copyable {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: createTextLines(context)
-    );
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: createTextLines(context));
   }
 }

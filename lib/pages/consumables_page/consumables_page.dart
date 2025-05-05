@@ -121,15 +121,36 @@ class _SearchableItemGridState extends State<_SearchableItemGrid> {
         List<StatType> filterValues = [];
         switch (selectedConsumableCategory.value) {
           case ConsumableCategory.allStatsBoost:
-            filterValues.addAll([StatType.allStats, StatType.allStatsPercentage]);
+            filterValues
+                .addAll([StatType.allStats, StatType.allStatsPercentage]);
           case ConsumableCategory.dexBoost:
-            filterValues.addAll([StatType.allStats, StatType.allStatsPercentage, StatType.dex, StatType.dexPercentage]);
+            filterValues.addAll([
+              StatType.allStats,
+              StatType.allStatsPercentage,
+              StatType.dex,
+              StatType.dexPercentage
+            ]);
           case ConsumableCategory.strBoost:
-            filterValues.addAll([StatType.allStats, StatType.allStatsPercentage, StatType.str, StatType.strPercentage]);
+            filterValues.addAll([
+              StatType.allStats,
+              StatType.allStatsPercentage,
+              StatType.str,
+              StatType.strPercentage
+            ]);
           case ConsumableCategory.lukBoost:
-            filterValues.addAll([StatType.allStats, StatType.allStatsPercentage, StatType.luk, StatType.lukPercentage]);
+            filterValues.addAll([
+              StatType.allStats,
+              StatType.allStatsPercentage,
+              StatType.luk,
+              StatType.lukPercentage
+            ]);
           case ConsumableCategory.intBoost:
-            filterValues.addAll([StatType.allStats, StatType.allStatsPercentage, StatType.int, StatType.intPercentage]);
+            filterValues.addAll([
+              StatType.allStats,
+              StatType.allStatsPercentage,
+              StatType.int,
+              StatType.intPercentage
+            ]);
           case ConsumableCategory.hpBoost:
             filterValues.addAll([StatType.hp, StatType.hpPercentage]);
           case ConsumableCategory.mpBoost:
@@ -155,7 +176,8 @@ class _SearchableItemGridState extends State<_SearchableItemGrid> {
           case ConsumableCategory.damageBoost:
             filterValues.add(StatType.damage);
           case ConsumableCategory.expBoost:
-            filterValues.addAll([StatType.expAdditional, StatType.expMultiplicative]);
+            filterValues
+                .addAll([StatType.expAdditional, StatType.expMultiplicative]);
           case ConsumableCategory.itemDropRateBoost:
             filterValues.add(StatType.itemDropRate);
           case ConsumableCategory.mesosObtainedBoost:

@@ -2,7 +2,6 @@ import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
 
 class TweakModule implements Copyable {
-
   Map<StatType, int> moduleStats;
 
   TweakModule({
@@ -25,5 +24,4 @@ class TweakModule implements Copyable {
   void updateTweakStat(StatType statType, int value) {
     moduleStats[statType] = value;
   }
-
 }

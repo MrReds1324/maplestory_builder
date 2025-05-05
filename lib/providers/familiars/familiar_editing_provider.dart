@@ -10,16 +10,14 @@ const int START_EDITING_FAMILIAR = 1;
 const int NO_EDITING_FAMILIAR = 0;
 
 class FamiliarEditingProvider with ChangeNotifier {
-
   Familiar? editingFamiliar;
   int updateCounter = NO_EDITING_FAMILIAR;
   bool isEditing = false;
 
   TextEditingController textController;
 
-  FamiliarEditingProvider({
-    this.editingFamiliar
-  }): textController = TextEditingController(text: "");
+  FamiliarEditingProvider({this.editingFamiliar})
+      : textController = TextEditingController(text: "");
 
   void addEditingFamiliar({Familiar? familiar}) {
     editingFamiliar = familiar?.copyWith() ?? Familiar();
@@ -47,15 +45,19 @@ class FamiliarEditingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updatePotentialSelection(int potentialPosition, (FamiliarPotential, bool)? familiarPotentialSelection) {
-    if (editingFamiliar?.updatePotentialSelection(potentialPosition, familiarPotentialSelection) ?? false) {
+  void updatePotentialSelection(int potentialPosition,
+      (FamiliarPotential, bool)? familiarPotentialSelection) {
+    if (editingFamiliar?.updatePotentialSelection(
+            potentialPosition, familiarPotentialSelection) ??
+        false) {
       updateCounter += 1;
       notifyListeners();
     }
   }
 
   void updatePotential(int potentialPosition, int familiarPotentialOffset) {
-    editingFamiliar?.updatePotential(potentialPosition, familiarPotentialOffset);
+    editingFamiliar?.updatePotential(
+        potentialPosition, familiarPotentialOffset);
     updateCounter += 1;
     notifyListeners();
   }
@@ -78,4 +80,4 @@ class FamiliarEditingProvider with ChangeNotifier {
     textController.text = "";
     isEditing = false;
   }
-} 
+}

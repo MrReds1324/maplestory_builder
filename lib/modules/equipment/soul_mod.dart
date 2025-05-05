@@ -6,10 +6,7 @@ class SoulModule implements Copyable {
   SoulName? soulName;
   (StatType, num)? selectedSoulStat;
 
-  SoulModule({
-    this.soulName,
-    this.selectedSoulStat
-  });
+  SoulModule({this.soulName, this.selectedSoulStat});
 
   @override
   SoulModule copyWith({
@@ -17,19 +14,16 @@ class SoulModule implements Copyable {
     (StatType, num)? selectedSoulStat,
   }) {
     return SoulModule(
-      soulName: soulName ?? this.soulName,
-      selectedSoulStat: selectedSoulStat ?? this.selectedSoulStat
-    );
+        soulName: soulName ?? this.soulName,
+        selectedSoulStat: selectedSoulStat ?? this.selectedSoulStat);
   }
 
   num get(StatType statType) {
     if (selectedSoulStat == null) {
       return 0;
-    }
-    else if (selectedSoulStat!.$1 == statType) {
+    } else if (selectedSoulStat!.$1 == statType) {
       return selectedSoulStat!.$2;
-    }
-    else {
+    } else {
       return 0;
     }
   }
@@ -37,8 +31,7 @@ class SoulModule implements Copyable {
   void updateSoulName(SoulName? soulName) {
     if (soulName == this.soulName) {
       return;
-    }
-    else {
+    } else {
       this.soulName = soulName;
       selectedSoulStat = null;
     }

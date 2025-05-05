@@ -17,18 +17,17 @@ class HexaStatEditingProvider with ChangeNotifier {
   int updateCounter = NO_EDITING_HEXA_STAT;
   bool isEditing = false;
   TextEditingController textController;
-  
+
   CharacterClass? previousCharacterClass;
 
-  HexaStatEditingProvider({
-    required this.characterProvider,
-    this.editingHexaStat
-  }): textController = TextEditingController(text: "");
+  HexaStatEditingProvider(
+      {required this.characterProvider, this.editingHexaStat})
+      : textController = TextEditingController(text: "");
 
   HexaStatEditingProvider update(CharacterProvider characterProvider) {
     if (previousCharacterClass != characterProvider.characterClass) {
       previousCharacterClass = characterProvider.characterClass;
-      
+
       notifyListeners();
     }
 
@@ -94,4 +93,4 @@ class HexaStatEditingProvider with ChangeNotifier {
     textController.text = "";
     isEditing = false;
   }
-} 
+}

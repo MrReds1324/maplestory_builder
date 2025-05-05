@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:maplestory_builder/constants/legion/legion_stats.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/legion/legion_stats.dart';
 import 'package:maplestory_builder/modules/legion/legion_mod.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
@@ -10,9 +10,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 class PlacedCharacters extends StatelessWidget {
-  const PlacedCharacters({
-    super.key
-  });
+  const PlacedCharacters({super.key});
 
   Function _curriedOnHover(LegionCharacter legionCharacter) {
     return (BuildContext context) {
@@ -23,59 +21,53 @@ class PlacedCharacters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          Text(
-            "Placed Characters",
-            style: Theme.of(context).textTheme.headlineMedium
-          ),
-          Container(
-            height: 188,
-            decoration: BoxDecoration(
+      child: Column(children: [
+        Text("Placed Characters",
+            style: Theme.of(context).textTheme.headlineMedium),
+        Container(
+          height: 188,
+          decoration: BoxDecoration(
               border: Border.all(color: DEFAULT_COLOR),
-              borderRadius: const BorderRadius.all(Radius.circular(10))
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
+          child: Row(children: [
+            Expanded(
+              child: Consumer<LegionStatsProvider>(
+                  builder: (context, legionStatsProvider, child) {
+                var allPlacedCharacters =
+                    legionStatsProvider.activeLegionSet.getPlacedCharacters();
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: allPlacedCharacters.length,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(5),
+                  itemBuilder: (context, index) {
+                    return MapleTooltip(
+                      tooltipTitle:
+                          allPlacedCharacters[index].legionBlock.formattedName,
+                      onHoverFunction:
+                          _curriedOnHover(allPlacedCharacters[index]),
+                      tooltipWidgets: [
+                        allPlacedCharacters[index]
+                            .createLegionCharacterContainer(context),
+                      ],
+                      child: _CharacterTile(
+                        legionCharacter: allPlacedCharacters[index],
+                        isPlaced: true,
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Consumer<LegionStatsProvider>(
-                    builder: (context, legionStatsProvider, child) {
-                      var allPlacedCharacters = legionStatsProvider.activeLegionSet.getPlacedCharacters();
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: allPlacedCharacters.length,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(5),
-                        itemBuilder: (context, index) {
-                          return MapleTooltip(
-                            tooltipTitle: allPlacedCharacters[index].legionBlock.formattedName,
-                            onHoverFunction: _curriedOnHover(allPlacedCharacters[index]),
-                            tooltipWidgets: [
-                              allPlacedCharacters[index].createLegionCharacterContainer(context),
-                            ],
-                            child: _CharacterTile(
-                              legionCharacter: allPlacedCharacters[index],
-                              isPlaced: true,
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  ),
-                ),
-              ]
-            ),
-          ),
-        ]
-      ), 
+          ]),
+        ),
+      ]),
     );
   }
 }
 
 class AvailableCharacters extends StatelessWidget {
-  const AvailableCharacters({
-    super.key
-  });
+  const AvailableCharacters({super.key});
 
   Function _curriedOnHover(LegionCharacter legionCharacter) {
     return (BuildContext context) {
@@ -86,54 +78,50 @@ class AvailableCharacters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          Text(
-            "Available Characters",
-            style: Theme.of(context).textTheme.headlineMedium
-          ),
-          Container(
-            height: 188,
-            decoration: BoxDecoration(
+      child: Column(children: [
+        Text("Available Characters",
+            style: Theme.of(context).textTheme.headlineMedium),
+        Container(
+          height: 188,
+          decoration: BoxDecoration(
               border: Border.all(color: DEFAULT_COLOR),
-              borderRadius: const BorderRadius.all(Radius.circular(10))
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Consumer<LegionStatsProvider>(
-                    builder: (context, legionStatsProvider, child) {
-                      var allLegionCharactersList = legionStatsProvider.getUnplacedLegionCharacters();
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: allLegionCharactersList.length,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(5),
-                        itemBuilder: (context, index) {
-                          return MapleTooltip(
-                            tooltipTitle: allLegionCharactersList[index].legionBlock.formattedName,
-                            onHoverFunction: _curriedOnHover(allLegionCharactersList[index]),
-                            tooltipWidgets: [
-                              allLegionCharactersList[index].createLegionCharacterContainer(context),
-                            ],
-                            child: _CharacterTile(
-                              legionCharacter: allLegionCharactersList[index],
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  ),
-                ),
-                Container(
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
+          child: Row(children: [
+            Expanded(
+              child: Consumer<LegionStatsProvider>(
+                  builder: (context, legionStatsProvider, child) {
+                var allLegionCharactersList =
+                    legionStatsProvider.getUnplacedLegionCharacters();
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: allLegionCharactersList.length,
+                  shrinkWrap: true,
                   padding: const EdgeInsets.all(5),
-                  child: const _AddCharacterButton()
-                )
-              ]
+                  itemBuilder: (context, index) {
+                    return MapleTooltip(
+                      tooltipTitle: allLegionCharactersList[index]
+                          .legionBlock
+                          .formattedName,
+                      onHoverFunction:
+                          _curriedOnHover(allLegionCharactersList[index]),
+                      tooltipWidgets: [
+                        allLegionCharactersList[index]
+                            .createLegionCharacterContainer(context),
+                      ],
+                      child: _CharacterTile(
+                        legionCharacter: allLegionCharactersList[index],
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
-          ),
-        ]
-      ), 
+            Container(
+                padding: const EdgeInsets.all(5),
+                child: const _AddCharacterButton())
+          ]),
+        ),
+      ]),
     );
   }
 }
@@ -157,113 +145,125 @@ class _CharacterTile extends StatelessWidget {
         height: 178,
         decoration: BoxDecoration(
           color: DEFAULT_COLOR,
-          border: Border.all(
-            color: DEFAULT_COLOR
-          ),
+          border: Border.all(color: DEFAULT_COLOR),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Positioned(
-              top: -10,
-              child: SizedBox(
-                width: 114,
-                child: Row(
-                  children: [
-                    Text(
-                      legionCharacter.characterLevelToRank(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 36),
-                    ),
-                    const Spacer(),
-                    Text(
-                      "Lv.${legionCharacter.legionCharacterLevel}",
-                    ),
-                  ]
+        child: Stack(alignment: Alignment.topCenter, children: [
+          Positioned(
+            top: -10,
+            child: SizedBox(
+              width: 114,
+              child: Row(children: [
+                Text(
+                  legionCharacter.characterLevelToRank(),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(fontSize: 36),
                 ),
-              ), 
-            ),
-            Positioned(
-              top: 25,
-              child: Icon(
-                MdiIcons.accountBox,
-                size: 96,
-              ),
-            ),
-            Positioned(
-              top: 112,
-              child: Text(legionCharacter.legionBlock.formattedName),
-            ),
-            Positioned(
-              top: 137,
-              child: SizedBox(
-                width: 114,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MapleTooltip(
-                      tooltipWidgets: const [
-                        Text("Delete Character"),
-                      ],
-                      child: IconButton(
-                        padding: const EdgeInsets.all(1),
-                        constraints: const BoxConstraints(),
-                        iconSize: 19,
-                        onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
-                          context.read<LegionStatsProvider>().deleteLegionCharacter(legionCharacter);
-                        }, 
-                        icon: Icon(MdiIcons.trashCan),
-                      ),
-                    ),
-                    const Spacer(),
-                    MapleTooltip(
-                      tooltipWidgets: [
-                        Text(isPlaced ? "Remove Character" : "Place Character"),
-                      ],
-                      child: IconButton(
-                        padding: const EdgeInsets.all(1),
-                        constraints: const BoxConstraints(),
-                        iconSize: 19,
-                        onPressed: legionCharacter.legionCharacterLevel < 60 ? null : () {
-                          var legionStatsProvider = context.read<LegionStatsProvider>();
-                          isPlaced ? legionStatsProvider.removePlacedLegionCharacter(legionCharacter) : legionStatsProvider.placeLegionCharacter(legionCharacter);
-                        }, 
-                        icon: isPlaced ? Icon(MdiIcons.minusThick) : Icon(MdiIcons.plusThick),
-                      ),
-                    ),
-                    const Spacer(),
-                    MapleTooltip(
-                      tooltipWidgets: const [
-                        Text("Edit Character"),
-                      ],
-                      child: IconButton(
-                        padding: const EdgeInsets.all(1),
-                        constraints: const BoxConstraints(),
-                        iconSize: 19,
-                        onPressed: legionCharacter.legionCharacterHash == 0 ? null : () {
-                          context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter(legionCharacter: legionCharacter);
-                          showDialog(context: context,
-                            builder: (BuildContext context){
-                              return const _EditCharacterDialogBox();
-                            }
-                          );
-                        },
-                        icon: Icon(MdiIcons.accountEdit),
-                      ),
-                    ),
-                  ]
+                const Spacer(),
+                Text(
+                  "Lv.${legionCharacter.legionCharacterLevel}",
                 ),
-              ),
-            )
-          ]
-        ),
+              ]),
+            ),
+          ),
+          Positioned(
+            top: 25,
+            child: Icon(
+              MdiIcons.accountBox,
+              size: 96,
+            ),
+          ),
+          Positioned(
+            top: 112,
+            child: Text(legionCharacter.legionBlock.formattedName),
+          ),
+          Positioned(
+            top: 137,
+            child: SizedBox(
+              width: 114,
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                MapleTooltip(
+                  tooltipWidgets: const [
+                    Text("Delete Character"),
+                  ],
+                  child: IconButton(
+                    padding: const EdgeInsets.all(1),
+                    constraints: const BoxConstraints(),
+                    iconSize: 19,
+                    onPressed: legionCharacter.legionCharacterHash == 0
+                        ? null
+                        : () {
+                            context
+                                .read<LegionStatsProvider>()
+                                .deleteLegionCharacter(legionCharacter);
+                          },
+                    icon: Icon(MdiIcons.trashCan),
+                  ),
+                ),
+                const Spacer(),
+                MapleTooltip(
+                  tooltipWidgets: [
+                    Text(isPlaced ? "Remove Character" : "Place Character"),
+                  ],
+                  child: IconButton(
+                    padding: const EdgeInsets.all(1),
+                    constraints: const BoxConstraints(),
+                    iconSize: 19,
+                    onPressed: legionCharacter.legionCharacterLevel < 60
+                        ? null
+                        : () {
+                            var legionStatsProvider =
+                                context.read<LegionStatsProvider>();
+                            isPlaced
+                                ? legionStatsProvider
+                                    .removePlacedLegionCharacter(
+                                        legionCharacter)
+                                : legionStatsProvider
+                                    .placeLegionCharacter(legionCharacter);
+                          },
+                    icon: isPlaced
+                        ? Icon(MdiIcons.minusThick)
+                        : Icon(MdiIcons.plusThick),
+                  ),
+                ),
+                const Spacer(),
+                MapleTooltip(
+                  tooltipWidgets: const [
+                    Text("Edit Character"),
+                  ],
+                  child: IconButton(
+                    padding: const EdgeInsets.all(1),
+                    constraints: const BoxConstraints(),
+                    iconSize: 19,
+                    onPressed: legionCharacter.legionCharacterHash == 0
+                        ? null
+                        : () {
+                            context
+                                .read<LegionCharacterEditingProvider>()
+                                .addEditingLegionCharacter(
+                                    legionCharacter: legionCharacter);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const _EditCharacterDialogBox();
+                                });
+                          },
+                    icon: Icon(MdiIcons.accountEdit),
+                  ),
+                ),
+              ]),
+            ),
+          )
+        ]),
       ),
     );
   }
 }
 
 class _AddCharacterButton extends StatelessWidget {
-  
   const _AddCharacterButton();
 
   @override
@@ -273,73 +273,67 @@ class _AddCharacterButton extends StatelessWidget {
       height: 178,
       decoration: BoxDecoration(
         color: DEFAULT_COLOR,
-        border: Border.all(
-          color: DEFAULT_COLOR
-        ),
+        border: Border.all(color: DEFAULT_COLOR),
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Spacer(),
-          const Text("Add Character"),
-          const Spacer(),
-          IconButton(
-            onPressed: () {
-              context.read<LegionCharacterEditingProvider>().addEditingLegionCharacter();
-              showDialog(context: context,
-                builder: (BuildContext context){
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        const Spacer(),
+        const Text("Add Character"),
+        const Spacer(),
+        IconButton(
+          onPressed: () {
+            context
+                .read<LegionCharacterEditingProvider>()
+                .addEditingLegionCharacter();
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
                   return const _EditCharacterDialogBox();
-                }
-              );
-            }, 
-            icon: Icon(
-              MdiIcons.plusBoxOutline,
-              size: 96,
-            ),
+                });
+          },
+          icon: Icon(
+            MdiIcons.plusBoxOutline,
+            size: 96,
           ),
-          const Spacer(flex: 2),
-        ]
-      ),
+        ),
+        const Spacer(flex: 2),
+      ]),
     );
   }
 }
 
 class _EditCharacterDialogBox extends StatelessWidget {
-
   const _EditCharacterDialogBox();
 
-  List<DropdownMenuItem<LegionBlock>> getDropdownLegionBlockList(BuildContext context, LegionCharacter? editingLegionCharacter) {
+  List<DropdownMenuItem<LegionBlock>> getDropdownLegionBlockList(
+      BuildContext context, LegionCharacter? editingLegionCharacter) {
     List<DropdownMenuItem<LegionBlock>> dropdownItems = [];
 
     Set<LegionBlock> createdSpecialBlocks = {};
-    for (LegionCharacter legionCharacter in context.read<LegionStatsProvider>().allLegionCharacters.values) {
+    for (LegionCharacter legionCharacter
+        in context.read<LegionStatsProvider>().allLegionCharacters.values) {
       if (LegionBlock.SPECIAL_BLOCKS.contains(legionCharacter.legionBlock)) {
         createdSpecialBlocks.add(legionCharacter.legionBlock);
       }
     }
 
-
     List<LegionBlock> filteredList = <LegionBlock>[];
     // We can only have one of the flame types per equip, filter out any ones already used here
-    for(LegionBlock legionBlock in LegionBlock.values) { 
+    for (LegionBlock legionBlock in LegionBlock.values) {
       // Stops us from being able to select multiple of a special block
-      if (!createdSpecialBlocks.contains(legionBlock) || editingLegionCharacter?.legionBlock == legionBlock) {
+      if (!createdSpecialBlocks.contains(legionBlock) ||
+          editingLegionCharacter?.legionBlock == legionBlock) {
         filteredList.add(legionBlock);
       }
     }
 
-    dropdownItems.addAll(
-      filteredList.map((value) {
-        return DropdownMenuItem(
-          value: value,
-          child: Text(
-            value.formattedName,
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-        );
-      }).toList()
-    );
+    dropdownItems.addAll(filteredList.map((value) {
+      return DropdownMenuItem(
+        value: value,
+        child: Text(value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium),
+      );
+    }).toList());
 
     return dropdownItems;
   }
@@ -359,89 +353,89 @@ class _EditCharacterDialogBox extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black,
-                  offset: Offset(0,10),
-                  blurRadius: 10
-                ),
-              ]
-            ),
+                shape: BoxShape.rectangle,
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black,
+                      offset: Offset(0, 10),
+                      blurRadius: 10),
+                ]),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                  "Editing Legion Character",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Legion Block: '),
-                    Consumer<LegionCharacterEditingProvider>(
-                      builder: (context, legionEditingCharacterProvider, child) {
-                        return DropdownButton(
-                          value: legionEditingCharacterProvider.editingLegionCharacter?.legionBlock,
-                          onChanged: (LegionBlock? newValue) {
-                            if (newValue != null) {
-                              context.read<LegionCharacterEditingProvider>().updatedLegionBlock(newValue);
-                            }
-                          },
-                          items: getDropdownLegionBlockList(context, legionEditingCharacterProvider.editingLegionCharacter),
-                        );
-                      }
-                    ),
-                  ]
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Legion Block Level: '),
-                    SizedBox(
-                      width: 140,
-                      child: Selector<LegionCharacterEditingProvider, LegionBlock?>(
-                        selector: (_, legionCharacterEditingProvider) => legionCharacterEditingProvider.editingLegionCharacter?.legionBlock,
+                Text("Editing Legion Character",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Text('Legion Block: '),
+                  Consumer<LegionCharacterEditingProvider>(builder:
+                      (context, legionEditingCharacterProvider, child) {
+                    return DropdownButton(
+                      value: legionEditingCharacterProvider
+                          .editingLegionCharacter?.legionBlock,
+                      onChanged: (LegionBlock? newValue) {
+                        if (newValue != null) {
+                          context
+                              .read<LegionCharacterEditingProvider>()
+                              .updatedLegionBlock(newValue);
+                        }
+                      },
+                      items: getDropdownLegionBlockList(
+                          context,
+                          legionEditingCharacterProvider
+                              .editingLegionCharacter),
+                    );
+                  }),
+                ]),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Text('Legion Block Level: '),
+                  SizedBox(
+                    width: 140,
+                    child: Selector<LegionCharacterEditingProvider,
+                            LegionBlock?>(
+                        selector: (_, legionCharacterEditingProvider) =>
+                            legionCharacterEditingProvider
+                                .editingLegionCharacter?.legionBlock,
                         builder: (_, legionBlock, __) {
-                          var legionCharacterEditingProvider = context.read<LegionCharacterEditingProvider>();
+                          var legionCharacterEditingProvider =
+                              context.read<LegionCharacterEditingProvider>();
                           return TextField(
                             style: Theme.of(context).textTheme.bodyMedium,
-                            controller: legionCharacterEditingProvider.levelTextController,
-                            onChanged: (value) => legionCharacterEditingProvider.updateCharacterLevel(value.isNotEmpty ? int.parse(value) : 0),
+                            controller: legionCharacterEditingProvider
+                                .levelTextController,
+                            onChanged: (value) => legionCharacterEditingProvider
+                                .updateCharacterLevel(
+                                    value.isNotEmpty ? int.parse(value) : 0),
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp(r'^\d*')),
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d*')),
                             ],
-                            decoration: const InputDecoration(
-                              isDense: true
-                            ),
+                            decoration: const InputDecoration(isDense: true),
                           );
-                        }
-                      ),
-                    )
-                  ]
-                ),
+                        }),
+                  )
+                ]),
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Character Effect: "),
-                    Consumer<LegionCharacterEditingProvider>(
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  const Text("Character Effect: "),
+                  Consumer<LegionCharacterEditingProvider>(
                       builder: (_, legionCharacterEditingProvider, __) {
-                        return legionCharacterEditingProvider.editingLegionCharacter?.createLegionCharacterContainer(context) ?? const SizedBox.shrink();
-                      }
-                    ),
-                  ]
-                ),
+                    return legionCharacterEditingProvider.editingLegionCharacter
+                            ?.createLegionCharacterContainer(context) ??
+                        const SizedBox.shrink();
+                  }),
+                ]),
                 Row(
                   children: [
                     TextButton(
                       onPressed: () {
-                        context.read<LegionCharacterEditingProvider>().cancelLegionCharacterEditing();
+                        context
+                            .read<LegionCharacterEditingProvider>()
+                            .cancelLegionCharacterEditing();
                         Navigator.of(context).pop();
                       },
                       child: const Text("Cancel"),
@@ -449,7 +443,9 @@ class _EditCharacterDialogBox extends StatelessWidget {
                     const Spacer(),
                     TextButton(
                       onPressed: () {
-                        context.read<LegionCharacterEditingProvider>().saveEditingLegionCharacter(context);
+                        context
+                            .read<LegionCharacterEditingProvider>()
+                            .saveEditingLegionCharacter(context);
                         Navigator.of(context).pop();
                       },
                       child: const Text("Save"),

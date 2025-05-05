@@ -14,13 +14,14 @@ class FlameModule implements Copyable {
   FlameModule({
     Map<int, FlameLine>? flames,
     Map<StatType, num>? moduleStats,
-  }) : moduleStats = moduleStats ?? {},
-      flames = flames ?? {
-        1: FlameLine(),
-        2: FlameLine(),
-        3: FlameLine(),
-        4: FlameLine(),
-      };
+  })  : moduleStats = moduleStats ?? {},
+        flames = flames ??
+            {
+              1: FlameLine(),
+              2: FlameLine(),
+              3: FlameLine(),
+              4: FlameLine(),
+            };
 
   @override
   FlameModule copyWith({
@@ -38,55 +39,88 @@ class FlameModule implements Copyable {
   }
 
   void _calculateFlame(Equip targetEquip, FlameLine? flameLine) {
-    if (flameLine == null || flameLine.flameTier == null || flameLine.flameName == null) {
+    if (flameLine == null ||
+        flameLine.flameTier == null ||
+        flameLine.flameName == null) {
       return;
     }
 
     var flameLevelOffset = getFlameOffset(targetEquip.equipName.itemLevel);
 
-    switch(flameLine.flameName) {
+    switch (flameLine.flameName) {
       case FlameName.str:
-        moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) +
+            flameLine.flameName!.statValue[flameLevelOffset]
+                [flameLine.flameTier!.index];
       case FlameName.dex:
-        moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) +
+            flameLine.flameName!.statValue[flameLevelOffset]
+                [flameLine.flameTier!.index];
       case FlameName.int:
-        moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) +
+            flameLine.flameName!.statValue[flameLevelOffset]
+                [flameLine.flameTier!.index];
       case FlameName.luk:
-        moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) +
+            flameLine.flameName!.statValue[flameLevelOffset]
+                [flameLine.flameTier!.index];
       case FlameName.strDex:
-        var flameStat = flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
-        moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + flameStat;
-        moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + flameStat;
+        var flameStat = flameLine.flameName!.statValue[flameLevelOffset]
+            [flameLine.flameTier!.index];
+        moduleStats[StatType.str] =
+            (moduleStats[StatType.str] ?? 0) + flameStat;
+        moduleStats[StatType.dex] =
+            (moduleStats[StatType.dex] ?? 0) + flameStat;
       case FlameName.strInt:
-        var flameStat = flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
-        moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + flameStat;
-        moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + flameStat;
+        var flameStat = flameLine.flameName!.statValue[flameLevelOffset]
+            [flameLine.flameTier!.index];
+        moduleStats[StatType.str] =
+            (moduleStats[StatType.str] ?? 0) + flameStat;
+        moduleStats[StatType.int] =
+            (moduleStats[StatType.int] ?? 0) + flameStat;
       case FlameName.strLuk:
-        var flameStat = flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
-        moduleStats[StatType.str] = (moduleStats[StatType.str] ?? 0) + flameStat;
-        moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + flameStat;
+        var flameStat = flameLine.flameName!.statValue[flameLevelOffset]
+            [flameLine.flameTier!.index];
+        moduleStats[StatType.str] =
+            (moduleStats[StatType.str] ?? 0) + flameStat;
+        moduleStats[StatType.luk] =
+            (moduleStats[StatType.luk] ?? 0) + flameStat;
       case FlameName.dexInt:
-        var flameStat = flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
-        moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + flameStat;
-        moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + flameStat;
+        var flameStat = flameLine.flameName!.statValue[flameLevelOffset]
+            [flameLine.flameTier!.index];
+        moduleStats[StatType.dex] =
+            (moduleStats[StatType.dex] ?? 0) + flameStat;
+        moduleStats[StatType.int] =
+            (moduleStats[StatType.int] ?? 0) + flameStat;
       case FlameName.dexLuk:
-        var flameStat = flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
-        moduleStats[StatType.dex] = (moduleStats[StatType.dex] ?? 0) + flameStat;
-        moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + flameStat;
+        var flameStat = flameLine.flameName!.statValue[flameLevelOffset]
+            [flameLine.flameTier!.index];
+        moduleStats[StatType.dex] =
+            (moduleStats[StatType.dex] ?? 0) + flameStat;
+        moduleStats[StatType.luk] =
+            (moduleStats[StatType.luk] ?? 0) + flameStat;
       case FlameName.intLuk:
-        var flameStat = flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index];
-        moduleStats[StatType.int] = (moduleStats[StatType.int] ?? 0) + flameStat;
-        moduleStats[StatType.luk] = (moduleStats[StatType.luk] ?? 0) + flameStat;
+        var flameStat = flameLine.flameName!.statValue[flameLevelOffset]
+            [flameLine.flameTier!.index];
+        moduleStats[StatType.int] =
+            (moduleStats[StatType.int] ?? 0) + flameStat;
+        moduleStats[StatType.luk] =
+            (moduleStats[StatType.luk] ?? 0) + flameStat;
       case FlameName.hp:
-        moduleStats[StatType.hp] = (moduleStats[StatType.hp] ?? 0) + HP_MP_FLAME[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.hp] = (moduleStats[StatType.hp] ?? 0) +
+            HP_MP_FLAME[flameLevelOffset][flameLine.flameTier!.index];
       case FlameName.mp:
-        moduleStats[StatType.mp] = (moduleStats[StatType.mp] ?? 0) + HP_MP_FLAME[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.mp] = (moduleStats[StatType.mp] ?? 0) +
+            HP_MP_FLAME[flameLevelOffset][flameLine.flameTier!.index];
       case FlameName.defense:
-        moduleStats[StatType.defense] = (moduleStats[StatType.defense] ?? 0) + DEFENSE_FLAME[flameLevelOffset][flameLine.flameTier!.index];
+        moduleStats[StatType.defense] = (moduleStats[StatType.defense] ?? 0) +
+            DEFENSE_FLAME[flameLevelOffset][flameLine.flameTier!.index];
       case FlameName.attack:
-        moduleStats[StatType.attack] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.attack] =
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.mattack:
-        moduleStats[StatType.mattack] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.mattack] =
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.wepAttackFlameAdvantaged:
       case FlameName.wepAttackFlameNonAdvantaged:
         var tagetCalculation = targetEquip.get(StatType.attack);
@@ -94,7 +128,10 @@ class FlameModule implements Copyable {
           tagetCalculation = targetEquip.get(StatType.mattack);
         }
 
-        moduleStats[StatType.attack] = (tagetCalculation * flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index]).ceil();
+        moduleStats[StatType.attack] = (tagetCalculation *
+                flameLine.flameName!.statValue[flameLevelOffset]
+                    [flameLine.flameTier!.index])
+            .ceil();
       case FlameName.wepMattackFlameAdvantaged:
       case FlameName.wepMattackFlameNonAdvantaged:
         var tagetCalculation = targetEquip.get(StatType.mattack);
@@ -102,29 +139,38 @@ class FlameModule implements Copyable {
           tagetCalculation = targetEquip.get(StatType.attack);
         }
 
-        moduleStats[StatType.mattack] = (tagetCalculation * flameLine.flameName!.statValue[flameLevelOffset][flameLine.flameTier!.index]).ceil();
+        moduleStats[StatType.mattack] = (tagetCalculation *
+                flameLine.flameName!.statValue[flameLevelOffset]
+                    [flameLine.flameTier!.index])
+            .ceil();
       case FlameName.speed:
-        moduleStats[StatType.speed] = (moduleStats[StatType.speed] ?? 0) + flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.speed] = (moduleStats[StatType.speed] ?? 0) +
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.jump:
-        moduleStats[StatType.jump] = (moduleStats[StatType.jump] ?? 0) + flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.jump] = (moduleStats[StatType.jump] ?? 0) +
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.allStats:
-        moduleStats[StatType.allStatsPercentage] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.allStatsPercentage] =
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.bossDamage:
-        moduleStats[StatType.bossDamage] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.bossDamage] =
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.damage:
-        moduleStats[StatType.damage] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.damage] =
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       case FlameName.levelReduction:
-        moduleStats[StatType.level] = flameLine.flameName!.statValue[flameLine.flameTier!.index];
+        moduleStats[StatType.level] =
+            flameLine.flameName!.statValue[flameLine.flameTier!.index];
       default:
         return;
     }
   }
 
-  void updateFlame(Equip targetEquip, num flamePosition, {FlameName? flameName, FlameTier? flameTier, isUpdatingTier=false}) {
+  void updateFlame(Equip targetEquip, num flamePosition,
+      {FlameName? flameName, FlameTier? flameTier, isUpdatingTier = false}) {
     if (isUpdatingTier) {
       flames[flamePosition]!.flameTier = flameTier;
-    }
-    else {
+    } else {
       flames[flamePosition]!.flameName = flameName;
     }
     calculateModuleStats(targetEquip);
@@ -142,8 +188,6 @@ class FlameModule implements Copyable {
     return flames[flamePosition]!;
   }
 }
-
-
 
 int getFlameOffset(num itemLevel) {
   return (itemLevel / 10).floor();

@@ -51,8 +51,7 @@ double calculateStatusResistanceReduction(num statusResistanceValue) {
   // Taken from https://strategywiki.org/wiki/MapleStory/Formulas#Abnormal_Status_Resistance
   if (statusResistanceValue == 0) {
     return 0;
-  }
-  else {
+  } else {
     return (28 * (log(statusResistanceValue) / ln10) + 1).floor() / 100;
   }
 }
@@ -70,59 +69,52 @@ num calculateIgnoreDefense(num originalValue, num addValue) {
 }
 
 Map<EquipSet, SetEffect> deepCopySetEffectsMap(Map<EquipSet, SetEffect> map) {
-    Map<EquipSet, SetEffect> newMap = {};
+  Map<EquipSet, SetEffect> newMap = {};
 
-    map.forEach((key, value) {
-      newMap[key] = value.copyWith();
-    });
-
-    return newMap;
-}
-
-Map<K, V> mapDeepCopy<K,V>(Map<K, V> map){
-  Map<K,V> newMap = <K,V>{};
-
-  map.forEach((key, value){
-    newMap[key] =
-      value is Copyable ? value.copyWith() :
-      value;
+  map.forEach((key, value) {
+    newMap[key] = value.copyWith();
   });
 
   return newMap;
 }
 
-List<T> listDeepCopy<T>(List<T> list){
+Map<K, V> mapDeepCopy<K, V>(Map<K, V> map) {
+  Map<K, V> newMap = <K, V>{};
+
+  map.forEach((key, value) {
+    newMap[key] = value is Copyable ? value.copyWith() : value;
+  });
+
+  return newMap;
+}
+
+List<T> listDeepCopy<T>(List<T> list) {
   List<T> newList = <T>[];
 
   for (var value in list) {
-    newList.add(
-      value is Copyable ? value.copyWith() :
-      value
-    );
+    newList.add(value is Copyable ? value.copyWith() : value);
   }
 
   return newList;
 }
 
-Set<T> setDeepCopy<T>(Set<T> s){
+Set<T> setDeepCopy<T>(Set<T> s) {
   Set<T> newSet = <T>{};
 
   for (var value in s) {
-    newSet.add(
-      value is Copyable ? value.copyWith() :
-      value
-    );
+    newSet.add(value is Copyable ? value.copyWith() : value);
   }
 
   return newSet;
 }
 
-Map<EquipType, Set<EquipName>> deepCopyEquippedEquips(Map<EquipType, Set<EquipName>> map) {
+Map<EquipType, Set<EquipName>> deepCopyEquippedEquips(
+    Map<EquipType, Set<EquipName>> map) {
   Map<EquipType, Set<EquipName>> newMap = {};
 
-    map.forEach((key, value) {
-      newMap[key] = Set.of(value);
-    });
+  map.forEach((key, value) {
+    newMap[key] = Set.of(value);
+  });
 
-    return newMap;
+  return newMap;
 }

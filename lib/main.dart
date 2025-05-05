@@ -3,9 +3,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/modules/utilities/provider_utilities.dart';
+import 'package:maplestory_builder/pages/homepage.dart';
+import 'package:maplestory_builder/providers/breakdown_provider.dart';
+import 'package:maplestory_builder/providers/calculator_provider.dart';
 import 'package:maplestory_builder/providers/character/ap_stats_provider.dart';
 import 'package:maplestory_builder/providers/character/character_provider.dart';
+import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
+import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
+import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 import 'package:maplestory_builder/providers/consumables/consumables_provider.dart';
+import 'package:maplestory_builder/providers/difference_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiar_editing_provider.dart';
 import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 import 'package:maplestory_builder/providers/hexa_stats/hexa_stat_editing_provider.dart';
@@ -13,16 +23,6 @@ import 'package:maplestory_builder/providers/hexa_stats/hexa_stats_provider.dart
 import 'package:maplestory_builder/providers/legion/legion_artifacts_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_character_editing_provider.dart';
 import 'package:maplestory_builder/providers/legion/legion_stats_provider.dart';
-import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/pages/homepage.dart';
-import 'package:maplestory_builder/providers/calculator_provider.dart';
-import 'package:maplestory_builder/providers/breakdown_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
-import 'package:maplestory_builder/providers/character/hyper_stats_provider.dart';
-import 'package:maplestory_builder/providers/character/inner_ability_provider.dart';
-import 'package:maplestory_builder/providers/character/symbol_stats_provider.dart';
-import 'package:maplestory_builder/providers/character/trait_stats_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -61,202 +61,204 @@ void main() {
       providers: [
         // Stat giving providers
         ChangeNotifierProvider(create: (_) => CharacterProvider()),
-        ChangeNotifierProvider<TraitStatsProvider>(create: (_) => TraitStatsProvider()),
+        ChangeNotifierProvider<TraitStatsProvider>(
+            create: (_) => TraitStatsProvider()),
         ChangeNotifierProvider<EquipsProvider>(create: (_) => EquipsProvider()),
-        ChangeNotifierProvider<FamiliarsProvider>(create: (_) => FamiliarsProvider()),
-        ChangeNotifierProvider<ConsumablesProvider>(create: (_) => ConsumablesProvider()),
+        ChangeNotifierProvider<FamiliarsProvider>(
+            create: (_) => FamiliarsProvider()),
+        ChangeNotifierProvider<ConsumablesProvider>(
+            create: (_) => ConsumablesProvider()),
         ChangeNotifierProxyProvider<CharacterProvider, HexaStatsProvider>(
           create: (BuildContext context) => HexaStatsProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
-          ),
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            HexaStatsProvider? hexaStatsProvider
-          ) => hexaStatsProvider?.update(characterProvider) 
-            ??
-            HexaStatsProvider(
-              characterProvider: characterProvider
-            ),
+              characterProvider:
+                  Provider.of<CharacterProvider>(context, listen: false)),
+          update: (BuildContext context, CharacterProvider characterProvider,
+                  HexaStatsProvider? hexaStatsProvider) =>
+              hexaStatsProvider?.update(characterProvider) ??
+              HexaStatsProvider(characterProvider: characterProvider),
         ),
         ChangeNotifierProxyProvider<CharacterProvider, APStatsProvider>(
           create: (BuildContext context) => APStatsProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
-          ),
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            APStatsProvider? apStatsProvider
-          ) => apStatsProvider?.update(characterProvider) 
-            ??
-            APStatsProvider(
-              characterProvider: characterProvider
-            ),
+              characterProvider:
+                  Provider.of<CharacterProvider>(context, listen: false)),
+          update: (BuildContext context, CharacterProvider characterProvider,
+                  APStatsProvider? apStatsProvider) =>
+              apStatsProvider?.update(characterProvider) ??
+              APStatsProvider(characterProvider: characterProvider),
         ),
         ChangeNotifierProxyProvider<CharacterProvider, HyperStatsProvider>(
           create: (BuildContext context) => HyperStatsProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
-          ),
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            HyperStatsProvider? hyperStatsProvider
-          ) => hyperStatsProvider?.update(characterProvider) 
-            ??
-            HyperStatsProvider(
-              characterProvider: characterProvider
-            ),
+              characterProvider:
+                  Provider.of<CharacterProvider>(context, listen: false)),
+          update: (BuildContext context, CharacterProvider characterProvider,
+                  HyperStatsProvider? hyperStatsProvider) =>
+              hyperStatsProvider?.update(characterProvider) ??
+              HyperStatsProvider(characterProvider: characterProvider),
         ),
         ChangeNotifierProxyProvider<CharacterProvider, SymbolStatsProvider>(
           create: (BuildContext context) => SymbolStatsProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
-          ),
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            SymbolStatsProvider? symbolStatsProvider
-          ) => symbolStatsProvider?.update(characterProvider) 
-            ??
-            SymbolStatsProvider(
-              characterProvider: characterProvider
-            ),
+              characterProvider:
+                  Provider.of<CharacterProvider>(context, listen: false)),
+          update: (BuildContext context, CharacterProvider characterProvider,
+                  SymbolStatsProvider? symbolStatsProvider) =>
+              symbolStatsProvider?.update(characterProvider) ??
+              SymbolStatsProvider(characterProvider: characterProvider),
         ),
-        ChangeNotifierProvider<InnerAbilityProvider>(create: (_) => InnerAbilityProvider()),
+        ChangeNotifierProvider<InnerAbilityProvider>(
+            create: (_) => InnerAbilityProvider()),
         ChangeNotifierProxyProvider<CharacterProvider, LegionStatsProvider>(
           create: (BuildContext context) => LegionStatsProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
-          ),
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            LegionStatsProvider? legionStatsProvider
-          ) => legionStatsProvider?.update(characterProvider) 
-            ??
-            LegionStatsProvider(
-              characterProvider: characterProvider
-            ),
+              characterProvider:
+                  Provider.of<CharacterProvider>(context, listen: false)),
+          update: (BuildContext context, CharacterProvider characterProvider,
+                  LegionStatsProvider? legionStatsProvider) =>
+              legionStatsProvider?.update(characterProvider) ??
+              LegionStatsProvider(characterProvider: characterProvider),
         ),
-        ChangeNotifierProvider<LegionArtifactProvider>(create: (_) => LegionArtifactProvider()),
+        ChangeNotifierProvider<LegionArtifactProvider>(
+            create: (_) => LegionArtifactProvider()),
         // Editing providers
-        ChangeNotifierProvider<EquipEditingProvider>(create: (_) => EquipEditingProvider()),
-        ChangeNotifierProvider<LegionCharacterEditingProvider>(create: (_) => LegionCharacterEditingProvider()),
-        ChangeNotifierProvider<FamiliarEditingProvider>(create: (_) => FamiliarEditingProvider()),
+        ChangeNotifierProvider<EquipEditingProvider>(
+            create: (_) => EquipEditingProvider()),
+        ChangeNotifierProvider<LegionCharacterEditingProvider>(
+            create: (_) => LegionCharacterEditingProvider()),
+        ChangeNotifierProvider<FamiliarEditingProvider>(
+            create: (_) => FamiliarEditingProvider()),
         ChangeNotifierProxyProvider<CharacterProvider, HexaStatEditingProvider>(
           create: (BuildContext context) => HexaStatEditingProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false)
-          ),
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            HexaStatEditingProvider? hexaStatEditingProvider
-          ) => hexaStatEditingProvider?.update(characterProvider) 
-            ??
-            HexaStatEditingProvider(
-              characterProvider: characterProvider
-            ),
+              characterProvider:
+                  Provider.of<CharacterProvider>(context, listen: false)),
+          update: (BuildContext context, CharacterProvider characterProvider,
+                  HexaStatEditingProvider? hexaStatEditingProvider) =>
+              hexaStatEditingProvider?.update(characterProvider) ??
+              HexaStatEditingProvider(characterProvider: characterProvider),
         ),
         // The main character/calculator provider
         ChangeNotifierProxyProvider12<
-          CharacterProvider, 
-          APStatsProvider, 
-          InnerAbilityProvider, 
-          TraitStatsProvider, 
-          HyperStatsProvider, 
-          SymbolStatsProvider, 
-          EquipsProvider, 
-          LegionStatsProvider, 
-          LegionArtifactProvider, 
-          FamiliarsProvider, 
-          HexaStatsProvider, 
-          ConsumablesProvider,
-          CalculatorProvider
-        >(
+            CharacterProvider,
+            APStatsProvider,
+            InnerAbilityProvider,
+            TraitStatsProvider,
+            HyperStatsProvider,
+            SymbolStatsProvider,
+            EquipsProvider,
+            LegionStatsProvider,
+            LegionArtifactProvider,
+            FamiliarsProvider,
+            HexaStatsProvider,
+            ConsumablesProvider,
+            CalculatorProvider>(
           create: (BuildContext context) => CalculatorProvider(
-            characterProvider: Provider.of<CharacterProvider>(context, listen: false),
-            apStatsProvider: Provider.of<APStatsProvider>(context, listen: false),
-            innerAbilityProvider: Provider.of<InnerAbilityProvider>(context, listen: false),
-            traitStatsProvider: Provider.of<TraitStatsProvider>(context, listen: false),
-            hyperStatsProvider: Provider.of<HyperStatsProvider>(context, listen: false),
-            symbolStatsProvider: Provider.of<SymbolStatsProvider>(context, listen: false),
+            characterProvider:
+                Provider.of<CharacterProvider>(context, listen: false),
+            apStatsProvider:
+                Provider.of<APStatsProvider>(context, listen: false),
+            innerAbilityProvider:
+                Provider.of<InnerAbilityProvider>(context, listen: false),
+            traitStatsProvider:
+                Provider.of<TraitStatsProvider>(context, listen: false),
+            hyperStatsProvider:
+                Provider.of<HyperStatsProvider>(context, listen: false),
+            symbolStatsProvider:
+                Provider.of<SymbolStatsProvider>(context, listen: false),
             equipsProvider: Provider.of<EquipsProvider>(context, listen: false),
-            legionStatsProvider: Provider.of<LegionStatsProvider>(context, listen: false),
-            legionArtifactProvider: Provider.of<LegionArtifactProvider>(context, listen: false),
-            familiarsProvider: Provider.of<FamiliarsProvider>(context, listen: false),
-            hexaStatsProvider: Provider.of<HexaStatsProvider>(context, listen: false),
-            consumablesProvider: Provider.of<ConsumablesProvider>(context, listen: false),
-          ), 
-          update: (
-            BuildContext context, 
-            CharacterProvider characterProvider, 
-            APStatsProvider apStatsProvider, 
-            InnerAbilityProvider innerAbilityProvider,
-            TraitStatsProvider traitStatsProvider, 
-            HyperStatsProvider hyperStatsProvider,
-            SymbolStatsProvider symbolStatsProvider,
-            EquipsProvider equipsProvider,
-            LegionStatsProvider legionStatsProvider,
-            LegionArtifactProvider legionArtifactProvider,
-            FamiliarsProvider familiarsProvider,
-            HexaStatsProvider hexaStatsProvider,
-            ConsumablesProvider consumablesProvider,
-            CalculatorProvider? calculatorProvider
-          ) => calculatorProvider?.update(
-              characterProvider, 
-              apStatsProvider, 
-              innerAbilityProvider, 
-              traitStatsProvider, 
-              hyperStatsProvider, 
-              symbolStatsProvider, 
-              equipsProvider,
-              legionStatsProvider,
-              legionArtifactProvider,
-              familiarsProvider,
-              hexaStatsProvider,
-              consumablesProvider,
-            ) 
-            ?? 
-            CalculatorProvider(
-              characterProvider: characterProvider,
-              apStatsProvider: apStatsProvider,
-              innerAbilityProvider: innerAbilityProvider,
-              traitStatsProvider: traitStatsProvider,
-              hyperStatsProvider: hyperStatsProvider,
-              symbolStatsProvider: symbolStatsProvider,
-              equipsProvider: equipsProvider,
-              legionStatsProvider: legionStatsProvider,
-              legionArtifactProvider: legionArtifactProvider,
-              familiarsProvider: familiarsProvider,
-              hexaStatsProvider: hexaStatsProvider,
-              consumablesProvider: consumablesProvider,
-            ),
+            legionStatsProvider:
+                Provider.of<LegionStatsProvider>(context, listen: false),
+            legionArtifactProvider:
+                Provider.of<LegionArtifactProvider>(context, listen: false),
+            familiarsProvider:
+                Provider.of<FamiliarsProvider>(context, listen: false),
+            hexaStatsProvider:
+                Provider.of<HexaStatsProvider>(context, listen: false),
+            consumablesProvider:
+                Provider.of<ConsumablesProvider>(context, listen: false),
+          ),
+          update: (BuildContext context,
+                  CharacterProvider characterProvider,
+                  APStatsProvider apStatsProvider,
+                  InnerAbilityProvider innerAbilityProvider,
+                  TraitStatsProvider traitStatsProvider,
+                  HyperStatsProvider hyperStatsProvider,
+                  SymbolStatsProvider symbolStatsProvider,
+                  EquipsProvider equipsProvider,
+                  LegionStatsProvider legionStatsProvider,
+                  LegionArtifactProvider legionArtifactProvider,
+                  FamiliarsProvider familiarsProvider,
+                  HexaStatsProvider hexaStatsProvider,
+                  ConsumablesProvider consumablesProvider,
+                  CalculatorProvider? calculatorProvider) =>
+              calculatorProvider?.update(
+                characterProvider,
+                apStatsProvider,
+                innerAbilityProvider,
+                traitStatsProvider,
+                hyperStatsProvider,
+                symbolStatsProvider,
+                equipsProvider,
+                legionStatsProvider,
+                legionArtifactProvider,
+                familiarsProvider,
+                hexaStatsProvider,
+                consumablesProvider,
+              ) ??
+              CalculatorProvider(
+                characterProvider: characterProvider,
+                apStatsProvider: apStatsProvider,
+                innerAbilityProvider: innerAbilityProvider,
+                traitStatsProvider: traitStatsProvider,
+                hyperStatsProvider: hyperStatsProvider,
+                symbolStatsProvider: symbolStatsProvider,
+                equipsProvider: equipsProvider,
+                legionStatsProvider: legionStatsProvider,
+                legionArtifactProvider: legionArtifactProvider,
+                familiarsProvider: familiarsProvider,
+                hexaStatsProvider: hexaStatsProvider,
+                consumablesProvider: consumablesProvider,
+              ),
         ),
         // Difference calculator provider, used to show increases & decreses in stats & range
-        ChangeNotifierProxyProvider4<CalculatorProvider, EquipEditingProvider, FamiliarEditingProvider, HexaStatEditingProvider, DifferenceCalculatorProvider>(            
+        ChangeNotifierProxyProvider4<
+            CalculatorProvider,
+            EquipEditingProvider,
+            FamiliarEditingProvider,
+            HexaStatEditingProvider,
+            DifferenceCalculatorProvider>(
           create: (BuildContext context) => DifferenceCalculatorProvider(
-            mainCalculatorProvider: Provider.of<CalculatorProvider>(context, listen: false),
-            equipEditingProvider: Provider.of<EquipEditingProvider>(context, listen: false), 
-            familiarEditingProvider: Provider.of<FamiliarEditingProvider>(context, listen: false), 
-            hexaStatEditingProvider: Provider.of<HexaStatEditingProvider>(context, listen: false), 
+            mainCalculatorProvider:
+                Provider.of<CalculatorProvider>(context, listen: false),
+            equipEditingProvider:
+                Provider.of<EquipEditingProvider>(context, listen: false),
+            familiarEditingProvider:
+                Provider.of<FamiliarEditingProvider>(context, listen: false),
+            hexaStatEditingProvider:
+                Provider.of<HexaStatEditingProvider>(context, listen: false),
           ),
           update: (
-            BuildContext context, 
-            CalculatorProvider calculatorProvider, 
-            EquipEditingProvider equipEditingProvider, 
-            FamiliarEditingProvider familiarEditingProvider, 
+            BuildContext context,
+            CalculatorProvider calculatorProvider,
+            EquipEditingProvider equipEditingProvider,
+            FamiliarEditingProvider familiarEditingProvider,
             HexaStatEditingProvider hexaStatEditingProvider,
             DifferenceCalculatorProvider? differenceCalculator,
-          ) => differenceCalculator?.update(calculatorProvider, equipEditingProvider, familiarEditingProvider, hexaStatEditingProvider) 
-            ?? 
-            DifferenceCalculatorProvider(
-              mainCalculatorProvider: calculatorProvider,
-              equipEditingProvider: equipEditingProvider,
-              familiarEditingProvider: familiarEditingProvider,
-              hexaStatEditingProvider: hexaStatEditingProvider,
-            ),
+          ) =>
+              differenceCalculator?.update(
+                  calculatorProvider,
+                  equipEditingProvider,
+                  familiarEditingProvider,
+                  hexaStatEditingProvider) ??
+              DifferenceCalculatorProvider(
+                mainCalculatorProvider: calculatorProvider,
+                equipEditingProvider: equipEditingProvider,
+                familiarEditingProvider: familiarEditingProvider,
+                hexaStatEditingProvider: hexaStatEditingProvider,
+              ),
         ),
-        ChangeNotifierProxyProvider<CalculatorProvider, BreadkdownCalculator>(          
-          create: (BuildContext context) => BreadkdownCalculator(Provider.of<CalculatorProvider>(context, listen: false)),
-          update: (BuildContext context, CalculatorProvider character, BreadkdownCalculator? damageCalculator) => BreadkdownCalculator(character),
+        ChangeNotifierProxyProvider<CalculatorProvider, BreadkdownCalculator>(
+          create: (BuildContext context) => BreadkdownCalculator(
+              Provider.of<CalculatorProvider>(context, listen: false)),
+          update: (BuildContext context, CalculatorProvider character,
+                  BreadkdownCalculator? damageCalculator) =>
+              BreadkdownCalculator(character),
         ),
       ],
       child: const MyApp(),
@@ -271,7 +273,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {PointerDeviceKind.mouse, PointerDeviceKind.trackpad, PointerDeviceKind.stylus, PointerDeviceKind.touch},
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.trackpad,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.touch
+        },
       ),
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -286,5 +293,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

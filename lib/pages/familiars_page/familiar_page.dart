@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
-import 'package:maplestory_builder/modules/familiars/familiar_badges_mod.dart';
 import 'package:maplestory_builder/modules/familiars/familiar.dart';
 import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
+import 'package:maplestory_builder/modules/familiars/familiar_badges_mod.dart';
 import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/familiars_page/editing_familiars.dart';
@@ -196,12 +196,15 @@ class _BadgeSelector extends StatelessWidget {
         child: MapleTooltip(
           tooltipTitle: value.badgeName,
           onHoverFunction: _curriedOnHover(value),
-          tooltipWidgets: [value.createBadgeContainer(context), Selector<DifferenceCalculatorProvider, Widget>(
-              selector: (_, differenceCalculatorProvider) =>
-              differenceCalculatorProvider.differenceWidget,
-              builder: (context, widget, child) {
-                return widget;
-              }),],
+          tooltipWidgets: [
+            value.createBadgeContainer(context),
+            Selector<DifferenceCalculatorProvider, Widget>(
+                selector: (_, differenceCalculatorProvider) =>
+                    differenceCalculatorProvider.differenceWidget,
+                builder: (context, widget, child) {
+                  return widget;
+                }),
+          ],
           child: Text(value.badgeName,
               style: Theme.of(context).textTheme.bodyMedium),
         ),

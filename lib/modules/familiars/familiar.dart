@@ -6,7 +6,6 @@ import 'package:maplestory_builder/modules/utilities/utilities.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Familiar implements Copyable {
-  
   FamiliarPotentialTier? potentialTier;
   Map<int, FamiliarPotentialLine> potentials;
   String familiarName;
@@ -14,15 +13,13 @@ class Familiar implements Copyable {
 
   Map<StatType, num>? cacheValue;
 
-  Familiar({
-    this.potentialTier,
-    Map<int, FamiliarPotentialLine>? potentials,
-    this.familiarName = "",
-    this.familiarId = -1
-  }): potentials = potentials ?? {
-    1: FamiliarPotentialLine(),
-    2: FamiliarPotentialLine()
-  };
+  Familiar(
+      {this.potentialTier,
+      Map<int, FamiliarPotentialLine>? potentials,
+      this.familiarName = "",
+      this.familiarId = -1})
+      : potentials = potentials ??
+            {1: FamiliarPotentialLine(), 2: FamiliarPotentialLine()};
 
   @override
   Familiar copyWith({
@@ -32,11 +29,10 @@ class Familiar implements Copyable {
     int? familiarId,
   }) {
     return Familiar(
-      potentialTier: potentialTier ?? this.potentialTier,
-      potentials: potentials ?? mapDeepCopy(this.potentials),
-      familiarName: familiarName ?? this.familiarName,
-      familiarId: familiarId ?? this.familiarId
-    );
+        potentialTier: potentialTier ?? this.potentialTier,
+        potentials: potentials ?? mapDeepCopy(this.potentials),
+        familiarName: familiarName ?? this.familiarName,
+        familiarId: familiarId ?? this.familiarId);
   }
 
   Map<StatType, num> calculateStats() {
@@ -48,14 +44,18 @@ class Familiar implements Copyable {
 
     for (FamiliarPotentialLine familiarPotentialLine in potentials.values) {
       var statKey = familiarPotentialLine.familiarPotential?.statType;
-      var familiarLineStat = familiarPotentialLine.familiarPotential?.statValue[familiarPotentialLine.familiarPotentialOffset] ?? 0;
-      switch(statKey) {
+      var familiarLineStat = familiarPotentialLine.familiarPotential
+              ?.statValue[familiarPotentialLine.familiarPotentialOffset] ??
+          0;
+      switch (statKey) {
         case null:
           continue;
         case StatType.ignoreDefense:
-          familiarStats[statKey] = calculateIgnoreDefense((familiarStats[statKey] ?? 0), familiarLineStat);
+          familiarStats[statKey] = calculateIgnoreDefense(
+              (familiarStats[statKey] ?? 0), familiarLineStat);
         default:
-          familiarStats[statKey] = (familiarStats[statKey] ?? 0) + familiarLineStat;
+          familiarStats[statKey] =
+              (familiarStats[statKey] ?? 0) + familiarLineStat;
       }
     }
 
@@ -74,12 +74,14 @@ class Familiar implements Copyable {
     cacheValue = null;
   }
 
-  bool updatePotentialSelection(int potentialPosition, (FamiliarPotential, bool)? familiarPotentialSelection) {
-    if (familiarPotentialSelection?.$1 == potentials[potentialPosition]?.familiarPotential) {
+  bool updatePotentialSelection(int potentialPosition,
+      (FamiliarPotential, bool)? familiarPotentialSelection) {
+    if (familiarPotentialSelection?.$1 ==
+        potentials[potentialPosition]?.familiarPotential) {
       return false;
     }
 
-    var targetPotentialLine = potentials[potentialPosition]!; 
+    var targetPotentialLine = potentials[potentialPosition]!;
     targetPotentialLine.familiarPotential = familiarPotentialSelection?.$1;
     targetPotentialLine.isPrime = familiarPotentialSelection?.$2 ?? false;
     targetPotentialLine.familiarPotentialOffset = 0;
@@ -89,7 +91,8 @@ class Familiar implements Copyable {
   }
 
   void updatePotential(int potentialPosition, int familiarPotentialOffset) {
-    potentials[potentialPosition]!.familiarPotentialOffset = familiarPotentialOffset;
+    potentials[potentialPosition]!.familiarPotentialOffset =
+        familiarPotentialOffset;
 
     cacheValue = null;
   }
@@ -97,12 +100,12 @@ class Familiar implements Copyable {
   List<(FamiliarPotential, bool)> getPotentialsList(int potentialPosition) {
     List<(FamiliarPotential, bool)> possibleSelection = [];
     var previousPotentialTier = potentialTier?.getPreviousTier();
-    
+
     for (FamiliarPotential familiarPotential in FamiliarPotential.values) {
       if (familiarPotential.familiarPotentialTier == potentialTier) {
         possibleSelection.add((familiarPotential, true));
-      }
-      else if (potentialPosition == 2 && familiarPotential.familiarPotentialTier == previousPotentialTier) {
+      } else if (potentialPosition == 2 &&
+          familiarPotential.familiarPotentialTier == previousPotentialTier) {
         possibleSelection.add((familiarPotential, false));
       }
     }
@@ -118,11 +121,10 @@ class Familiar implements Copyable {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Text(
-              familiarName, 
-              style: Theme.of(context).textTheme.headlineSmall,
-            )
-          ),
+              child: Text(
+            familiarName,
+            style: Theme.of(context).textTheme.headlineSmall,
+          )),
           Center(
             child: Icon(
               MdiIcons.cardAccountDetailsStar,
@@ -141,41 +143,39 @@ class Familiar implements Copyable {
 
     void addPotentialLine(FamiliarPotentialLine familiarPotentialLine) {
       if (familiarPotentialLine.familiarPotential != null) {
-        var valueToDisplay = familiarPotentialLine.familiarPotential!.statValue[familiarPotentialLine.familiarPotentialOffset];
+        var valueToDisplay = familiarPotentialLine.familiarPotential!
+            .statValue[familiarPotentialLine.familiarPotentialOffset];
         var statType = familiarPotentialLine.familiarPotential!.statType;
 
         childrenWidgets.add(
           RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: familiarPotentialLine.familiarPotential!.formattedName ?? "${statType.formattedName} +${statType.isPercentage ? doubleRoundPercentFormater.format(valueToDisplay) : valueToDisplay}",
-                  style: Theme.of(context).textTheme.bodyMedium
-                ),
-                TextSpan(
-                  text: familiarPotentialLine.isPrime ? "  (Prime)" : "",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: STAR_COLOR),
-                ),
-              ]
-            )
-          ),
+              text: TextSpan(children: [
+            TextSpan(
+                text: familiarPotentialLine.familiarPotential!.formattedName ??
+                    "${statType.formattedName} +${statType.isPercentage ? doubleRoundPercentFormater.format(valueToDisplay) : valueToDisplay}",
+                style: Theme.of(context).textTheme.bodyMedium),
+            TextSpan(
+              text: familiarPotentialLine.isPrime ? "  (Prime)" : "",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(color: STAR_COLOR),
+            ),
+          ])),
         );
       }
     }
 
     if (potentialTier != null) {
-      childrenWidgets.add(
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "Rank (${potentialTier!.formattedName})",
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: potentialTier!.color)
-              )
-            ]
-          )
-        )
-      );
+      childrenWidgets.add(RichText(
+          text: TextSpan(children: [
+        TextSpan(
+            text: "Rank (${potentialTier!.formattedName})",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium
+                ?.copyWith(color: potentialTier!.color))
+      ])));
       for (FamiliarPotentialLine familiarPotentialLine in potentials.values) {
         addPotentialLine(familiarPotentialLine);
       }
@@ -184,9 +184,8 @@ class Familiar implements Copyable {
     return Container(
       padding: const EdgeInsets.only(top: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: childrenWidgets
-      ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: childrenWidgets),
     );
   }
 }
@@ -196,11 +195,10 @@ class FamiliarPotentialLine implements Copyable {
   int familiarPotentialOffset;
   bool isPrime;
 
-  FamiliarPotentialLine({
-    this.familiarPotential,
-    this.familiarPotentialOffset = 0,
-    this.isPrime = false
-  });
+  FamiliarPotentialLine(
+      {this.familiarPotential,
+      this.familiarPotentialOffset = 0,
+      this.isPrime = false});
 
   @override
   FamiliarPotentialLine copyWith({
@@ -210,7 +208,8 @@ class FamiliarPotentialLine implements Copyable {
   }) {
     return FamiliarPotentialLine(
       familiarPotential: familiarPotential ?? this.familiarPotential,
-      familiarPotentialOffset: familiarPotentialOffset ?? this.familiarPotentialOffset,
+      familiarPotentialOffset:
+          familiarPotentialOffset ?? this.familiarPotentialOffset,
       isPrime: isPrime ?? this.isPrime,
     );
   }

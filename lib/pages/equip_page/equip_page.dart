@@ -5,25 +5,18 @@ import 'package:maplestory_builder/modules/equipment/equips.dart';
 import 'package:maplestory_builder/modules/utilities/widgets.dart';
 import 'package:maplestory_builder/pages/equip_page/editing_equips.dart';
 import 'package:maplestory_builder/providers/difference_provider.dart';
-import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:maplestory_builder/providers/equipment/equip_editing_provider.dart';
+import 'package:maplestory_builder/providers/equipment/equips_provider.dart';
 import 'package:provider/provider.dart';
 
 class EquipPage extends StatelessWidget {
-
-  const EquipPage(
-    {
-      super.key
-    }
-  );
+  const EquipPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: DEFAULT_COLOR
-        ),
+        border: Border.all(color: DEFAULT_COLOR),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: const Row(
@@ -42,7 +35,6 @@ class EquipPage extends StatelessWidget {
 }
 
 class _EquippedItems extends StatelessWidget {
-
   const _EquippedItems();
 
   @override
@@ -50,14 +42,16 @@ class _EquippedItems extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          "Equipped Items",
-          style: Theme.of(context).textTheme.headlineMedium
-        ),
+        Text("Equipped Items",
+            style: Theme.of(context).textTheme.headlineMedium),
         SetSelectButtonRow<EquipsProvider>(
-          onHoverFunction: context.read<DifferenceCalculatorProvider>().compareEquipSets,
-          onPressed: (int setPosition) => context.read<EquipsProvider>().changeActiveSet(setPosition),
-          selectorFunction: (BuildContext context, EquipsProvider equipsProvider) => equipsProvider.activeSetNumber,
+          onHoverFunction:
+              context.read<DifferenceCalculatorProvider>().compareEquipSets,
+          onPressed: (int setPosition) =>
+              context.read<EquipsProvider>().changeActiveSet(setPosition),
+          selectorFunction:
+              (BuildContext context, EquipsProvider equipsProvider) =>
+                  equipsProvider.activeSetNumber,
         ),
         // Totems
         const _EquippedItemSelector(
@@ -208,7 +202,6 @@ class _EquippedItems extends StatelessWidget {
   }
 }
 
-
 class _EquippedItemSelector extends StatelessWidget {
   final EquipType equipType;
   final int equipPosition;
@@ -218,15 +211,15 @@ class _EquippedItemSelector extends StatelessWidget {
     this.equipPosition = 0,
   });
 
-  List<DropdownMenuItem> getDropdownItemList(BuildContext context, EquipsProvider equipsProvider, EquipType equipType) {
+  List<DropdownMenuItem> getDropdownItemList(BuildContext context,
+      EquipsProvider equipsProvider, EquipType equipType) {
     var filteredList = equipsProvider.allEquips.values.where((element) {
       if (equipType == EquipType.secondary) {
         return SECONDARY_TYPES.contains(element.equipName.equipType);
-      }
-      else if (equipType == EquipType.ring) {
-        return element.equipName.equipType == equipType || element.equipName.equipType == EquipType.ozRing;
-      }
-      else {
+      } else if (equipType == EquipType.ring) {
+        return element.equipName.equipType == equipType ||
+            element.equipName.equipType == EquipType.ozRing;
+      } else {
         return element.equipName.equipType == equipType;
       }
     }).toList();
@@ -235,34 +228,29 @@ class _EquippedItemSelector extends StatelessWidget {
     List<DropdownMenuItem> dropdownItems = [
       DropdownMenuItem(
         value: null,
-        child: Text(
-          'None',
-          style: Theme.of(context).textTheme.bodyMedium
-        ),
+        child: Text('None', style: Theme.of(context).textTheme.bodyMedium),
       )
     ];
 
-    dropdownItems.addAll(
-      filteredList.map((value) {
-        return DropdownMenuItem(
-          value: value,
-          child: MapleTooltip(
-            maxWidth: value.getTooltipWidth(),
-            tooltipWidgets: [value.createEquipContainer(context)],
-            child: Text(
-              value.equipName.formattedName,
-              style: Theme.of(context).textTheme.bodyMedium
-            ),
-          ),
-        );
-      }).toList()
-    );
+    dropdownItems.addAll(filteredList.map((value) {
+      return DropdownMenuItem(
+        value: value,
+        child: MapleTooltip(
+          maxWidth: value.getTooltipWidth(),
+          tooltipWidgets: [value.createEquipContainer(context)],
+          child: Text(value.equipName.formattedName,
+              style: Theme.of(context).textTheme.bodyMedium),
+        ),
+      );
+    }).toList());
 
     return dropdownItems;
   }
 
-  Equip? getSelectedEquip(EquipsProvider equipsProvider, EquipType equipType, int equipPosition) {
-    return equipsProvider.activeEquipSet.getSelectedEquip(equipType, equipPosition: equipPosition);
+  Equip? getSelectedEquip(
+      EquipsProvider equipsProvider, EquipType equipType, int equipPosition) {
+    return equipsProvider.activeEquipSet
+        .getSelectedEquip(equipType, equipPosition: equipPosition);
   }
 
   @override
@@ -272,37 +260,36 @@ class _EquippedItemSelector extends StatelessWidget {
       children: [
         SizedBox(
           width: 75,
-          child: Text("${equipType.formattedName.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
+          child: Text(
+              "${equipType.formattedName.toUpperCase()} ${equipPosition > 0 ? equipPosition : ''}"),
         ),
         SizedBox(
           width: 225,
           child: Consumer<EquipsProvider>(
-            builder: (context, equipsProvider, child) {
-              return DropdownButton(
+              builder: (context, equipsProvider, child) {
+            return DropdownButton(
                 alignment: AlignmentDirectional.center,
                 isDense: true,
                 isExpanded: true,
-                value: getSelectedEquip(equipsProvider, equipType, equipPosition),
+                value:
+                    getSelectedEquip(equipsProvider, equipType, equipPosition),
                 onChanged: (newValue) {
-                  equipsProvider.equipEquip(newValue, equipType, equipPosition: equipPosition);
+                  equipsProvider.equipEquip(newValue, equipType,
+                      equipPosition: equipPosition);
                 },
-                items: getDropdownItemList(context, equipsProvider, equipType)
-              );
-            }
-          ),
+                items: getDropdownItemList(context, equipsProvider, equipType));
+          }),
         ),
       ],
     );
   }
 }
 
-
 class _InventoryAndItemListColumn extends StatelessWidget {
-
   const _InventoryAndItemListColumn();
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return const Column(
       children: [
         _InventoryItems(),
@@ -313,37 +300,35 @@ class _InventoryAndItemListColumn extends StatelessWidget {
 }
 
 class _InventoryItems extends StatelessWidget {
-
   const _InventoryItems();
 
   Function _curriedOnHover(Equip equip) {
     return (BuildContext context) {
-      return context.read<DifferenceCalculatorProvider>().compareEquip(context, equip);
+      return context
+          .read<DifferenceCalculatorProvider>()
+          .compareEquip(context, equip);
     };
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 425,
-      height: 500,
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(bottom: 5),
-            child: Text(
-              "Inventory",
-              style: Theme.of(context).textTheme.headlineMedium
+        width: 425,
+        height: 500,
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Text("Inventory",
+                  style: Theme.of(context).textTheme.headlineMedium),
             ),
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: DEFAULT_COLOR),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
-              ),
-              child: Consumer<EquipsProvider>(
-                builder: (context, equipsProvider, child) {
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: DEFAULT_COLOR),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: Consumer<EquipsProvider>(
+                    builder: (context, equipsProvider, child) {
                   var allEquipsList = equipsProvider.allEquips.values.toList();
                   return ListView.builder(
                     itemCount: equipsProvider.allEquips.length,
@@ -355,43 +340,39 @@ class _InventoryItems extends StatelessWidget {
                         tooltipWidgets: [
                           allEquipsList[index].createEquipContainer(context),
                           Selector<DifferenceCalculatorProvider, Widget>(
-                            selector: (_, differenceCalculatorProvider) => differenceCalculatorProvider.differenceWidget,
-                            builder: (context, widget, child) {
-                              return widget;
-                            }
-                          ),
+                              selector: (_, differenceCalculatorProvider) =>
+                                  differenceCalculatorProvider.differenceWidget,
+                              builder: (context, widget, child) {
+                                return widget;
+                              }),
                         ],
                         child: ListTile(
-                          title: Row(
-                            children: [
-                              Text(allEquipsList[index].equipName.formattedName),
-                              const Spacer(),
-                              TextButton(
-                                onPressed: () => equipsProvider.deleteEquip(allEquipsList[index]), 
-                                child: const Text("Delete")
-                              ),
-                              TextButton(
-                                onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(allEquipsList[index]), 
-                                child: const Text("Edit")
-                              ),
-                            ]
-                          ),
+                          title: Row(children: [
+                            Text(allEquipsList[index].equipName.formattedName),
+                            const Spacer(),
+                            TextButton(
+                                onPressed: () => equipsProvider
+                                    .deleteEquip(allEquipsList[index]),
+                                child: const Text("Delete")),
+                            TextButton(
+                                onPressed: () => context
+                                    .read<EquipEditingProvider>()
+                                    .addEditingEquip(allEquipsList[index]),
+                                child: const Text("Edit")),
+                          ]),
                         ),
                       );
                     },
                   );
-                }
+                }),
               ),
             ),
-          ),
-        ],
-      )
-    );
+          ],
+        ));
   }
 }
 
 class _SearchableItemList extends StatefulWidget {
-  
   const _SearchableItemList();
 
   @override
@@ -402,8 +383,10 @@ class _SearchableItemListState extends State<_SearchableItemList> {
   TextEditingController editingController = TextEditingController();
   var items = <Equip>[];
   var stringQuery = '';
-  final ValueNotifier<EquipType> selectedEquipType = ValueNotifier<EquipType>(EquipType.all);
-  final ValueNotifier<ClassType> selectedClassType = ValueNotifier<ClassType>(ClassType.all);
+  final ValueNotifier<EquipType> selectedEquipType =
+      ValueNotifier<EquipType>(EquipType.all);
+  final ValueNotifier<ClassType> selectedClassType =
+      ValueNotifier<ClassType>(ClassType.all);
 
   @override
   void initState() {
@@ -419,19 +402,33 @@ class _SearchableItemListState extends State<_SearchableItemList> {
       var tempItems = equipList;
 
       if (selectedClassType.value == ClassType.xenon) {
-        tempItems = tempItems.where((element) => element.equipName.classType == ClassType.pirate || element.equipName.classType == ClassType.thief).toList();
-      }
-      else if (selectedClassType.value != ClassType.all) {
-        tempItems = tempItems.where((element) => element.equipName.classType == ClassType.all || element.equipName.classType == selectedClassType.value).toList();
+        tempItems = tempItems
+            .where((element) =>
+                element.equipName.classType == ClassType.pirate ||
+                element.equipName.classType == ClassType.thief)
+            .toList();
+      } else if (selectedClassType.value != ClassType.all) {
+        tempItems = tempItems
+            .where((element) =>
+                element.equipName.classType == ClassType.all ||
+                element.equipName.classType == selectedClassType.value)
+            .toList();
       }
 
       if (selectedEquipType.value != EquipType.all) {
-        tempItems = tempItems.where((element) => element.equipName.equipType == selectedEquipType.value).toList();
+        tempItems = tempItems
+            .where((element) =>
+                element.equipName.equipType == selectedEquipType.value)
+            .toList();
       }
 
-      items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
-        element.equipName.formattedName.toLowerCase().contains(stringQuery.toLowerCase())
-      ).toList();
+      items = stringQuery.isEmpty
+          ? tempItems
+          : tempItems
+              .where((element) => element.equipName.formattedName
+                  .toLowerCase()
+                  .contains(stringQuery.toLowerCase()))
+              .toList();
     });
   }
 
@@ -439,123 +436,126 @@ class _SearchableItemListState extends State<_SearchableItemList> {
     setState(() {
       stringQuery = query;
       var tempItems = equipList;
-      
+
       if (selectedClassType.value != ClassType.all) {
-        tempItems = tempItems.where((element) => element.equipName.classType == ClassType.all || element.equipName.classType == selectedClassType.value).toList();
+        tempItems = tempItems
+            .where((element) =>
+                element.equipName.classType == ClassType.all ||
+                element.equipName.classType == selectedClassType.value)
+            .toList();
       }
 
       if (selectedEquipType.value != EquipType.all) {
-        tempItems = tempItems.where((element) => element.equipName.equipType == selectedEquipType.value).toList();
+        tempItems = tempItems
+            .where((element) =>
+                element.equipName.equipType == selectedEquipType.value)
+            .toList();
       }
 
-      items = stringQuery.isEmpty ? tempItems : tempItems.where((element) => 
-        element.equipName.formattedName.toLowerCase().contains(stringQuery.toLowerCase())
-      ).toList();
+      items = stringQuery.isEmpty
+          ? tempItems
+          : tempItems
+              .where((element) => element.equipName.formattedName
+                  .toLowerCase()
+                  .contains(stringQuery.toLowerCase()))
+              .toList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 425,
-      height: 411,
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Column(
-        children: <Widget>[
-          Text(
-            "All Items",
-            style: Theme.of(context).textTheme.headlineMedium
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Equip Type:",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  ListenableDropDownSelector(
-                    selectedValue: selectedEquipType,
-                    menuItems: EquipType.values.map((equipType) {
-                      return DropdownMenuItem(
-                        value: equipType,
-                        child: Text(equipType.formattedName),
-                      );
-                    }).toList(),
-                  ),
-                  Text(
-                    "Class:",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  ListenableDropDownSelector(
-                    selectedValue: selectedClassType,
-                    menuItems: ClassType.values.map((classType) {
-                      return DropdownMenuItem(
-                        value: classType,
-                        child: Text(classType.formattedName),
-                      );
-                    }).toList(),
-                  )
-                ]
-              ),
-              Container(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: TextField(
-                  onChanged: (value) {
-                    filterSearchResultsText(value);
-                  },
-                  controller: editingController,
-                  decoration: const InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0))
-                    )
+        width: 425,
+        height: 411,
+        padding: const EdgeInsets.only(bottom: 5),
+        child: Column(
+          children: <Widget>[
+            Text("All Items",
+                style: Theme.of(context).textTheme.headlineMedium),
+            Column(
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "Equip Type:",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      ListenableDropDownSelector(
+                        selectedValue: selectedEquipType,
+                        menuItems: EquipType.values.map((equipType) {
+                          return DropdownMenuItem(
+                            value: equipType,
+                            child: Text(equipType.formattedName),
+                          );
+                        }).toList(),
+                      ),
+                      Text(
+                        "Class:",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      ListenableDropDownSelector(
+                        selectedValue: selectedClassType,
+                        menuItems: ClassType.values.map((classType) {
+                          return DropdownMenuItem(
+                            value: classType,
+                            child: Text(classType.formattedName),
+                          );
+                        }).toList(),
+                      )
+                    ]),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: TextField(
+                    onChanged: (value) {
+                      filterSearchResultsText(value);
+                    },
+                    controller: editingController,
+                    decoration: const InputDecoration(
+                        labelText: "Search",
+                        hintText: "Search",
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)))),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: DEFAULT_COLOR),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
-              ),
-              child: ListView.builder(
-                itemCount: items.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return MapleTooltip(
-                    maxWidth: items[index].getTooltipWidth(),
-                    tooltipWidgets: [
-                      Consumer<EquipsProvider>(
-                        builder: (_, equipsProvider, __) {
+              ],
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: DEFAULT_COLOR),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: ListView.builder(
+                  itemCount: items.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return MapleTooltip(
+                      maxWidth: items[index].getTooltipWidth(),
+                      tooltipWidgets: [
+                        Consumer<EquipsProvider>(
+                            builder: (_, equipsProvider, __) {
                           return items[index].createEquipContainer(context);
-                        }
-                      ),
-                    ],
-                    child: ListTile(
-                      title: Row(
-                        children: [
+                        }),
+                      ],
+                      child: ListTile(
+                        title: Row(children: [
                           Text(items[index].equipName.formattedName),
                           const Spacer(),
                           TextButton(
-                            onPressed: () => context.read<EquipEditingProvider>().addEditingEquip(items[index]), 
-                            child: const Text("Edit")
-                          )
-                        ]
+                              onPressed: () => context
+                                  .read<EquipEditingProvider>()
+                                  .addEditingEquip(items[index]),
+                              child: const Text("Edit"))
+                        ]),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
-      )
-    );
+          ],
+        ));
   }
 }

@@ -9,12 +9,13 @@ import 'package:maplestory_builder/providers/character/character_provider.dart';
 
 class HexaStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
-  // This is what we are going to use to set the equips hash value once it is saved here so that when 
+
+  // This is what we are going to use to set the equips hash value once it is saved here so that when
   // rebuilding from json we can ensure the items stay "linked"
   int hexaStatId;
   late Map<int, HexaStat> allHexaStats;
   int activeHexaStatsSetNumber;
-  late Map<int, HexaStatsModule> hexaStatsSets; 
+  late Map<int, HexaStatsModule> hexaStatsSets;
   late HexaStatsModule activeHexaStatsSet;
 
   CharacterClass? previousCharacterClass;
@@ -29,14 +30,16 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
   }) {
     this.allHexaStats = allHexaStats ?? {};
 
-    this.hexaStatsSets = hexaStatsSets ?? {
-      1: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
-      2: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
-      3: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
-      4: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
-      5: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
-    };
-    this.activeHexaStatsSet = activeHexaStatsSet ?? this.hexaStatsSets[activeHexaStatsSetNumber]!;
+    this.hexaStatsSets = hexaStatsSets ??
+        {
+          1: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
+          2: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
+          3: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
+          4: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
+          5: HexaStatsModule(getHexaStatCallback: getHexaStatsCallback),
+        };
+    this.activeHexaStatsSet =
+        activeHexaStatsSet ?? this.hexaStatsSets[activeHexaStatsSetNumber]!;
   }
 
   @override
@@ -49,13 +52,15 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
     HexaStatsModule? activeHexaStatsSet,
   }) {
     return HexaStatsProvider(
-      characterProvider: characterProvider ?? this.characterProvider.copyWith(),
-      hexaStatId: hexaStatId ?? this.hexaStatId,
-      allHexaStats: allHexaStats ?? Map.of(this.allHexaStats),
-      activeHexaStatsSetNumber: activeHexaStatsSetNumber ?? this.activeHexaStatsSetNumber,
-      hexaStatsSets: hexaStatsSets ?? mapDeepCopy(this.hexaStatsSets),
-      activeHexaStatsSet: activeHexaStatsSet ?? this.activeHexaStatsSet.copyWith()
-    );
+        characterProvider:
+            characterProvider ?? this.characterProvider.copyWith(),
+        hexaStatId: hexaStatId ?? this.hexaStatId,
+        allHexaStats: allHexaStats ?? Map.of(this.allHexaStats),
+        activeHexaStatsSetNumber:
+            activeHexaStatsSetNumber ?? this.activeHexaStatsSetNumber,
+        hexaStatsSets: hexaStatsSets ?? mapDeepCopy(this.hexaStatsSets),
+        activeHexaStatsSet:
+            activeHexaStatsSet ?? this.activeHexaStatsSet.copyWith());
   }
 
   HexaStatsProvider update(CharacterProvider characterProvider) {
@@ -89,11 +94,13 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
     if (editingHexaStat == null) {
       return;
     }
-    
+
     // New familiar that cannot be equipped
     if (editingHexaStat.hexaStatId == -1) {
       editingHexaStat.hexaStatId = hexaStatId;
-      editingHexaStat.hexaStatName = editingHexaStat.hexaStatName.isEmpty ? "Hexa Stat $hexaStatId" : editingHexaStat.hexaStatName;
+      editingHexaStat.hexaStatName = editingHexaStat.hexaStatName.isEmpty
+          ? "Hexa Stat $hexaStatId"
+          : editingHexaStat.hexaStatName;
       allHexaStats[editingHexaStat.hexaStatId] = editingHexaStat;
       hexaStatId++;
     }
@@ -102,7 +109,8 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
       allHexaStats[editingHexaStat.hexaStatId] = editingHexaStat;
       // Ensure that we remove this equipped hexa stat if we edit it to have conflicting main stat value with another node
       for (HexaStatsModule hexaStatsModule in hexaStatsSets.values) {
-        if (!hexaStatsModule.equippedHexaStat.values.contains(editingHexaStat.hexaStatId)) {
+        if (!hexaStatsModule.equippedHexaStat.values
+            .contains(editingHexaStat.hexaStatId)) {
           continue;
         }
         hexaStatsModule.cacheValue = null;
@@ -110,21 +118,29 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
         int editingHexaStatPosition = 0;
         bool doesNeedRemoving = false;
         // Check the main stat first
-        for (MapEntry<int, int?> equippedHexaStat in hexaStatsModule.equippedHexaStat.entries) {
+        for (MapEntry<int, int?> equippedHexaStat
+            in hexaStatsModule.equippedHexaStat.entries) {
           if (equippedHexaStat.value == editingHexaStat.hexaStatId) {
             editingHexaStatPosition = equippedHexaStat.key;
-          }
-          else if (allHexaStats[equippedHexaStat.value]?.selectedStats[1] == editingHexaStat.selectedStats[1]) {
+          } else if (allHexaStats[equippedHexaStat.value]?.selectedStats[1] ==
+              editingHexaStat.selectedStats[1]) {
             doesNeedRemoving = true;
             break;
           }
         }
-        
+
         // If we do not violate the main stat, check the secondary stat
         if (!doesNeedRemoving) {
           var additionalStatCount = hexaStatsModule.additionalStatCount;
-          for (StatType? selectedAdditionalStat in [editingHexaStat.selectedStats[2], editingHexaStat.selectedStats[3]]) {
-            if (additionalStatCount[selectedAdditionalStat] != null && additionalStatCount[selectedAdditionalStat]!.$1 > 2 && additionalStatCount[selectedAdditionalStat]!.$2.contains(editingHexaStatPosition)) {
+          for (StatType? selectedAdditionalStat in [
+            editingHexaStat.selectedStats[2],
+            editingHexaStat.selectedStats[3]
+          ]) {
+            if (additionalStatCount[selectedAdditionalStat] != null &&
+                additionalStatCount[selectedAdditionalStat]!.$1 > 2 &&
+                additionalStatCount[selectedAdditionalStat]!
+                    .$2
+                    .contains(editingHexaStatPosition)) {
               doesNeedRemoving = true;
               break;
             }
@@ -147,7 +163,6 @@ class HexaStatsProvider with ChangeNotifier implements Copyable {
     }
     notifyListeners();
   }
-
 
   void changeActiveSet(int hexaStatSetNumber) {
     activeHexaStatsSetNumber = hexaStatSetNumber;

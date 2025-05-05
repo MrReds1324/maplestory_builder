@@ -8,7 +8,7 @@ import 'package:maplestory_builder/providers/familiars/familiars_provider.dart';
 
 class ConsumablesProvider with ChangeNotifier implements Copyable {
   int activeSetNumber;
-  late Map<int, ConsumablesModule> consumablesSets; 
+  late Map<int, ConsumablesModule> consumablesSets;
   late ConsumablesModule activeConsumablesSet;
   bool isDropFamiliarActive;
 
@@ -18,14 +18,16 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
     ConsumablesModule? activeConsumablesSet,
     this.isDropFamiliarActive = false,
   }) {
-    this.consumablesSets = consumablesSets ?? {
-      1: ConsumablesModule(),
-      2: ConsumablesModule(),
-      3: ConsumablesModule(),
-      4: ConsumablesModule(),
-      5: ConsumablesModule(),
-    };
-    this.activeConsumablesSet = activeConsumablesSet ?? this.consumablesSets[activeSetNumber]!;
+    this.consumablesSets = consumablesSets ??
+        {
+          1: ConsumablesModule(),
+          2: ConsumablesModule(),
+          3: ConsumablesModule(),
+          4: ConsumablesModule(),
+          5: ConsumablesModule(),
+        };
+    this.activeConsumablesSet =
+        activeConsumablesSet ?? this.consumablesSets[activeSetNumber]!;
   }
 
   // Set<BuffSlot> get disabledBuffSlots {
@@ -55,7 +57,8 @@ class ConsumablesProvider with ChangeNotifier implements Copyable {
     return ConsumablesProvider(
       activeSetNumber: activeSetNumber ?? this.activeSetNumber,
       consumablesSets: consumablesSets ?? mapDeepCopy(this.consumablesSets),
-      activeConsumablesSet: activeConsumablesSet ?? this.activeConsumablesSet.copyWith(),
+      activeConsumablesSet:
+          activeConsumablesSet ?? this.activeConsumablesSet.copyWith(),
       isDropFamiliarActive: isDropFamiliarActive ?? this.isDropFamiliarActive,
     );
   }

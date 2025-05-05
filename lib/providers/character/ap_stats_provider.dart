@@ -1,12 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/modules/base.dart';
-import 'dart:math';
-
 import 'package:maplestory_builder/providers/character/character_provider.dart';
 
 class APStatsProvider with ChangeNotifier implements Copyable {
   CharacterProvider characterProvider;
+
   // All relavent to calculating ap stats and ap usage
   int totalAvailableAP; // 14 + 5 * CharacterLevel
   int availableAP;
@@ -27,15 +28,16 @@ class APStatsProvider with ChangeNotifier implements Copyable {
     this.apAssignedMP = 0,
     Map<StatType, int>? apStats,
   }) {
-    this.apStats = apStats ?? {
-      StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
-      StatType.mp: 213,
-      // Each ap into Stats increase by 1
-      StatType.str: MINIMUM_AP_AMOUNT,
-      StatType.dex: MINIMUM_AP_AMOUNT,
-      StatType.int: MINIMUM_AP_AMOUNT,
-      StatType.luk: MINIMUM_AP_AMOUNT,
-    };
+    this.apStats = apStats ??
+        {
+          StatType.hp: 395, // Demon Avenger is 395 + (90 * pointsHP)
+          StatType.mp: 213,
+          // Each ap into Stats increase by 1
+          StatType.str: MINIMUM_AP_AMOUNT,
+          StatType.dex: MINIMUM_AP_AMOUNT,
+          StatType.int: MINIMUM_AP_AMOUNT,
+          StatType.luk: MINIMUM_AP_AMOUNT,
+        };
   }
 
   @override

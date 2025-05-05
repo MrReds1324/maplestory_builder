@@ -19,8 +19,7 @@ class ConsumablesModule implements Copyable {
 
   ConsumablesModule({
     Set<String>? activeConsumables,
-  }) :
-    activeConsumables = activeConsumables ?? <String>{};
+  }) : activeConsumables = activeConsumables ?? <String>{};
 
   @override
   ConsumablesModule copyWith({
@@ -49,20 +48,32 @@ class ConsumablesModule implements Copyable {
       var consumable = allConsumables[consumableId];
       if (consumable == null) {
         return;
-      }
-      else {
-        for (MapEntry<StatType, num> consumableStats in consumable.consumableStats.entries) {
-          switch(consumableStats.key) {
+      } else {
+        for (MapEntry<StatType, num> consumableStats
+            in consumable.consumableStats.entries) {
+          switch (consumableStats.key) {
             case StatType.itemDropRate:
-              consumablesStats[consumableStats.key] = min((consumablesStats[consumableStats.key] ?? 0) + consumableStats.value, DROP_RATE_USE_CAP);
+              consumablesStats[consumableStats.key] = min(
+                  (consumablesStats[consumableStats.key] ?? 0) +
+                      consumableStats.value,
+                  DROP_RATE_USE_CAP);
             case StatType.mesosObtained:
-              consumablesStats[consumableStats.key] = min((consumablesStats[consumableStats.key] ?? 0) + consumableStats.value, MESOS_OBTAINED_USE_CAP);
+              consumablesStats[consumableStats.key] = min(
+                  (consumablesStats[consumableStats.key] ?? 0) +
+                      consumableStats.value,
+                  MESOS_OBTAINED_USE_CAP);
             case StatType.expMultiplicative:
-              consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 1) * (consumableStats.value);
+              consumablesStats[consumableStats.key] =
+                  (consumablesStats[consumableStats.key] ?? 1) *
+                      (consumableStats.value);
             case StatType.ignoreDefense:
-              consumablesStats[consumableStats.key] = calculateIgnoreDefense((consumablesStats[consumableStats.key] ?? 0), consumableStats.value);
+              consumablesStats[consumableStats.key] = calculateIgnoreDefense(
+                  (consumablesStats[consumableStats.key] ?? 0),
+                  consumableStats.value);
             default:
-              consumablesStats[consumableStats.key] = (consumablesStats[consumableStats.key] ?? 0) + consumableStats.value;
+              consumablesStats[consumableStats.key] =
+                  (consumablesStats[consumableStats.key] ?? 0) +
+                      consumableStats.value;
           }
         }
       }
@@ -82,7 +93,8 @@ class ConsumablesModule implements Copyable {
     var jsonData = json.decode(data);
     for (MapEntry<String, dynamic> consumableEntry in jsonData.entries) {
       var consumableId = consumableEntry.key;
-      var consumable = Consumable.loadFromJson(consumableId, consumableEntry.value);
+      var consumable =
+          Consumable.loadFromJson(consumableId, consumableEntry.value);
       ConsumablesModule.allConsumables[consumableId] = consumable;
     }
   }

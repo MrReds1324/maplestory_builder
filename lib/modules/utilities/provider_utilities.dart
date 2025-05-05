@@ -43,7 +43,9 @@ class _ChangeNotifierProvider<T extends ChangeNotifier?>
 }
 
 // ignore: public_member_api_docs
-typedef ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R> = R Function(
+typedef ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
+        R>
+    = R Function(
   BuildContext context,
   T value,
   T2 value2,
@@ -61,13 +63,15 @@ typedef ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12,
 );
 
 /// {@macro provider.listenableproxyprovider}
-class _ListenableProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R extends Listenable?>
-    extends ListenableProxyProvider0<R> {
+class _ListenableProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11,
+    T12, R extends Listenable?> extends ListenableProxyProvider0<R> {
   /// Initializes [key] for subclasses.
   _ListenableProxyProvider12({
     Key? key,
     Create<R>? create,
-    required ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R> update,
+    required ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11,
+            T12, R>
+        update,
     Dispose<R>? dispose,
     bool? lazy,
     TransitionBuilder? builder,
@@ -99,13 +103,17 @@ class _ListenableProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T1
 }
 
 /// {@macro provider.changenotifierproxyprovider}
-class ChangeNotifierProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R extends ChangeNotifier?>
-    extends _ListenableProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R> {
+class ChangeNotifierProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11,
+        T12, R extends ChangeNotifier?>
+    extends _ListenableProxyProvider12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10,
+        T11, T12, R> {
   /// Initializes [key] for subclasses.
   ChangeNotifierProxyProvider12({
     Key? key,
     required Create<R> create,
-    required ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R> update,
+    required ProxyProviderBuilder12<T, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11,
+            T12, R>
+        update,
     bool? lazy,
     TransitionBuilder? builder,
     Widget? child,

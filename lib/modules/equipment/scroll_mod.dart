@@ -11,7 +11,7 @@ class ScrollModule implements Copyable {
   int usedScrollSlots;
   List<AbstractScroll> usedScrolls;
   SavedScrolledRange? editingScroll;
-  
+
   Map<StatType, int> moduleStats;
 
   ScrollModule({
@@ -20,9 +20,8 @@ class ScrollModule implements Copyable {
     this.usedScrollSlots = 0,
     List<AbstractScroll>? usedScrolls,
     Map<StatType, int>? moduleStats,
-  }) : 
-  usedScrolls = usedScrolls ?? [], 
-  moduleStats = moduleStats ?? {};
+  })  : usedScrolls = usedScrolls ?? [],
+        moduleStats = moduleStats ?? {};
 
   @override
   ScrollModule copyWith({
@@ -58,18 +57,16 @@ class ScrollModule implements Copyable {
       clearEditingScroll();
       editingScroll = SavedScrolledRange(
         scrollStats: scroll.getScrollStartingStats(),
-        scrollName: scroll.scrollName, 
+        scrollName: scroll.scrollName,
         slotCost: scroll.slotCost,
       );
       editingScroll!.isEditing = true;
       addScroll(editingScroll!);
-    }
-    else if (scroll is SavedScrolledRange) {
+    } else if (scroll is SavedScrolledRange) {
       clearEditingScroll();
       editingScroll = scroll;
       editingScroll!.isEditing = true;
-    }
-    else {
+    } else {
       addScroll(scroll);
     }
   }
@@ -81,14 +78,11 @@ class ScrollModule implements Copyable {
     usedScrollSlots += scroll.slotCost;
     if (scroll is SavedScrolledRange) {
       usedScrolls.add(scroll);
-    }
-    else {
-      usedScrolls.add(
-        SavedScroll(
-          scrollName: scroll.scrollName,
-          slotCost: scroll.slotCost,
-        )
-      );
+    } else {
+      usedScrolls.add(SavedScroll(
+        scrollName: scroll.scrollName,
+        slotCost: scroll.slotCost,
+      ));
     }
     calculateModuleStats();
   }
@@ -109,14 +103,15 @@ class ScrollModule implements Copyable {
 
   List<MapEntry<StatType, ScrollRange>> getEditingScrollStats() {
     var selectedScroll = editingScroll?.scrollName.createScrollObject();
-    return selectedScroll is ScrollWithRange ? selectedScroll.scrollStats.entries.toList() : [];
+    return selectedScroll is ScrollWithRange
+        ? selectedScroll.scrollStats.entries.toList()
+        : [];
   }
 
   double getEditingScrollStatsValue(StatType statType) {
     if (editingScroll != null) {
       return editingScroll!.scrollStats[statType]!.toDouble();
-    }
-    else {
+    } else {
       return 0;
     }
   }
@@ -135,20 +130,17 @@ class ScrollModule implements Copyable {
       Map<StatType, int> scrollStats = {};
       if (scroll is SavedScrolledRange) {
         scrollStats = scroll.scrollStats;
-      }
-      else if (scroll is SavedScroll) {
+      } else if (scroll is SavedScroll) {
         if (scroll.scrollName.scrollType == StaticScroll) {
           scrollStats = scroll.scrollName.scrollStats;
-        }
-        else if (scroll.scrollName.scrollType == Scroll) {
+        } else if (scroll.scrollName.scrollType == Scroll) {
           scrollStats = scroll.scrollName.scrollStats[scrollOffset];
         }
       }
 
-      scrollStats.forEach((key, value) { 
+      scrollStats.forEach((key, value) {
         moduleStats[key] = (moduleStats[key] ?? 0) + value;
       });
-      
     }
 
     for (AbstractScroll scroll in usedScrolls) {
@@ -158,20 +150,21 @@ class ScrollModule implements Copyable {
 }
 
 int getScrollOffsetFromItemLevel(int itemLevel) {
-  if (itemLevel <= 74) { // 0-74
+  if (itemLevel <= 74) {
+    // 0-74
     return INDEX_0;
-  }
-  else if (itemLevel <= 114) { // 75-114
+  } else if (itemLevel <= 114) {
+    // 75-114
     return INDEX_75;
-  }
-  else { // 115+
+  } else {
+    // 115+
     return INDEX_115;
   }
 }
 
 List<ScrollName> getScrollsListForEquip(Equip? editingEquip) {
   List<ScrollName> filteredList;
-  switch(editingEquip?.equipName.equipType) {
+  switch (editingEquip?.equipName.equipType) {
     case EquipType.hat:
     case EquipType.overall:
     case EquipType.top:
@@ -179,9 +172,13 @@ List<ScrollName> getScrollsListForEquip(Equip? editingEquip) {
     case EquipType.shoes:
     case EquipType.cape:
     case EquipType.badge:
-      filteredList = CHAOS_SCROLLS + ARMOR_ONLY_SCROLLS + ARMOR_SHOULDER_SCROLLS;
+      filteredList =
+          CHAOS_SCROLLS + ARMOR_ONLY_SCROLLS + ARMOR_SHOULDER_SCROLLS;
     case EquipType.gloves:
-      filteredList = CHAOS_SCROLLS + GLOVES_SCROLLS + ARMOR_ONLY_SCROLLS + ARMOR_SHOULDER_SCROLLS;
+      filteredList = CHAOS_SCROLLS +
+          GLOVES_SCROLLS +
+          ARMOR_ONLY_SCROLLS +
+          ARMOR_SHOULDER_SCROLLS;
     case EquipType.shoulder:
       filteredList = CHAOS_SCROLLS + ARMOR_SHOULDER_SCROLLS;
     case EquipType.face:

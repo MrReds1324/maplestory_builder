@@ -1360,9 +1360,7 @@ enum ConsumableName {
       formattedName: "Dexterity Pill",
       description: "Enhances your skills as a sniper.",
       statValues: {StatType.dex: 10},
-      consumableCategories: [
-        ConsumableCategory.dexBoost
-      ],
+      consumableCategories: [ConsumableCategory.dexBoost],
       duration: 600,
       buffSlots: {BuffSlot.dexPill}),
   dexterityPillI(
@@ -2735,9 +2733,7 @@ enum ConsumableName {
       formattedName: "Magic Pill",
       description: "A pill of concentrated magic potion.",
       statValues: {StatType.mattack: 5},
-      consumableCategories: [
-        ConsumableCategory.mattackBoost
-      ],
+      consumableCategories: [ConsumableCategory.mattackBoost],
       duration: 600,
       buffSlots: {BuffSlot.mattackPill}),
   magicPillI(

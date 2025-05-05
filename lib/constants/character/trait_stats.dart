@@ -40,8 +40,6 @@ const Map<StatType, (num, int)> TRAIT_WILLPOWER_EFFECTS = {
   StatType.statusResistance: (1, 5)
 };
 
-const Map<StatType, (num, int)> TRAINT_DILLIGENCE_EFFECTS = {
-};
+const Map<StatType, (num, int)> TRAINT_DILLIGENCE_EFFECTS = {};
 
-const Map<StatType, (num, int)> TRAIT_CHARM_EFFECTS = {
-};
+const Map<StatType, (num, int)> TRAIT_CHARM_EFFECTS = {};

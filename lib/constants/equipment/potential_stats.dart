@@ -9,11 +9,7 @@ enum PotentialCategory {
   static, // Used for equipment that has static/unmodifiable potentials
 }
 
-enum PotentialType {
-  range,
-  static,
-  skill
-}
+enum PotentialType { range, static, skill }
 
 typedef RangedPotentialType = List<num>;
 typedef StaticPotentialType = num;
@@ -59,71 +55,185 @@ enum PotentialName {
   // Main Potentials
   // ---------------------------------------------------------------------- //
   // Rare Non Prime
-  rareNonPrimeStat(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_STAT_ATT_VALUES),
-  rareNonPrimeAtt(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_STAT_ATT_VALUES),
-  rareNonPrimeDefense(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
-  rareNonPrimeHp(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
-  rareNonPrimeMp(potentialType: PotentialType.range, statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
+  rareNonPrimeStat(
+      potentialType: PotentialType.range,
+      statValue: RARE_NON_PRIME_STAT_ATT_VALUES),
+  rareNonPrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: RARE_NON_PRIME_STAT_ATT_VALUES),
+  rareNonPrimeDefense(
+      potentialType: PotentialType.range,
+      statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
+  rareNonPrimeHp(
+      potentialType: PotentialType.range,
+      statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
+  rareNonPrimeMp(
+      potentialType: PotentialType.range,
+      statValue: RARE_NON_PRIME_DEFENSE_HP_MP_VALUES),
   // Rare Prime & Epic Non Prime
-  rarePrimeStat(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_ATT_VALUES),
-  rarePrimeAtt(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_ATT_VALUES),
-  rarePrimeAllStat(potentialType: PotentialType.range, statValue: RARE_PRIME_ALL_STAT_VALUES),
-  rarePrimeDefense(potentialType: PotentialType.range, statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
-  rarePrimeHp(potentialType: PotentialType.range, statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
-  rarePrimeMp(potentialType: PotentialType.range, statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
-  rarePrimeStatPercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  rarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  rarePrimeHpPercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  rarePrimeMpPercentage(potentialType: PotentialType.range, statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  rarePrimeCriticalRate(potentialType: PotentialType.static, statValue: RARE_PRIME_CRIT_RATE_VALUE),
+  rarePrimeStat(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_STAT_ATT_VALUES),
+  rarePrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_STAT_ATT_VALUES),
+  rarePrimeAllStat(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_ALL_STAT_VALUES),
+  rarePrimeDefense(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  rarePrimeHp(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  rarePrimeMp(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  rarePrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeDefensePercentage(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  rarePrimeCriticalRate(
+      potentialType: PotentialType.static,
+      statValue: RARE_PRIME_CRIT_RATE_VALUE),
   // Epic Prime & Unique Non Prime
-  epicPrimeStatPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  epicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  epicPrimeDamage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  epicPrimeDefensePercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  epicPrimeHpPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  epicPrimeMpPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  epicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES),
-  epicPrimeCriticalRate(potentialType: PotentialType.static, statValue: EPIC_PRIME_CRIT_RATE_VALUE),
-  epicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: EPIC_PRIME_IGNORE_DEFENSE_VALUE),
+  epicPrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeDamage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeDefensePercentage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  epicPrimeAllStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  epicPrimeCriticalRate(
+      potentialType: PotentialType.static,
+      statValue: EPIC_PRIME_CRIT_RATE_VALUE),
+  epicPrimeIgnoreDefense(
+      potentialType: PotentialType.static,
+      statValue: EPIC_PRIME_IGNORE_DEFENSE_VALUE),
   // Unique Prime & Legendary Non Prime
-  uniquePrimeStatPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  uniquePrimeAttackPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  uniquePrimeDamage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  uniquePrimeCriticalRate(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  uniquePrimeDefensePercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  uniquePrimeHpPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  uniquePrimeMpPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
-  uniquePrimeAllStatPercentage(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES),
-  uniquePrimeHpRecovery(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_HP_RECOVERY_VALUES),
-  uniquePrimeStat(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_VALUES),
-  uniquePrimeAtt(potentialType: PotentialType.range, statValue: UNIQUE_PRIME_STAT_ATT_VALUES),
-  uniquePrimeBossDamage(potentialType: PotentialType.static, statValue: UNIQUE_PRIME_BOSS_DAMAGE_VALUE),
-  uniquePrimeIgnoreDefense(potentialType: PotentialType.static, statValue: UNIQUE_PRIME_IGNORE_DEFENSE_VALUE),
+  uniquePrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeDamage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeCriticalRate(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  uniquePrimeDefensePercentage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  uniquePrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  uniquePrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_DEFENSE_HP_MP_PERCENTAGE_VALUES),
+  uniquePrimeAllStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  uniquePrimeHpRecovery(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_HP_RECOVERY_VALUES),
+  uniquePrimeStat(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_STAT_ATT_VALUES),
+  uniquePrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: UNIQUE_PRIME_STAT_ATT_VALUES),
+  uniquePrimeBossDamage(
+      potentialType: PotentialType.static,
+      statValue: UNIQUE_PRIME_BOSS_DAMAGE_VALUE),
+  uniquePrimeIgnoreDefense(
+      potentialType: PotentialType.static,
+      statValue: UNIQUE_PRIME_IGNORE_DEFENSE_VALUE),
   // uniquePrimeDecentMysticDoor(potentialType: PotentialType.skill, statValue: ,)
   // uniquePrimeDecentHyperBody(potentialType: PotentialType.skill, statValue: ,)
   // unqiuePrimeDecentSharpEyes(potentialType: PotentialType.skill, statValue: ,)
   // uniquePrimeDecentHaste(potentialType: PotentialType.skill, statValue: ,)
   // Legendary Prime
-  legendaryPrimeStat(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_VALUES),
-  legendaryPrimeAtt(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_VALUES),
-  legendaryPrimeStatPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  legendaryPrimeAttackPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  legendaryPrimeDamagePercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  legendaryPrimeCriticalRatePercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  legendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES),
-  legendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES),
-  legendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES),
-  legendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_HP_RECOVERY_VALUES),
-  legendaryPrimeSkillCooldown1(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_SKILL_COOLDOWN_1_VALUE),
-  legendaryPrimeSkillCooldown2(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_SKILL_COOLDOWN_2_VALUE),
-  legendaryPrimeCriticalDamage(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_CRIT_DAMAGE_VALUES),
-  legendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
-  legendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
-  legendaryPrimeBossDamage35(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_BOSS_DAMAGE_35_VALUE),
-  legendaryPrimeBossDamage40(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_BOSS_DAMAGE_40_VALUE),
-  legendaryPrimeIgnoreDefense35(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_IGNORE_DEFENSE_35_VALUE),
-  legendaryPrimeIgnoreDefense40(potentialType: PotentialType.static, statValue: LEGENDARY_PRIME_IGNORE_DEFENSE_40_VALUE),
+  legendaryPrimeStat(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_STAT_ATT_VALUES),
+  legendaryPrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_STAT_ATT_VALUES),
+  legendaryPrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeDamagePercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeCriticalRatePercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  legendaryPrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  legendaryPrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  legendaryPrimeAllStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  legendaryPrimeHpRecovery(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_HP_RECOVERY_VALUES),
+  legendaryPrimeSkillCooldown1(
+      potentialType: PotentialType.static,
+      statValue: LEGENDARY_PRIME_SKILL_COOLDOWN_1_VALUE),
+  legendaryPrimeSkillCooldown2(
+      potentialType: PotentialType.static,
+      statValue: LEGENDARY_PRIME_SKILL_COOLDOWN_2_VALUE),
+  legendaryPrimeCriticalDamage(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_CRIT_DAMAGE_VALUES),
+  legendaryPrimeMesosObtained(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  legendaryPrimeItemDropRate(
+      potentialType: PotentialType.range,
+      statValue: LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  legendaryPrimeBossDamage35(
+      potentialType: PotentialType.static,
+      statValue: LEGENDARY_PRIME_BOSS_DAMAGE_35_VALUE),
+  legendaryPrimeBossDamage40(
+      potentialType: PotentialType.static,
+      statValue: LEGENDARY_PRIME_BOSS_DAMAGE_40_VALUE),
+  legendaryPrimeIgnoreDefense35(
+      potentialType: PotentialType.static,
+      statValue: LEGENDARY_PRIME_IGNORE_DEFENSE_35_VALUE),
+  legendaryPrimeIgnoreDefense40(
+      potentialType: PotentialType.static,
+      statValue: LEGENDARY_PRIME_IGNORE_DEFENSE_40_VALUE),
   // legendaryPrimeDecentAdvancedBlessing(potentialType: , statValue: ,)
   // legendaryPrimeDecentSpeedInfusion(potentialType: , statValue: ,)
   // legendaryPrimeDecentCombatOrders(potentialType: , statValue: ,)
@@ -131,101 +241,270 @@ enum PotentialName {
   // Bonus Potentials
   // ---------------------------------------------------------------------- //
   // Rare Non Prime
-  bonusRareNonPrimeStat(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_STAT_VALUES),
-  bonusRareNonPrimeAtt(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_ATT_VALUES),
-  bonusRareNonPrimeDefense(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
-  bonusRareNonPrimeHp(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
-  bonusRareNonPrimeMp(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
-  bonusRareNonPrimeSpeed(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES),
-  bonusRareNonPrimeJump(potentialType: PotentialType.range, statValue: BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES),
+  bonusRareNonPrimeStat(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_STAT_VALUES),
+  bonusRareNonPrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_ATT_VALUES),
+  bonusRareNonPrimeDefense(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
+  bonusRareNonPrimeHp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
+  bonusRareNonPrimeMp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_HP_MP_DEFENSE_VALUES),
+  bonusRareNonPrimeSpeed(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES),
+  bonusRareNonPrimeJump(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_NON_PRIME_SPEED_JUMP_VALUES),
   // Rare Prime & Epic Non Prime
-  bonusRarePrimeStat(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_VALUES),
-  bonusRarePrimeAtt(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_ATT_VALUES),
-  bonusRarePrimeAllStat(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_ALL_STAT_VALUES),
-  bonusRarePrimeDefense(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
-  bonusRarePrimeHp(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
-  bonusRarePrimeMp(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
-  bonusRarePrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeDefensePercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeDamage(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusRarePrimeSpeed(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_SPEED_JUMP_VALUES),
-  bonusRarePrimeJump(potentialType: PotentialType.range, statValue: BONUS_RARE_PRIME_SPEED_JUMP_VALUES),
+  bonusRarePrimeStat(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_STAT_VALUES),
+  bonusRarePrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_ATT_VALUES),
+  bonusRarePrimeAllStat(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_ALL_STAT_VALUES),
+  bonusRarePrimeDefense(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  bonusRarePrimeHp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  bonusRarePrimeMp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES),
+  bonusRarePrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeDefensePercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeDamage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeCriticalRate(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusRarePrimeSpeed(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_SPEED_JUMP_VALUES),
+  bonusRarePrimeJump(
+      potentialType: PotentialType.range,
+      statValue: BONUS_RARE_PRIME_SPEED_JUMP_VALUES),
   // Epic Prime & Unique Non Prime
-  bonusEpicPrimeStat(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_VALUES),
-  bonusEpicPrimeAtt(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_ATT_VALUES),
-  bonusEpicPrimeHp(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_VALUES),
-  bonusEpicPrimeMp(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_VALUES),
-  bonusEpicPrimeDefense(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_DEFENSE_VALUES),
-  bonusEpicPrimeSpeed(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_SPEED_JUMP_VALUES),
-  bonusEpicPrimeJump(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_SPEED_JUMP_VALUES),
-  bonusEpicPrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusEpicPrimeDefensePercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusEpicPrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusEpicPrimeDamage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusEpicPrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusEpicPrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES),
-  bonusEpicPrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES),
-  bonusEpicPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: BONUS_EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES),
-  bonusEpicPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: BONUS_EPIC_PRIME_IGNORE_DEFENSE_VALUE),
+  bonusEpicPrimeStat(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_STAT_VALUES),
+  bonusEpicPrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_ATT_VALUES),
+  bonusEpicPrimeHp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_HP_MP_VALUES),
+  bonusEpicPrimeMp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_HP_MP_VALUES),
+  bonusEpicPrimeDefense(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_DEFENSE_VALUES),
+  bonusEpicPrimeSpeed(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_SPEED_JUMP_VALUES),
+  bonusEpicPrimeJump(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_SPEED_JUMP_VALUES),
+  bonusEpicPrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeDefensePercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeDamage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeCriticalRate(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusEpicPrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusEpicPrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusEpicPrimeAllStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_EPIC_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  bonusEpicPrimeIgnoreDefense(
+      potentialType: PotentialType.static,
+      statValue: BONUS_EPIC_PRIME_IGNORE_DEFENSE_VALUE),
   // Unique Prime & Legendary Non Prime
-  bonusUniquePrimeStat(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_VALUES),
-  bonusUniquePrimeStatPerLevel(potentialType: PotentialType.static, statValue: BONUS_UNIQUE_PRIME_STAT_PER_LEVEL_VALUE),
-  bonusUniquePrimeAtt(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_ATT_VALUES),
-  bonusUniquePrimeHp(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_VALUES),
-  bonusUniquePrimeMp(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_VALUES),
-  bonusUniquePrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusUniquePrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusUniquePrimeDamage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusUniquePrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusUniquePrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES),
-  bonusUniquePrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES),
-  bonusUniquePrimeAllStatPercentage(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES),
-  bonusUniquePrimeHpRecovery(potentialType: PotentialType.range, statValue: BONUS_UNIQUE_PRIME_HP_RECOVERY_VALUES),
-  bonusUniquePrimeBossDamage(potentialType: PotentialType.static, statValue: BONUS_UNIQUE_PRIME_BOSS_DAMAGE_VALUE),
-  bonusUniquePrimeIgnoreDefense(potentialType: PotentialType.static, statValue: BONUS_UNIQUE_PRIME_IGNORE_DEFENSE_VALUE),
+  bonusUniquePrimeStat(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_STAT_VALUES),
+  bonusUniquePrimeStatPerLevel(
+      potentialType: PotentialType.static,
+      statValue: BONUS_UNIQUE_PRIME_STAT_PER_LEVEL_VALUE),
+  bonusUniquePrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_ATT_VALUES),
+  bonusUniquePrimeHp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_HP_MP_VALUES),
+  bonusUniquePrimeMp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_HP_MP_VALUES),
+  bonusUniquePrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeDamage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeCriticalRate(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusUniquePrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusUniquePrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusUniquePrimeAllStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  bonusUniquePrimeHpRecovery(
+      potentialType: PotentialType.range,
+      statValue: BONUS_UNIQUE_PRIME_HP_RECOVERY_VALUES),
+  bonusUniquePrimeBossDamage(
+      potentialType: PotentialType.static,
+      statValue: BONUS_UNIQUE_PRIME_BOSS_DAMAGE_VALUE),
+  bonusUniquePrimeIgnoreDefense(
+      potentialType: PotentialType.static,
+      statValue: BONUS_UNIQUE_PRIME_IGNORE_DEFENSE_VALUE),
   // Legendary Prime
-  bonusLegendaryPrimeStat(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_VALUES),
-  bonusLegendaryPrimeAtt(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_ATT_VALUES),
-  bonusLegendaryPrimeHp(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_HP_MP_VALUES),
-  bonusLegendaryPrimeMp(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_HP_MP_VALUES),
-  bonusLegendaryPrimeStatPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeAttackPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeDamage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeCriticalRate(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeHpPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeMpPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeAllStatPercentage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES),
-  bonusLegendaryPrimeStatPerLevel(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_STAT_PER_LEVEL_VALUE),
-  bonusLegendaryPrimeHpRecovery(potentialType: PotentialType.range, statValue: BONUS_LEGENARY_PRIME_HP_RECOVERY_VALUES),
-  bonusLegendaryPrimeMesosObtained(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
-  bonusLegendaryPrimeItemDropRate(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
-  bonusLegendaryPrimeSkillCooldown1(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_SKILL_COOLDOWN_VALUE),
-  bonusLegendaryPrimeCriticalDamageStatic(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUE),
-  bonusLegendaryPrimeCriticalDamage(potentialType: PotentialType.range, statValue: BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUES),
-  bonusLegendaryPrimeBossDamage(potentialType: PotentialType.static, statValue: BONUS_LEGENDARY_PRIME_BOSS_DAMAGE_VALUE),
-  bonusLegendaryPrimeIgnoreDefense(potentialType: PotentialType.static, statValue: BONUS_LEGENARY_PRIME_IGNORE_DEFENSE_VALUE);
+  bonusLegendaryPrimeStat(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_STAT_VALUES),
+  bonusLegendaryPrimeAtt(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_ATT_VALUES),
+  bonusLegendaryPrimeHp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_HP_MP_VALUES),
+  bonusLegendaryPrimeMp(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_HP_MP_VALUES),
+  bonusLegendaryPrimeStatPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeAttackPercentage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeDamage(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeCriticalRate(
+      potentialType: PotentialType.range,
+      statValue:
+          BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeHpPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeMpPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENARY_PRIME_HP_MP_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeAllStatPercentage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES),
+  bonusLegendaryPrimeStatPerLevel(
+      potentialType: PotentialType.static,
+      statValue: BONUS_LEGENDARY_PRIME_STAT_PER_LEVEL_VALUE),
+  bonusLegendaryPrimeHpRecovery(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENARY_PRIME_HP_RECOVERY_VALUES),
+  bonusLegendaryPrimeMesosObtained(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  bonusLegendaryPrimeItemDropRate(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES),
+  bonusLegendaryPrimeSkillCooldown1(
+      potentialType: PotentialType.static,
+      statValue: BONUS_LEGENDARY_PRIME_SKILL_COOLDOWN_VALUE),
+  bonusLegendaryPrimeCriticalDamageStatic(
+      potentialType: PotentialType.static,
+      statValue: BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUE),
+  bonusLegendaryPrimeCriticalDamage(
+      potentialType: PotentialType.range,
+      statValue: BONUS_LEGENDARY_PRIME_CRIT_DAMAGE_VALUES),
+  bonusLegendaryPrimeBossDamage(
+      potentialType: PotentialType.static,
+      statValue: BONUS_LEGENDARY_PRIME_BOSS_DAMAGE_VALUE),
+  bonusLegendaryPrimeIgnoreDefense(
+      potentialType: PotentialType.static,
+      statValue: BONUS_LEGENARY_PRIME_IGNORE_DEFENSE_VALUE);
 
   const PotentialName({
     required this.potentialType,
     required this.statValue,
   });
 
-  final PotentialType potentialType; // Using this to ensure we know what type to expect from statValue
+  final PotentialType
+      potentialType; // Using this to ensure we know what type to expect from statValue
   final dynamic statValue; // We lost the type safety here
 
   void validate() {
-    switch(potentialType) {
+    switch (potentialType) {
       case PotentialType.range:
         if (statValue is! RangedPotentialType) {
-          throw Exception("Potential '$this' has the wrong statValue for its PotentialType $potentialType");
+          throw Exception(
+              "Potential '$this' has the wrong statValue for its PotentialType $potentialType");
         }
       case PotentialType.static:
         if (statValue is! StaticPotentialType) {
-          throw Exception("Potential '$this' has the wrong statValue for its PotentialType $potentialType");
+          throw Exception(
+              "Potential '$this' has the wrong statValue for its PotentialType $potentialType");
         }
       case PotentialType.skill:
         return;
@@ -338,7 +617,8 @@ const List<double> RARE_PRIME_STAT_DEFENSE_HP_MP_PERCENTAGE_VALUES = [
 ];
 const double RARE_PRIME_CRIT_RATE_VALUE = 0.04; // 0+
 
-const List<double> EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES = [
+const List<double> EPIC_PRIME_STAT_ATT_DAMAGE_DEFENSE_HP_MP_PERCENTAGE_VALUES =
+    [
   0.02, // 0-10
   0.02, // 11-20
   0.02, // 21-30
@@ -450,7 +730,8 @@ const double UNIQUE_PRIME_BOSS_DAMAGE_VALUE = 0.3; // 100+
 const double UNIQUE_PRIME_IGNORE_DEFENSE_VALUE = 0.3; // 100+
 
 const List<int> LEGENDARY_PRIME_STAT_ATT_VALUES = UNIQUE_PRIME_STAT_ATT_VALUES;
-const List<double> LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
+const List<double> LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES =
+    [
   0.06, // 0-10
   0.06, // 11-20
   0.06, // 21-30
@@ -495,7 +776,8 @@ const List<double> LEGENDARY_PRIME_ALL_STAT_PERCENTAGE_VALUES = [
   0.09, // 111-150
   0.10, // 151+
 ];
-const List<double> LEGENDARY_PRIME_HP_RECOVERY_VALUES = UNIQUE_PRIME_HP_RECOVERY_VALUES;
+const List<double> LEGENDARY_PRIME_HP_RECOVERY_VALUES =
+    UNIQUE_PRIME_HP_RECOVERY_VALUES;
 const int LEGENDARY_PRIME_SKILL_COOLDOWN_1_VALUE = 1; // Requires 70+ equipment
 const int LEGENDARY_PRIME_SKILL_COOLDOWN_2_VALUE = 2; // Requires 120+ equipment
 const List<double> LEGENDARY_PRIME_CRIT_DAMAGE_VALUES = [
@@ -537,93 +819,266 @@ const double LEGENDARY_PRIME_IGNORE_DEFENSE_40_VALUE = 0.4; // 100+
 const Map<PotentialTier, List<PotentialLine>> DEFAULT_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.rarePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.rarePrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.rarePrimeDefensePercentage),
-    PotentialLine(statType: StatType.allStats, isPrime: true, potentialName: PotentialName.rarePrimeAllStat),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.hp, isPrime: true, potentialName: PotentialName.rarePrimeHp),
-    PotentialLine(statType: StatType.mp, isPrime: true, potentialName: PotentialName.rarePrimeMp),
-    PotentialLine(statType: StatType.defense, isPrime: true, potentialName: PotentialName.rarePrimeDefense),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.allStats,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeAllStat),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.hp,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeHp),
+    PotentialLine(
+        statType: StatType.mp,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeDefense),
     // Non-Prime
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.rareNonPrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.rareNonPrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.rareNonPrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.rareNonPrimeStat),
-    PotentialLine(statType: StatType.hp, potentialName: PotentialName.rareNonPrimeHp),
-    PotentialLine(statType: StatType.mp, potentialName: PotentialName.rareNonPrimeMp),
-    PotentialLine(statType: StatType.defense, potentialName: PotentialName.rareNonPrimeDefense),
+    PotentialLine(
+        statType: StatType.str, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.dex, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.int, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.luk, potentialName: PotentialName.rareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.hp, potentialName: PotentialName.rareNonPrimeHp),
+    PotentialLine(
+        statType: StatType.mp, potentialName: PotentialName.rareNonPrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        potentialName: PotentialName.rareNonPrimeDefense),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.epicPrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.epicPrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.epicPrimeDefensePercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeAllStatPercentage),
     // Non-Prime
-    PotentialLine(statType: StatType.strPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, potentialName: PotentialName.rarePrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, potentialName: PotentialName.rarePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, potentialName: PotentialName.rarePrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, potentialName: PotentialName.rarePrimeDefensePercentage),
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.rarePrimeStat),
-    PotentialLine(statType: StatType.allStats, potentialName: PotentialName.rarePrimeAllStat),
-    PotentialLine(statType: StatType.hp, potentialName: PotentialName.rarePrimeHp),
-    PotentialLine(statType: StatType.mp, potentialName: PotentialName.rarePrimeMp),
-    PotentialLine(statType: StatType.defense, potentialName: PotentialName.rarePrimeDefense),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        potentialName: PotentialName.rarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        potentialName: PotentialName.rarePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        potentialName: PotentialName.rarePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        potentialName: PotentialName.rarePrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.str, potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.dex, potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.int, potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.luk, potentialName: PotentialName.rarePrimeStat),
+    PotentialLine(
+        statType: StatType.allStats,
+        potentialName: PotentialName.rarePrimeAllStat),
+    PotentialLine(
+        statType: StatType.hp, potentialName: PotentialName.rarePrimeHp),
+    PotentialLine(
+        statType: StatType.mp, potentialName: PotentialName.rarePrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        potentialName: PotentialName.rarePrimeDefense),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAllStatPercentage),
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeMpPercentage),
     // Non-Prime
-    PotentialLine(statType: StatType.strPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, potentialName: PotentialName.epicPrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, potentialName: PotentialName.epicPrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, potentialName: PotentialName.epicPrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, potentialName: PotentialName.epicPrimeDefensePercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, potentialName: PotentialName.epicPrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        potentialName: PotentialName.epicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        potentialName: PotentialName.epicPrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        potentialName: PotentialName.epicPrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        potentialName: PotentialName.epicPrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        potentialName: PotentialName.epicPrimeAllStatPercentage),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAllStatPercentage),
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeMpPercentage),
     // Non-Prime
-    PotentialLine(statType: StatType.allStatsPercentage, potentialName: PotentialName.uniquePrimeAllStatPercentage),
-    PotentialLine(statType: StatType.strPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, potentialName: PotentialName.uniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, potentialName: PotentialName.uniquePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, potentialName: PotentialName.uniquePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        potentialName: PotentialName.uniquePrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        potentialName: PotentialName.uniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        potentialName: PotentialName.uniquePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        potentialName: PotentialName.uniquePrimeMpPercentage),
   ],
 };
 
@@ -631,17 +1086,31 @@ const Map<PotentialTier, List<PotentialLine>> DEFAULT_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> HAT_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Mystic Door - requires 70+
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.skillCooldown, isPrime: true, potentialName: PotentialName.legendaryPrimeSkillCooldown2),
-    PotentialLine(statType: StatType.skillCooldown, isPrime: true, potentialName: PotentialName.legendaryPrimeSkillCooldown1),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.skillCooldown,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeSkillCooldown2),
+    PotentialLine(
+        statType: StatType.skillCooldown,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeSkillCooldown1),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // TODO: StatType.skill - Decent Advanced Blessing - requires 120+
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Mystic Door - requires 70+
   ],
 };
@@ -650,13 +1119,21 @@ const Map<PotentialTier, List<PotentialLine>> HAT_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> TOP_OVERALL_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
@@ -664,15 +1141,22 @@ const Map<PotentialTier, List<PotentialLine>> TOP_OVERALL_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> BOTTOM_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Hyper Body - requires 70+
-    
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Hyper Body - requires 70+
   ],
 };
@@ -681,28 +1165,64 @@ const Map<PotentialTier, List<PotentialLine>> BOTTOM_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> GLOVES_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.uniquePrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAtt),
     // TODO: StatType.skill - Decent Sharp Eyes - requires 120+
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.legendaryPrimeCriticalDamage),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeCriticalDamage),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // TODO: StatType.skill - Decent Speed Infusion - requires 120+
     // Non-Prime
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.uniquePrimeStat),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.uniquePrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.uniquePrimeAtt),
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.str, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.dex, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.int, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.luk, potentialName: PotentialName.uniquePrimeStat),
+    PotentialLine(
+        statType: StatType.attack, potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.uniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Sharp Eyes - requires 120+
   ],
 };
@@ -711,15 +1231,23 @@ const Map<PotentialTier, List<PotentialLine>> GLOVES_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> SHOES_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Haste - requires 70+
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // TODO: StatType.skill - Decent Combat Orders - requires 70+
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
     // TODO: StatType.skill - Decent Haste - requires 70+
   ],
 };
@@ -728,29 +1256,52 @@ const Map<PotentialTier, List<PotentialLine>> SHOES_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> CAPE_BELT_SHOULDER_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
 //Face, Eye, Ring, Pendant, Earring
-const Map<PotentialTier, List<PotentialLine>> FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS = {
+const Map<PotentialTier, List<PotentialLine>>
+    FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.legendaryPrimeItemDropRate),
-    PotentialLine(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.legendaryPrimeMesosObtained),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.itemDropRate,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeItemDropRate),
+    PotentialLine(
+        statType: StatType.mesosObtained,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeMesosObtained),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
 
@@ -758,59 +1309,161 @@ const Map<PotentialTier, List<PotentialLine>> FACE_EYE_RING_PENDANT_EARRINGS_POT
 const Map<PotentialTier, List<PotentialLine>> WEAPON_SECONDARY_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.rarePrimeCriticalRate),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeAtt),
     // Non Prime
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.rareNonPrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.rareNonPrimeAtt),
+    PotentialLine(
+        statType: StatType.attack,
+        potentialName: PotentialName.rareNonPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.rareNonPrimeAtt),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.epicPrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.epicPrimeDamage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.epicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeCriticalRate),
     // Non Prime
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.rarePrimeCriticalRate),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.rarePrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attack, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack, potentialName: PotentialName.rarePrimeAtt),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.uniquePrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.uniquePrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.uniquePrimeDamage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.uniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeCriticalRate),
     // Non Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.epicPrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.epicPrimeDamage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.epicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.epicPrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.epicPrimeCriticalRate),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.legendaryPrimeBossDamage40),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.legendaryPrimeBossDamage35),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense40),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense35),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.legendaryPrimeDamagePercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.legendaryPrimeCriticalRatePercentage),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeBossDamage40),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeBossDamage35),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeIgnoreDefense40),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeIgnoreDefense35),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeDamagePercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeCriticalRatePercentage),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAtt),
     // Non Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.uniquePrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.uniquePrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.uniquePrimeDamage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.uniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        potentialName: PotentialName.uniquePrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.uniquePrimeCriticalRate),
   ],
 };
 
@@ -818,55 +1471,146 @@ const Map<PotentialTier, List<PotentialLine>> WEAPON_SECONDARY_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> EMBLEM_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.rarePrimeCriticalRate),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.rarePrimeAtt),
     // Non Prime
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.rareNonPrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.rareNonPrimeAtt),
+    PotentialLine(
+        statType: StatType.attack,
+        potentialName: PotentialName.rareNonPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.rareNonPrimeAtt),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.epicPrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.epicPrimeDamage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.epicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.epicPrimeCriticalRate),
     // Non Prime
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.rarePrimeCriticalRate),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.rarePrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.rarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attack, potentialName: PotentialName.rarePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack, potentialName: PotentialName.rarePrimeAtt),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.uniquePrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.uniquePrimeDamage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.uniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeCriticalRate),
     // Non Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.epicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.epicPrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.epicPrimeDamage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.epicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.epicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.epicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.epicPrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.epicPrimeCriticalRate),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.legendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense40),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.legendaryPrimeIgnoreDefense35),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.legendaryPrimeDamagePercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.legendaryPrimeCriticalRatePercentage),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.legendaryPrimeAtt),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeIgnoreDefense40),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeIgnoreDefense35),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeDamagePercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeCriticalRatePercentage),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeAtt),
     // Non Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.uniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.ignoreDefense,potentialName: PotentialName.uniquePrimeIgnoreDefense),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.uniquePrimeDamage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.uniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.uniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.uniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.uniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.uniquePrimeCriticalRate),
   ],
 };
 
@@ -874,16 +1618,23 @@ const Map<PotentialTier, List<PotentialLine>> EMBLEM_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> HEART_BADGE_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.uniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.uniquePrimeHpRecovery),
   ],
 };
-
 
 //Bonus Potential
 const List<int> BONUS_RARE_NON_PRIME_STAT_VALUES = [
@@ -1006,7 +1757,9 @@ const List<int> BONUS_RARE_PRIME_DEFENSE_HP_MP_VALUES = [
   120, // 111-150
   125, // 151+
 ];
-const List<double> BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
+const List<double>
+    BONUS_RARE_PRIME_STAT_HP_MP_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES =
+    [
   0.01, // 0-10
   0.01, // 11-20
   0.01, // 21-30
@@ -1112,7 +1865,8 @@ const List<int> BONUS_EPIC_PRIME_SPEED_JUMP_VALUES = [
   8, // 111-150
   8, // 151+
 ];
-const List<double> BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
+const List<double>
+    BONUS_EPIC_PRIME_STAT_DEFENSE_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.01, // 0-10
   0.01, // 11-20
   0.02, // 21-30
@@ -1205,7 +1959,8 @@ const List<int> BONUS_UNIQUE_PRIME_HP_MP_VALUES = [
   180, // 111-150
   185, // 151+
 ];
-const List<double> BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
+const List<double>
+    BONUS_UNIQUE_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.02, // 0-10
   0.02, // 11-20
   0.03, // 21-30
@@ -1313,7 +2068,8 @@ const List<int> BONUS_LEGENDARY_PRIME_HP_MP_VALUES = [
   300, // 111-150
   310, // 151+
 ];
-const List<double> BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
+const List<double>
+    BONUS_LEGENDARY_PRIME_STAT_ATT_DAMAGE_CRIT_RATE_PERCENTAGE_VALUES = [
   0.03, // 0-10
   0.03, // 11-20
   0.04, // 21-30
@@ -1374,7 +2130,8 @@ const List<double> BONUS_LEGENARY_PRIME_HP_RECOVERY_VALUES = [
   0.3, // 111-150
   0.3, // 151+
 ];
-const List<double> BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES = [
+const List<double> BONUS_LEGENDARY_PRIME_MESOS_OBTAINED_ITEM_DROP_RATE_VALUES =
+    [
   0.02, // 0-10
   0.02, // 11-20
   0.03, // 21-30
@@ -1412,163 +2169,521 @@ const double BONUS_LEGENARY_PRIME_IGNORE_DEFENSE_VALUE = 0.05;
 const Map<PotentialTier, List<PotentialLine>> BONUS_DEFAULT_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.allStats, isPrime: true, potentialName: PotentialName.bonusRarePrimeAllStat),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDefensePercentage),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusRarePrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusRarePrimeAtt),
-    PotentialLine(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusRarePrimeHp),
-    PotentialLine(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusRarePrimeMp),
-    PotentialLine(statType: StatType.defense, isPrime: true, potentialName: PotentialName.bonusRarePrimeDefense),
-    PotentialLine(statType: StatType.speed, isPrime: true, potentialName: PotentialName.bonusRarePrimeSpeed),
-    PotentialLine(statType: StatType.jump, isPrime: true, potentialName: PotentialName.bonusRarePrimeJump),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStats,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAllStat),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLine(
+        statType: StatType.hp,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeHp),
+    PotentialLine(
+        statType: StatType.mp,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeDefense),
+    PotentialLine(
+        statType: StatType.speed,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeSpeed),
+    PotentialLine(
+        statType: StatType.jump,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeJump),
     // Non-Prime
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.bonusRareNonPrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.bonusRareNonPrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.bonusRareNonPrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.bonusRareNonPrimeStat),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.bonusRareNonPrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.bonusRareNonPrimeAtt),
-    PotentialLine(statType: StatType.hp, potentialName: PotentialName.bonusRareNonPrimeHp),
-    PotentialLine(statType: StatType.mp, potentialName: PotentialName.bonusRareNonPrimeMp),
-    PotentialLine(statType: StatType.defense, potentialName: PotentialName.bonusRareNonPrimeDefense),
-    PotentialLine(statType: StatType.speed, potentialName: PotentialName.bonusRareNonPrimeSpeed),
-    PotentialLine(statType: StatType.jump, potentialName: PotentialName.bonusRareNonPrimeJump),
+    PotentialLine(
+        statType: StatType.str,
+        potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        potentialName: PotentialName.bonusRareNonPrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        potentialName: PotentialName.bonusRareNonPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.bonusRareNonPrimeAtt),
+    PotentialLine(
+        statType: StatType.hp,
+        potentialName: PotentialName.bonusRareNonPrimeHp),
+    PotentialLine(
+        statType: StatType.mp,
+        potentialName: PotentialName.bonusRareNonPrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        potentialName: PotentialName.bonusRareNonPrimeDefense),
+    PotentialLine(
+        statType: StatType.speed,
+        potentialName: PotentialName.bonusRareNonPrimeSpeed),
+    PotentialLine(
+        statType: StatType.jump,
+        potentialName: PotentialName.bonusRareNonPrimeJump),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAllStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDefensePercentage),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAtt),
-    PotentialLine(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusEpicPrimeHp),
-    PotentialLine(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusEpicPrimeMp),
-    PotentialLine(statType: StatType.defense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDefense),
-    PotentialLine(statType: StatType.speed, isPrime: true, potentialName: PotentialName.bonusEpicPrimeSpeed),
-    PotentialLine(statType: StatType.jump, isPrime: true, potentialName: PotentialName.bonusEpicPrimeJump),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLine(
+        statType: StatType.hp,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeHp),
+    PotentialLine(
+        statType: StatType.mp,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeDefense),
+    PotentialLine(
+        statType: StatType.speed,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeSpeed),
+    PotentialLine(
+        statType: StatType.jump,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeJump),
     // Non-Prime
-    PotentialLine(statType: StatType.strPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, potentialName: PotentialName.bonusRarePrimeStatPercentage),
-    PotentialLine(statType: StatType.allStats, potentialName: PotentialName.bonusRarePrimeAllStat),
-    PotentialLine(statType: StatType.hpPercentage, potentialName: PotentialName.bonusRarePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, potentialName: PotentialName.bonusRarePrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, potentialName: PotentialName.bonusRarePrimeDefensePercentage),
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.bonusRarePrimeStat),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.bonusRarePrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.bonusRarePrimeAtt),
-    PotentialLine(statType: StatType.hp, potentialName: PotentialName.bonusRarePrimeHp),
-    PotentialLine(statType: StatType.mp, potentialName: PotentialName.bonusRarePrimeMp),
-    PotentialLine(statType: StatType.defense, potentialName: PotentialName.bonusRarePrimeDefense),
-    PotentialLine(statType: StatType.speed, potentialName: PotentialName.bonusRarePrimeSpeed),
-    PotentialLine(statType: StatType.jump, potentialName: PotentialName.bonusRarePrimeJump),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        potentialName: PotentialName.bonusRarePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStats,
+        potentialName: PotentialName.bonusRarePrimeAllStat),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        potentialName: PotentialName.bonusRarePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        potentialName: PotentialName.bonusRarePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        potentialName: PotentialName.bonusRarePrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.str,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        potentialName: PotentialName.bonusRarePrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.bonusRarePrimeAtt),
+    PotentialLine(
+        statType: StatType.hp, potentialName: PotentialName.bonusRarePrimeHp),
+    PotentialLine(
+        statType: StatType.mp, potentialName: PotentialName.bonusRarePrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        potentialName: PotentialName.bonusRarePrimeDefense),
+    PotentialLine(
+        statType: StatType.speed,
+        potentialName: PotentialName.bonusRarePrimeSpeed),
+    PotentialLine(
+        statType: StatType.jump,
+        potentialName: PotentialName.bonusRarePrimeJump),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAllStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeMpPercentage),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAtt),
-    PotentialLine(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHp),
-    PotentialLine(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusUniquePrimeMp),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.hp,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHp),
+    PotentialLine(
+        statType: StatType.mp,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeMp),
     // Non-Prime
-    PotentialLine(statType: StatType.strPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, potentialName: PotentialName.bonusEpicPrimeStatPercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, potentialName: PotentialName.bonusEpicPrimeAllStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, potentialName: PotentialName.bonusEpicPrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, potentialName: PotentialName.bonusEpicPrimeMpPercentage),
-    PotentialLine(statType: StatType.defensePercentage, potentialName: PotentialName.bonusEpicPrimeDefensePercentage),
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.bonusEpicPrimeStat),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.bonusEpicPrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.bonusEpicPrimeAtt),
-    PotentialLine(statType: StatType.hp, potentialName: PotentialName.bonusEpicPrimeHp),
-    PotentialLine(statType: StatType.mp, potentialName: PotentialName.bonusEpicPrimeMp),
-    PotentialLine(statType: StatType.defense, potentialName: PotentialName.bonusEpicPrimeDefense),
-    PotentialLine(statType: StatType.speed, potentialName: PotentialName.bonusEpicPrimeSpeed),
-    PotentialLine(statType: StatType.jump, potentialName: PotentialName.bonusEpicPrimeJump),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        potentialName: PotentialName.bonusEpicPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        potentialName: PotentialName.bonusEpicPrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        potentialName: PotentialName.bonusEpicPrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.defensePercentage,
+        potentialName: PotentialName.bonusEpicPrimeDefensePercentage),
+    PotentialLine(
+        statType: StatType.str,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        potentialName: PotentialName.bonusEpicPrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.bonusEpicPrimeAtt),
+    PotentialLine(
+        statType: StatType.hp, potentialName: PotentialName.bonusEpicPrimeHp),
+    PotentialLine(
+        statType: StatType.mp, potentialName: PotentialName.bonusEpicPrimeMp),
+    PotentialLine(
+        statType: StatType.defense,
+        potentialName: PotentialName.bonusEpicPrimeDefense),
+    PotentialLine(
+        statType: StatType.speed,
+        potentialName: PotentialName.bonusEpicPrimeSpeed),
+    PotentialLine(
+        statType: StatType.jump,
+        potentialName: PotentialName.bonusEpicPrimeJump),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.strPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAllStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMpPercentage),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
-    PotentialLine(statType: StatType.str, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
-    PotentialLine(statType: StatType.dex, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
-    PotentialLine(statType: StatType.int, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
-    PotentialLine(statType: StatType.luk, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeStat),
-    PotentialLine(statType: StatType.attack, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAtt),
-    PotentialLine(statType: StatType.mattack, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAtt),
-    PotentialLine(statType: StatType.hp, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeHp),
-    PotentialLine(statType: StatType.mp, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMp),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.str,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAtt),
+    PotentialLine(
+        statType: StatType.hp,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeHp),
+    PotentialLine(
+        statType: StatType.mp,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMp),
     // Non-Prime
-    PotentialLine(statType: StatType.strPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.dexPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.intPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.lukPercentage, potentialName: PotentialName.bonusUniquePrimeStatPercentage),
-    PotentialLine(statType: StatType.allStatsPercentage, potentialName: PotentialName.bonusUniquePrimeAllStatPercentage),
-    PotentialLine(statType: StatType.hpPercentage, potentialName: PotentialName.bonusUniquePrimeHpPercentage),
-    PotentialLine(statType: StatType.mpPercentage, potentialName: PotentialName.bonusUniquePrimeMpPercentage),
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
-    PotentialLine(statType: StatType.str, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.dex, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.int, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.luk, potentialName: PotentialName.bonusUniquePrimeStat),
-    PotentialLine(statType: StatType.attack, potentialName: PotentialName.bonusUniquePrimeAtt),
-    PotentialLine(statType: StatType.mattack, potentialName: PotentialName.bonusUniquePrimeAtt),
-    PotentialLine(statType: StatType.hp, potentialName: PotentialName.bonusUniquePrimeHp),
-    PotentialLine(statType: StatType.mp, potentialName: PotentialName.bonusUniquePrimeMp),
+    PotentialLine(
+        statType: StatType.strPercentage,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.dexPercentage,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.intPercentage,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.lukPercentage,
+        potentialName: PotentialName.bonusUniquePrimeStatPercentage),
+    PotentialLine(
+        statType: StatType.allStatsPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAllStatPercentage),
+    PotentialLine(
+        statType: StatType.hpPercentage,
+        potentialName: PotentialName.bonusUniquePrimeHpPercentage),
+    PotentialLine(
+        statType: StatType.mpPercentage,
+        potentialName: PotentialName.bonusUniquePrimeMpPercentage),
+    PotentialLine(
+        statType: StatType.str,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.dex,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.int,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.luk,
+        potentialName: PotentialName.bonusUniquePrimeStatPerLevel),
+    PotentialLine(
+        statType: StatType.str,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.dex,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.int,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.luk,
+        potentialName: PotentialName.bonusUniquePrimeStat),
+    PotentialLine(
+        statType: StatType.attack,
+        potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.mattack,
+        potentialName: PotentialName.bonusUniquePrimeAtt),
+    PotentialLine(
+        statType: StatType.hp, potentialName: PotentialName.bonusUniquePrimeHp),
+    PotentialLine(
+        statType: StatType.mp, potentialName: PotentialName.bonusUniquePrimeMp),
   ],
 };
 
@@ -1576,34 +2691,72 @@ const Map<PotentialTier, List<PotentialLine>> BONUS_DEFAULT_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> BONUS_HAT_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLine(statType: StatType.skillCooldown, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeSkillCooldown1),
-    PotentialLine(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
-    PotentialLine(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLine(
+        statType: StatType.skillCooldown,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeSkillCooldown1),
+    PotentialLine(
+        statType: StatType.mesosObtained,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLine(
+        statType: StatType.itemDropRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
 //Top, Overall, Bottom, Shoes, Cape, Belt, Shoulder
-const Map<PotentialTier, List<PotentialLine>> BONUS_TOP_OVERALL_BOTTOM_SHOES_CAPE_BELT_SHOULDER_POTENTIALS = {
+const Map<PotentialTier, List<PotentialLine>>
+    BONUS_TOP_OVERALL_BOTTOM_SHOES_CAPE_BELT_SHOULDER_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLine(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
-    PotentialLine(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLine(
+        statType: StatType.mesosObtained,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLine(
+        statType: StatType.itemDropRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
@@ -1611,34 +2764,72 @@ const Map<PotentialTier, List<PotentialLine>> BONUS_TOP_OVERALL_BOTTOM_SHOES_CAP
 const Map<PotentialTier, List<PotentialLine>> BONUS_GLOVES_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamage),
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLine(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
-    PotentialLine(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamage),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLine(
+        statType: StatType.mesosObtained,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLine(
+        statType: StatType.itemDropRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
 //Face, Eye, Ring, Pendant, Earring
-const Map<PotentialTier, List<PotentialLine>> BONUS_FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS = {
+const Map<PotentialTier, List<PotentialLine>>
+    BONUS_FACE_EYE_RING_PENDANT_EARRINGS_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLine(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
-    PotentialLine(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLine(
+        statType: StatType.mesosObtained,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLine(
+        statType: StatType.itemDropRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };
 
@@ -1646,54 +2837,147 @@ const Map<PotentialTier, List<PotentialLine>> BONUS_FACE_EYE_RING_PENDANT_EARRIN
 const Map<PotentialTier, List<PotentialLine>> BONUS_WEAPON_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusRarePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDamage),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusRarePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusRarePrimeDamage),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeDamage),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
     // None-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusEpicPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeDamage),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeDamage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusUniquePrimeDamage),
-    PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.bonusUniquePrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
   ],
 };
 
@@ -1701,55 +2985,151 @@ const Map<PotentialTier, List<PotentialLine>> BONUS_WEAPON_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> BONUS_SECONDARY_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusRarePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDamage),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusRarePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusRarePrimeDamage),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeDamage),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
     // None-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusEpicPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeDamage),
-    PotentialLine(statType: StatType.bossDamage, isPrime: true, potentialName:PotentialName. bonusLegendaryPrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeDamage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
     // Non-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusUniquePrimeDamage),
-    PotentialLine(statType: StatType.bossDamage, potentialName: PotentialName.bonusUniquePrimeBossDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.bossDamage,
+        potentialName: PotentialName.bonusUniquePrimeBossDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
   ],
 };
 
@@ -1757,51 +3137,136 @@ const Map<PotentialTier, List<PotentialLine>> BONUS_SECONDARY_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> BONUS_EMBLEM_POTENTIALS = {
   PotentialTier.rare: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusRarePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusRarePrimeDamage),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.epic: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusEpicPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusRarePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusRarePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusRarePrimeDamage),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusRarePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusRarePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusRarePrimeDamage),
   ],
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusUniquePrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
     // None-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusEpicPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusEpicPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusEpicPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusEpicPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusEpicPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.bonusEpicPrimeIgnoreDefense),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.attackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeIgnoreDefense),
     // Non-Prime
-    PotentialLine(statType: StatType.attackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.mattackPercentage, potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
-    PotentialLine(statType: StatType.critRate, potentialName: PotentialName.bonusUniquePrimeCriticalRate),
-    PotentialLine(statType: StatType.damage, potentialName: PotentialName.bonusUniquePrimeDamage),
-    PotentialLine(statType: StatType.ignoreDefense, potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
+    PotentialLine(
+        statType: StatType.attackPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.mattackPercentage,
+        potentialName: PotentialName.bonusUniquePrimeAttackPercentage),
+    PotentialLine(
+        statType: StatType.critRate,
+        potentialName: PotentialName.bonusUniquePrimeCriticalRate),
+    PotentialLine(
+        statType: StatType.damage,
+        potentialName: PotentialName.bonusUniquePrimeDamage),
+    PotentialLine(
+        statType: StatType.ignoreDefense,
+        potentialName: PotentialName.bonusUniquePrimeIgnoreDefense),
   ],
 };
 
@@ -1809,15 +3274,32 @@ const Map<PotentialTier, List<PotentialLine>> BONUS_EMBLEM_POTENTIALS = {
 const Map<PotentialTier, List<PotentialLine>> BONUS_HEART_BADGE_POTENTIALS = {
   PotentialTier.unique: [
     // Prime
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
   PotentialTier.legendary: [
     // Prime
-    PotentialLine(statType: StatType.critDamage, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
-    PotentialLine(statType: StatType.mesosObtained, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
-    PotentialLine(statType: StatType.itemDropRate, isPrime: true, potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
-    PotentialLine(statType: StatType.hpRecovery, isPrime: true, potentialName: PotentialName.legendaryPrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.critDamage,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeCriticalDamageStatic),
+    PotentialLine(
+        statType: StatType.mesosObtained,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeMesosObtained),
+    PotentialLine(
+        statType: StatType.itemDropRate,
+        isPrime: true,
+        potentialName: PotentialName.bonusLegendaryPrimeItemDropRate),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        isPrime: true,
+        potentialName: PotentialName.legendaryPrimeHpRecovery),
     // Non-Prime
-    PotentialLine(statType: StatType.hpRecovery, potentialName: PotentialName.bonusUniquePrimeHpRecovery),
+    PotentialLine(
+        statType: StatType.hpRecovery,
+        potentialName: PotentialName.bonusUniquePrimeHpRecovery),
   ],
 };

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:maplestory_builder/constants/constants.dart';
 import 'package:maplestory_builder/constants/hexa_stats/hexa_stats.dart';
@@ -10,10 +9,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 
 class HexaStatBuilder extends StatelessWidget {
-
-  const HexaStatBuilder({
-    super.key
-  });
+  const HexaStatBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,93 +21,88 @@ class HexaStatBuilder extends StatelessWidget {
           border: Border.all(color: DEFAULT_COLOR),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () => context.read<HexaStatEditingProvider>().cancelEditingHexaStat(),
-                  child: const Text("Cancel")
-                ),
-                TextButton(
-                  onPressed: () => context.read<HexaStatEditingProvider>().addEditingHexaStat(),
-                  child: const Text("New Hexa Stat")
-                ),
-                TextButton(
-                  onPressed: () => context.read<HexaStatEditingProvider>().saveEditingHexaStat(context), 
-                  child: const Text("Save")
-                ),
-              ],
-            ),
-            const _HexaStatBuilderContent()
-          ]
-        ),
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                  onPressed: () => context
+                      .read<HexaStatEditingProvider>()
+                      .cancelEditingHexaStat(),
+                  child: const Text("Cancel")),
+              TextButton(
+                  onPressed: () => context
+                      .read<HexaStatEditingProvider>()
+                      .addEditingHexaStat(),
+                  child: const Text("New Hexa Stat")),
+              TextButton(
+                  onPressed: () => context
+                      .read<HexaStatEditingProvider>()
+                      .saveEditingHexaStat(context),
+                  child: const Text("Save")),
+            ],
+          ),
+          const _HexaStatBuilderContent()
+        ]),
       ),
     );
   }
 }
 
 class _HexaStatBuilderContent extends StatelessWidget {
-
   const _HexaStatBuilderContent();
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 323,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text(
-                    "Editing Hexa Stat",
-                    style: Theme.of(context).textTheme.headlineMedium
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 323,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: Text("Editing Hexa Stat",
+                        style: Theme.of(context).textTheme.headlineMedium),
                   ),
-                ),
-                Consumer<HexaStatEditingProvider>(
-                  builder: (_, hexaStatEditingProvider, __) {
-                    return hexaStatEditingProvider.editingHexaStat?.createHexaStatContainer(context) 
-                    ?? Container(
-                      width: 300,
-                      padding: const EdgeInsets.all(2.5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                            child: Text(
-                              "-No Hexa Stat-", 
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            )
+                  Consumer<HexaStatEditingProvider>(
+                      builder: (_, hexaStatEditingProvider, __) {
+                    return hexaStatEditingProvider.editingHexaStat
+                            ?.createHexaStatContainer(context) ??
+                        Container(
+                          width: 300,
+                          padding: const EdgeInsets.all(2.5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                  child: Text(
+                                "-No Hexa Stat-",
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              )),
+                              Center(
+                                child: Icon(
+                                  MdiIcons.hexagonSlice6,
+                                  size: 100,
+                                  color: MISSING_COLOR,
+                                ),
+                              ),
+                            ],
                           ),
-                          Center(
-                            child: Icon(
-                              MdiIcons.hexagonSlice6,
-                              size: 100,
-                              color: MISSING_COLOR,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                ),
-                const _HexaStatNameInput(),
-                const _HexaStatInput(),  
-              ],
+                        );
+                  }),
+                  const _HexaStatNameInput(),
+                  const _HexaStatInput(),
+                ],
+              ),
             ),
-          ),
-          const Expanded(
-            child: _HexaStatComparisonWidget()
-          ),
-        ]
-      ),
+            const Expanded(child: _HexaStatComparisonWidget()),
+          ]),
     );
   }
 }
@@ -125,10 +116,8 @@ class _HexaStatComparisonWidget extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.only(bottom: 5),
-          child: Text(
-            "Difference",
-            style: Theme.of(context).textTheme.headlineMedium
-          ),
+          child: Text("Difference",
+              style: Theme.of(context).textTheme.headlineMedium),
         ),
         Expanded(
           child: Container(
@@ -136,23 +125,24 @@ class _HexaStatComparisonWidget extends StatelessWidget {
             child: Container(
               width: 320,
               decoration: BoxDecoration(
-                border: Border.all(color: DEFAULT_COLOR),
-                borderRadius: const BorderRadius.all(Radius.circular(10))
-              ),
-              padding: const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
+                  border: Border.all(color: DEFAULT_COLOR),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+              padding:
+                  const EdgeInsets.only(right: 5, left: 18, top: 5, bottom: 5),
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(right: 13),
-                child: Consumer2<HexaStatEditingProvider, DifferenceCalculatorProvider>(
-                  builder: (_, hexaStatEditingProvider, differenceCalculatorProvider, __) {
-                    return differenceCalculatorProvider.compareEditingHexaStat(context) 
-                    ?? 
-                    const Text(
-                      "NOT CURRENTLY EDITING HEXA STAT",
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.center,
-                    );
-                  }
-                ),
+                child: Consumer2<HexaStatEditingProvider,
+                        DifferenceCalculatorProvider>(
+                    builder: (_, hexaStatEditingProvider,
+                        differenceCalculatorProvider, __) {
+                  return differenceCalculatorProvider
+                          .compareEditingHexaStat(context) ??
+                      const Text(
+                        "NOT CURRENTLY EDITING HEXA STAT",
+                        style: TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      );
+                }),
               ),
             ),
           ),
@@ -163,28 +153,24 @@ class _HexaStatComparisonWidget extends StatelessWidget {
 }
 
 class _HexaStatInput extends StatelessWidget {
-
   const _HexaStatInput();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Hexa Stat Lines",
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline)
-        ),
-        const Column(
-          children: [
-            _HexaStatStatCell(statPosition: 1),
-            SizedBox(height: 5),
-            _HexaStatStatCell(statPosition: 2),
-            SizedBox(height: 5),
-            _HexaStatStatCell(statPosition: 3)
-          ]
-        ),
-      ]
-    );
+    return Column(children: [
+      Text("Hexa Stat Lines",
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(decoration: TextDecoration.underline)),
+      const Column(children: [
+        _HexaStatStatCell(statPosition: 1),
+        SizedBox(height: 5),
+        _HexaStatStatCell(statPosition: 2),
+        SizedBox(height: 5),
+        _HexaStatStatCell(statPosition: 3)
+      ]),
+    ]);
   }
 }
 
@@ -196,28 +182,22 @@ class _HexaStatStatCell extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2.5),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: DEFAULT_COLOR
-        ),
+        border: Border.all(color: DEFAULT_COLOR),
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         children: <Widget>[
-          Text(
-            "${statPosition == 1 ? 'Main' : 'Additional'} Stat"
-          ),
+          Text("${statPosition == 1 ? 'Main' : 'Additional'} Stat"),
           Container(
-            height: 37,
-            width: 300,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Center(
-              child: _StatTypeDropdown(statPosition: statPosition)
-            )
-          ),
+              height: 37,
+              width: 300,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child:
+                  Center(child: _StatTypeDropdown(statPosition: statPosition))),
           Container(
             height: 37,
             width: 150,
@@ -232,11 +212,13 @@ class _HexaStatStatCell extends StatelessWidget {
                   ),
                   const Spacer(),
                   Selector<HexaStatEditingProvider, int>(
-                    selector: (_, hexaStatEditingProvider) => hexaStatEditingProvider.editingHexaStat?.statLevels[statPosition] ?? 0,
-                    builder: (context, data, child) {
-                      return Text('$data');
-                    }
-                  ),
+                      selector: (_, hexaStatEditingProvider) =>
+                          hexaStatEditingProvider
+                              .editingHexaStat?.statLevels[statPosition] ??
+                          0,
+                      builder: (context, data, child) {
+                        return Text('$data');
+                      }),
                   const Spacer(),
                   _StatLevelButton(
                     statPosition: statPosition,
@@ -258,51 +240,46 @@ class _StatTypeDropdown extends StatelessWidget {
     required this.statPosition,
   });
 
-  List<DropdownMenuItem<StatType>> getDropDownStatTypeList(BuildContext context, HexaStat? editingHexaStat) {
+  List<DropdownMenuItem<StatType>> getDropDownStatTypeList(
+      BuildContext context, HexaStat? editingHexaStat) {
     List<DropdownMenuItem<StatType>> dropdownItems = [
       // Always add a default null selector to the list
       DropdownMenuItem(
         value: null,
-        child: Text(
-          'None',
-          style: Theme.of(context).textTheme.bodyMedium
-        ),
+        child: Text('None', style: Theme.of(context).textTheme.bodyMedium),
       )
     ];
 
     List<StatType> filteredList = [];
     // We can only have one of the stat types per hexa stat, filter out any ones already used here
     flameFilterloop:
-    for(StatType statType in AVAILABLE_HEXA_STAT_STATS) { 
+    for (StatType statType in AVAILABLE_HEXA_STAT_STATS) {
       // Stops us from being able to select multiple of a single stat type
-      for (MapEntry<int, StatType?> editingStatType in (editingHexaStat?.selectedStats.entries ?? {})) {
+      for (MapEntry<int, StatType?> editingStatType
+          in (editingHexaStat?.selectedStats.entries ?? {})) {
         if (editingStatType.key == statPosition) {
           continue;
-        }
-        else if (statType == editingStatType.value) {
+        } else if (statType == editingStatType.value) {
           continue flameFilterloop;
         }
       }
-      
+
       filteredList.add(statType);
     }
 
-    dropdownItems.addAll(
-      filteredList.map((value) {
-        return DropdownMenuItem(
-          value: value,
-          child: Text(
-            value.formattedName,
-            style: Theme.of(context).textTheme.bodyMedium
-          ),
-        );
-      }).toList()
-    );
+    dropdownItems.addAll(filteredList.map((value) {
+      return DropdownMenuItem(
+        value: value,
+        child: Text(value.formattedName,
+            style: Theme.of(context).textTheme.bodyMedium),
+      );
+    }).toList());
 
     return dropdownItems;
   }
 
-  StatType? _getSelectedStatType(HexaStatEditingProvider hexaStatEditingProvider) {
+  StatType? _getSelectedStatType(
+      HexaStatEditingProvider hexaStatEditingProvider) {
     return hexaStatEditingProvider.editingHexaStat?.selectedStats[statPosition];
   }
 
@@ -311,19 +288,21 @@ class _StatTypeDropdown extends StatelessWidget {
     return SizedBox(
       width: 300,
       child: Consumer<HexaStatEditingProvider>(
-        builder: (context, hexaStatEditingProvider, child) {
-          return DropdownButton(
+          builder: (context, hexaStatEditingProvider, child) {
+        return DropdownButton(
             alignment: AlignmentDirectional.center,
             isDense: true,
             isExpanded: true,
             value: _getSelectedStatType(hexaStatEditingProvider),
-            onChanged: hexaStatEditingProvider.isEditing ? (StatType? newValue) {
-              hexaStatEditingProvider.updateStatSelection(statPosition, newValue);
-            } : null,
-            items: getDropDownStatTypeList(context, hexaStatEditingProvider.editingHexaStat)
-          );
-        }
-      ),
+            onChanged: hexaStatEditingProvider.isEditing
+                ? (StatType? newValue) {
+                    hexaStatEditingProvider.updateStatSelection(
+                        statPosition, newValue);
+                  }
+                : null,
+            items: getDropDownStatTypeList(
+                context, hexaStatEditingProvider.editingHexaStat));
+      }),
     );
   }
 }
@@ -341,53 +320,50 @@ class _StatLevelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} 1 Hexa Stat Level'),
+        Text('${isSubtract ? "Removes" : "Adds"} 1 Hexa Stat Level'),
       ],
       child: IconButton(
         iconSize: 12,
         onPressed: () {
           var hexaStatEditingProvider = context.read<HexaStatEditingProvider>();
-          var func = isSubtract ? hexaStatEditingProvider.subtractHexaStatLevel : hexaStatEditingProvider.addHexaStatLevel;
+          var func = isSubtract
+              ? hexaStatEditingProvider.subtractHexaStatLevel
+              : hexaStatEditingProvider.addHexaStatLevel;
           func(statPosition);
         },
         icon: Icon(
-          isSubtract ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up
-        ),
+            isSubtract ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_up),
       ),
     );
   }
 }
 
 class _HexaStatNameInput extends StatelessWidget {
-
   const _HexaStatNameInput();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text("Hexa Stat Name:"),
-        const Spacer(),
-        SizedBox(
-          width: 215,
-          child: 
-          Selector<HexaStatEditingProvider, bool>(
-            selector: (_, hexaStatEditingProvider) => hexaStatEditingProvider.isEditing,
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      const Text("Hexa Stat Name:"),
+      const Spacer(),
+      SizedBox(
+        width: 215,
+        child: Selector<HexaStatEditingProvider, bool>(
+            selector: (_, hexaStatEditingProvider) =>
+                hexaStatEditingProvider.isEditing,
             builder: (context, isEnabled, child) {
               return TextField(
                 style: Theme.of(context).textTheme.bodyMedium,
                 enabled: isEnabled,
-                controller: context.read<HexaStatEditingProvider>().textController,
-                onChanged: (value) => context.read<HexaStatEditingProvider>().updateHexaStatName(value.isNotEmpty ? value : ""),
-                decoration: const InputDecoration(
-                  isDense: true
-                ),
+                controller:
+                    context.read<HexaStatEditingProvider>().textController,
+                onChanged: (value) => context
+                    .read<HexaStatEditingProvider>()
+                    .updateHexaStatName(value.isNotEmpty ? value : ""),
+                decoration: const InputDecoration(isDense: true),
               );
-            }
-          ),
-        )
-      ]
-    );
+            }),
+      )
+    ]);
   }
 }

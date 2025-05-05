@@ -3,24 +3,21 @@ import 'package:maplestory_builder/constants/equipment/equip_constants.dart';
 
 enum PitchedBossUpgrade {
   gravityModule(
-    formattedName: "Gravity Module", 
-    upgradeStats: {
-      StatType.allStats: 15,
-      StatType.attackMattack: 10,
-      StatType.hpMp: 750,
-    },
-    equipName: EquipName.berserked
-  ),
+      formattedName: "Gravity Module",
+      upgradeStats: {
+        StatType.allStats: 15,
+        StatType.attackMattack: 10,
+        StatType.hpMp: 750,
+      },
+      equipName: EquipName.berserked),
   nightmareFragment(
-    formattedName: "Nightmare Fragment", 
-    upgradeStats: {
-      StatType.allStats: 20,
-      StatType.attackMattack: 10,
-      StatType.hpMp: 1000,
-    },
-    equipName: EquipName.dreamyBelt
-  )
-  ;
+      formattedName: "Nightmare Fragment",
+      upgradeStats: {
+        StatType.allStats: 20,
+        StatType.attackMattack: 10,
+        StatType.hpMp: 1000,
+      },
+      equipName: EquipName.dreamyBelt);
 
   const PitchedBossUpgrade({
     required this.formattedName,

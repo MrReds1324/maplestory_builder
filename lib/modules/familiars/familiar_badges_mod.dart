@@ -18,8 +18,8 @@ class FamiliarBadgeModule implements Copyable {
   FamiliarBadgeModule({
     Map<int, FamiliarBadge?>? activeBadges,
     Map<StatType, num>? moduleStats,
-  }) : activeBadges = activeBadges ?? {},
-      moduleStats = moduleStats ?? {};
+  })  : activeBadges = activeBadges ?? {},
+        moduleStats = moduleStats ?? {};
 
   @override
   FamiliarBadgeModule copyWith({
@@ -35,14 +35,16 @@ class FamiliarBadgeModule implements Copyable {
   void _updateStatFromBadge(FamiliarBadge? familiarBadge) {
     if (familiarBadge == null) {
       return;
-    }
-    else {
-      for (MapEntry<StatType, num> badgeStat in familiarBadge.badgeStats.entries) {
-        moduleStats[badgeStat.key] = (moduleStats[badgeStat.key] ?? 0) + badgeStat.value;
+    } else {
+      for (MapEntry<StatType, num> badgeStat
+          in familiarBadge.badgeStats.entries) {
+        moduleStats[badgeStat.key] =
+            (moduleStats[badgeStat.key] ?? 0) + badgeStat.value;
 
         num? maxStatLimit = FAMILIAR_BADGE_LIMITS[badgeStat.key];
         if (maxStatLimit != null) {
-          moduleStats[badgeStat.key] = min(moduleStats[badgeStat.key]!, maxStatLimit);
+          moduleStats[badgeStat.key] =
+              min(moduleStats[badgeStat.key]!, maxStatLimit);
         }
       }
     }
@@ -67,7 +69,8 @@ class FamiliarBadgeModule implements Copyable {
   }
 
   static Future<void> loadFamiliarBadges() async {
-    String data = await rootBundle.loadString('assets/items/familiar_badges.json');
+    String data =
+        await rootBundle.loadString('assets/items/familiar_badges.json');
 
     var jsonData = json.decode(data);
     for (MapEntry<String, dynamic> badgeEntry in jsonData.entries) {

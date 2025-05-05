@@ -8,9 +8,18 @@ enum SoulName {
   aTier(formattedName: "A Tier", soulStats: A_TIER_EFFECTS),
   bTier(formattedName: "B Tier", soulStats: B_TIER_EFFECTS),
   cTier(formattedName: "C Tier", soulStats: C_TIER_EFFECTS),
-  dTier(formattedName: "D Tier", soulStats: D_TIER_EFFECTS,),
-  muGongLevel1(formattedName: "Mu Gong (Level 1)", soulStats: E_TIER_EFFECTS, chargeAtt: 15), // 30% att/matt for 10s
-  muGongLevel2(formattedName: "Mu Gong (Level 2)", soulStats: E_TIER_EFFECTS, chargeAtt: 15), // 30% att/matt for 20s
+  dTier(
+    formattedName: "D Tier",
+    soulStats: D_TIER_EFFECTS,
+  ),
+  muGongLevel1(
+      formattedName: "Mu Gong (Level 1)",
+      soulStats: E_TIER_EFFECTS,
+      chargeAtt: 15), // 30% att/matt for 10s
+  muGongLevel2(
+      formattedName: "Mu Gong (Level 2)",
+      soulStats: E_TIER_EFFECTS,
+      chargeAtt: 15), // 30% att/matt for 20s
   ;
 
   const SoulName({
@@ -33,7 +42,7 @@ const List<(StatType, num)> SS_TIER_EFFECTS = [
   (StatType.ignoreDefense, 0.07),
   (StatType.critRate, 0.12),
   (StatType.allStatsPercentage, 0.05),
-  (StatType.hp, 2000), 
+  (StatType.hp, 2000),
   (StatType.skillLevel, 2),
   // Non Magnificent Stats
   (StatType.str, 24),

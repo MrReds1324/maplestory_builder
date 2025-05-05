@@ -46,9 +46,7 @@ class ArtifactCrystalWidget extends StatelessWidget {
                           artifactCrystalPosition: artifactCrystalPosition),
                       artifactProvider.activeCrystalSet
                           .getArtifactCrystal(artifactCrystalPosition)
-                          .getArtifactImage(
-                              context,
-                              artifactCrystalPosition,
+                          .getArtifactImage(context, artifactCrystalPosition,
                               artifactCrystalPosition <= data.$1),
                       _ArtifactCrystalStatDropdown(
                         artifactCrystalPosition: artifactCrystalPosition,

@@ -8,7 +8,7 @@ import 'package:maplestory_builder/modules/base.dart';
 class CharacterProvider extends ChangeNotifier implements Copyable {
   String characterName;
   int characterLevel;
-  CharacterClass characterClass; 
+  CharacterClass characterClass;
 
   TextEditingController textController;
 
@@ -25,10 +25,9 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
     CharacterClass? characterClass,
   }) {
     return CharacterProvider(
-      characterLevel: characterLevel ?? this.characterLevel,
-      characterName: characterName ?? this.characterName,
-      characterClass: characterClass ?? this.characterClass
-    );
+        characterLevel: characterLevel ?? this.characterLevel,
+        characterName: characterName ?? this.characterName,
+        characterClass: characterClass ?? this.characterClass);
   }
 
   void updateCharacterClass(CharacterClass characterClass) {
@@ -37,7 +36,7 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
   }
 
   void addLevels(int levelsToAdd) {
-    if(characterLevel == MAX_CHARACTER_LEVEL) {
+    if (characterLevel == MAX_CHARACTER_LEVEL) {
       return;
     }
 
@@ -50,7 +49,8 @@ class CharacterProvider extends ChangeNotifier implements Copyable {
       return;
     }
 
-    characterLevel -= min(levelsToSubtract, characterLevel - MINIMUM_CHARACTER_LEVEL);
+    characterLevel -=
+        min(levelsToSubtract, characterLevel - MINIMUM_CHARACTER_LEVEL);
     notifyListeners();
   }
 }

@@ -3,6 +3,7 @@ import 'package:maplestory_builder/constants/constants.dart';
 class Base {
   Map<StatType, num> baseStats;
   final int itemLevel;
+
   // https://strategywiki.org/wiki/MapleStory/Formulas#Final_Stats_Increase
   // Only the following actually give "final" stats
   // Hyper Stats (STR, DEX, INT, LUK only)
@@ -20,7 +21,7 @@ class Base {
   Base({
     this.itemLevel = 0,
     Map<StatType, num>? baseStats,
-  }): baseStats = baseStats ?? {};
+  }) : baseStats = baseStats ?? {};
 }
 
 abstract interface class Copyable {

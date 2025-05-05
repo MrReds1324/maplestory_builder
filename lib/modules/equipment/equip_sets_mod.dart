@@ -15,20 +15,19 @@ class SetEffectModule implements Copyable {
     Map<EquipSet, SetEffect>? activeSetEffects,
     this.activeLuckyItem,
     Map<int, LuckyItem>? trackedLuckyItems,
-  }) 
-  : 
-  activeSetEffects = activeSetEffects ?? {},
-  trackedLuckyItems = trackedLuckyItems ?? {};
+  })  : activeSetEffects = activeSetEffects ?? {},
+        trackedLuckyItems = trackedLuckyItems ?? {};
 
   @override
   SetEffectModule copyWith({
     Map<EquipSet, SetEffect>? activeSetEffects,
     LuckyItem? activeLuckyItem,
     Map<int, LuckyItem>? trackedLuckyItems,
-  }){
+  }) {
     return SetEffectModule(
       // Deep copy the map
-      activeSetEffects: activeSetEffects ?? deepCopySetEffectsMap(this.activeSetEffects),
+      activeSetEffects:
+          activeSetEffects ?? deepCopySetEffectsMap(this.activeSetEffects),
       activeLuckyItem: activeLuckyItem ?? this.activeLuckyItem,
       trackedLuckyItems: trackedLuckyItems ?? Map.from(this.trackedLuckyItems),
     );
@@ -37,8 +36,9 @@ class SetEffectModule implements Copyable {
   List<Map<StatType, num>> calculateStats({bool recalculateCache = false}) {
     List<Map<StatType, num>> activeSetEffectStats = [];
 
-    activeSetEffects.forEach((key, value) { 
-      activeSetEffectStats.add(value.calculateStats(recalculateCache: recalculateCache));
+    activeSetEffects.forEach((key, value) {
+      activeSetEffectStats
+          .add(value.calculateStats(recalculateCache: recalculateCache));
     });
 
     return activeSetEffectStats;
@@ -52,7 +52,7 @@ class SetEffectModule implements Copyable {
     if (equip.equipName.isLuckyItem) {
       _updateLuckyItems(equip);
     }
-    
+
     if (equip.equipSet == null) {
       return false;
     }
@@ -71,7 +71,7 @@ class SetEffectModule implements Copyable {
 
     if (equip.equipName.isLuckyItem) {
       _updateLuckyItems(equip, isRemoving: true);
-    }    
+    }
 
     if (equip.equipSet == null) {
       return false;
@@ -80,10 +80,12 @@ class SetEffectModule implements Copyable {
     if (activeSetEffects[equip.equipSet] == null) {
       return false;
     }
-    var returnValue = activeSetEffects[equip.equipSet]!.removeEquip(equip.equipName);
+    var returnValue =
+        activeSetEffects[equip.equipSet]!.removeEquip(equip.equipName);
     // Really only want to track "active" set effects, remove any that fall to zero and are no longer "active"
     // Dont do this if we are calculating differences as it causes some weird issues with display
-    if (!isCalculatingDifference && activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
+    if (!isCalculatingDifference &&
+        activeSetEffects[equip.equipSet]!.totalSetItems == 0) {
       activeSetEffects.remove(equip.equipSet);
     }
     return returnValue;
@@ -112,25 +114,26 @@ class SetEffectModule implements Copyable {
           setEffect.updateLuckyItem(activeLuckyItem);
         }
       }
-    }
-    else {
+    } else {
       trackedLuckyItems[luckyItem.priority] = luckyItem;
       // If the activeLuckyItem is null then we can immediately activate and update set effects
       // If the luckyItem is the same priority as the current one
       // If the luckyItem is a higher priortiy as the current one
-      if (activeLuckyItem == null || luckyItem.priority == activeLuckyItem!.priority || luckyItem.priority < activeLuckyItem!.priority) {
+      if (activeLuckyItem == null ||
+          luckyItem.priority == activeLuckyItem!.priority ||
+          luckyItem.priority < activeLuckyItem!.priority) {
         activeLuckyItem = luckyItem;
         for (SetEffect setEffect in activeSetEffects.values) {
           setEffect.updateLuckyItem(activeLuckyItem);
         }
-      } 
+      }
     }
   }
 
   Map<EquipSet, int> getEquippedSetCounts() {
     Map<EquipSet, int> equippedSetCount = {};
 
-    activeSetEffects.forEach((key, value) { 
+    activeSetEffects.forEach((key, value) {
       equippedSetCount[key] = value.totalSetItems;
     });
 
@@ -144,6 +147,7 @@ class SetEffect implements Copyable {
   LuckyItem? activeLuckyItem;
   bool _isLuckyItemActive;
   int totalSetItems = 0;
+
   // Will be using this to cache the calculated set bonus later on
   Map<StatType, num>? cachedSetBonus;
 
@@ -153,10 +157,8 @@ class SetEffect implements Copyable {
     this.activeLuckyItem,
     bool isLuckyItemActive = false,
     this.totalSetItems = 0,
-  }) 
-  : 
-  equippedEquips = equippedEquips ?? {}, 
-  _isLuckyItemActive = isLuckyItemActive;
+  })  : equippedEquips = equippedEquips ?? {},
+        _isLuckyItemActive = isLuckyItemActive;
 
   @override
   SetEffect copyWith({
@@ -166,16 +168,19 @@ class SetEffect implements Copyable {
     int? totalSetItems,
   }) {
     return SetEffect(
-      equipSet: equipSet, 
-      equippedEquips: equippedEquips ?? deepCopyEquippedEquips(this.equippedEquips),
+      equipSet: equipSet,
+      equippedEquips:
+          equippedEquips ?? deepCopyEquippedEquips(this.equippedEquips),
       activeLuckyItem: activeLuckyItem ?? this.activeLuckyItem,
       isLuckyItemActive: isLuckyItemActive ?? _isLuckyItemActive,
       totalSetItems: totalSetItems ?? this.totalSetItems,
     );
   }
 
-  Widget createSetEffectContainer(BuildContext context, {Equip? addingEquip, Equip? removingEquip}) {
-    Widget createRawSetEffectLine(int setEffectCount, Map<StatType, num> rawEffect) {
+  Widget createSetEffectContainer(BuildContext context,
+      {Equip? addingEquip, Equip? removingEquip}) {
+    Widget createRawSetEffectLine(
+        int setEffectCount, Map<StatType, num> rawEffect) {
       List<Widget> rawEffectChildren = [
         Text(
           "$setEffectCount Set Items Equipped",
@@ -186,72 +191,70 @@ class SetEffect implements Copyable {
       Color? rawEffectColor;
       // The totalSetItems will already be updated here (adding and removing will have already been reflected by the time we ask to draw the container)
       // If we are removing an equip and the totalSetItems + 1 matches the set effect count we are at
-      if (removingEquip != null && (setEffectCount == (totalSetItems + 1) || (activeLuckyItem != null && totalSetItems == 2 && setEffectCount == (totalSetItems + 2)))) {
+      if (removingEquip != null &&
+          (setEffectCount == (totalSetItems + 1) ||
+              (activeLuckyItem != null &&
+                  totalSetItems == 2 &&
+                  setEffectCount == (totalSetItems + 2)))) {
         rawEffectColor = Colors.redAccent;
       }
       // If we are adding an equip and the totalSetItems matches both the set effect count we are at or we recently activated a lucky item (3 -> 4 items)
-      else if (addingEquip != null && (setEffectCount == totalSetItems || (_isLuckyItemActive && totalSetItems == 4 && setEffectCount == totalSetItems -1))) {
+      else if (addingEquip != null &&
+          (setEffectCount == totalSetItems ||
+              (_isLuckyItemActive &&
+                  totalSetItems == 4 &&
+                  setEffectCount == totalSetItems - 1))) {
         rawEffectColor = Colors.greenAccent;
-      }
-      else {
+      } else {
         rawEffectColor = setEffectCount <= totalSetItems ? null : MISSING_COLOR;
       }
-      
+
       rawEffect.forEach((key, value) {
-        rawEffectChildren.add(
-          Text(
-            "${key.formattedName}: +${key.isPercentage ? doubleRoundPercentFormater.format(value) : value}",
-            style: TextStyle(color: rawEffectColor),
-          )
-        );
+        rawEffectChildren.add(Text(
+          "${key.formattedName}: +${key.isPercentage ? doubleRoundPercentFormater.format(value) : value}",
+          style: TextStyle(color: rawEffectColor),
+        ));
       });
 
       return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: rawEffectChildren
-      );
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: rawEffectChildren);
     }
-    
+
     List<Widget> widgetChildren = [
       Center(
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 5),
-          child: Text(
-            equipSet.formattedName,
-            style: const TextStyle(color: EQUIP_FLAME_COLOR),
-          )
-        )
-      )
+          child: Container(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Text(
+                equipSet.formattedName,
+                style: const TextStyle(color: EQUIP_FLAME_COLOR),
+              )))
     ];
 
     for (AbstractSetEffectSlot effectSlot in equipSet.requiredEquips.values) {
-      widgetChildren.addAll(effectSlot.createSlotContainer(this, addingEquip: addingEquip, removingEquip: removingEquip));
+      widgetChildren.addAll(effectSlot.createSlotContainer(this,
+          addingEquip: addingEquip, removingEquip: removingEquip));
     }
 
-    widgetChildren.add(
-      const Divider(
-        height: 15,
-        thickness: 1,
-        color: DEFAULT_COLOR,
-      )
-    );
+    widgetChildren.add(const Divider(
+      height: 15,
+      thickness: 1,
+      color: DEFAULT_COLOR,
+    ));
 
     equipSet.rawSetEffect.forEach((key, value) {
       widgetChildren.add(createRawSetEffectLine(key, value));
     });
 
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: DEFAULT_COLOR),
-        borderRadius: const BorderRadius.all(Radius.circular(10))
-      ),
-      padding: const EdgeInsets.all(5),
-      width: 300,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: widgetChildren
-      )
-    );
+        decoration: BoxDecoration(
+            border: Border.all(color: DEFAULT_COLOR),
+            borderRadius: const BorderRadius.all(Radius.circular(10))),
+        padding: const EdgeInsets.all(5),
+        width: 300,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: widgetChildren));
   }
 
   Map<StatType, num> calculateStats({bool recalculateCache = false}) {
@@ -272,17 +275,16 @@ class SetEffect implements Copyable {
       }
       if (totalSetEffect.isEmpty) {
         totalSetEffect.addAll(setEffectBonus);
-      }
-      else {
-        setEffectBonus.forEach((key, value) { 
+      } else {
+        setEffectBonus.forEach((key, value) {
           if (totalSetEffect[key] == null) {
             totalSetEffect[key] = value;
-          }
-          else{
-            switch(key) {
+          } else {
+            switch (key) {
               case StatType.ignoreDefense:
               case StatType.ignoreElementalDefense:
-                totalSetEffect[key] = calculateIgnoreDefense(totalSetEffect[key]!, value);
+                totalSetEffect[key] =
+                    calculateIgnoreDefense(totalSetEffect[key]!, value);
               default:
                 totalSetEffect[key] = totalSetEffect[key]! + value;
             }
@@ -323,8 +325,7 @@ class SetEffect implements Copyable {
       // The equip is already part of the set
       else if (equippedEquipType.contains(equipName)) {
         return false;
-      }
-      else {
+      } else {
         equippedEquips[equipName.equipType]!.add(equipName);
         totalSetItems += 1;
         _caluclateLuckyItemBonus();
@@ -367,16 +368,17 @@ class SetEffect implements Copyable {
 
   void updateLuckyItem(LuckyItem? newLuckyItem) {
     // Only want to update if the lucky item would actually activate part of the set
-    if (newLuckyItem == null || equipSet.requiredEquips.keys.toList().contains(newLuckyItem.equipName.equipType)) {
+    if (newLuckyItem == null ||
+        equipSet.requiredEquips.keys
+            .toList()
+            .contains(newLuckyItem.equipName.equipType)) {
       // This only applies to Genesis Weapons - Do not want to be a lucky item for the set that the equip is also a part of
       if (newLuckyItem != null && newLuckyItem.equipSet == equipSet) {
         activeLuckyItem = null;
-      }
-      else {
+      } else {
         activeLuckyItem = newLuckyItem;
       }
-    }
-    else {
+    } else {
       activeLuckyItem = null;
     }
     _calculateLuckyItemUpdate();
@@ -387,8 +389,7 @@ class SetEffect implements Copyable {
     if (activeLuckyItem == null && _isLuckyItemActive) {
       totalSetItems -= 1;
       _isLuckyItemActive = false;
-    }
-    else {
+    } else {
       _caluclateLuckyItemBonus();
     }
   }
@@ -405,8 +406,7 @@ class SetEffect implements Copyable {
     else {
       if (activeLuckyItem == null) {
         return;
-      }
-      else if (totalSetItems >= 3) {
+      } else if (totalSetItems >= 3) {
         totalSetItems += 1;
         _isLuckyItemActive = true;
       }
@@ -420,17 +420,16 @@ abstract class AbstractSetEffectSlot {
   const AbstractSetEffectSlot({required this.equipType});
 
   bool contains(EquipName equipName);
-  List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip});
+
+  List<Widget> createSlotContainer(SetEffect setEffect,
+      {Equip? addingEquip, Equip? removingEquip});
 }
 
 // Slot that defines a regular
 class SetEffectSlot extends AbstractSetEffectSlot {
   final Set<EquipName> any;
 
-  const SetEffectSlot({
-    required super.equipType,
-    required this.any
-  });
+  const SetEffectSlot({required super.equipType, required this.any});
 
   @override
   bool contains(EquipName equipName) {
@@ -438,62 +437,60 @@ class SetEffectSlot extends AbstractSetEffectSlot {
   }
 
   @override
-  List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip}) {
+  List<Widget> createSlotContainer(SetEffect setEffect,
+      {Equip? addingEquip, Equip? removingEquip}) {
     List<Widget> returnWidgets = [];
 
-    if (setEffect.activeLuckyItem != null && setEffect.activeLuckyItem!.equipName.equipType == equipType) {
+    if (setEffect.activeLuckyItem != null &&
+        setEffect.activeLuckyItem!.equipName.equipType == equipType) {
       var luckyColor = STAR_COLOR;
-      if (addingEquip != null && setEffect.totalSetItems == 4 && setEffect._isLuckyItemActive) {
+      if (addingEquip != null &&
+          setEffect.totalSetItems == 4 &&
+          setEffect._isLuckyItemActive) {
         luckyColor = Colors.greenAccent;
-      }
-      else if (removingEquip != null && setEffect.activeLuckyItem != null && setEffect.totalSetItems == 2) {
+      } else if (removingEquip != null &&
+          setEffect.activeLuckyItem != null &&
+          setEffect.totalSetItems == 2) {
         luckyColor = Colors.redAccent;
       }
 
-      returnWidgets.add(
-        Row(
-          children: [
-            Text(
-              setEffect.activeLuckyItem!.equipName.formattedName,
-              style: TextStyle(color: luckyColor),
-            ),
-            const Spacer(),
-            Text(
-              "(${equipType.formattedName})",
-              style: TextStyle(color: luckyColor),
-            ),
-          ]
-        )
-      );
+      returnWidgets.add(Row(children: [
+        Text(
+          setEffect.activeLuckyItem!.equipName.formattedName,
+          style: TextStyle(color: luckyColor),
+        ),
+        const Spacer(),
+        Text(
+          "(${equipType.formattedName})",
+          style: TextStyle(color: luckyColor),
+        ),
+      ]));
     }
 
-    for (EquipName equipName in any) { 
+    for (EquipName equipName in any) {
       Color? textColor;
       if (removingEquip?.equipName == equipName) {
         textColor = Colors.redAccent;
-      }
-      else if (addingEquip?.equipName == equipName) {
+      } else if (addingEquip?.equipName == equipName) {
         textColor = Colors.greenAccent;
-      }
-      else {
-        textColor = (setEffect.equippedEquips[equipType] ?? {}).contains(equipName) ? null : MISSING_COLOR;
+      } else {
+        textColor =
+            (setEffect.equippedEquips[equipType] ?? {}).contains(equipName)
+                ? null
+                : MISSING_COLOR;
       }
 
-      returnWidgets.add(
-        Row(
-          children: [
-            Text(
-              equipName.formattedName,
-              style: TextStyle(color: textColor),
-            ),
-            const Spacer(),
-            Text(
-              "(${equipType.formattedName})",
-              style: TextStyle(color: textColor),
-            ),
-          ]
-        )
-      );
+      returnWidgets.add(Row(children: [
+        Text(
+          equipName.formattedName,
+          style: TextStyle(color: textColor),
+        ),
+        const Spacer(),
+        Text(
+          "(${equipType.formattedName})",
+          style: TextStyle(color: textColor),
+        ),
+      ]));
     }
 
     return returnWidgets;
@@ -505,11 +502,10 @@ class SetEffectSlotSelectOne extends AbstractSetEffectSlot {
   final Set<EquipName> selectOne;
   final String selectString;
 
-  const SetEffectSlotSelectOne({
-    required super.equipType,
-    required this.selectOne,
-    required this.selectString
-  });
+  const SetEffectSlotSelectOne(
+      {required super.equipType,
+      required this.selectOne,
+      required this.selectString});
 
   @override
   bool contains(EquipName equipName) {
@@ -517,24 +513,26 @@ class SetEffectSlotSelectOne extends AbstractSetEffectSlot {
   }
 
   @override
-  List<Widget> createSlotContainer(SetEffect setEffect, {Equip? addingEquip, Equip? removingEquip}) {
+  List<Widget> createSlotContainer(SetEffect setEffect,
+      {Equip? addingEquip, Equip? removingEquip}) {
     Color? textColor;
-    if (setEffect.activeLuckyItem != null && setEffect.activeLuckyItem!.equipName.equipType == equipType) {
+    if (setEffect.activeLuckyItem != null &&
+        setEffect.activeLuckyItem!.equipName.equipType == equipType) {
       textColor = STAR_COLOR;
-      if (addingEquip != null && setEffect.totalSetItems == 4 && setEffect._isLuckyItemActive) {
+      if (addingEquip != null &&
+          setEffect.totalSetItems == 4 &&
+          setEffect._isLuckyItemActive) {
         textColor = Colors.greenAccent;
-      }
-      else if (removingEquip != null && setEffect.activeLuckyItem != null && setEffect.totalSetItems == 2) {
+      } else if (removingEquip != null &&
+          setEffect.activeLuckyItem != null &&
+          setEffect.totalSetItems == 2) {
         textColor = Colors.redAccent;
       }
-    }
-    else if (selectOne.contains(removingEquip?.equipName)) {
+    } else if (selectOne.contains(removingEquip?.equipName)) {
       textColor = Colors.redAccent;
-    }
-    else if (selectOne.contains(addingEquip?.equipName)) {
+    } else if (selectOne.contains(addingEquip?.equipName)) {
       textColor = Colors.greenAccent;
-    }
-    else {
+    } else {
       textColor = MISSING_COLOR;
       for (EquipName equipName in (setEffect.equippedEquips[equipType] ?? {})) {
         if (selectOne.contains(equipName)) {
@@ -543,21 +541,19 @@ class SetEffectSlotSelectOne extends AbstractSetEffectSlot {
         }
       }
     }
-    
+
     return [
-      Row(
-        children: [
-          Text(
-            "Select 1 $selectString",
-            style: TextStyle(color: textColor),
-          ),
-          const Spacer(),
-          Text(
-            "(${equipType.formattedName})",
-            style: TextStyle(color: textColor),
-          ),
-        ]
-      )
+      Row(children: [
+        Text(
+          "Select 1 $selectString",
+          style: TextStyle(color: textColor),
+        ),
+        const Spacer(),
+        Text(
+          "(${equipType.formattedName})",
+          style: TextStyle(color: textColor),
+        ),
+      ])
     ];
   }
 }
@@ -592,12 +588,12 @@ class LuckyItem {
     }
 
     for (MapEntry<int, Set<EquipName>> mapEntry in luckyItemPriority.entries) {
-      if (mapEntry.value.isNotEmpty && mapEntry.value.contains(equip.equipName)) {
+      if (mapEntry.value.isNotEmpty &&
+          mapEntry.value.contains(equip.equipName)) {
         return LuckyItem(
-          equipName: equip.equipName, 
-          equipSet: equip.equipSet,
-          priority: mapEntry.key
-        );
+            equipName: equip.equipName,
+            equipSet: equip.equipSet,
+            priority: mapEntry.key);
       }
     }
     return null;

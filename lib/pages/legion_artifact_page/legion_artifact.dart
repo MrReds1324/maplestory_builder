@@ -19,13 +19,15 @@ class LegionArtifactLevelWidget extends StatelessWidget {
         children: [
           const _ArtifactLevelCell(),
           Selector<LegionArtifactProvider, (int, int)>(
-            selector: (_, legionArtifactProvider) => (legionArtifactProvider.usedAbilityPoints, legionArtifactProvider.abilityPoints),
-            builder: (context, data, child) {
-              return Text(
-                '${data.$1}/${data.$2} Used Artifact Ability Points',
-              );
-            }
-          ),
+              selector: (_, legionArtifactProvider) => (
+                    legionArtifactProvider.usedAbilityPoints,
+                    legionArtifactProvider.abilityPoints
+                  ),
+              builder: (context, data, child) {
+                return Text(
+                  '${data.$1}/${data.$2} Used Artifact Ability Points',
+                );
+              }),
           const _ArtifactCrystalStatsListView(),
         ],
       ),
@@ -34,46 +36,40 @@ class LegionArtifactLevelWidget extends StatelessWidget {
 }
 
 class _ArtifactLevelCell extends StatelessWidget {
-
   const _ArtifactLevelCell();
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2.5),
       child: Row(
         children: <Widget>[
           Container(
-            height: 37,
-            width: 220,
-            clipBehavior: Clip.hardEdge,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            decoration: BoxDecoration(
-              color: DEFAULT_COLOR,
-              border: Border.all(
-                color: DEFAULT_COLOR
+              height: 37,
+              width: 220,
+              clipBehavior: Clip.hardEdge,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              decoration: BoxDecoration(
+                color: DEFAULT_COLOR,
+                border: Border.all(color: DEFAULT_COLOR),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
               ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                "Artifact Level",
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-            )
-          ),
+              child: Center(
+                child: Text(
+                  "Artifact Level",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              )),
           Container(
             height: 37,
             width: 220,
             clipBehavior: Clip.hardEdge,
             padding: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              border: Border.all(
-                color: DEFAULT_COLOR
-              ),
+              border: Border.all(color: DEFAULT_COLOR),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
                 bottomRight: Radius.circular(10),
@@ -92,14 +88,14 @@ class _ArtifactLevelCell extends StatelessWidget {
                   ),
                   const Spacer(),
                   Selector<LegionArtifactProvider, int>(
-                    selector: (_, legionArtifactsProvider) => legionArtifactsProvider.legionArtifactLevel,
-                    builder: (context, data, child) {
-                      return Text(
-                        "$data",
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      );
-                    }
-                  ),
+                      selector: (_, legionArtifactsProvider) =>
+                          legionArtifactsProvider.legionArtifactLevel,
+                      builder: (context, data, child) {
+                        return Text(
+                          "$data",
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        );
+                      }),
                   const Spacer(),
                   const _ArtifactlevelButton(),
                   const _ArtifactlevelButton(
@@ -128,117 +124,109 @@ class _ArtifactlevelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MapleTooltip(
       tooltipWidgets: [
-        Text('${isSubtract ? "Removes": "Adds"} ${isLarge ? 5 : 1} Artifact Levels'),
+        Text(
+            '${isSubtract ? "Removes" : "Adds"} ${isLarge ? 5 : 1} Artifact Levels'),
       ],
       child: IconButton(
         iconSize: 12,
         onPressed: () {
           var legionArtifactProvider = context.read<LegionArtifactProvider>();
-          var func = isSubtract ? legionArtifactProvider.subtractLegionArtifactLevels : legionArtifactProvider.addLegionArtifactLevels;
+          var func = isSubtract
+              ? legionArtifactProvider.subtractLegionArtifactLevels
+              : legionArtifactProvider.addLegionArtifactLevels;
           func(isLarge ? 5 : 1);
         },
-        icon: Icon(
-          isSubtract ? 
-          isLarge ? Icons.keyboard_double_arrow_down : Icons.keyboard_arrow_down : 
-          isLarge ? Icons.keyboard_double_arrow_up : Icons.keyboard_arrow_up
-        ),
+        icon: Icon(isSubtract
+            ? isLarge
+                ? Icons.keyboard_double_arrow_down
+                : Icons.keyboard_arrow_down
+            : isLarge
+                ? Icons.keyboard_double_arrow_up
+                : Icons.keyboard_arrow_up),
       ),
     );
   }
 }
 
 class _ArtifactCrystalStatsListView extends StatelessWidget {
-
   const _ArtifactCrystalStatsListView();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Total Artifact Crystal Stats',
-          style: Theme.of(context).textTheme.bodyLarge?.copyWith(decoration: TextDecoration.underline),
+    return Column(children: [
+      Text(
+        'Total Artifact Crystal Stats',
+        style: Theme.of(context)
+            .textTheme
+            .bodyLarge
+            ?.copyWith(decoration: TextDecoration.underline),
+      ),
+      Container(
+        height: 757,
+        width: 250,
+        decoration: BoxDecoration(
+          border: Border.all(color: DEFAULT_COLOR),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
-        Container(
-          height: 757,
-          width: 250,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: DEFAULT_COLOR
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-          ),
-          child: Consumer<LegionArtifactProvider>(
+        child: Consumer<LegionArtifactProvider>(
             builder: (context, legionArtifactProvider, child) {
-              var selectedStats = legionArtifactProvider.calculateStats().entries.toList();
-              return ListView.builder(
-                padding: const EdgeInsets.only(right: 13),
-                itemCount: selectedStats.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Row(
-                      children: [
-                        SizedBox(
-                          width: 100,
-                          child: Text(
-                            selectedStats[index].key.formattedName,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ),
-                        const Spacer(),
-                        Text(
-                          "${selectedStats[index].key.isPositive ? '+' : ' -'}${selectedStats[index].key.isPercentage ? doublePercentFormater.format(selectedStats[index].value) : selectedStats[index].value}",
-                          style: Theme.of(context).textTheme.bodyMedium
-                        ) 
-                      ]
+          var selectedStats =
+              legionArtifactProvider.calculateStats().entries.toList();
+          return ListView.builder(
+            padding: const EdgeInsets.only(right: 13),
+            itemCount: selectedStats.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Row(children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text(
+                      selectedStats[index].key.formattedName,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                  );
-                },
+                  ),
+                  const Spacer(),
+                  Text(
+                      "${selectedStats[index].key.isPositive ? '+' : ' -'}${selectedStats[index].key.isPercentage ? doublePercentFormater.format(selectedStats[index].value) : selectedStats[index].value}",
+                      style: Theme.of(context).textTheme.bodyMedium)
+                ]),
               );
-            }
-          ),
-        ),
-      ]
-    );
+            },
+          );
+        }),
+      ),
+    ]);
   }
 }
 
 class ArtifactCrystalGrid extends StatelessWidget {
-
-  const ArtifactCrystalGrid(
-    {
-      super.key
-    }
-  );
+  const ArtifactCrystalGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Row(
-          children: [
-            ArtifactCrystalWidget(artifactCrystalPosition: 1),
-            ArtifactCrystalWidget(artifactCrystalPosition: 2),
-            ArtifactCrystalWidget(artifactCrystalPosition: 3),
-          ],
-        ),
-        Row(
-          children: [
-            ArtifactCrystalWidget(artifactCrystalPosition: 4),
-            ArtifactCrystalWidget(artifactCrystalPosition: 5),
-            ArtifactCrystalWidget(artifactCrystalPosition: 6),
-          ],
-        ),
-        Row(
-          children: [
-            ArtifactCrystalWidget(artifactCrystalPosition: 7),
-            ArtifactCrystalWidget(artifactCrystalPosition: 8),
-            ArtifactCrystalWidget(artifactCrystalPosition: 9),
-          ],
-        ),
-      ]
-    );
+    return const Column(children: [
+      Row(
+        children: [
+          ArtifactCrystalWidget(artifactCrystalPosition: 1),
+          ArtifactCrystalWidget(artifactCrystalPosition: 2),
+          ArtifactCrystalWidget(artifactCrystalPosition: 3),
+        ],
+      ),
+      Row(
+        children: [
+          ArtifactCrystalWidget(artifactCrystalPosition: 4),
+          ArtifactCrystalWidget(artifactCrystalPosition: 5),
+          ArtifactCrystalWidget(artifactCrystalPosition: 6),
+        ],
+      ),
+      Row(
+        children: [
+          ArtifactCrystalWidget(artifactCrystalPosition: 7),
+          ArtifactCrystalWidget(artifactCrystalPosition: 8),
+          ArtifactCrystalWidget(artifactCrystalPosition: 9),
+        ],
+      ),
+    ]);
   }
 }
-
