@@ -45,15 +45,15 @@ class _SymbolCell<T extends Enum> extends StatelessWidget {
     required this.symbol,
   });
 
-  Widget getAssetImage() {
+  String getFormattedName() {
     if (symbol is ArcaneSymbol) {
-      return (symbol as ArcaneSymbol).getAssetImage();
+      return (symbol as ArcaneSymbol).formattedName;
     } else if (symbol is SacredSymbol) {
-      return (symbol as SacredSymbol).getAssetImage();
+      return (symbol as SacredSymbol).formattedName;
     } else if (symbol is GrandSacredSymbol) {
-      return (symbol as GrandSacredSymbol).getAssetImage();
+      return (symbol as GrandSacredSymbol).formattedName;
     }
-    return const SizedBox.shrink();
+    return "";
   }
 
   int getSelector(SymbolStatsProvider symbolStatsProvider) {
@@ -88,9 +88,12 @@ class _SymbolCell<T extends Enum> extends StatelessWidget {
             ),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               const SizedBox(width: 30),
-              getAssetImage(),
-              const SizedBox(width: 15),
               _getStatTooltip(symbol),
+              const SizedBox(width: 15),
+              Text(
+                getFormattedName(),
+                textAlign: TextAlign.center,
+              ),
               const Spacer()
             ]),
           ),
@@ -212,6 +215,17 @@ MapleTooltip _getStatTooltip<T extends Enum>(T symbol) {
     context.read<SymbolStatsProvider>().getHoverTooltipText(symbol);
   }
 
+  Widget getAssetImage() {
+    if (symbol is ArcaneSymbol) {
+      return (symbol as ArcaneSymbol).getAssetImage();
+    } else if (symbol is SacredSymbol) {
+      return (symbol as SacredSymbol).getAssetImage();
+    } else if (symbol is GrandSacredSymbol) {
+      return (symbol as GrandSacredSymbol).getAssetImage();
+    }
+    return const SizedBox.shrink();
+  }
+
   String formattedName = "";
   if (symbol is ArcaneSymbol) {
     formattedName = symbol.formattedName;
@@ -232,6 +246,6 @@ MapleTooltip _getStatTooltip<T extends Enum>(T symbol) {
           })
     ],
     onHoverFunction: onHover,
-    label: formattedName,
+    child: getAssetImage(),
   );
 }
