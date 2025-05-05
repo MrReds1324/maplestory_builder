@@ -53,7 +53,7 @@ class Consumable {
 
     for (MapEntry<StatType, num> statEntry in consumableStats.entries) {
       statWidgets.add(
-          statEntry.key.buildRowDisplayWithValue(context, statEntry.value, 150, constraints: const BoxConstraints(maxWidth: 120))
+          statEntry.key.buildRowDisplayWithValue(context, statEntry.value, 170, constraints: const BoxConstraints(maxWidth: 120))
       );
     }
 
