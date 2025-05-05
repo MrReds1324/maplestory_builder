@@ -152,6 +152,14 @@ class _BadgeSelector extends StatelessWidget {
     required this.badgePosition,
   });
 
+  Function _curriedOnHover(FamiliarBadge familiarBadge) {
+    return (BuildContext context) {
+      return context
+          .read<DifferenceCalculatorProvider>()
+          .compareFamiliarBadge(context, familiarBadge);
+    };
+  }
+
   List<DropdownMenuItem> getDropdownItemList(
       BuildContext context, FamiliarsProvider familiarsProvider) {
     // Always add a default null selector to the list
@@ -180,12 +188,20 @@ class _BadgeSelector extends StatelessWidget {
       filteredList.add(badgeEntry.value);
     }
 
+    filteredList.sort((a, b) => a.badgeName.compareTo(b.badgeName));
+
     dropdownItems.addAll(filteredList.map((value) {
       return DropdownMenuItem(
         value: value,
         child: MapleTooltip(
           tooltipTitle: value.badgeName,
-          tooltipWidgets: [value.createBadgeContainer(context)],
+          onHoverFunction: _curriedOnHover(value),
+          tooltipWidgets: [value.createBadgeContainer(context), Selector<DifferenceCalculatorProvider, Widget>(
+              selector: (_, differenceCalculatorProvider) =>
+              differenceCalculatorProvider.differenceWidget,
+              builder: (context, widget, child) {
+                return widget;
+              }),],
           child: Text(value.badgeName,
               style: Theme.of(context).textTheme.bodyMedium),
         ),
