@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:maplestory_builder/constants/constants.dart';
+import 'package:maplestory_builder/constants/familiars/badge_stats.dart';
 import 'package:maplestory_builder/modules/base.dart';
 import 'package:maplestory_builder/modules/familiars/familiar_badge.dart';
 
@@ -37,6 +39,11 @@ class FamiliarBadgeModule implements Copyable {
     else {
       for (MapEntry<StatType, num> badgeStat in familiarBadge.badgeStats.entries) {
         moduleStats[badgeStat.key] = (moduleStats[badgeStat.key] ?? 0) + badgeStat.value;
+
+        num? maxStatLimit = FAMILIAR_BADGE_LIMITS[badgeStat.key];
+        if (maxStatLimit != null) {
+          moduleStats[badgeStat.key] = min(moduleStats[badgeStat.key]!, maxStatLimit);
+        }
       }
     }
   }
